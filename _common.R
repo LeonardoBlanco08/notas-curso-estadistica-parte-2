@@ -10,7 +10,12 @@ knitr::opts_chunk$set(
   tidy.opts = list(width.cutoff = 50),
   error = TRUE, 
   warning = FALSE, 
-  message = FALSE
+  message = FALSE, 
+  out.width = "70%",
+  fig.align = 'center',
+  fig.width = 6,
+  fig.asp = 0.618,  # 1 / phi
+  fig.show = "hold"
 )
 
 library(tidyverse)
