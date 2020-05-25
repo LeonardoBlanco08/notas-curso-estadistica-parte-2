@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística"
 author: "Maikol Solís"
-date: ""
+date: "Actualizado el 25 mayo, 2020"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -39,7 +39,8 @@ B_j = [x_0 +(j - 1)h,x_0 + jh) \quad j\in \mathbb{Z}
 
 - Cuente cuántas observaciones caen en cada segmento. \(n_j\).
 
-![](Notas-Curso-Estadistica_files/figure-latex/observaciones-histograma-1.pdf)<!-- --> 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/observaciones-histograma-1} \end{center}
 - Cuente la frecuencia por el tamaño de muestra \(n\) y el ancho de banda \(h\).
 \begin{equation*}
 f_j = \frac{n_j}{nh}
@@ -47,7 +48,9 @@ f_j = \frac{n_j}{nh}
 
 - Dibuje el histograma.
 
-![](Notas-Curso-Estadistica_files/figure-latex/ejemplo-inicial-histograma-1.pdf)<!-- --> 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/ejemplo-inicial-histograma-1} \end{center}
+
 
 
 Formalmente el histograma es el
@@ -63,16 +66,17 @@ donde \(I\) es la indicadora.
 Denote \(m_j=jh-h/2\) el centro del segmento,
 
 \begin{align*}
-\mathbb{P}\left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2} \right)\right) & =
-\int_{m_j - \frac{h}{2}}^{m_j + \frac{h}{2}} f(u)du                                             \\
-& \approx f(m_j)h
+	\mathbb{P}\left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2} \right)\right)
+	  & =
+	\int_{m_j - \frac{h}{2}}^{m_j + \frac{h}{2}} f(u)du                                             \\
+	  & \approx f(m_j)h
 \end{align*}
 
 Esto se puede aproximar como
 
 \begin{equation*}
-\mathbb{P} \left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right)  \approx   \frac{1}{n} \#
-\left\{X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right\}
+	\mathbb{P} \left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right)  \approx   \frac{1}{n} \#
+	\left\{X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right\}
 \end{equation*}
 
 Acomodando un poco la expresión
@@ -219,7 +223,8 @@ Note que la figura siguiente tiene esa propiedad.
 
 
 
-![](Notas-Curso-Estadistica_files/figure-latex/MSE-histograma-1.pdf)<!-- --> 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/MSE-histograma-1} \end{center}
 
 ### Error cuadrático medio integrado
 
@@ -258,11 +263,19 @@ Además,
 
 El MISE tiene el mismo comportamiento que el MSE. La figura siguiente presenta el comportamiento de la varianza, sesgo y MISE para nuestro ejemplo.
 
-![ ](Notas-Curso-Estadistica_files/figure-latex/MISE-histograma-1.pdf) 
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/MISE-histograma-1} 
+
+}
+
+\caption{ }(\#fig:MISE-histograma)
+\end{figure}
 
 La mala elección del parámetro $h$ causa que el histograma no capture toda la estructura de los datos.
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-8-1.pdf)<!-- --> 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 En este caso se puede simplemente minimizar el MISE de la forma usual,
 
@@ -291,12 +304,14 @@ y que por lo tanto
 
 Según la nota anterior la tasas de convergencia del histograma es más lenta que la de un estimador parámetrico considerando la misma cantidad de datos.
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-10-1.pdf)<!-- --> 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 
 
 Finalmente, podemos encontrar el valor óptimo  de esta datos dado por  $h=$`h_opt_MISE`
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-12-1.pdf)<!-- --> 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 
 
@@ -405,7 +420,8 @@ Por ejemplo:
 - **Gausian:** \(\frac{1}{\sqrt{2\pi}} \exp \left( -\frac{1}{2}u^{2} \right)\).
 
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-16-1.pdf)<!-- --> 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 Entonces se tendría que la expresión general para un estimador por núcleos es
 
@@ -419,13 +435,15 @@ Entonces se tendría que la expresión general para un estimador por núcleos es
 
 Nuevamente sería el ancho de banda ya que
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-18-1.pdf)<!-- --> 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 
 
 \BeginKnitrBlock{remark}<div class="remark">\iffalse{} <span class="remark"><em>Nota: </em></span>  \fi{}¿Qué pasaría si modificamos el kernel para un mismo ancho de banda \(h\)?</div>\EndKnitrBlock{remark}
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-20-1.pdf)<!-- --> 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 
 
@@ -444,7 +462,8 @@ Cada sumando de esta expresión es una función por si misma. Si la integramos s
 = \frac{1}{n}
 \end{equation*}
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-21-1.pdf)<!-- --> 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 
 
@@ -539,7 +558,8 @@ $\int(f^{\prime\prime\prime}(x))dx<\infty$.}</div>\EndKnitrBlock{exercise}
 & = \frac{h^2}{2}f^{\prime\prime}(x)\mu_{2}(K) + o(h^2) \\
 \end{align*}</div>\EndKnitrBlock{solution}
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-25-1.pdf)<!-- --> 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
 \BeginKnitrBlock{remark}<div class="remark">\iffalse{} <span class="remark"><em>Nota: </em></span>  \fi{}Note como los cambios en el ancho de banda modifican la suavidad (sesgo) y el aplanamiento de la curva (varianza).</div>\EndKnitrBlock{remark}
 
@@ -578,7 +598,8 @@ Evaluando $h_{opt}$ en el \(\mathrm{MISE}\) tenemos que
 \mathrm{MISE}(\hat{f}_{h})=\frac{5}{4}\left(\Vert K\Vert_{2}^{2}\right)^{4/5}\left(\Vert f^{\prime\prime}\Vert_{2}^{2}\mu_{2}(K)\right)^{2/5}n^{-4/5} = O\left( n^{-4/5} \right).
 \end{equation*}
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-28-1.pdf)<!-- --> 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 
 
@@ -829,37 +850,23 @@ library(KernSmooth)
 
 fhat_normal <- bkde(x, kernel = "normal", bandwidth = 0.05)
 plot(fhat_normal, type = "l")
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-1.pdf)<!-- --> 
-
-```r
 fhat_unif <- bkde(x, kernel = "box", bandwidth = 0.05)
 plot(fhat_unif, type = "l")
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-2.pdf)<!-- --> 
-
-```r
 fhat_epanech <- bkde(x, kernel = "epanech", bandwidth = 0.05)
 plot(fhat_epanech, type = "l")
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-3.pdf)<!-- --> 
-
-```r
 fhat_biweight <- bkde(x, kernel = "biweight", bandwidth = 0.05)
 plot(fhat_biweight, type = "l")
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-4.pdf)<!-- --> 
-
-```r
 fhat_triweight <- bkde(x, kernel = "triweight", bandwidth = 0.05)
 plot(fhat_triweight, type = "l")
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-5.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-2} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-3} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-4} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-5} \end{center}
 
 ### Efecto del ancho de banda en la estimación 
 
@@ -868,16 +875,14 @@ plot(fhat_triweight, type = "l")
 ```r
 fhat <- bkde(x, kernel = "box", bandwidth = 0.001)
 plot(fhat, type = "l")
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-1.pdf)<!-- --> 
-
-```r
 fhat <- bkde(x, kernel = "box", bandwidth = 0.5)
 plot(fhat, type = "l")
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-2.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-2} \end{center}
 
 ** Kernel Epanechnikov **
 
@@ -885,16 +890,14 @@ plot(fhat, type = "l")
 ```r
 fhat <- bkde(x, kernel = "epa", bandwidth = 0.001)
 plot(fhat, type = "l")
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-1.pdf)<!-- --> 
-
-```r
 fhat <- bkde(x, kernel = "epa", bandwidth = 0.5)
 plot(fhat, type = "l")
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-2.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-2} \end{center}
 
 
 ```r
@@ -961,11 +964,7 @@ h <- 0.02
 n_bins <- floor(diff(range(x))/h)
 
 f_hist <- hist(x, breaks = n_bins)
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-47-1.pdf)<!-- --> 
-
-```r
 f_epa <- as.data.frame(bkde(x, kernel = "epa", bandwidth = h))
 
 x_df <- data.frame(x)
@@ -979,7 +978,9 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
     aes(x, y), color = "blue") + theme_minimal(base_size = 20)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-47-2.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-47-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-47-2} \end{center}
 
 
 
@@ -1038,7 +1039,9 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
     aes(x, y), color = "blue") + theme_minimal(base_size = 20)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-49-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
 
 ```r
@@ -1057,7 +1060,9 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
     aes(x, y), color = "blue") + theme_minimal(base_size = 20)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-50-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-50-1} \end{center}
 
 Una librería más especializada es \texttt{np} (non-parametric).
 
@@ -1081,7 +1086,9 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
     aes(x, y), color = "blue") + theme_minimal(base_size = 20)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-51-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-51-1} \end{center}
 
 ### Validación cruzada
 
@@ -1105,7 +1112,9 @@ dens.np <- npudens(h_cv_np_ls)
 plot(dens.np, type = "b")
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-52-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-52-1} \end{center}
 
 
 ```r
@@ -1118,7 +1127,9 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
     aes(x, y), color = "blue") + theme_minimal(base_size = 20)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-53-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-53-1} \end{center}
 
 ### Temas adicionales
 
@@ -1143,7 +1154,9 @@ dens.np <- npudens(h_cv_np_ls)
 plot(dens.np, type = "b", lwd = 2)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-54-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-54-1} \end{center}
 
 
 ```r
@@ -1156,7 +1169,9 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
     aes(x, y), color = "blue") + theme_minimal(base_size = 20)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-55-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-55-1} \end{center}
 
 **Otra forma de estimar el ancho de banda** Otra forma de estimar ancho de bandas óptimos es usando máxima verosimilitud. Les dejo de tarea revisar la sección 1.1 del artículo de [@Hall1987] para entender su estructura.
 
@@ -1176,7 +1191,9 @@ dens.np <- npudens(h_cv_np_ml)
 plot(dens.np, type = "b")
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-56-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-56-1} \end{center}
 
 
 ```r
@@ -1189,7 +1206,9 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
     aes(x, y), color = "blue") + theme_minimal(base_size = 20)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-57-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-57-1} \end{center}
 
 
 ```r
@@ -1207,7 +1226,9 @@ dens.np <- npudens(h_cv_np_ml)
 plot(dens.np, type = "b")
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-58-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-58-1} \end{center}
 
 
 ```r
@@ -1220,7 +1241,9 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
     aes(x, y), color = "blue") + theme_minimal(base_size = 20)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-59-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-59-1} \end{center}
 
 
 ```r
@@ -1620,7 +1643,9 @@ reales,
 plot(x = x, y = pseudo)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-78-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-78-1} \end{center}
 
 
 
@@ -1823,7 +1848,9 @@ Tboot_b[1:10]
 plot(Tboot_b)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-89-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-89-1} \end{center}
   
   Por supuesto podemos encontrar los estadísticos usuales para esta nueva muestra
 
@@ -2008,7 +2035,7 @@ for (b in 1:B) {
     Tboot_b[b] <- var(xb)
     for (m in 1:B) {
         xbm <- sample(xb, size = n, replace = TRUE)
-        Tboot_bm[b] <- var(xbm)
+        Tboot_bm[m] <- var(xbm)
     }
     sdboot_b <- sd(Tboot_bm)
 }
@@ -2018,7 +2045,9 @@ z_star <- (Tboot_b - Tn)/sdboot_b
 hist(z_star)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-103-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-103-1} \end{center}
 
 
 ```r
@@ -2028,7 +2057,7 @@ c(Tn - quantile(z_star, 1 - 0.05/2) * sdboot, Tn -
 
 ```
 ##    97.5%     2.5% 
-## 309.8684 521.6372
+## 226.7564 585.9580
 ```
 
 
@@ -2063,7 +2092,7 @@ Bootstrap Normal & 283.8315 & 574.6653\\
 \hline
 Bootstrap Pivotal & 271.2827 & 551.4989\\
 \hline
-Bootstrap Pivotal Estudentizado & 309.8684 & 521.6372\\
+Bootstrap Pivotal Estudentizado & 226.7564 & 585.9580\\
 \hline
 \end{tabular}
 
@@ -2196,7 +2225,9 @@ ejemplo:
 plot(p, prior, type = "h", ylab = "Probabilidad Previa")
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-107-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-107-1} \end{center}
 
 El paquete `LearnBayes` tiene la función `pdisc` que estima la
 distribución posterior para una previa discreta binomial. Recuerde que
@@ -2234,7 +2265,9 @@ plot(p, post, type = "h", col = "red")
 lines(p + 0.01, prior, type = "h")
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-109-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-109-1} \end{center}
 
 ¿Qué se puede deducir de estos resultados?
 
@@ -2269,7 +2302,9 @@ summary(horas_sueno)
 hist(horas_sueno, main = "")
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-111-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-111-1} \end{center}
 
 Ahora supongamos que se tiene quiere ajustar una previa continua a este modelo. Para esto usaremos una distribución Beta con parámetros \(a\) y \(b\), de la forma
 
@@ -2312,7 +2347,9 @@ legend(0.7, 4, c("Previa", "Verosimilitud", "Posterior"),
     lty = c(3, 2, 1), lwd = c(3, 3, 3))
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-113-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-113-1} \end{center}
 
 En particular, si estamos interesados en \(\mathbb{P}(p>=.5 | \text {
 		data })\) se puede estimar con
@@ -2346,7 +2383,9 @@ ps <- rbeta(1000, a + s, b + f)
 hist(ps, xlab = "p", main = "")
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-116-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-116-1} \end{center}
 
 La probabilidad que este valor sea mayor que 0.5 es
 
@@ -2410,7 +2449,9 @@ curve(histprior(x, midpt, prior), from = 0, to = 1,
     ylab = "Densidad previa", ylim = c(0, 0.3))
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-120-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-120-1} \end{center}
 
 Luego recordando que nuestra posterior es \(beta(s+1,f+1)\) tenemos que
 
@@ -2420,7 +2461,9 @@ curve(histprior(x, midpt, prior) * dbeta(x, s + 1,
     f + 1), from = 0, to = 1, ylab = "Densidad posterior")
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-121-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-121-1} \end{center}
 
 Para conseguir la distribución posterior, solo debemos de construirla para una secuencia ordenada de valores \(p\)
 
@@ -2440,7 +2483,9 @@ ps <- sample(p, replace = TRUE, prob = post)
 hist(ps, xlab = "p", main = "")
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-123-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-123-1} \end{center}
 
 ## Métodos Monte Carlo 
 
@@ -2511,16 +2556,15 @@ df <- data.frame(x = 1:n_pasos, P = trayectoria)
 
 ggplot(df[1:200, ]) + geom_line(aes(x, P)) + coord_flip() + 
     theme_minimal(base_size = 16)
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-125-1.pdf)<!-- --> 
 
-```r
 ggplot(df) + geom_histogram(aes(P), stat = "count") + 
     theme_minimal(base_size = 16)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-125-2.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-125-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-125-2} \end{center}
 
 
 ```r
@@ -2557,12 +2601,15 @@ Entonces
 Entonces la razón entre estas dos probabilidades es 
 
 \begin{align*}
-	\frac{\mathbb{P}\left(\theta \rightarrow \theta+1\right)}{\mathbb{P}\left(\theta +1 \rightarrow \theta\right)} &=\frac{0.5 \min (P(\theta+1) / P(\theta), 1)}{0.5 \min (P(\theta) / P(\theta+1), 1)} \\
-	&=\left\{\begin{array}{ll}
-		\frac{P(\theta+1)}{P(\theta) } & \text { si } P(\theta+1)>P(\theta) \\
-		\frac{P(\theta+1) }{P(\theta)} & \text { si } P(\theta+1)<P(\theta)
-	\end{array}\right.\\
-	&=\frac{P(\theta+1)}{P(\theta)}.
+	\frac{\mathbb{P}\left(\theta \rightarrow \theta+1\right)}{\mathbb{P}\left(\theta +1 \rightarrow \theta\right)}
+	  & =\frac{0.5 \min (P(\theta+1) / P(\theta), 1)}{0.5 \min (P(\theta) / P(\theta+1), 1)} \\
+	  & =\left\{\begin{array}{ll}
+		\frac{P(\theta+1)}{P(\theta) }
+		  & \text { si } P(\theta+1)>P(\theta) \\
+		\frac{P(\theta+1) }{P(\theta)}
+		  & \text { si } P(\theta+1)<P(\theta)
+	\end{array}\right.                                             \\
+	\, & =\frac{P(\theta+1)}{P(\theta)}.
 \end{align*}
 
 Es decir que la razón de las probabilidades es equivalente a la razón entre las proporción de las poblaciones. Por lo tanto la mayoría de las veces se estará en los lugares con mayor población. 
@@ -2828,16 +2875,14 @@ df <- data.frame(x = 1:n_pasos, P = trayectoria)
 
 ggplot(df[1:500, ]) + geom_line(aes(x, P), size = 0.5) + 
     coord_flip() + theme_minimal(base_size = 16)
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-129-1.pdf)<!-- --> 
-
-```r
 ggplot(df[500:n_pasos, ]) + geom_histogram(aes(P, y = ..density..), 
     color = "white") + theme_minimal(base_size = 16)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-129-2.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-129-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-129-2} \end{center}
 
 ## Dos monedas
 
@@ -2968,21 +3013,15 @@ Metro_2coinsA <- metro_2coins(z1 = 6, n1 = 8, z2 = 2,
         shape2 = 2), args2 = list(shape1 = 2, shape2 = 2))
 
 Metro_2coinsA %>% gf_density2d(theta2 ~ theta1)
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-1.pdf)<!-- --> 
-
-```r
 Metro_2coinsA %>% gf_density(~(theta2 - theta1))
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-2.pdf)<!-- --> 
-
-```r
 acf(Metro_2coinsA$theta2 - Metro_2coinsA$theta1)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-3.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-2} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-3} \end{center}
 
 
 
@@ -2992,7 +3031,9 @@ Metro_2coinsA %>% filter(step < 500) %>% gf_path(theta2 ~
     angle = 30, length = unit(0.1, "inches"))) + theme_minimal()
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-132-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-132-1} \end{center}
 
 
 ```r
@@ -3015,15 +3056,13 @@ Metro_2coinsB <- metro_2coins(z1 = 6, n1 = 8, z2 = 2,
         shape2 = 2), args2 = list(shape1 = 2, shape2 = 2))
 
 Metro_2coinsB %>% gf_density2d(theta2 ~ theta1)
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-135-1.pdf)<!-- --> 
-
-```r
 acf(Metro_2coinsB$theta2 - Metro_2coinsB$theta1)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-135-2.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-135-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-135-2} \end{center}
 
 
 ```r
@@ -3032,7 +3071,9 @@ Metro_2coinsB %>% filter(step < 500) %>% gf_path(theta2 ~
     angle = 30, length = unit(0.1, "inches"))) + theme_minimal()
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-136-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-136-1} \end{center}
 
 
 ```r
@@ -3120,21 +3161,15 @@ Gibbs <- gibbs_2coins(z1 = 6, n1 = 8, z2 = 2, n2 = 7,
     a1 = 2, b1 = 2, a2 = 2, b2 = 2)
 
 Gibbs %>% gf_density2d(theta2 ~ theta1)
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-1.pdf)<!-- --> 
-
-```r
 Gibbs %>% gf_dens(~theta1)
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-2.pdf)<!-- --> 
-
-```r
 acf(Gibbs$theta1)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-3.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-2} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-3} \end{center}
 
 
 
@@ -3145,7 +3180,9 @@ Gibbs %>% filter(step < 500) %>% gf_path(theta2 ~ theta1,
     theme_minimal()
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-141-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-141-1} \end{center}
 
 
 ```r
@@ -3165,23 +3202,17 @@ Ciclos completos
 ```r
 Gibbs %>% filter(step%%2 == 0) %>% gf_density2d(theta2 ~ 
     theta1)
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-1.pdf)<!-- --> 
-
-```r
 Gibbs %>% filter(step%%2 == 0) %>% gf_density(~(theta2 - 
     theta1))
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-2.pdf)<!-- --> 
-
-```r
 Gibbs %>% filter(step%%2 == 0) %>% mutate(difference = theta2 - 
     theta1) %>% pull(difference) %>% acf()
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-3.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-2} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-3} \end{center}
 
 
 ```r
@@ -3190,7 +3221,9 @@ Gibbs %>% filter(step < 500, step%%2 == 0) %>% gf_path(theta2 ~
     angle = 30, length = unit(0.1, "inches"))) + theme_minimal()
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-144-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-144-1} \end{center}
 
 
 ```r
@@ -3307,7 +3340,7 @@ bern_jags
 ```
 
 ```
-## Inference for Bugs model at "/tmp/Rtmp1ygvHJ/model24b219a8212.txt", fit using jags,
+## Inference for Bugs model at "/tmp/RtmpSiqiR5/model57fa38bfee50.txt", fit using jags,
 ##  3 chains, each with 2000 iterations (first 1000 discarded)
 ##  n.sims = 3000 iterations saved
 ##          mu.vect sd.vect   2.5%    25%    50%    75%  97.5%  Rhat n.eff
@@ -3348,7 +3381,9 @@ bern_mcmc <- as.mcmc(bern_jags)
 plot(bern_mcmc)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-154-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-154-1} \end{center}
 
 
 ```r
@@ -3356,14 +3391,18 @@ library(bayesplot)
 mcmc_areas(bern_mcmc, pars = c("theta"), prob = 0.9)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-155-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-155-1} \end{center}
 
 
 ```r
 mcmc_trace(bern_mcmc, pars = "theta")
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-156-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-156-1} \end{center}
 
 
 ```r
@@ -3377,7 +3416,9 @@ mcmc_trace(bern_mcmc, pars = "theta") %>% gf_facet_grid(Chain ~
 ## * Layer 1 is missing `Chain`
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-157-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-157-1} \end{center}
 
 
 ```r
@@ -3386,7 +3427,9 @@ plot_post(bern_mcmc[, "theta"], main = "theta", xlab = expression(theta),
         0.55), credMass = 0.9, quietly = TRUE)
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-158-1.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-158-1} \end{center}
 
 
 ```r
@@ -3506,16 +3549,14 @@ bern2_jags <- jags(data = TargetList, model = bern2_model,
 bern2_mcmc <- as.mcmc(bern2_jags)
 
 mcmc_acf(bern2_mcmc)
-```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-1.pdf)<!-- --> 
-
-```r
 mcmc_combo(bern2_mcmc, combo = c("dens", "dens_overlay", 
     "trace", "scatter"), pars = c("theta[1]", "theta[2]"))
 ```
 
-![](Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-2.pdf)<!-- --> 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-2} \end{center}
 
 ## Uso de STAN
 
@@ -3557,8 +3598,8 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 1).
 ## Chain 1: 
-## Chain 1: Gradient evaluation took 1.4e-05 seconds
-## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.14 seconds.
+## Chain 1: Gradient evaluation took 1.2e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.12 seconds.
 ## Chain 1: Adjust your expectations accordingly!
 ## Chain 1: 
 ## Chain 1: 
@@ -3575,15 +3616,15 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 1: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 1: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 1: 
-## Chain 1:  Elapsed Time: 0.032881 seconds (Warm-up)
-## Chain 1:                0.035488 seconds (Sampling)
-## Chain 1:                0.068369 seconds (Total)
+## Chain 1:  Elapsed Time: 0.016092 seconds (Warm-up)
+## Chain 1:                0.015761 seconds (Sampling)
+## Chain 1:                0.031853 seconds (Total)
 ## Chain 1: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 2).
 ## Chain 2: 
-## Chain 2: Gradient evaluation took 7e-06 seconds
-## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
+## Chain 2: Gradient evaluation took 4e-06 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
 ## Chain 2: Adjust your expectations accordingly!
 ## Chain 2: 
 ## Chain 2: 
@@ -3600,15 +3641,15 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 2: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 2: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 2: 
-## Chain 2:  Elapsed Time: 0.033237 seconds (Warm-up)
-## Chain 2:                0.034277 seconds (Sampling)
-## Chain 2:                0.067514 seconds (Total)
+## Chain 2:  Elapsed Time: 0.015679 seconds (Warm-up)
+## Chain 2:                0.015471 seconds (Sampling)
+## Chain 2:                0.03115 seconds (Total)
 ## Chain 2: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 3).
 ## Chain 3: 
-## Chain 3: Gradient evaluation took 7e-06 seconds
-## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
+## Chain 3: Gradient evaluation took 4e-06 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
 ## Chain 3: Adjust your expectations accordingly!
 ## Chain 3: 
 ## Chain 3: 
@@ -3625,15 +3666,15 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 3: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 3: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 3: 
-## Chain 3:  Elapsed Time: 0.03141 seconds (Warm-up)
-## Chain 3:                0.032364 seconds (Sampling)
-## Chain 3:                0.063774 seconds (Total)
+## Chain 3:  Elapsed Time: 0.017019 seconds (Warm-up)
+## Chain 3:                0.017291 seconds (Sampling)
+## Chain 3:                0.03431 seconds (Total)
 ## Chain 3: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 4).
 ## Chain 4: 
-## Chain 4: Gradient evaluation took 8e-06 seconds
-## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.08 seconds.
+## Chain 4: Gradient evaluation took 4e-06 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
 ## Chain 4: Adjust your expectations accordingly!
 ## Chain 4: 
 ## Chain 4: 
@@ -3650,9 +3691,9 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 4: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 4: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 4: 
-## Chain 4:  Elapsed Time: 0.030109 seconds (Warm-up)
-## Chain 4:                0.018828 seconds (Sampling)
-## Chain 4:                0.048937 seconds (Total)
+## Chain 4:  Elapsed Time: 0.016114 seconds (Warm-up)
+## Chain 4:                0.015481 seconds (Sampling)
+## Chain 4:                0.031595 seconds (Total)
 ## Chain 4:
 ```
 
@@ -3666,10 +3707,10 @@ print(fit, probs = c(0.1, 0.9))
 ## post-warmup draws per chain=2500, total post-warmup draws=10000.
 ## 
 ##         mean se_mean   sd    10%    90% n_eff Rhat
-## theta   0.31    0.00 0.06   0.23   0.39  3763    1
-## lp__  -32.59    0.01 0.70 -33.43 -32.10  4316    1
+## theta   0.31    0.00 0.06   0.23   0.39  3136    1
+## lp__  -32.60    0.01 0.72 -33.49 -32.11  4750    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Wed May 13 11:53:09 2020.
+## Samples were drawn using NUTS(diag_e) at Mon May 25 11:11:10 2020.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).
@@ -3682,7 +3723,7 @@ mean(theta_draws)
 ```
 
 ```
-## [1] 0.3062755
+## [1] 0.3074515
 ```
 
 ```r
@@ -3691,7 +3732,7 @@ quantile(theta_draws, probs = c(0.1, 0.9))
 
 ```
 ##       10%       90% 
-## 0.2278129 0.3897041
+## 0.2282770 0.3911384
 ```
 
 
@@ -3707,9 +3748,6 @@ Replique los resultados anteriores pero para el caso de 2 monedas y comente los 
 
 
 
-
-
-
 ## Ejercicios 
 
 1. Del libro [@Albert2009] 
@@ -3720,4 +3758,318 @@ Replique los resultados anteriores pero para el caso de 2 monedas y comente los 
    - **Sección 7:** 2.
 
 <!--chapter:end:03-estimacion-densidades-bayes.Rmd-->
+
+
+# Aprendizaje estadístico 
+
+## Introducción 
+
+Supongamos que tenemos \(p\) variables de entrada que mezcladas  con alguna relación desconocida y que provocan una respuesta \(Y\) de salida. 
+
+\begin{equation}
+Y = f(X_{1},\ldots,X_{p}) + \varepsilon
+(\#eq:regresion-general)
+\end{equation}
+
+
+Aquí \(f\) es deconocida, las variables \(X\)'s son las variables de entrada y  \(\varepsilon\) es el error cometido por hacer esta aproximación.  
+
+
+
+Hay dos motivos para estimar \(f\)
+
+1. **Predicción:** Si se estima \(f\) con \(\hat{f}\) entonces
+\begin{equation*}
+\hat{Y} = \hat{f}(X_{1},\ldots,X_{p}). 
+\end{equation*}
+
+Y si tuvieramos valores nuevos de los \(X\)'s entonces podríamos estimar el valor que el corresponde a \(Y\). 
+
+Aquí lo importante es que los resultados sean preciso: 
+
+	a. **Error reducible:** Error de \(\hat{f}\) alrededor de \(f\). 
+	b. **Error irreducible:** Error propio de las observaciones (muestreo). 
+
+\begin{align*}
+\mathbb{E}\left[\hat{Y}-Y\right] 
+&=  \mathbb{E}\left[\left(  f(X_{1},\ldots,X_{p}) + \varepsilon - \hat{f}(X_{1},\ldots,X_{p}) \right)^{2}  \right] \\
+&= \underbrace{\left( f(X_{1},\ldots,X_{p})- \hat{f}(X_{1},\ldots,X_{p})  \right) ^{2} }_{\text{Reducible}}
++\underbrace{\mathrm{Var}\left(\varepsilon\right)}_{\text{irreducible}}. 
+\end{align*}
+
+
+2. **Inferencia:**  Entender la relación entre \(X\) y \(Y\). 
+
+- ¿Cuál es la relación entre las variables predictoras y la respuesta?
+- ¿Cuáles son más importantes?
+- ¿El modelo es correcto?
+
+## Regresión lineal
+
+El caso más sencillo es cuando esta relación es lineal y se describe de la siguiente forma 
+
+\begin{equation*}
+Y = \beta_{0} + \beta_{1}X_{1} + \cdots +  \beta_{1}X_{1} + \varepsilon.
+\end{equation*} 
+ 
+ Aquí los valores \(\beta\)'s son constantes a estimar, las variables \(X\)'s son las variables de entrada y  \(\varepsilon\) es el error cometido por hacer esta aproximación. 
+ 
+
+Los \(X\)'s pueden ser 
+
+1. Cuantitativos o Transformaciones. 
+2. Cualitativos. 
+
+En el caso de ser cualititativos existe un truco para incluirlos dentro de la regresión 
+
+\BeginKnitrBlock{example}<div class="example"><span class="example" id="exm:unnamed-chunk-169"><strong>(\#exm:unnamed-chunk-169) </strong></span>Se tiene la variable \(G\) codificada con Casado (1), Soltero (2), Divorciado (3) y Unión Libre (4). Si queremos meter esta variable en una regresión debemos tomarla de la forma 
+
+\begin{equation*}
+X_{j} = \mathbf{1}_{\{G=j+1\}} 
+\end{equation*} 
+
+que resulta en la matriz 
+
+\begin{equation*}
+\begin{matrix}
+X_{1} & X_{2} & X_{3}\\
+0 & 0 & 0 \\
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+\end{matrix}
+\end{equation*}
+
+Existen otras formas de codificar este tipo de variables, pero esa es la más común. 
+</div>\EndKnitrBlock{example}
+### Forma matricial
+
+Podemos escribir la regresión de la forma 
+
+\begin{equation*}
+\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}
+\end{equation*}
+
+donde 
+
+\begin{multline*}
+\boldsymbol{Y} = 
+\begin{pmatrix}
+Y_{1} \\
+\vdots \\
+Y_{n}
+\end{pmatrix}_{n\times 1} 
+\quad 
+\boldsymbol{Y} = 
+\begin{pmatrix}
+1 & X_{1,1} & \cdots & X_{p,1} \\
+\vdots & \vdots & \cdots & \vdots\\
+1 & X_{1,n}& \cdots & X_{p,n}
+\end{pmatrix}_{n\times (p+1)}
+\\
+\boldsymbol{\varepsilon} = 
+\begin{pmatrix}
+\varepsilon_{1} \\
+\vdots \\
+\varepsilon_{n}
+\end{pmatrix}_{n\times 1} 
+\quad 
+\boldsymbol{\beta} = 
+\begin{pmatrix}
+\beta_{0} \\
+\beta_{1} \\
+\vdots \\
+\beta_{p}
+\end{pmatrix}_{(p+1)\times 1} 
+\end{multline*}
+
+Suponemos que \(\mathbb{E}\left[\varepsilon_{i}\right] = 0\) y \(\mathrm{Var}\left(\varepsilon_{i}\right) = \sigma^{2}\)
+
+La forma de resolver este problema es  por minimos cuadrados.  Es decir, buscamos el \(\hat{\beta}\) que cumpla lo siguiente:
+
+
+\begin{align}
+\hat{\beta} &= 
+ \operatorname{argmin}_\beta (\boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta})^{\top} (\boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta})\\
+ &=  \operatorname{argmin}_\beta \sum_{i=1}^n \left( Y_{i} -\beta_{0} - \sum_{j=1}^p X_{j,i} \beta_{j} \right) 
+ (\#eq:minimos-cuadrados)
+ \end{align}
+
+
+![Tomado de https://www.wikiwand.com/en/Ordinary_least_squares](manual_figures/ols.png)
+
+Suponga que \(\gamma\) es un vector cualquiera en \(\mathbb{R}^{p+1}\)  y tenemos a \(V = \{\boldsymbol{X}\boldsymbol{\gamma}, \gamma \in \mathbb{R}^{p+1}\}\).
+
+\begin{align*}
+\boldsymbol{X}\boldsymbol{\beta}
+ &= \operatorname{Proy}_{V} \boldsymbol{Y}
+\end{align*}
+
+Entonces dado que 
+\begin{equation*}
+\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp V \\
+\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp \boldsymbol{X}\boldsymbol{\gamma}, \forall \boldsymbol{\gamma} \in \mathbb{R}^{p+1}.
+\end{equation*}
+
+
+\begin{align*}
+<\boldsymbol{X}\boldsymbol{\gamma}, \boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} > &=  0 \\
+ \boldsymbol{\gamma}^{\top}\boldsymbol{X}^{\top}(\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta}) &=  0 \\
+ \boldsymbol{\gamma}^{\top}\boldsymbol{X}^{\top}\boldsymbol{Y} &= \boldsymbol{\gamma}^{\top} \boldsymbol{X}^{\top} \boldsymbol{X}\boldsymbol{\beta}  \\
+  \boldsymbol{X}^{\top}\boldsymbol{Y} &=  \boldsymbol{X}^{\top} \boldsymbol{X}\boldsymbol{\beta}  \\
+  \boldsymbol{\beta}  &=  (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{Y} 
+\end{align*}
+
+Donde \(\boldsymbol{X}^{\top} \boldsymbol{X}\) debe ser invertible. Si no es así, se puede construir su inversa generalizada pero no garantiza la unicidad de los \(\beta\)'s. Es decir, puede existir \(\hat{\beta} \neq \tilde{\beta}\) tal que \(\boldsymbol{X}\boldsymbol{\hat{\beta}} = \boldsymbol{X}\boldsymbol{\tilde{\beta}} \)
+
+
+
+En el caso de predicción tenemos que 
+
+\begin{align*}
+\hat{Y} &=  X\beta \\
+&= \boldsymbol{X}(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{Y} \\
+&=  H \boldsymbol{Y} 
+\end{align*}
+
+Donde \(H\) es la matriz "techo" o  "hat". Es la proyección de Y al espacio de las columnas de \(X\).
+
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-170"><strong>(\#exr:unnamed-chunk-170) </strong></span>Suponga que tenemos la regresión simple
+
+\begin{equation*}
+Y = \beta_{0} + \beta_{1}X_{1}+\varepsilon.
+\end{equation*}
+
+
+Muestre que \(\beta_{0}\) y \(\beta_{1}\) son 
+
+Para el caso de la regresión simple tenemos que 
+
+\begin{align*}
+\hat{\beta}_{1}&= \frac{\sum_{i=1}^{n}\left(X_{i}-\overline{X}\right)\left(Y_{i}-\overline{Y}\right)}{\sum_{i=1}^{n}\left(X_{i}-\overline{x}\right)^{2}} \\ 
+\hat{\beta}_{0}&= \bar{Y}-\widehat{\beta}_{1} \bar{X}
+\end{align*}
+
+usando los siguiente métodos:
+
+1. El método de proyecciones. 
+2. Minimizando el criterio de mínimos cuadrados. Ecuación \@ref(eq:minimos-cuadrados).
+</div>\EndKnitrBlock{exercise}
+
+## Propiedades estadísticas 
+
+Uno de los supuestos fundamentales de regresión lineal es que 
+
+\begin{equation*}
+\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}I\right)
+\end{equation*} . 
+
+En ese caso 
+
+\begin{equation*}
+Y = X\beta + \varepsilon \sim \mathcal{N}\left(X\beta,\sigma^{2}I\right)
+\end{equation*} 
+
+Y además 
+
+\begin{align*}
+\hat{\beta} &=  (X^{\top}X)^{-1}X^{\top}Y \\
+&\sim  \mathcal{N}\left((X^{\top}X)^{-1}X^{\top}X\beta,((X^{\top}X)^{-1}X^{\top})\sigma I ((X^{\top}X)^{-1}X^{\top})^{\top}\right) \\
+&\sim  \mathcal{N}\left(\beta,\sigma (X^{\top}X)^{-1}\right) \\
+\end{align*}
+
+Es decir, que 
+
+\begin{align*}
+\mathbb{E}\left[\hat{\beta}\right] &= \beta \\
+\operatorname{Var}(\hat{\beta}) &=  \sigma^{2}\left(X^{\top} X\right)^{-1}
+\end{align*}
+
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-171"><strong>(\#exr:unnamed-chunk-171) </strong></span>Encuentre la varianza para \(\beta_{0}\) y \(\beta_{1}\) para el caso de la regresión simple. </div>\EndKnitrBlock{exercise}
+ 
+ La estimación de \(\sigma^{2}\) 
+ 
+ \begin{align*}
+ \hat{\sigma}^{2} 
+ &=  \frac{1}{n-p-1} \sum_{i=1}^{n} \left( Y_{i} - \hat{Y}_{i}\right)^{2} \\
+ &= \frac{1}{n-p-1}\left\Vert Y - X\hat{\beta} \right\Vert^{2} \\
+ &=   \frac{1}{n-p-1} \left\Vert Y-\operatorname{Proy}_{V}Y \right\Vert^{2} 
+ \end{align*}
+ 
+ Otra forma de verlo es 
+ \begin{align*}
+Y-\operatorname{Proy}_{V}Y  
+&= X\beta + \varepsilon -  \operatorname{Proy}_{V}( X\beta + \varepsilon) \\
+&= X\beta - \operatorname{Proy}_{V}( \underbrace{X\beta}_{\in V}) + \varepsilon - \underbrace{\operatorname{Proy}_{V}( \varepsilon)}_{=0} \\
+&= X\beta -X\beta + \varepsilon \\
+&=  \operatorname{Proy}_{V^{\top}}( \varepsilon)
+ \end{align*}
+
+\begin{equation*}
+\hat{\sigma}^{2} 
+= \frac{1}{dim(V^{\top})}\left\Vert \operatorname{Proy}_{V^{\top}}\varepsilon\right\Vert \\
+\end{equation*}
+ 
+ 
+ Cumple con la propiedad que \(\mathbb{E}\left[\hat{\sigma}^{}\right] = \sigma^{2}\). 
+ 
+ Y además \((n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.\)
+ 
+ 
+## Prueba \(t\)
+ 
+ Dado que los coeficientes \(\beta\) son normales, se puede hacer la prueba de hipotesis 
+ 
+ \begin{equation*}
+ H_{0}: \beta_{j} = 0 \quad \text{ vs } \quad H_{1}:\beta_{j}\neq 0.
+ \end{equation*}
+ 
+ El estadístico es 
+ 
+ \begin{equation*}
+ z_{j} = \frac{\hat{\beta}_{j}}{\hat{\sigma} \sqrt{v_{j}}} 
+ \end{equation*}
+ 
+ donde \(v_{j}\) es el \(j\)-esimo elemento de la diagonal de \((X^{\top}X)^{-1}\).
+ 
+ Bajo \(H_{0}\) \(z_{j} \sim t_{n-p-1}\) y se rechaza \(H_{0}\) si 
+ 
+ \begin{equation*}
+ \left\vert z_{j} \right\vert > t_{n-p-1, 1-\frac{\alpha}{2}} 
+ \end{equation*}
+ 
+## Prueba \(F\)
+ 
+ \begin{equation*}
+ H_{0}: \beta_{1} = \cdots =\beta_{p} = 0 \quad 
+ \text{  vs   }\quad H_{1}: \text{ al menos un \(\beta\) no es cero}.
+ \end{equation*}
+ 
+ 
+ En este caso queremos comparar el modelo  nulo \(Y=\beta_{0}+\varepsilon\) contra el modelo completo \(Y=\beta_{0}+ \beta_{1}X_{1} + \cdots + \beta_{p}X_{p} + \varepsilon\). 
+ 
+ Defina 
+ 
+ \begin{align*}
+ TSS &= \sum_{i=1}^{n} \left( Y_{i} -\overline{Y} \right)^{2} \\
+ RSS &= \sum_{i=1}^{n} \left( Y_{i} -\overline{Y} \right)^{2} \\
+ \end{align*}
+ 
+ TSS = Total sum of squares 
+ 
+ RSS =  Residual sum of squares 
+ 
+ Entonces 
+ 
+ \begin{equation*}
+ F = \frac{\frac{TSS-RSS}{p}}{\frac{RSS}{n-p-1}} \sim \frac{\chi^{2}_{p}}{\chi^{2}_{n-p-1}}.
+ \end{equation*}
+ 
+ Rechazamos \(H_{0}\) si 
+ 
+ \begin{equation*}
+ F > F_{p, n-p-1, 1-\alpha}.
+ \end{equation*}
+
+<!--chapter:end:04-metodos-lineares-regresion.Rmd-->
 

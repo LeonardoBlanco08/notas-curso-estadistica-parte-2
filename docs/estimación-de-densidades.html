@@ -198,6 +198,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#uso-de-stan"><i class="fa fa-check"></i><b>4.7</b> Uso de STAN</a></li>
 <li class="chapter" data-level="4.8" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#ejercicios-2"><i class="fa fa-check"></i><b>4.8</b> Ejercicios</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html"><i class="fa fa-check"></i><b>5</b> Aprendizaje estadístico</a><ul>
+<li class="chapter" data-level="5.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#introducción-1"><i class="fa fa-check"></i><b>5.1</b> Introducción</a></li>
+<li class="chapter" data-level="5.2" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#regresión-lineal"><i class="fa fa-check"></i><b>5.2</b> Regresión lineal</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#forma-matricial"><i class="fa fa-check"></i><b>5.2.1</b> Forma matricial</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#propiedades-estadísticas-2"><i class="fa fa-check"></i><b>5.3</b> Propiedades estadísticas</a></li>
+<li class="chapter" data-level="5.4" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-t"><i class="fa fa-check"></i><b>5.4</b> Prueba <span class="math inline">\(t\)</span></a></li>
+<li class="chapter" data-level="5.5" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-f"><i class="fa fa-check"></i><b>5.5</b> Prueba <span class="math inline">\(F\)</span></a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -230,7 +239,7 @@ B_j = [x_0 +(j - 1)h,x_0 + jh) \quad j\in \mathbb{Z}
 \end{equation*}\]</span></p></li>
 <li><p>Cuente cuántas observaciones caen en cada segmento. <span class="math inline">\(n_j\)</span>.</p></li>
 </ul>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/observaciones-histograma-1.svg" width="672" />
+<p><img src="Notas-Curso-Estadistica_files/figure-html/observaciones-histograma-1.svg" width="70%" style="display: block; margin: auto;" />
 - Cuente la frecuencia por el tamaño de muestra <span class="math inline">\(n\)</span> y el ancho de banda <span class="math inline">\(h\)</span>.
 <span class="math display">\[\begin{equation*}
 f_j = \frac{n_j}{nh}
@@ -238,7 +247,7 @@ f_j = \frac{n_j}{nh}
 <ul>
 <li>Dibuje el histograma.</li>
 </ul>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/ejemplo-inicial-histograma-1.svg" width="672" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/ejemplo-inicial-histograma-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Formalmente el histograma es el</p>
 <p><span class="math display">\[\begin{equation*}
 \hat{f}_h(x) = \frac{1}{nh} \sum_{i = 1}^{n} \sum_{j} I(X_i\in B_j) I(x\in B_j),
@@ -249,14 +258,15 @@ f_j = \frac{n_j}{nh}
 <h3><span class="header-section-number">2.1.2</span> Construcción probabilistica</h3>
 <p>Denote <span class="math inline">\(m_j=jh-h/2\)</span> el centro del segmento,</p>
 <p><span class="math display">\[\begin{align*}
-\mathbb{P}\left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2} \right)\right) &amp; =
-\int_{m_j - \frac{h}{2}}^{m_j + \frac{h}{2}} f(u)du                                             \\
-&amp; \approx f(m_j)h
+    \mathbb{P}\left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2} \right)\right)
+      &amp; =
+    \int_{m_j - \frac{h}{2}}^{m_j + \frac{h}{2}} f(u)du                                             \\
+      &amp; \approx f(m_j)h
 \end{align*}\]</span></p>
 <p>Esto se puede aproximar como</p>
 <p><span class="math display">\[\begin{equation*}
-\mathbb{P} \left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right)  \approx   \frac{1}{n} \#
-\left\{X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right\}
+    \mathbb{P} \left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right)  \approx   \frac{1}{n} \#
+    \left\{X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right\}
 \end{equation*}\]</span></p>
 <p>Acomodando un poco la expresión</p>
 <p><span class="math display">\[\begin{equation*}
@@ -389,7 +399,7 @@ Esto indica que si <span class="math inline">\(\mathrm{MSE}\left( \hat{f}_h(x)\r
 <li>Si <span class="math inline">\(h\to \infty\)</span>, la varianza decrece (hacia 0) y el sesgo crece (hacia <span class="math inline">\(\infty\)</span>)</li>
 </ul>
 <p>Note que la figura siguiente tiene esa propiedad.</p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/MSE-histograma-1.svg" width="672" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/MSE-histograma-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="error-cuadrático-medio-integrado" class="section level3">
 <h3><span class="header-section-number">2.1.7</span> Error cuadrático medio integrado</h3>
@@ -423,13 +433,13 @@ Esto indica que si <span class="math inline">\(\mathrm{MSE}\left( \hat{f}_h(x)\r
 <div id="ancho-de-banda-óptimo-para-el-histograma" class="section level3">
 <h3><span class="header-section-number">2.1.8</span> Ancho de banda óptimo para el histograma</h3>
 <p>El MISE tiene el mismo comportamiento que el MSE. La figura siguiente presenta el comportamiento de la varianza, sesgo y MISE para nuestro ejemplo.</p>
-<div class="figure">
-<img src="Notas-Curso-Estadistica_files/figure-html/MISE-histograma-1.svg" alt=" " width="672" />
+<div class="figure" style="text-align: center">
+<img src="Notas-Curso-Estadistica_files/figure-html/MISE-histograma-1.svg" alt=" " width="70%" />
 <p class="caption">
 </p>
 </div>
 <p>La mala elección del parámetro <span class="math inline">\(h\)</span> causa que el histograma no capture toda la estructura de los datos.</p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-8-1.svg" width="672" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-8-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>En este caso se puede simplemente minimizar el MISE de la forma usual,</p>
 <p><span class="math display">\[\begin{equation*}
 \frac{\partial \mathrm{MISE}(f_{h})}{\partial h} = -\frac{1}{nh^2} + \frac{1}{6} h \Vert f^\prime\Vert_{2}^2 = 0
@@ -452,9 +462,9 @@ h_{opt} = \left(\frac{6}{n\Vert f^\prime\Vert_{2}^2}\right) ^{1/3} = O\left( n^{
 </div>
 
 <p>Según la nota anterior la tasas de convergencia del histograma es más lenta que la de un estimador parámetrico considerando la misma cantidad de datos.</p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-10-1.svg" width="672" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-10-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Finalmente, podemos encontrar el valor óptimo de esta datos dado por <span class="math inline">\(h=\)</span><code>h_opt_MISE</code>
-<img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-12-1.svg" width="672" /></p>
+<img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-12-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="estimación-no-paramétrica-de-densidad" class="section level2">
@@ -545,7 +555,7 @@ con <span class="math inline">\(u = \frac{x-xi}{h}\)</span></p></li>
 <li><strong>Epanechnikov:</strong> <span class="math inline">\(\frac{3}{4} (1-u^{2}) I \left( \left\vert u \right\vert \leq 1 \right)\)</span>.</li>
 <li><strong>Gausian:</strong> <span class="math inline">\(\frac{1}{\sqrt{2\pi}} \exp \left( -\frac{1}{2}u^{2} \right)\)</span>.</li>
 </ul>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-16-1.svg" width="672" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-16-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Entonces se tendría que la expresión general para un estimador por núcleos es</p>
 <p><span class="math display">\[\begin{equation*}
 \hat{f}_{h}\left( x \right) = \frac{1}{nh}\sum_{i=1}^{n} K\left( \frac{x-x_{i}}{h} \right)
@@ -556,13 +566,13 @@ con <span class="math inline">\(u = \frac{x-xi}{h}\)</span></p></li>
 </div>
 
 <p>Nuevamente sería el ancho de banda ya que</p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-18-1.svg" width="672" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-18-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 
 <div class="remark">
  <span class="remark"><em>Nota: </em></span> ¿Qué pasaría si modificamos el kernel para un mismo ancho de banda <span class="math inline">\(h\)</span>?
 </div>
 
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-20-1.svg" width="672" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-20-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Recordemos nuevamente la fórmula</p>
 <p><span class="math display">\[\begin{equation*}
 \hat{f}_{h}\left( x \right) = \frac{1}{nh}\sum_{i=1}^{n} K\left( \frac{x-X_{i}}{h} \right)
@@ -574,7 +584,7 @@ con <span class="math inline">\(u = \frac{x-xi}{h}\)</span></p></li>
 = \frac{1}{n} \int K(u) du
 = \frac{1}{n}
 \end{equation*}\]</span></p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-21-1.svg" width="672" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-21-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="propiedades-estadísticas-1" class="section level2">
@@ -660,7 +670,7 @@ donde <span class="math inline">\(\mu_{2}=\int s^{2}K(s)ds\)</span>.</p>
 \end{align*}\]</span>
 </div>
 
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-25-1.svg" width="672" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-25-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 
 <div class="remark">
  <span class="remark"><em>Nota: </em></span> Note como los cambios en el ancho de banda modifican la suavidad (sesgo) y el aplanamiento de la curva (varianza).
@@ -698,7 +708,7 @@ Más adelante veremos otra forma de encontrar este estimador.
 <p><span class="math display">\[\begin{equation*}
 \mathrm{MISE}(\hat{f}_{h})=\frac{5}{4}\left(\Vert K\Vert_{2}^{2}\right)^{4/5}\left(\Vert f^{\prime\prime}\Vert_{2}^{2}\mu_{2}(K)\right)^{2/5}n^{-4/5} = O\left( n^{-4/5} \right).
 \end{equation*}\]</span></p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-28-1.svg" width="672" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-28-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 
 <div class="remark">
  <span class="remark"><em>Nota: </em></span> Formalmente, es posible probar que si <span class="math inline">\(f\)</span> es <span class="math inline">\(\beta\)</span> veces continuamente diferenciable y <span class="math inline">\(\int\left(f^{(\beta)}\right)^{2}&lt;\infty\)</span>, entonces se tiene que
@@ -907,53 +917,53 @@ Existe una versión más general para determinar la banda de confianza de toda l
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb4-1" title="1"><span class="kw">library</span>(KernSmooth)</a>
 <a class="sourceLine" id="cb4-2" title="2"></a>
 <a class="sourceLine" id="cb4-3" title="3">fhat_normal &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;normal&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb4-4" title="4"><span class="kw">plot</span>(fhat_normal, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-42-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">fhat_unif &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;box&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb5-2" title="2"><span class="kw">plot</span>(fhat_unif, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-42-2.svg" width="672" /></p>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">fhat_epanech &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;epanech&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb6-2" title="2"><span class="kw">plot</span>(fhat_epanech, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-42-3.svg" width="672" /></p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1">fhat_biweight &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;biweight&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb7-2" title="2"><span class="kw">plot</span>(fhat_biweight, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-42-4.svg" width="672" /></p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb8-1" title="1">fhat_triweight &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;triweight&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.05</span>)</a>
-<a class="sourceLine" id="cb8-2" title="2"><span class="kw">plot</span>(fhat_triweight, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-42-5.svg" width="672" /></p>
+<a class="sourceLine" id="cb4-4" title="4"><span class="kw">plot</span>(fhat_normal, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a>
+<a class="sourceLine" id="cb4-5" title="5"></a>
+<a class="sourceLine" id="cb4-6" title="6">fhat_unif &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;box&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb4-7" title="7"><span class="kw">plot</span>(fhat_unif, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a>
+<a class="sourceLine" id="cb4-8" title="8"></a>
+<a class="sourceLine" id="cb4-9" title="9">fhat_epanech &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;epanech&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb4-10" title="10"><span class="kw">plot</span>(fhat_epanech, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a>
+<a class="sourceLine" id="cb4-11" title="11"></a>
+<a class="sourceLine" id="cb4-12" title="12">fhat_biweight &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;biweight&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb4-13" title="13"><span class="kw">plot</span>(fhat_biweight, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a>
+<a class="sourceLine" id="cb4-14" title="14"></a>
+<a class="sourceLine" id="cb4-15" title="15">fhat_triweight &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;triweight&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.05</span>)</a>
+<a class="sourceLine" id="cb4-16" title="16"><span class="kw">plot</span>(fhat_triweight, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-42-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-42-2.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-42-3.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-42-4.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-42-5.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="efecto-del-ancho-de-banda-en-la-estimación" class="section level3">
 <h3><span class="header-section-number">2.5.2</span> Efecto del ancho de banda en la estimación</h3>
 <p>** Kernel uniforme **</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1">fhat &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;box&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.001</span>)</a>
-<a class="sourceLine" id="cb9-2" title="2"><span class="kw">plot</span>(fhat, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-43-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">fhat &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;box&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb10-2" title="2"><span class="kw">plot</span>(fhat, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-43-2.svg" width="672" /></p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb5-1" title="1">fhat &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;box&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.001</span>)</a>
+<a class="sourceLine" id="cb5-2" title="2"><span class="kw">plot</span>(fhat, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a>
+<a class="sourceLine" id="cb5-3" title="3"></a>
+<a class="sourceLine" id="cb5-4" title="4">fhat &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;box&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb5-5" title="5"><span class="kw">plot</span>(fhat, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-43-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-43-2.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>** Kernel Epanechnikov **</p>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">fhat &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.001</span>)</a>
-<a class="sourceLine" id="cb11-2" title="2"><span class="kw">plot</span>(fhat, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-44-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">fhat &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb12-2" title="2"><span class="kw">plot</span>(fhat, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-44-2.svg" width="672" /></p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1"><span class="kw">suppressMessages</span>(<span class="kw">library</span>(tidyverse))</a>
-<a class="sourceLine" id="cb13-2" title="2"><span class="kw">library</span>(gganimate)</a>
-<a class="sourceLine" id="cb13-3" title="3"></a>
-<a class="sourceLine" id="cb13-4" title="4">fani &lt;-<span class="st"> </span><span class="kw">tibble</span>()</a>
-<a class="sourceLine" id="cb13-5" title="5"></a>
-<a class="sourceLine" id="cb13-6" title="6"><span class="cf">for</span> (b <span class="cf">in</span> <span class="kw">seq</span>(<span class="fl">0.001</span>, <span class="fl">0.02</span>, <span class="dt">length.out =</span> <span class="dv">40</span>)) {</a>
-<a class="sourceLine" id="cb13-7" title="7">    f &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">bandwidth =</span> b, <span class="dt">gridsize =</span> <span class="kw">length</span>(x))</a>
-<a class="sourceLine" id="cb13-8" title="8">    fani &lt;-<span class="st"> </span>fani <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">bind_rows</span>(<span class="kw">tibble</span>(<span class="dt">xreal =</span> <span class="kw">sort</span>(x), </a>
-<a class="sourceLine" id="cb13-9" title="9">        <span class="dt">x =</span> f<span class="op">$</span>x, <span class="dt">y =</span> f<span class="op">$</span>y, <span class="dt">bw =</span> b))</a>
-<a class="sourceLine" id="cb13-10" title="10">}</a>
-<a class="sourceLine" id="cb13-11" title="11"></a>
-<a class="sourceLine" id="cb13-12" title="12"><span class="kw">ggplot</span>(<span class="dt">data =</span> fani) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb13-13" title="13"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste0</span>(<span class="st">&quot;Ancho de banda = {closest_state}&quot;</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb13-14" title="14"><span class="st">    </span><span class="kw">transition_states</span>(bw) <span class="op">+</span><span class="st"> </span><span class="kw">view_follow</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb6-1" title="1">fhat &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.001</span>)</a>
+<a class="sourceLine" id="cb6-2" title="2"><span class="kw">plot</span>(fhat, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a>
+<a class="sourceLine" id="cb6-3" title="3"></a>
+<a class="sourceLine" id="cb6-4" title="4">fhat &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">bandwidth =</span> <span class="fl">0.5</span>)</a>
+<a class="sourceLine" id="cb6-5" title="5"><span class="kw">plot</span>(fhat, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-44-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-44-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb7-1" title="1"><span class="kw">suppressMessages</span>(<span class="kw">library</span>(tidyverse))</a>
+<a class="sourceLine" id="cb7-2" title="2"><span class="kw">library</span>(gganimate)</a>
+<a class="sourceLine" id="cb7-3" title="3"></a>
+<a class="sourceLine" id="cb7-4" title="4">fani &lt;-<span class="st"> </span><span class="kw">tibble</span>()</a>
+<a class="sourceLine" id="cb7-5" title="5"></a>
+<a class="sourceLine" id="cb7-6" title="6"><span class="cf">for</span> (b <span class="cf">in</span> <span class="kw">seq</span>(<span class="fl">0.001</span>, <span class="fl">0.02</span>, <span class="dt">length.out =</span> <span class="dv">40</span>)) {</a>
+<a class="sourceLine" id="cb7-7" title="7">    f &lt;-<span class="st"> </span><span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">bandwidth =</span> b, <span class="dt">gridsize =</span> <span class="kw">length</span>(x))</a>
+<a class="sourceLine" id="cb7-8" title="8">    fani &lt;-<span class="st"> </span>fani <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">bind_rows</span>(<span class="kw">tibble</span>(<span class="dt">xreal =</span> <span class="kw">sort</span>(x), </a>
+<a class="sourceLine" id="cb7-9" title="9">        <span class="dt">x =</span> f<span class="op">$</span>x, <span class="dt">y =</span> f<span class="op">$</span>y, <span class="dt">bw =</span> b))</a>
+<a class="sourceLine" id="cb7-10" title="10">}</a>
+<a class="sourceLine" id="cb7-11" title="11"></a>
+<a class="sourceLine" id="cb7-12" title="12"><span class="kw">ggplot</span>(<span class="dt">data =</span> fani) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-13" title="13"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste0</span>(<span class="st">&quot;Ancho de banda = {closest_state}&quot;</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb7-14" title="14"><span class="st">    </span><span class="kw">transition_states</span>(bw) <span class="op">+</span><span class="st"> </span><span class="kw">view_follow</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
 <pre><code>## Error in device(files[i], ...): unused arguments (units = &quot;in&quot;, res = 192)</code></pre>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1"><span class="co"># anim_save(&#39;manual_figure/bandwidth-animation.gif&#39;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb9-1" title="1"><span class="co"># anim_save(&#39;manual_figure/bandwidth-animation.gif&#39;)</span></a></code></pre></div>
 <!-- \includemedia[ -->
 <!-- label=bandwidth, -->
 <!-- width=0.6\linewidth,height=0.45\linewidth, -->
@@ -980,36 +990,36 @@ Existe una versión más general para determinar la banda de confianza de toda l
 - Dibuje en el mismo gráfico la estimación paramétrica y no paramétrica.</p>
 </div>
 
-<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb16-1" title="1">x &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/stockres.txt&quot;</span>)</a>
-<a class="sourceLine" id="cb16-2" title="2">x &lt;-<span class="st"> </span><span class="kw">unlist</span>(x)</a>
-<a class="sourceLine" id="cb16-3" title="3"><span class="co"># Eliminar nombres de las columnas</span></a>
-<a class="sourceLine" id="cb16-4" title="4"><span class="kw">names</span>(x) &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb16-5" title="5"></a>
-<a class="sourceLine" id="cb16-6" title="6">u &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">0.15</span>, <span class="fl">0.15</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</a>
-<a class="sourceLine" id="cb16-7" title="7"></a>
-<a class="sourceLine" id="cb16-8" title="8">mu &lt;-<span class="st"> </span><span class="kw">mean</span>(x)</a>
-<a class="sourceLine" id="cb16-9" title="9">sigma &lt;-<span class="st"> </span><span class="kw">sd</span>(x)</a>
-<a class="sourceLine" id="cb16-10" title="10"></a>
-<a class="sourceLine" id="cb16-11" title="11">f_param &lt;-<span class="st"> </span><span class="kw">dnorm</span>(u, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)</a>
-<a class="sourceLine" id="cb16-12" title="12"></a>
-<a class="sourceLine" id="cb16-13" title="13">h &lt;-<span class="st"> </span><span class="fl">0.02</span></a>
-<a class="sourceLine" id="cb16-14" title="14"></a>
-<a class="sourceLine" id="cb16-15" title="15">n_bins &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="kw">diff</span>(<span class="kw">range</span>(x))<span class="op">/</span>h)</a>
-<a class="sourceLine" id="cb16-16" title="16"></a>
-<a class="sourceLine" id="cb16-17" title="17">f_hist &lt;-<span class="st"> </span><span class="kw">hist</span>(x, <span class="dt">breaks =</span> n_bins)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-47-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">f_epa &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">bandwidth =</span> h))</a>
-<a class="sourceLine" id="cb17-2" title="2"></a>
-<a class="sourceLine" id="cb17-3" title="3">x_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x)</a>
-<a class="sourceLine" id="cb17-4" title="4"></a>
-<a class="sourceLine" id="cb17-5" title="5"><span class="kw">library</span>(ggplot2)</a>
-<a class="sourceLine" id="cb17-6" title="6"></a>
-<a class="sourceLine" id="cb17-7" title="7"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
-<a class="sourceLine" id="cb17-8" title="8">    <span class="dt">binwidth =</span> <span class="fl">0.02</span>, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb17-9" title="9"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
-<a class="sourceLine" id="cb17-10" title="10">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> f_epa, </a>
-<a class="sourceLine" id="cb17-11" title="11">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-47-2.svg" width="672" /></p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb10-1" title="1">x &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/stockres.txt&quot;</span>)</a>
+<a class="sourceLine" id="cb10-2" title="2">x &lt;-<span class="st"> </span><span class="kw">unlist</span>(x)</a>
+<a class="sourceLine" id="cb10-3" title="3"><span class="co"># Eliminar nombres de las columnas</span></a>
+<a class="sourceLine" id="cb10-4" title="4"><span class="kw">names</span>(x) &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb10-5" title="5"></a>
+<a class="sourceLine" id="cb10-6" title="6">u &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">0.15</span>, <span class="fl">0.15</span>, <span class="dt">by =</span> <span class="fl">0.01</span>)</a>
+<a class="sourceLine" id="cb10-7" title="7"></a>
+<a class="sourceLine" id="cb10-8" title="8">mu &lt;-<span class="st"> </span><span class="kw">mean</span>(x)</a>
+<a class="sourceLine" id="cb10-9" title="9">sigma &lt;-<span class="st"> </span><span class="kw">sd</span>(x)</a>
+<a class="sourceLine" id="cb10-10" title="10"></a>
+<a class="sourceLine" id="cb10-11" title="11">f_param &lt;-<span class="st"> </span><span class="kw">dnorm</span>(u, <span class="dt">mean =</span> mu, <span class="dt">sd =</span> sigma)</a>
+<a class="sourceLine" id="cb10-12" title="12"></a>
+<a class="sourceLine" id="cb10-13" title="13">h &lt;-<span class="st"> </span><span class="fl">0.02</span></a>
+<a class="sourceLine" id="cb10-14" title="14"></a>
+<a class="sourceLine" id="cb10-15" title="15">n_bins &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="kw">diff</span>(<span class="kw">range</span>(x))<span class="op">/</span>h)</a>
+<a class="sourceLine" id="cb10-16" title="16"></a>
+<a class="sourceLine" id="cb10-17" title="17">f_hist &lt;-<span class="st"> </span><span class="kw">hist</span>(x, <span class="dt">breaks =</span> n_bins)</a>
+<a class="sourceLine" id="cb10-18" title="18"></a>
+<a class="sourceLine" id="cb10-19" title="19">f_epa &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">bandwidth =</span> h))</a>
+<a class="sourceLine" id="cb10-20" title="20"></a>
+<a class="sourceLine" id="cb10-21" title="21">x_df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(x)</a>
+<a class="sourceLine" id="cb10-22" title="22"></a>
+<a class="sourceLine" id="cb10-23" title="23"><span class="kw">library</span>(ggplot2)</a>
+<a class="sourceLine" id="cb10-24" title="24"></a>
+<a class="sourceLine" id="cb10-25" title="25"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
+<a class="sourceLine" id="cb10-26" title="26">    <span class="dt">binwidth =</span> <span class="fl">0.02</span>, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb10-27" title="27"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
+<a class="sourceLine" id="cb10-28" title="28">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> f_epa, </a>
+<a class="sourceLine" id="cb10-29" title="29">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-47-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-47-2.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="ancho-de-banda-óptimo-1" class="section level3">
 <h3><span class="header-section-number">2.5.3</span> Ancho de banda óptimo</h3>
@@ -1033,62 +1043,62 @@ h_{normal} = \left( \frac{4 s^5}{3n} \right)^{1/5} \approx 1.06 s n^{-1/5}.
 h_{normal} =  1.06 \min \left\{ s , \frac{IQR}{1.34} \right\} n^{-1/5}.
 \]</span></p>
 <p>¿Por qué es <span class="math inline">\(IQR / 1.34\)</span>?</p>
-<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">s &lt;-<span class="st"> </span><span class="kw">sd</span>(x)</a>
-<a class="sourceLine" id="cb18-2" title="2">n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a></code></pre></div>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">h_normal &lt;-<span class="st"> </span><span class="fl">1.06</span> <span class="op">*</span><span class="st"> </span>s <span class="op">*</span><span class="st"> </span>n<span class="op">^</span>(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb19-2" title="2"></a>
-<a class="sourceLine" id="cb19-3" title="3">h &lt;-<span class="st"> </span>h_normal</a>
-<a class="sourceLine" id="cb19-4" title="4"></a>
-<a class="sourceLine" id="cb19-5" title="5">n_bins &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="kw">diff</span>(<span class="kw">range</span>(x))<span class="op">/</span>h)</a>
-<a class="sourceLine" id="cb19-6" title="6">f_hist &lt;-<span class="st"> </span><span class="kw">hist</span>(x, <span class="dt">breaks =</span> n_bins, <span class="dt">plot =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb19-7" title="7">f_epa &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">bandwidth =</span> h))</a>
-<a class="sourceLine" id="cb19-8" title="8"></a>
-<a class="sourceLine" id="cb19-9" title="9"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
-<a class="sourceLine" id="cb19-10" title="10">    <span class="dt">binwidth =</span> h, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb19-11" title="11"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
-<a class="sourceLine" id="cb19-12" title="12">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> f_epa, </a>
-<a class="sourceLine" id="cb19-13" title="13">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-49-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb20-1" title="1">h_iqr &lt;-<span class="st"> </span><span class="fl">1.06</span> <span class="op">*</span><span class="st"> </span><span class="kw">min</span>(s, <span class="kw">IQR</span>(x)<span class="op">/</span><span class="fl">1.34</span>) <span class="op">*</span><span class="st"> </span>n<span class="op">^</span>(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">5</span>)</a>
-<a class="sourceLine" id="cb20-2" title="2"></a>
-<a class="sourceLine" id="cb20-3" title="3">h &lt;-<span class="st"> </span>h_iqr</a>
-<a class="sourceLine" id="cb20-4" title="4"></a>
-<a class="sourceLine" id="cb20-5" title="5">n_bins &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="kw">diff</span>(<span class="kw">range</span>(x))<span class="op">/</span>h)</a>
-<a class="sourceLine" id="cb20-6" title="6">f_hist &lt;-<span class="st"> </span><span class="kw">hist</span>(x, <span class="dt">breaks =</span> n_bins, <span class="dt">plot =</span> <span class="ot">FALSE</span>)</a>
-<a class="sourceLine" id="cb20-7" title="7">f_epa &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">bandwidth =</span> h))</a>
-<a class="sourceLine" id="cb20-8" title="8"></a>
-<a class="sourceLine" id="cb20-9" title="9"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
-<a class="sourceLine" id="cb20-10" title="10">    <span class="dt">binwidth =</span> h, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb20-11" title="11"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
-<a class="sourceLine" id="cb20-12" title="12">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> f_epa, </a>
-<a class="sourceLine" id="cb20-13" title="13">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-50-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb11-1" title="1">s &lt;-<span class="st"> </span><span class="kw">sd</span>(x)</a>
+<a class="sourceLine" id="cb11-2" title="2">n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb12-1" title="1">h_normal &lt;-<span class="st"> </span><span class="fl">1.06</span> <span class="op">*</span><span class="st"> </span>s <span class="op">*</span><span class="st"> </span>n<span class="op">^</span>(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb12-2" title="2"></a>
+<a class="sourceLine" id="cb12-3" title="3">h &lt;-<span class="st"> </span>h_normal</a>
+<a class="sourceLine" id="cb12-4" title="4"></a>
+<a class="sourceLine" id="cb12-5" title="5">n_bins &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="kw">diff</span>(<span class="kw">range</span>(x))<span class="op">/</span>h)</a>
+<a class="sourceLine" id="cb12-6" title="6">f_hist &lt;-<span class="st"> </span><span class="kw">hist</span>(x, <span class="dt">breaks =</span> n_bins, <span class="dt">plot =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb12-7" title="7">f_epa &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">bandwidth =</span> h))</a>
+<a class="sourceLine" id="cb12-8" title="8"></a>
+<a class="sourceLine" id="cb12-9" title="9"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
+<a class="sourceLine" id="cb12-10" title="10">    <span class="dt">binwidth =</span> h, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb12-11" title="11"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
+<a class="sourceLine" id="cb12-12" title="12">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> f_epa, </a>
+<a class="sourceLine" id="cb12-13" title="13">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-49-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb13-1" title="1">h_iqr &lt;-<span class="st"> </span><span class="fl">1.06</span> <span class="op">*</span><span class="st"> </span><span class="kw">min</span>(s, <span class="kw">IQR</span>(x)<span class="op">/</span><span class="fl">1.34</span>) <span class="op">*</span><span class="st"> </span>n<span class="op">^</span>(<span class="op">-</span><span class="dv">1</span><span class="op">/</span><span class="dv">5</span>)</a>
+<a class="sourceLine" id="cb13-2" title="2"></a>
+<a class="sourceLine" id="cb13-3" title="3">h &lt;-<span class="st"> </span>h_iqr</a>
+<a class="sourceLine" id="cb13-4" title="4"></a>
+<a class="sourceLine" id="cb13-5" title="5">n_bins &lt;-<span class="st"> </span><span class="kw">floor</span>(<span class="kw">diff</span>(<span class="kw">range</span>(x))<span class="op">/</span>h)</a>
+<a class="sourceLine" id="cb13-6" title="6">f_hist &lt;-<span class="st"> </span><span class="kw">hist</span>(x, <span class="dt">breaks =</span> n_bins, <span class="dt">plot =</span> <span class="ot">FALSE</span>)</a>
+<a class="sourceLine" id="cb13-7" title="7">f_epa &lt;-<span class="st"> </span><span class="kw">as.data.frame</span>(<span class="kw">bkde</span>(x, <span class="dt">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">bandwidth =</span> h))</a>
+<a class="sourceLine" id="cb13-8" title="8"></a>
+<a class="sourceLine" id="cb13-9" title="9"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
+<a class="sourceLine" id="cb13-10" title="10">    <span class="dt">binwidth =</span> h, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb13-11" title="11"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
+<a class="sourceLine" id="cb13-12" title="12">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> f_epa, </a>
+<a class="sourceLine" id="cb13-13" title="13">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-50-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Una librería más especializada es  (non-parametric).</p>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1"><span class="kw">library</span>(np)</a>
-<a class="sourceLine" id="cb21-2" title="2"></a>
-<a class="sourceLine" id="cb21-3" title="3">x.eval &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="dt">length.out =</span> <span class="dv">200</span>)</a>
-<a class="sourceLine" id="cb21-4" title="4"></a>
-<a class="sourceLine" id="cb21-5" title="5">h_normal_np &lt;-<span class="st"> </span><span class="kw">npudensbw</span>(<span class="dt">dat =</span> x, <span class="dt">bwmethod =</span> <span class="st">&quot;normal-reference&quot;</span>)</a>
-<a class="sourceLine" id="cb21-6" title="6"></a>
-<a class="sourceLine" id="cb21-7" title="7">dens.ksum &lt;-<span class="st"> </span><span class="kw">npksum</span>(<span class="dt">txdat =</span> x, <span class="dt">exdat =</span> x.eval, <span class="dt">bws =</span> h_normal_np<span class="op">$</span>bw)<span class="op">$</span>ksum<span class="op">/</span>(n <span class="op">*</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb21-8" title="8"><span class="st">    </span>h_normal_np<span class="op">$</span>bw[<span class="dv">1</span>])</a>
-<a class="sourceLine" id="cb21-9" title="9"></a>
-<a class="sourceLine" id="cb21-10" title="10">dens.ksum.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x.eval, <span class="dt">y =</span> dens.ksum)</a>
-<a class="sourceLine" id="cb21-11" title="11"></a>
-<a class="sourceLine" id="cb21-12" title="12"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
-<a class="sourceLine" id="cb21-13" title="13">    <span class="dt">binwidth =</span> h_normal_np<span class="op">$</span>bw, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb21-14" title="14"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
-<a class="sourceLine" id="cb21-15" title="15">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> dens.ksum.df, </a>
-<a class="sourceLine" id="cb21-16" title="16">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-51-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb14-1" title="1"><span class="kw">library</span>(np)</a>
+<a class="sourceLine" id="cb14-2" title="2"></a>
+<a class="sourceLine" id="cb14-3" title="3">x.eval &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.2</span>, <span class="dt">length.out =</span> <span class="dv">200</span>)</a>
+<a class="sourceLine" id="cb14-4" title="4"></a>
+<a class="sourceLine" id="cb14-5" title="5">h_normal_np &lt;-<span class="st"> </span><span class="kw">npudensbw</span>(<span class="dt">dat =</span> x, <span class="dt">bwmethod =</span> <span class="st">&quot;normal-reference&quot;</span>)</a>
+<a class="sourceLine" id="cb14-6" title="6"></a>
+<a class="sourceLine" id="cb14-7" title="7">dens.ksum &lt;-<span class="st"> </span><span class="kw">npksum</span>(<span class="dt">txdat =</span> x, <span class="dt">exdat =</span> x.eval, <span class="dt">bws =</span> h_normal_np<span class="op">$</span>bw)<span class="op">$</span>ksum<span class="op">/</span>(n <span class="op">*</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-8" title="8"><span class="st">    </span>h_normal_np<span class="op">$</span>bw[<span class="dv">1</span>])</a>
+<a class="sourceLine" id="cb14-9" title="9"></a>
+<a class="sourceLine" id="cb14-10" title="10">dens.ksum.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> x.eval, <span class="dt">y =</span> dens.ksum)</a>
+<a class="sourceLine" id="cb14-11" title="11"></a>
+<a class="sourceLine" id="cb14-12" title="12"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
+<a class="sourceLine" id="cb14-13" title="13">    <span class="dt">binwidth =</span> h_normal_np<span class="op">$</span>bw, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb14-14" title="14"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
+<a class="sourceLine" id="cb14-15" title="15">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> dens.ksum.df, </a>
+<a class="sourceLine" id="cb14-16" title="16">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-51-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="validación-cruzada-1" class="section level3">
 <h3><span class="header-section-number">2.5.4</span> Validación cruzada</h3>
 <p>La forma que vimos en clase es la de validación cruzada por mínimos
 cuadrados``least-square cross validation’’ la cual se puede ejecutar
 con este comando.</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">h_cv_np_ls &lt;-<span class="st"> </span><span class="kw">npudensbw</span>(<span class="dt">dat =</span> x, <span class="dt">bwmethod =</span> <span class="st">&quot;cv.ls&quot;</span>, </a>
-<a class="sourceLine" id="cb22-2" title="2">    <span class="dt">ckertype =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">ckerorder =</span> <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb15-1" title="1">h_cv_np_ls &lt;-<span class="st"> </span><span class="kw">npudensbw</span>(<span class="dt">dat =</span> x, <span class="dt">bwmethod =</span> <span class="st">&quot;cv.ls&quot;</span>, </a>
+<a class="sourceLine" id="cb15-2" title="2">    <span class="dt">ckertype =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">ckerorder =</span> <span class="dv">2</span>)</a></code></pre></div>
 <pre><code>## 
 Multistart 1 of 1 |
 Multistart 1 of 1 |
@@ -1097,26 +1107,26 @@ Multistart 1 of 1 /
 Multistart 1 of 1 |
 Multistart 1 of 1 |
                    </code></pre>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb24-1" title="1">dens.np &lt;-<span class="st"> </span><span class="kw">npudens</span>(h_cv_np_ls)</a>
-<a class="sourceLine" id="cb24-2" title="2"></a>
-<a class="sourceLine" id="cb24-3" title="3"><span class="kw">plot</span>(dens.np, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-52-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1">dens.np.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> dens.np<span class="op">$</span>eval[, <span class="dv">1</span>], <span class="dt">y =</span> dens.np<span class="op">$</span>dens)</a>
-<a class="sourceLine" id="cb25-2" title="2"></a>
-<a class="sourceLine" id="cb25-3" title="3"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
-<a class="sourceLine" id="cb25-4" title="4">    <span class="dt">binwidth =</span> h_cv_np_ls<span class="op">$</span>bw, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb25-5" title="5"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
-<a class="sourceLine" id="cb25-6" title="6">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> dens.np.df, </a>
-<a class="sourceLine" id="cb25-7" title="7">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-53-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb17-1" title="1">dens.np &lt;-<span class="st"> </span><span class="kw">npudens</span>(h_cv_np_ls)</a>
+<a class="sourceLine" id="cb17-2" title="2"></a>
+<a class="sourceLine" id="cb17-3" title="3"><span class="kw">plot</span>(dens.np, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-52-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb18"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb18-1" title="1">dens.np.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> dens.np<span class="op">$</span>eval[, <span class="dv">1</span>], <span class="dt">y =</span> dens.np<span class="op">$</span>dens)</a>
+<a class="sourceLine" id="cb18-2" title="2"></a>
+<a class="sourceLine" id="cb18-3" title="3"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
+<a class="sourceLine" id="cb18-4" title="4">    <span class="dt">binwidth =</span> h_cv_np_ls<span class="op">$</span>bw, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb18-5" title="5"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
+<a class="sourceLine" id="cb18-6" title="6">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> dens.np.df, </a>
+<a class="sourceLine" id="cb18-7" title="7">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-53-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="temas-adicionales" class="section level3">
 <h3><span class="header-section-number">2.5.5</span> Temas adicionales</h3>
 <p>** Reducción del sesgo **
 Como lo mencionamos en el texto, una forma de mejorar el sesgo en la estimación es suponer que la función de densidad es más veces diferenciable.</p>
 <p>Esto se logra asumiendo que el Kernel es más veces diferenciable.</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">h_cv_np_ls &lt;-<span class="st"> </span><span class="kw">npudensbw</span>(<span class="dt">dat =</span> x, <span class="dt">bwmethod =</span> <span class="st">&quot;cv.ls&quot;</span>, </a>
-<a class="sourceLine" id="cb26-2" title="2">    <span class="dt">ckertype =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">ckerorder =</span> <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb19-1" title="1">h_cv_np_ls &lt;-<span class="st"> </span><span class="kw">npudensbw</span>(<span class="dt">dat =</span> x, <span class="dt">bwmethod =</span> <span class="st">&quot;cv.ls&quot;</span>, </a>
+<a class="sourceLine" id="cb19-2" title="2">    <span class="dt">ckertype =</span> <span class="st">&quot;epa&quot;</span>, <span class="dt">ckerorder =</span> <span class="dv">4</span>)</a></code></pre></div>
 <pre><code>## 
 Multistart 1 of 1 |
 Multistart 1 of 1 |
@@ -1125,21 +1135,21 @@ Multistart 1 of 1 /
 Multistart 1 of 1 |
 Multistart 1 of 1 |
                    </code></pre>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb28-1" title="1">dens.np &lt;-<span class="st"> </span><span class="kw">npudens</span>(h_cv_np_ls)</a>
-<a class="sourceLine" id="cb28-2" title="2"></a>
-<a class="sourceLine" id="cb28-3" title="3"><span class="kw">plot</span>(dens.np, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-54-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">dens.np.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> dens.np<span class="op">$</span>eval[, <span class="dv">1</span>], <span class="dt">y =</span> dens.np<span class="op">$</span>dens)</a>
-<a class="sourceLine" id="cb29-2" title="2"></a>
-<a class="sourceLine" id="cb29-3" title="3"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
-<a class="sourceLine" id="cb29-4" title="4">    <span class="dt">binwidth =</span> h_cv_np_ls<span class="op">$</span>bw, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb29-5" title="5"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
-<a class="sourceLine" id="cb29-6" title="6">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> dens.np.df, </a>
-<a class="sourceLine" id="cb29-7" title="7">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-55-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb21-1" title="1">dens.np &lt;-<span class="st"> </span><span class="kw">npudens</span>(h_cv_np_ls)</a>
+<a class="sourceLine" id="cb21-2" title="2"></a>
+<a class="sourceLine" id="cb21-3" title="3"><span class="kw">plot</span>(dens.np, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>, <span class="dt">lwd =</span> <span class="dv">2</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-54-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb22-1" title="1">dens.np.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> dens.np<span class="op">$</span>eval[, <span class="dv">1</span>], <span class="dt">y =</span> dens.np<span class="op">$</span>dens)</a>
+<a class="sourceLine" id="cb22-2" title="2"></a>
+<a class="sourceLine" id="cb22-3" title="3"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
+<a class="sourceLine" id="cb22-4" title="4">    <span class="dt">binwidth =</span> h_cv_np_ls<span class="op">$</span>bw, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb22-5" title="5"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
+<a class="sourceLine" id="cb22-6" title="6">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> dens.np.df, </a>
+<a class="sourceLine" id="cb22-7" title="7">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-55-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Otra forma de estimar el ancho de banda</strong> Otra forma de estimar ancho de bandas óptimos es usando máxima verosimilitud. Les dejo de tarea revisar la sección 1.1 del artículo de <span class="citation">(Hall <a href="#ref-Hall1987">1987</a>)</span> para entender su estructura.</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1">h_cv_np_ml &lt;-<span class="st"> </span><span class="kw">npudensbw</span>(<span class="dt">dat =</span> x, <span class="dt">bwmethod =</span> <span class="st">&quot;cv.ml&quot;</span>, </a>
-<a class="sourceLine" id="cb30-2" title="2">    <span class="dt">ckertype =</span> <span class="st">&quot;epanechnikov&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb23-1" title="1">h_cv_np_ml &lt;-<span class="st"> </span><span class="kw">npudensbw</span>(<span class="dt">dat =</span> x, <span class="dt">bwmethod =</span> <span class="st">&quot;cv.ml&quot;</span>, </a>
+<a class="sourceLine" id="cb23-2" title="2">    <span class="dt">ckertype =</span> <span class="st">&quot;epanechnikov&quot;</span>)</a></code></pre></div>
 <pre><code>## 
 Multistart 1 of 1 |
 Multistart 1 of 1 |
@@ -1148,20 +1158,20 @@ Multistart 1 of 1 /
 Multistart 1 of 1 |
 Multistart 1 of 1 |
                    </code></pre>
-<div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb32-1" title="1">dens.np &lt;-<span class="st"> </span><span class="kw">npudens</span>(h_cv_np_ml)</a>
-<a class="sourceLine" id="cb32-2" title="2"></a>
-<a class="sourceLine" id="cb32-3" title="3"><span class="kw">plot</span>(dens.np, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-56-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1">dens.np.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> dens.np<span class="op">$</span>eval[, <span class="dv">1</span>], <span class="dt">y =</span> dens.np<span class="op">$</span>dens)</a>
-<a class="sourceLine" id="cb33-2" title="2"></a>
-<a class="sourceLine" id="cb33-3" title="3"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
-<a class="sourceLine" id="cb33-4" title="4">    <span class="dt">binwidth =</span> h_cv_np_ml<span class="op">$</span>bw, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb33-5" title="5"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
-<a class="sourceLine" id="cb33-6" title="6">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> dens.np.df, </a>
-<a class="sourceLine" id="cb33-7" title="7">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-57-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1">h_cv_np_ml &lt;-<span class="st"> </span><span class="kw">npudensbw</span>(<span class="dt">dat =</span> x, <span class="dt">bwmethod =</span> <span class="st">&quot;cv.ml&quot;</span>, </a>
-<a class="sourceLine" id="cb34-2" title="2">    <span class="dt">ckertype =</span> <span class="st">&quot;epanechnikov&quot;</span>, <span class="dt">ckerorder =</span> <span class="dv">4</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb25-1" title="1">dens.np &lt;-<span class="st"> </span><span class="kw">npudens</span>(h_cv_np_ml)</a>
+<a class="sourceLine" id="cb25-2" title="2"></a>
+<a class="sourceLine" id="cb25-3" title="3"><span class="kw">plot</span>(dens.np, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-56-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb26-1" title="1">dens.np.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> dens.np<span class="op">$</span>eval[, <span class="dv">1</span>], <span class="dt">y =</span> dens.np<span class="op">$</span>dens)</a>
+<a class="sourceLine" id="cb26-2" title="2"></a>
+<a class="sourceLine" id="cb26-3" title="3"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
+<a class="sourceLine" id="cb26-4" title="4">    <span class="dt">binwidth =</span> h_cv_np_ml<span class="op">$</span>bw, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb26-5" title="5"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
+<a class="sourceLine" id="cb26-6" title="6">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> dens.np.df, </a>
+<a class="sourceLine" id="cb26-7" title="7">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-57-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb27-1" title="1">h_cv_np_ml &lt;-<span class="st"> </span><span class="kw">npudensbw</span>(<span class="dt">dat =</span> x, <span class="dt">bwmethod =</span> <span class="st">&quot;cv.ml&quot;</span>, </a>
+<a class="sourceLine" id="cb27-2" title="2">    <span class="dt">ckertype =</span> <span class="st">&quot;epanechnikov&quot;</span>, <span class="dt">ckerorder =</span> <span class="dv">4</span>)</a></code></pre></div>
 <pre><code>## 
 Multistart 1 of 1 |
 Multistart 1 of 1 |
@@ -1170,33 +1180,33 @@ Multistart 1 of 1 /
 Multistart 1 of 1 |
 Multistart 1 of 1 |
                    </code></pre>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">dens.np &lt;-<span class="st"> </span><span class="kw">npudens</span>(h_cv_np_ml)</a>
-<a class="sourceLine" id="cb36-2" title="2"></a>
-<a class="sourceLine" id="cb36-3" title="3"><span class="kw">plot</span>(dens.np, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-58-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">dens.np.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> dens.np<span class="op">$</span>eval[, <span class="dv">1</span>], <span class="dt">y =</span> dens.np<span class="op">$</span>dens)</a>
-<a class="sourceLine" id="cb37-2" title="2"></a>
-<a class="sourceLine" id="cb37-3" title="3"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
-<a class="sourceLine" id="cb37-4" title="4">    <span class="dt">binwidth =</span> h_cv_np_ml<span class="op">$</span>bw, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb37-5" title="5"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
-<a class="sourceLine" id="cb37-6" title="6">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> dens.np.df, </a>
-<a class="sourceLine" id="cb37-7" title="7">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-59-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1">fani &lt;-<span class="st"> </span><span class="kw">tibble</span>()</a>
-<a class="sourceLine" id="cb38-2" title="2"></a>
-<a class="sourceLine" id="cb38-3" title="3"><span class="cf">for</span> (b <span class="cf">in</span> <span class="kw">seq</span>(<span class="fl">0.001</span>, <span class="fl">0.05</span>, <span class="dt">length.out =</span> <span class="dv">40</span>)) {</a>
-<a class="sourceLine" id="cb38-4" title="4">    f &lt;-<span class="st"> </span><span class="kw">npudens</span>(<span class="dt">tdat =</span> x, <span class="dt">ckertype =</span> <span class="st">&quot;epanechnikov&quot;</span>, </a>
-<a class="sourceLine" id="cb38-5" title="5">        <span class="dt">bandwidth.compute =</span> <span class="ot">FALSE</span>, <span class="dt">bws =</span> b)</a>
-<a class="sourceLine" id="cb38-6" title="6">    fani &lt;-<span class="st"> </span>fani <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">bind_rows</span>(<span class="kw">tibble</span>(<span class="dt">xreal =</span> <span class="kw">sort</span>(x), </a>
-<a class="sourceLine" id="cb38-7" title="7">        <span class="dt">x =</span> f<span class="op">$</span>eval<span class="op">$</span>x, <span class="dt">y =</span> f<span class="op">$</span>dens, <span class="dt">bw =</span> b))</a>
-<a class="sourceLine" id="cb38-8" title="8">}</a>
-<a class="sourceLine" id="cb38-9" title="9"></a>
-<a class="sourceLine" id="cb38-10" title="10"><span class="kw">ggplot</span>(<span class="dt">data =</span> fani) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb38-11" title="11"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste0</span>(<span class="st">&quot;Ancho de banda = {closest_state}&quot;</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb38-12" title="12"><span class="st">    </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>) <span class="op">+</span><span class="st"> </span><span class="kw">transition_states</span>(bw) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb38-13" title="13"><span class="st">    </span><span class="kw">view_follow</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb29-1" title="1">dens.np &lt;-<span class="st"> </span><span class="kw">npudens</span>(h_cv_np_ml)</a>
+<a class="sourceLine" id="cb29-2" title="2"></a>
+<a class="sourceLine" id="cb29-3" title="3"><span class="kw">plot</span>(dens.np, <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-58-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb30-1" title="1">dens.np.df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> dens.np<span class="op">$</span>eval[, <span class="dv">1</span>], <span class="dt">y =</span> dens.np<span class="op">$</span>dens)</a>
+<a class="sourceLine" id="cb30-2" title="2"></a>
+<a class="sourceLine" id="cb30-3" title="3"><span class="kw">ggplot</span>(x_df, <span class="kw">aes</span>(x)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(<span class="dt">y =</span> ..density..), </a>
+<a class="sourceLine" id="cb30-4" title="4">    <span class="dt">binwidth =</span> h_cv_np_ml<span class="op">$</span>bw, <span class="dt">col =</span> <span class="st">&quot;black&quot;</span>, <span class="dt">fill =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb30-5" title="5"><span class="st">    </span><span class="kw">stat_function</span>(<span class="dt">fun =</span> dnorm, <span class="dt">args =</span> <span class="kw">list</span>(<span class="dt">mean =</span> mu, </a>
+<a class="sourceLine" id="cb30-6" title="6">        <span class="dt">sd =</span> sigma), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> dens.np.df, </a>
+<a class="sourceLine" id="cb30-7" title="7">    <span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-59-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb31-1" title="1">fani &lt;-<span class="st"> </span><span class="kw">tibble</span>()</a>
+<a class="sourceLine" id="cb31-2" title="2"></a>
+<a class="sourceLine" id="cb31-3" title="3"><span class="cf">for</span> (b <span class="cf">in</span> <span class="kw">seq</span>(<span class="fl">0.001</span>, <span class="fl">0.05</span>, <span class="dt">length.out =</span> <span class="dv">40</span>)) {</a>
+<a class="sourceLine" id="cb31-4" title="4">    f &lt;-<span class="st"> </span><span class="kw">npudens</span>(<span class="dt">tdat =</span> x, <span class="dt">ckertype =</span> <span class="st">&quot;epanechnikov&quot;</span>, </a>
+<a class="sourceLine" id="cb31-5" title="5">        <span class="dt">bandwidth.compute =</span> <span class="ot">FALSE</span>, <span class="dt">bws =</span> b)</a>
+<a class="sourceLine" id="cb31-6" title="6">    fani &lt;-<span class="st"> </span>fani <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">bind_rows</span>(<span class="kw">tibble</span>(<span class="dt">xreal =</span> <span class="kw">sort</span>(x), </a>
+<a class="sourceLine" id="cb31-7" title="7">        <span class="dt">x =</span> f<span class="op">$</span>eval<span class="op">$</span>x, <span class="dt">y =</span> f<span class="op">$</span>dens, <span class="dt">bw =</span> b))</a>
+<a class="sourceLine" id="cb31-8" title="8">}</a>
+<a class="sourceLine" id="cb31-9" title="9"></a>
+<a class="sourceLine" id="cb31-10" title="10"><span class="kw">ggplot</span>(<span class="dt">data =</span> fani) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x, y), <span class="dt">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb31-11" title="11"><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="kw">paste0</span>(<span class="st">&quot;Ancho de banda = {closest_state}&quot;</span>)) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb31-12" title="12"><span class="st">    </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">20</span>) <span class="op">+</span><span class="st"> </span><span class="kw">transition_states</span>(bw) <span class="op">+</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb31-13" title="13"><span class="st">    </span><span class="kw">view_follow</span>()</a></code></pre></div>
 <pre><code>## Error in device(files[i], ...): unused arguments (units = &quot;in&quot;, res = 192)</code></pre>
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1"><span class="co"># anim_save(&#39;manual_figure/bandwidth-animation-np.gif&#39;)</span></a></code></pre></div>
+<div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb33-1" title="1"><span class="co"># anim_save(&#39;manual_figure/bandwidth-animation-np.gif&#39;)</span></a></code></pre></div>
 <!-- \includemedia[ -->
 <!-- label=bandwidth, -->
 <!-- width=0.6\linewidth,height=0.45\linewidth, -->

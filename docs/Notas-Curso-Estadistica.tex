@@ -126,7 +126,6 @@
 \usepackage[spanish]{babel}
 \usepackage{booktabs}
 \usepackage{csquotes}
-\usepackage{bm}
 \usepackage{amsmath, amsthm, amssymb,amsbsy}
 \usepackage{mathtools}
 \usepackage{graphics, graphicx}
@@ -191,7 +190,7 @@
 
 \title{Notas Curso de Estadística}
 \author{Maikol Solís}
-\date{}
+\date{Actualizado el 25 mayo, 2020}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -243,19 +242,19 @@ Suponga que \(X_1,X_2, \dots ,X_n\) proviene de una distribución desconocida.
   Cuente cuántas observaciones caen en cada segmento. \(n_j\).
 \end{itemize}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/observaciones-histograma-1.pdf}
-- Cuente la frecuencia por el tamaño de muestra \(n\) y el ancho de banda \(h\).
-\begin{equation*}
-f_j = \frac{n_j}{nh}
-\end{equation*}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/observaciones-histograma-1} \end{center}
 
 \begin{itemize}
-\tightlist
+\item
+  Cuente la frecuencia por el tamaño de muestra \(n\) y el ancho de banda \(h\).
+  \begin{equation*}
+  f_j = \frac{n_j}{nh}
+  \end{equation*}
 \item
   Dibuje el histograma.
 \end{itemize}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/ejemplo-inicial-histograma-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/ejemplo-inicial-histograma-1} \end{center}
 
 Formalmente el histograma es el
 
@@ -271,16 +270,17 @@ donde \(I\) es la indicadora.
 Denote \(m_j=jh-h/2\) el centro del segmento,
 
 \begin{align*}
-\mathbb{P}\left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2} \right)\right) & =
-\int_{m_j - \frac{h}{2}}^{m_j + \frac{h}{2}} f(u)du                                             \\
-& \approx f(m_j)h
+    \mathbb{P}\left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2} \right)\right)
+      & =
+    \int_{m_j - \frac{h}{2}}^{m_j + \frac{h}{2}} f(u)du                                             \\
+      & \approx f(m_j)h
 \end{align*}
 
 Esto se puede aproximar como
 
 \begin{equation*}
-\mathbb{P} \left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right)  \approx   \frac{1}{n} \#
-\left\{X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right\}
+    \mathbb{P} \left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right)  \approx   \frac{1}{n} \#
+    \left\{X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right\}
 \end{equation*}
 
 Acomodando un poco la expresión
@@ -438,7 +438,7 @@ La fórmula anterior tiene la siguiente particularidad
 
 Note que la figura siguiente tiene esa propiedad.
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/MSE-histograma-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/MSE-histograma-1} \end{center}
 
 \hypertarget{error-cuadruxe1tico-medio-integrado}{%
 \subsection{Error cuadrático medio integrado}\label{error-cuadruxe1tico-medio-integrado}}
@@ -479,11 +479,18 @@ Además,
 
 El MISE tiene el mismo comportamiento que el MSE. La figura siguiente presenta el comportamiento de la varianza, sesgo y MISE para nuestro ejemplo.
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/MISE-histograma-1.pdf}
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/MISE-histograma-1} 
+
+}
+
+\caption{ }\label{fig:MISE-histograma}
+\end{figure}
 
 La mala elección del parámetro \(h\) causa que el histograma no capture toda la estructura de los datos.
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-8-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-8-1} \end{center}
 
 En este caso se puede simplemente minimizar el MISE de la forma usual,
 
@@ -514,10 +521,11 @@ y que por lo tanto
 
 Según la nota anterior la tasas de convergencia del histograma es más lenta que la de un estimador parámetrico considerando la misma cantidad de datos.
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-10-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 Finalmente, podemos encontrar el valor óptimo de esta datos dado por \(h=\)\texttt{h\_opt\_MISE}
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-12-1.pdf}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 \hypertarget{estimaciuxf3n-no-paramuxe9trica-de-densidad}{%
 \section{Estimación No-paramétrica de densidad}\label{estimaciuxf3n-no-paramuxe9trica-de-densidad}}
@@ -637,7 +645,7 @@ Por ejemplo:
   \textbf{Gausian:} \(\frac{1}{\sqrt{2\pi}} \exp \left( -\frac{1}{2}u^{2} \right)\).
 \end{itemize}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-16-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-16-1} \end{center}
 
 Entonces se tendría que la expresión general para un estimador por núcleos es
 
@@ -651,13 +659,13 @@ Entonces se tendría que la expresión general para un estimador por núcleos es
 
 Nuevamente sería el ancho de banda ya que
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-18-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-18-1} \end{center}
 
 \BeginKnitrBlock{remark}
 \iffalse{} {Nota: } \fi{}¿Qué pasaría si modificamos el kernel para un mismo ancho de banda \(h\)?
 \EndKnitrBlock{remark}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-20-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-20-1} \end{center}
 
 Recordemos nuevamente la fórmula
 
@@ -674,7 +682,7 @@ Cada sumando de esta expresión es una función por si misma. Si la integramos s
 = \frac{1}{n}
 \end{equation*}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-21-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 \hypertarget{propiedades-estaduxedsticas-1}{%
 \section{Propiedades Estadísticas}\label{propiedades-estaduxedsticas-1}}
@@ -772,7 +780,7 @@ $\int(f^{\prime\prime\prime}(x))dx<\infty$.}
 \end{align*}
 \EndKnitrBlock{solution}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-25-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-25-1} \end{center}
 
 \BeginKnitrBlock{remark}
 \iffalse{} {Nota: } \fi{}Note como los cambios en el ancho de banda modifican la suavidad (sesgo) y el aplanamiento de la curva (varianza).
@@ -815,7 +823,7 @@ Evaluando \(h_{opt}\) en el \(\mathrm{MISE}\) tenemos que
 \mathrm{MISE}(\hat{f}_{h})=\frac{5}{4}\left(\Vert K\Vert_{2}^{2}\right)^{4/5}\left(\Vert f^{\prime\prime}\Vert_{2}^{2}\mu_{2}(K)\right)^{2/5}n^{-4/5} = O\left( n^{-4/5} \right).
 \end{equation*}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-28-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-28-1} \end{center}
 
 \BeginKnitrBlock{remark}
 \iffalse{} {Nota: } \fi{}Formalmente, es posible probar que si \(f\) es \(\beta\) veces continuamente diferenciable y \(\int\left(f^{(\beta)}\right)^{2}<\infty\), entonces se tiene que
@@ -1076,46 +1084,22 @@ Comenzaremos con una librería bastante básica llamada \texttt{KernSmooth}.
 
 \NormalTok{fhat_normal <-}\StringTok{ }\KeywordTok{bkde}\NormalTok{(x, }\DataTypeTok{kernel =} \StringTok{"normal"}\NormalTok{, }\DataTypeTok{bandwidth =} \FloatTok{0.05}\NormalTok{)}
 \KeywordTok{plot}\NormalTok{(fhat_normal, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{fhat_unif <-}\StringTok{ }\KeywordTok{bkde}\NormalTok{(x, }\DataTypeTok{kernel =} \StringTok{"box"}\NormalTok{, }\DataTypeTok{bandwidth =} \FloatTok{0.05}\NormalTok{)}
 \KeywordTok{plot}\NormalTok{(fhat_unif, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-2.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{fhat_epanech <-}\StringTok{ }\KeywordTok{bkde}\NormalTok{(x, }\DataTypeTok{kernel =} \StringTok{"epanech"}\NormalTok{, }\DataTypeTok{bandwidth =} \FloatTok{0.05}\NormalTok{)}
 \KeywordTok{plot}\NormalTok{(fhat_epanech, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-3.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{fhat_biweight <-}\StringTok{ }\KeywordTok{bkde}\NormalTok{(x, }\DataTypeTok{kernel =} \StringTok{"biweight"}\NormalTok{, }\DataTypeTok{bandwidth =} \FloatTok{0.05}\NormalTok{)}
 \KeywordTok{plot}\NormalTok{(fhat_biweight, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-4.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{fhat_triweight <-}\StringTok{ }\KeywordTok{bkde}\NormalTok{(x, }\DataTypeTok{kernel =} \StringTok{"triweight"}\NormalTok{, }\DataTypeTok{bandwidth =} \FloatTok{0.05}\NormalTok{)}
 \KeywordTok{plot}\NormalTok{(fhat_triweight, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-5.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-2} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-3} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-4} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-5} \end{center}
 
 \hypertarget{efecto-del-ancho-de-banda-en-la-estimaciuxf3n}{%
 \subsection{Efecto del ancho de banda en la estimación}\label{efecto-del-ancho-de-banda-en-la-estimaciuxf3n}}
@@ -1126,19 +1110,13 @@ Comenzaremos con una librería bastante básica llamada \texttt{KernSmooth}.
 \begin{Highlighting}[]
 \NormalTok{fhat <-}\StringTok{ }\KeywordTok{bkde}\NormalTok{(x, }\DataTypeTok{kernel =} \StringTok{"box"}\NormalTok{, }\DataTypeTok{bandwidth =} \FloatTok{0.001}\NormalTok{)}
 \KeywordTok{plot}\NormalTok{(fhat, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{fhat <-}\StringTok{ }\KeywordTok{bkde}\NormalTok{(x, }\DataTypeTok{kernel =} \StringTok{"box"}\NormalTok{, }\DataTypeTok{bandwidth =} \FloatTok{0.5}\NormalTok{)}
 \KeywordTok{plot}\NormalTok{(fhat, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-2.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-2} \end{center}
 
 ** Kernel Epanechnikov **
 
@@ -1146,19 +1124,13 @@ Comenzaremos con una librería bastante básica llamada \texttt{KernSmooth}.
 \begin{Highlighting}[]
 \NormalTok{fhat <-}\StringTok{ }\KeywordTok{bkde}\NormalTok{(x, }\DataTypeTok{kernel =} \StringTok{"epa"}\NormalTok{, }\DataTypeTok{bandwidth =} \FloatTok{0.001}\NormalTok{)}
 \KeywordTok{plot}\NormalTok{(fhat, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{fhat <-}\StringTok{ }\KeywordTok{bkde}\NormalTok{(x, }\DataTypeTok{kernel =} \StringTok{"epa"}\NormalTok{, }\DataTypeTok{bandwidth =} \FloatTok{0.5}\NormalTok{)}
 \KeywordTok{plot}\NormalTok{(fhat, }\DataTypeTok{type =} \StringTok{"l"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-2.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-2} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1211,13 +1183,7 @@ Comenzaremos con una librería bastante básica llamada \texttt{KernSmooth}.
 \NormalTok{n_bins <-}\StringTok{ }\KeywordTok{floor}\NormalTok{(}\KeywordTok{diff}\NormalTok{(}\KeywordTok{range}\NormalTok{(x))}\OperatorTok{/}\NormalTok{h)}
 
 \NormalTok{f_hist <-}\StringTok{ }\KeywordTok{hist}\NormalTok{(x, }\DataTypeTok{breaks =}\NormalTok{ n_bins)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-47-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{f_epa <-}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(}\KeywordTok{bkde}\NormalTok{(x, }\DataTypeTok{kernel =} \StringTok{"epa"}\NormalTok{, }\DataTypeTok{bandwidth =}\NormalTok{ h))}
 
 \NormalTok{x_df <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(x)}
@@ -1232,7 +1198,7 @@ Comenzaremos con una librería bastante básica llamada \texttt{KernSmooth}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-47-2.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-47-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-47-2} \end{center}
 
 \hypertarget{ancho-de-banda-uxf3ptimo-1}{%
 \subsection{Ancho de banda óptimo}\label{ancho-de-banda-uxf3ptimo-1}}
@@ -1292,7 +1258,7 @@ h_{normal} =  1.06 \min \left\{ s , \frac{IQR}{1.34} \right\} n^{-1/5}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-49-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1312,7 +1278,7 @@ h_{normal} =  1.06 \min \left\{ s , \frac{IQR}{1.34} \right\} n^{-1/5}.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-50-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-50-1} \end{center}
 
 Una librería más especializada es \texttt{np} (non-parametric).
 
@@ -1337,7 +1303,7 @@ Una librería más especializada es \texttt{np} (non-parametric).
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-51-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-51-1} \end{center}
 
 \hypertarget{validaciuxf3n-cruzada-1}{%
 \subsection{Validación cruzada}\label{validaciuxf3n-cruzada-1}}
@@ -1365,7 +1331,7 @@ con este comando.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-52-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-52-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1379,7 +1345,7 @@ con este comando.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-53-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-53-1} \end{center}
 
 \hypertarget{temas-adicionales}{%
 \subsection{Temas adicionales}\label{temas-adicionales}}
@@ -1408,7 +1374,7 @@ Esto se logra asumiendo que el Kernel es más veces diferenciable.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-54-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-54-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1422,7 +1388,7 @@ Esto se logra asumiendo que el Kernel es más veces diferenciable.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-55-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-55-1} \end{center}
 
 \textbf{Otra forma de estimar el ancho de banda} Otra forma de estimar ancho de bandas óptimos es usando máxima verosimilitud. Les dejo de tarea revisar la sección 1.1 del artículo de \autocite{Hall1987} para entender su estructura.
 
@@ -1445,7 +1411,7 @@ Esto se logra asumiendo que el Kernel es más veces diferenciable.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-56-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-56-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1459,7 +1425,7 @@ Esto se logra asumiendo que el Kernel es más veces diferenciable.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-57-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-57-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1480,7 +1446,7 @@ Esto se logra asumiendo que el Kernel es más veces diferenciable.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-58-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-58-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1494,7 +1460,7 @@ Esto se logra asumiendo que el Kernel es más veces diferenciable.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-59-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-59-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1890,7 +1856,7 @@ reales,
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-78-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-78-1} \end{center}
 
 Con estos pseudo-valores, es posible estimar la media y la varianza de
 \(T_{n}\) con sus respectivos estimadores:
@@ -2097,7 +2063,7 @@ Así que basta cambiar el punto 1. del algoritmo mencionando anteriormente con
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-89-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-89-1} \end{center}
 
 Por supuesto podemos encontrar los estadísticos usuales para esta nueva muestra
 
@@ -2301,7 +2267,7 @@ Note que para este caso tenemos que hacer bootstrap para cada estimador bootstra
 \NormalTok{    Tboot_b[b] <-}\StringTok{ }\KeywordTok{var}\NormalTok{(xb)}
     \ControlFlowTok{for}\NormalTok{ (m }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{B) \{}
 \NormalTok{        xbm <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(xb, }\DataTypeTok{size =}\NormalTok{ n, }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
-\NormalTok{        Tboot_bm[b] <-}\StringTok{ }\KeywordTok{var}\NormalTok{(xbm)}
+\NormalTok{        Tboot_bm[m] <-}\StringTok{ }\KeywordTok{var}\NormalTok{(xbm)}
 \NormalTok{    \}}
 \NormalTok{    sdboot_b <-}\StringTok{ }\KeywordTok{sd}\NormalTok{(Tboot_bm)}
 \NormalTok{\}}
@@ -2312,7 +2278,7 @@ Note que para este caso tenemos que hacer bootstrap para cada estimador bootstra
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-103-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-103-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2323,7 +2289,7 @@ Note que para este caso tenemos que hacer bootstrap para cada estimador bootstra
 
 \begin{verbatim}
 ##    97.5%     2.5% 
-## 309.8684 521.6372
+## 226.7564 585.9580
 \end{verbatim}
 
 \texttt{}
@@ -2356,7 +2322,7 @@ Bootstrap Normal & 283.8315 & 574.6653\\
 \hline
 Bootstrap Pivotal & 271.2827 & 551.4989\\
 \hline
-Bootstrap Pivotal Estudentizado & 309.8684 & 521.6372\\
+Bootstrap Pivotal Estudentizado & 226.7564 & 585.9580\\
 \hline
 \end{tabular}
 
@@ -2503,7 +2469,7 @@ ejemplo:
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-107-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-107-1} \end{center}
 
 El paquete \texttt{LearnBayes} tiene la función \texttt{pdisc} que estima la
 distribución posterior para una previa discreta binomial. Recuerde que
@@ -2543,7 +2509,7 @@ Y podemos ver la diferencia entre la previa (negro) y la posterior
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-109-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-109-1} \end{center}
 
 ¿Qué se puede deducir de estos resultados?
 
@@ -2583,7 +2549,7 @@ Como solo se tiene la hora de dormir y la hora de despertarse, se debe tomar la 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-111-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-111-1} \end{center}
 
 Ahora supongamos que se tiene quiere ajustar una previa continua a este modelo. Para esto usaremos una distribución Beta con parámetros \(a\) y \(b\), de la forma
 
@@ -2628,7 +2594,7 @@ En este caso se obtendra la distribución posterior Beta con paramétros
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-113-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-113-1} \end{center}
 
 En particular, si estamos interesados en \(\mathbb{P}(p>=.5 | \text {  data })\) se puede estimar con
 
@@ -2664,7 +2630,7 @@ distribución beta y observar su comportamiento en los cuantiles
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-116-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-116-1} \end{center}
 
 La probabilidad que este valor sea mayor que 0.5 es
 
@@ -2740,7 +2706,7 @@ grilla.
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-120-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-120-1} \end{center}
 
 Luego recordando que nuestra posterior es \(beta(s+1,f+1)\) tenemos que
 
@@ -2751,7 +2717,7 @@ Luego recordando que nuestra posterior es \(beta(s+1,f+1)\) tenemos que
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-121-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-121-1} \end{center}
 
 Para conseguir la distribución posterior, solo debemos de construirla para una secuencia ordenada de valores \(p\)
 
@@ -2773,7 +2739,7 @@ Finalmente basta con tomar el muestreo de la posterior
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-123-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-123-1} \end{center}
 
 \hypertarget{muxe9todos-monte-carlo}{%
 \section{Métodos Monte Carlo}\label{muxe9todos-monte-carlo}}
@@ -2862,19 +2828,14 @@ Suponga además, que el viajero quiere estar más tiempo donde haya una mayor ca
 
 \KeywordTok{ggplot}\NormalTok{(df[}\DecValTok{1}\OperatorTok{:}\DecValTok{200}\NormalTok{, ]) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(x, P)) }\OperatorTok{+}\StringTok{ }\KeywordTok{coord_flip}\NormalTok{() }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{theme_minimal}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{16}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-125-1.pdf}
 
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(df) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_histogram}\NormalTok{(}\KeywordTok{aes}\NormalTok{(P), }\DataTypeTok{stat =} \StringTok{"count"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{theme_minimal}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{16}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-125-2.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-125-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-125-2} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2920,12 +2881,15 @@ Entonces
 Entonces la razón entre estas dos probabilidades es
 
 \begin{align*}
-    \frac{\mathbb{P}\left(\theta \rightarrow \theta+1\right)}{\mathbb{P}\left(\theta +1 \rightarrow \theta\right)} &=\frac{0.5 \min (P(\theta+1) / P(\theta), 1)}{0.5 \min (P(\theta) / P(\theta+1), 1)} \\
-    &=\left\{\begin{array}{ll}
-        \frac{P(\theta+1)}{P(\theta) } & \text { si } P(\theta+1)>P(\theta) \\
-        \frac{P(\theta+1) }{P(\theta)} & \text { si } P(\theta+1)<P(\theta)
-    \end{array}\right.\\
-    &=\frac{P(\theta+1)}{P(\theta)}.
+    \frac{\mathbb{P}\left(\theta \rightarrow \theta+1\right)}{\mathbb{P}\left(\theta +1 \rightarrow \theta\right)}
+      & =\frac{0.5 \min (P(\theta+1) / P(\theta), 1)}{0.5 \min (P(\theta) / P(\theta+1), 1)} \\
+      & =\left\{\begin{array}{ll}
+        \frac{P(\theta+1)}{P(\theta) }
+          & \text { si } P(\theta+1)>P(\theta) \\
+        \frac{P(\theta+1) }{P(\theta)}
+          & \text { si } P(\theta+1)<P(\theta)
+    \end{array}\right.                                             \\
+    \, & =\frac{P(\theta+1)}{P(\theta)}.
 \end{align*}
 
 Es decir que la razón de las probabilidades es equivalente a la razón entre las proporción de las poblaciones. Por lo tanto la mayoría de las veces se estará en los lugares con mayor población.
@@ -3196,19 +3160,13 @@ Podemos desechar los primeros 500 pasos (por ejemplo) del proceso ya que estos s
 
 \KeywordTok{ggplot}\NormalTok{(df[}\DecValTok{1}\OperatorTok{:}\DecValTok{500}\NormalTok{, ]) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\KeywordTok{aes}\NormalTok{(x, P), }\DataTypeTok{size =} \FloatTok{0.5}\NormalTok{) }\OperatorTok{+}\StringTok{ }
 \StringTok{    }\KeywordTok{coord_flip}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_minimal}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{16}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-129-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{ggplot}\NormalTok{(df[}\DecValTok{500}\OperatorTok{:}\NormalTok{n_pasos, ]) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_histogram}\NormalTok{(}\KeywordTok{aes}\NormalTok{(P, }\DataTypeTok{y =}\NormalTok{ ..density..), }
     \DataTypeTok{color =} \StringTok{"white"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_minimal}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{16}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-129-2.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-129-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-129-2} \end{center}
 
 \hypertarget{dos-monedas}{%
 \section{Dos monedas}\label{dos-monedas}}
@@ -3349,26 +3307,14 @@ Tratemos de encontrar los parámetros para la distribución posterior usando un 
         \DataTypeTok{shape2 =} \DecValTok{2}\NormalTok{), }\DataTypeTok{args2 =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{shape1 =} \DecValTok{2}\NormalTok{, }\DataTypeTok{shape2 =} \DecValTok{2}\NormalTok{))}
 
 \NormalTok{Metro_2coinsA }\OperatorTok{%>%}\StringTok{ }\KeywordTok{gf_density2d}\NormalTok{(theta2 }\OperatorTok{~}\StringTok{ }\NormalTok{theta1)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{Metro_2coinsA }\OperatorTok{%>%}\StringTok{ }\KeywordTok{gf_density}\NormalTok{(}\OperatorTok{~}\NormalTok{(theta2 }\OperatorTok{-}\StringTok{ }\NormalTok{theta1))}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-2.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{acf}\NormalTok{(Metro_2coinsA}\OperatorTok{$}\NormalTok{theta2 }\OperatorTok{-}\StringTok{ }\NormalTok{Metro_2coinsA}\OperatorTok{$}\NormalTok{theta1)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-3.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-2} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-3} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3378,7 +3324,7 @@ Tratemos de encontrar los parámetros para la distribución posterior usando un 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-132-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-132-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3399,18 +3345,12 @@ Tratemos de encontrar los parámetros para la distribución posterior usando un 
         \DataTypeTok{shape2 =} \DecValTok{2}\NormalTok{), }\DataTypeTok{args2 =} \KeywordTok{list}\NormalTok{(}\DataTypeTok{shape1 =} \DecValTok{2}\NormalTok{, }\DataTypeTok{shape2 =} \DecValTok{2}\NormalTok{))}
 
 \NormalTok{Metro_2coinsB }\OperatorTok{%>%}\StringTok{ }\KeywordTok{gf_density2d}\NormalTok{(theta2 }\OperatorTok{~}\StringTok{ }\NormalTok{theta1)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-135-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{acf}\NormalTok{(Metro_2coinsB}\OperatorTok{$}\NormalTok{theta2 }\OperatorTok{-}\StringTok{ }\NormalTok{Metro_2coinsB}\OperatorTok{$}\NormalTok{theta1)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-135-2.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-135-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-135-2} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3420,7 +3360,7 @@ Tratemos de encontrar los parámetros para la distribución posterior usando un 
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-136-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-136-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3516,26 +3456,14 @@ f\left(\theta_{1} | \theta_{2}, D\right)
     \DataTypeTok{a1 =} \DecValTok{2}\NormalTok{, }\DataTypeTok{b1 =} \DecValTok{2}\NormalTok{, }\DataTypeTok{a2 =} \DecValTok{2}\NormalTok{, }\DataTypeTok{b2 =} \DecValTok{2}\NormalTok{)}
 
 \NormalTok{Gibbs }\OperatorTok{%>%}\StringTok{ }\KeywordTok{gf_density2d}\NormalTok{(theta2 }\OperatorTok{~}\StringTok{ }\NormalTok{theta1)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{Gibbs }\OperatorTok{%>%}\StringTok{ }\KeywordTok{gf_dens}\NormalTok{(}\OperatorTok{~}\NormalTok{theta1)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-2.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{acf}\NormalTok{(Gibbs}\OperatorTok{$}\NormalTok{theta1)}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-3.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-2} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-3} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3546,7 +3474,7 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-141-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-141-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3564,28 +3492,16 @@ Ciclos completos
 \begin{Highlighting}[]
 \NormalTok{Gibbs }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(step}\OperatorTok{%%}\DecValTok{2} \OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{gf_density2d}\NormalTok{(theta2 }\OperatorTok{~}\StringTok{ }
 \StringTok{    }\NormalTok{theta1)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{Gibbs }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(step}\OperatorTok{%%}\DecValTok{2} \OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{gf_density}\NormalTok{(}\OperatorTok{~}\NormalTok{(theta2 }\OperatorTok{-}\StringTok{ }
 \StringTok{    }\NormalTok{theta1))}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-2.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \NormalTok{Gibbs }\OperatorTok{%>%}\StringTok{ }\KeywordTok{filter}\NormalTok{(step}\OperatorTok{%%}\DecValTok{2} \OperatorTok{==}\StringTok{ }\DecValTok{0}\NormalTok{) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{difference =}\NormalTok{ theta2 }\OperatorTok{-}\StringTok{ }
 \StringTok{    }\NormalTok{theta1) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{pull}\NormalTok{(difference) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{acf}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-3.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-2} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-3} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3595,7 +3511,7 @@ Ciclos completos
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-144-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-144-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3716,7 +3632,7 @@ Veamos el resultado
 \end{Shaded}
 
 \begin{verbatim}
-## Inference for Bugs model at "/tmp/Rtmp1ygvHJ/model24b219a8212.txt", fit using jags,
+## Inference for Bugs model at "/tmp/RtmpSiqiR5/model57fa38bfee50.txt", fit using jags,
 ##  3 chains, each with 2000 iterations (first 1000 discarded)
 ##  n.sims = 3000 iterations saved
 ##          mu.vect sd.vect   2.5%    25%    50%    75%  97.5%  Rhat n.eff
@@ -3760,7 +3676,7 @@ Veamos el resultado
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-154-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-154-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3769,7 +3685,7 @@ Veamos el resultado
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-155-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-155-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3777,7 +3693,7 @@ Veamos el resultado
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-156-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-156-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3792,7 +3708,7 @@ Veamos el resultado
 ## * Layer 1 is missing `Chain`
 \end{verbatim}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-157-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-157-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3802,7 +3718,7 @@ Veamos el resultado
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-158-1.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-158-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -3926,19 +3842,13 @@ y & s\\
 \NormalTok{bern2_mcmc <-}\StringTok{ }\KeywordTok{as.mcmc}\NormalTok{(bern2_jags)}
 
 \KeywordTok{mcmc_acf}\NormalTok{(bern2_mcmc)}
-\end{Highlighting}
-\end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
 \KeywordTok{mcmc_combo}\NormalTok{(bern2_mcmc, }\DataTypeTok{combo =} \KeywordTok{c}\NormalTok{(}\StringTok{"dens"}\NormalTok{, }\StringTok{"dens_overlay"}\NormalTok{, }
     \StringTok{"trace"}\NormalTok{, }\StringTok{"scatter"}\NormalTok{), }\DataTypeTok{pars =} \KeywordTok{c}\NormalTok{(}\StringTok{"theta[1]"}\NormalTok{, }\StringTok{"theta[2]"}\NormalTok{))}
 \end{Highlighting}
 \end{Shaded}
 
-\includegraphics{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-2.pdf}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-2} \end{center}
 
 \hypertarget{uso-de-stan}{%
 \section{Uso de STAN}\label{uso-de-stan}}
@@ -3978,8 +3888,8 @@ model {
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 1).
 ## Chain 1: 
-## Chain 1: Gradient evaluation took 1.4e-05 seconds
-## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.14 seconds.
+## Chain 1: Gradient evaluation took 1.2e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.12 seconds.
 ## Chain 1: Adjust your expectations accordingly!
 ## Chain 1: 
 ## Chain 1: 
@@ -3996,15 +3906,15 @@ model {
 ## Chain 1: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 1: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 1: 
-## Chain 1:  Elapsed Time: 0.032881 seconds (Warm-up)
-## Chain 1:                0.035488 seconds (Sampling)
-## Chain 1:                0.068369 seconds (Total)
+## Chain 1:  Elapsed Time: 0.016092 seconds (Warm-up)
+## Chain 1:                0.015761 seconds (Sampling)
+## Chain 1:                0.031853 seconds (Total)
 ## Chain 1: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 2).
 ## Chain 2: 
-## Chain 2: Gradient evaluation took 7e-06 seconds
-## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
+## Chain 2: Gradient evaluation took 4e-06 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
 ## Chain 2: Adjust your expectations accordingly!
 ## Chain 2: 
 ## Chain 2: 
@@ -4021,15 +3931,15 @@ model {
 ## Chain 2: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 2: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 2: 
-## Chain 2:  Elapsed Time: 0.033237 seconds (Warm-up)
-## Chain 2:                0.034277 seconds (Sampling)
-## Chain 2:                0.067514 seconds (Total)
+## Chain 2:  Elapsed Time: 0.015679 seconds (Warm-up)
+## Chain 2:                0.015471 seconds (Sampling)
+## Chain 2:                0.03115 seconds (Total)
 ## Chain 2: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 3).
 ## Chain 3: 
-## Chain 3: Gradient evaluation took 7e-06 seconds
-## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
+## Chain 3: Gradient evaluation took 4e-06 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
 ## Chain 3: Adjust your expectations accordingly!
 ## Chain 3: 
 ## Chain 3: 
@@ -4046,15 +3956,15 @@ model {
 ## Chain 3: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 3: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 3: 
-## Chain 3:  Elapsed Time: 0.03141 seconds (Warm-up)
-## Chain 3:                0.032364 seconds (Sampling)
-## Chain 3:                0.063774 seconds (Total)
+## Chain 3:  Elapsed Time: 0.017019 seconds (Warm-up)
+## Chain 3:                0.017291 seconds (Sampling)
+## Chain 3:                0.03431 seconds (Total)
 ## Chain 3: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 4).
 ## Chain 4: 
-## Chain 4: Gradient evaluation took 8e-06 seconds
-## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.08 seconds.
+## Chain 4: Gradient evaluation took 4e-06 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
 ## Chain 4: Adjust your expectations accordingly!
 ## Chain 4: 
 ## Chain 4: 
@@ -4071,9 +3981,9 @@ model {
 ## Chain 4: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 4: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 4: 
-## Chain 4:  Elapsed Time: 0.030109 seconds (Warm-up)
-## Chain 4:                0.018828 seconds (Sampling)
-## Chain 4:                0.048937 seconds (Total)
+## Chain 4:  Elapsed Time: 0.016114 seconds (Warm-up)
+## Chain 4:                0.015481 seconds (Sampling)
+## Chain 4:                0.031595 seconds (Total)
 ## Chain 4:
 \end{verbatim}
 
@@ -4089,10 +3999,10 @@ model {
 ## post-warmup draws per chain=2500, total post-warmup draws=10000.
 ## 
 ##         mean se_mean   sd    10%    90% n_eff Rhat
-## theta   0.31    0.00 0.06   0.23   0.39  3763    1
-## lp__  -32.59    0.01 0.70 -33.43 -32.10  4316    1
+## theta   0.31    0.00 0.06   0.23   0.39  3136    1
+## lp__  -32.60    0.01 0.72 -33.49 -32.11  4750    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Wed May 13 11:53:09 2020.
+## Samples were drawn using NUTS(diag_e) at Mon May 25 11:11:10 2020.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).
@@ -4107,7 +4017,7 @@ model {
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.3062755
+## [1] 0.3074515
 \end{verbatim}
 
 \begin{Shaded}
@@ -4118,7 +4028,7 @@ model {
 
 \begin{verbatim}
 ##       10%       90% 
-## 0.2278129 0.3897041
+## 0.2282770 0.3911384
 \end{verbatim}
 
 \begin{Shaded}
@@ -4159,6 +4069,350 @@ Replique los resultados anteriores pero para el caso de 2 monedas y comente los 
     \textbf{Sección 7:} 2.
   \end{itemize}
 \end{enumerate}
+
+\hypertarget{aprendizaje-estaduxedstico}{%
+\chapter{Aprendizaje estadístico}\label{aprendizaje-estaduxedstico}}
+
+\hypertarget{introducciuxf3n-1}{%
+\section{Introducción}\label{introducciuxf3n-1}}
+
+Supongamos que tenemos \(p\) variables de entrada que mezcladas con alguna relación desconocida y que provocan una respuesta \(Y\) de salida.
+
+\begin{equation}
+Y = f(X_{1},\ldots,X_{p}) + \varepsilon
+\label{eq:regresion-general}
+\end{equation}
+
+Aquí \(f\) es deconocida, las variables \(X\)'s son las variables de entrada y \(\varepsilon\) es el error cometido por hacer esta aproximación.
+
+Hay dos motivos para estimar \(f\)
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Predicción:} Si se estima \(f\) con \(\hat{f}\) entonces
+  \begin{equation*}
+  \hat{Y} = \hat{f}(X_{1},\ldots,X_{p}). 
+  \end{equation*}
+\end{enumerate}
+
+Y si tuvieramos valores nuevos de los \(X\)'s entonces podríamos estimar el valor que el corresponde a \(Y\).
+
+Aquí lo importante es que los resultados sean preciso:
+
+\begin{verbatim}
+a. **Error reducible:** Error de \(\hat{f}\) alrededor de \(f\). 
+b. **Error irreducible:** Error propio de las observaciones (muestreo). 
+\end{verbatim}
+
+\begin{align*}
+\mathbb{E}\left[\hat{Y}-Y\right] 
+&=  \mathbb{E}\left[\left(  f(X_{1},\ldots,X_{p}) + \varepsilon - \hat{f}(X_{1},\ldots,X_{p}) \right)^{2}  \right] \\
+&= \underbrace{\left( f(X_{1},\ldots,X_{p})- \hat{f}(X_{1},\ldots,X_{p})  \right) ^{2} }_{\text{Reducible}}
++\underbrace{\mathrm{Var}\left(\varepsilon\right)}_{\text{irreducible}}. 
+\end{align*}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{Inferencia:} Entender la relación entre \(X\) y \(Y\).
+\end{enumerate}
+
+\begin{itemize}
+\tightlist
+\item
+  ¿Cuál es la relación entre las variables predictoras y la respuesta?
+\item
+  ¿Cuáles son más importantes?
+\item
+  ¿El modelo es correcto?
+\end{itemize}
+
+\hypertarget{regresiuxf3n-lineal}{%
+\section{Regresión lineal}\label{regresiuxf3n-lineal}}
+
+El caso más sencillo es cuando esta relación es lineal y se describe de la siguiente forma
+
+\begin{equation*}
+Y = \beta_{0} + \beta_{1}X_{1} + \cdots +  \beta_{1}X_{1} + \varepsilon.
+\end{equation*}
+
+Aquí los valores \(\beta\)'s son constantes a estimar, las variables \(X\)'s son las variables de entrada y \(\varepsilon\) es el error cometido por hacer esta aproximación.
+
+Los \(X\)'s pueden ser
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Cuantitativos o Transformaciones.
+\item
+  Cualitativos.
+\end{enumerate}
+
+En el caso de ser cualititativos existe un truco para incluirlos dentro de la regresión
+
+\BeginKnitrBlock{example}
+\protect\hypertarget{exm:unnamed-chunk-169}{}{\label{exm:unnamed-chunk-169} }Se tiene la variable \(G\) codificada con Casado (1), Soltero (2), Divorciado (3) y Unión Libre (4). Si queremos meter esta variable en una regresión debemos tomarla de la forma
+
+\begin{equation*}
+X_{j} = \mathbf{1}_{\{G=j+1\}} 
+\end{equation*}
+
+que resulta en la matriz
+
+\begin{equation*}
+\begin{matrix}
+X_{1} & X_{2} & X_{3}\\
+0 & 0 & 0 \\
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+\end{matrix}
+\end{equation*}
+
+Existen otras formas de codificar este tipo de variables, pero esa es la más común.
+\EndKnitrBlock{example}
+
+\hypertarget{forma-matricial}{%
+\subsection{Forma matricial}\label{forma-matricial}}
+
+Podemos escribir la regresión de la forma
+
+\begin{equation*}
+\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}
+\end{equation*}
+
+donde
+
+\begin{multline*}
+\boldsymbol{Y} = 
+\begin{pmatrix}
+Y_{1} \\
+\vdots \\
+Y_{n}
+\end{pmatrix}_{n\times 1} 
+\quad 
+\boldsymbol{Y} = 
+\begin{pmatrix}
+1 & X_{1,1} & \cdots & X_{p,1} \\
+\vdots & \vdots & \cdots & \vdots\\
+1 & X_{1,n}& \cdots & X_{p,n}
+\end{pmatrix}_{n\times (p+1)}
+\\
+\boldsymbol{\varepsilon} = 
+\begin{pmatrix}
+\varepsilon_{1} \\
+\vdots \\
+\varepsilon_{n}
+\end{pmatrix}_{n\times 1} 
+\quad 
+\boldsymbol{\beta} = 
+\begin{pmatrix}
+\beta_{0} \\
+\beta_{1} \\
+\vdots \\
+\beta_{p}
+\end{pmatrix}_{(p+1)\times 1} 
+\end{multline*}
+
+Suponemos que \(\mathbb{E}\left[\varepsilon_{i}\right] = 0\) y \(\mathrm{Var}\left(\varepsilon_{i}\right) = \sigma^{2}\)
+
+La forma de resolver este problema es por minimos cuadrados. Es decir, buscamos el \(\hat{\beta}\) que cumpla lo siguiente:
+
+\begin{align}
+\hat{\beta} &= 
+ \operatorname{argmin}_\beta (\boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta})^{\top} (\boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta})\\
+ &=  \operatorname{argmin}_\beta \sum_{i=1}^n \left( Y_{i} -\beta_{0} - \sum_{j=1}^p X_{j,i} \beta_{j} \right) 
+ \label{eq:minimos-cuadrados}
+ \end{align}
+
+\begin{figure}
+\centering
+\includegraphics{manual_figures/ols.png}
+\caption{Tomado de \url{https://www.wikiwand.com/en/Ordinary_least_squares}}
+\end{figure}
+
+Suponga que \(\gamma\) es un vector cualquiera en \(\mathbb{R}^{p+1}\) y tenemos a \(V = \{\boldsymbol{X}\boldsymbol{\gamma}, \gamma \in \mathbb{R}^{p+1}\}\).
+
+\begin{align*}
+\boldsymbol{X}\boldsymbol{\beta}
+ &= \operatorname{Proy}_{V} \boldsymbol{Y}
+\end{align*}
+
+Entonces dado que
+\begin{equation*}
+\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp V \\
+\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp \boldsymbol{X}\boldsymbol{\gamma}, \forall \boldsymbol{\gamma} \in \mathbb{R}^{p+1}.
+\end{equation*}
+
+\begin{align*}
+<\boldsymbol{X}\boldsymbol{\gamma}, \boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} > &=  0 \\
+ \boldsymbol{\gamma}^{\top}\boldsymbol{X}^{\top}(\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta}) &=  0 \\
+ \boldsymbol{\gamma}^{\top}\boldsymbol{X}^{\top}\boldsymbol{Y} &= \boldsymbol{\gamma}^{\top} \boldsymbol{X}^{\top} \boldsymbol{X}\boldsymbol{\beta}  \\
+  \boldsymbol{X}^{\top}\boldsymbol{Y} &=  \boldsymbol{X}^{\top} \boldsymbol{X}\boldsymbol{\beta}  \\
+  \boldsymbol{\beta}  &=  (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{Y} 
+\end{align*}
+
+Donde \(\boldsymbol{X}^{\top} \boldsymbol{X}\) debe ser invertible. Si no es así, se puede construir su inversa generalizada pero no garantiza la unicidad de los \(\beta\)'s. Es decir, puede existir \(\hat{\beta} \neq \tilde{\beta}\) tal que \(\boldsymbol{X}\boldsymbol{\hat{\beta}} = \boldsymbol{X}\boldsymbol{\tilde{\beta}}\)
+
+En el caso de predicción tenemos que
+
+\begin{align*}
+\hat{Y} &=  X\beta \\
+&= \boldsymbol{X}(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{Y} \\
+&=  H \boldsymbol{Y} 
+\end{align*}
+
+Donde \(H\) es la matriz \enquote{techo} o \enquote{hat}. Es la proyección de Y al espacio de las columnas de \(X\).
+
+\BeginKnitrBlock{exercise}
+\protect\hypertarget{exr:unnamed-chunk-170}{}{\label{exr:unnamed-chunk-170} }Suponga que tenemos la regresión simple
+
+\begin{equation*}
+Y = \beta_{0} + \beta_{1}X_{1}+\varepsilon.
+\end{equation*}
+
+Muestre que \(\beta_{0}\) y \(\beta_{1}\) son
+
+Para el caso de la regresión simple tenemos que
+
+\begin{align*}
+\hat{\beta}_{1}&= \frac{\sum_{i=1}^{n}\left(X_{i}-\overline{X}\right)\left(Y_{i}-\overline{Y}\right)}{\sum_{i=1}^{n}\left(X_{i}-\overline{x}\right)^{2}} \\ 
+\hat{\beta}_{0}&= \bar{Y}-\widehat{\beta}_{1} \bar{X}
+\end{align*}
+
+usando los siguiente métodos:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  El método de proyecciones.
+\item
+  Minimizando el criterio de mínimos cuadrados. Ecuación \eqref{eq:minimos-cuadrados}.
+\end{enumerate}
+\EndKnitrBlock{exercise}
+
+\hypertarget{propiedades-estaduxedsticas-2}{%
+\section{Propiedades estadísticas}\label{propiedades-estaduxedsticas-2}}
+
+Uno de los supuestos fundamentales de regresión lineal es que
+
+\begin{equation*}
+\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}I\right)
+\end{equation*} .
+
+En ese caso
+
+\begin{equation*}
+Y = X\beta + \varepsilon \sim \mathcal{N}\left(X\beta,\sigma^{2}I\right)
+\end{equation*}
+
+Y además
+
+\begin{align*}
+\hat{\beta} &=  (X^{\top}X)^{-1}X^{\top}Y \\
+&\sim  \mathcal{N}\left((X^{\top}X)^{-1}X^{\top}X\beta,((X^{\top}X)^{-1}X^{\top})\sigma I ((X^{\top}X)^{-1}X^{\top})^{\top}\right) \\
+&\sim  \mathcal{N}\left(\beta,\sigma (X^{\top}X)^{-1}\right) \\
+\end{align*}
+
+Es decir, que
+
+\begin{align*}
+\mathbb{E}\left[\hat{\beta}\right] &= \beta \\
+\operatorname{Var}(\hat{\beta}) &=  \sigma^{2}\left(X^{\top} X\right)^{-1}
+\end{align*}
+
+\BeginKnitrBlock{exercise}
+\protect\hypertarget{exr:unnamed-chunk-171}{}{\label{exr:unnamed-chunk-171} }Encuentre la varianza para \(\beta_{0}\) y \(\beta_{1}\) para el caso de la regresión simple.
+\EndKnitrBlock{exercise}
+
+La estimación de \(\sigma^{2}\)
+
+\begin{align*}
+ \hat{\sigma}^{2} 
+ &=  \frac{1}{n-p-1} \sum_{i=1}^{n} \left( Y_{i} - \hat{Y}_{i}\right)^{2} \\
+ &= \frac{1}{n-p-1}\left\Vert Y - X\hat{\beta} \right\Vert^{2} \\
+ &=   \frac{1}{n-p-1} \left\Vert Y-\operatorname{Proy}_{V}Y \right\Vert^{2} 
+ \end{align*}
+
+Otra forma de verlo es
+\begin{align*}
+Y-\operatorname{Proy}_{V}Y  
+&= X\beta + \varepsilon -  \operatorname{Proy}_{V}( X\beta + \varepsilon) \\
+&= X\beta - \operatorname{Proy}_{V}( \underbrace{X\beta}_{\in V}) + \varepsilon - \underbrace{\operatorname{Proy}_{V}( \varepsilon)}_{=0} \\
+&= X\beta -X\beta + \varepsilon \\
+&=  \operatorname{Proy}_{V^{\top}}( \varepsilon)
+ \end{align*}
+
+\begin{equation*}
+\hat{\sigma}^{2} 
+= \frac{1}{dim(V^{\top})}\left\Vert \operatorname{Proy}_{V^{\top}}\varepsilon\right\Vert \\
+\end{equation*}
+
+Cumple con la propiedad que \(\mathbb{E}\left[\hat{\sigma}^{}\right] = \sigma^{2}\).
+
+Y además \((n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.\)
+
+\hypertarget{prueba-t}{%
+\section{\texorpdfstring{Prueba \(t\)}{Prueba t}}\label{prueba-t}}
+
+Dado que los coeficientes \(\beta\) son normales, se puede hacer la prueba de hipotesis
+
+\begin{equation*}
+ H_{0}: \beta_{j} = 0 \quad \text{ vs } \quad H_{1}:\beta_{j}\neq 0.
+ \end{equation*}
+
+El estadístico es
+
+\begin{equation*}
+ z_{j} = \frac{\hat{\beta}_{j}}{\hat{\sigma} \sqrt{v_{j}}} 
+ \end{equation*}
+
+donde \(v_{j}\) es el \(j\)-esimo elemento de la diagonal de \((X^{\top}X)^{-1}\).
+
+Bajo \(H_{0}\) \(z_{j} \sim t_{n-p-1}\) y se rechaza \(H_{0}\) si
+
+\begin{equation*}
+ \left\vert z_{j} \right\vert > t_{n-p-1, 1-\frac{\alpha}{2}} 
+ \end{equation*}
+
+\hypertarget{prueba-f}{%
+\section{\texorpdfstring{Prueba \(F\)}{Prueba F}}\label{prueba-f}}
+
+\begin{equation*}
+ H_{0}: \beta_{1} = \cdots =\beta_{p} = 0 \quad 
+ \text{  vs   }\quad H_{1}: \text{ al menos un \(\beta\) no es cero}.
+ \end{equation*}
+
+En este caso queremos comparar el modelo nulo \(Y=\beta_{0}+\varepsilon\) contra el modelo completo \(Y=\beta_{0}+ \beta_{1}X_{1} + \cdots + \beta_{p}X_{p} + \varepsilon\).
+
+Defina
+
+\begin{align*}
+ TSS &= \sum_{i=1}^{n} \left( Y_{i} -\overline{Y} \right)^{2} \\
+ RSS &= \sum_{i=1}^{n} \left( Y_{i} -\overline{Y} \right)^{2} \\
+ \end{align*}
+
+TSS = Total sum of squares
+
+RSS = Residual sum of squares
+
+Entonces
+
+\begin{equation*}
+ F = \frac{\frac{TSS-RSS}{p}}{\frac{RSS}{n-p-1}} \sim \frac{\chi^{2}_{p}}{\chi^{2}_{n-p-1}}.
+ \end{equation*}
+
+Rechazamos \(H_{0}\) si
+
+\begin{equation*}
+ F > F_{p, n-p-1, 1-\alpha}.
+ \end{equation*}
 
 \printbibliography
 

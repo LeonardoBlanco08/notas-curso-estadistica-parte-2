@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Notas Curso de Estadística</title>
-  <meta name="description" content="Notas Curso de Estadística" />
+  <title>Capítulo 5 Aprendizaje estadístico | Notas Curso de Estadística</title>
+  <meta name="description" content="Capítulo 5 Aprendizaje estadístico | Notas Curso de Estadística" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Notas Curso de Estadística" />
+  <meta property="og:title" content="Capítulo 5 Aprendizaje estadístico | Notas Curso de Estadística" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Notas Curso de Estadística" />
+  <meta name="twitter:title" content="Capítulo 5 Aprendizaje estadístico | Notas Curso de Estadística" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="estimación-de-densidades-con-bayes.html"/>
 
-<link rel="next" href="estimación-de-densidades.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -224,22 +224,292 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Notas Curso de Estadística</h1>
-<p class="author"><em>Maikol Solís</em></p>
-<p class="date"><em>Actualizado el 25 mayo, 2020</em></p>
+<div id="aprendizaje-estadístico" class="section level1">
+<h1><span class="header-section-number">Capítulo 5</span> Aprendizaje estadístico</h1>
+<div id="introducción-1" class="section level2">
+<h2><span class="header-section-number">5.1</span> Introducción</h2>
+<p>Supongamos que tenemos <span class="math inline">\(p\)</span> variables de entrada que mezcladas con alguna relación desconocida y que provocan una respuesta <span class="math inline">\(Y\)</span> de salida.</p>
+<p><span class="math display" id="eq:regresion-general">\[\begin{equation}
+Y = f(X_{1},\ldots,X_{p}) + \varepsilon
+\tag{5.1}
+\end{equation}\]</span></p>
+<p>Aquí <span class="math inline">\(f\)</span> es deconocida, las variables <span class="math inline">\(X\)</span>’s son las variables de entrada y <span class="math inline">\(\varepsilon\)</span> es el error cometido por hacer esta aproximación.</p>
+<p>Hay dos motivos para estimar <span class="math inline">\(f\)</span></p>
+<ol style="list-style-type: decimal">
+<li><strong>Predicción:</strong> Si se estima <span class="math inline">\(f\)</span> con <span class="math inline">\(\hat{f}\)</span> entonces
+<span class="math display">\[\begin{equation*}
+\hat{Y} = \hat{f}(X_{1},\ldots,X_{p}). 
+\end{equation*}\]</span></li>
+</ol>
+<p>Y si tuvieramos valores nuevos de los <span class="math inline">\(X\)</span>’s entonces podríamos estimar el valor que el corresponde a <span class="math inline">\(Y\)</span>.</p>
+<p>Aquí lo importante es que los resultados sean preciso:</p>
+<pre><code>a. **Error reducible:** Error de \(\hat{f}\) alrededor de \(f\). 
+b. **Error irreducible:** Error propio de las observaciones (muestreo). </code></pre>
+<p><span class="math display">\[\begin{align*}
+\mathbb{E}\left[\hat{Y}-Y\right] 
+&amp;=  \mathbb{E}\left[\left(  f(X_{1},\ldots,X_{p}) + \varepsilon - \hat{f}(X_{1},\ldots,X_{p}) \right)^{2}  \right] \\
+&amp;= \underbrace{\left( f(X_{1},\ldots,X_{p})- \hat{f}(X_{1},\ldots,X_{p})  \right) ^{2} }_{\text{Reducible}}
++\underbrace{\mathrm{Var}\left(\varepsilon\right)}_{\text{irreducible}}. 
+\end{align*}\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Inferencia:</strong> Entender la relación entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span>.</li>
+</ol>
+<ul>
+<li>¿Cuál es la relación entre las variables predictoras y la respuesta?</li>
+<li>¿Cuáles son más importantes?</li>
+<li>¿El modelo es correcto?</li>
+</ul>
 </div>
-<div id="introducción" class="section level1">
-<h1><span class="header-section-number">Capítulo 1</span> Introducción</h1>
+<div id="regresión-lineal" class="section level2">
+<h2><span class="header-section-number">5.2</span> Regresión lineal</h2>
+<p>El caso más sencillo es cuando esta relación es lineal y se describe de la siguiente forma</p>
+<p><span class="math display">\[\begin{equation*}
+Y = \beta_{0} + \beta_{1}X_{1} + \cdots +  \beta_{1}X_{1} + \varepsilon.
+\end{equation*}\]</span></p>
+<p>Aquí los valores <span class="math inline">\(\beta\)</span>’s son constantes a estimar, las variables <span class="math inline">\(X\)</span>’s son las variables de entrada y <span class="math inline">\(\varepsilon\)</span> es el error cometido por hacer esta aproximación.</p>
+<p>Los <span class="math inline">\(X\)</span>’s pueden ser</p>
+<ol style="list-style-type: decimal">
+<li>Cuantitativos o Transformaciones.</li>
+<li>Cualitativos.</li>
+</ol>
+<p>En el caso de ser cualititativos existe un truco para incluirlos dentro de la regresión</p>
+
+<div class="example">
+<p><span id="exm:unnamed-chunk-169" class="example"><strong>Ejemplo 5.1  </strong></span>Se tiene la variable <span class="math inline">\(G\)</span> codificada con Casado (1), Soltero (2), Divorciado (3) y Unión Libre (4). Si queremos meter esta variable en una regresión debemos tomarla de la forma</p>
+<p><span class="math display">\[\begin{equation*}
+X_{j} = \mathbf{1}_{\{G=j+1\}} 
+\end{equation*}\]</span></p>
+<p>que resulta en la matriz</p>
+<p><span class="math display">\[\begin{equation*}
+\begin{matrix}
+X_{1} &amp; X_{2} &amp; X_{3}\\
+0 &amp; 0 &amp; 0 \\
+1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1 \\
+\end{matrix}
+\end{equation*}\]</span></p>
+<p>Existen otras formas de codificar este tipo de variables, pero esa es la más común.</p>
+</div>
+
+<div id="forma-matricial" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Forma matricial</h3>
+<p>Podemos escribir la regresión de la forma</p>
+<p><span class="math display">\[\begin{equation*}
+\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}
+\end{equation*}\]</span></p>
+<p>donde</p>
+<p><span class="math display">\[\begin{multline*}
+\boldsymbol{Y} = 
+\begin{pmatrix}
+Y_{1} \\
+\vdots \\
+Y_{n}
+\end{pmatrix}_{n\times 1} 
+\quad 
+\boldsymbol{Y} = 
+\begin{pmatrix}
+1 &amp; X_{1,1} &amp; \cdots &amp; X_{p,1} \\
+\vdots &amp; \vdots &amp; \cdots &amp; \vdots\\
+1 &amp; X_{1,n}&amp; \cdots &amp; X_{p,n}
+\end{pmatrix}_{n\times (p+1)}
+\\
+\boldsymbol{\varepsilon} = 
+\begin{pmatrix}
+\varepsilon_{1} \\
+\vdots \\
+\varepsilon_{n}
+\end{pmatrix}_{n\times 1} 
+\quad 
+\boldsymbol{\beta} = 
+\begin{pmatrix}
+\beta_{0} \\
+\beta_{1} \\
+\vdots \\
+\beta_{p}
+\end{pmatrix}_{(p+1)\times 1} 
+\end{multline*}\]</span></p>
+<p>Suponemos que <span class="math inline">\(\mathbb{E}\left[\varepsilon_{i}\right] = 0\)</span> y <span class="math inline">\(\mathrm{Var}\left(\varepsilon_{i}\right) = \sigma^{2}\)</span></p>
+<p>La forma de resolver este problema es por minimos cuadrados. Es decir, buscamos el <span class="math inline">\(\hat{\beta}\)</span> que cumpla lo siguiente:</p>
+<p><span class="math display" id="eq:minimos-cuadrados">\[\begin{align}
+\hat{\beta} &amp;= 
+ \operatorname{argmin}_\beta (\boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta})^{\top} (\boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta})\\
+ &amp;=  \operatorname{argmin}_\beta \sum_{i=1}^n \left( Y_{i} -\beta_{0} - \sum_{j=1}^p X_{j,i} \beta_{j} \right) 
+ \tag{5.2}
+ \end{align}\]</span></p>
+<div class="figure">
+<img src="manual_figures/ols.png" alt="Tomado de https://www.wikiwand.com/en/Ordinary_least_squares" />
+<p class="caption">Tomado de <a href="https://www.wikiwand.com/en/Ordinary_least_squares" class="uri">https://www.wikiwand.com/en/Ordinary_least_squares</a></p>
+</div>
+<p>Suponga que <span class="math inline">\(\gamma\)</span> es un vector cualquiera en <span class="math inline">\(\mathbb{R}^{p+1}\)</span> y tenemos a <span class="math inline">\(V = \{\boldsymbol{X}\boldsymbol{\gamma}, \gamma \in \mathbb{R}^{p+1}\}\)</span>.</p>
+<p><span class="math display">\[\begin{align*}
+\boldsymbol{X}\boldsymbol{\beta}
+ &amp;= \operatorname{Proy}_{V} \boldsymbol{Y}
+\end{align*}\]</span></p>
+<p>Entonces dado que
+<span class="math display">\[\begin{equation*}
+\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp V \\
+\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp \boldsymbol{X}\boldsymbol{\gamma}, \forall \boldsymbol{\gamma} \in \mathbb{R}^{p+1}.
+\end{equation*}\]</span></p>
+<p><span class="math display">\[\begin{align*}
+&lt;\boldsymbol{X}\boldsymbol{\gamma}, \boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} &gt; &amp;=  0 \\
+ \boldsymbol{\gamma}^{\top}\boldsymbol{X}^{\top}(\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta}) &amp;=  0 \\
+ \boldsymbol{\gamma}^{\top}\boldsymbol{X}^{\top}\boldsymbol{Y} &amp;= \boldsymbol{\gamma}^{\top} \boldsymbol{X}^{\top} \boldsymbol{X}\boldsymbol{\beta}  \\
+  \boldsymbol{X}^{\top}\boldsymbol{Y} &amp;=  \boldsymbol{X}^{\top} \boldsymbol{X}\boldsymbol{\beta}  \\
+  \boldsymbol{\beta}  &amp;=  (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{Y} 
+\end{align*}\]</span></p>
+<p>Donde <span class="math inline">\(\boldsymbol{X}^{\top} \boldsymbol{X}\)</span> debe ser invertible. Si no es así, se puede construir su inversa generalizada pero no garantiza la unicidad de los <span class="math inline">\(\beta\)</span>’s. Es decir, puede existir <span class="math inline">\(\hat{\beta} \neq \tilde{\beta}\)</span> tal que <span class="math inline">\(\boldsymbol{X}\boldsymbol{\hat{\beta}} = \boldsymbol{X}\boldsymbol{\tilde{\beta}}\)</span></p>
+<p>En el caso de predicción tenemos que</p>
+<p><span class="math display">\[\begin{align*}
+\hat{Y} &amp;=  X\beta \\
+&amp;= \boldsymbol{X}(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{Y} \\
+&amp;=  H \boldsymbol{Y} 
+\end{align*}\]</span></p>
+<p>Donde <span class="math inline">\(H\)</span> es la matriz “techo” o “hat”. Es la proyección de Y al espacio de las columnas de <span class="math inline">\(X\)</span>.</p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-170" class="exercise"><strong>Ejercicio 5.1  </strong></span>Suponga que tenemos la regresión simple</p>
+<p><span class="math display">\[\begin{equation*}
+Y = \beta_{0} + \beta_{1}X_{1}+\varepsilon.
+\end{equation*}\]</span></p>
+<p>Muestre que <span class="math inline">\(\beta_{0}\)</span> y <span class="math inline">\(\beta_{1}\)</span> son</p>
+<p>Para el caso de la regresión simple tenemos que</p>
+<p><span class="math display">\[\begin{align*}
+\hat{\beta}_{1}&amp;= \frac{\sum_{i=1}^{n}\left(X_{i}-\overline{X}\right)\left(Y_{i}-\overline{Y}\right)}{\sum_{i=1}^{n}\left(X_{i}-\overline{x}\right)^{2}} \\ 
+\hat{\beta}_{0}&amp;= \bar{Y}-\widehat{\beta}_{1} \bar{X}
+\end{align*}\]</span></p>
+<p>usando los siguiente métodos:</p>
+<ol style="list-style-type: decimal">
+<li>El método de proyecciones.</li>
+<li>Minimizando el criterio de mínimos cuadrados. Ecuación <a href="aprendizaje-estadístico.html#eq:minimos-cuadrados">(5.2)</a>.</li>
+</ol>
+</div>
 
 </div>
+</div>
+<div id="propiedades-estadísticas-2" class="section level2">
+<h2><span class="header-section-number">5.3</span> Propiedades estadísticas</h2>
+<p>Uno de los supuestos fundamentales de regresión lineal es que</p>
+<p><span class="math display">\[\begin{equation*}
+\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}I\right)
+\end{equation*}\]</span> .</p>
+<p>En ese caso</p>
+<p><span class="math display">\[\begin{equation*}
+Y = X\beta + \varepsilon \sim \mathcal{N}\left(X\beta,\sigma^{2}I\right)
+\end{equation*}\]</span></p>
+<p>Y además</p>
+<p><span class="math display">\[\begin{align*}
+\hat{\beta} &amp;=  (X^{\top}X)^{-1}X^{\top}Y \\
+&amp;\sim  \mathcal{N}\left((X^{\top}X)^{-1}X^{\top}X\beta,((X^{\top}X)^{-1}X^{\top})\sigma I ((X^{\top}X)^{-1}X^{\top})^{\top}\right) \\
+&amp;\sim  \mathcal{N}\left(\beta,\sigma (X^{\top}X)^{-1}\right) \\
+\end{align*}\]</span></p>
+<p>Es decir, que</p>
+<p><span class="math display">\[\begin{align*}
+\mathbb{E}\left[\hat{\beta}\right] &amp;= \beta \\
+\operatorname{Var}(\hat{\beta}) &amp;=  \sigma^{2}\left(X^{\top} X\right)^{-1}
+\end{align*}\]</span></p>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-171" class="exercise"><strong>Ejercicio 5.2  </strong></span>Encuentre la varianza para <span class="math inline">\(\beta_{0}\)</span> y <span class="math inline">\(\beta_{1}\)</span> para el caso de la regresión simple.
+</div>
+
+<p>La estimación de <span class="math inline">\(\sigma^{2}\)</span></p>
+<p><span class="math display">\[\begin{align*}
+ \hat{\sigma}^{2} 
+ &amp;=  \frac{1}{n-p-1} \sum_{i=1}^{n} \left( Y_{i} - \hat{Y}_{i}\right)^{2} \\
+ &amp;= \frac{1}{n-p-1}\left\Vert Y - X\hat{\beta} \right\Vert^{2} \\
+ &amp;=   \frac{1}{n-p-1} \left\Vert Y-\operatorname{Proy}_{V}Y \right\Vert^{2} 
+ \end{align*}\]</span></p>
+<p>Otra forma de verlo es
+<span class="math display">\[\begin{align*}
+Y-\operatorname{Proy}_{V}Y  
+&amp;= X\beta + \varepsilon -  \operatorname{Proy}_{V}( X\beta + \varepsilon) \\
+&amp;= X\beta - \operatorname{Proy}_{V}( \underbrace{X\beta}_{\in V}) + \varepsilon - \underbrace{\operatorname{Proy}_{V}( \varepsilon)}_{=0} \\
+&amp;= X\beta -X\beta + \varepsilon \\
+&amp;=  \operatorname{Proy}_{V^{\top}}( \varepsilon)
+ \end{align*}\]</span></p>
+<p><span class="math display">\[\begin{equation*}
+\hat{\sigma}^{2} 
+= \frac{1}{dim(V^{\top})}\left\Vert \operatorname{Proy}_{V^{\top}}\varepsilon\right\Vert \\
+\end{equation*}\]</span></p>
+<p>Cumple con la propiedad que <span class="math inline">\(\mathbb{E}\left[\hat{\sigma}^{}\right] = \sigma^{2}\)</span>.</p>
+<p>Y además <span class="math inline">\((n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.\)</span></p>
+</div>
+<div id="prueba-t" class="section level2">
+<h2><span class="header-section-number">5.4</span> Prueba <span class="math inline">\(t\)</span></h2>
+<p>Dado que los coeficientes <span class="math inline">\(\beta\)</span> son normales, se puede hacer la prueba de hipotesis</p>
+<p><span class="math display">\[\begin{equation*}
+ H_{0}: \beta_{j} = 0 \quad \text{ vs } \quad H_{1}:\beta_{j}\neq 0.
+ \end{equation*}\]</span></p>
+<p>El estadístico es</p>
+<p><span class="math display">\[\begin{equation*}
+ z_{j} = \frac{\hat{\beta}_{j}}{\hat{\sigma} \sqrt{v_{j}}} 
+ \end{equation*}\]</span></p>
+<p>donde <span class="math inline">\(v_{j}\)</span> es el <span class="math inline">\(j\)</span>-esimo elemento de la diagonal de <span class="math inline">\((X^{\top}X)^{-1}\)</span>.</p>
+<p>Bajo <span class="math inline">\(H_{0}\)</span> <span class="math inline">\(z_{j} \sim t_{n-p-1}\)</span> y se rechaza <span class="math inline">\(H_{0}\)</span> si</p>
+<p><span class="math display">\[\begin{equation*}
+ \left\vert z_{j} \right\vert &gt; t_{n-p-1, 1-\frac{\alpha}{2}} 
+ \end{equation*}\]</span></p>
+</div>
+<div id="prueba-f" class="section level2">
+<h2><span class="header-section-number">5.5</span> Prueba <span class="math inline">\(F\)</span></h2>
+<p><span class="math display">\[\begin{equation*}
+ H_{0}: \beta_{1} = \cdots =\beta_{p} = 0 \quad 
+ \text{  vs   }\quad H_{1}: \text{ al menos un \(\beta\) no es cero}.
+ \end{equation*}\]</span></p>
+<p>En este caso queremos comparar el modelo nulo <span class="math inline">\(Y=\beta_{0}+\varepsilon\)</span> contra el modelo completo <span class="math inline">\(Y=\beta_{0}+ \beta_{1}X_{1} + \cdots + \beta_{p}X_{p} + \varepsilon\)</span>.</p>
+<p>Defina</p>
+<p><span class="math display">\[\begin{align*}
+ TSS &amp;= \sum_{i=1}^{n} \left( Y_{i} -\overline{Y} \right)^{2} \\
+ RSS &amp;= \sum_{i=1}^{n} \left( Y_{i} -\overline{Y} \right)^{2} \\
+ \end{align*}\]</span></p>
+<p>TSS = Total sum of squares</p>
+<p>RSS = Residual sum of squares</p>
+<p>Entonces</p>
+<p><span class="math display">\[\begin{equation*}
+ F = \frac{\frac{TSS-RSS}{p}}{\frac{RSS}{n-p-1}} \sim \frac{\chi^{2}_{p}}{\chi^{2}_{n-p-1}}.
+ \end{equation*}\]</span></p>
+<p>Rechazamos <span class="math inline">\(H_{0}\)</span> si</p>
+<p><span class="math display">\[\begin{equation*}
+ F &gt; F_{p, n-p-1, 1-\alpha}.
+ \end{equation*}\]</span></p>
+
+<div id="refs" class="references">
+<div>
+<p>Albert, Jim, Robert Gentleman, Giovanni Parmigiani, and Kurt Hornik. 2009. <em>Bayesian computation with R</em>. New York, NY: Springer New York. <a href="https://doi.org/10.1007/978-0-387-92298-0">https://doi.org/10.1007/978-0-387-92298-0</a>.</p>
+</div>
+<div>
+<p>Hall, Peter. 1987. “On Kullback-Leibler Loss and Density Estimation.” <em>The Annals of Statistics</em> 15 (4): 1491–1519. <a href="https://doi.org/10.1214/aos/1176350606">https://doi.org/10.1214/aos/1176350606</a>.</p>
+</div>
+<div>
+<p>Härdle, Wolfgang, Axel Werwatz, Marlene Müller, and Stefan Sperlich. 2004. <em>Nonparametric and Semiparametric Models</em>. Springer Series in Statistics. Berlin, Heidelberg: Springer Berlin Heidelberg. <a href="https://doi.org/10.1007/978-3-642-17146-8">https://doi.org/10.1007/978-3-642-17146-8</a>.</p>
+</div>
+<div>
+<p>Hoffman, Matthew D., and Andrew Gelman. 2014. “The no-U-turn sampler: Adaptively setting path lengths in Hamiltonian Monte Carlo.” <em>Journal of Machine Learning Research</em> 15 (47): 1593–1623. <a href="http://jmlr.org/papers/v15/hoffman14a.html">http://jmlr.org/papers/v15/hoffman14a.html</a>.</p>
+</div>
+<div>
+<p>Kruschke, John K. 2014. “Doing Bayesian data analysis: A tutorial with R, JAGS, and Stan, second edition.” In <em>Doing Bayesian Data Analysis: A Tutorial with R, Jags, and Stan, Second Edition</em>, 1–759.</p>
+</div>
+<div>
+<p>Wasserman, Larry. 2006. <em>All of Nonparametric Statistics</em>. Springer Texts in Statistics. New York, NY: Springer New York. <a href="https://doi.org/10.1007/0-387-30623-4">https://doi.org/10.1007/0-387-30623-4</a>.</p>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
+<a href="estimación-de-densidades-con-bayes.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="estimación-de-densidades.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -270,7 +540,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/maikol-solis/notas-curso-estadistica/edit/master/index.Rmd",
+"link": "https://github.com/maikol-solis/notas-curso-estadistica/edit/master/04-metodos-lineares-regresion.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -278,7 +548,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/maikol-solis/notas-curso-estadistica/blob/master/index.Rmd",
+"link": "https://github.com/maikol-solis/notas-curso-estadistica/blob/master/04-metodos-lineares-regresion.Rmd",
 "text": null
 },
 "download": ["Notas-Curso-Estadistica.pdf"],

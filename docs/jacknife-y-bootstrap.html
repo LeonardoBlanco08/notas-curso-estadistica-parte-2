@@ -198,6 +198,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.7" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#uso-de-stan"><i class="fa fa-check"></i><b>4.7</b> Uso de STAN</a></li>
 <li class="chapter" data-level="4.8" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#ejercicios-2"><i class="fa fa-check"></i><b>4.8</b> Ejercicios</a></li>
 </ul></li>
+<li class="chapter" data-level="5" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html"><i class="fa fa-check"></i><b>5</b> Aprendizaje estadístico</a><ul>
+<li class="chapter" data-level="5.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#introducción-1"><i class="fa fa-check"></i><b>5.1</b> Introducción</a></li>
+<li class="chapter" data-level="5.2" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#regresión-lineal"><i class="fa fa-check"></i><b>5.2</b> Regresión lineal</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#forma-matricial"><i class="fa fa-check"></i><b>5.2.1</b> Forma matricial</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#propiedades-estadísticas-2"><i class="fa fa-check"></i><b>5.3</b> Propiedades estadísticas</a></li>
+<li class="chapter" data-level="5.4" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-t"><i class="fa fa-check"></i><b>5.4</b> Prueba <span class="math inline">\(t\)</span></a></li>
+<li class="chapter" data-level="5.5" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-f"><i class="fa fa-check"></i><b>5.5</b> Prueba <span class="math inline">\(F\)</span></a></li>
+</ul></li>
 </ul>
 
       </nav>
@@ -254,7 +263,7 @@ varianza, mediana, etc, pero no sabemos nada de su distribución.
 <p>Suponga que tenemos la siguiente tabla de datos, que representa una
 muestra de tiempos y distancias de viajes en Atlanta.</p>
 <p>Cargamos la base de la siguiente forma:</p>
-<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb41-1" title="1">CommuteAtlanta &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="st">&quot;data/CommuteAtlanta.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1">CommuteAtlanta &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="st">&quot;data/CommuteAtlanta.csv&quot;</span>)</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -312,9 +321,9 @@ muestra de tiempos y distancias de viajes en Atlanta.</p>
 </table>
 <p>Para este ejemplo tomaremos la variable  que la
 llamaremos  para ser más breves. En este caso note que</p>
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1">x &lt;-<span class="st"> </span>CommuteAtlanta<span class="op">$</span>Time</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1">x &lt;-<span class="st"> </span>CommuteAtlanta<span class="op">$</span>Time</a></code></pre></div>
 <p>La media es 29.11 y su varianza 429.2483968. Para efectos de lo que sigue, asignaremos la varianza a la variable <span class="math inline">\(T_n\)</span></p>
-<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb43-1" title="1">Tn &lt;-<span class="st"> </span><span class="kw">var</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">Tn &lt;-<span class="st"> </span><span class="kw">var</span>(x)</a></code></pre></div>
 <p>A partir de estos dos valores, ¿Cuál sería un intervalo de confianza
 para la media?</p>
 <p>Note que esta pregunta es difícil ya que no tenemos ningún tipo de
@@ -361,8 +370,8 @@ siguiente observación.</p>
 la matriz de datos múltiple veces usando el producto de kronecker
 </div>
 
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1">n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
-<a class="sourceLine" id="cb44-2" title="2">jackdf &lt;-<span class="st"> </span><span class="kw">kronecker</span>(<span class="kw">matrix</span>(<span class="dv">1</span>, <span class="dv">1</span>, n), x)</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
+<a class="sourceLine" id="cb37-2" title="2">jackdf &lt;-<span class="st"> </span><span class="kw">kronecker</span>(<span class="kw">matrix</span>(<span class="dv">1</span>, <span class="dv">1</span>, n), x)</a></code></pre></div>
 <table>
 <tbody>
 <tr class="odd">
@@ -488,7 +497,7 @@ la matriz de datos múltiple veces usando el producto de kronecker
 </tbody>
 </table>
 <p>Y luego se elimina la diagonal</p>
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1"><span class="kw">diag</span>(jackdf) &lt;-<span class="st"> </span><span class="ot">NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="kw">diag</span>(jackdf) &lt;-<span class="st"> </span><span class="ot">NA</span></a></code></pre></div>
 <table>
 <tbody>
 <tr class="odd">
@@ -615,7 +624,7 @@ la matriz de datos múltiple veces usando el producto de kronecker
 </table>
 <p>Cada columna contiene toda la muestra excepto el <span class="math inline">\(i\)</span>-ésimo
 elemento. Solo basta estimar la media de cada columna:</p>
-<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb46-1" title="1">T_i &lt;-<span class="st"> </span><span class="kw">apply</span>(jackdf, <span class="dv">2</span>, var, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">T_i &lt;-<span class="st"> </span><span class="kw">apply</span>(jackdf, <span class="dv">2</span>, var, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -668,7 +677,7 @@ b_{jack} = (n-1) (\overline{T}_{n} - T_{n})
 <span id="exr:unnamed-chunk-71" class="exercise"><strong>Ejercicio 3.2  </strong></span>En nuestro caso tendríamos lo siguiente:
 </div>
 
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1">(bjack &lt;-<span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>(<span class="kw">mean</span>(T_i) <span class="op">-</span><span class="st"> </span>Tn))</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1">(bjack &lt;-<span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>(<span class="kw">mean</span>(T_i) <span class="op">-</span><span class="st"> </span>Tn))</a></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Es decir, que los  generan estimadores de 
 que contienen el mismo sesgo.</p>
@@ -726,15 +735,15 @@ estimar <span class="math inline">\(T_{n}\)</span>.
 <span id="exr:unnamed-chunk-76" class="exercise"><strong>Ejercicio 3.4  </strong></span>Los pseudo-valores se estiman de forma directa como,
 </div>
 
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1">pseudo &lt;-<span class="st"> </span>n <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>T_i</a>
-<a class="sourceLine" id="cb49-2" title="2"></a>
-<a class="sourceLine" id="cb49-3" title="3">pseudo[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1">pseudo &lt;-<span class="st"> </span>n <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>T_i</a>
+<a class="sourceLine" id="cb42-2" title="2"></a>
+<a class="sourceLine" id="cb42-3" title="3">pseudo[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a></code></pre></div>
 <pre><code>##  [1] 199.02972209 957.16225222 252.64417993 365.79679037  -0.06666345
 ##  [6] 957.16225222 252.64417993 365.79679037  16.09799519 199.02972209</code></pre>
 <p>Lo importante acá es notar la similitud que tiene con los datos
 reales,</p>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1"><span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pseudo)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-78-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pseudo)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-78-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Con estos pseudo-valores, es posible estimar la media y la varianza de
 <span class="math inline">\(T_{n}\)</span> con sus respectivos estimadores:</p>
 <p><span class="math display">\[
@@ -767,15 +776,15 @@ investigación, <span class="math inline">\(\theta\)</span>. Por lo tanto, tenem
 <span id="exr:unnamed-chunk-80" class="exercise"><strong>Ejercicio 3.5  </strong></span>
 </div>
 
-<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb52-1" title="1">(Tjack &lt;-<span class="st"> </span><span class="kw">mean</span>(pseudo))</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1">(Tjack &lt;-<span class="st"> </span><span class="kw">mean</span>(pseudo))</a></code></pre></div>
 <pre><code>## [1] 429.2484</code></pre>
-<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb54-1" title="1">(Vjack &lt;-<span class="st"> </span><span class="kw">var</span>(pseudo, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1">(Vjack &lt;-<span class="st"> </span><span class="kw">var</span>(pseudo, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
 <pre><code>## [1] 2701991</code></pre>
-<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb56-1" title="1">(sdjack &lt;-<span class="st"> </span><span class="kw">sqrt</span>(Vjack))</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1">(sdjack &lt;-<span class="st"> </span><span class="kw">sqrt</span>(Vjack))</a></code></pre></div>
 <pre><code>## [1] 1643.774</code></pre>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1">(z &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">(z &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>))</a></code></pre></div>
 <pre><code>## [1] 1.959964</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1"><span class="kw">c</span>(Tjack <span class="op">-</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdjack<span class="op">/</span><span class="kw">sqrt</span>(n), Tjack <span class="op">+</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdjack<span class="op">/</span><span class="kw">sqrt</span>(n))</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1"><span class="kw">c</span>(Tjack <span class="op">-</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdjack<span class="op">/</span><span class="kw">sqrt</span>(n), Tjack <span class="op">+</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdjack<span class="op">/</span><span class="kw">sqrt</span>(n))</a></code></pre></div>
 <pre><code>## [1] 285.1679 573.3289</code></pre>
 </div>
 <div id="bootstrap" class="section level2">
@@ -846,25 +855,25 @@ v_{\mathrm{boot}} \stackrel{\mathrm{a.s.}}{\longrightarrow} \mathbb{V}_{\widehat
 <p><span id="exr:unnamed-chunk-87" class="exercise"><strong>Ejercicio 3.6  </strong></span>En este ejemplo podemos tomar <span class="math inline">\(B=1000\)</span> y construir esa cantidad de veces nuestro estimador.</p>
 </div>
 
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb62-2" title="2">Tboot_b &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb62-3" title="3"></a>
-<a class="sourceLine" id="cb62-4" title="4"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
-<a class="sourceLine" id="cb62-5" title="5">    xb &lt;-<span class="st"> </span><span class="kw">sample</span>(x, <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb62-6" title="6">    Tboot_b[b] &lt;-<span class="st"> </span><span class="kw">var</span>(xb)</a>
-<a class="sourceLine" id="cb62-7" title="7">}</a>
-<a class="sourceLine" id="cb62-8" title="8"></a>
-<a class="sourceLine" id="cb62-9" title="9">Tboot_b[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb55-2" title="2">Tboot_b &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb55-3" title="3"></a>
+<a class="sourceLine" id="cb55-4" title="4"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
+<a class="sourceLine" id="cb55-5" title="5">    xb &lt;-<span class="st"> </span><span class="kw">sample</span>(x, <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb55-6" title="6">    Tboot_b[b] &lt;-<span class="st"> </span><span class="kw">var</span>(xb)</a>
+<a class="sourceLine" id="cb55-7" title="7">}</a>
+<a class="sourceLine" id="cb55-8" title="8"></a>
+<a class="sourceLine" id="cb55-9" title="9">Tboot_b[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a></code></pre></div>
 <pre><code>##  [1] 414.1915 391.2966 310.2777 468.8409 400.5235 380.8023 496.4924 418.5968
 ##  [9] 461.3902 547.3446</code></pre>
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1"><span class="kw">plot</span>(Tboot_b)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-89-1.svg" width="672" /></p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1"><span class="kw">plot</span>(Tboot_b)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-89-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Por supuesto podemos encontrar los estadísticos usuales para esta nueva muestra</p>
-<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb65-1" title="1">(Tboot &lt;-<span class="st"> </span><span class="kw">mean</span>(Tboot_b))</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1">(Tboot &lt;-<span class="st"> </span><span class="kw">mean</span>(Tboot_b))</a></code></pre></div>
 <pre><code>## [1] 428.0777</code></pre>
-<div class="sourceCode" id="cb67"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb67-1" title="1">(Vboot &lt;-<span class="st"> </span><span class="kw">var</span>(Tboot_b))</a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1">(Vboot &lt;-<span class="st"> </span><span class="kw">var</span>(Tboot_b))</a></code></pre></div>
 <pre><code>## [1] 5431.092</code></pre>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1">(sdboot &lt;-<span class="st"> </span><span class="kw">sqrt</span>(Vboot))</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1">(sdboot &lt;-<span class="st"> </span><span class="kw">sqrt</span>(Vboot))</a></code></pre></div>
 <pre><code>## [1] 73.69594</code></pre>
 <p><code></code></p>
 <div id="intervalos-de-confianza" class="section level3">
@@ -884,7 +893,7 @@ T_{n} \pm z_{\alpha / 2} \widehat{\mathrm{Se}}_{\mathrm{boot}}
 <span id="exr:unnamed-chunk-94" class="exercise"><strong>Ejercicio 3.7  </strong></span>El cálculo de este intervalo es
 </div>
 
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1"><span class="kw">c</span>(Tn <span class="op">-</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdboot, Tn <span class="op">+</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdboot)</a></code></pre></div>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1"><span class="kw">c</span>(Tn <span class="op">-</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdboot, Tn <span class="op">+</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdboot)</a></code></pre></div>
 <pre><code>## [1] 284.8070 573.6898</code></pre>
 <p><code></code></p>
 
@@ -951,8 +960,8 @@ It follows that an approximate <span class="math inline">\(1-\alpha\)</span> con
 <span id="exr:unnamed-chunk-99" class="exercise"><strong>Ejercicio 3.8  </strong></span>El intervalo anterior para un nivel de 95% se estima de la siguiente forma
 </div>
 
-<div class="sourceCode" id="cb73"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb73-1" title="1"><span class="kw">c</span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(Tboot_b, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>), <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb73-2" title="2"><span class="st">    </span><span class="kw">quantile</span>(Tboot_b, <span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1"><span class="kw">c</span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(Tboot_b, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>), <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb66-2" title="2"><span class="st">    </span><span class="kw">quantile</span>(Tboot_b, <span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>))</a></code></pre></div>
 <pre><code>##    97.5%     2.5% 
 ## 267.5099 556.9997</code></pre>
 <p><code></code></p>
@@ -992,42 +1001,42 @@ C_{n}=\left(T_{n}-z_{1-\alpha / 2}^{*} \widehat{\mathrm{se}}_{\mathrm{boot}}, T_
 Note que para este caso tenemos que hacer bootstrap para cada estimador bootstrap calculado.
 </div>
 
-<div class="sourceCode" id="cb75"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb75-1" title="1">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb75-2" title="2">Tboot_b &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb75-3" title="3">Tboot_bm &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb75-4" title="4">sdboot_b &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb75-5" title="5"></a>
-<a class="sourceLine" id="cb75-6" title="6"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
-<a class="sourceLine" id="cb75-7" title="7">    xb &lt;-<span class="st"> </span><span class="kw">sample</span>(x, <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb75-8" title="8">    Tboot_b[b] &lt;-<span class="st"> </span><span class="kw">var</span>(xb)</a>
-<a class="sourceLine" id="cb75-9" title="9">    <span class="cf">for</span> (m <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
-<a class="sourceLine" id="cb75-10" title="10">        xbm &lt;-<span class="st"> </span><span class="kw">sample</span>(xb, <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb75-11" title="11">        Tboot_bm[b] &lt;-<span class="st"> </span><span class="kw">var</span>(xbm)</a>
-<a class="sourceLine" id="cb75-12" title="12">    }</a>
-<a class="sourceLine" id="cb75-13" title="13">    sdboot_b &lt;-<span class="st"> </span><span class="kw">sd</span>(Tboot_bm)</a>
-<a class="sourceLine" id="cb75-14" title="14">}</a>
-<a class="sourceLine" id="cb75-15" title="15"></a>
-<a class="sourceLine" id="cb75-16" title="16">z_star &lt;-<span class="st"> </span>(Tboot_b <span class="op">-</span><span class="st"> </span>Tn)<span class="op">/</span>sdboot_b</a>
-<a class="sourceLine" id="cb75-17" title="17"></a>
-<a class="sourceLine" id="cb75-18" title="18"><span class="kw">hist</span>(z_star)</a></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-103-1.svg" width="672" /></p>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" title="1"><span class="kw">c</span>(Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(z_star, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>sdboot, Tn <span class="op">-</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb76-2" title="2"><span class="st">    </span><span class="kw">quantile</span>(z_star, <span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>sdboot)</a></code></pre></div>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
+<a class="sourceLine" id="cb68-2" title="2">Tboot_b &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb68-3" title="3">Tboot_bm &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb68-4" title="4">sdboot_b &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
+<a class="sourceLine" id="cb68-5" title="5"></a>
+<a class="sourceLine" id="cb68-6" title="6"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
+<a class="sourceLine" id="cb68-7" title="7">    xb &lt;-<span class="st"> </span><span class="kw">sample</span>(x, <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb68-8" title="8">    Tboot_b[b] &lt;-<span class="st"> </span><span class="kw">var</span>(xb)</a>
+<a class="sourceLine" id="cb68-9" title="9">    <span class="cf">for</span> (m <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
+<a class="sourceLine" id="cb68-10" title="10">        xbm &lt;-<span class="st"> </span><span class="kw">sample</span>(xb, <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
+<a class="sourceLine" id="cb68-11" title="11">        Tboot_bm[m] &lt;-<span class="st"> </span><span class="kw">var</span>(xbm)</a>
+<a class="sourceLine" id="cb68-12" title="12">    }</a>
+<a class="sourceLine" id="cb68-13" title="13">    sdboot_b &lt;-<span class="st"> </span><span class="kw">sd</span>(Tboot_bm)</a>
+<a class="sourceLine" id="cb68-14" title="14">}</a>
+<a class="sourceLine" id="cb68-15" title="15"></a>
+<a class="sourceLine" id="cb68-16" title="16">z_star &lt;-<span class="st"> </span>(Tboot_b <span class="op">-</span><span class="st"> </span>Tn)<span class="op">/</span>sdboot_b</a>
+<a class="sourceLine" id="cb68-17" title="17"></a>
+<a class="sourceLine" id="cb68-18" title="18"><span class="kw">hist</span>(z_star)</a></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-103-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="kw">c</span>(Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(z_star, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>sdboot, Tn <span class="op">-</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb69-2" title="2"><span class="st">    </span><span class="kw">quantile</span>(z_star, <span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>sdboot)</a></code></pre></div>
 <pre><code>##    97.5%     2.5% 
-## 308.6135 518.6002</code></pre>
+## 193.9968 603.4945</code></pre>
 <p><code></code></p>
 </div>
 <div id="resumiendo" class="section level3">
 <h3><span class="header-section-number">3.3.3</span> Resumiendo</h3>
 <p>Resumiendo todos lo métodos de cálculo de intervalos obtenemos</p>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">data.frame</span>(<span class="dt">Metodo =</span> <span class="kw">c</span>(<span class="st">&quot;Jacknife&quot;</span>, <span class="st">&quot;Bootstrap Normal&quot;</span>, </a>
-<a class="sourceLine" id="cb78-2" title="2">    <span class="st">&quot;Bootstrap Pivotal&quot;</span>, <span class="st">&quot;Bootstrap Pivotal Estudentizado&quot;</span>), </a>
-<a class="sourceLine" id="cb78-3" title="3">    <span class="dt">Inferior =</span> <span class="kw">c</span>(Tjack <span class="op">-</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdjack<span class="op">/</span><span class="kw">sqrt</span>(n), Tn <span class="op">-</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb78-4" title="4"><span class="st">        </span>sdboot, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(Tboot_b, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>), </a>
-<a class="sourceLine" id="cb78-5" title="5">        Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(z_star, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>sdboot), </a>
-<a class="sourceLine" id="cb78-6" title="6">    <span class="dt">Superior =</span> <span class="kw">c</span>(Tjack <span class="op">+</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdjack<span class="op">/</span><span class="kw">sqrt</span>(n), Tn <span class="op">+</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb78-7" title="7"><span class="st">        </span>sdboot, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(Tboot_b, <span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>), </a>
-<a class="sourceLine" id="cb78-8" title="8">        Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(z_star, <span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>sdboot)))</a></code></pre></div>
+<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">data.frame</span>(<span class="dt">Metodo =</span> <span class="kw">c</span>(<span class="st">&quot;Jacknife&quot;</span>, <span class="st">&quot;Bootstrap Normal&quot;</span>, </a>
+<a class="sourceLine" id="cb71-2" title="2">    <span class="st">&quot;Bootstrap Pivotal&quot;</span>, <span class="st">&quot;Bootstrap Pivotal Estudentizado&quot;</span>), </a>
+<a class="sourceLine" id="cb71-3" title="3">    <span class="dt">Inferior =</span> <span class="kw">c</span>(Tjack <span class="op">-</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdjack<span class="op">/</span><span class="kw">sqrt</span>(n), Tn <span class="op">-</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb71-4" title="4"><span class="st">        </span>sdboot, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(Tboot_b, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>), </a>
+<a class="sourceLine" id="cb71-5" title="5">        Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(z_star, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>sdboot), </a>
+<a class="sourceLine" id="cb71-6" title="6">    <span class="dt">Superior =</span> <span class="kw">c</span>(Tjack <span class="op">+</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdjack<span class="op">/</span><span class="kw">sqrt</span>(n), Tn <span class="op">+</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span></a>
+<a class="sourceLine" id="cb71-7" title="7"><span class="st">        </span>sdboot, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(Tboot_b, <span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>), </a>
+<a class="sourceLine" id="cb71-8" title="8">        Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(z_star, <span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>sdboot)))</a></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1054,8 +1063,8 @@ Note que para este caso tenemos que hacer bootstrap para cada estimador bootstra
 </tr>
 <tr class="even">
 <td align="left">Bootstrap Pivotal Estudentizado</td>
-<td align="right">308.6135</td>
-<td align="right">518.6002</td>
+<td align="right">193.9968</td>
+<td align="right">603.4945</td>
 </tr>
 </tbody>
 </table>
