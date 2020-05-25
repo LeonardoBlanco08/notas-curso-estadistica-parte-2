@@ -614,7 +614,7 @@ xb <- sample(x, size = n, replace = TRUE)
 Tboot_b[b] <- var(xb)
 for (m in 1:B) {
 xbm <- sample(xb, size = n, replace = TRUE)
-Tboot_bm[b] <- var(xbm)
+Tboot_bm[m] <- var(xbm)
 }
 sdboot_b <- sd(Tboot_bm)
 }
