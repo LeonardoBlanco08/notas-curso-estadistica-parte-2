@@ -1,0 +1,316 @@
+# Aprendizaje estadístico 
+
+## Introducción 
+
+Supongamos que tenemos \(p\) variables de entrada que mezcladas  con alguna relación desconocida y que provocan una respuesta \(Y\) de salida. 
+
+\begin{equation}
+Y = f(X_{1},\ldots,X_{p}) + \varepsilon
+(\#eq:regresion-general)
+\end{equation}
+
+
+Aquí \(f\) es deconocida, las variables \(X\)'s son las variables de entrada y  \(\varepsilon\) es el error cometido por hacer esta aproximación.  
+
+
+
+Hay dos motivos para estimar \(f\)
+
+1. **Predicción:** Si se estima \(f\) con \(\hat{f}\) entonces
+\begin{equation*}
+\hat{Y} = \hat{f}(X_{1},\ldots,X_{p}). 
+\end{equation*}
+
+Y si tuvieramos valores nuevos de los \(X\)'s entonces podríamos estimar el valor que el corresponde a \(Y\). 
+
+Aquí lo importante es que los resultados sean preciso: 
+
+	a. **Error reducible:** Error de \(\hat{f}\) alrededor de \(f\). 
+	b. **Error irreducible:** Error propio de las observaciones (muestreo). 
+
+\begin{align*}
+\mathbb{E}\left[\hat{Y}-Y\right] 
+&=  \mathbb{E}\left[\left(  f(X_{1},\ldots,X_{p}) + \varepsilon - \hat{f}(X_{1},\ldots,X_{p}) \right)^{2}  \right] \\
+&= \underbrace{\left( f(X_{1},\ldots,X_{p})- \hat{f}(X_{1},\ldots,X_{p})  \right) ^{2} }_{\text{Reducible}}
++\underbrace{\mathrm{Var}\left(\varepsilon\right)}_{\text{irreducible}}. 
+\end{align*}
+
+
+2. **Inferencia:**  Entender la relación entre \(X\) y \(Y\). 
+
+- ¿Cuál es la relación entre las variables predictoras y la respuesta?
+- ¿Cuáles son más importantes?
+- ¿El modelo es correcto?
+
+## Regresión lineal
+
+El caso más sencillo es cuando esta relación es lineal y se describe de la siguiente forma 
+
+\begin{equation*}
+Y = \beta_{0} + \beta_{1}X_{1} + \cdots +  \beta_{1}X_{1} + \varepsilon.
+\end{equation*} 
+ 
+ Aquí los valores \(\beta\)'s son constantes a estimar, las variables \(X\)'s son las variables de entrada y  \(\varepsilon\) es el error cometido por hacer esta aproximación. 
+ 
+
+Los \(X\)'s pueden ser 
+
+1. Cuantitativos o Transformaciones. 
+2. Cualitativos. 
+
+En el caso de ser cualititativos existe un truco para incluirlos dentro de la regresión 
+
+```{example}
+Se tiene la variable \(G\) codificada con Casado (1), Soltero (2), Divorciado (3) y Unión Libre (4). Si queremos meter esta variable en una regresión debemos tomarla de la forma 
+
+\begin{equation*}
+X_{j} = \mathbf{1}_{\{G=j+1\}} 
+\end{equation*} 
+
+que resulta en la matriz 
+
+\begin{equation*}
+\begin{matrix}
+X_{1} & X_{2} & X_{3}\\
+0 & 0 & 0 \\
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+\end{matrix}
+\end{equation*}
+
+Existen otras formas de codificar este tipo de variables, pero esa es la más común. 
+
+```
+### Forma matricial
+
+Podemos escribir la regresión de la forma 
+
+\begin{equation*}
+\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}
+\end{equation*}
+
+donde 
+
+\begin{multline*}
+\boldsymbol{Y} = 
+\begin{pmatrix}
+Y_{1} \\
+\vdots \\
+Y_{n}
+\end{pmatrix}_{n\times 1} 
+\quad 
+\boldsymbol{Y} = 
+\begin{pmatrix}
+1 & X_{1,1} & \cdots & X_{p,1} \\
+\vdots & \vdots & \cdots & \vdots\\
+1 & X_{1,n}& \cdots & X_{p,n}
+\end{pmatrix}_{n\times (p+1)}
+\\
+\boldsymbol{\varepsilon} = 
+\begin{pmatrix}
+\varepsilon_{1} \\
+\vdots \\
+\varepsilon_{n}
+\end{pmatrix}_{n\times 1} 
+\quad 
+\boldsymbol{\beta} = 
+\begin{pmatrix}
+\beta_{0} \\
+\beta_{1} \\
+\vdots \\
+\beta_{p}
+\end{pmatrix}_{(p+1)\times 1} 
+\end{multline*}
+
+Suponemos que \(\mathbb{E}\left[\varepsilon_{i}\right] = 0\) y \(\mathrm{Var}\left(\varepsilon_{i}\right) = \sigma^{2}\)
+
+La forma de resolver este problema es  por minimos cuadrados.  Es decir, buscamos el \(\hat{\beta}\) que cumpla lo siguiente:
+
+
+\begin{align}
+\hat{\beta} &= 
+ \operatorname{argmin}_\beta (\boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta})^{\top} (\boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta})\\
+ &=  \operatorname{argmin}_\beta \sum_{i=1}^n \left( Y_{i} -\beta_{0} - \sum_{j=1}^p X_{j,i} \beta_{j} \right) 
+ (\#eq:minimos-cuadrados)
+ \end{align}
+
+
+![Tomado de https://www.wikiwand.com/en/Ordinary_least_squares](manual_figures/ols.png)
+
+Suponga que \(\gamma\) es un vector cualquiera en \(\mathbb{R}^{p+1}\)  y tenemos a \(V = \{\boldsymbol{X}\boldsymbol{\gamma}, \gamma \in \mathbb{R}^{p+1}\}\).
+
+\begin{align*}
+\boldsymbol{X}\boldsymbol{\beta}
+ &= \operatorname{Proy}_{V} \boldsymbol{Y}
+\end{align*}
+
+Entonces dado que 
+\begin{equation*}
+\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp V \\
+\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp \boldsymbol{X}\boldsymbol{\gamma}, \forall \boldsymbol{\gamma} \in \mathbb{R}^{p+1}.
+\end{equation*}
+
+
+\begin{align*}
+<\boldsymbol{X}\boldsymbol{\gamma}, \boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} > &=  0 \\
+ \boldsymbol{\gamma}^{\top}\boldsymbol{X}^{\top}(\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta}) &=  0 \\
+ \boldsymbol{\gamma}^{\top}\boldsymbol{X}^{\top}\boldsymbol{Y} &= \boldsymbol{\gamma}^{\top} \boldsymbol{X}^{\top} \boldsymbol{X}\boldsymbol{\beta}  \\
+  \boldsymbol{X}^{\top}\boldsymbol{Y} &=  \boldsymbol{X}^{\top} \boldsymbol{X}\boldsymbol{\beta}  \\
+  \boldsymbol{\beta}  &=  (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{Y} 
+\end{align*}
+
+Donde \(\boldsymbol{X}^{\top} \boldsymbol{X}\) debe ser invertible. Si no es así, se puede construir su inversa generalizada pero no garantiza la unicidad de los \(\beta\)'s. Es decir, puede existir \(\hat{\beta} \neq \tilde{\beta}\) tal que \(\boldsymbol{X}\boldsymbol{\hat{\beta}} = \boldsymbol{X}\boldsymbol{\tilde{\beta}} \)
+
+
+
+En el caso de predicción tenemos que 
+
+\begin{align*}
+\hat{Y} &=  X\beta \\
+&= \boldsymbol{X}(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{Y} \\
+&=  H \boldsymbol{Y} 
+\end{align*}
+
+Donde \(H\) es la matriz "techo" o  "hat". Es la proyección de Y al espacio de las columnas de \(X\).
+
+```{exercise}
+Suponga que tenemos la regresión simple
+
+\begin{equation*}
+Y = \beta_{0} + \beta_{1}X_{1}+\varepsilon.
+\end{equation*}
+
+
+Muestre que \(\beta_{0}\) y \(\beta_{1}\) son 
+
+Para el caso de la regresión simple tenemos que 
+
+\begin{align*}
+\hat{\beta}_{1}&= \frac{\sum_{i=1}^{n}\left(X_{i}-\overline{X}\right)\left(Y_{i}-\overline{Y}\right)}{\sum_{i=1}^{n}\left(X_{i}-\overline{x}\right)^{2}} \\ 
+\hat{\beta}_{0}&= \bar{Y}-\widehat{\beta}_{1} \bar{X}
+\end{align*}
+
+usando los siguiente métodos:
+
+1. El método de proyecciones. 
+2. Minimizando el criterio de mínimos cuadrados. Ecuación \@ref(eq:minimos-cuadrados).
+
+````
+
+## Propiedades estadísticas 
+
+Uno de los supuestos fundamentales de regresión lineal es que 
+
+\begin{equation*}
+\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}I\right)
+\end{equation*} . 
+
+En ese caso 
+
+\begin{equation*}
+Y = X\beta + \varepsilon \sim \mathcal{N}\left(X\beta,\sigma^{2}I\right)
+\end{equation*} 
+
+Y además 
+
+\begin{align*}
+\hat{\beta} &=  (X^{\top}X)^{-1}X^{\top}Y \\
+&\sim  \mathcal{N}\left((X^{\top}X)^{-1}X^{\top}X\beta,((X^{\top}X)^{-1}X^{\top})\sigma I ((X^{\top}X)^{-1}X^{\top})^{\top}\right) \\
+&\sim  \mathcal{N}\left(\beta,\sigma (X^{\top}X)^{-1}\right) \\
+\end{align*}
+
+Es decir, que 
+
+\begin{align*}
+\mathbb{E}\left[\hat{\beta}\right] &= \beta \\
+\operatorname{Var}(\hat{\beta}) &=  \sigma^{2}\left(X^{\top} X\right)^{-1}
+\end{align*}
+
+```{exercise}
+Encuentre la varianza para \(\beta_{0}\) y \(\beta_{1}\) para el caso de la regresión simple. 
+````
+ 
+ La estimación de \(\sigma^{2}\) 
+ 
+ \begin{align*}
+ \hat{\sigma}^{2} 
+ &=  \frac{1}{n-p-1} \sum_{i=1}^{n} \left( Y_{i} - \hat{Y}_{i}\right)^{2} \\
+ &= \frac{1}{n-p-1}\left\Vert Y - X\hat{\beta} \right\Vert^{2} \\
+ &=   \frac{1}{n-p-1} \left\Vert Y-\operatorname{Proy}_{V}Y \right\Vert^{2} 
+ \end{align*}
+ 
+ Otra forma de verlo es 
+ \begin{align*}
+Y-\operatorname{Proy}_{V}Y  
+&= X\beta + \varepsilon -  \operatorname{Proy}_{V}( X\beta + \varepsilon) \\
+&= X\beta - \operatorname{Proy}_{V}( \underbrace{X\beta}_{\in V}) + \varepsilon - \underbrace{\operatorname{Proy}_{V}( \varepsilon)}_{=0} \\
+&= X\beta -X\beta + \varepsilon \\
+&=  \operatorname{Proy}_{V^{\top}}( \varepsilon)
+ \end{align*}
+
+\begin{equation*}
+\hat{\sigma}^{2} 
+= \frac{1}{dim(V^{\top})}\left\Vert \operatorname{Proy}_{V^{\top}}\varepsilon\right\Vert \\
+\end{equation*}
+ 
+ 
+ Cumple con la propiedad que \(\mathbb{E}\left[\hat{\sigma}^{}\right] = \sigma^{2}\). 
+ 
+ Y además \((n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.\)
+ 
+ 
+## Prueba \(t\)
+ 
+ Dado que los coeficientes \(\beta\) son normales, se puede hacer la prueba de hipotesis 
+ 
+ \begin{equation*}
+ H_{0}: \beta_{j} = 0 \quad \text{ vs } \quad H_{1}:\beta_{j}\neq 0.
+ \end{equation*}
+ 
+ El estadístico es 
+ 
+ \begin{equation*}
+ z_{j} = \frac{\hat{\beta}_{j}}{\hat{\sigma} \sqrt{v_{j}}} 
+ \end{equation*}
+ 
+ donde \(v_{j}\) es el \(j\)-esimo elemento de la diagonal de \((X^{\top}X)^{-1}\).
+ 
+ Bajo \(H_{0}\) \(z_{j} \sim t_{n-p-1}\) y se rechaza \(H_{0}\) si 
+ 
+ \begin{equation*}
+ \left\vert z_{j} \right\vert > t_{n-p-1, 1-\frac{\alpha}{2}} 
+ \end{equation*}
+ 
+## Prueba \(F\)
+ 
+ \begin{equation*}
+ H_{0}: \beta_{1} = \cdots =\beta_{p} = 0 \quad 
+ \text{  vs   }\quad H_{1}: \text{ al menos un \(\beta\) no es cero}.
+ \end{equation*}
+ 
+ 
+ En este caso queremos comparar el modelo  nulo \(Y=\beta_{0}+\varepsilon\) contra el modelo completo \(Y=\beta_{0}+ \beta_{1}X_{1} + \cdots + \beta_{p}X_{p} + \varepsilon\). 
+ 
+ Defina 
+ 
+ \begin{align*}
+ TSS &= \sum_{i=1}^{n} \left( Y_{i} -\overline{Y} \right)^{2} \\
+ RSS &= \sum_{i=1}^{n} \left( Y_{i} -\overline{Y} \right)^{2} \\
+ \end{align*}
+ 
+ TSS = Total sum of squares 
+ 
+ RSS =  Residual sum of squares 
+ 
+ Entonces 
+ 
+ \begin{equation*}
+ F = \frac{\frac{TSS-RSS}{p}}{\frac{RSS}{n-p-1}} \sim \frac{\chi^{2}_{p}}{\chi^{2}_{n-p-1}}.
+ \end{equation*}
+ 
+ Rechazamos \(H_{0}\) si 
+ 
+ \begin{equation*}
+ F > F_{p, n-p-1, 1-\alpha}.
+ \end{equation*}
