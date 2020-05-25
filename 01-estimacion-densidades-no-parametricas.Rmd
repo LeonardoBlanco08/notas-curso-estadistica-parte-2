@@ -57,6 +57,7 @@ theme_minimal()
 ```
 
 
+
 Formalmente el histograma es el
 
 \begin{equation*}
@@ -70,16 +71,17 @@ donde \(I\) es la indicadora.
 Denote \(m_j=jh-h/2\) el centro del segmento,
 
 \begin{align*}
-\mathbb{P}\left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2} \right)\right) & =
-\int_{m_j - \frac{h}{2}}^{m_j + \frac{h}{2}} f(u)du                                             \\
-& \approx f(m_j)h
+	\mathbb{P}\left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2} \right)\right)
+	  & =
+	\int_{m_j - \frac{h}{2}}^{m_j + \frac{h}{2}} f(u)du                                             \\
+	  & \approx f(m_j)h
 \end{align*}
 
 Esto se puede aproximar como
 
 \begin{equation*}
-\mathbb{P} \left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right)  \approx   \frac{1}{n} \#
-\left\{X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right\}
+	\mathbb{P} \left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right)  \approx   \frac{1}{n} \#
+	\left\{X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right\}
 \end{equation*}
 
 Acomodando un poco la expresión

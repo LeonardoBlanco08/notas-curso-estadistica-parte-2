@@ -388,12 +388,15 @@ Entonces
 Entonces la razón entre estas dos probabilidades es 
 
 \begin{align*}
-	\frac{\mathbb{P}\left(\theta \rightarrow \theta+1\right)}{\mathbb{P}\left(\theta +1 \rightarrow \theta\right)} &=\frac{0.5 \min (P(\theta+1) / P(\theta), 1)}{0.5 \min (P(\theta) / P(\theta+1), 1)} \\
-	&=\left\{\begin{array}{ll}
-		\frac{P(\theta+1)}{P(\theta) } & \text { si } P(\theta+1)>P(\theta) \\
-		\frac{P(\theta+1) }{P(\theta)} & \text { si } P(\theta+1)<P(\theta)
-	\end{array}\right.\\
-	&=\frac{P(\theta+1)}{P(\theta)}.
+	\frac{\mathbb{P}\left(\theta \rightarrow \theta+1\right)}{\mathbb{P}\left(\theta +1 \rightarrow \theta\right)}
+	  & =\frac{0.5 \min (P(\theta+1) / P(\theta), 1)}{0.5 \min (P(\theta) / P(\theta+1), 1)} \\
+	  & =\left\{\begin{array}{ll}
+		\frac{P(\theta+1)}{P(\theta) }
+		  & \text { si } P(\theta+1)>P(\theta) \\
+		\frac{P(\theta+1) }{P(\theta)}
+		  & \text { si } P(\theta+1)<P(\theta)
+	\end{array}\right.                                             \\
+	\, & =\frac{P(\theta+1)}{P(\theta)}.
 \end{align*}
 
 Es decir que la razón de las probabilidades es equivalente a la razón entre las proporción de las poblaciones. Por lo tanto la mayoría de las veces se estará en los lugares con mayor población. 
