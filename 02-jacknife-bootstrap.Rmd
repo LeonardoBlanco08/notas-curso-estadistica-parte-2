@@ -616,7 +616,7 @@ for (m in 1:B) {
 xbm <- sample(xb, size = n, replace = TRUE)
 Tboot_bm[m] <- var(xbm)
 }
-sdboot_b <- sd(Tboot_bm)
+sdboot_b[b] <- sd(Tboot_bm)
 }
 
 z_star <- (Tboot_b - Tn) / sdboot_b
