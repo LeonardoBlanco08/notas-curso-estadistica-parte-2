@@ -1013,7 +1013,7 @@ Note que para este caso tenemos que hacer bootstrap para cada estimador bootstra
 <a class="sourceLine" id="cb68-10" title="10">        xbm &lt;-<span class="st"> </span><span class="kw">sample</span>(xb, <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
 <a class="sourceLine" id="cb68-11" title="11">        Tboot_bm[m] &lt;-<span class="st"> </span><span class="kw">var</span>(xbm)</a>
 <a class="sourceLine" id="cb68-12" title="12">    }</a>
-<a class="sourceLine" id="cb68-13" title="13">    sdboot_b &lt;-<span class="st"> </span><span class="kw">sd</span>(Tboot_bm)</a>
+<a class="sourceLine" id="cb68-13" title="13">    sdboot_b[b] &lt;-<span class="st"> </span><span class="kw">sd</span>(Tboot_bm)</a>
 <a class="sourceLine" id="cb68-14" title="14">}</a>
 <a class="sourceLine" id="cb68-15" title="15"></a>
 <a class="sourceLine" id="cb68-16" title="16">z_star &lt;-<span class="st"> </span>(Tboot_b <span class="op">-</span><span class="st"> </span>Tn)<span class="op">/</span>sdboot_b</a>

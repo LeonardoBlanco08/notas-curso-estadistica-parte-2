@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística"
 author: "Maikol Solís"
-date: "Actualizado el 25 mayo, 2020"
+date: "Actualizado el 26 mayo, 2020"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -2037,7 +2037,7 @@ for (b in 1:B) {
         xbm <- sample(xb, size = n, replace = TRUE)
         Tboot_bm[m] <- var(xbm)
     }
-    sdboot_b <- sd(Tboot_bm)
+    sdboot_b[b] <- sd(Tboot_bm)
 }
 
 z_star <- (Tboot_b - Tn)/sdboot_b
@@ -3787,8 +3787,8 @@ Y si tuvieramos valores nuevos de los \(X\)'s entonces podríamos estimar el val
 
 Aquí lo importante es que los resultados sean preciso: 
 
-	a. **Error reducible:** Error de \(\hat{f}\) alrededor de \(f\). 
-	b. **Error irreducible:** Error propio de las observaciones (muestreo). 
+  a. **Error reducible:** Error de \(\hat{f}\) alrededor de \(f\). 
+  a. **Error irreducible:** Error propio de las observaciones (muestreo). 
 
 \begin{align*}
 \mathbb{E}\left[\hat{Y}-Y\right] 
@@ -3818,7 +3818,7 @@ Y = \beta_{0} + \beta_{1}X_{1} + \cdots +  \beta_{1}X_{1} + \varepsilon.
 Los \(X\)'s pueden ser 
 
 1. Cuantitativos o Transformaciones. 
-2. Cualitativos. 
+1. Cualitativos. 
 
 En el caso de ser cualititativos existe un truco para incluirlos dentro de la regresión 
 

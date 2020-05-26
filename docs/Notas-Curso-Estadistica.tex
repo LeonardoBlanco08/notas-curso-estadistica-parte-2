@@ -190,7 +190,7 @@
 
 \title{Notas Curso de Estadística}
 \author{Maikol Solís}
-\date{Actualizado el 25 mayo, 2020}
+\date{Actualizado el 26 mayo, 2020}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -2269,7 +2269,7 @@ Note que para este caso tenemos que hacer bootstrap para cada estimador bootstra
 \NormalTok{        xbm <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(xb, }\DataTypeTok{size =}\NormalTok{ n, }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
 \NormalTok{        Tboot_bm[m] <-}\StringTok{ }\KeywordTok{var}\NormalTok{(xbm)}
 \NormalTok{    \}}
-\NormalTok{    sdboot_b <-}\StringTok{ }\KeywordTok{sd}\NormalTok{(Tboot_bm)}
+\NormalTok{    sdboot_b[b] <-}\StringTok{ }\KeywordTok{sd}\NormalTok{(Tboot_bm)}
 \NormalTok{\}}
 
 \NormalTok{z_star <-}\StringTok{ }\NormalTok{(Tboot_b }\OperatorTok{-}\StringTok{ }\NormalTok{Tn)}\OperatorTok{/}\NormalTok{sdboot_b}
@@ -4101,10 +4101,14 @@ Y si tuvieramos valores nuevos de los \(X\)'s entonces podríamos estimar el val
 
 Aquí lo importante es que los resultados sean preciso:
 
-\begin{verbatim}
-a. **Error reducible:** Error de \(\hat{f}\) alrededor de \(f\). 
-b. **Error irreducible:** Error propio de las observaciones (muestreo). 
-\end{verbatim}
+\begin{enumerate}
+\def\labelenumi{\alph{enumi}.}
+\tightlist
+\item
+  \textbf{Error reducible:} Error de \(\hat{f}\) alrededor de \(f\).
+\item
+  \textbf{Error irreducible:} Error propio de las observaciones (muestreo).
+\end{enumerate}
 
 \begin{align*}
 \mathbb{E}\left[\hat{Y}-Y\right] 
