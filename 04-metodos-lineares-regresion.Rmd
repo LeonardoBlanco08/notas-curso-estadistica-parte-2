@@ -25,8 +25,8 @@ Y si tuvieramos valores nuevos de los \(X\)'s entonces podríamos estimar el val
 
 Aquí lo importante es que los resultados sean preciso: 
 
-	a. **Error reducible:** Error de \(\hat{f}\) alrededor de \(f\). 
-	b. **Error irreducible:** Error propio de las observaciones (muestreo). 
+  a. **Error reducible:** Error de \(\hat{f}\) alrededor de \(f\). 
+  a. **Error irreducible:** Error propio de las observaciones (muestreo). 
 
 \begin{align*}
 \mathbb{E}\left[\hat{Y}-Y\right] 
@@ -56,7 +56,7 @@ Y = \beta_{0} + \beta_{1}X_{1} + \cdots +  \beta_{1}X_{1} + \varepsilon.
 Los \(X\)'s pueden ser 
 
 1. Cuantitativos o Transformaciones. 
-2. Cualitativos. 
+1. Cualitativos. 
 
 En el caso de ser cualititativos existe un truco para incluirlos dentro de la regresión 
 
