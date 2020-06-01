@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Notas Curso de Estadística</title>
-  <meta name="description" content="Notas Curso de Estadística" />
+  <title>Capítulo 6 ¿Qué significan estos intervalos? | Notas Curso de Estadística</title>
+  <meta name="description" content="Capítulo 6 ¿Qué significan estos intervalos? | Notas Curso de Estadística" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Notas Curso de Estadística" />
+  <meta property="og:title" content="Capítulo 6 ¿Qué significan estos intervalos? | Notas Curso de Estadística" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Notas Curso de Estadística" />
+  <meta name="twitter:title" content="Capítulo 6 ¿Qué significan estos intervalos? | Notas Curso de Estadística" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="aprendizaje-estadístico.html"/>
 
-<link rel="next" href="estimación-de-densidades.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -171,7 +171,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html"><i class="fa fa-check"></i><b>3</b> Jacknife y Bootstrap</a><ul>
 <li class="chapter" data-level="3.1" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#caso-concreto"><i class="fa fa-check"></i><b>3.1</b> Caso concreto</a></li>
 <li class="chapter" data-level="3.2" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#jacknife"><i class="fa fa-check"></i><b>3.2</b> Jacknife</a></li>
-<li class="chapter" data-level="3.3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#bootstrap"><i class="fa fa-check"></i><b>3.3</b> Bootstrap</a></li>
+<li class="chapter" data-level="3.3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#bootstrap"><i class="fa fa-check"></i><b>3.3</b> Bootstrap</a><ul>
+<li class="chapter" data-level="3.3.1" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#intervalos-de-confianza"><i class="fa fa-check"></i><b>3.3.1</b> Intervalos de confianza</a></li>
+<li class="chapter" data-level="3.3.2" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#intervalo-pivotal-studentizado"><i class="fa fa-check"></i><b>3.3.2</b> Intervalo pivotal studentizado</a></li>
+<li class="chapter" data-level="3.3.3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#resumiendo"><i class="fa fa-check"></i><b>3.3.3</b> Resumiendo</a></li>
+</ul></li>
 <li class="chapter" data-level="3.4" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#ejercicios-1"><i class="fa fa-check"></i><b>3.4</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html"><i class="fa fa-check"></i><b>4</b> Estimación de densidades con Bayes</a><ul>
@@ -209,12 +213,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="5.4" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#predicción"><i class="fa fa-check"></i><b>5.4</b> Predicción</a><ul>
 <li class="chapter" data-level="5.4.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#laboratorio-3"><i class="fa fa-check"></i><b>5.4.1</b> Laboratorio</a></li>
+<li class="chapter" data-level="5.4.2" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#ajuste-de-la-regresión-con-intervalos-de-confianza"><i class="fa fa-check"></i><b>5.4.2</b> Ajuste de la regresión con intervalos de confianza</a></li>
+<li class="chapter" data-level="5.4.3" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#ajuste-de-la-regresión-con-intervalos-de-confianza-y-predicción"><i class="fa fa-check"></i><b>5.4.3</b> Ajuste de la regresión con intervalos de confianza y predicción</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#interacciones"><i class="fa fa-check"></i><b>5.5</b> Interacciones</a><ul>
-<li class="chapter" data-level="5.5.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#laboratorio-4"><i class="fa fa-check"></i><b>5.5.1</b> Laboratorio</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#posibles-problemas-en-los-supuestos-para-regresion-lineal"><i class="fa fa-check"></i><b>5.6</b> Posibles problemas en los supuestos para regresion lineal</a><ul>
-<li class="chapter" data-level="5.6.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#no-linealidad-de-los-datos"><i class="fa fa-check"></i><b>5.6.1</b> No linealidad de los datos</a></li>
+<li class="chapter" data-level="6" data-path="qué-significan-estos-intervalos.html"><a href="qué-significan-estos-intervalos.html"><i class="fa fa-check"></i><b>6</b> ¿Qué significan estos intervalos?</a><ul>
+<li class="chapter" data-level="6.1" data-path="qué-significan-estos-intervalos.html"><a href="qué-significan-estos-intervalos.html#interacciones"><i class="fa fa-check"></i><b>6.1</b> Interacciones</a><ul>
+<li class="chapter" data-level="6.1.1" data-path="qué-significan-estos-intervalos.html"><a href="qué-significan-estos-intervalos.html#laboratorio-4"><i class="fa fa-check"></i><b>6.1.1</b> Laboratorio</a></li>
 </ul></li>
 </ul></li>
 </ul>
@@ -234,22 +239,177 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Notas Curso de Estadística</h1>
-<p class="author"><em>Maikol Solís</em></p>
-<p class="date"><em>Actualizado el 01 junio, 2020</em></p>
-</div>
-<div id="introducción" class="section level1">
-<h1><span class="header-section-number">Capítulo 1</span> Introducción</h1>
+<div id="qué-significan-estos-intervalos" class="section level1">
+<h1><span class="header-section-number">Capítulo 6</span> ¿Qué significan estos intervalos?</h1>
+<p>Repitamos el mismo ejercicio anterior pero con un caso más sencillo.</p>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="qué-significan-estos-intervalos.html#cb56-1"></a>n &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb56-2"><a href="qué-significan-estos-intervalos.html#cb56-2"></a></span>
+<span id="cb56-3"><a href="qué-significan-estos-intervalos.html#cb56-3"></a>X &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb56-4"><a href="qué-significan-estos-intervalos.html#cb56-4"></a>Y &lt;-<span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="kw">sin</span>(<span class="dv">5</span> <span class="op">*</span><span class="st"> </span>X) <span class="op">+</span><span class="st"> </span>X <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb56-5"><a href="qué-significan-estos-intervalos.html#cb56-5"></a>toyex.initial &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X, Y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(X)</span>
+<span id="cb56-6"><a href="qué-significan-estos-intervalos.html#cb56-6"></a></span>
+<span id="cb56-7"><a href="qué-significan-estos-intervalos.html#cb56-7"></a>lm.toyex.initial &lt;-<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span>X, <span class="dt">data =</span> toyex.initial)</span>
+<span id="cb56-8"><a href="qué-significan-estos-intervalos.html#cb56-8"></a></span>
+<span id="cb56-9"><a href="qué-significan-estos-intervalos.html#cb56-9"></a>toyex.pred.initial &lt;-<span class="st"> </span><span class="kw">data.frame</span>(toyex.initial, <span class="kw">predict</span>(lm.toyex.initial, </span>
+<span id="cb56-10"><a href="qué-significan-estos-intervalos.html#cb56-10"></a>    <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>))</span></code></pre></div>
+<p>Ahora, quisiera generar muchas muestras del mismo experimento</p>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="qué-significan-estos-intervalos.html#cb57-1"></a>toyex.pred &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb57-2"><a href="qué-significan-estos-intervalos.html#cb57-2"></a></span>
+<span id="cb57-3"><a href="qué-significan-estos-intervalos.html#cb57-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {</span>
+<span id="cb57-4"><a href="qué-significan-estos-intervalos.html#cb57-4"></a>    X &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb57-5"><a href="qué-significan-estos-intervalos.html#cb57-5"></a>    Y &lt;-<span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="kw">sin</span>(<span class="dv">5</span> <span class="op">*</span><span class="st"> </span>X) <span class="op">+</span><span class="st"> </span>X <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb57-6"><a href="qué-significan-estos-intervalos.html#cb57-6"></a>    toyexi &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">im =</span> i, X, Y)</span>
+<span id="cb57-7"><a href="qué-significan-estos-intervalos.html#cb57-7"></a>    toyexi &lt;-<span class="st"> </span>toyexi <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(X)</span>
+<span id="cb57-8"><a href="qué-significan-estos-intervalos.html#cb57-8"></a>    toyex.pred &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(toyex.pred, <span class="kw">data.frame</span>(toyexi, </span>
+<span id="cb57-9"><a href="qué-significan-estos-intervalos.html#cb57-9"></a>        <span class="kw">predict</span>(lm.toyex.initial, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)))</span>
+<span id="cb57-10"><a href="qué-significan-estos-intervalos.html#cb57-10"></a>}</span>
+<span id="cb57-11"><a href="qué-significan-estos-intervalos.html#cb57-11"></a></span>
+<span id="cb57-12"><a href="qué-significan-estos-intervalos.html#cb57-12"></a></span>
+<span id="cb57-13"><a href="qué-significan-estos-intervalos.html#cb57-13"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {</span>
+<span id="cb57-14"><a href="qué-significan-estos-intervalos.html#cb57-14"></a>    toyex.pred<span class="op">$</span>fit &lt;-<span class="st"> </span><span class="kw">fitted</span>(<span class="kw">lm</span>(<span class="dt">formula =</span> Y <span class="op">~</span><span class="st"> </span>X, <span class="dt">data =</span> toyex.pred[toyex.pred<span class="op">$</span>im <span class="op">==</span><span class="st"> </span></span>
+<span id="cb57-15"><a href="qué-significan-estos-intervalos.html#cb57-15"></a><span class="st">        </span>i, ]))</span>
+<span id="cb57-16"><a href="qué-significan-estos-intervalos.html#cb57-16"></a>}</span>
+<span id="cb57-17"><a href="qué-significan-estos-intervalos.html#cb57-17"></a></span>
+<span id="cb57-18"><a href="qué-significan-estos-intervalos.html#cb57-18"></a>toyex.pred<span class="op">$</span>im &lt;-<span class="st"> </span><span class="kw">as.factor</span>(toyex.pred<span class="op">$</span>im)</span></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="qué-significan-estos-intervalos.html#cb58-1"></a><span class="kw">library</span>(gganimate)</span>
+<span id="cb58-2"><a href="qué-significan-estos-intervalos.html#cb58-2"></a></span>
+<span id="cb58-3"><a href="qué-significan-estos-intervalos.html#cb58-3"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> toyex.pred, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb58-4"><a href="qué-significan-estos-intervalos.html#cb58-4"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">data =</span> toyex.initial, <span class="dt">method =</span> lm, </span>
+<span id="cb58-5"><a href="qué-significan-estos-intervalos.html#cb58-5"></a>        <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill =</span> <span class="st">&quot;confianza&quot;</span>), <span class="dt">size =</span> <span class="dv">1</span>, </span>
+<span id="cb58-6"><a href="qué-significan-estos-intervalos.html#cb58-6"></a>        <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="dt">data =</span> toyex.pred.initial, </span>
+<span id="cb58-7"><a href="qué-significan-estos-intervalos.html#cb58-7"></a>    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">ymin =</span> lwr, <span class="dt">ymax =</span> upr, <span class="dt">fill =</span> <span class="st">&quot;predicción&quot;, </span></span>
+<span id="cb58-8"><a href="qué-significan-estos-intervalos.html#cb58-8"></a><span class="st">        ), alpha = 0.3) + labs(title = paste0(&quot;</span>Muestra <span class="co">#: {closest_state}&quot;)) + </span></span>
+<span id="cb58-9"><a href="qué-significan-estos-intervalos.html#cb58-9"></a>    <span class="kw">scale_fill_manual</span>(<span class="st">&quot;Intervalos&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;green&quot;</span>, </span>
+<span id="cb58-10"><a href="qué-significan-estos-intervalos.html#cb58-10"></a>        <span class="st">&quot;yellow&quot;</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>), </span>
+<span id="cb58-11"><a href="qué-significan-estos-intervalos.html#cb58-11"></a>    <span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">transition_states</span>(im)</span></code></pre></div>
+<pre><code>## Error in device(files[i], ...): unused arguments (units = &quot;in&quot;, res = 192)</code></pre>
+<div id="interacciones" class="section level2">
+<h2><span class="header-section-number">6.1</span> Interacciones</h2>
+<p>En el modelo clásico</p>
+<p><span class="math display">\[\begin{equation*}
+Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon
+\end{equation*}\]</span></p>
+<p>Aumentemos en 1 unidad <span class="math inline">\(X_{1}\)</span> y rescribamos el modelo original</p>
+<p><span class="math display">\[\begin{align*}
+Y &amp;=  \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon \\
+Y &amp;=  (\beta_{0} + \beta_{1}) + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon \\
+Y &amp;=  \tilde{\beta_{0}} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon \\
+\end{align*}\]</span></p>
+<p>Es decir, el modelo original sigue siendo el mismo aunque hayamos cambiado el <span class="math inline">\(X_1\)</span>. Este fenómeno ocurre siempre bajo transformaciones lineales de las variables.</p>
+<p>Ahora suponga que tenemos el siguiente modelo y aumentamos en 1 el <span class="math inline">\(X_1\)</span></p>
+<p><span class="math display">\[\begin{align*}
+Y &amp;=  \beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon \\
+\implies Y &amp;=  \beta_{0} + \beta_{1} (X_{1}+1) X_{2} +\varepsilon \\
+\implies Y &amp;=  \beta_{0} + \beta_{1}X_{2} +  \beta_{1} X_{1} X_{2} +\varepsilon \\
+\end{align*}\]</span></p>
+<p>OJO. Terminamos con un modelo diferente con el que empezamos. Esto es indeseable ya que no hay consistencia en la modelación,</p>
+<p>Una forma de arreglar el problema es incluir las interacciones junto con todos sus efectos directos.</p>
+<p><span class="math display">\[\begin{equation*}
+Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\varepsilon \\
+\end{equation*}\]</span></p>
 
+<div class="exercise">
+<span id="exr:unnamed-chunk-22" class="exercise"><strong>Ejercicio 6.1  </strong></span>Compruebe que para el caso anterior, si aumenta en una unidad <span class="math inline">\(X_{1}\)</span>, el modelo se mantiene.
+</div>
+
+<div id="laboratorio-4" class="section level3">
+<h3><span class="header-section-number">6.1.1</span> Laboratorio</h3>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="qué-significan-estos-intervalos.html#cb60-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + disp, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4087 -2.3243 -0.7683  1.7721  6.3484 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 34.96055    2.16454  16.151 4.91e-16 ***
+## wt          -3.35082    1.16413  -2.878  0.00743 ** 
+## disp        -0.01773    0.00919  -1.929  0.06362 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.917 on 29 degrees of freedom
+## Multiple R-squared:  0.7809, Adjusted R-squared:  0.7658 
+## F-statistic: 51.69 on 2 and 29 DF,  p-value: 2.744e-10</code></pre>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="qué-significan-estos-intervalos.html#cb62-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>wt <span class="op">*</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + disp + wt * disp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.267 -1.677 -0.836  1.351  5.017 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 44.081998   3.123063  14.115 2.96e-14 ***
+## wt          -6.495680   1.313383  -4.946 3.22e-05 ***
+## disp        -0.056358   0.013239  -4.257  0.00021 ***
+## wt:disp      0.011705   0.003255   3.596  0.00123 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.455 on 28 degrees of freedom
+## Multiple R-squared:  0.8501, Adjusted R-squared:  0.8341 
+## F-statistic: 52.95 on 3 and 28 DF,  p-value: 1.158e-11</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="qué-significan-estos-intervalos.html#cb64-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">*</span><span class="st"> </span>disp <span class="op">-</span><span class="st"> </span>wt <span class="op">-</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt * disp - wt - disp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -4.259 -2.603 -1.657  2.165  8.589 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 26.2621926  1.0418029  25.208  &lt; 2e-16 ***
+## wt:disp     -0.0072897  0.0009721  -7.499 2.33e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.614 on 30 degrees of freedom
+## Multiple R-squared:  0.6521, Adjusted R-squared:  0.6405 
+## F-statistic: 56.24 on 1 and 30 DF,  p-value: 2.329e-08</code></pre>
+<!-- Y aumentamos -->
+<!--  aumenta en 1 unidad   y denotamos  -->
+<!-- \begin{equation*} -->
+<!-- Y_{+1} = \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon -->
+<!-- \end{equation*} -->
+<!-- vemos que  -->
+<!-- \begin{align*} -->
+<!-- Y_{+1} -Y &=  \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon \\ -->
+<!-- & -(\beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon) \\ -->
+<!-- &= \beta_{1}. -->
+<!-- \end{align*} -->
+<!-- Entonces \(\beta_{1}\) es la __razon de cambio__ discreta de aumentar 1 unidad en \(X_{1}\) con respecto a \(Y\).  -->
+<!-- En otras palabras,  -->
+<!-- Ahora suponga que tenemos los modelos: -->
+<!-- \begin{align*} -->
+<!-- Y &=  \beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon\\ -->
+<!-- Y_{+1} &=  \beta_{0} + \tilde{\beta_{1}} (X_{1}+1) X_{2}+\varepsilon \\ -->
+<!-- \end{align*} -->
+<!-- y hacemos el mismo cálculo que antes:  -->
+<!-- \begin{align*} -->
+<!-- Y_{+1} -Y &=  \beta_{0} + \tilde{\beta_{1}} (X_{1}+1) X_{2}+\varepsilon \\ -->
+<!-- & -(\beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon) \\ -->
+<!-- &=  \tilde{\beta_{1}} X_{2} -->
+<!-- \end{align*} -->
+<!-- Es decir esa razón de cambio depende  -->
+
+</div>
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
+<a href="aprendizaje-estadístico.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="estimación-de-densidades.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -280,7 +440,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/maikol-solis/notas-curso-estadistica/edit/master/index.Rmd",
+"link": "https://github.com/maikol-solis/notas-curso-estadistica/edit/master/04-metodos-lineares-regresion.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -288,7 +448,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/maikol-solis/notas-curso-estadistica/blob/master/index.Rmd",
+"link": "https://github.com/maikol-solis/notas-curso-estadistica/blob/master/04-metodos-lineares-regresion.Rmd",
 "text": null
 },
 "download": ["Notas-Curso-Estadistica.pdf"],

@@ -52,9 +52,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -63,14 +63,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -79,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -169,11 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html"><i class="fa fa-check"></i><b>3</b> Jacknife y Bootstrap</a><ul>
 <li class="chapter" data-level="3.1" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#caso-concreto"><i class="fa fa-check"></i><b>3.1</b> Caso concreto</a></li>
 <li class="chapter" data-level="3.2" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#jacknife"><i class="fa fa-check"></i><b>3.2</b> Jacknife</a></li>
-<li class="chapter" data-level="3.3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#bootstrap"><i class="fa fa-check"></i><b>3.3</b> Bootstrap</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#intervalos-de-confianza"><i class="fa fa-check"></i><b>3.3.1</b> Intervalos de confianza</a></li>
-<li class="chapter" data-level="3.3.2" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#intervalo-pivotal-studentizado"><i class="fa fa-check"></i><b>3.3.2</b> Intervalo pivotal studentizado</a></li>
-<li class="chapter" data-level="3.3.3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#resumiendo"><i class="fa fa-check"></i><b>3.3.3</b> Resumiendo</a></li>
-</ul></li>
+<li class="chapter" data-level="3.3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#bootstrap"><i class="fa fa-check"></i><b>3.3</b> Bootstrap</a></li>
 <li class="chapter" data-level="3.4" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#ejercicios-1"><i class="fa fa-check"></i><b>3.4</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html"><i class="fa fa-check"></i><b>4</b> Estimación de densidades con Bayes</a><ul>
@@ -202,10 +200,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#introducción-1"><i class="fa fa-check"></i><b>5.1</b> Introducción</a></li>
 <li class="chapter" data-level="5.2" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#regresión-lineal"><i class="fa fa-check"></i><b>5.2</b> Regresión lineal</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#forma-matricial"><i class="fa fa-check"></i><b>5.2.1</b> Forma matricial</a></li>
+<li class="chapter" data-level="5.2.2" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#laboratorio-1"><i class="fa fa-check"></i><b>5.2.2</b> Laboratorio</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#propiedades-estadísticas-2"><i class="fa fa-check"></i><b>5.3</b> Propiedades estadísticas</a></li>
-<li class="chapter" data-level="5.4" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-t"><i class="fa fa-check"></i><b>5.4</b> Prueba <span class="math inline">\(t\)</span></a></li>
-<li class="chapter" data-level="5.5" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-f"><i class="fa fa-check"></i><b>5.5</b> Prueba <span class="math inline">\(F\)</span></a></li>
+<li class="chapter" data-level="5.3" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#propiedades-estadísticas-2"><i class="fa fa-check"></i><b>5.3</b> Propiedades estadísticas</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-t"><i class="fa fa-check"></i><b>5.3.1</b> Prueba <span class="math inline">\(t\)</span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-f"><i class="fa fa-check"></i><b>5.3.2</b> Prueba <span class="math inline">\(F\)</span></a></li>
+<li class="chapter" data-level="5.3.3" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#laboratorio-2"><i class="fa fa-check"></i><b>5.3.3</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#predicción"><i class="fa fa-check"></i><b>5.4</b> Predicción</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#laboratorio-3"><i class="fa fa-check"></i><b>5.4.1</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#interacciones"><i class="fa fa-check"></i><b>5.5</b> Interacciones</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#laboratorio-4"><i class="fa fa-check"></i><b>5.5.1</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#posibles-problemas-en-los-supuestos-para-regresion-lineal"><i class="fa fa-check"></i><b>5.6</b> Posibles problemas en los supuestos para regresion lineal</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#no-linealidad-de-los-datos"><i class="fa fa-check"></i><b>5.6.1</b> No linealidad de los datos</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -263,7 +273,7 @@ varianza, mediana, etc, pero no sabemos nada de su distribución.
 <p>Suponga que tenemos la siguiente tabla de datos, que representa una
 muestra de tiempos y distancias de viajes en Atlanta.</p>
 <p>Cargamos la base de la siguiente forma:</p>
-<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb34-1" title="1">CommuteAtlanta &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="st">&quot;data/CommuteAtlanta.csv&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="jacknife-y-bootstrap.html#cb34-1"></a>CommuteAtlanta &lt;-<span class="st"> </span><span class="kw">read.csv2</span>(<span class="st">&quot;data/CommuteAtlanta.csv&quot;</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -321,9 +331,9 @@ muestra de tiempos y distancias de viajes en Atlanta.</p>
 </table>
 <p>Para este ejemplo tomaremos la variable  que la
 llamaremos  para ser más breves. En este caso note que</p>
-<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb35-1" title="1">x &lt;-<span class="st"> </span>CommuteAtlanta<span class="op">$</span>Time</a></code></pre></div>
+<div class="sourceCode" id="cb35"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb35-1"><a href="jacknife-y-bootstrap.html#cb35-1"></a>x &lt;-<span class="st"> </span>CommuteAtlanta<span class="op">$</span>Time</span></code></pre></div>
 <p>La media es 29.11 y su varianza 429.2483968. Para efectos de lo que sigue, asignaremos la varianza a la variable <span class="math inline">\(T_n\)</span></p>
-<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb36-1" title="1">Tn &lt;-<span class="st"> </span><span class="kw">var</span>(x)</a></code></pre></div>
+<div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="jacknife-y-bootstrap.html#cb36-1"></a>Tn &lt;-<span class="st"> </span><span class="kw">var</span>(x)</span></code></pre></div>
 <p>A partir de estos dos valores, ¿Cuál sería un intervalo de confianza
 para la media?</p>
 <p>Note que esta pregunta es difícil ya que no tenemos ningún tipo de
@@ -370,8 +380,8 @@ siguiente observación.</p>
 la matriz de datos múltiple veces usando el producto de kronecker
 </div>
 
-<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb37-1" title="1">n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</a>
-<a class="sourceLine" id="cb37-2" title="2">jackdf &lt;-<span class="st"> </span><span class="kw">kronecker</span>(<span class="kw">matrix</span>(<span class="dv">1</span>, <span class="dv">1</span>, n), x)</a></code></pre></div>
+<div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="jacknife-y-bootstrap.html#cb37-1"></a>n &lt;-<span class="st"> </span><span class="kw">length</span>(x)</span>
+<span id="cb37-2"><a href="jacknife-y-bootstrap.html#cb37-2"></a>jackdf &lt;-<span class="st"> </span><span class="kw">kronecker</span>(<span class="kw">matrix</span>(<span class="dv">1</span>, <span class="dv">1</span>, n), x)</span></code></pre></div>
 <table>
 <tbody>
 <tr class="odd">
@@ -497,7 +507,7 @@ la matriz de datos múltiple veces usando el producto de kronecker
 </tbody>
 </table>
 <p>Y luego se elimina la diagonal</p>
-<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb38-1" title="1"><span class="kw">diag</span>(jackdf) &lt;-<span class="st"> </span><span class="ot">NA</span></a></code></pre></div>
+<div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="jacknife-y-bootstrap.html#cb38-1"></a><span class="kw">diag</span>(jackdf) &lt;-<span class="st"> </span><span class="ot">NA</span></span></code></pre></div>
 <table>
 <tbody>
 <tr class="odd">
@@ -624,7 +634,7 @@ la matriz de datos múltiple veces usando el producto de kronecker
 </table>
 <p>Cada columna contiene toda la muestra excepto el <span class="math inline">\(i\)</span>-ésimo
 elemento. Solo basta estimar la media de cada columna:</p>
-<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb39-1" title="1">T_i &lt;-<span class="st"> </span><span class="kw">apply</span>(jackdf, <span class="dv">2</span>, var, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb39"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb39-1"><a href="jacknife-y-bootstrap.html#cb39-1"></a>T_i &lt;-<span class="st"> </span><span class="kw">apply</span>(jackdf, <span class="dv">2</span>, var, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -677,7 +687,7 @@ b_{jack} = (n-1) (\overline{T}_{n} - T_{n})
 <span id="exr:unnamed-chunk-71" class="exercise"><strong>Ejercicio 3.2  </strong></span>En nuestro caso tendríamos lo siguiente:
 </div>
 
-<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb40-1" title="1">(bjack &lt;-<span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>(<span class="kw">mean</span>(T_i) <span class="op">-</span><span class="st"> </span>Tn))</a></code></pre></div>
+<div class="sourceCode" id="cb40"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb40-1"><a href="jacknife-y-bootstrap.html#cb40-1"></a>(bjack &lt;-<span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>(<span class="kw">mean</span>(T_i) <span class="op">-</span><span class="st"> </span>Tn))</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Es decir, que los  generan estimadores de 
 que contienen el mismo sesgo.</p>
@@ -735,14 +745,14 @@ estimar <span class="math inline">\(T_{n}\)</span>.
 <span id="exr:unnamed-chunk-76" class="exercise"><strong>Ejercicio 3.4  </strong></span>Los pseudo-valores se estiman de forma directa como,
 </div>
 
-<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb42-1" title="1">pseudo &lt;-<span class="st"> </span>n <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>T_i</a>
-<a class="sourceLine" id="cb42-2" title="2"></a>
-<a class="sourceLine" id="cb42-3" title="3">pseudo[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="jacknife-y-bootstrap.html#cb42-1"></a>pseudo &lt;-<span class="st"> </span>n <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span>(n <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">*</span><span class="st"> </span>T_i</span>
+<span id="cb42-2"><a href="jacknife-y-bootstrap.html#cb42-2"></a></span>
+<span id="cb42-3"><a href="jacknife-y-bootstrap.html#cb42-3"></a>pseudo[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</span></code></pre></div>
 <pre><code>##  [1] 199.02972209 957.16225222 252.64417993 365.79679037  -0.06666345
 ##  [6] 957.16225222 252.64417993 365.79679037  16.09799519 199.02972209</code></pre>
 <p>Lo importante acá es notar la similitud que tiene con los datos
 reales,</p>
-<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb44-1" title="1"><span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pseudo)</a></code></pre></div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="jacknife-y-bootstrap.html#cb44-1"></a><span class="kw">plot</span>(<span class="dt">x =</span> x, <span class="dt">y =</span> pseudo)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-78-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Con estos pseudo-valores, es posible estimar la media y la varianza de
 <span class="math inline">\(T_{n}\)</span> con sus respectivos estimadores:</p>
@@ -776,15 +786,15 @@ investigación, <span class="math inline">\(\theta\)</span>. Por lo tanto, tenem
 <span id="exr:unnamed-chunk-80" class="exercise"><strong>Ejercicio 3.5  </strong></span>
 </div>
 
-<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb45-1" title="1">(Tjack &lt;-<span class="st"> </span><span class="kw">mean</span>(pseudo))</a></code></pre></div>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="jacknife-y-bootstrap.html#cb45-1"></a>(Tjack &lt;-<span class="st"> </span><span class="kw">mean</span>(pseudo))</span></code></pre></div>
 <pre><code>## [1] 429.2484</code></pre>
-<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb47-1" title="1">(Vjack &lt;-<span class="st"> </span><span class="kw">var</span>(pseudo, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="jacknife-y-bootstrap.html#cb47-1"></a>(Vjack &lt;-<span class="st"> </span><span class="kw">var</span>(pseudo, <span class="dt">na.rm =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
 <pre><code>## [1] 2701991</code></pre>
-<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb49-1" title="1">(sdjack &lt;-<span class="st"> </span><span class="kw">sqrt</span>(Vjack))</a></code></pre></div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="jacknife-y-bootstrap.html#cb49-1"></a>(sdjack &lt;-<span class="st"> </span><span class="kw">sqrt</span>(Vjack))</span></code></pre></div>
 <pre><code>## [1] 1643.774</code></pre>
-<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb51-1" title="1">(z &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="jacknife-y-bootstrap.html#cb51-1"></a>(z &lt;-<span class="st"> </span><span class="kw">qnorm</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] 1.959964</code></pre>
-<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb53-1" title="1"><span class="kw">c</span>(Tjack <span class="op">-</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdjack<span class="op">/</span><span class="kw">sqrt</span>(n), Tjack <span class="op">+</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdjack<span class="op">/</span><span class="kw">sqrt</span>(n))</a></code></pre></div>
+<div class="sourceCode" id="cb53"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb53-1"><a href="jacknife-y-bootstrap.html#cb53-1"></a><span class="kw">c</span>(Tjack <span class="op">-</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdjack<span class="op">/</span><span class="kw">sqrt</span>(n), Tjack <span class="op">+</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdjack<span class="op">/</span><span class="kw">sqrt</span>(n))</span></code></pre></div>
 <pre><code>## [1] 285.1679 573.3289</code></pre>
 </div>
 <div id="bootstrap" class="section level2">
@@ -855,88 +865,95 @@ v_{\mathrm{boot}} \stackrel{\mathrm{a.s.}}{\longrightarrow} \mathbb{V}_{\widehat
 <p><span id="exr:unnamed-chunk-87" class="exercise"><strong>Ejercicio 3.6  </strong></span>En este ejemplo podemos tomar <span class="math inline">\(B=1000\)</span> y construir esa cantidad de veces nuestro estimador.</p>
 </div>
 
-<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb55-1" title="1">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb55-2" title="2">Tboot_b &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb55-3" title="3"></a>
-<a class="sourceLine" id="cb55-4" title="4"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
-<a class="sourceLine" id="cb55-5" title="5">    xb &lt;-<span class="st"> </span><span class="kw">sample</span>(x, <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb55-6" title="6">    Tboot_b[b] &lt;-<span class="st"> </span><span class="kw">var</span>(xb)</a>
-<a class="sourceLine" id="cb55-7" title="7">}</a>
-<a class="sourceLine" id="cb55-8" title="8"></a>
-<a class="sourceLine" id="cb55-9" title="9">Tboot_b[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</a></code></pre></div>
+<div class="sourceCode" id="cb55"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb55-1"><a href="jacknife-y-bootstrap.html#cb55-1"></a>B &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb55-2"><a href="jacknife-y-bootstrap.html#cb55-2"></a>Tboot_b &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb55-3"><a href="jacknife-y-bootstrap.html#cb55-3"></a></span>
+<span id="cb55-4"><a href="jacknife-y-bootstrap.html#cb55-4"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</span>
+<span id="cb55-5"><a href="jacknife-y-bootstrap.html#cb55-5"></a>    xb &lt;-<span class="st"> </span><span class="kw">sample</span>(x, <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb55-6"><a href="jacknife-y-bootstrap.html#cb55-6"></a>    Tboot_b[b] &lt;-<span class="st"> </span><span class="kw">var</span>(xb)</span>
+<span id="cb55-7"><a href="jacknife-y-bootstrap.html#cb55-7"></a>}</span>
+<span id="cb55-8"><a href="jacknife-y-bootstrap.html#cb55-8"></a></span>
+<span id="cb55-9"><a href="jacknife-y-bootstrap.html#cb55-9"></a>Tboot_b[<span class="dv">1</span><span class="op">:</span><span class="dv">10</span>]</span></code></pre></div>
 <pre><code>##  [1] 414.1915 391.2966 310.2777 468.8409 400.5235 380.8023 496.4924 418.5968
 ##  [9] 461.3902 547.3446</code></pre>
-<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb57-1" title="1"><span class="kw">plot</span>(Tboot_b)</a></code></pre></div>
+<div class="sourceCode" id="cb57"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb57-1"><a href="jacknife-y-bootstrap.html#cb57-1"></a><span class="kw">plot</span>(Tboot_b)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-89-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Por supuesto podemos encontrar los estadísticos usuales para esta nueva muestra</p>
-<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb58-1" title="1">(Tboot &lt;-<span class="st"> </span><span class="kw">mean</span>(Tboot_b))</a></code></pre></div>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="jacknife-y-bootstrap.html#cb58-1"></a>(Tboot &lt;-<span class="st"> </span><span class="kw">mean</span>(Tboot_b))</span></code></pre></div>
 <pre><code>## [1] 428.0777</code></pre>
-<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb60-1" title="1">(Vboot &lt;-<span class="st"> </span><span class="kw">var</span>(Tboot_b))</a></code></pre></div>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="jacknife-y-bootstrap.html#cb60-1"></a>(Vboot &lt;-<span class="st"> </span><span class="kw">var</span>(Tboot_b))</span></code></pre></div>
 <pre><code>## [1] 5431.092</code></pre>
-<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb62-1" title="1">(sdboot &lt;-<span class="st"> </span><span class="kw">sqrt</span>(Vboot))</a></code></pre></div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="jacknife-y-bootstrap.html#cb62-1"></a>(sdboot &lt;-<span class="st"> </span><span class="kw">sqrt</span>(Vboot))</span></code></pre></div>
 <pre><code>## [1] 73.69594</code></pre>
-<p><code></code></p>
-<div id="intervalos-de-confianza" class="section level3">
-<h3><span class="header-section-number">3.3.1</span> Intervalos de confianza</h3>
+<pre class="```"><code>
+### Intervalos de confianza
 
-<p>Este es el más sencillo y se escribe como</p>
-<p><span class="math display">\[\begin{equation}
+
+
+\subsubsection{Intervalo Normal}
+
+Este es el más sencillo y se escribe como
+
+\begin{equation}
 T_{n} \pm z_{\alpha / 2} \widehat{\mathrm{Se}}_{\mathrm{boot}}
-\end{equation}\]</span></p>
+\end{equation}
 
-<div class="remark">
- <span class="remark"><em>Nota: </em></span> Este intervalo solo funciona si la distribución de <span class="math inline">\(T_{n}\)</span> es normal.
-</div>
+\BeginKnitrBlock{remark}&lt;div class=&quot;remark&quot;&gt;\iffalse{} &lt;span class=&quot;remark&quot;&gt;&lt;em&gt;Nota: &lt;/em&gt;&lt;/span&gt;  \fi{}Este intervalo solo funciona si la distribución de \(T_{n}\) es normal.&lt;/div&gt;\EndKnitrBlock{remark}
 
+\BeginKnitrBlock{exercise}&lt;div class=&quot;exercise&quot;&gt;&lt;span class=&quot;exercise&quot; id=&quot;exr:unnamed-chunk-94&quot;&gt;&lt;strong&gt;(\#exr:unnamed-chunk-94) &lt;/strong&gt;&lt;/span&gt;El cálculo de este intervalo es&lt;/div&gt;\EndKnitrBlock{exercise}
 
-<div class="exercise">
-<span id="exr:unnamed-chunk-94" class="exercise"><strong>Ejercicio 3.7  </strong></span>El cálculo de este intervalo es
-</div>
-
-<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb64-1" title="1"><span class="kw">c</span>(Tn <span class="op">-</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdboot, Tn <span class="op">+</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdboot)</a></code></pre></div>
+```r
+c(Tn - z * sdboot, Tn + z * sdboot)</code></pre>
 <pre><code>## [1] 284.8070 573.6898</code></pre>
-<p><code></code></p>
+<pre class="```"><code>
+\subsubsection{Intervalo pivotal}
 
-<p>Sea <span class="math inline">\(\theta=T(F)\)</span> y <span class="math inline">\(\widehat{\theta}_{n}=T\left(\widehat{F}_{n}\right)\)</span> y defina la cantidad pivotal <span class="math inline">\(R_{n}=\widehat{\theta}_{n}-\theta .\)</span></p>
-<p>Sea <span class="math inline">\(H(r)\)</span> la función de distribución del pivote:
-<span class="math display">\[
+Sea  \(\theta=T(F)\) y  \(\widehat{\theta}_{n}=T\left(\widehat{F}_{n}\right)\) y defina la cantidad pivotal  \(R_{n}=\widehat{\theta}_{n}-\theta .\)
+
+Sea  \(H(r)\) la función de distribución del pivote:
+\[
 H(r)=\mathbb{P}_{F}\left(R_{n} \leq r\right).
-\]</span></p>
-<p>Además considere <span class="math inline">\(C_{n}^{\star}=(a, b)\)</span> donde
-<span class="math display">\[
+\]
+
+Además considere  \(C_{n}^{\star}=(a, b)\)  donde
+\[
 a=\widehat{\theta}_{n}-H^{-1}\left(1-\frac{\alpha}{2}\right) \quad \text { y } \quad b=\widehat{\theta}_{n}-H^{-1}\left(\frac{\alpha}{2}\right).
-\]</span></p>
+\]
+
 Se sigue que
-<span class="math display">\[\begin{align*}
+\begin{align*}
 \mathbb{P}(a \leq \theta \leq b)
 &amp;=\mathbb{P}\left(\widehat{\theta}_{n}-b \leq R_{n} \leq \widehat{\theta}_{n}-a\right) \\
 &amp;=H\left(\widehat{\theta}_{n}-a\right)-H\left(\widehat{\theta}_{n}-b\right) \\
 &amp;=H\left(H^{-1}\left(1-\frac{\alpha}{2}\right)\right)-H\left(H^{-1}\left(\frac{\alpha}{2}\right)\right) \\
 &amp;=1-\frac{\alpha}{2}-\frac{\alpha}{2}=1-\alpha
-\end{align*}\]</span>
+\end{align*}
+\BeginKnitrBlock{remark}&lt;div class=&quot;remark&quot;&gt;\iffalse{} &lt;span class=&quot;remark&quot;&gt;&lt;em&gt;Nota: &lt;/em&gt;&lt;/span&gt;  \fi{}\(C_{n}^{\star}=(a, b)\)  es un intervalo de confianza al \(1-\alpha\) de confianza.
 
-<div class="remark">
-<p> <span class="remark"><em>Nota: </em></span> <span class="math inline">\(C_{n}^{\star}=(a, b)\)</span> es un intervalo de confianza al <span class="math inline">\(1-\alpha\)</span> de confianza.</p>
-<p>El problema es que este intervalo depende de <span class="math inline">\(H\)</span> desconocido.</p>
-</div>
+El problema es que este intervalo depende de \(H\) desconocido.
+&lt;/div&gt;\EndKnitrBlock{remark}
 
-<p>Para resolver este problema, se puede construir una versión <em>bootstrap</em> de <span class="math inline">\(H\)</span> usando lo que sabemos hasta ahora.</p>
-<p><span class="math display">\[
+
+Para resolver este problema, se puede construir una versión _bootstrap_ de \(H\) usando lo que sabemos hasta ahora.
+
+\[
 \widehat{H}(r)=\frac{1}{B} \sum_{b=1}^{B} I\left(R_{n, b}^{*} \leq r\right)
-\]</span>
-donde <span class="math inline">\(R_{n, b}^{*}=\widehat{\theta}_{n, b}^{*}-\widehat{\theta}_{n}\)</span>.</p>
-<p>Sea <span class="math inline">\(r_{\beta}^{*}\)</span> el cuantil muestral de tamaño <span class="math inline">\(\beta\)</span> de <span class="math inline">\(\left(R_{n, 1}^{*}, \ldots, R_{n, B}^{*}\right)\)</span> y sea <span class="math inline">\(\theta_{\beta}^{*}\)</span> el cuantil muestral de tamaño <span class="math inline">\(\beta\)</span> de <span class="math inline">\(\left(\theta_{n, 1}^{*}, \ldots, \theta_{n, B}^{*}\right)\)</span>.</p>
+\]
+donde \(R_{n, b}^{*}=\widehat{\theta}_{n, b}^{*}-\widehat{\theta}_{n}\).
 
-<div class="remark">
- <span class="remark"><em>Nota: </em></span> Según la notación anterior note que
-<span class="math display">\[\begin{equation*}
+Sea  \(r_{\beta}^{*}\) el cuantil muestral de tamaño  \(\beta\) de  \(\left(R_{n, 1}^{*}, \ldots, R_{n, B}^{*}\right)\) y sea \(\theta_{\beta}^{*}\) el cuantil muestral de tamaño  \(\beta\) de \(\left(\theta_{n, 1}^{*}, \ldots, \theta_{n, B}^{*}\right)\).
+
+\BeginKnitrBlock{remark}&lt;div class=&quot;remark&quot;&gt;\iffalse{} &lt;span class=&quot;remark&quot;&gt;&lt;em&gt;Nota: &lt;/em&gt;&lt;/span&gt;  \fi{}Según la notación anterior note que
+\begin{equation*}
 r_{\beta}^{*}= \theta_{\beta}^{*}-\widehat{\theta}_{n}
-\end{equation*}\]</span>
-</div>
+\end{equation*}&lt;/div&gt;\EndKnitrBlock{remark}
 
-<p>Con estas observaciones
-It follows that an approximate <span class="math inline">\(1-\alpha\)</span> confidence interval is <span class="math inline">\(C_{n}=(\widehat{a}, \widehat{b})\)</span> where</p>
-<p><span class="math display">\[\begin{align*}
+
+
+Con estas observaciones
+It follows that an approximate \(1-\alpha\) confidence interval is \(C_{n}=(\widehat{a}, \widehat{b})\) where
+
+\begin{align*}
 \widehat{a}
 &amp;= \widehat{\theta}_{n}-\widehat{H}^{-1}\left(1-\frac{\alpha}{2}\right)
 &amp;= \widehat{\theta}_{n}-r_{1-\alpha / 2}^{*}
@@ -946,97 +963,99 @@ It follows that an approximate <span class="math inline">\(1-\alpha\)</span> con
 &amp;=\widehat{\theta}_{n}-r_{\alpha / 2}^{*}
 &amp;= \widehat{\theta}_{n}-\theta_{\alpha / 2}^{*} + \widehat{\theta}_{n}
 &amp;=2 \widehat{\theta}_{n}-\theta_{\alpha / 2}^{*}
-\end{align*}\]</span></p>
+\end{align*}
 
-<div class="remark">
- <span class="remark"><em>Nota: </em></span> El intervalo de confianza pivotal de tamaño <span class="math inline">\(1-\alpha\)</span> es
-<span class="math display">\[
+\BeginKnitrBlock{remark}&lt;div class=&quot;remark&quot;&gt;\iffalse{} &lt;span class=&quot;remark&quot;&gt;&lt;em&gt;Nota: &lt;/em&gt;&lt;/span&gt;  \fi{}El intervalo de confianza pivotal de tamaño \(1-\alpha\) es
+\[
   C_{n}=\left(2 \widehat{\theta}_{n}-\widehat{\theta}_{((1-\alpha / 2) B)}^{*}, 2 \widehat{\theta}_{n}-\widehat{\theta}_{((\alpha / 2) B)}^{*}\right)
-  \]</span>
-</div>
+  \]&lt;/div&gt;\EndKnitrBlock{remark}
 
+\BeginKnitrBlock{exercise}&lt;div class=&quot;exercise&quot;&gt;&lt;span class=&quot;exercise&quot; id=&quot;exr:unnamed-chunk-99&quot;&gt;&lt;strong&gt;(\#exr:unnamed-chunk-99) &lt;/strong&gt;&lt;/span&gt;El intervalo anterior para un nivel de 95\% se estima de la siguiente forma&lt;/div&gt;\EndKnitrBlock{exercise}
 
-<div class="exercise">
-<span id="exr:unnamed-chunk-99" class="exercise"><strong>Ejercicio 3.8  </strong></span>El intervalo anterior para un nivel de 95% se estima de la siguiente forma
-</div>
-
-<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb66-1" title="1"><span class="kw">c</span>(<span class="dv">2</span> <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(Tboot_b, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>), <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb66-2" title="2"><span class="st">    </span><span class="kw">quantile</span>(Tboot_b, <span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>))</a></code></pre></div>
+```r
+c(2 * Tn - quantile(Tboot_b, 1 - 0.05/2), 2 * Tn - 
+    quantile(Tboot_b, 0.05/2))</code></pre>
 <pre><code>##    97.5%     2.5% 
 ## 267.5099 556.9997</code></pre>
-<p><code></code></p>
-</div>
-<div id="intervalo-pivotal-studentizado" class="section level3">
-<h3><span class="header-section-number">3.3.2</span> Intervalo pivotal studentizado</h3>
-<p>Una mejora del intervalo anterior sería normalizar los estimadores previamente</p>
-<p><span class="math display">\[
+<pre class="```"><code>
+### Intervalo pivotal studentizado
+
+Una mejora del intervalo anterior sería normalizar los estimadores previamente
+
+\[
 Z_{n}=\frac{T_{n}-\theta}{\widehat{\mathrm{se}}_{\mathrm{boot}}}.
-\]</span>
-Como <span class="math inline">\(\theta\)</span> es desconocido, entonces la versión a estimar es
-<span class="math display">\[
+\]
+Como \(\theta\) es desconocido, entonces la versión a estimar es
+\[
 Z_{n, b}^{*}=\frac{T_{n, b}^{*}-T_{n}}{\widehat{\mathrm{se}}_{b}^{*}}
-\]</span>
-donde <span class="math inline">\(\widehat{\mathrm{se}}_{b}^{*}\)</span> es un estimador del error estándar de <span class="math inline">\(T_{n, b}^{*}\)</span> no de <span class="math inline">\(T_{n}\)</span>.</p>
+\]
+donde  \(\widehat{\mathrm{se}}_{b}^{*}\) es un estimador del error estándar de  \(T_{n, b}^{*}\) no de \(T_{n}\).
 
-<div class="remark">
- <span class="remark"><em>Nota: </em></span> Esto requerira estimar la varianza de <span class="math inline">\(T_{n,b}^*\)</span> para cada <span class="math inline">\(b\)</span>.
-</div>
+\BeginKnitrBlock{remark}&lt;div class=&quot;remark&quot;&gt;\iffalse{} &lt;span class=&quot;remark&quot;&gt;&lt;em&gt;Nota: &lt;/em&gt;&lt;/span&gt;  \fi{}Esto requerira estimar la varianza de \(T_{n,b}^*\) para cada \(b\).&lt;/div&gt;\EndKnitrBlock{remark}
 
-<p>Con esto se puede obtener cantidades <span class="math inline">\(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*}\)</span> que debería ser próximos a <span class="math inline">\(Z_{n}\)</span>.</p>
-<p>Sea <span class="math inline">\(z_{\alpha}^{*}\)</span> del <span class="math inline">\(\alpha\)</span> cuantiĺ de <span class="math inline">\(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*},\)</span> entonces <span class="math inline">\(\mathbb{P}\left(Z_{n} \leq z_{\alpha}^{*}\right) \approx \alpha\)</span>.</p>
-<p>Define el intervalo
-<span class="math display">\[\begin{equation*}
+Con esto se puede obtener  cantidades \(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*}\) que debería ser próximos a \(Z_{n}\).
+
+Sea \(z_{\alpha}^{*}\) del \(\alpha\) cuantiĺ de \(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*},\) entonces  \(\mathbb{P}\left(Z_{n} \leq z_{\alpha}^{*}\right) \approx \alpha\).
+
+Define el intervalo
+\begin{equation*}
 C_{n}=\left(T_{n}-z_{1-\alpha / 2}^{*} \widehat{\mathrm{se}}_{\mathrm{boot}}, T_{n}-z_{\alpha / 2}^{*} \widehat{\mathrm{se}}_{\mathrm{boot}}\right)
-\end{equation*}\]</span></p>
-<p>Justificado por el siguiente cálculo:</p>
-<p><span class="math display">\[\begin{align*}
+\end{equation*}
+
+Justificado por el siguiente cálculo:
+
+
+\begin{align*}
 \mathbb{P}\left(\theta \in C_{n}\right) &amp;=\mathbb{P}\left(T_{n}-z_{1-\alpha / 2}^{*} \widehat{\mathrm{Se}}_{\mathrm{boot}} \leq \theta \leq T_{n}-z_{\alpha / 2}^{*} \widehat{\mathrm{Se}}_{\mathrm{boot}}\right) \\
 &amp;=\mathbb{P}\left(z_{\alpha / 2}^{*} \leq \frac{T_{n}-\theta}{\mathrm{se}_{\mathrm{boot}}} \leq z_{1-\alpha / 2}^{*}\right) \\
 &amp;=\mathbb{P}\left(z_{\alpha / 2}^{*} \leq Z_{n} \leq z_{1-\alpha / 2}^{*}\right) \\
 &amp; \approx 1-\alpha
-\end{align*}\]</span></p>
+\end{align*}
 
-<div class="exercise">
-<span id="exr:unnamed-chunk-102" class="exercise"><strong>Ejercicio 3.9  </strong></span>
-Note que para este caso tenemos que hacer bootstrap para cada estimador bootstrap calculado.
-</div>
+\BeginKnitrBlock{exercise}&lt;div class=&quot;exercise&quot;&gt;&lt;span class=&quot;exercise&quot; id=&quot;exr:unnamed-chunk-102&quot;&gt;&lt;strong&gt;(\#exr:unnamed-chunk-102) &lt;/strong&gt;&lt;/span&gt;
+Note que para este caso tenemos que hacer bootstrap para cada estimador bootstrap calculado.&lt;/div&gt;\EndKnitrBlock{exercise}
 
-<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb68-1" title="1">B &lt;-<span class="st"> </span><span class="dv">1000</span></a>
-<a class="sourceLine" id="cb68-2" title="2">Tboot_b &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb68-3" title="3">Tboot_bm &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb68-4" title="4">sdboot_b &lt;-<span class="st"> </span><span class="ot">NULL</span></a>
-<a class="sourceLine" id="cb68-5" title="5"></a>
-<a class="sourceLine" id="cb68-6" title="6"><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
-<a class="sourceLine" id="cb68-7" title="7">    xb &lt;-<span class="st"> </span><span class="kw">sample</span>(x, <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb68-8" title="8">    Tboot_b[b] &lt;-<span class="st"> </span><span class="kw">var</span>(xb)</a>
-<a class="sourceLine" id="cb68-9" title="9">    <span class="cf">for</span> (m <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>B) {</a>
-<a class="sourceLine" id="cb68-10" title="10">        xbm &lt;-<span class="st"> </span><span class="kw">sample</span>(xb, <span class="dt">size =</span> n, <span class="dt">replace =</span> <span class="ot">TRUE</span>)</a>
-<a class="sourceLine" id="cb68-11" title="11">        Tboot_bm[m] &lt;-<span class="st"> </span><span class="kw">var</span>(xbm)</a>
-<a class="sourceLine" id="cb68-12" title="12">    }</a>
-<a class="sourceLine" id="cb68-13" title="13">    sdboot_b[b] &lt;-<span class="st"> </span><span class="kw">sd</span>(Tboot_bm)</a>
-<a class="sourceLine" id="cb68-14" title="14">}</a>
-<a class="sourceLine" id="cb68-15" title="15"></a>
-<a class="sourceLine" id="cb68-16" title="16">z_star &lt;-<span class="st"> </span>(Tboot_b <span class="op">-</span><span class="st"> </span>Tn)<span class="op">/</span>sdboot_b</a>
-<a class="sourceLine" id="cb68-17" title="17"></a>
-<a class="sourceLine" id="cb68-18" title="18"><span class="kw">hist</span>(z_star)</a></code></pre></div>
+```r
+B &lt;- 1000
+Tboot_b &lt;- NULL
+Tboot_bm &lt;- NULL
+sdboot_b &lt;- NULL
+
+for (b in 1:B) {
+    xb &lt;- sample(x, size = n, replace = TRUE)
+    Tboot_b[b] &lt;- var(xb)
+    for (m in 1:B) {
+        xbm &lt;- sample(xb, size = n, replace = TRUE)
+        Tboot_bm[m] &lt;- var(xbm)
+    }
+    sdboot_b[b] &lt;- sd(Tboot_bm)
+}
+
+z_star &lt;- (Tboot_b - Tn)/sdboot_b
+
+hist(z_star)</code></pre>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-103-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb69-1" title="1"><span class="kw">c</span>(Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(z_star, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>sdboot, Tn <span class="op">-</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb69-2" title="2"><span class="st">    </span><span class="kw">quantile</span>(z_star, <span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>sdboot)</a></code></pre></div>
+<div class="sourceCode" id="cb69"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb69-1"><a href="jacknife-y-bootstrap.html#cb69-1"></a><span class="kw">c</span>(Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(z_star, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>sdboot, Tn <span class="op">-</span><span class="st"> </span></span>
+<span id="cb69-2"><a href="jacknife-y-bootstrap.html#cb69-2"></a><span class="st">    </span><span class="kw">quantile</span>(z_star, <span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>sdboot)</span></code></pre></div>
 <pre><code>##    97.5%     2.5% 
 ## 193.9968 603.4945</code></pre>
-<p><code></code></p>
-</div>
-<div id="resumiendo" class="section level3">
-<h3><span class="header-section-number">3.3.3</span> Resumiendo</h3>
-<p>Resumiendo todos lo métodos de cálculo de intervalos obtenemos</p>
-<div class="sourceCode" id="cb71"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb71-1" title="1">knitr<span class="op">::</span><span class="kw">kable</span>(<span class="kw">data.frame</span>(<span class="dt">Metodo =</span> <span class="kw">c</span>(<span class="st">&quot;Jacknife&quot;</span>, <span class="st">&quot;Bootstrap Normal&quot;</span>, </a>
-<a class="sourceLine" id="cb71-2" title="2">    <span class="st">&quot;Bootstrap Pivotal&quot;</span>, <span class="st">&quot;Bootstrap Pivotal Estudentizado&quot;</span>), </a>
-<a class="sourceLine" id="cb71-3" title="3">    <span class="dt">Inferior =</span> <span class="kw">c</span>(Tjack <span class="op">-</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdjack<span class="op">/</span><span class="kw">sqrt</span>(n), Tn <span class="op">-</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb71-4" title="4"><span class="st">        </span>sdboot, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(Tboot_b, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>), </a>
-<a class="sourceLine" id="cb71-5" title="5">        Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(z_star, <span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>sdboot), </a>
-<a class="sourceLine" id="cb71-6" title="6">    <span class="dt">Superior =</span> <span class="kw">c</span>(Tjack <span class="op">+</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span>sdjack<span class="op">/</span><span class="kw">sqrt</span>(n), Tn <span class="op">+</span><span class="st"> </span>z <span class="op">*</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb71-7" title="7"><span class="st">        </span>sdboot, <span class="dv">2</span> <span class="op">*</span><span class="st"> </span>Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(Tboot_b, <span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>), </a>
-<a class="sourceLine" id="cb71-8" title="8">        Tn <span class="op">-</span><span class="st"> </span><span class="kw">quantile</span>(z_star, <span class="fl">0.05</span><span class="op">/</span><span class="dv">2</span>) <span class="op">*</span><span class="st"> </span>sdboot)))</a></code></pre></div>
+<pre class="```"><code>
+
+### Resumiendo
+
+
+Resumiendo todos lo métodos de cálculo de intervalos obtenemos
+
+
+```r
+knitr::kable(data.frame(Metodo = c(&quot;Jacknife&quot;, &quot;Bootstrap Normal&quot;, 
+    &quot;Bootstrap Pivotal&quot;, &quot;Bootstrap Pivotal Estudentizado&quot;), 
+    Inferior = c(Tjack - z * sdjack/sqrt(n), Tn - z * 
+        sdboot, 2 * Tn - quantile(Tboot_b, 1 - 0.05/2), 
+        Tn - quantile(z_star, 1 - 0.05/2) * sdboot), 
+    Superior = c(Tjack + z * sdjack/sqrt(n), Tn + z * 
+        sdboot, 2 * Tn - quantile(Tboot_b, 0.05/2), 
+        Tn - quantile(z_star, 0.05/2) * sdboot)))</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1069,7 +1088,6 @@ Note que para este caso tenemos que hacer bootstrap para cada estimador bootstra
 </tbody>
 </table>
 </div>
-</div>
 <div id="ejercicios-1" class="section level2">
 <h2><span class="header-section-number">3.4</span> Ejercicios</h2>
 <ol style="list-style-type: decimal">
@@ -1078,7 +1096,7 @@ Dada que la distancia es una medida que puede ser influenciada por distancias mu
 <li><p>Verifique que esta última variable se podría estimar paramétricamente con una distribución normal.
 Repita los cálculos anteriores tomando como cuantiles los de una normal con media 0 y varianza 1.</p></li>
 <li><p>Compare los intervalos calculados y comente los resultados.</p></li>
-<li><p>Del libro <span class="citation">(Wasserman <a href="#ref-Wasserman2006">2006</a>)</span> <strong>Sección 3:</strong> 2, 3, 7, 9, 11.</p></li>
+<li><p>Del libro <span class="citation">(Wasserman <a href="#ref-Wasserman2006" role="doc-biblioref">2006</a>)</span> <strong>Sección 3:</strong> 2, 3, 7, 9, 11.</p></li>
 </ol>
 
 </div>

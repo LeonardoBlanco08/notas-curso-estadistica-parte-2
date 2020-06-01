@@ -1,4 +1,5 @@
-\PassOptionsToPackage{unicode=true}{hyperref} % options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
 \PassOptionsToPackage{hyphens}{url}
 \PassOptionsToPackage{dvipsnames,svgnames*,x11names*}{xcolor}
 %
@@ -11,14 +12,14 @@
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
   \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-  \usepackage{textcomp} % provides euro and other symbols
-\else % if luatex or xelatex
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
   \usepackage{unicode-math}
   \defaultfontfeatures{Scale=MatchLowercase}
   \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
   \setmonofont[]{Source Code Pro}
 \fi
-% use upquote if available, for straight quotes in verbatim environments
+% Use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
 \IfFileExists{microtype.sty}{% use microtype if available
   \usepackage[]{microtype}
@@ -45,8 +46,8 @@
   filecolor=Maroon,
   citecolor=Blue,
   urlcolor=Blue,
-  breaklinks=true}
-\urlstyle{same}  % don't use monospace font for urls
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
 \usepackage{color}
 \usepackage{fancyvrb}
 \newcommand{\VerbBar}{|}
@@ -88,6 +89,11 @@
 \newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
 \newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs}
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
 % Allow footnotes in longtable head/foot
 \IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
 \makesavenoteenv{longtable}
@@ -100,25 +106,14 @@
 % margins by default, and it is still possible to overwrite the defaults
 % using explicit options in \includegraphics[width, height, ...]{}
 \setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-\setlength{\emergencystretch}{3em}  % prevent overfull lines
-\providecommand{\tightlist}{%
-  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-\setcounter{secnumdepth}{5}
-% Redefines (sub)paragraphs to behave more like sections
-\ifx\paragraph\undefined\else
-  \let\oldparagraph\paragraph
-  \renewcommand{\paragraph}[1]{\oldparagraph{#1}\mbox{}}
-\fi
-\ifx\subparagraph\undefined\else
-  \let\oldsubparagraph\subparagraph
-  \renewcommand{\subparagraph}[1]{\oldsubparagraph{#1}\mbox{}}
-\fi
-
-% set default figure placement to htbp
+% Set default figure placement to htbp
 \makeatletter
 \def\fps@figure{htbp}
 \makeatother
-
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{5}
 %\usepackage{inputenc}
 % \usepackage{newpxtext,newpxmath}
 \setcounter{tocdepth}{3}
@@ -190,7 +185,7 @@
 
 \title{Notas Curso de Estadística}
 \author{Maikol Solís}
-\date{Actualizado el 26 mayo, 2020}
+\date{Actualizado el 01 junio, 2020}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -605,7 +600,7 @@ Ahora tratemos de modificar ligeramente esta expresión notando dos cosas
 =\sum_{i=1}^{n}  \frac{1}{2} I \left( \left\vert \frac{x-x_{i}}{h}
 \right\vert \leq 1 \right)
 \end{equation*}
-\textbackslash{}end\{enumerate\}
+\textbackslash end\{enumerate\}
 
 Finalmente se tiene que
 
@@ -2097,10 +2092,11 @@ Por supuesto podemos encontrar los estadísticos usuales para esta nueva muestra
 ## [1] 74.19367
 \end{verbatim}
 
-\texttt{}
+\begin{verbatim}
 
-\hypertarget{intervalos-de-confianza}{%
-\subsection{Intervalos de confianza}\label{intervalos-de-confianza}}
+### Intervalos de confianza
+
+
 
 \subsubsection{Intervalo Normal}
 
@@ -2110,36 +2106,28 @@ Este es el más sencillo y se escribe como
 T_{n} \pm z_{\alpha / 2} \widehat{\mathrm{Se}}_{\mathrm{boot}}
 \end{equation}
 
-\BeginKnitrBlock{remark}
-\iffalse{} {Nota: } \fi{}Este intervalo solo funciona si la distribución de \(T_{n}\) es normal.
-\EndKnitrBlock{remark}
-
-\BeginKnitrBlock{exercise}
-\protect\hypertarget{exr:unnamed-chunk-94}{}{\label{exr:unnamed-chunk-94} }El cálculo de este intervalo es
-\EndKnitrBlock{exercise}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{c}\NormalTok{(Tn }\OperatorTok{-}\StringTok{ }\NormalTok{z }\OperatorTok{*}\StringTok{ }\NormalTok{sdboot, Tn }\OperatorTok{+}\StringTok{ }\NormalTok{z }\OperatorTok{*}\StringTok{ }\NormalTok{sdboot)}
-\end{Highlighting}
-\end{Shaded}
+\BeginKnitrBlock{remark}<div class="remark">\iffalse{} <span class="remark"><em>Nota: </em></span>  \fi{}Este intervalo solo funciona si la distribución de \(T_{n}\) es normal.</div>\EndKnitrBlock{remark}
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-94"><strong>\label{exr:unnamed-chunk-94} </strong></span>El cálculo de este intervalo es</div>\EndKnitrBlock{exercise}
+```r
+c(Tn - z * sdboot, Tn + z * sdboot)
+\end{verbatim}
 
 \begin{verbatim}
 ## [1] 283.8315 574.6653
 \end{verbatim}
 
-\texttt{}
+\begin{verbatim}
 
 \subsubsection{Intervalo pivotal}
 
-Sea \(\theta=T(F)\) y \(\widehat{\theta}_{n}=T\left(\widehat{F}_{n}\right)\) y defina la cantidad pivotal \(R_{n}=\widehat{\theta}_{n}-\theta .\)
+Sea  \(\theta=T(F)\) y  \(\widehat{\theta}_{n}=T\left(\widehat{F}_{n}\right)\) y defina la cantidad pivotal  \(R_{n}=\widehat{\theta}_{n}-\theta .\)
 
-Sea \(H(r)\) la función de distribución del pivote:
+Sea  \(H(r)\) la función de distribución del pivote:
 \[
 H(r)=\mathbb{P}_{F}\left(R_{n} \leq r\right).
 \]
 
-Además considere \(C_{n}^{\star}=(a, b)\) donde
+Además considere  \(C_{n}^{\star}=(a, b)\)  donde
 \[
 a=\widehat{\theta}_{n}-H^{-1}\left(1-\frac{\alpha}{2}\right) \quad \text { y } \quad b=\widehat{\theta}_{n}-H^{-1}\left(\frac{\alpha}{2}\right).
 \]
@@ -2152,27 +2140,26 @@ Se sigue que
 &=H\left(H^{-1}\left(1-\frac{\alpha}{2}\right)\right)-H\left(H^{-1}\left(\frac{\alpha}{2}\right)\right) \\
 &=1-\frac{\alpha}{2}-\frac{\alpha}{2}=1-\alpha
 \end{align*}
-\BeginKnitrBlock{remark}
-\iffalse{} {Nota: } \fi{}\(C_{n}^{\star}=(a, b)\) es un intervalo de confianza al \(1-\alpha\) de confianza.
-
+\BeginKnitrBlock{remark}<div class="remark">\iffalse{} <span class="remark"><em>Nota: </em></span>  \fi{}\(C_{n}^{\star}=(a, b)\)  es un intervalo de confianza al \(1-\alpha\) de confianza.
 El problema es que este intervalo depende de \(H\) desconocido.
-\EndKnitrBlock{remark}
+</div>\EndKnitrBlock{remark}
 
-Para resolver este problema, se puede construir una versión \emph{bootstrap} de \(H\) usando lo que sabemos hasta ahora.
+
+Para resolver este problema, se puede construir una versión _bootstrap_ de \(H\) usando lo que sabemos hasta ahora.
 
 \[
 \widehat{H}(r)=\frac{1}{B} \sum_{b=1}^{B} I\left(R_{n, b}^{*} \leq r\right)
 \]
 donde \(R_{n, b}^{*}=\widehat{\theta}_{n, b}^{*}-\widehat{\theta}_{n}\).
 
-Sea \(r_{\beta}^{*}\) el cuantil muestral de tamaño \(\beta\) de \(\left(R_{n, 1}^{*}, \ldots, R_{n, B}^{*}\right)\) y sea \(\theta_{\beta}^{*}\) el cuantil muestral de tamaño \(\beta\) de \(\left(\theta_{n, 1}^{*}, \ldots, \theta_{n, B}^{*}\right)\).
+Sea  \(r_{\beta}^{*}\) el cuantil muestral de tamaño  \(\beta\) de  \(\left(R_{n, 1}^{*}, \ldots, R_{n, B}^{*}\right)\) y sea \(\theta_{\beta}^{*}\) el cuantil muestral de tamaño  \(\beta\) de \(\left(\theta_{n, 1}^{*}, \ldots, \theta_{n, B}^{*}\right)\).
 
-\BeginKnitrBlock{remark}
-\iffalse{} {Nota: } \fi{}Según la notación anterior note que
+\BeginKnitrBlock{remark}<div class="remark">\iffalse{} <span class="remark"><em>Nota: </em></span>  \fi{}Según la notación anterior note que
 \begin{equation*}
 r_{\beta}^{*}= \theta_{\beta}^{*}-\widehat{\theta}_{n}
-\end{equation*}
-\EndKnitrBlock{remark}
+\end{equation*}</div>\EndKnitrBlock{remark}
+
+
 
 Con estas observaciones
 It follows that an approximate \(1-\alpha\) confidence interval is \(C_{n}=(\widehat{a}, \widehat{b})\) where
@@ -2189,33 +2176,25 @@ It follows that an approximate \(1-\alpha\) confidence interval is \(C_{n}=(\wid
 &=2 \widehat{\theta}_{n}-\theta_{\alpha / 2}^{*}
 \end{align*}
 
-\BeginKnitrBlock{remark}
-\iffalse{} {Nota: } \fi{}El intervalo de confianza pivotal de tamaño \(1-\alpha\) es
+\BeginKnitrBlock{remark}<div class="remark">\iffalse{} <span class="remark"><em>Nota: </em></span>  \fi{}El intervalo de confianza pivotal de tamaño \(1-\alpha\) es
 \[
   C_{n}=\left(2 \widehat{\theta}_{n}-\widehat{\theta}_{((1-\alpha / 2) B)}^{*}, 2 \widehat{\theta}_{n}-\widehat{\theta}_{((\alpha / 2) B)}^{*}\right)
-  \]
-\EndKnitrBlock{remark}
+  \]</div>\EndKnitrBlock{remark}
 
-\BeginKnitrBlock{exercise}
-\protect\hypertarget{exr:unnamed-chunk-99}{}{\label{exr:unnamed-chunk-99} }El intervalo anterior para un nivel de 95\% se estima de la siguiente forma
-\EndKnitrBlock{exercise}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{c}\NormalTok{(}\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{Tn }\OperatorTok{-}\StringTok{ }\KeywordTok{quantile}\NormalTok{(Tboot_b, }\DecValTok{1} \OperatorTok{-}\StringTok{ }\FloatTok{0.05}\OperatorTok{/}\DecValTok{2}\NormalTok{), }\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{Tn }\OperatorTok{-}\StringTok{ }
-\StringTok{    }\KeywordTok{quantile}\NormalTok{(Tboot_b, }\FloatTok{0.05}\OperatorTok{/}\DecValTok{2}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-99"><strong>\label{exr:unnamed-chunk-99} </strong></span>El intervalo anterior para un nivel de 95\% se estima de la siguiente forma</div>\EndKnitrBlock{exercise}
+```r
+c(2 * Tn - quantile(Tboot_b, 1 - 0.05/2), 2 * Tn - 
+    quantile(Tboot_b, 0.05/2))
+\end{verbatim}
 
 \begin{verbatim}
 ##    97.5%     2.5% 
 ## 267.1250 552.9294
 \end{verbatim}
 
-\texttt{}
+\begin{verbatim}
 
-\hypertarget{intervalo-pivotal-studentizado}{%
-\subsection{Intervalo pivotal studentizado}\label{intervalo-pivotal-studentizado}}
+### Intervalo pivotal studentizado
 
 Una mejora del intervalo anterior sería normalizar los estimadores previamente
 
@@ -2226,15 +2205,12 @@ Como \(\theta\) es desconocido, entonces la versión a estimar es
 \[
 Z_{n, b}^{*}=\frac{T_{n, b}^{*}-T_{n}}{\widehat{\mathrm{se}}_{b}^{*}}
 \]
-donde \(\widehat{\mathrm{se}}_{b}^{*}\) es un estimador del error estándar de \(T_{n, b}^{*}\) no de \(T_{n}\).
+donde  \(\widehat{\mathrm{se}}_{b}^{*}\) es un estimador del error estándar de  \(T_{n, b}^{*}\) no de \(T_{n}\).
 
-\BeginKnitrBlock{remark}
-\iffalse{} {Nota: } \fi{}Esto requerira estimar la varianza de \(T_{n,b}^*\) para cada \(b\).
-\EndKnitrBlock{remark}
+\BeginKnitrBlock{remark}<div class="remark">\iffalse{} <span class="remark"><em>Nota: </em></span>  \fi{}Esto requerira estimar la varianza de \(T_{n,b}^*\) para cada \(b\).</div>\EndKnitrBlock{remark}
+Con esto se puede obtener  cantidades \(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*}\) que debería ser próximos a \(Z_{n}\).
 
-Con esto se puede obtener cantidades \(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*}\) que debería ser próximos a \(Z_{n}\).
-
-Sea \(z_{\alpha}^{*}\) del \(\alpha\) cuantiĺ de \(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*},\) entonces \(\mathbb{P}\left(Z_{n} \leq z_{\alpha}^{*}\right) \approx \alpha\).
+Sea \(z_{\alpha}^{*}\) del \(\alpha\) cuantiĺ de \(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*},\) entonces  \(\mathbb{P}\left(Z_{n} \leq z_{\alpha}^{*}\right) \approx \alpha\).
 
 Define el intervalo
 \begin{equation*}
@@ -2243,6 +2219,7 @@ C_{n}=\left(T_{n}-z_{1-\alpha / 2}^{*} \widehat{\mathrm{se}}_{\mathrm{boot}}, T_
 
 Justificado por el siguiente cálculo:
 
+
 \begin{align*}
 \mathbb{P}\left(\theta \in C_{n}\right) &=\mathbb{P}\left(T_{n}-z_{1-\alpha / 2}^{*} \widehat{\mathrm{Se}}_{\mathrm{boot}} \leq \theta \leq T_{n}-z_{\alpha / 2}^{*} \widehat{\mathrm{Se}}_{\mathrm{boot}}\right) \\
 &=\mathbb{P}\left(z_{\alpha / 2}^{*} \leq \frac{T_{n}-\theta}{\mathrm{se}_{\mathrm{boot}}} \leq z_{1-\alpha / 2}^{*}\right) \\
@@ -2250,33 +2227,29 @@ Justificado por el siguiente cálculo:
 & \approx 1-\alpha
 \end{align*}
 
-\BeginKnitrBlock{exercise}
-\protect\hypertarget{exr:unnamed-chunk-102}{}{\label{exr:unnamed-chunk-102} }
-Note que para este caso tenemos que hacer bootstrap para cada estimador bootstrap calculado.
-\EndKnitrBlock{exercise}
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-102"><strong>\label{exr:unnamed-chunk-102} </strong></span>
+Note que para este caso tenemos que hacer bootstrap para cada estimador bootstrap calculado.</div>\EndKnitrBlock{exercise}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{B <-}\StringTok{ }\DecValTok{1000}
-\NormalTok{Tboot_b <-}\StringTok{ }\OtherTok{NULL}
-\NormalTok{Tboot_bm <-}\StringTok{ }\OtherTok{NULL}
-\NormalTok{sdboot_b <-}\StringTok{ }\OtherTok{NULL}
+```r
+B <- 1000
+Tboot_b <- NULL
+Tboot_bm <- NULL
+sdboot_b <- NULL
 
-\ControlFlowTok{for}\NormalTok{ (b }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{B) \{}
-\NormalTok{    xb <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(x, }\DataTypeTok{size =}\NormalTok{ n, }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
-\NormalTok{    Tboot_b[b] <-}\StringTok{ }\KeywordTok{var}\NormalTok{(xb)}
-    \ControlFlowTok{for}\NormalTok{ (m }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\NormalTok{B) \{}
-\NormalTok{        xbm <-}\StringTok{ }\KeywordTok{sample}\NormalTok{(xb, }\DataTypeTok{size =}\NormalTok{ n, }\DataTypeTok{replace =} \OtherTok{TRUE}\NormalTok{)}
-\NormalTok{        Tboot_bm[m] <-}\StringTok{ }\KeywordTok{var}\NormalTok{(xbm)}
-\NormalTok{    \}}
-\NormalTok{    sdboot_b[b] <-}\StringTok{ }\KeywordTok{sd}\NormalTok{(Tboot_bm)}
-\NormalTok{\}}
+for (b in 1:B) {
+    xb <- sample(x, size = n, replace = TRUE)
+    Tboot_b[b] <- var(xb)
+    for (m in 1:B) {
+        xbm <- sample(xb, size = n, replace = TRUE)
+        Tboot_bm[m] <- var(xbm)
+    }
+    sdboot_b[b] <- sd(Tboot_bm)
+}
 
-\NormalTok{z_star <-}\StringTok{ }\NormalTok{(Tboot_b }\OperatorTok{-}\StringTok{ }\NormalTok{Tn)}\OperatorTok{/}\NormalTok{sdboot_b}
+z_star <- (Tboot_b - Tn)/sdboot_b
 
-\KeywordTok{hist}\NormalTok{(z_star)}
-\end{Highlighting}
-\end{Shaded}
+hist(z_star)
+\end{verbatim}
 
 \begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-103-1} \end{center}
 
@@ -2292,25 +2265,25 @@ Note que para este caso tenemos que hacer bootstrap para cada estimador bootstra
 ## 226.7564 585.9580
 \end{verbatim}
 
-\texttt{}
+\begin{verbatim}
 
-\hypertarget{resumiendo}{%
-\subsection{Resumiendo}\label{resumiendo}}
+
+### Resumiendo
+
 
 Resumiendo todos lo métodos de cálculo de intervalos obtenemos
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{knitr}\OperatorTok{::}\KeywordTok{kable}\NormalTok{(}\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{Metodo =} \KeywordTok{c}\NormalTok{(}\StringTok{"Jacknife"}\NormalTok{, }\StringTok{"Bootstrap Normal"}\NormalTok{, }
-    \StringTok{"Bootstrap Pivotal"}\NormalTok{, }\StringTok{"Bootstrap Pivotal Estudentizado"}\NormalTok{), }
-    \DataTypeTok{Inferior =} \KeywordTok{c}\NormalTok{(Tjack }\OperatorTok{-}\StringTok{ }\NormalTok{z }\OperatorTok{*}\StringTok{ }\NormalTok{sdjack}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n), Tn }\OperatorTok{-}\StringTok{ }\NormalTok{z }\OperatorTok{*}\StringTok{ }
-\StringTok{        }\NormalTok{sdboot, }\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{Tn }\OperatorTok{-}\StringTok{ }\KeywordTok{quantile}\NormalTok{(Tboot_b, }\DecValTok{1} \OperatorTok{-}\StringTok{ }\FloatTok{0.05}\OperatorTok{/}\DecValTok{2}\NormalTok{), }
-\NormalTok{        Tn }\OperatorTok{-}\StringTok{ }\KeywordTok{quantile}\NormalTok{(z_star, }\DecValTok{1} \OperatorTok{-}\StringTok{ }\FloatTok{0.05}\OperatorTok{/}\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{sdboot), }
-    \DataTypeTok{Superior =} \KeywordTok{c}\NormalTok{(Tjack }\OperatorTok{+}\StringTok{ }\NormalTok{z }\OperatorTok{*}\StringTok{ }\NormalTok{sdjack}\OperatorTok{/}\KeywordTok{sqrt}\NormalTok{(n), Tn }\OperatorTok{+}\StringTok{ }\NormalTok{z }\OperatorTok{*}\StringTok{ }
-\StringTok{        }\NormalTok{sdboot, }\DecValTok{2} \OperatorTok{*}\StringTok{ }\NormalTok{Tn }\OperatorTok{-}\StringTok{ }\KeywordTok{quantile}\NormalTok{(Tboot_b, }\FloatTok{0.05}\OperatorTok{/}\DecValTok{2}\NormalTok{), }
-\NormalTok{        Tn }\OperatorTok{-}\StringTok{ }\KeywordTok{quantile}\NormalTok{(z_star, }\FloatTok{0.05}\OperatorTok{/}\DecValTok{2}\NormalTok{) }\OperatorTok{*}\StringTok{ }\NormalTok{sdboot)))}
-\end{Highlighting}
-\end{Shaded}
+
+```r
+knitr::kable(data.frame(Metodo = c("Jacknife", "Bootstrap Normal", 
+    "Bootstrap Pivotal", "Bootstrap Pivotal Estudentizado"), 
+    Inferior = c(Tjack - z * sdjack/sqrt(n), Tn - z * 
+        sdboot, 2 * Tn - quantile(Tboot_b, 1 - 0.05/2), 
+        Tn - quantile(z_star, 1 - 0.05/2) * sdboot), 
+    Superior = c(Tjack + z * sdjack/sqrt(n), Tn + z * 
+        sdboot, 2 * Tn - quantile(Tboot_b, 0.05/2), 
+        Tn - quantile(z_star, 0.05/2) * sdboot)))
+\end{verbatim}
 
 \begin{tabular}{l|r|r}
 \hline
@@ -4301,6 +4274,328 @@ usando los siguiente métodos:
 \end{enumerate}
 \EndKnitrBlock{exercise}
 
+\hypertarget{laboratorio-1}{%
+\subsection{Laboratorio}\label{laboratorio-1}}
+
+Usemos la base \texttt{mtcars} para los siguientes ejemplos. Toda la información de esta base se encuentra en \texttt{?mtcars}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars <-}\StringTok{ }\KeywordTok{within}\NormalTok{(mtcars, \{}
+\NormalTok{    vs <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(vs, }\DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"V-Shape"}\NormalTok{, }\StringTok{"Straight-Line"}\NormalTok{))}
+\NormalTok{    am <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(am, }\DataTypeTok{labels =} \KeywordTok{c}\NormalTok{(}\StringTok{"automatic"}\NormalTok{, }\StringTok{"manual"}\NormalTok{))}
+\NormalTok{    cyl <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(cyl)}
+\NormalTok{    gear <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(gear)}
+\NormalTok{    carb <-}\StringTok{ }\KeywordTok{factor}\NormalTok{(carb)}
+\NormalTok{\})}
+
+\KeywordTok{head}\NormalTok{(mtcars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                    mpg cyl disp  hp drat    wt  qsec            vs        am
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46       V-Shape    manual
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02       V-Shape    manual
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61 Straight-Line    manual
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44 Straight-Line automatic
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02       V-Shape automatic
+## Valiant           18.1   6  225 105 2.76 3.460 20.22 Straight-Line automatic
+##                   gear carb
+## Mazda RX4            4    4
+## Mazda RX4 Wag        4    4
+## Datsun 710           4    1
+## Hornet 4 Drive       3    1
+## Hornet Sportabout    3    2
+## Valiant              3    1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(mtcars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       mpg        cyl         disp             hp             drat      
+##  Min.   :10.40   4:11   Min.   : 71.1   Min.   : 52.0   Min.   :2.760  
+##  1st Qu.:15.43   6: 7   1st Qu.:120.8   1st Qu.: 96.5   1st Qu.:3.080  
+##  Median :19.20   8:14   Median :196.3   Median :123.0   Median :3.695  
+##  Mean   :20.09          Mean   :230.7   Mean   :146.7   Mean   :3.597  
+##  3rd Qu.:22.80          3rd Qu.:326.0   3rd Qu.:180.0   3rd Qu.:3.920  
+##  Max.   :33.90          Max.   :472.0   Max.   :335.0   Max.   :4.930  
+##        wt             qsec                   vs             am     gear  
+##  Min.   :1.513   Min.   :14.50   V-Shape      :18   automatic:19   3:15  
+##  1st Qu.:2.581   1st Qu.:16.89   Straight-Line:14   manual   :13   4:12  
+##  Median :3.325   Median :17.71                                     5: 5  
+##  Mean   :3.217   Mean   :17.85                                           
+##  3rd Qu.:3.610   3rd Qu.:18.90                                           
+##  Max.   :5.424   Max.   :22.90                                           
+##  carb  
+##  1: 7  
+##  2:10  
+##  3: 3  
+##  4:10  
+##  6: 1  
+##  8: 1
+\end{verbatim}
+
+Observemos las relaciones generales de las variables de esta base de datos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(mtcars) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(wt, mpg)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-172-1} \end{center}
+
+El objetivo es tratar la eficiencia del automovil \texttt{mpg} con respecto a su peso \texttt{wt}.
+
+Usaremos una regresión lineal para encontrar los coeficientes.
+
+Primero hay que construir la matriz de diseño
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X <-}\StringTok{ }\NormalTok{mtcars}\OperatorTok{$}\NormalTok{wt}
+\KeywordTok{head}\NormalTok{(X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.620 2.875 2.320 3.215 3.440 3.460
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Y <-}\StringTok{ }\NormalTok{mtcars}\OperatorTok{$}\NormalTok{mpg}
+\KeywordTok{head}\NormalTok{(Y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 21.0 21.0 22.8 21.4 18.7 18.1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(beta1 <-}\StringTok{ }\KeywordTok{solve}\NormalTok{(}\KeywordTok{t}\NormalTok{(X) }\OperatorTok{%*%}\StringTok{ }\NormalTok{X) }\OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(X) }\OperatorTok{%*%}\StringTok{ }\NormalTok{Y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]
+## [1,] 5.291624
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfreg <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ X, }\DataTypeTok{yreg =}\NormalTok{ X }\OperatorTok{%*%}\StringTok{ }\NormalTok{beta1) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{arrange}\NormalTok{(x)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =} \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ X, }\DataTypeTok{y =}\NormalTok{ Y)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(x, }
+\NormalTok{    y)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ dfreg, }\KeywordTok{aes}\NormalTok{(x, yreg), }\DataTypeTok{color =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{theme_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-174-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X <-}\StringTok{ }\KeywordTok{cbind}\NormalTok{(}\DecValTok{1}\NormalTok{, mtcars}\OperatorTok{$}\NormalTok{wt)}
+\KeywordTok{head}\NormalTok{(X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1]  [,2]
+## [1,]    1 2.620
+## [2,]    1 2.875
+## [3,]    1 2.320
+## [4,]    1 3.215
+## [5,]    1 3.440
+## [6,]    1 3.460
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Y <-}\StringTok{ }\NormalTok{mtcars}\OperatorTok{$}\NormalTok{mpg}
+\KeywordTok{head}\NormalTok{(Y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 21.0 21.0 22.8 21.4 18.7 18.1
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(beta01 <-}\StringTok{ }\KeywordTok{solve}\NormalTok{(}\KeywordTok{t}\NormalTok{(X) }\OperatorTok{%*%}\StringTok{ }\NormalTok{X) }\OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(X) }\OperatorTok{%*%}\StringTok{ }\NormalTok{Y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##           [,1]
+## [1,] 37.285126
+## [2,] -5.344472
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dfreg <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ X, }\DataTypeTok{yreg =}\NormalTok{ X }\OperatorTok{%*%}\StringTok{ }\NormalTok{beta01) }\OperatorTok{%>%}\StringTok{ }
+\StringTok{    }\KeywordTok{arrange}\NormalTok{(x}\FloatTok{.2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =} \KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{x0 =}\NormalTok{ X[, }\DecValTok{1}\NormalTok{], }\DataTypeTok{x1 =}\NormalTok{ X[, }\DecValTok{2}\NormalTok{], }
+    \DataTypeTok{y =}\NormalTok{ Y)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\KeywordTok{aes}\NormalTok{(x1, y)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ dfreg, }
+    \KeywordTok{aes}\NormalTok{(x}\FloatTok{.2}\NormalTok{, yreg), }\DataTypeTok{color =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-176-1} \end{center}
+
+Ojo obviamente esto se puede hacer más fácil con los siguientes comandos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\DecValTok{-1} \OperatorTok{+}\StringTok{ }\NormalTok{wt, }\DataTypeTok{data =}\NormalTok{ mtcars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = mpg ~ -1 + wt, data = mtcars)
+## 
+## Coefficients:
+##    wt  
+## 5.292
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt, }\DataTypeTok{data =}\NormalTok{ mtcars)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Coefficients:
+## (Intercept)           wt  
+##      37.285       -5.344
+\end{verbatim}
+
+Suponga que queremos incluir una variable categorica como \texttt{cyl} (Número de cilindros). Lo que se debe hacer es convertir esta variable a dummy.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{X <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{cyl, }\DataTypeTok{data =}\NormalTok{ mtcars)}
+
+\KeywordTok{head}\NormalTok{(X)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                   (Intercept) cyl6 cyl8
+## Mazda RX4                   1    1    0
+## Mazda RX4 Wag               1    1    0
+## Datsun 710                  1    0    0
+## Hornet 4 Drive              1    1    0
+## Hornet Sportabout           1    0    1
+## Valiant                     1    1    0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(betas <-}\StringTok{ }\KeywordTok{solve}\NormalTok{(}\KeywordTok{t}\NormalTok{(X) }\OperatorTok{%*%}\StringTok{ }\NormalTok{X) }\OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(X) }\OperatorTok{%*%}\StringTok{ }\NormalTok{Y)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                   [,1]
+## (Intercept)  26.663636
+## cyl6         -6.920779
+## cyl8        -11.563636
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(cylreg <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{cyl, }\DataTypeTok{data =}\NormalTok{ mtcars))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = mpg ~ cyl, data = mtcars)
+## 
+## Coefficients:
+## (Intercept)         cyl6         cyl8  
+##      26.664       -6.921      -11.564
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(betaslm <-}\StringTok{ }\KeywordTok{coefficients}\NormalTok{(cylreg))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept)        cyl6        cyl8 
+##   26.663636   -6.920779  -11.563636
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Efecto cyl4: cyl4 = 1, cyl6 = 0, cyl8 = 0}
+
+\NormalTok{betaslm[}\DecValTok{1}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept) 
+##    26.66364
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Efecto cyl6: cyl4 = 1, cyl6 = 1, cyl8 = 0}
+
+\NormalTok{betaslm[}\DecValTok{1}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{betaslm[}\DecValTok{2}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept) 
+##    19.74286
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Efecto cyl8: cyl4 = 1, cyl6 = 0, cyl8 = 1}
+
+\NormalTok{betaslm[}\DecValTok{1}\NormalTok{] }\OperatorTok{+}\StringTok{ }\NormalTok{betaslm[}\DecValTok{3}\NormalTok{]}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## (Intercept) 
+##        15.1
+\end{verbatim}
+
 \hypertarget{propiedades-estaduxedsticas-2}{%
 \section{Propiedades estadísticas}\label{propiedades-estaduxedsticas-2}}
 
@@ -4332,7 +4627,7 @@ Es decir, que
 \end{align*}
 
 \BeginKnitrBlock{exercise}
-\protect\hypertarget{exr:unnamed-chunk-171}{}{\label{exr:unnamed-chunk-171} }Encuentre la varianza para \(\beta_{0}\) y \(\beta_{1}\) para el caso de la regresión simple.
+\protect\hypertarget{exr:unnamed-chunk-180}{}{\label{exr:unnamed-chunk-180} }Encuentre la varianza para \(\beta_{0}\) y \(\beta_{1}\) para el caso de la regresión simple.
 \EndKnitrBlock{exercise}
 
 La estimación de \(\sigma^{2}\)
@@ -4363,7 +4658,7 @@ Cumple con la propiedad que \(\mathbb{E}\left[\hat{\sigma}^{}\right] = \sigma^{2
 Y además \((n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.\)
 
 \hypertarget{prueba-t}{%
-\section{\texorpdfstring{Prueba \(t\)}{Prueba t}}\label{prueba-t}}
+\subsection{\texorpdfstring{Prueba \(t\)}{Prueba t}}\label{prueba-t}}
 
 Dado que los coeficientes \(\beta\) son normales, se puede hacer la prueba de hipotesis
 
@@ -4386,7 +4681,7 @@ Bajo \(H_{0}\) \(z_{j} \sim t_{n-p-1}\) y se rechaza \(H_{0}\) si
  \end{equation*}
 
 \hypertarget{prueba-f}{%
-\section{\texorpdfstring{Prueba \(F\)}{Prueba F}}\label{prueba-f}}
+\subsection{\texorpdfstring{Prueba \(F\)}{Prueba F}}\label{prueba-f}}
 
 \begin{equation*}
  H_{0}: \beta_{1} = \cdots =\beta_{p} = 0 \quad 
@@ -4417,6 +4712,545 @@ Rechazamos \(H_{0}\) si
 \begin{equation*}
  F > F_{p, n-p-1, 1-\alpha}.
  \end{equation*}
+
+\hypertarget{laboratorio-2}{%
+\subsection{Laboratorio}\label{laboratorio-2}}
+
+Siguiendo con nuestro ejemplo, vamos a explorar un poco más la función \texttt{lm}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt, }\DataTypeTok{data =}\NormalTok{ mtcars)}
+\KeywordTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5432 -2.3647 -0.1252  1.4096  6.8727 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  37.2851     1.8776  19.858  < 2e-16 ***
+## wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.046 on 30 degrees of freedom
+## Multiple R-squared:  0.7528, Adjusted R-squared:  0.7446 
+## F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt }\OperatorTok{+}\StringTok{ }\NormalTok{cyl, }\DataTypeTok{data =}\NormalTok{ mtcars)}
+\KeywordTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = mpg ~ wt + cyl, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5890 -1.2357 -0.5159  1.3845  5.7915 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  33.9908     1.8878  18.006  < 2e-16 ***
+## wt           -3.2056     0.7539  -4.252 0.000213 ***
+## cyl6         -4.2556     1.3861  -3.070 0.004718 ** 
+## cyl8         -6.0709     1.6523  -3.674 0.000999 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.557 on 28 degrees of freedom
+## Multiple R-squared:  0.8374, Adjusted R-squared:   0.82 
+## F-statistic: 48.08 on 3 and 28 DF,  p-value: 3.594e-11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{., }\DataTypeTok{data =}\NormalTok{ mtcars)}
+\KeywordTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = mpg ~ ., data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.5087 -1.3584 -0.0948  0.7745  4.6251 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(>|t|)  
+## (Intercept)     23.87913   20.06582   1.190   0.2525  
+## cyl6            -2.64870    3.04089  -0.871   0.3975  
+## cyl8            -0.33616    7.15954  -0.047   0.9632  
+## disp             0.03555    0.03190   1.114   0.2827  
+## hp              -0.07051    0.03943  -1.788   0.0939 .
+## drat             1.18283    2.48348   0.476   0.6407  
+## wt              -4.52978    2.53875  -1.784   0.0946 .
+## qsec             0.36784    0.93540   0.393   0.6997  
+## vsStraight-Line  1.93085    2.87126   0.672   0.5115  
+## ammanual         1.21212    3.21355   0.377   0.7113  
+## gear4            1.11435    3.79952   0.293   0.7733  
+## gear5            2.52840    3.73636   0.677   0.5089  
+## carb2           -0.97935    2.31797  -0.423   0.6787  
+## carb3            2.99964    4.29355   0.699   0.4955  
+## carb4            1.09142    4.44962   0.245   0.8096  
+## carb6            4.47757    6.38406   0.701   0.4938  
+## carb8            7.25041    8.36057   0.867   0.3995  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.833 on 15 degrees of freedom
+## Multiple R-squared:  0.8931, Adjusted R-squared:  0.779 
+## F-statistic:  7.83 on 16 and 15 DF,  p-value: 0.000124
+\end{verbatim}
+
+\hypertarget{predicciuxf3n}{%
+\section{Predicción}\label{predicciuxf3n}}
+
+Hay dos tipos de errores que se deben considerar en regresones lineales:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Error Reducible:} Recuerde que \(\hat{Y} = \hat{X}\hat{\beta}\) es el estimador de la función \(f(X)=X\beta = \beta_{0} + \beta_{1}X_{1}+\cdots+\beta_{p}X_{p}\).
+\end{enumerate}
+
+Por lo tanto su error (reducible) es:
+
+\begin{equation*}
+\left(  f(X) - \hat{Y}\right) ^{2}. 
+\end{equation*}
+
+Para un conjunto de datos \(X_{0}\), tenemos que
+
+\begin{align*}
+ & \hat{\beta} \sim  \mathcal{N}\left(\beta, \sigma^{2}\left( (X_{0}^{\top}X_{0})^{-1} \right)\right) \\
+ \implies & \hat{Y} = \hat{X_{0}}\hat{\beta} \sim \mathcal{N}\left(\hat{X_{0}}\beta , \sigma^{2}X_{0}^{\top}((X_{0}^{\top}X_{0})^{-1}X_{0}  \right)
+\end{align*}
+
+Por lo tanto un \textbf{intervalo de confianza} al \(1-\alpha\) para \(X\beta\) es
+
+\begin{equation*}
+X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{X_{0}^{\top}(X_{0}^{\top}X_{0})^{-1}X_{0}}.
+\end{equation*}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  \textbf{Error irreducible:} Aún conociendo perfectamente los \(\beta\)'s, existe el error desconocido \(\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}\right)\) del modelo
+\end{enumerate}
+
+\begin{equation*}
+Y = X\beta + \varepsilon.
+\end{equation*}
+
+Entonces la varianza total de la predicción sería
+
+\begin{equation*}
+\sigma^{2} +  \sigma^{2}X_{0}^{\top}( (X_{0}^{\top}X_{0})^{-1}X_{0} 
+\end{equation*}
+
+Entonces un \textbf{intervalo de predicción} al \(1-\alpha\) debe tomar en cuenta ese error y por lo tanto
+
+\begin{equation*}
+X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{1+X_{0}^{\top}(X_{0}^{\top}X_{0})^{-1}X_{0}}.
+\end{equation*}
+
+Resumiendo
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Intervalo de confianza:} es la incertidumbre que existe alrededor de la línea de regresión.
+\item
+  \textbf{Intervalo de predicción:} es la incertidumbre que existe alrededor del proceso general que generararon los datos bajo el supuesto de linealidad.
+\end{itemize}
+
+\hypertarget{laboratorio-3}{%
+\subsection{Laboratorio}\label{laboratorio-3}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm.r <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt, }\DataTypeTok{data =}\NormalTok{ mtcars)}
+
+\KeywordTok{range}\NormalTok{(mtcars}\OperatorTok{$}\NormalTok{wt)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.513 5.424
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(datos_nuevos <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{wt =} \KeywordTok{c}\NormalTok{(}\FloatTok{2.5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\FloatTok{3.5}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##    wt
+## 1 2.5
+## 2 3.0
+## 3 3.5
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{predict}\NormalTok{(}\DataTypeTok{object =}\NormalTok{ lm.r, }\DataTypeTok{newdata =}\NormalTok{ datos_nuevos, }\DataTypeTok{interval =} \StringTok{"confidence"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        fit      lwr      upr
+## 1 23.92395 22.55284 25.29506
+## 2 21.25171 20.12444 22.37899
+## 3 18.57948 17.43342 19.72553
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{predict}\NormalTok{(}\DataTypeTok{object =}\NormalTok{ lm.r, }\DataTypeTok{newdata =}\NormalTok{ datos_nuevos, }\DataTypeTok{interval =} \StringTok{"prediction"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##        fit      lwr      upr
+## 1 23.92395 17.55411 30.29378
+## 2 21.25171 14.92987 27.57355
+## 3 18.57948 12.25426 24.90469
+\end{verbatim}
+
+\hypertarget{ajuste-de-la-regresiuxf3n-sin-intervalos-de-confianza}{%
+\subsubsection{Ajuste de la regresión sin intervalos de confianza}\label{ajuste-de-la-regresiuxf3n-sin-intervalos-de-confianza}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wt, }\DataTypeTok{y =}\NormalTok{ mpg)) }
+\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{2}\NormalTok{)       }\CommentTok{# Use circulos de tamaño 2}
+\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =}\NormalTok{ lm,   }\CommentTok{# Agregar la línea de regresión }
+              \DataTypeTok{se =} \OtherTok{FALSE}\NormalTok{,           }\CommentTok{# NO incluir el intervalo de confianza   }
+              \DataTypeTok{size =} \DecValTok{1}\NormalTok{,}
+              \DataTypeTok{col =} \StringTok{"red"}\NormalTok{)          }\CommentTok{# Línea de color rojo }
+\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{()                 }\CommentTok{# Tema de fondo blanco}
+\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{20}\NormalTok{),  }\CommentTok{# Aumentar el tamaño }
+               \DataTypeTok{axis.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{20}\NormalTok{)) }\CommentTok{# de letra en los ejes}
+
+\CommentTok{# Dibujar el gráfico}
+\NormalTok{p   }
+
+\CommentTok{# # Guardar el gráfico en un archivo pdf}
+\CommentTok{# ggsave(filename = 'linear_reg_sin_IC.pdf') # }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-183-1} \end{center}
+
+\hypertarget{ajuste-de-la-regresiuxf3n-con-intervalos-de-confianza}{%
+\subsubsection{Ajuste de la regresión con intervalos de confianza}\label{ajuste-de-la-regresiuxf3n-con-intervalos-de-confianza}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(mtcars, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wt, }\DataTypeTok{y =}\NormalTok{ mpg)) }
+\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{2}\NormalTok{)       }\CommentTok{# Use circulos de tamaño 2}
+\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{method =}\NormalTok{ lm,   }\CommentTok{# Agregar la línea de regresión }
+              \DataTypeTok{se =} \OtherTok{TRUE}\NormalTok{,            }\CommentTok{# Incluir el intervalo de confianza   }
+              \DataTypeTok{size =} \DecValTok{1}\NormalTok{,}
+              \DataTypeTok{col =} \StringTok{"red"}\NormalTok{)          }\CommentTok{# Línea de color rojo }
+\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{()                 }\CommentTok{# Tema de fondo blanco}
+\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{20}\NormalTok{),  }\CommentTok{# Aumentar el tamaño }
+               \DataTypeTok{axis.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{20}\NormalTok{)) }\CommentTok{# de letra en los ejes}
+
+\CommentTok{# Dibujar el gráfico}
+\NormalTok{p   }
+
+\CommentTok{# # Guardar el gráfico en un archivo pdf}
+\CommentTok{# ggsave(filename = 'linear_reg_con_IC.pdf') # }
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-184-1} \end{center}
+
+\hypertarget{ajuste-de-la-regresiuxf3n-con-intervalos-de-confianza-y-predicciuxf3n}{%
+\subsubsection{Ajuste de la regresión con intervalos de confianza y predicción}\label{ajuste-de-la-regresiuxf3n-con-intervalos-de-confianza-y-predicciuxf3n}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Agregamos a mtcars el intervalo de predicción}
+\CommentTok{# para cada dato}
+\NormalTok{mtcars.pred <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(mtcars, }\KeywordTok{predict}\NormalTok{(lm.r, }\DataTypeTok{interval =} \StringTok{"prediction"}\NormalTok{))}
+
+\NormalTok{p <-}\StringTok{ }\KeywordTok{ggplot}\NormalTok{(mtcars.pred, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ wt, }\DataTypeTok{y =}\NormalTok{ mpg))}
+\CommentTok{# Use circulos de tamaño 2}
+\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{2}\NormalTok{)}
+\CommentTok{# Agregue una banda de tamaño [lwr, upr] para cada}
+\CommentTok{# punto y llamela 'predicción'}
+\NormalTok{p <-}\StringTok{ }\NormalTok{p }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_ribbon}\NormalTok{(}\KeywordTok{aes}\NormalTok{(}\DataTypeTok{ymin =}\NormalTok{ lwr, }\DataTypeTok{ymax =}\NormalTok{ upr, }\DataTypeTok{fill =} \StringTok{"predicción"), }
+\StringTok{    alpha = 0.3)}
+\StringTok{# Agregue el intervalo de confianza usual y llame a}
+\StringTok{# ese intervalo 'confianza'}
+\StringTok{p <- p + geom_smooth(method = lm, aes(fill = "}\NormalTok{confianza}\StringTok{"), }
+\StringTok{    size = 1, col = "}\NormalTok{red}\StringTok{")}
+\StringTok{# Para agregar bien las leyendas}
+\StringTok{p <- p + scale_fill_manual("}\NormalTok{Intervalos}\StringTok{", values = c("}\NormalTok{green}\StringTok{", }
+\StringTok{    "}\NormalTok{yellow}\StringTok{"))}
+\StringTok{p <- p + theme_bw()}
+\StringTok{p <- p + theme(axis.text = element_text(size = 20), }
+\StringTok{    axis.title = element_text(size = 20))}
+
+\StringTok{# Dibujar el gráfico}
+\StringTok{p}
+
+\StringTok{# # Guardar el gráfico en un archivo pdf}
+\StringTok{# ggsave(filename = 'linear_reg_con_IC_IP.pdf') #}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-185-1} \end{center}
+
+Repitamos el mismo ejercicio anterior pero con un caso más sencillo.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{n <-}\StringTok{ }\DecValTok{1000}
+
+\NormalTok{X <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{Y <-}\StringTok{ }\DecValTok{10} \OperatorTok{+}\StringTok{ }\KeywordTok{sin}\NormalTok{(}\DecValTok{5} \OperatorTok{*}\StringTok{ }\NormalTok{X) }\OperatorTok{+}\StringTok{ }\NormalTok{X }\OperatorTok{+}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{toyex.initial <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(X, Y) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{arrange}\NormalTok{(X)}
+
+\KeywordTok{plot}\NormalTok{(toyex.initial)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-186-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lm.toyex.initial <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(Y }\OperatorTok{~}\StringTok{ }\NormalTok{X, }\DataTypeTok{data =}\NormalTok{ toyex.initial)}
+
+\KeywordTok{summary}\NormalTok{(lm.toyex.initial)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Y ~ X, data = toyex.initial)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.3259 -0.8335  0.0000  0.8651  3.6956 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 10.03445    0.07928   126.6   <2e-16 ***
+## X            0.98435    0.01412    69.7   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.255 on 998 degrees of freedom
+## Multiple R-squared:  0.8296, Adjusted R-squared:  0.8294 
+## F-statistic:  4859 on 1 and 998 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{toyex.pred.initial <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(toyex.initial, }\KeywordTok{predict}\NormalTok{(lm.toyex.initial, }
+    \DataTypeTok{interval =} \StringTok{"prediction"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+Ahora, quisiera generar muchas muestras del mismo experimento
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{toyex.pred <-}\StringTok{ }\OtherTok{NULL}
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{) \{}
+\NormalTok{    X <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(n, }\DecValTok{0}\NormalTok{, }\DecValTok{10}\NormalTok{)}
+\NormalTok{    Y <-}\StringTok{ }\DecValTok{10} \OperatorTok{+}\StringTok{ }\KeywordTok{sin}\NormalTok{(}\DecValTok{5} \OperatorTok{*}\StringTok{ }\NormalTok{X) }\OperatorTok{+}\StringTok{ }\NormalTok{X }\OperatorTok{+}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{    toyexi <-}\StringTok{ }\KeywordTok{data.frame}\NormalTok{(}\DataTypeTok{im =}\NormalTok{ i, X, Y)}
+\NormalTok{    toyexi <-}\StringTok{ }\NormalTok{toyexi }\OperatorTok{%>%}\StringTok{ }\KeywordTok{arrange}\NormalTok{(X)}
+\NormalTok{    toyex.pred <-}\StringTok{ }\KeywordTok{bind_rows}\NormalTok{(toyex.pred, }\KeywordTok{data.frame}\NormalTok{(toyexi, }
+        \KeywordTok{predict}\NormalTok{(lm.toyex.initial, }\DataTypeTok{interval =} \StringTok{"prediction"}\NormalTok{)))}
+\NormalTok{\}}
+
+
+\ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\OperatorTok{:}\DecValTok{10}\NormalTok{) \{}
+\NormalTok{    toyex.pred}\OperatorTok{$}\NormalTok{fit <-}\StringTok{ }\KeywordTok{fitted}\NormalTok{(}\KeywordTok{lm}\NormalTok{(}\DataTypeTok{formula =}\NormalTok{ Y }\OperatorTok{~}\StringTok{ }\NormalTok{X, }\DataTypeTok{data =}\NormalTok{ toyex.pred[toyex.pred}\OperatorTok{$}\NormalTok{im }\OperatorTok{==}\StringTok{ }
+\StringTok{        }\NormalTok{i, ]))}
+\NormalTok{\}}
+
+\NormalTok{toyex.pred}\OperatorTok{$}\NormalTok{im <-}\StringTok{ }\KeywordTok{as.factor}\NormalTok{(toyex.pred}\OperatorTok{$}\NormalTok{im)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(gganimate)}
+
+\KeywordTok{ggplot}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ toyex.pred, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ X, }\DataTypeTok{y =}\NormalTok{ Y)) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_point}\NormalTok{(}\DataTypeTok{size =} \DecValTok{1}\NormalTok{) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_smooth}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ toyex.initial, }\DataTypeTok{method =}\NormalTok{ lm, }
+        \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{fill =} \StringTok{"confianza"}\NormalTok{), }\DataTypeTok{size =} \DecValTok{1}\NormalTok{, }
+        \DataTypeTok{col =} \StringTok{"red"}\NormalTok{) }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_ribbon}\NormalTok{(}\DataTypeTok{data =}\NormalTok{ toyex.pred.initial, }
+    \DataTypeTok{mapping =} \KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ X, }\DataTypeTok{ymin =}\NormalTok{ lwr, }\DataTypeTok{ymax =}\NormalTok{ upr, }\DataTypeTok{fill =} \StringTok{"predicción", }
+\StringTok{        ), alpha = 0.3) + labs(title = paste0("}\NormalTok{Muestra }\CommentTok{#: \{closest_state\}")) + }
+    \KeywordTok{scale_fill_manual}\NormalTok{(}\StringTok{"Intervalos"}\NormalTok{, }\DataTypeTok{values =} \KeywordTok{c}\NormalTok{(}\StringTok{"green"}\NormalTok{, }
+        \StringTok{"yellow"}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_bw}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{theme}\NormalTok{(}\DataTypeTok{axis.text =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{20}\NormalTok{), }
+    \DataTypeTok{axis.title =} \KeywordTok{element_text}\NormalTok{(}\DataTypeTok{size =} \DecValTok{20}\NormalTok{)) }\OperatorTok{+}\StringTok{ }\KeywordTok{transition_states}\NormalTok{(im)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{interacciones}{%
+\section{Interacciones}\label{interacciones}}
+
+En el modelo clásico
+
+\begin{equation*}
+Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon
+\end{equation*}
+
+Aumentemos en 1 unidad \(X_{1}\) y rescribamos el modelo original
+
+\begin{align*}
+Y &=  \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon \\
+Y &=  (\beta_{0} + \beta_{1}) + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon \\
+Y &=  \tilde{\beta_{0}} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon \\
+\end{align*}
+
+Es decir, el modelo original sigue siendo el mismo aunque hayamos cambiado el \(X_1\). Este fenómeno ocurre siempre bajo transformaciones lineales de las variables.
+
+Ahora suponga que tenemos el siguiente modelo y aumentamos en 1 el \(X_1\)
+
+\begin{align*}
+Y &=  \beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon \\
+\implies Y &=  \beta_{0} + \beta_{1} (X_{1}+1) X_{2} +\varepsilon \\
+\implies Y &=  \beta_{0} + \beta_{1}X_{2} +  \beta_{1} X_{1} X_{2} +\varepsilon \\
+\end{align*}
+
+OJO. Terminamos con un modelo diferente con el que empezamos. Esto es indeseable ya que no hay consistencia en la modelación,
+
+Una forma de arreglar el problema es incluir las interacciones junto con todos sus efectos directos.
+
+\begin{equation*}
+Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\varepsilon \\
+\end{equation*}
+
+\BeginKnitrBlock{exercise}
+\protect\hypertarget{exr:unnamed-chunk-190}{}{\label{exr:unnamed-chunk-190} }Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el modelo se mantiene.
+\EndKnitrBlock{exercise}
+
+\hypertarget{laboratorio-4}{%
+\subsection{Laboratorio}\label{laboratorio-4}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt }\OperatorTok{+}\StringTok{ }\NormalTok{disp, }\DataTypeTok{data =}\NormalTok{ mtcars))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = mpg ~ wt + disp, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4087 -2.3243 -0.7683  1.7721  6.3484 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 34.96055    2.16454  16.151 4.91e-16 ***
+## wt          -3.35082    1.16413  -2.878  0.00743 ** 
+## disp        -0.01773    0.00919  -1.929  0.06362 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.917 on 29 degrees of freedom
+## Multiple R-squared:  0.7809, Adjusted R-squared:  0.7658 
+## F-statistic: 51.69 on 2 and 29 DF,  p-value: 2.744e-10
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt }\OperatorTok{+}\StringTok{ }\NormalTok{disp }\OperatorTok{+}\StringTok{ }\NormalTok{wt }\OperatorTok{*}\StringTok{ }\NormalTok{disp, }\DataTypeTok{data =}\NormalTok{ mtcars))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = mpg ~ wt + disp + wt * disp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.267 -1.677 -0.836  1.351  5.017 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 44.081998   3.123063  14.115 2.96e-14 ***
+## wt          -6.495680   1.313383  -4.946 3.22e-05 ***
+## disp        -0.056358   0.013239  -4.257  0.00021 ***
+## wt:disp      0.011705   0.003255   3.596  0.00123 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.455 on 28 degrees of freedom
+## Multiple R-squared:  0.8501, Adjusted R-squared:  0.8341 
+## F-statistic: 52.95 on 3 and 28 DF,  p-value: 1.158e-11
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(}\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{wt }\OperatorTok{*}\StringTok{ }\NormalTok{disp }\OperatorTok{-}\StringTok{ }\NormalTok{wt }\OperatorTok{-}\StringTok{ }\NormalTok{disp, }\DataTypeTok{data =}\NormalTok{ mtcars))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = mpg ~ wt * disp - wt - disp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -4.259 -2.603 -1.657  2.165  8.589 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 26.2621926  1.0418029  25.208  < 2e-16 ***
+## wt:disp     -0.0072897  0.0009721  -7.499 2.33e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.614 on 30 degrees of freedom
+## Multiple R-squared:  0.6521, Adjusted R-squared:  0.6405 
+## F-statistic: 56.24 on 1 and 30 DF,  p-value: 2.329e-08
+\end{verbatim}
+
+\hypertarget{posibles-problemas-en-los-supuestos-para-regresion-lineal}{%
+\section{Posibles problemas en los supuestos para regresion lineal}\label{posibles-problemas-en-los-supuestos-para-regresion-lineal}}
+
+\hypertarget{no-linealidad-de-los-datos}{%
+\subsection{No linealidad de los datos}\label{no-linealidad-de-los-datos}}
+
+Este supuesto se puede constatar a partir de un gráfico de residuos ya que en el caso ideal \(e_{i} = \hat{Y}_{i}- Y_{i} \perp \hat{Y}_{i}\). Entonces si este gráfico presenta patrones, se pueden aplicar transformaciones para hacerlos perpendiculares.
 
 \printbibliography
 

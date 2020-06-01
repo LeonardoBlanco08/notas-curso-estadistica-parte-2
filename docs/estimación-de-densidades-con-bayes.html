@@ -52,9 +52,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -63,14 +63,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -79,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -169,11 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html"><i class="fa fa-check"></i><b>3</b> Jacknife y Bootstrap</a><ul>
 <li class="chapter" data-level="3.1" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#caso-concreto"><i class="fa fa-check"></i><b>3.1</b> Caso concreto</a></li>
 <li class="chapter" data-level="3.2" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#jacknife"><i class="fa fa-check"></i><b>3.2</b> Jacknife</a></li>
-<li class="chapter" data-level="3.3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#bootstrap"><i class="fa fa-check"></i><b>3.3</b> Bootstrap</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#intervalos-de-confianza"><i class="fa fa-check"></i><b>3.3.1</b> Intervalos de confianza</a></li>
-<li class="chapter" data-level="3.3.2" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#intervalo-pivotal-studentizado"><i class="fa fa-check"></i><b>3.3.2</b> Intervalo pivotal studentizado</a></li>
-<li class="chapter" data-level="3.3.3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#resumiendo"><i class="fa fa-check"></i><b>3.3.3</b> Resumiendo</a></li>
-</ul></li>
+<li class="chapter" data-level="3.3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#bootstrap"><i class="fa fa-check"></i><b>3.3</b> Bootstrap</a></li>
 <li class="chapter" data-level="3.4" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#ejercicios-1"><i class="fa fa-check"></i><b>3.4</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html"><i class="fa fa-check"></i><b>4</b> Estimación de densidades con Bayes</a><ul>
@@ -202,10 +200,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#introducción-1"><i class="fa fa-check"></i><b>5.1</b> Introducción</a></li>
 <li class="chapter" data-level="5.2" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#regresión-lineal"><i class="fa fa-check"></i><b>5.2</b> Regresión lineal</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#forma-matricial"><i class="fa fa-check"></i><b>5.2.1</b> Forma matricial</a></li>
+<li class="chapter" data-level="5.2.2" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#laboratorio-1"><i class="fa fa-check"></i><b>5.2.2</b> Laboratorio</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#propiedades-estadísticas-2"><i class="fa fa-check"></i><b>5.3</b> Propiedades estadísticas</a></li>
-<li class="chapter" data-level="5.4" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-t"><i class="fa fa-check"></i><b>5.4</b> Prueba <span class="math inline">\(t\)</span></a></li>
-<li class="chapter" data-level="5.5" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-f"><i class="fa fa-check"></i><b>5.5</b> Prueba <span class="math inline">\(F\)</span></a></li>
+<li class="chapter" data-level="5.3" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#propiedades-estadísticas-2"><i class="fa fa-check"></i><b>5.3</b> Propiedades estadísticas</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-t"><i class="fa fa-check"></i><b>5.3.1</b> Prueba <span class="math inline">\(t\)</span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-f"><i class="fa fa-check"></i><b>5.3.2</b> Prueba <span class="math inline">\(F\)</span></a></li>
+<li class="chapter" data-level="5.3.3" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#laboratorio-2"><i class="fa fa-check"></i><b>5.3.3</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#predicción"><i class="fa fa-check"></i><b>5.4</b> Predicción</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#laboratorio-3"><i class="fa fa-check"></i><b>5.4.1</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#interacciones"><i class="fa fa-check"></i><b>5.5</b> Interacciones</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#laboratorio-4"><i class="fa fa-check"></i><b>5.5.1</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#posibles-problemas-en-los-supuestos-para-regresion-lineal"><i class="fa fa-check"></i><b>5.6</b> Posibles problemas en los supuestos para regresion lineal</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#no-linealidad-de-los-datos"><i class="fa fa-check"></i><b>5.6.1</b> No linealidad de los datos</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -251,8 +261,8 @@ ajustada a los datos.</p>
 \end{equation*}\]</span></p>
 <p>Los valores de <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span> controlan la forma de esta distribución</p>
 <div class="figure">
-<img src="manual_figures/betas.png" alt="Tomado de Kruschke (2014)" />
-<p class="caption">Tomado de <span class="citation">Kruschke (<a href="#ref-Kruschke2014">2014</a>)</span></p>
+<img src="manual_figures/betas.png" alt="" />
+<p class="caption">Tomado de <span class="citation">Kruschke (<a href="#ref-Kruschke2014" role="doc-biblioref">2014</a>)</span></p>
 </div>
 <p>Una forma alternative es <span class="math inline">\(\mu=a /(a+b)\)</span> es la media, <span class="math inline">\(\kappa=a+b\)</span>
 es la concentración y <span class="math inline">\(\omega=(a-1) /(a+b-2)\)</span> es la moda de la
@@ -289,24 +299,24 @@ adecuado es</p>
 discreta. En este caso, el investigador asigna una probabilidad a
 cierta cantidad de horas de sueño, según su experiencia. Así, por
 ejemplo:</p>
-<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb72-1" title="1">(p &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dt">by =</span> <span class="fl">0.1</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="estimación-de-densidades-con-bayes.html#cb72-1"></a>(p &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dt">by =</span> <span class="fl">0.1</span>))</span></code></pre></div>
 <pre><code>##  [1] 0.05 0.15 0.25 0.35 0.45 0.55 0.65 0.75 0.85 0.95</code></pre>
-<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb74-1" title="1">(prior &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">5.2</span>, <span class="dv">8</span>, <span class="fl">7.2</span>, <span class="fl">4.6</span>, <span class="fl">2.1</span>, <span class="fl">0.7</span>, <span class="fl">0.1</span>, <span class="dv">0</span>, </a>
-<a class="sourceLine" id="cb74-2" title="2">    <span class="dv">0</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="estimación-de-densidades-con-bayes.html#cb74-1"></a>(prior &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">5.2</span>, <span class="dv">8</span>, <span class="fl">7.2</span>, <span class="fl">4.6</span>, <span class="fl">2.1</span>, <span class="fl">0.7</span>, <span class="fl">0.1</span>, <span class="dv">0</span>, </span>
+<span id="cb74-2"><a href="estimación-de-densidades-con-bayes.html#cb74-2"></a>    <span class="dv">0</span>))</span></code></pre></div>
 <pre><code>##  [1] 1.0 5.2 8.0 7.2 4.6 2.1 0.7 0.1 0.0 0.0</code></pre>
-<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb76-1" title="1">(prior &lt;-<span class="st"> </span>prior<span class="op">/</span><span class="kw">sum</span>(prior))</a></code></pre></div>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="estimación-de-densidades-con-bayes.html#cb76-1"></a>(prior &lt;-<span class="st"> </span>prior<span class="op">/</span><span class="kw">sum</span>(prior))</span></code></pre></div>
 <pre><code>##  [1] 0.034602076 0.179930796 0.276816609 0.249134948 0.159169550 0.072664360
 ##  [7] 0.024221453 0.003460208 0.000000000 0.000000000</code></pre>
-<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb78-1" title="1"><span class="kw">plot</span>(p, prior, <span class="dt">type =</span> <span class="st">&quot;h&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Probabilidad Previa&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb78"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb78-1"><a href="estimación-de-densidades-con-bayes.html#cb78-1"></a><span class="kw">plot</span>(p, prior, <span class="dt">type =</span> <span class="st">&quot;h&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Probabilidad Previa&quot;</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-107-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>El paquete <code>LearnBayes</code> tiene la función <code>pdisc</code> que estima la
 distribución posterior para una previa discreta binomial. Recuerde que
 el valor 11 representa la cantidad de estudiantes con más de 8 horas
 de sueño y 16 lo que no duermen esa cantidad.</p>
-<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb79-1" title="1"><span class="kw">library</span>(LearnBayes)</a>
-<a class="sourceLine" id="cb79-2" title="2">data &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">16</span>)</a>
-<a class="sourceLine" id="cb79-3" title="3">post &lt;-<span class="st"> </span><span class="kw">pdisc</span>(p, prior, data)</a>
-<a class="sourceLine" id="cb79-4" title="4"><span class="kw">round</span>(<span class="kw">cbind</span>(p, prior, post), <span class="dv">2</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="estimación-de-densidades-con-bayes.html#cb79-1"></a><span class="kw">library</span>(LearnBayes)</span>
+<span id="cb79-2"><a href="estimación-de-densidades-con-bayes.html#cb79-2"></a>data &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">11</span>, <span class="dv">16</span>)</span>
+<span id="cb79-3"><a href="estimación-de-densidades-con-bayes.html#cb79-3"></a>post &lt;-<span class="st"> </span><span class="kw">pdisc</span>(p, prior, data)</span>
+<span id="cb79-4"><a href="estimación-de-densidades-con-bayes.html#cb79-4"></a><span class="kw">round</span>(<span class="kw">cbind</span>(p, prior, post), <span class="dv">2</span>)</span></code></pre></div>
 <pre><code>##          p prior post
 ##  [1,] 0.05  0.03 0.00
 ##  [2,] 0.15  0.18 0.00
@@ -320,8 +330,8 @@ de sueño y 16 lo que no duermen esa cantidad.</p>
 ## [10,] 0.95  0.00 0.00</code></pre>
 <p>Y podemos ver la diferencia entre la previa (negro) y la posterior
 (roja),</p>
-<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb81-1" title="1"><span class="kw">plot</span>(p, post, <span class="dt">type =</span> <span class="st">&quot;h&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</a>
-<a class="sourceLine" id="cb81-2" title="2"><span class="kw">lines</span>(p <span class="op">+</span><span class="st"> </span><span class="fl">0.01</span>, prior, <span class="dt">type =</span> <span class="st">&quot;h&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb81"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb81-1"><a href="estimación-de-densidades-con-bayes.html#cb81-1"></a><span class="kw">plot</span>(p, post, <span class="dt">type =</span> <span class="st">&quot;h&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb81-2"><a href="estimación-de-densidades-con-bayes.html#cb81-2"></a><span class="kw">lines</span>(p <span class="op">+</span><span class="st"> </span><span class="fl">0.01</span>, prior, <span class="dt">type =</span> <span class="st">&quot;h&quot;</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-109-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>¿Qué se puede deducir de estos resultados?</p>
 </div>
@@ -331,14 +341,14 @@ de sueño y 16 lo que no duermen esa cantidad.</p>
 <p>Carguemos los datos <code>studdendata</code> del paquete <code>LearnBayes</code>. Esta base
 son preguntas que se le hicieron a un grupo de estudiantes de Bowling
 Green State University. Para mayor información use <code>?studentdata</code>.</p>
-<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb82-1" title="1"><span class="kw">data</span>(<span class="st">&quot;studentdata&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb82"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb82-1"><a href="estimación-de-densidades-con-bayes.html#cb82-1"></a><span class="kw">data</span>(<span class="st">&quot;studentdata&quot;</span>)</span></code></pre></div>
 <p>Como solo se tiene la hora de dormir y la hora de despertarse, se debe tomar la diferencia.</p>
-<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb83-1" title="1">horas_sueno &lt;-<span class="st"> </span>studentdata<span class="op">$</span>WakeUp <span class="op">-</span><span class="st"> </span>studentdata<span class="op">$</span>ToSleep</a>
-<a class="sourceLine" id="cb83-2" title="2">horas_sueno &lt;-<span class="st"> </span><span class="kw">na.omit</span>(horas_sueno)</a>
-<a class="sourceLine" id="cb83-3" title="3"><span class="kw">summary</span>(horas_sueno)</a></code></pre></div>
+<div class="sourceCode" id="cb83"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb83-1"><a href="estimación-de-densidades-con-bayes.html#cb83-1"></a>horas_sueno &lt;-<span class="st"> </span>studentdata<span class="op">$</span>WakeUp <span class="op">-</span><span class="st"> </span>studentdata<span class="op">$</span>ToSleep</span>
+<span id="cb83-2"><a href="estimación-de-densidades-con-bayes.html#cb83-2"></a>horas_sueno &lt;-<span class="st"> </span><span class="kw">na.omit</span>(horas_sueno)</span>
+<span id="cb83-3"><a href="estimación-de-densidades-con-bayes.html#cb83-3"></a><span class="kw">summary</span>(horas_sueno)</span></code></pre></div>
 <pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
 ##   2.500   6.500   7.500   7.385   8.500  12.500</code></pre>
-<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb85-1" title="1"><span class="kw">hist</span>(horas_sueno, <span class="dt">main =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="estimación-de-densidades-con-bayes.html#cb85-1"></a><span class="kw">hist</span>(horas_sueno, <span class="dt">main =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-111-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Ahora supongamos que se tiene quiere ajustar una previa continua a este modelo. Para esto usaremos una distribución Beta con parámetros <span class="math inline">\(a\)</span> y <span class="math inline">\(b\)</span>, de la forma</p>
 <p><span class="math display">\[
@@ -351,39 +361,39 @@ parámetros. En particular, suponga que se cree que el <span class="math inline"
 observaciones la proporción será menor que 0.3 y el <span class="math inline">\(90\%\)</span> será menor
 que 0.5.</p>
 <p>Para esto ajustaremos los siguientes parámetros</p>
-<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb86-1" title="1">quantile2 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">p =</span> <span class="fl">0.9</span>, <span class="dt">x =</span> <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb86-2" title="2">quantile1 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">p =</span> <span class="fl">0.5</span>, <span class="dt">x =</span> <span class="fl">0.3</span>)</a>
-<a class="sourceLine" id="cb86-3" title="3">ab &lt;-<span class="st"> </span><span class="kw">beta.select</span>(quantile1, quantile2)</a>
-<a class="sourceLine" id="cb86-4" title="4"></a>
-<a class="sourceLine" id="cb86-5" title="5">a &lt;-<span class="st"> </span>ab[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb86-6" title="6">b &lt;-<span class="st"> </span>ab[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb86-7" title="7">s &lt;-<span class="st"> </span><span class="dv">11</span></a>
-<a class="sourceLine" id="cb86-8" title="8">f &lt;-<span class="st"> </span><span class="dv">16</span></a></code></pre></div>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="estimación-de-densidades-con-bayes.html#cb86-1"></a>quantile2 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">p =</span> <span class="fl">0.9</span>, <span class="dt">x =</span> <span class="fl">0.5</span>)</span>
+<span id="cb86-2"><a href="estimación-de-densidades-con-bayes.html#cb86-2"></a>quantile1 &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">p =</span> <span class="fl">0.5</span>, <span class="dt">x =</span> <span class="fl">0.3</span>)</span>
+<span id="cb86-3"><a href="estimación-de-densidades-con-bayes.html#cb86-3"></a>ab &lt;-<span class="st"> </span><span class="kw">beta.select</span>(quantile1, quantile2)</span>
+<span id="cb86-4"><a href="estimación-de-densidades-con-bayes.html#cb86-4"></a></span>
+<span id="cb86-5"><a href="estimación-de-densidades-con-bayes.html#cb86-5"></a>a &lt;-<span class="st"> </span>ab[<span class="dv">1</span>]</span>
+<span id="cb86-6"><a href="estimación-de-densidades-con-bayes.html#cb86-6"></a>b &lt;-<span class="st"> </span>ab[<span class="dv">2</span>]</span>
+<span id="cb86-7"><a href="estimación-de-densidades-con-bayes.html#cb86-7"></a>s &lt;-<span class="st"> </span><span class="dv">11</span></span>
+<span id="cb86-8"><a href="estimación-de-densidades-con-bayes.html#cb86-8"></a>f &lt;-<span class="st"> </span><span class="dv">16</span></span></code></pre></div>
 <p>En este caso se obtendra la distribución posterior Beta con paramétros
 <span class="math inline">\(\alpha + s\)</span> y <span class="math inline">\(\beta + f\)</span>,</p>
-<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb87-1" title="1"><span class="kw">curve</span>(<span class="kw">dbeta</span>(x, a <span class="op">+</span><span class="st"> </span>s, b <span class="op">+</span><span class="st"> </span>f), <span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">xlab =</span> <span class="st">&quot;p&quot;</span>, </a>
-<a class="sourceLine" id="cb87-2" title="2">    <span class="dt">ylab =</span> <span class="st">&quot;Densidad&quot;</span>, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb87-3" title="3"><span class="kw">curve</span>(<span class="kw">dbeta</span>(x, s <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, f <span class="op">+</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">lty =</span> <span class="dv">2</span>, </a>
-<a class="sourceLine" id="cb87-4" title="4">    <span class="dt">lwd =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb87-5" title="5"><span class="kw">curve</span>(<span class="kw">dbeta</span>(x, a, b), <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">lty =</span> <span class="dv">3</span>, <span class="dt">lwd =</span> <span class="dv">4</span>)</a>
-<a class="sourceLine" id="cb87-6" title="6"><span class="kw">legend</span>(<span class="fl">0.7</span>, <span class="dv">4</span>, <span class="kw">c</span>(<span class="st">&quot;Previa&quot;</span>, <span class="st">&quot;Verosimilitud&quot;</span>, <span class="st">&quot;Posterior&quot;</span>), </a>
-<a class="sourceLine" id="cb87-7" title="7">    <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>), <span class="dt">lwd =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="estimación-de-densidades-con-bayes.html#cb87-1"></a><span class="kw">curve</span>(<span class="kw">dbeta</span>(x, a <span class="op">+</span><span class="st"> </span>s, b <span class="op">+</span><span class="st"> </span>f), <span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">xlab =</span> <span class="st">&quot;p&quot;</span>, </span>
+<span id="cb87-2"><a href="estimación-de-densidades-con-bayes.html#cb87-2"></a>    <span class="dt">ylab =</span> <span class="st">&quot;Densidad&quot;</span>, <span class="dt">lty =</span> <span class="dv">1</span>, <span class="dt">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb87-3"><a href="estimación-de-densidades-con-bayes.html#cb87-3"></a><span class="kw">curve</span>(<span class="kw">dbeta</span>(x, s <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, f <span class="op">+</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">lty =</span> <span class="dv">2</span>, </span>
+<span id="cb87-4"><a href="estimación-de-densidades-con-bayes.html#cb87-4"></a>    <span class="dt">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb87-5"><a href="estimación-de-densidades-con-bayes.html#cb87-5"></a><span class="kw">curve</span>(<span class="kw">dbeta</span>(x, a, b), <span class="dt">add =</span> <span class="ot">TRUE</span>, <span class="dt">lty =</span> <span class="dv">3</span>, <span class="dt">lwd =</span> <span class="dv">4</span>)</span>
+<span id="cb87-6"><a href="estimación-de-densidades-con-bayes.html#cb87-6"></a><span class="kw">legend</span>(<span class="fl">0.7</span>, <span class="dv">4</span>, <span class="kw">c</span>(<span class="st">&quot;Previa&quot;</span>, <span class="st">&quot;Verosimilitud&quot;</span>, <span class="st">&quot;Posterior&quot;</span>), </span>
+<span id="cb87-7"><a href="estimación-de-densidades-con-bayes.html#cb87-7"></a>    <span class="dt">lty =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">1</span>), <span class="dt">lwd =</span> <span class="kw">c</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>))</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-113-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>En particular, si estamos interesados en <span class="math inline">\(\mathbb{P}(p&gt;=.5 | \text {  data })\)</span> se puede estimar con</p>
-<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb88-1" title="1"><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pbeta</span>(<span class="fl">0.5</span>, a <span class="op">+</span><span class="st"> </span>s, b <span class="op">+</span><span class="st"> </span>f)</a></code></pre></div>
+<div class="sourceCode" id="cb88"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb88-1"><a href="estimación-de-densidades-con-bayes.html#cb88-1"></a><span class="dv">1</span> <span class="op">-</span><span class="st"> </span><span class="kw">pbeta</span>(<span class="fl">0.5</span>, a <span class="op">+</span><span class="st"> </span>s, b <span class="op">+</span><span class="st"> </span>f)</span></code></pre></div>
 <pre><code>## [1] 0.0690226</code></pre>
 <p>y el intervalo de confianza correspondiente a esta distribución sería</p>
-<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb90-1" title="1"><span class="kw">qbeta</span>(<span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>), a <span class="op">+</span><span class="st"> </span>s, b <span class="op">+</span><span class="st"> </span>f)</a></code></pre></div>
+<div class="sourceCode" id="cb90"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb90-1"><a href="estimación-de-densidades-con-bayes.html#cb90-1"></a><span class="kw">qbeta</span>(<span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>), a <span class="op">+</span><span class="st"> </span>s, b <span class="op">+</span><span class="st"> </span>f)</span></code></pre></div>
 <pre><code>## [1] 0.2555267 0.5133608</code></pre>
 <p>Otra opción para estimar este intervalo es simular 1000 veces la
 distribución beta y observar su comportamiento en los cuantiles</p>
-<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb92-1" title="1">ps &lt;-<span class="st"> </span><span class="kw">rbeta</span>(<span class="dv">1000</span>, a <span class="op">+</span><span class="st"> </span>s, b <span class="op">+</span><span class="st"> </span>f)</a>
-<a class="sourceLine" id="cb92-2" title="2"><span class="kw">hist</span>(ps, <span class="dt">xlab =</span> <span class="st">&quot;p&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="estimación-de-densidades-con-bayes.html#cb92-1"></a>ps &lt;-<span class="st"> </span><span class="kw">rbeta</span>(<span class="dv">1000</span>, a <span class="op">+</span><span class="st"> </span>s, b <span class="op">+</span><span class="st"> </span>f)</span>
+<span id="cb92-2"><a href="estimación-de-densidades-con-bayes.html#cb92-2"></a><span class="kw">hist</span>(ps, <span class="dt">xlab =</span> <span class="st">&quot;p&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-116-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>La probabilidad que este valor sea mayor que 0.5 es</p>
-<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb93-1" title="1"><span class="kw">sum</span>(ps <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>)<span class="op">/</span><span class="dv">1000</span></a></code></pre></div>
+<div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="estimación-de-densidades-con-bayes.html#cb93-1"></a><span class="kw">sum</span>(ps <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>)<span class="op">/</span><span class="dv">1000</span></span></code></pre></div>
 <pre><code>## [1] 0.065</code></pre>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb95-1" title="1"><span class="kw">quantile</span>(ps, <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="estimación-de-densidades-con-bayes.html#cb95-1"></a><span class="kw">quantile</span>(ps, <span class="kw">c</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>))</span></code></pre></div>
 <pre><code>##        5%       95% 
 ## 0.2571102 0.5102856</code></pre>
 </div>
@@ -409,26 +419,26 @@ reemplazo de la distribución discreta.</li>
 sobre la grilla</p>
 <p>Suponga nuevamente que tenemos las mismas previas dadas al inicio del
 capítulo</p>
-<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb97-1" title="1">midpt &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)</a>
-<a class="sourceLine" id="cb97-2" title="2">prior &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">5.2</span>, <span class="dv">8</span>, <span class="fl">7.2</span>, <span class="fl">4.6</span>, <span class="fl">2.1</span>, <span class="fl">0.7</span>, <span class="fl">0.1</span>, <span class="dv">0</span>, <span class="dv">0</span>)</a>
-<a class="sourceLine" id="cb97-3" title="3">prior &lt;-<span class="st"> </span>prior<span class="op">/</span><span class="kw">sum</span>(prior)</a></code></pre></div>
+<div class="sourceCode" id="cb97"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb97-1"><a href="estimación-de-densidades-con-bayes.html#cb97-1"></a>midpt &lt;-<span class="st"> </span><span class="kw">seq</span>(<span class="fl">0.05</span>, <span class="fl">0.95</span>, <span class="dt">by =</span> <span class="fl">0.1</span>)</span>
+<span id="cb97-2"><a href="estimación-de-densidades-con-bayes.html#cb97-2"></a>prior &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="fl">5.2</span>, <span class="dv">8</span>, <span class="fl">7.2</span>, <span class="fl">4.6</span>, <span class="fl">2.1</span>, <span class="fl">0.7</span>, <span class="fl">0.1</span>, <span class="dv">0</span>, <span class="dv">0</span>)</span>
+<span id="cb97-3"><a href="estimación-de-densidades-con-bayes.html#cb97-3"></a>prior &lt;-<span class="st"> </span>prior<span class="op">/</span><span class="kw">sum</span>(prior)</span></code></pre></div>
 <p>Con la función <code>histprior</code> construye los valores de <span class="math inline">\(p\)</span> sobre una
 grilla.</p>
-<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb98-1" title="1"><span class="kw">curve</span>(<span class="kw">histprior</span>(x, midpt, prior), <span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb98-2" title="2">    <span class="dt">ylab =</span> <span class="st">&quot;Densidad previa&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.3</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb98"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb98-1"><a href="estimación-de-densidades-con-bayes.html#cb98-1"></a><span class="kw">curve</span>(<span class="kw">histprior</span>(x, midpt, prior), <span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, </span>
+<span id="cb98-2"><a href="estimación-de-densidades-con-bayes.html#cb98-2"></a>    <span class="dt">ylab =</span> <span class="st">&quot;Densidad previa&quot;</span>, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="fl">0.3</span>))</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-120-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Luego recordando que nuestra posterior es <span class="math inline">\(beta(s+1,f+1)\)</span> tenemos que</p>
-<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb99-1" title="1"><span class="kw">curve</span>(<span class="kw">histprior</span>(x, midpt, prior) <span class="op">*</span><span class="st"> </span><span class="kw">dbeta</span>(x, s <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb99-2" title="2">    f <span class="op">+</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">ylab =</span> <span class="st">&quot;Densidad posterior&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb99"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb99-1"><a href="estimación-de-densidades-con-bayes.html#cb99-1"></a><span class="kw">curve</span>(<span class="kw">histprior</span>(x, midpt, prior) <span class="op">*</span><span class="st"> </span><span class="kw">dbeta</span>(x, s <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, </span>
+<span id="cb99-2"><a href="estimación-de-densidades-con-bayes.html#cb99-2"></a>    f <span class="op">+</span><span class="st"> </span><span class="dv">1</span>), <span class="dt">from =</span> <span class="dv">0</span>, <span class="dt">to =</span> <span class="dv">1</span>, <span class="dt">ylab =</span> <span class="st">&quot;Densidad posterior&quot;</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-121-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Para conseguir la distribución posterior, solo debemos de construirla para una secuencia ordenada de valores <span class="math inline">\(p\)</span></p>
-<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb100-1" title="1">p =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length =</span> <span class="dv">1000</span>)</a>
-<a class="sourceLine" id="cb100-2" title="2">post =<span class="st"> </span><span class="kw">histprior</span>(p, midpt, prior) <span class="op">*</span><span class="st"> </span><span class="kw">dbeta</span>(p, s <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, </a>
-<a class="sourceLine" id="cb100-3" title="3">    f <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb100-4" title="4">post =<span class="st"> </span>post<span class="op">/</span><span class="kw">sum</span>(post)</a></code></pre></div>
+<div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="estimación-de-densidades-con-bayes.html#cb100-1"></a>p =<span class="st"> </span><span class="kw">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">length =</span> <span class="dv">1000</span>)</span>
+<span id="cb100-2"><a href="estimación-de-densidades-con-bayes.html#cb100-2"></a>post =<span class="st"> </span><span class="kw">histprior</span>(p, midpt, prior) <span class="op">*</span><span class="st"> </span><span class="kw">dbeta</span>(p, s <span class="op">+</span><span class="st"> </span><span class="dv">1</span>, </span>
+<span id="cb100-3"><a href="estimación-de-densidades-con-bayes.html#cb100-3"></a>    f <span class="op">+</span><span class="st"> </span><span class="dv">1</span>)</span>
+<span id="cb100-4"><a href="estimación-de-densidades-con-bayes.html#cb100-4"></a>post =<span class="st"> </span>post<span class="op">/</span><span class="kw">sum</span>(post)</span></code></pre></div>
 <p>Finalmente basta con tomar el muestreo de la posterior</p>
-<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb101-1" title="1">ps &lt;-<span class="st"> </span><span class="kw">sample</span>(p, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> post)</a>
-<a class="sourceLine" id="cb101-2" title="2"><span class="kw">hist</span>(ps, <span class="dt">xlab =</span> <span class="st">&quot;p&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="estimación-de-densidades-con-bayes.html#cb101-1"></a>ps &lt;-<span class="st"> </span><span class="kw">sample</span>(p, <span class="dt">replace =</span> <span class="ot">TRUE</span>, <span class="dt">prob =</span> post)</span>
+<span id="cb101-2"><a href="estimación-de-densidades-con-bayes.html#cb101-2"></a><span class="kw">hist</span>(ps, <span class="dt">xlab =</span> <span class="st">&quot;p&quot;</span>, <span class="dt">main =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-123-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="métodos-monte-carlo" class="section level2">
@@ -446,7 +456,7 @@ grilla.</p>
 <ul>
 <li>Tira la moneda y decide si va a la izquierda o la derecha.
 <ol style="list-style-type: decimal">
-<li>Si el lugar nuevo tiene  personas que el actual salta a ese lugar.</li>
+<li><p>Si el lugar nuevo tiene  personas que el actual salta a ese lugar.</p></li>
 <li><p>Si el lugar nuevo tiene  personas entonces el viajero tiene que decidir si se queda o se mueve. | calcula la probabilidad de moverse como <span class="math inline">\(p_{moverse} = P_{nuevo}/P_{actual}\)</span>.</p>
 <p><strong>Tira un número aleatorio entre 0 y 1 <span class="math inline">\(r\)</span></strong></p>
 <ol style="list-style-type: decimal">
@@ -455,50 +465,50 @@ grilla.</p>
 </ol></li>
 </ol></li>
 </ul>
-<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb102-1" title="1">P &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">7</span></a>
-<a class="sourceLine" id="cb102-2" title="2"></a>
-<a class="sourceLine" id="cb102-3" title="3">pos_actual &lt;-<span class="st"> </span><span class="kw">sample</span>(P, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb102-4" title="4">pos_nueva &lt;-<span class="st"> </span>pos_actual</a>
-<a class="sourceLine" id="cb102-5" title="5"></a>
-<a class="sourceLine" id="cb102-6" title="6">n_pasos &lt;-<span class="st"> </span><span class="dv">50000</span></a>
-<a class="sourceLine" id="cb102-7" title="7">trayectoria &lt;-<span class="st"> </span><span class="kw">numeric</span>(n_pasos)</a>
-<a class="sourceLine" id="cb102-8" title="8"></a>
-<a class="sourceLine" id="cb102-9" title="9">trayectoria[<span class="dv">1</span>] &lt;-<span class="st"> </span>pos_actual</a>
-<a class="sourceLine" id="cb102-10" title="10"></a>
-<a class="sourceLine" id="cb102-11" title="11"><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>n_pasos) {</a>
-<a class="sourceLine" id="cb102-12" title="12">    <span class="co"># Tira la moneda para decidir</span></a>
-<a class="sourceLine" id="cb102-13" title="13">    </a>
-<a class="sourceLine" id="cb102-14" title="14">    moneda &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</a>
-<a class="sourceLine" id="cb102-15" title="15">    <span class="co"># moneda es 0 o 1</span></a>
-<a class="sourceLine" id="cb102-16" title="16">    pos_nueva &lt;-<span class="st"> </span>pos_actual</a>
-<a class="sourceLine" id="cb102-17" title="17">    <span class="cf">if</span> (moneda <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>(pos_actual <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">7</span>) {</a>
-<a class="sourceLine" id="cb102-18" title="18">        pos_nueva =<span class="st"> </span>pos_actual <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb102-19" title="19">    } <span class="cf">else</span> <span class="cf">if</span> (moneda <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>(pos_actual <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb102-20" title="20">        pos_nueva &lt;-<span class="st"> </span>pos_actual <span class="op">-</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb102-21" title="21">    }</a>
-<a class="sourceLine" id="cb102-22" title="22">    </a>
-<a class="sourceLine" id="cb102-23" title="23">    p_moverse &lt;-<span class="st"> </span><span class="kw">min</span>(pos_nueva<span class="op">/</span>pos_actual, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb102-24" title="24">    </a>
-<a class="sourceLine" id="cb102-25" title="25">    hay_movimiento &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p_moverse <span class="op">&lt;=</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb102-26" title="26">    </a>
-<a class="sourceLine" id="cb102-27" title="27">    <span class="cf">if</span> (hay_movimiento) {</a>
-<a class="sourceLine" id="cb102-28" title="28">        pos_actual &lt;-<span class="st"> </span>pos_nueva</a>
-<a class="sourceLine" id="cb102-29" title="29">    }</a>
-<a class="sourceLine" id="cb102-30" title="30">    </a>
-<a class="sourceLine" id="cb102-31" title="31">    trayectoria[k] &lt;-<span class="st"> </span>pos_nueva</a>
-<a class="sourceLine" id="cb102-32" title="32">}</a></code></pre></div>
-<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb103-1" title="1">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span>n_pasos, <span class="dt">P =</span> trayectoria)</a>
-<a class="sourceLine" id="cb103-2" title="2"></a>
-<a class="sourceLine" id="cb103-3" title="3"><span class="kw">ggplot</span>(df[<span class="dv">1</span><span class="op">:</span><span class="dv">200</span>, ]) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x, P)) <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb103-4" title="4"><span class="st">    </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</a>
-<a class="sourceLine" id="cb103-5" title="5"></a>
-<a class="sourceLine" id="cb103-6" title="6"></a>
-<a class="sourceLine" id="cb103-7" title="7"><span class="kw">ggplot</span>(df) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(P), <span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb103-8" title="8"><span class="st">    </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb102"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb102-1"><a href="estimación-de-densidades-con-bayes.html#cb102-1"></a>P &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="dv">7</span></span>
+<span id="cb102-2"><a href="estimación-de-densidades-con-bayes.html#cb102-2"></a></span>
+<span id="cb102-3"><a href="estimación-de-densidades-con-bayes.html#cb102-3"></a>pos_actual &lt;-<span class="st"> </span><span class="kw">sample</span>(P, <span class="dv">1</span>)</span>
+<span id="cb102-4"><a href="estimación-de-densidades-con-bayes.html#cb102-4"></a>pos_nueva &lt;-<span class="st"> </span>pos_actual</span>
+<span id="cb102-5"><a href="estimación-de-densidades-con-bayes.html#cb102-5"></a></span>
+<span id="cb102-6"><a href="estimación-de-densidades-con-bayes.html#cb102-6"></a>n_pasos &lt;-<span class="st"> </span><span class="dv">50000</span></span>
+<span id="cb102-7"><a href="estimación-de-densidades-con-bayes.html#cb102-7"></a>trayectoria &lt;-<span class="st"> </span><span class="kw">numeric</span>(n_pasos)</span>
+<span id="cb102-8"><a href="estimación-de-densidades-con-bayes.html#cb102-8"></a></span>
+<span id="cb102-9"><a href="estimación-de-densidades-con-bayes.html#cb102-9"></a>trayectoria[<span class="dv">1</span>] &lt;-<span class="st"> </span>pos_actual</span>
+<span id="cb102-10"><a href="estimación-de-densidades-con-bayes.html#cb102-10"></a></span>
+<span id="cb102-11"><a href="estimación-de-densidades-con-bayes.html#cb102-11"></a><span class="cf">for</span> (k <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>n_pasos) {</span>
+<span id="cb102-12"><a href="estimación-de-densidades-con-bayes.html#cb102-12"></a>    <span class="co"># Tira la moneda para decidir</span></span>
+<span id="cb102-13"><a href="estimación-de-densidades-con-bayes.html#cb102-13"></a>    </span>
+<span id="cb102-14"><a href="estimación-de-densidades-con-bayes.html#cb102-14"></a>    moneda &lt;-<span class="st"> </span><span class="kw">rbinom</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="fl">0.5</span>)</span>
+<span id="cb102-15"><a href="estimación-de-densidades-con-bayes.html#cb102-15"></a>    <span class="co"># moneda es 0 o 1</span></span>
+<span id="cb102-16"><a href="estimación-de-densidades-con-bayes.html#cb102-16"></a>    pos_nueva &lt;-<span class="st"> </span>pos_actual</span>
+<span id="cb102-17"><a href="estimación-de-densidades-con-bayes.html#cb102-17"></a>    <span class="cf">if</span> (moneda <span class="op">==</span><span class="st"> </span><span class="dv">1</span> <span class="op">&amp;</span><span class="st"> </span>(pos_actual <span class="op">+</span><span class="st"> </span><span class="dv">1</span>) <span class="op">&lt;=</span><span class="st"> </span><span class="dv">7</span>) {</span>
+<span id="cb102-18"><a href="estimación-de-densidades-con-bayes.html#cb102-18"></a>        pos_nueva =<span class="st"> </span>pos_actual <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb102-19"><a href="estimación-de-densidades-con-bayes.html#cb102-19"></a>    } <span class="cf">else</span> <span class="cf">if</span> (moneda <span class="op">==</span><span class="st"> </span><span class="dv">0</span> <span class="op">&amp;</span><span class="st"> </span>(pos_actual <span class="op">-</span><span class="st"> </span><span class="dv">1</span>) <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span>) {</span>
+<span id="cb102-20"><a href="estimación-de-densidades-con-bayes.html#cb102-20"></a>        pos_nueva &lt;-<span class="st"> </span>pos_actual <span class="op">-</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb102-21"><a href="estimación-de-densidades-con-bayes.html#cb102-21"></a>    }</span>
+<span id="cb102-22"><a href="estimación-de-densidades-con-bayes.html#cb102-22"></a>    </span>
+<span id="cb102-23"><a href="estimación-de-densidades-con-bayes.html#cb102-23"></a>    p_moverse &lt;-<span class="st"> </span><span class="kw">min</span>(pos_nueva<span class="op">/</span>pos_actual, <span class="dv">1</span>)</span>
+<span id="cb102-24"><a href="estimación-de-densidades-con-bayes.html#cb102-24"></a>    </span>
+<span id="cb102-25"><a href="estimación-de-densidades-con-bayes.html#cb102-25"></a>    hay_movimiento &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">-</span><span class="st"> </span>p_moverse <span class="op">&lt;=</span><span class="st"> </span><span class="kw">runif</span>(<span class="dv">1</span>)</span>
+<span id="cb102-26"><a href="estimación-de-densidades-con-bayes.html#cb102-26"></a>    </span>
+<span id="cb102-27"><a href="estimación-de-densidades-con-bayes.html#cb102-27"></a>    <span class="cf">if</span> (hay_movimiento) {</span>
+<span id="cb102-28"><a href="estimación-de-densidades-con-bayes.html#cb102-28"></a>        pos_actual &lt;-<span class="st"> </span>pos_nueva</span>
+<span id="cb102-29"><a href="estimación-de-densidades-con-bayes.html#cb102-29"></a>    }</span>
+<span id="cb102-30"><a href="estimación-de-densidades-con-bayes.html#cb102-30"></a>    </span>
+<span id="cb102-31"><a href="estimación-de-densidades-con-bayes.html#cb102-31"></a>    trayectoria[k] &lt;-<span class="st"> </span>pos_nueva</span>
+<span id="cb102-32"><a href="estimación-de-densidades-con-bayes.html#cb102-32"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb103"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb103-1"><a href="estimación-de-densidades-con-bayes.html#cb103-1"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span>n_pasos, <span class="dt">P =</span> trayectoria)</span>
+<span id="cb103-2"><a href="estimación-de-densidades-con-bayes.html#cb103-2"></a></span>
+<span id="cb103-3"><a href="estimación-de-densidades-con-bayes.html#cb103-3"></a><span class="kw">ggplot</span>(df[<span class="dv">1</span><span class="op">:</span><span class="dv">200</span>, ]) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x, P)) <span class="op">+</span><span class="st"> </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb103-4"><a href="estimación-de-densidades-con-bayes.html#cb103-4"></a><span class="st">    </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</span>
+<span id="cb103-5"><a href="estimación-de-densidades-con-bayes.html#cb103-5"></a></span>
+<span id="cb103-6"><a href="estimación-de-densidades-con-bayes.html#cb103-6"></a></span>
+<span id="cb103-7"><a href="estimación-de-densidades-con-bayes.html#cb103-7"></a><span class="kw">ggplot</span>(df) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(P), <span class="dt">stat =</span> <span class="st">&quot;count&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb103-8"><a href="estimación-de-densidades-con-bayes.html#cb103-8"></a><span class="st">    </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-125-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-125-2.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb104-1" title="1"><span class="kw">mean</span>(trayectoria)</a></code></pre></div>
+<div class="sourceCode" id="cb104"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb104-1"><a href="estimación-de-densidades-con-bayes.html#cb104-1"></a><span class="kw">mean</span>(trayectoria)</span></code></pre></div>
 <pre><code>## [1] 4.86236</code></pre>
-<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb106-1" title="1"><span class="kw">sd</span>(trayectoria)</a></code></pre></div>
+<div class="sourceCode" id="cb106"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb106-1"><a href="estimación-de-densidades-con-bayes.html#cb106-1"></a><span class="kw">sd</span>(trayectoria)</span></code></pre></div>
 <pre><code>## [1] 1.79851</code></pre>
 </div>
 <div id="cadenas-de-markov" class="section level3">
@@ -627,7 +637,7 @@ una verosimilitud de <span class="math inline">\(L(z, N | \theta)=\theta^{z}(1-\
 <span class="math inline">\(\sigma\)</span> de modo que <span class="math inline">\(\Delta \theta \sim \mathcal{N}\left(0,\sigma^{2}\right)\)</span>.</p>
 <p>Entonces el algoritmo de Metropolis Hasting se puede reformular como</p>
 <ol style="list-style-type: decimal">
-<li>Simule un valor de salto<span class="math inline">\(\Delta \theta \sim \mathcal{N}\left(0,\sigma^{2}\right)\)</span> y denote <span class="math inline">\(\theta^{t} = \theta^{t} + \Delta\theta\)</span>.</li>
+<li><p>Simule un valor de salto<span class="math inline">\(\Delta \theta \sim \mathcal{N}\left(0,\sigma^{2}\right)\)</span> y denote <span class="math inline">\(\theta^{t} = \theta^{t} + \Delta\theta\)</span>.</p></li>
 <li><p>Probabilidad de aceptación <span class="math inline">\(p_{\text {moverse }}\)</span>
 <span class="math display">\[\begin{align*}
  p_{\text {moverse }}
@@ -655,79 +665,79 @@ con probabilidad <span class="math inline">\(p_{\text {moverse }} ;\)</span> en 
 que salte al siguiente destino. Tomemos <span class="math inline">\(\sigma=0.2\)</span> y supongamos
 que se ha visto que el viajero de <span class="math inline">\(N=20\)</span> y <span class="math inline">\(z=14\)</span> éxitos. Por
 cuestiones de practicidad se tomará <span class="math inline">\(\theta_0 = 0.1\)</span>.</p>
-<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb108-1" title="1"><span class="co"># Carga de datos observados</span></a>
-<a class="sourceLine" id="cb108-2" title="2">datos_observados &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">6</span>), <span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">14</span>))</a>
-<a class="sourceLine" id="cb108-3" title="3"></a>
-<a class="sourceLine" id="cb108-4" title="4"><span class="co"># Función de verosimilitud Binomial</span></a>
-<a class="sourceLine" id="cb108-5" title="5">verosimilitud &lt;-<span class="st"> </span><span class="cf">function</span>(theta, data) {</a>
-<a class="sourceLine" id="cb108-6" title="6">    z &lt;-<span class="st"> </span><span class="kw">sum</span>(data)</a>
-<a class="sourceLine" id="cb108-7" title="7">    N &lt;-<span class="st"> </span><span class="kw">length</span>(data)</a>
-<a class="sourceLine" id="cb108-8" title="8">    pDatosDadoTheta &lt;-<span class="st"> </span>theta<span class="op">^</span>z <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>theta)<span class="op">^</span>(N <span class="op">-</span><span class="st"> </span>z)</a>
-<a class="sourceLine" id="cb108-9" title="9">    <span class="co"># Es para asegurarse que los datos caigan en [0,1].</span></a>
-<a class="sourceLine" id="cb108-10" title="10">    pDatosDadoTheta[theta <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>theta <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb108-11" title="11">    <span class="kw">return</span>(pDatosDadoTheta)</a>
-<a class="sourceLine" id="cb108-12" title="12">}</a>
-<a class="sourceLine" id="cb108-13" title="13"></a>
-<a class="sourceLine" id="cb108-14" title="14"><span class="co"># densidad previa</span></a>
-<a class="sourceLine" id="cb108-15" title="15">previa &lt;-<span class="st"> </span><span class="cf">function</span>(theta) {</a>
-<a class="sourceLine" id="cb108-16" title="16">    pTheta &lt;-<span class="st"> </span><span class="kw">dbeta</span>(theta, <span class="dv">1</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb108-17" title="17">    <span class="co"># Es para asegurarse que los datos caigan en [0,1].</span></a>
-<a class="sourceLine" id="cb108-18" title="18">    pTheta[theta <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>theta <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb108-19" title="19">    <span class="kw">return</span>(pTheta)</a>
-<a class="sourceLine" id="cb108-20" title="20">}</a>
-<a class="sourceLine" id="cb108-21" title="21"></a>
-<a class="sourceLine" id="cb108-22" title="22"><span class="co"># densidad posterior</span></a>
-<a class="sourceLine" id="cb108-23" title="23">posterior &lt;-<span class="st"> </span><span class="cf">function</span>(theta, data) {</a>
-<a class="sourceLine" id="cb108-24" title="24">    posterior &lt;-<span class="st"> </span><span class="kw">verosimilitud</span>(theta, data) <span class="op">*</span><span class="st"> </span><span class="kw">previa</span>(theta)</a>
-<a class="sourceLine" id="cb108-25" title="25">    <span class="kw">return</span>(posterior)</a>
-<a class="sourceLine" id="cb108-26" title="26">}</a>
-<a class="sourceLine" id="cb108-27" title="27"></a>
-<a class="sourceLine" id="cb108-28" title="28">n_pasos &lt;-<span class="st"> </span><span class="dv">50000</span></a>
-<a class="sourceLine" id="cb108-29" title="29"></a>
-<a class="sourceLine" id="cb108-30" title="30">trayectoria &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, n_pasos)</a>
-<a class="sourceLine" id="cb108-31" title="31"></a>
-<a class="sourceLine" id="cb108-32" title="32"><span class="co"># Valor inicial</span></a>
-<a class="sourceLine" id="cb108-33" title="33">trayectoria[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="fl">0.01</span></a>
-<a class="sourceLine" id="cb108-34" title="34"></a>
-<a class="sourceLine" id="cb108-35" title="35">n_aceptados &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb108-36" title="36">n_rechazados &lt;-<span class="st"> </span><span class="dv">0</span></a>
-<a class="sourceLine" id="cb108-37" title="37"></a>
-<a class="sourceLine" id="cb108-38" title="38"></a>
-<a class="sourceLine" id="cb108-39" title="39">sigma &lt;-<span class="st"> </span><span class="fl">0.2</span></a>
-<a class="sourceLine" id="cb108-40" title="40"></a>
-<a class="sourceLine" id="cb108-41" title="41"><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>(n_pasos <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)) {</a>
-<a class="sourceLine" id="cb108-42" title="42">    pos_actual &lt;-<span class="st"> </span>trayectoria[t]</a>
-<a class="sourceLine" id="cb108-43" title="43">    </a>
-<a class="sourceLine" id="cb108-44" title="44">    salto_propuesto &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> sigma)</a>
-<a class="sourceLine" id="cb108-45" title="45">    </a>
-<a class="sourceLine" id="cb108-46" title="46">    proba_aceptacion &lt;-<span class="st"> </span><span class="kw">min</span>(<span class="dv">1</span>, <span class="kw">posterior</span>(pos_actual <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb108-47" title="47"><span class="st">        </span>salto_propuesto, datos_observados)<span class="op">/</span><span class="kw">posterior</span>(pos_actual, </a>
-<a class="sourceLine" id="cb108-48" title="48">        datos_observados))</a>
-<a class="sourceLine" id="cb108-49" title="49">    </a>
-<a class="sourceLine" id="cb108-50" title="50">    <span class="co"># Aceptamos el salto?</span></a>
-<a class="sourceLine" id="cb108-51" title="51">    <span class="cf">if</span> (<span class="kw">runif</span>(<span class="dv">1</span>) <span class="op">&lt;</span><span class="st"> </span>proba_aceptacion) {</a>
-<a class="sourceLine" id="cb108-52" title="52">        <span class="co"># Aceptados</span></a>
-<a class="sourceLine" id="cb108-53" title="53">        trayectoria[t <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span>pos_actual <span class="op">+</span><span class="st"> </span>salto_propuesto</a>
-<a class="sourceLine" id="cb108-54" title="54">        n_aceptados &lt;-<span class="st"> </span>n_aceptados <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb108-55" title="55">    } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb108-56" title="56">        <span class="co"># Rechazos</span></a>
-<a class="sourceLine" id="cb108-57" title="57">        trayectoria[t <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span>pos_actual</a>
-<a class="sourceLine" id="cb108-58" title="58">        n_rechazados &lt;-<span class="st"> </span>n_rechazados <span class="op">+</span><span class="st"> </span><span class="dv">1</span></a>
-<a class="sourceLine" id="cb108-59" title="59">    }</a>
-<a class="sourceLine" id="cb108-60" title="60">}</a></code></pre></div>
+<div class="sourceCode" id="cb108"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb108-1"><a href="estimación-de-densidades-con-bayes.html#cb108-1"></a><span class="co"># Carga de datos observados</span></span>
+<span id="cb108-2"><a href="estimación-de-densidades-con-bayes.html#cb108-2"></a>datos_observados &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">6</span>), <span class="kw">rep</span>(<span class="dv">1</span>, <span class="dv">14</span>))</span>
+<span id="cb108-3"><a href="estimación-de-densidades-con-bayes.html#cb108-3"></a></span>
+<span id="cb108-4"><a href="estimación-de-densidades-con-bayes.html#cb108-4"></a><span class="co"># Función de verosimilitud Binomial</span></span>
+<span id="cb108-5"><a href="estimación-de-densidades-con-bayes.html#cb108-5"></a>verosimilitud &lt;-<span class="st"> </span><span class="cf">function</span>(theta, data) {</span>
+<span id="cb108-6"><a href="estimación-de-densidades-con-bayes.html#cb108-6"></a>    z &lt;-<span class="st"> </span><span class="kw">sum</span>(data)</span>
+<span id="cb108-7"><a href="estimación-de-densidades-con-bayes.html#cb108-7"></a>    N &lt;-<span class="st"> </span><span class="kw">length</span>(data)</span>
+<span id="cb108-8"><a href="estimación-de-densidades-con-bayes.html#cb108-8"></a>    pDatosDadoTheta &lt;-<span class="st"> </span>theta<span class="op">^</span>z <span class="op">*</span><span class="st"> </span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span>theta)<span class="op">^</span>(N <span class="op">-</span><span class="st"> </span>z)</span>
+<span id="cb108-9"><a href="estimación-de-densidades-con-bayes.html#cb108-9"></a>    <span class="co"># Es para asegurarse que los datos caigan en [0,1].</span></span>
+<span id="cb108-10"><a href="estimación-de-densidades-con-bayes.html#cb108-10"></a>    pDatosDadoTheta[theta <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>theta <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb108-11"><a href="estimación-de-densidades-con-bayes.html#cb108-11"></a>    <span class="kw">return</span>(pDatosDadoTheta)</span>
+<span id="cb108-12"><a href="estimación-de-densidades-con-bayes.html#cb108-12"></a>}</span>
+<span id="cb108-13"><a href="estimación-de-densidades-con-bayes.html#cb108-13"></a></span>
+<span id="cb108-14"><a href="estimación-de-densidades-con-bayes.html#cb108-14"></a><span class="co"># densidad previa</span></span>
+<span id="cb108-15"><a href="estimación-de-densidades-con-bayes.html#cb108-15"></a>previa &lt;-<span class="st"> </span><span class="cf">function</span>(theta) {</span>
+<span id="cb108-16"><a href="estimación-de-densidades-con-bayes.html#cb108-16"></a>    pTheta &lt;-<span class="st"> </span><span class="kw">dbeta</span>(theta, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb108-17"><a href="estimación-de-densidades-con-bayes.html#cb108-17"></a>    <span class="co"># Es para asegurarse que los datos caigan en [0,1].</span></span>
+<span id="cb108-18"><a href="estimación-de-densidades-con-bayes.html#cb108-18"></a>    pTheta[theta <span class="op">&gt;</span><span class="st"> </span><span class="dv">1</span> <span class="op">|</span><span class="st"> </span>theta <span class="op">&lt;</span><span class="st"> </span><span class="dv">0</span>] &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb108-19"><a href="estimación-de-densidades-con-bayes.html#cb108-19"></a>    <span class="kw">return</span>(pTheta)</span>
+<span id="cb108-20"><a href="estimación-de-densidades-con-bayes.html#cb108-20"></a>}</span>
+<span id="cb108-21"><a href="estimación-de-densidades-con-bayes.html#cb108-21"></a></span>
+<span id="cb108-22"><a href="estimación-de-densidades-con-bayes.html#cb108-22"></a><span class="co"># densidad posterior</span></span>
+<span id="cb108-23"><a href="estimación-de-densidades-con-bayes.html#cb108-23"></a>posterior &lt;-<span class="st"> </span><span class="cf">function</span>(theta, data) {</span>
+<span id="cb108-24"><a href="estimación-de-densidades-con-bayes.html#cb108-24"></a>    posterior &lt;-<span class="st"> </span><span class="kw">verosimilitud</span>(theta, data) <span class="op">*</span><span class="st"> </span><span class="kw">previa</span>(theta)</span>
+<span id="cb108-25"><a href="estimación-de-densidades-con-bayes.html#cb108-25"></a>    <span class="kw">return</span>(posterior)</span>
+<span id="cb108-26"><a href="estimación-de-densidades-con-bayes.html#cb108-26"></a>}</span>
+<span id="cb108-27"><a href="estimación-de-densidades-con-bayes.html#cb108-27"></a></span>
+<span id="cb108-28"><a href="estimación-de-densidades-con-bayes.html#cb108-28"></a>n_pasos &lt;-<span class="st"> </span><span class="dv">50000</span></span>
+<span id="cb108-29"><a href="estimación-de-densidades-con-bayes.html#cb108-29"></a></span>
+<span id="cb108-30"><a href="estimación-de-densidades-con-bayes.html#cb108-30"></a>trayectoria &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, n_pasos)</span>
+<span id="cb108-31"><a href="estimación-de-densidades-con-bayes.html#cb108-31"></a></span>
+<span id="cb108-32"><a href="estimación-de-densidades-con-bayes.html#cb108-32"></a><span class="co"># Valor inicial</span></span>
+<span id="cb108-33"><a href="estimación-de-densidades-con-bayes.html#cb108-33"></a>trayectoria[<span class="dv">1</span>] &lt;-<span class="st"> </span><span class="fl">0.01</span></span>
+<span id="cb108-34"><a href="estimación-de-densidades-con-bayes.html#cb108-34"></a></span>
+<span id="cb108-35"><a href="estimación-de-densidades-con-bayes.html#cb108-35"></a>n_aceptados &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb108-36"><a href="estimación-de-densidades-con-bayes.html#cb108-36"></a>n_rechazados &lt;-<span class="st"> </span><span class="dv">0</span></span>
+<span id="cb108-37"><a href="estimación-de-densidades-con-bayes.html#cb108-37"></a></span>
+<span id="cb108-38"><a href="estimación-de-densidades-con-bayes.html#cb108-38"></a></span>
+<span id="cb108-39"><a href="estimación-de-densidades-con-bayes.html#cb108-39"></a>sigma &lt;-<span class="st"> </span><span class="fl">0.2</span></span>
+<span id="cb108-40"><a href="estimación-de-densidades-con-bayes.html#cb108-40"></a></span>
+<span id="cb108-41"><a href="estimación-de-densidades-con-bayes.html#cb108-41"></a><span class="cf">for</span> (t <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span>(n_pasos <span class="op">-</span><span class="st"> </span><span class="dv">1</span>)) {</span>
+<span id="cb108-42"><a href="estimación-de-densidades-con-bayes.html#cb108-42"></a>    pos_actual &lt;-<span class="st"> </span>trayectoria[t]</span>
+<span id="cb108-43"><a href="estimación-de-densidades-con-bayes.html#cb108-43"></a>    </span>
+<span id="cb108-44"><a href="estimación-de-densidades-con-bayes.html#cb108-44"></a>    salto_propuesto &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>, <span class="dt">mean =</span> <span class="dv">0</span>, <span class="dt">sd =</span> sigma)</span>
+<span id="cb108-45"><a href="estimación-de-densidades-con-bayes.html#cb108-45"></a>    </span>
+<span id="cb108-46"><a href="estimación-de-densidades-con-bayes.html#cb108-46"></a>    proba_aceptacion &lt;-<span class="st"> </span><span class="kw">min</span>(<span class="dv">1</span>, <span class="kw">posterior</span>(pos_actual <span class="op">+</span><span class="st"> </span></span>
+<span id="cb108-47"><a href="estimación-de-densidades-con-bayes.html#cb108-47"></a><span class="st">        </span>salto_propuesto, datos_observados)<span class="op">/</span><span class="kw">posterior</span>(pos_actual, </span>
+<span id="cb108-48"><a href="estimación-de-densidades-con-bayes.html#cb108-48"></a>        datos_observados))</span>
+<span id="cb108-49"><a href="estimación-de-densidades-con-bayes.html#cb108-49"></a>    </span>
+<span id="cb108-50"><a href="estimación-de-densidades-con-bayes.html#cb108-50"></a>    <span class="co"># Aceptamos el salto?</span></span>
+<span id="cb108-51"><a href="estimación-de-densidades-con-bayes.html#cb108-51"></a>    <span class="cf">if</span> (<span class="kw">runif</span>(<span class="dv">1</span>) <span class="op">&lt;</span><span class="st"> </span>proba_aceptacion) {</span>
+<span id="cb108-52"><a href="estimación-de-densidades-con-bayes.html#cb108-52"></a>        <span class="co"># Aceptados</span></span>
+<span id="cb108-53"><a href="estimación-de-densidades-con-bayes.html#cb108-53"></a>        trayectoria[t <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span>pos_actual <span class="op">+</span><span class="st"> </span>salto_propuesto</span>
+<span id="cb108-54"><a href="estimación-de-densidades-con-bayes.html#cb108-54"></a>        n_aceptados &lt;-<span class="st"> </span>n_aceptados <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb108-55"><a href="estimación-de-densidades-con-bayes.html#cb108-55"></a>    } <span class="cf">else</span> {</span>
+<span id="cb108-56"><a href="estimación-de-densidades-con-bayes.html#cb108-56"></a>        <span class="co"># Rechazos</span></span>
+<span id="cb108-57"><a href="estimación-de-densidades-con-bayes.html#cb108-57"></a>        trayectoria[t <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span>pos_actual</span>
+<span id="cb108-58"><a href="estimación-de-densidades-con-bayes.html#cb108-58"></a>        n_rechazados &lt;-<span class="st"> </span>n_rechazados <span class="op">+</span><span class="st"> </span><span class="dv">1</span></span>
+<span id="cb108-59"><a href="estimación-de-densidades-con-bayes.html#cb108-59"></a>    }</span>
+<span id="cb108-60"><a href="estimación-de-densidades-con-bayes.html#cb108-60"></a>}</span></code></pre></div>
 <p>Obtenemos una tasa de aceptación del 49.43 y tasa de rechazo del 50.56</p>
 <p>Podemos desechar los primeros 500 pasos (por ejemplo) del proceso ya que estos son de “calentamiento”. De esta forma podremos estimar la media y la varianza de las trayectoria.</p>
-<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb109-1" title="1"><span class="kw">mean</span>(trayectoria[<span class="dv">500</span><span class="op">:</span>n_pasos])</a></code></pre></div>
+<div class="sourceCode" id="cb109"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb109-1"><a href="estimación-de-densidades-con-bayes.html#cb109-1"></a><span class="kw">mean</span>(trayectoria[<span class="dv">500</span><span class="op">:</span>n_pasos])</span></code></pre></div>
 <pre><code>## [1] 0.6801115</code></pre>
-<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb111-1" title="1"><span class="kw">sd</span>(trayectoria[<span class="dv">500</span><span class="op">:</span>n_pasos])</a></code></pre></div>
+<div class="sourceCode" id="cb111"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb111-1"><a href="estimación-de-densidades-con-bayes.html#cb111-1"></a><span class="kw">sd</span>(trayectoria[<span class="dv">500</span><span class="op">:</span>n_pasos])</span></code></pre></div>
 <pre><code>## [1] 0.09718668</code></pre>
-<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb113-1" title="1">df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span>n_pasos, <span class="dt">P =</span> trayectoria)</a>
-<a class="sourceLine" id="cb113-2" title="2"></a>
-<a class="sourceLine" id="cb113-3" title="3"><span class="kw">ggplot</span>(df[<span class="dv">1</span><span class="op">:</span><span class="dv">500</span>, ]) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x, P), <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb113-4" title="4"><span class="st">    </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</a>
-<a class="sourceLine" id="cb113-5" title="5"></a>
-<a class="sourceLine" id="cb113-6" title="6"><span class="kw">ggplot</span>(df[<span class="dv">500</span><span class="op">:</span>n_pasos, ]) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(P, <span class="dt">y =</span> ..density..), </a>
-<a class="sourceLine" id="cb113-7" title="7">    <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb113"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb113-1"><a href="estimación-de-densidades-con-bayes.html#cb113-1"></a>df &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span>n_pasos, <span class="dt">P =</span> trayectoria)</span>
+<span id="cb113-2"><a href="estimación-de-densidades-con-bayes.html#cb113-2"></a></span>
+<span id="cb113-3"><a href="estimación-de-densidades-con-bayes.html#cb113-3"></a><span class="kw">ggplot</span>(df[<span class="dv">1</span><span class="op">:</span><span class="dv">500</span>, ]) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="kw">aes</span>(x, P), <span class="dt">size =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb113-4"><a href="estimación-de-densidades-con-bayes.html#cb113-4"></a><span class="st">    </span><span class="kw">coord_flip</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</span>
+<span id="cb113-5"><a href="estimación-de-densidades-con-bayes.html#cb113-5"></a></span>
+<span id="cb113-6"><a href="estimación-de-densidades-con-bayes.html#cb113-6"></a><span class="kw">ggplot</span>(df[<span class="dv">500</span><span class="op">:</span>n_pasos, ]) <span class="op">+</span><span class="st"> </span><span class="kw">geom_histogram</span>(<span class="kw">aes</span>(P, <span class="dt">y =</span> ..density..), </span>
+<span id="cb113-7"><a href="estimación-de-densidades-con-bayes.html#cb113-7"></a>    <span class="dt">color =</span> <span class="st">&quot;white&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-129-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-129-2.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
@@ -766,120 +776,120 @@ f\left(\theta_{1}, \theta_{2} | D\right)
 Entonces la distribución posterior de <span class="math inline">\(\left(\theta_{1}, \theta_{2}\right)\)</span> son dos distribuciones independientes Betas:
 <span class="math inline">\(\operatorname{Beta}\left(z_{1}+a, N_{1}-z_{1}+b_{1}\right)\)</span> y <span class="math inline">\(\operatorname{Beta}\left(z_{2}+a, N_{2}-z_{2}+b_{2}\right)\)</span></p>
 <p>Tratemos de encontrar los parámetros para la distribución posterior usando un algoritmo de Metropolis-Hasting. <a href="https://rpruim.github.io/Kruschke-Notes/markov-chain-monte-carlo-mcmc.html#metropolis">Función tomada de Kruschke-Notes</a></p>
-<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb114-1" title="1">metro_2coins &lt;-<span class="st"> </span><span class="cf">function</span>(</a>
-<a class="sourceLine" id="cb114-2" title="2">  z1, n1,              <span class="co"># z = successes, n = trials</span></a>
-<a class="sourceLine" id="cb114-3" title="3">  z2, n2,              <span class="co"># z = successes, n = trials</span></a>
-<a class="sourceLine" id="cb114-4" title="4">  <span class="dt">size  =</span> <span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>), <span class="co"># sds of jump distribution</span></a>
-<a class="sourceLine" id="cb114-5" title="5">  <span class="dt">start =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="co"># value of thetas to start at</span></a>
-<a class="sourceLine" id="cb114-6" title="6">  <span class="dt">num_steps =</span> <span class="fl">5e4</span>,     <span class="co"># number of steps to run the algorithm</span></a>
-<a class="sourceLine" id="cb114-7" title="7">  <span class="dt">prior1 =</span> dbeta,      <span class="co"># function describing prior</span></a>
-<a class="sourceLine" id="cb114-8" title="8">  <span class="dt">prior2 =</span> dbeta,      <span class="co"># function describing prior</span></a>
-<a class="sourceLine" id="cb114-9" title="9">  <span class="dt">args1 =</span> <span class="kw">list</span>(),      <span class="co"># additional args for prior1</span></a>
-<a class="sourceLine" id="cb114-10" title="10">  <span class="dt">args2 =</span> <span class="kw">list</span>()      <span class="co"># additional args for prior2</span></a>
-<a class="sourceLine" id="cb114-11" title="11">  ) {</a>
-<a class="sourceLine" id="cb114-12" title="12">  </a>
-<a class="sourceLine" id="cb114-13" title="13">  theta1            &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_steps)  <span class="co"># trick to pre-alocate memory</span></a>
-<a class="sourceLine" id="cb114-14" title="14">  theta2            &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_steps)  <span class="co"># trick to pre-alocate memory</span></a>
-<a class="sourceLine" id="cb114-15" title="15">  proposed_theta1   &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_steps)  <span class="co"># trick to pre-alocate memory</span></a>
-<a class="sourceLine" id="cb114-16" title="16">  proposed_theta2   &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_steps)  <span class="co"># trick to pre-alocate memory</span></a>
-<a class="sourceLine" id="cb114-17" title="17">  move              &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_steps)  <span class="co"># trick to pre-alocate memory</span></a>
-<a class="sourceLine" id="cb114-18" title="18">  theta1[<span class="dv">1</span>]         &lt;-<span class="st"> </span>start[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb114-19" title="19">  theta2[<span class="dv">1</span>]         &lt;-<span class="st"> </span>start[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb114-20" title="20"></a>
-<a class="sourceLine" id="cb114-21" title="21">  size1 &lt;-<span class="st"> </span>size[<span class="dv">1</span>] </a>
-<a class="sourceLine" id="cb114-22" title="22">  size2 &lt;-<span class="st"> </span>size[<span class="dv">2</span>] </a>
-<a class="sourceLine" id="cb114-23" title="23">  </a>
-<a class="sourceLine" id="cb114-24" title="24">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>(num_steps<span class="dv">-1</span>)) {</a>
-<a class="sourceLine" id="cb114-25" title="25">    <span class="co"># head to new &quot;island&quot;</span></a>
-<a class="sourceLine" id="cb114-26" title="26">    proposed_theta1[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>, theta1[i], size1)</a>
-<a class="sourceLine" id="cb114-27" title="27">    proposed_theta2[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>, theta2[i], size2)</a>
-<a class="sourceLine" id="cb114-28" title="28">    </a>
-<a class="sourceLine" id="cb114-29" title="29">    <span class="cf">if</span> (proposed_theta1[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span></a>
-<a class="sourceLine" id="cb114-30" title="30"><span class="st">        </span>proposed_theta1[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span> <span class="op">||</span></a>
-<a class="sourceLine" id="cb114-31" title="31"><span class="st">        </span>proposed_theta2[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span></a>
-<a class="sourceLine" id="cb114-32" title="32"><span class="st">        </span>proposed_theta2[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span>) {</a>
-<a class="sourceLine" id="cb114-33" title="33">      proposed_posterior &lt;-<span class="st"> </span><span class="dv">0</span>  <span class="co"># because prior is 0</span></a>
-<a class="sourceLine" id="cb114-34" title="34">    } <span class="cf">else</span> {</a>
-<a class="sourceLine" id="cb114-35" title="35">      current_prior &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb114-36" title="36"><span class="st">        </span><span class="kw">do.call</span>(prior1, <span class="kw">c</span>(<span class="kw">list</span>(theta1[i]), args1)) <span class="op">*</span></a>
-<a class="sourceLine" id="cb114-37" title="37"><span class="st">        </span><span class="kw">do.call</span>(prior2, <span class="kw">c</span>(<span class="kw">list</span>(theta2[i]), args2))</a>
-<a class="sourceLine" id="cb114-38" title="38">      current_likelihood  &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb114-39" title="39"><span class="st">        </span><span class="kw">dbinom</span>(z1, n1, theta1[i]) <span class="op">*</span></a>
-<a class="sourceLine" id="cb114-40" title="40"><span class="st">        </span><span class="kw">dbinom</span>(z2, n2, theta2[i])</a>
-<a class="sourceLine" id="cb114-41" title="41">      current_posterior   &lt;-<span class="st"> </span>current_prior <span class="op">*</span><span class="st"> </span>current_likelihood</a>
-<a class="sourceLine" id="cb114-42" title="42">      </a>
-<a class="sourceLine" id="cb114-43" title="43">      proposed_prior &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb114-44" title="44"><span class="st">        </span><span class="kw">do.call</span>(prior1, <span class="kw">c</span>(<span class="kw">list</span>(proposed_theta1[i<span class="op">+</span><span class="dv">1</span>]), args1)) <span class="op">*</span></a>
-<a class="sourceLine" id="cb114-45" title="45"><span class="st">        </span><span class="kw">do.call</span>(prior2, <span class="kw">c</span>(<span class="kw">list</span>(proposed_theta2[i<span class="op">+</span><span class="dv">1</span>]), args2))</a>
-<a class="sourceLine" id="cb114-46" title="46">      proposed_likelihood  &lt;-<span class="st"> </span></a>
-<a class="sourceLine" id="cb114-47" title="47"><span class="st">        </span><span class="kw">dbinom</span>(z1, n1, proposed_theta1[i<span class="op">+</span><span class="dv">1</span>]) <span class="op">*</span></a>
-<a class="sourceLine" id="cb114-48" title="48"><span class="st">        </span><span class="kw">dbinom</span>(z2, n2, proposed_theta2[i<span class="op">+</span><span class="dv">1</span>])</a>
-<a class="sourceLine" id="cb114-49" title="49">      proposed_posterior   &lt;-<span class="st"> </span>proposed_prior <span class="op">*</span><span class="st"> </span>proposed_likelihood</a>
-<a class="sourceLine" id="cb114-50" title="50">    }</a>
-<a class="sourceLine" id="cb114-51" title="51">    prob_move           &lt;-<span class="st"> </span>proposed_posterior <span class="op">/</span><span class="st"> </span>current_posterior</a>
-<a class="sourceLine" id="cb114-52" title="52">    </a>
-<a class="sourceLine" id="cb114-53" title="53">    <span class="co"># sometimes we &quot;sail back&quot;</span></a>
-<a class="sourceLine" id="cb114-54" title="54">    <span class="cf">if</span> (<span class="kw">runif</span>(<span class="dv">1</span>) <span class="op">&gt;</span><span class="st"> </span>prob_move) { <span class="co"># sail back</span></a>
-<a class="sourceLine" id="cb114-55" title="55">       move[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="ot">FALSE</span></a>
-<a class="sourceLine" id="cb114-56" title="56">      theta1[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span>theta1[i]</a>
-<a class="sourceLine" id="cb114-57" title="57">      theta2[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span>theta2[i]</a>
-<a class="sourceLine" id="cb114-58" title="58">    } <span class="cf">else</span> {                    <span class="co"># stay</span></a>
-<a class="sourceLine" id="cb114-59" title="59">       move[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="ot">TRUE</span></a>
-<a class="sourceLine" id="cb114-60" title="60">      theta1[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span>proposed_theta1[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb114-61" title="61">      theta2[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span>proposed_theta2[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb114-62" title="62">    }</a>
-<a class="sourceLine" id="cb114-63" title="63">  }</a>
-<a class="sourceLine" id="cb114-64" title="64">  </a>
-<a class="sourceLine" id="cb114-65" title="65">  <span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb114-66" title="66">    <span class="dt">step =</span> <span class="dv">1</span><span class="op">:</span>num_steps, </a>
-<a class="sourceLine" id="cb114-67" title="67">    <span class="dt">theta1 =</span> theta1,</a>
-<a class="sourceLine" id="cb114-68" title="68">    <span class="dt">theta2 =</span> theta2,</a>
-<a class="sourceLine" id="cb114-69" title="69">    <span class="dt">proposed_theta1 =</span> proposed_theta1,</a>
-<a class="sourceLine" id="cb114-70" title="70">    <span class="dt">proposed_theta2 =</span> proposed_theta2,</a>
-<a class="sourceLine" id="cb114-71" title="71">    <span class="dt">move =</span> move, </a>
-<a class="sourceLine" id="cb114-72" title="72">    <span class="dt">size1 =</span> size1,</a>
-<a class="sourceLine" id="cb114-73" title="73">    <span class="dt">size2 =</span> size2</a>
-<a class="sourceLine" id="cb114-74" title="74">  )</a>
-<a class="sourceLine" id="cb114-75" title="75">}</a></code></pre></div>
-<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb115-1" title="1">Metro_2coinsA &lt;-<span class="st"> </span><span class="kw">metro_2coins</span>(<span class="dt">z1 =</span> <span class="dv">6</span>, <span class="dt">n1 =</span> <span class="dv">8</span>, <span class="dt">z2 =</span> <span class="dv">2</span>, </a>
-<a class="sourceLine" id="cb115-2" title="2">    <span class="dt">n2 =</span> <span class="dv">7</span>, <span class="dt">size =</span> <span class="kw">c</span>(<span class="fl">0.02</span>, <span class="fl">0.02</span>), <span class="dt">args1 =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, </a>
-<a class="sourceLine" id="cb115-3" title="3">        <span class="dt">shape2 =</span> <span class="dv">2</span>), <span class="dt">args2 =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, <span class="dt">shape2 =</span> <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb115-4" title="4"></a>
-<a class="sourceLine" id="cb115-5" title="5">Metro_2coinsA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_density2d</span>(theta2 <span class="op">~</span><span class="st"> </span>theta1)</a>
-<a class="sourceLine" id="cb115-6" title="6"></a>
-<a class="sourceLine" id="cb115-7" title="7">Metro_2coinsA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_density</span>(<span class="op">~</span>(theta2 <span class="op">-</span><span class="st"> </span>theta1))</a>
-<a class="sourceLine" id="cb115-8" title="8"></a>
-<a class="sourceLine" id="cb115-9" title="9"><span class="kw">acf</span>(Metro_2coinsA<span class="op">$</span>theta2 <span class="op">-</span><span class="st"> </span>Metro_2coinsA<span class="op">$</span>theta1)</a></code></pre></div>
+<div class="sourceCode" id="cb114"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb114-1"><a href="estimación-de-densidades-con-bayes.html#cb114-1"></a>metro_2coins &lt;-<span class="st"> </span><span class="cf">function</span>(</span>
+<span id="cb114-2"><a href="estimación-de-densidades-con-bayes.html#cb114-2"></a>  z1, n1,              <span class="co"># z = successes, n = trials</span></span>
+<span id="cb114-3"><a href="estimación-de-densidades-con-bayes.html#cb114-3"></a>  z2, n2,              <span class="co"># z = successes, n = trials</span></span>
+<span id="cb114-4"><a href="estimación-de-densidades-con-bayes.html#cb114-4"></a>  <span class="dt">size  =</span> <span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.1</span>), <span class="co"># sds of jump distribution</span></span>
+<span id="cb114-5"><a href="estimación-de-densidades-con-bayes.html#cb114-5"></a>  <span class="dt">start =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="co"># value of thetas to start at</span></span>
+<span id="cb114-6"><a href="estimación-de-densidades-con-bayes.html#cb114-6"></a>  <span class="dt">num_steps =</span> <span class="fl">5e4</span>,     <span class="co"># number of steps to run the algorithm</span></span>
+<span id="cb114-7"><a href="estimación-de-densidades-con-bayes.html#cb114-7"></a>  <span class="dt">prior1 =</span> dbeta,      <span class="co"># function describing prior</span></span>
+<span id="cb114-8"><a href="estimación-de-densidades-con-bayes.html#cb114-8"></a>  <span class="dt">prior2 =</span> dbeta,      <span class="co"># function describing prior</span></span>
+<span id="cb114-9"><a href="estimación-de-densidades-con-bayes.html#cb114-9"></a>  <span class="dt">args1 =</span> <span class="kw">list</span>(),      <span class="co"># additional args for prior1</span></span>
+<span id="cb114-10"><a href="estimación-de-densidades-con-bayes.html#cb114-10"></a>  <span class="dt">args2 =</span> <span class="kw">list</span>()      <span class="co"># additional args for prior2</span></span>
+<span id="cb114-11"><a href="estimación-de-densidades-con-bayes.html#cb114-11"></a>  ) {</span>
+<span id="cb114-12"><a href="estimación-de-densidades-con-bayes.html#cb114-12"></a>  </span>
+<span id="cb114-13"><a href="estimación-de-densidades-con-bayes.html#cb114-13"></a>  theta1            &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_steps)  <span class="co"># trick to pre-alocate memory</span></span>
+<span id="cb114-14"><a href="estimación-de-densidades-con-bayes.html#cb114-14"></a>  theta2            &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_steps)  <span class="co"># trick to pre-alocate memory</span></span>
+<span id="cb114-15"><a href="estimación-de-densidades-con-bayes.html#cb114-15"></a>  proposed_theta1   &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_steps)  <span class="co"># trick to pre-alocate memory</span></span>
+<span id="cb114-16"><a href="estimación-de-densidades-con-bayes.html#cb114-16"></a>  proposed_theta2   &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_steps)  <span class="co"># trick to pre-alocate memory</span></span>
+<span id="cb114-17"><a href="estimación-de-densidades-con-bayes.html#cb114-17"></a>  move              &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_steps)  <span class="co"># trick to pre-alocate memory</span></span>
+<span id="cb114-18"><a href="estimación-de-densidades-con-bayes.html#cb114-18"></a>  theta1[<span class="dv">1</span>]         &lt;-<span class="st"> </span>start[<span class="dv">1</span>]</span>
+<span id="cb114-19"><a href="estimación-de-densidades-con-bayes.html#cb114-19"></a>  theta2[<span class="dv">1</span>]         &lt;-<span class="st"> </span>start[<span class="dv">2</span>]</span>
+<span id="cb114-20"><a href="estimación-de-densidades-con-bayes.html#cb114-20"></a></span>
+<span id="cb114-21"><a href="estimación-de-densidades-con-bayes.html#cb114-21"></a>  size1 &lt;-<span class="st"> </span>size[<span class="dv">1</span>] </span>
+<span id="cb114-22"><a href="estimación-de-densidades-con-bayes.html#cb114-22"></a>  size2 &lt;-<span class="st"> </span>size[<span class="dv">2</span>] </span>
+<span id="cb114-23"><a href="estimación-de-densidades-con-bayes.html#cb114-23"></a>  </span>
+<span id="cb114-24"><a href="estimación-de-densidades-con-bayes.html#cb114-24"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>(num_steps<span class="dv">-1</span>)) {</span>
+<span id="cb114-25"><a href="estimación-de-densidades-con-bayes.html#cb114-25"></a>    <span class="co"># head to new &quot;island&quot;</span></span>
+<span id="cb114-26"><a href="estimación-de-densidades-con-bayes.html#cb114-26"></a>    proposed_theta1[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>, theta1[i], size1)</span>
+<span id="cb114-27"><a href="estimación-de-densidades-con-bayes.html#cb114-27"></a>    proposed_theta2[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1</span>, theta2[i], size2)</span>
+<span id="cb114-28"><a href="estimación-de-densidades-con-bayes.html#cb114-28"></a>    </span>
+<span id="cb114-29"><a href="estimación-de-densidades-con-bayes.html#cb114-29"></a>    <span class="cf">if</span> (proposed_theta1[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span></span>
+<span id="cb114-30"><a href="estimación-de-densidades-con-bayes.html#cb114-30"></a><span class="st">        </span>proposed_theta1[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span> <span class="op">||</span></span>
+<span id="cb114-31"><a href="estimación-de-densidades-con-bayes.html#cb114-31"></a><span class="st">        </span>proposed_theta2[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] <span class="op">&lt;=</span><span class="st"> </span><span class="dv">0</span> <span class="op">||</span></span>
+<span id="cb114-32"><a href="estimación-de-densidades-con-bayes.html#cb114-32"></a><span class="st">        </span>proposed_theta2[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] <span class="op">&gt;=</span><span class="st"> </span><span class="dv">1</span>) {</span>
+<span id="cb114-33"><a href="estimación-de-densidades-con-bayes.html#cb114-33"></a>      proposed_posterior &lt;-<span class="st"> </span><span class="dv">0</span>  <span class="co"># because prior is 0</span></span>
+<span id="cb114-34"><a href="estimación-de-densidades-con-bayes.html#cb114-34"></a>    } <span class="cf">else</span> {</span>
+<span id="cb114-35"><a href="estimación-de-densidades-con-bayes.html#cb114-35"></a>      current_prior &lt;-<span class="st"> </span></span>
+<span id="cb114-36"><a href="estimación-de-densidades-con-bayes.html#cb114-36"></a><span class="st">        </span><span class="kw">do.call</span>(prior1, <span class="kw">c</span>(<span class="kw">list</span>(theta1[i]), args1)) <span class="op">*</span></span>
+<span id="cb114-37"><a href="estimación-de-densidades-con-bayes.html#cb114-37"></a><span class="st">        </span><span class="kw">do.call</span>(prior2, <span class="kw">c</span>(<span class="kw">list</span>(theta2[i]), args2))</span>
+<span id="cb114-38"><a href="estimación-de-densidades-con-bayes.html#cb114-38"></a>      current_likelihood  &lt;-<span class="st"> </span></span>
+<span id="cb114-39"><a href="estimación-de-densidades-con-bayes.html#cb114-39"></a><span class="st">        </span><span class="kw">dbinom</span>(z1, n1, theta1[i]) <span class="op">*</span></span>
+<span id="cb114-40"><a href="estimación-de-densidades-con-bayes.html#cb114-40"></a><span class="st">        </span><span class="kw">dbinom</span>(z2, n2, theta2[i])</span>
+<span id="cb114-41"><a href="estimación-de-densidades-con-bayes.html#cb114-41"></a>      current_posterior   &lt;-<span class="st"> </span>current_prior <span class="op">*</span><span class="st"> </span>current_likelihood</span>
+<span id="cb114-42"><a href="estimación-de-densidades-con-bayes.html#cb114-42"></a>      </span>
+<span id="cb114-43"><a href="estimación-de-densidades-con-bayes.html#cb114-43"></a>      proposed_prior &lt;-<span class="st"> </span></span>
+<span id="cb114-44"><a href="estimación-de-densidades-con-bayes.html#cb114-44"></a><span class="st">        </span><span class="kw">do.call</span>(prior1, <span class="kw">c</span>(<span class="kw">list</span>(proposed_theta1[i<span class="op">+</span><span class="dv">1</span>]), args1)) <span class="op">*</span></span>
+<span id="cb114-45"><a href="estimación-de-densidades-con-bayes.html#cb114-45"></a><span class="st">        </span><span class="kw">do.call</span>(prior2, <span class="kw">c</span>(<span class="kw">list</span>(proposed_theta2[i<span class="op">+</span><span class="dv">1</span>]), args2))</span>
+<span id="cb114-46"><a href="estimación-de-densidades-con-bayes.html#cb114-46"></a>      proposed_likelihood  &lt;-<span class="st"> </span></span>
+<span id="cb114-47"><a href="estimación-de-densidades-con-bayes.html#cb114-47"></a><span class="st">        </span><span class="kw">dbinom</span>(z1, n1, proposed_theta1[i<span class="op">+</span><span class="dv">1</span>]) <span class="op">*</span></span>
+<span id="cb114-48"><a href="estimación-de-densidades-con-bayes.html#cb114-48"></a><span class="st">        </span><span class="kw">dbinom</span>(z2, n2, proposed_theta2[i<span class="op">+</span><span class="dv">1</span>])</span>
+<span id="cb114-49"><a href="estimación-de-densidades-con-bayes.html#cb114-49"></a>      proposed_posterior   &lt;-<span class="st"> </span>proposed_prior <span class="op">*</span><span class="st"> </span>proposed_likelihood</span>
+<span id="cb114-50"><a href="estimación-de-densidades-con-bayes.html#cb114-50"></a>    }</span>
+<span id="cb114-51"><a href="estimación-de-densidades-con-bayes.html#cb114-51"></a>    prob_move           &lt;-<span class="st"> </span>proposed_posterior <span class="op">/</span><span class="st"> </span>current_posterior</span>
+<span id="cb114-52"><a href="estimación-de-densidades-con-bayes.html#cb114-52"></a>    </span>
+<span id="cb114-53"><a href="estimación-de-densidades-con-bayes.html#cb114-53"></a>    <span class="co"># sometimes we &quot;sail back&quot;</span></span>
+<span id="cb114-54"><a href="estimación-de-densidades-con-bayes.html#cb114-54"></a>    <span class="cf">if</span> (<span class="kw">runif</span>(<span class="dv">1</span>) <span class="op">&gt;</span><span class="st"> </span>prob_move) { <span class="co"># sail back</span></span>
+<span id="cb114-55"><a href="estimación-de-densidades-con-bayes.html#cb114-55"></a>       move[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="ot">FALSE</span></span>
+<span id="cb114-56"><a href="estimación-de-densidades-con-bayes.html#cb114-56"></a>      theta1[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span>theta1[i]</span>
+<span id="cb114-57"><a href="estimación-de-densidades-con-bayes.html#cb114-57"></a>      theta2[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span>theta2[i]</span>
+<span id="cb114-58"><a href="estimación-de-densidades-con-bayes.html#cb114-58"></a>    } <span class="cf">else</span> {                    <span class="co"># stay</span></span>
+<span id="cb114-59"><a href="estimación-de-densidades-con-bayes.html#cb114-59"></a>       move[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="ot">TRUE</span></span>
+<span id="cb114-60"><a href="estimación-de-densidades-con-bayes.html#cb114-60"></a>      theta1[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span>proposed_theta1[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]</span>
+<span id="cb114-61"><a href="estimación-de-densidades-con-bayes.html#cb114-61"></a>      theta2[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>] &lt;-<span class="st"> </span>proposed_theta2[i <span class="op">+</span><span class="st"> </span><span class="dv">1</span>]</span>
+<span id="cb114-62"><a href="estimación-de-densidades-con-bayes.html#cb114-62"></a>    }</span>
+<span id="cb114-63"><a href="estimación-de-densidades-con-bayes.html#cb114-63"></a>  }</span>
+<span id="cb114-64"><a href="estimación-de-densidades-con-bayes.html#cb114-64"></a>  </span>
+<span id="cb114-65"><a href="estimación-de-densidades-con-bayes.html#cb114-65"></a>  <span class="kw">tibble</span>(</span>
+<span id="cb114-66"><a href="estimación-de-densidades-con-bayes.html#cb114-66"></a>    <span class="dt">step =</span> <span class="dv">1</span><span class="op">:</span>num_steps, </span>
+<span id="cb114-67"><a href="estimación-de-densidades-con-bayes.html#cb114-67"></a>    <span class="dt">theta1 =</span> theta1,</span>
+<span id="cb114-68"><a href="estimación-de-densidades-con-bayes.html#cb114-68"></a>    <span class="dt">theta2 =</span> theta2,</span>
+<span id="cb114-69"><a href="estimación-de-densidades-con-bayes.html#cb114-69"></a>    <span class="dt">proposed_theta1 =</span> proposed_theta1,</span>
+<span id="cb114-70"><a href="estimación-de-densidades-con-bayes.html#cb114-70"></a>    <span class="dt">proposed_theta2 =</span> proposed_theta2,</span>
+<span id="cb114-71"><a href="estimación-de-densidades-con-bayes.html#cb114-71"></a>    <span class="dt">move =</span> move, </span>
+<span id="cb114-72"><a href="estimación-de-densidades-con-bayes.html#cb114-72"></a>    <span class="dt">size1 =</span> size1,</span>
+<span id="cb114-73"><a href="estimación-de-densidades-con-bayes.html#cb114-73"></a>    <span class="dt">size2 =</span> size2</span>
+<span id="cb114-74"><a href="estimación-de-densidades-con-bayes.html#cb114-74"></a>  )</span>
+<span id="cb114-75"><a href="estimación-de-densidades-con-bayes.html#cb114-75"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb115"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb115-1"><a href="estimación-de-densidades-con-bayes.html#cb115-1"></a>Metro_2coinsA &lt;-<span class="st"> </span><span class="kw">metro_2coins</span>(<span class="dt">z1 =</span> <span class="dv">6</span>, <span class="dt">n1 =</span> <span class="dv">8</span>, <span class="dt">z2 =</span> <span class="dv">2</span>, </span>
+<span id="cb115-2"><a href="estimación-de-densidades-con-bayes.html#cb115-2"></a>    <span class="dt">n2 =</span> <span class="dv">7</span>, <span class="dt">size =</span> <span class="kw">c</span>(<span class="fl">0.02</span>, <span class="fl">0.02</span>), <span class="dt">args1 =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, </span>
+<span id="cb115-3"><a href="estimación-de-densidades-con-bayes.html#cb115-3"></a>        <span class="dt">shape2 =</span> <span class="dv">2</span>), <span class="dt">args2 =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, <span class="dt">shape2 =</span> <span class="dv">2</span>))</span>
+<span id="cb115-4"><a href="estimación-de-densidades-con-bayes.html#cb115-4"></a></span>
+<span id="cb115-5"><a href="estimación-de-densidades-con-bayes.html#cb115-5"></a>Metro_2coinsA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_density2d</span>(theta2 <span class="op">~</span><span class="st"> </span>theta1)</span>
+<span id="cb115-6"><a href="estimación-de-densidades-con-bayes.html#cb115-6"></a></span>
+<span id="cb115-7"><a href="estimación-de-densidades-con-bayes.html#cb115-7"></a>Metro_2coinsA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_density</span>(<span class="op">~</span>(theta2 <span class="op">-</span><span class="st"> </span>theta1))</span>
+<span id="cb115-8"><a href="estimación-de-densidades-con-bayes.html#cb115-8"></a></span>
+<span id="cb115-9"><a href="estimación-de-densidades-con-bayes.html#cb115-9"></a><span class="kw">acf</span>(Metro_2coinsA<span class="op">$</span>theta2 <span class="op">-</span><span class="st"> </span>Metro_2coinsA<span class="op">$</span>theta1)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-131-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-131-2.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-131-3.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb116-1" title="1">Metro_2coinsA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb116-2" title="2"><span class="st">    </span>theta1, <span class="dt">color =</span> <span class="op">~</span>step, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, </a>
-<a class="sourceLine" id="cb116-3" title="3">    <span class="dt">angle =</span> <span class="dv">30</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;inches&quot;</span>))) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb116"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb116-1"><a href="estimación-de-densidades-con-bayes.html#cb116-1"></a>Metro_2coinsA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span></span>
+<span id="cb116-2"><a href="estimación-de-densidades-con-bayes.html#cb116-2"></a><span class="st">    </span>theta1, <span class="dt">color =</span> <span class="op">~</span>step, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, </span>
+<span id="cb116-3"><a href="estimación-de-densidades-con-bayes.html#cb116-3"></a>    <span class="dt">angle =</span> <span class="dv">30</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;inches&quot;</span>))) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-132-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb117-1" title="1"><span class="kw">library</span>(gganimate)</a>
-<a class="sourceLine" id="cb117-2" title="2">Metro_2coinsAplot &lt;-<span class="st"> </span>Metro_2coinsA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb117-3" title="3"><span class="st">    </span><span class="dv">500</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span>theta1, <span class="dt">color =</span> <span class="op">~</span>step, </a>
-<a class="sourceLine" id="cb117-4" title="4">    <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, <span class="dt">angle =</span> <span class="dv">30</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb117-5" title="5"><span class="st">    </span><span class="kw">theme_minimal</span>() <span class="op">+</span><span class="st"> </span><span class="kw">transition_reveal</span>(step)</a>
-<a class="sourceLine" id="cb117-6" title="6"></a>
-<a class="sourceLine" id="cb117-7" title="7"><span class="kw">animate</span>(Metro_2coinsAplot, <span class="dt">fps =</span> <span class="dv">1</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb118-1" title="1">Metro_2coinsB &lt;-<span class="st"> </span><span class="kw">metro_2coins</span>(<span class="dt">z1 =</span> <span class="dv">6</span>, <span class="dt">n1 =</span> <span class="dv">8</span>, <span class="dt">z2 =</span> <span class="dv">2</span>, </a>
-<a class="sourceLine" id="cb118-2" title="2">    <span class="dt">n2 =</span> <span class="dv">7</span>, <span class="dt">size =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.2</span>), <span class="dt">args1 =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, </a>
-<a class="sourceLine" id="cb118-3" title="3">        <span class="dt">shape2 =</span> <span class="dv">2</span>), <span class="dt">args2 =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, <span class="dt">shape2 =</span> <span class="dv">2</span>))</a>
-<a class="sourceLine" id="cb118-4" title="4"></a>
-<a class="sourceLine" id="cb118-5" title="5">Metro_2coinsB <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_density2d</span>(theta2 <span class="op">~</span><span class="st"> </span>theta1)</a>
-<a class="sourceLine" id="cb118-6" title="6"></a>
-<a class="sourceLine" id="cb118-7" title="7"><span class="kw">acf</span>(Metro_2coinsB<span class="op">$</span>theta2 <span class="op">-</span><span class="st"> </span>Metro_2coinsB<span class="op">$</span>theta1)</a></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="estimación-de-densidades-con-bayes.html#cb117-1"></a><span class="kw">library</span>(gganimate)</span>
+<span id="cb117-2"><a href="estimación-de-densidades-con-bayes.html#cb117-2"></a>Metro_2coinsAplot &lt;-<span class="st"> </span>Metro_2coinsA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span></span>
+<span id="cb117-3"><a href="estimación-de-densidades-con-bayes.html#cb117-3"></a><span class="st">    </span><span class="dv">500</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span>theta1, <span class="dt">color =</span> <span class="op">~</span>step, </span>
+<span id="cb117-4"><a href="estimación-de-densidades-con-bayes.html#cb117-4"></a>    <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, <span class="dt">angle =</span> <span class="dv">30</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb117-5"><a href="estimación-de-densidades-con-bayes.html#cb117-5"></a><span class="st">    </span><span class="kw">theme_minimal</span>() <span class="op">+</span><span class="st"> </span><span class="kw">transition_reveal</span>(step)</span>
+<span id="cb117-6"><a href="estimación-de-densidades-con-bayes.html#cb117-6"></a></span>
+<span id="cb117-7"><a href="estimación-de-densidades-con-bayes.html#cb117-7"></a><span class="kw">animate</span>(Metro_2coinsAplot, <span class="dt">fps =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="estimación-de-densidades-con-bayes.html#cb118-1"></a>Metro_2coinsB &lt;-<span class="st"> </span><span class="kw">metro_2coins</span>(<span class="dt">z1 =</span> <span class="dv">6</span>, <span class="dt">n1 =</span> <span class="dv">8</span>, <span class="dt">z2 =</span> <span class="dv">2</span>, </span>
+<span id="cb118-2"><a href="estimación-de-densidades-con-bayes.html#cb118-2"></a>    <span class="dt">n2 =</span> <span class="dv">7</span>, <span class="dt">size =</span> <span class="kw">c</span>(<span class="fl">0.2</span>, <span class="fl">0.2</span>), <span class="dt">args1 =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, </span>
+<span id="cb118-3"><a href="estimación-de-densidades-con-bayes.html#cb118-3"></a>        <span class="dt">shape2 =</span> <span class="dv">2</span>), <span class="dt">args2 =</span> <span class="kw">list</span>(<span class="dt">shape1 =</span> <span class="dv">2</span>, <span class="dt">shape2 =</span> <span class="dv">2</span>))</span>
+<span id="cb118-4"><a href="estimación-de-densidades-con-bayes.html#cb118-4"></a></span>
+<span id="cb118-5"><a href="estimación-de-densidades-con-bayes.html#cb118-5"></a>Metro_2coinsB <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_density2d</span>(theta2 <span class="op">~</span><span class="st"> </span>theta1)</span>
+<span id="cb118-6"><a href="estimación-de-densidades-con-bayes.html#cb118-6"></a></span>
+<span id="cb118-7"><a href="estimación-de-densidades-con-bayes.html#cb118-7"></a><span class="kw">acf</span>(Metro_2coinsB<span class="op">$</span>theta2 <span class="op">-</span><span class="st"> </span>Metro_2coinsB<span class="op">$</span>theta1)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-135-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-135-2.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb119-1" title="1">Metro_2coinsB <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb119-2" title="2"><span class="st">    </span>theta1, <span class="dt">color =</span> <span class="op">~</span>step, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, </a>
-<a class="sourceLine" id="cb119-3" title="3">    <span class="dt">angle =</span> <span class="dv">30</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;inches&quot;</span>))) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb119"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb119-1"><a href="estimación-de-densidades-con-bayes.html#cb119-1"></a>Metro_2coinsB <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span></span>
+<span id="cb119-2"><a href="estimación-de-densidades-con-bayes.html#cb119-2"></a><span class="st">    </span>theta1, <span class="dt">color =</span> <span class="op">~</span>step, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, </span>
+<span id="cb119-3"><a href="estimación-de-densidades-con-bayes.html#cb119-3"></a>    <span class="dt">angle =</span> <span class="dv">30</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;inches&quot;</span>))) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-136-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb120-1" title="1">Metro_2coinsBplot &lt;-<span class="st"> </span>Metro_2coinsA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb120-2" title="2"><span class="st">    </span><span class="dv">500</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span>theta1, <span class="dt">color =</span> <span class="op">~</span>step, </a>
-<a class="sourceLine" id="cb120-3" title="3">    <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, <span class="dt">angle =</span> <span class="dv">30</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb120-4" title="4"><span class="st">    </span><span class="kw">theme_minimal</span>() <span class="op">+</span><span class="st"> </span><span class="kw">transition_reveal</span>(step)</a>
-<a class="sourceLine" id="cb120-5" title="5"></a>
-<a class="sourceLine" id="cb120-6" title="6"><span class="kw">animate</span>(Metro_2coinsBplot, <span class="dt">fps =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb120"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb120-1"><a href="estimación-de-densidades-con-bayes.html#cb120-1"></a>Metro_2coinsBplot &lt;-<span class="st"> </span>Metro_2coinsA <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span></span>
+<span id="cb120-2"><a href="estimación-de-densidades-con-bayes.html#cb120-2"></a><span class="st">    </span><span class="dv">500</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span>theta1, <span class="dt">color =</span> <span class="op">~</span>step, </span>
+<span id="cb120-3"><a href="estimación-de-densidades-con-bayes.html#cb120-3"></a>    <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, <span class="dt">angle =</span> <span class="dv">30</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb120-4"><a href="estimación-de-densidades-con-bayes.html#cb120-4"></a><span class="st">    </span><span class="kw">theme_minimal</span>() <span class="op">+</span><span class="st"> </span><span class="kw">transition_reveal</span>(step)</span>
+<span id="cb120-5"><a href="estimación-de-densidades-con-bayes.html#cb120-5"></a></span>
+<span id="cb120-6"><a href="estimación-de-densidades-con-bayes.html#cb120-6"></a><span class="kw">animate</span>(Metro_2coinsBplot, <span class="dt">fps =</span> <span class="dv">1</span>)</span></code></pre></div>
 <div id="muestreo-de-gibbs" class="section level3">
 <h3><span class="header-section-number">4.5.1</span> Muestreo de Gibbs</h3>
 <p>Para este ejemplo <span class="math inline">\(\left( \theta_{1},\theta_{2} \right)\)</span>, entonces la forma de escoger la posteriores en cada paso sería de la forma:</p>
@@ -911,93 +921,93 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 &amp;=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)}{\int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)d \theta_{1}} \\
 &amp;=\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)
 \end{align*}\]</span></p>
-<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb121-1" title="1">gibbs_2coins &lt;-<span class="st"> </span><span class="cf">function</span>(</a>
-<a class="sourceLine" id="cb121-2" title="2">  z1, n1,              <span class="co"># z = successes, n = trials</span></a>
-<a class="sourceLine" id="cb121-3" title="3">  z2, n2,              <span class="co"># z = successes, n = trials</span></a>
-<a class="sourceLine" id="cb121-4" title="4">  <span class="dt">start =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="co"># value of thetas to start at</span></a>
-<a class="sourceLine" id="cb121-5" title="5">  <span class="dt">num_steps =</span> <span class="fl">1e4</span>,     <span class="co"># number of steps to run the algorithm</span></a>
-<a class="sourceLine" id="cb121-6" title="6">  a1, b1,              <span class="co"># params for prior for theta1</span></a>
-<a class="sourceLine" id="cb121-7" title="7">  a2, b2               <span class="co"># params for prior for theta2</span></a>
-<a class="sourceLine" id="cb121-8" title="8">  ) {</a>
-<a class="sourceLine" id="cb121-9" title="9">  </a>
-<a class="sourceLine" id="cb121-10" title="10">  theta1            &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_steps)  <span class="co"># trick to pre-alocate memory</span></a>
-<a class="sourceLine" id="cb121-11" title="11">  theta2            &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_steps)  <span class="co"># trick to pre-alocate memory</span></a>
-<a class="sourceLine" id="cb121-12" title="12">  theta1[<span class="dv">1</span>]         &lt;-<span class="st"> </span>start[<span class="dv">1</span>]</a>
-<a class="sourceLine" id="cb121-13" title="13">  theta2[<span class="dv">1</span>]         &lt;-<span class="st"> </span>start[<span class="dv">2</span>]</a>
-<a class="sourceLine" id="cb121-14" title="14">  </a>
-<a class="sourceLine" id="cb121-15" title="15">  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>(num_steps<span class="dv">-1</span>)) {</a>
-<a class="sourceLine" id="cb121-16" title="16">    <span class="cf">if</span> (i <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) { <span class="co"># update theta1</span></a>
-<a class="sourceLine" id="cb121-17" title="17">      theta1[i<span class="op">+</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rbeta</span>(<span class="dv">1</span>, z1 <span class="op">+</span><span class="st"> </span>a1, n1 <span class="op">-</span><span class="st"> </span>z1 <span class="op">+</span><span class="st"> </span>b1)</a>
-<a class="sourceLine" id="cb121-18" title="18">      theta2[i<span class="op">+</span><span class="dv">1</span>] &lt;-<span class="st"> </span>theta2[i]</a>
-<a class="sourceLine" id="cb121-19" title="19">    } <span class="cf">else</span> {           <span class="co"># update theta2</span></a>
-<a class="sourceLine" id="cb121-20" title="20">      theta1[i<span class="op">+</span><span class="dv">1</span>] &lt;-<span class="st"> </span>theta1[i]</a>
-<a class="sourceLine" id="cb121-21" title="21">      theta2[i<span class="op">+</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rbeta</span>(<span class="dv">1</span>, z2 <span class="op">+</span><span class="st"> </span>a2, n2 <span class="op">-</span><span class="st"> </span>z2 <span class="op">+</span><span class="st"> </span>b2)</a>
-<a class="sourceLine" id="cb121-22" title="22">    }</a>
-<a class="sourceLine" id="cb121-23" title="23">  }</a>
-<a class="sourceLine" id="cb121-24" title="24">  </a>
-<a class="sourceLine" id="cb121-25" title="25">  <span class="kw">tibble</span>(</a>
-<a class="sourceLine" id="cb121-26" title="26">    <span class="dt">step =</span> <span class="dv">1</span><span class="op">:</span>num_steps, </a>
-<a class="sourceLine" id="cb121-27" title="27">    <span class="dt">theta1 =</span> theta1,</a>
-<a class="sourceLine" id="cb121-28" title="28">    <span class="dt">theta2 =</span> theta2,</a>
-<a class="sourceLine" id="cb121-29" title="29">  )</a>
-<a class="sourceLine" id="cb121-30" title="30">}</a></code></pre></div>
-<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb122-1" title="1">Gibbs &lt;-<span class="st"> </span><span class="kw">gibbs_2coins</span>(<span class="dt">z1 =</span> <span class="dv">6</span>, <span class="dt">n1 =</span> <span class="dv">8</span>, <span class="dt">z2 =</span> <span class="dv">2</span>, <span class="dt">n2 =</span> <span class="dv">7</span>, </a>
-<a class="sourceLine" id="cb122-2" title="2">    <span class="dt">a1 =</span> <span class="dv">2</span>, <span class="dt">b1 =</span> <span class="dv">2</span>, <span class="dt">a2 =</span> <span class="dv">2</span>, <span class="dt">b2 =</span> <span class="dv">2</span>)</a>
-<a class="sourceLine" id="cb122-3" title="3"></a>
-<a class="sourceLine" id="cb122-4" title="4">Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_density2d</span>(theta2 <span class="op">~</span><span class="st"> </span>theta1)</a>
-<a class="sourceLine" id="cb122-5" title="5"></a>
-<a class="sourceLine" id="cb122-6" title="6">Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_dens</span>(<span class="op">~</span>theta1)</a>
-<a class="sourceLine" id="cb122-7" title="7"></a>
-<a class="sourceLine" id="cb122-8" title="8"><span class="kw">acf</span>(Gibbs<span class="op">$</span>theta1)</a></code></pre></div>
+<div class="sourceCode" id="cb121"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb121-1"><a href="estimación-de-densidades-con-bayes.html#cb121-1"></a>gibbs_2coins &lt;-<span class="st"> </span><span class="cf">function</span>(</span>
+<span id="cb121-2"><a href="estimación-de-densidades-con-bayes.html#cb121-2"></a>  z1, n1,              <span class="co"># z = successes, n = trials</span></span>
+<span id="cb121-3"><a href="estimación-de-densidades-con-bayes.html#cb121-3"></a>  z2, n2,              <span class="co"># z = successes, n = trials</span></span>
+<span id="cb121-4"><a href="estimación-de-densidades-con-bayes.html#cb121-4"></a>  <span class="dt">start =</span> <span class="kw">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="co"># value of thetas to start at</span></span>
+<span id="cb121-5"><a href="estimación-de-densidades-con-bayes.html#cb121-5"></a>  <span class="dt">num_steps =</span> <span class="fl">1e4</span>,     <span class="co"># number of steps to run the algorithm</span></span>
+<span id="cb121-6"><a href="estimación-de-densidades-con-bayes.html#cb121-6"></a>  a1, b1,              <span class="co"># params for prior for theta1</span></span>
+<span id="cb121-7"><a href="estimación-de-densidades-con-bayes.html#cb121-7"></a>  a2, b2               <span class="co"># params for prior for theta2</span></span>
+<span id="cb121-8"><a href="estimación-de-densidades-con-bayes.html#cb121-8"></a>  ) {</span>
+<span id="cb121-9"><a href="estimación-de-densidades-con-bayes.html#cb121-9"></a>  </span>
+<span id="cb121-10"><a href="estimación-de-densidades-con-bayes.html#cb121-10"></a>  theta1            &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_steps)  <span class="co"># trick to pre-alocate memory</span></span>
+<span id="cb121-11"><a href="estimación-de-densidades-con-bayes.html#cb121-11"></a>  theta2            &lt;-<span class="st"> </span><span class="kw">rep</span>(<span class="ot">NA</span>, num_steps)  <span class="co"># trick to pre-alocate memory</span></span>
+<span id="cb121-12"><a href="estimación-de-densidades-con-bayes.html#cb121-12"></a>  theta1[<span class="dv">1</span>]         &lt;-<span class="st"> </span>start[<span class="dv">1</span>]</span>
+<span id="cb121-13"><a href="estimación-de-densidades-con-bayes.html#cb121-13"></a>  theta2[<span class="dv">1</span>]         &lt;-<span class="st"> </span>start[<span class="dv">2</span>]</span>
+<span id="cb121-14"><a href="estimación-de-densidades-con-bayes.html#cb121-14"></a>  </span>
+<span id="cb121-15"><a href="estimación-de-densidades-con-bayes.html#cb121-15"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>(num_steps<span class="dv">-1</span>)) {</span>
+<span id="cb121-16"><a href="estimación-de-densidades-con-bayes.html#cb121-16"></a>    <span class="cf">if</span> (i <span class="op">%%</span><span class="st"> </span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">1</span>) { <span class="co"># update theta1</span></span>
+<span id="cb121-17"><a href="estimación-de-densidades-con-bayes.html#cb121-17"></a>      theta1[i<span class="op">+</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rbeta</span>(<span class="dv">1</span>, z1 <span class="op">+</span><span class="st"> </span>a1, n1 <span class="op">-</span><span class="st"> </span>z1 <span class="op">+</span><span class="st"> </span>b1)</span>
+<span id="cb121-18"><a href="estimación-de-densidades-con-bayes.html#cb121-18"></a>      theta2[i<span class="op">+</span><span class="dv">1</span>] &lt;-<span class="st"> </span>theta2[i]</span>
+<span id="cb121-19"><a href="estimación-de-densidades-con-bayes.html#cb121-19"></a>    } <span class="cf">else</span> {           <span class="co"># update theta2</span></span>
+<span id="cb121-20"><a href="estimación-de-densidades-con-bayes.html#cb121-20"></a>      theta1[i<span class="op">+</span><span class="dv">1</span>] &lt;-<span class="st"> </span>theta1[i]</span>
+<span id="cb121-21"><a href="estimación-de-densidades-con-bayes.html#cb121-21"></a>      theta2[i<span class="op">+</span><span class="dv">1</span>] &lt;-<span class="st"> </span><span class="kw">rbeta</span>(<span class="dv">1</span>, z2 <span class="op">+</span><span class="st"> </span>a2, n2 <span class="op">-</span><span class="st"> </span>z2 <span class="op">+</span><span class="st"> </span>b2)</span>
+<span id="cb121-22"><a href="estimación-de-densidades-con-bayes.html#cb121-22"></a>    }</span>
+<span id="cb121-23"><a href="estimación-de-densidades-con-bayes.html#cb121-23"></a>  }</span>
+<span id="cb121-24"><a href="estimación-de-densidades-con-bayes.html#cb121-24"></a>  </span>
+<span id="cb121-25"><a href="estimación-de-densidades-con-bayes.html#cb121-25"></a>  <span class="kw">tibble</span>(</span>
+<span id="cb121-26"><a href="estimación-de-densidades-con-bayes.html#cb121-26"></a>    <span class="dt">step =</span> <span class="dv">1</span><span class="op">:</span>num_steps, </span>
+<span id="cb121-27"><a href="estimación-de-densidades-con-bayes.html#cb121-27"></a>    <span class="dt">theta1 =</span> theta1,</span>
+<span id="cb121-28"><a href="estimación-de-densidades-con-bayes.html#cb121-28"></a>    <span class="dt">theta2 =</span> theta2,</span>
+<span id="cb121-29"><a href="estimación-de-densidades-con-bayes.html#cb121-29"></a>  )</span>
+<span id="cb121-30"><a href="estimación-de-densidades-con-bayes.html#cb121-30"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb122"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb122-1"><a href="estimación-de-densidades-con-bayes.html#cb122-1"></a>Gibbs &lt;-<span class="st"> </span><span class="kw">gibbs_2coins</span>(<span class="dt">z1 =</span> <span class="dv">6</span>, <span class="dt">n1 =</span> <span class="dv">8</span>, <span class="dt">z2 =</span> <span class="dv">2</span>, <span class="dt">n2 =</span> <span class="dv">7</span>, </span>
+<span id="cb122-2"><a href="estimación-de-densidades-con-bayes.html#cb122-2"></a>    <span class="dt">a1 =</span> <span class="dv">2</span>, <span class="dt">b1 =</span> <span class="dv">2</span>, <span class="dt">a2 =</span> <span class="dv">2</span>, <span class="dt">b2 =</span> <span class="dv">2</span>)</span>
+<span id="cb122-3"><a href="estimación-de-densidades-con-bayes.html#cb122-3"></a></span>
+<span id="cb122-4"><a href="estimación-de-densidades-con-bayes.html#cb122-4"></a>Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_density2d</span>(theta2 <span class="op">~</span><span class="st"> </span>theta1)</span>
+<span id="cb122-5"><a href="estimación-de-densidades-con-bayes.html#cb122-5"></a></span>
+<span id="cb122-6"><a href="estimación-de-densidades-con-bayes.html#cb122-6"></a>Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_dens</span>(<span class="op">~</span>theta1)</span>
+<span id="cb122-7"><a href="estimación-de-densidades-con-bayes.html#cb122-7"></a></span>
+<span id="cb122-8"><a href="estimación-de-densidades-con-bayes.html#cb122-8"></a><span class="kw">acf</span>(Gibbs<span class="op">$</span>theta1)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-140-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-140-2.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-140-3.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb123-1" title="1">Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span>theta1, </a>
-<a class="sourceLine" id="cb123-2" title="2">    <span class="dt">color =</span> <span class="op">~</span>step, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, </a>
-<a class="sourceLine" id="cb123-3" title="3">        <span class="dt">angle =</span> <span class="dv">30</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;inches&quot;</span>))) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb123-4" title="4"><span class="st">    </span><span class="kw">theme_minimal</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb123"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb123-1"><a href="estimación-de-densidades-con-bayes.html#cb123-1"></a>Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span>theta1, </span>
+<span id="cb123-2"><a href="estimación-de-densidades-con-bayes.html#cb123-2"></a>    <span class="dt">color =</span> <span class="op">~</span>step, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, </span>
+<span id="cb123-3"><a href="estimación-de-densidades-con-bayes.html#cb123-3"></a>        <span class="dt">angle =</span> <span class="dv">30</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;inches&quot;</span>))) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb123-4"><a href="estimación-de-densidades-con-bayes.html#cb123-4"></a><span class="st">    </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-141-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb124-1" title="1">Gibbsplot &lt;-<span class="st"> </span>Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb124-2" title="2"><span class="st">    </span>theta1, <span class="dt">color =</span> <span class="op">~</span>step, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, </a>
-<a class="sourceLine" id="cb124-3" title="3">    <span class="dt">angle =</span> <span class="dv">30</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>() <span class="op">+</span><span class="st"> </span><span class="kw">transition_reveal</span>(step)</a>
-<a class="sourceLine" id="cb124-4" title="4"></a>
-<a class="sourceLine" id="cb124-5" title="5"><span class="kw">animate</span>(Gibbsplot, <span class="dt">fps =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb124"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb124-1"><a href="estimación-de-densidades-con-bayes.html#cb124-1"></a>Gibbsplot &lt;-<span class="st"> </span>Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span></span>
+<span id="cb124-2"><a href="estimación-de-densidades-con-bayes.html#cb124-2"></a><span class="st">    </span>theta1, <span class="dt">color =</span> <span class="op">~</span>step, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, </span>
+<span id="cb124-3"><a href="estimación-de-densidades-con-bayes.html#cb124-3"></a>    <span class="dt">angle =</span> <span class="dv">30</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>() <span class="op">+</span><span class="st"> </span><span class="kw">transition_reveal</span>(step)</span>
+<span id="cb124-4"><a href="estimación-de-densidades-con-bayes.html#cb124-4"></a></span>
+<span id="cb124-5"><a href="estimación-de-densidades-con-bayes.html#cb124-5"></a><span class="kw">animate</span>(Gibbsplot, <span class="dt">fps =</span> <span class="dv">1</span>)</span></code></pre></div>
 <p>Ciclos completos</p>
-<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb125-1" title="1">Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step<span class="op">%%</span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_density2d</span>(theta2 <span class="op">~</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb125-2" title="2"><span class="st">    </span>theta1)</a>
-<a class="sourceLine" id="cb125-3" title="3"></a>
-<a class="sourceLine" id="cb125-4" title="4">Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step<span class="op">%%</span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_density</span>(<span class="op">~</span>(theta2 <span class="op">-</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb125-5" title="5"><span class="st">    </span>theta1))</a>
-<a class="sourceLine" id="cb125-6" title="6"></a>
-<a class="sourceLine" id="cb125-7" title="7">Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step<span class="op">%%</span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">difference =</span> theta2 <span class="op">-</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb125-8" title="8"><span class="st">    </span>theta1) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(difference) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">acf</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb125"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb125-1"><a href="estimación-de-densidades-con-bayes.html#cb125-1"></a>Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step<span class="op">%%</span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_density2d</span>(theta2 <span class="op">~</span><span class="st"> </span></span>
+<span id="cb125-2"><a href="estimación-de-densidades-con-bayes.html#cb125-2"></a><span class="st">    </span>theta1)</span>
+<span id="cb125-3"><a href="estimación-de-densidades-con-bayes.html#cb125-3"></a></span>
+<span id="cb125-4"><a href="estimación-de-densidades-con-bayes.html#cb125-4"></a>Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step<span class="op">%%</span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_density</span>(<span class="op">~</span>(theta2 <span class="op">-</span><span class="st"> </span></span>
+<span id="cb125-5"><a href="estimación-de-densidades-con-bayes.html#cb125-5"></a><span class="st">    </span>theta1))</span>
+<span id="cb125-6"><a href="estimación-de-densidades-con-bayes.html#cb125-6"></a></span>
+<span id="cb125-7"><a href="estimación-de-densidades-con-bayes.html#cb125-7"></a>Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step<span class="op">%%</span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">difference =</span> theta2 <span class="op">-</span><span class="st"> </span></span>
+<span id="cb125-8"><a href="estimación-de-densidades-con-bayes.html#cb125-8"></a><span class="st">    </span>theta1) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">pull</span>(difference) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">acf</span>()</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-143-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-143-2.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-143-3.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb126-1" title="1">Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>, step<span class="op">%%</span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb126-2" title="2"><span class="st">    </span>theta1, <span class="dt">color =</span> <span class="op">~</span>step, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, </a>
-<a class="sourceLine" id="cb126-3" title="3">    <span class="dt">angle =</span> <span class="dv">30</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;inches&quot;</span>))) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</a></code></pre></div>
+<div class="sourceCode" id="cb126"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb126-1"><a href="estimación-de-densidades-con-bayes.html#cb126-1"></a>Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>, step<span class="op">%%</span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span></span>
+<span id="cb126-2"><a href="estimación-de-densidades-con-bayes.html#cb126-2"></a><span class="st">    </span>theta1, <span class="dt">color =</span> <span class="op">~</span>step, <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, </span>
+<span id="cb126-3"><a href="estimación-de-densidades-con-bayes.html#cb126-3"></a>    <span class="dt">angle =</span> <span class="dv">30</span>, <span class="dt">length =</span> <span class="kw">unit</span>(<span class="fl">0.1</span>, <span class="st">&quot;inches&quot;</span>))) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-144-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb127-1" title="1">Gibbsplot2 &lt;-<span class="st"> </span>Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>, step<span class="op">%%</span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb127-2" title="2"><span class="st">    </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span>theta1, <span class="dt">color =</span> <span class="op">~</span>step, </a>
-<a class="sourceLine" id="cb127-3" title="3">    <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, <span class="dt">angle =</span> <span class="dv">30</span>)) <span class="op">+</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb127-4" title="4"><span class="st">    </span><span class="kw">theme_minimal</span>() <span class="op">+</span><span class="st"> </span><span class="kw">transition_reveal</span>(step)</a>
-<a class="sourceLine" id="cb127-5" title="5"></a>
-<a class="sourceLine" id="cb127-6" title="6"><span class="kw">animate</span>(Gibbsplot2, <span class="dt">fps =</span> <span class="dv">1</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb127"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb127-1"><a href="estimación-de-densidades-con-bayes.html#cb127-1"></a>Gibbsplot2 &lt;-<span class="st"> </span>Gibbs <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(step <span class="op">&lt;</span><span class="st"> </span><span class="dv">500</span>, step<span class="op">%%</span><span class="dv">2</span> <span class="op">==</span><span class="st"> </span></span>
+<span id="cb127-2"><a href="estimación-de-densidades-con-bayes.html#cb127-2"></a><span class="st">    </span><span class="dv">0</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_path</span>(theta2 <span class="op">~</span><span class="st"> </span>theta1, <span class="dt">color =</span> <span class="op">~</span>step, </span>
+<span id="cb127-3"><a href="estimación-de-densidades-con-bayes.html#cb127-3"></a>    <span class="dt">alpha =</span> <span class="fl">0.5</span>, <span class="dt">arrow =</span> <span class="kw">arrow</span>(<span class="dt">type =</span> <span class="st">&quot;open&quot;</span>, <span class="dt">angle =</span> <span class="dv">30</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb127-4"><a href="estimación-de-densidades-con-bayes.html#cb127-4"></a><span class="st">    </span><span class="kw">theme_minimal</span>() <span class="op">+</span><span class="st"> </span><span class="kw">transition_reveal</span>(step)</span>
+<span id="cb127-5"><a href="estimación-de-densidades-con-bayes.html#cb127-5"></a></span>
+<span id="cb127-6"><a href="estimación-de-densidades-con-bayes.html#cb127-6"></a><span class="kw">animate</span>(Gibbsplot2, <span class="dt">fps =</span> <span class="dv">1</span>)</span></code></pre></div>
 </div>
 </div>
 <div id="uso-de-jags" class="section level2">
 <h2><span class="header-section-number">4.6</span> Uso de JAGS</h2>
 <p>El paquete que usaremos en esta sección es <code>R2jags</code> y <code>coda</code>. Los cargamos con las instrucciones</p>
-<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb128-1" title="1">remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;rpruim/CalvinBayes&quot;</span>)</a></code></pre></div>
-<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb129-1" title="1"><span class="kw">library</span>(R2jags)</a>
-<a class="sourceLine" id="cb129-2" title="2"><span class="kw">library</span>(coda)</a>
-<a class="sourceLine" id="cb129-3" title="3"><span class="kw">library</span>(CalvinBayes)</a></code></pre></div>
-<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb130-1" title="1">bernoulli &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/bernoulli.csv&quot;</span>, </a>
-<a class="sourceLine" id="cb130-2" title="2">    <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</a>
-<a class="sourceLine" id="cb130-3" title="3">tibble<span class="op">::</span><span class="kw">glimpse</span>(bernoulli)</a></code></pre></div>
+<div class="sourceCode" id="cb128"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb128-1"><a href="estimación-de-densidades-con-bayes.html#cb128-1"></a>remotes<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;rpruim/CalvinBayes&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb129"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb129-1"><a href="estimación-de-densidades-con-bayes.html#cb129-1"></a><span class="kw">library</span>(R2jags)</span>
+<span id="cb129-2"><a href="estimación-de-densidades-con-bayes.html#cb129-2"></a><span class="kw">library</span>(coda)</span>
+<span id="cb129-3"><a href="estimación-de-densidades-con-bayes.html#cb129-3"></a><span class="kw">library</span>(CalvinBayes)</span></code></pre></div>
+<div class="sourceCode" id="cb130"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb130-1"><a href="estimación-de-densidades-con-bayes.html#cb130-1"></a>bernoulli &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/bernoulli.csv&quot;</span>, </span>
+<span id="cb130-2"><a href="estimación-de-densidades-con-bayes.html#cb130-2"></a>    <span class="dt">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb130-3"><a href="estimación-de-densidades-con-bayes.html#cb130-3"></a>tibble<span class="op">::</span><span class="kw">glimpse</span>(bernoulli)</span></code></pre></div>
 <pre><code>## Rows: 50
 ## Columns: 1
 ## $ y &lt;int&gt; 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0…</code></pre>
-<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb132-1" title="1"><span class="kw">mean</span>(bernoulli<span class="op">$</span>y)</a></code></pre></div>
+<div class="sourceCode" id="cb132"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb132-1"><a href="estimación-de-densidades-con-bayes.html#cb132-1"></a><span class="kw">mean</span>(bernoulli<span class="op">$</span>y)</span></code></pre></div>
 <pre><code>## [1] 0.3</code></pre>
-<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb134-1" title="1"><span class="kw">sd</span>(bernoulli<span class="op">$</span>y)</a></code></pre></div>
+<div class="sourceCode" id="cb134"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb134-1"><a href="estimación-de-densidades-con-bayes.html#cb134-1"></a><span class="kw">sd</span>(bernoulli<span class="op">$</span>y)</span></code></pre></div>
 <pre><code>## [1] 0.46291</code></pre>
 <p>En el lenguaje usual de JAGS, el modelo debe escribirse de la forma:</p>
 <pre><code>model
@@ -1010,14 +1020,14 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 </code></pre>
 <p>donde <code>dbern</code> y <code>dbeta</code> son las densidades de una bernoulli y beta respectivamente. En este lenguage no existen versiones vectorizadas de las funciones por lo que todo debe llenarse usando <code>for</code>’s. Una revisión completa de este lenguage la pueden econtrar en su manual de uso<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <p>El paquete <code>R2jags</code> tiene la capacidad que en lugar de usar este tipo de sintaxis, se pueda usar el lenguaje natural para escribir el modelo. Note el uso de <code>function</code> en este caso.</p>
-<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb137-1" title="1">bern_model &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb137-2" title="2">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) {</a>
-<a class="sourceLine" id="cb137-3" title="3">        y[i] <span class="op">~</span><span class="st"> </span><span class="kw">dbern</span>(theta)</a>
-<a class="sourceLine" id="cb137-4" title="4">    }</a>
-<a class="sourceLine" id="cb137-5" title="5">    theta <span class="op">~</span><span class="st"> </span><span class="kw">dbeta</span>(<span class="dv">1</span>, <span class="dv">1</span>)</a>
-<a class="sourceLine" id="cb137-6" title="6">}</a></code></pre></div>
-<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb138-1" title="1">bern_jags &lt;-<span class="st"> </span><span class="kw">jags</span>(<span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> bernoulli<span class="op">$</span>y, <span class="dt">N =</span> <span class="kw">nrow</span>(bernoulli)), </a>
-<a class="sourceLine" id="cb138-2" title="2">    <span class="dt">model.file =</span> bern_model, <span class="dt">parameters.to.save =</span> <span class="kw">c</span>(<span class="st">&quot;theta&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb137"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb137-1"><a href="estimación-de-densidades-con-bayes.html#cb137-1"></a>bern_model &lt;-<span class="st"> </span><span class="cf">function</span>() {</span>
+<span id="cb137-2"><a href="estimación-de-densidades-con-bayes.html#cb137-2"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>N) {</span>
+<span id="cb137-3"><a href="estimación-de-densidades-con-bayes.html#cb137-3"></a>        y[i] <span class="op">~</span><span class="st"> </span><span class="kw">dbern</span>(theta)</span>
+<span id="cb137-4"><a href="estimación-de-densidades-con-bayes.html#cb137-4"></a>    }</span>
+<span id="cb137-5"><a href="estimación-de-densidades-con-bayes.html#cb137-5"></a>    theta <span class="op">~</span><span class="st"> </span><span class="kw">dbeta</span>(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb137-6"><a href="estimación-de-densidades-con-bayes.html#cb137-6"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb138"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb138-1"><a href="estimación-de-densidades-con-bayes.html#cb138-1"></a>bern_jags &lt;-<span class="st"> </span><span class="kw">jags</span>(<span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> bernoulli<span class="op">$</span>y, <span class="dt">N =</span> <span class="kw">nrow</span>(bernoulli)), </span>
+<span id="cb138-2"><a href="estimación-de-densidades-con-bayes.html#cb138-2"></a>    <span class="dt">model.file =</span> bern_model, <span class="dt">parameters.to.save =</span> <span class="kw">c</span>(<span class="st">&quot;theta&quot;</span>))</span></code></pre></div>
 <pre><code>## Compiling model graph
 ##    Resolving undeclared variables
 ##    Allocating nodes
@@ -1028,7 +1038,7 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## 
 ## Initializing model</code></pre>
 <p>Veamos el resultado</p>
-<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb140-1" title="1">bern_jags</a></code></pre></div>
+<div class="sourceCode" id="cb140"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb140-1"><a href="estimación-de-densidades-con-bayes.html#cb140-1"></a>bern_jags</span></code></pre></div>
 <pre><code>## Inference for Bugs model at &quot;/tmp/RtmpSiqiR5/model57fa74f36bad.txt&quot;, fit using jags,
 ##  3 chains, each with 2000 iterations (first 1000 discarded)
 ##  n.sims = 3000 iterations saved
@@ -1042,33 +1052,33 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## DIC info (using the rule, pD = var(deviance)/2)
 ## pD = 0.9 and DIC = 63.0
 ## DIC is an estimate of expected predictive error (lower deviance is better).</code></pre>
-<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb142-1" title="1"><span class="kw">head</span>(<span class="kw">posterior</span>(bern_jags))</a></code></pre></div>
+<div class="sourceCode" id="cb142"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb142-1"><a href="estimación-de-densidades-con-bayes.html#cb142-1"></a><span class="kw">head</span>(<span class="kw">posterior</span>(bern_jags))</span></code></pre></div>
 <pre><code>## Error in verosimilitud(theta, data): argument &quot;data&quot; is missing, with no default</code></pre>
-<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb144-1" title="1"><span class="kw">gf_dhistogram</span>(<span class="op">~</span>theta, <span class="dt">data =</span> <span class="kw">posterior</span>(bern_jags), </a>
-<a class="sourceLine" id="cb144-2" title="2">    <span class="dt">bins =</span> <span class="dv">50</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_dens</span>(<span class="op">~</span>theta, <span class="dt">size =</span> <span class="fl">1.5</span>, <span class="dt">alpha =</span> <span class="fl">0.8</span>) <span class="op">%&gt;%</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb144-3" title="3"><span class="st">    </span><span class="kw">gf_dist</span>(<span class="st">&quot;beta&quot;</span>, <span class="dt">shape1 =</span> <span class="dv">16</span>, <span class="dt">shape2 =</span> <span class="dv">36</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb144"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb144-1"><a href="estimación-de-densidades-con-bayes.html#cb144-1"></a><span class="kw">gf_dhistogram</span>(<span class="op">~</span>theta, <span class="dt">data =</span> <span class="kw">posterior</span>(bern_jags), </span>
+<span id="cb144-2"><a href="estimación-de-densidades-con-bayes.html#cb144-2"></a>    <span class="dt">bins =</span> <span class="dv">50</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_dens</span>(<span class="op">~</span>theta, <span class="dt">size =</span> <span class="fl">1.5</span>, <span class="dt">alpha =</span> <span class="fl">0.8</span>) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb144-3"><a href="estimación-de-densidades-con-bayes.html#cb144-3"></a><span class="st">    </span><span class="kw">gf_dist</span>(<span class="st">&quot;beta&quot;</span>, <span class="dt">shape1 =</span> <span class="dv">16</span>, <span class="dt">shape2 =</span> <span class="dv">36</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <pre><code>## Error in verosimilitud(theta, data): argument &quot;data&quot; is missing, with no default</code></pre>
-<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb146-1" title="1">bern_mcmc &lt;-<span class="st"> </span><span class="kw">as.mcmc</span>(bern_jags)</a>
-<a class="sourceLine" id="cb146-2" title="2"><span class="kw">plot</span>(bern_mcmc)</a></code></pre></div>
+<div class="sourceCode" id="cb146"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb146-1"><a href="estimación-de-densidades-con-bayes.html#cb146-1"></a>bern_mcmc &lt;-<span class="st"> </span><span class="kw">as.mcmc</span>(bern_jags)</span>
+<span id="cb146-2"><a href="estimación-de-densidades-con-bayes.html#cb146-2"></a><span class="kw">plot</span>(bern_mcmc)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-154-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb147-1" title="1"><span class="kw">library</span>(bayesplot)</a>
-<a class="sourceLine" id="cb147-2" title="2"><span class="kw">mcmc_areas</span>(bern_mcmc, <span class="dt">pars =</span> <span class="kw">c</span>(<span class="st">&quot;theta&quot;</span>), <span class="dt">prob =</span> <span class="fl">0.9</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb147"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb147-1"><a href="estimación-de-densidades-con-bayes.html#cb147-1"></a><span class="kw">library</span>(bayesplot)</span>
+<span id="cb147-2"><a href="estimación-de-densidades-con-bayes.html#cb147-2"></a><span class="kw">mcmc_areas</span>(bern_mcmc, <span class="dt">pars =</span> <span class="kw">c</span>(<span class="st">&quot;theta&quot;</span>), <span class="dt">prob =</span> <span class="fl">0.9</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-155-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb148-1" title="1"><span class="kw">mcmc_trace</span>(bern_mcmc, <span class="dt">pars =</span> <span class="st">&quot;theta&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb148"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb148-1"><a href="estimación-de-densidades-con-bayes.html#cb148-1"></a><span class="kw">mcmc_trace</span>(bern_mcmc, <span class="dt">pars =</span> <span class="st">&quot;theta&quot;</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-156-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb149-1" title="1"><span class="kw">mcmc_trace</span>(bern_mcmc, <span class="dt">pars =</span> <span class="st">&quot;theta&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_facet_grid</span>(Chain <span class="op">~</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb149-2" title="2"><span class="st">    </span>.) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_refine</span>(<span class="kw">scale_color_viridis_d</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="estimación-de-densidades-con-bayes.html#cb149-1"></a><span class="kw">mcmc_trace</span>(bern_mcmc, <span class="dt">pars =</span> <span class="st">&quot;theta&quot;</span>) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_facet_grid</span>(Chain <span class="op">~</span><span class="st"> </span></span>
+<span id="cb149-2"><a href="estimación-de-densidades-con-bayes.html#cb149-2"></a><span class="st">    </span>.) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">gf_refine</span>(<span class="kw">scale_color_viridis_d</span>())</span></code></pre></div>
 <pre><code>## Error: At least one layer must contain all faceting variables: `Chain`.
 ## * Plot is missing `Chain`
 ## * Layer 1 is missing `Chain`</code></pre>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-157-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb151-1" title="1"><span class="kw">plot_post</span>(bern_mcmc[, <span class="st">&quot;theta&quot;</span>], <span class="dt">main =</span> <span class="st">&quot;theta&quot;</span>, <span class="dt">xlab =</span> <span class="kw">expression</span>(theta), </a>
-<a class="sourceLine" id="cb151-2" title="2">    <span class="dt">cenTend =</span> <span class="st">&quot;median&quot;</span>, <span class="dt">compVal =</span> <span class="fl">0.5</span>, <span class="dt">ROPE =</span> <span class="kw">c</span>(<span class="fl">0.45</span>, </a>
-<a class="sourceLine" id="cb151-3" title="3">        <span class="fl">0.55</span>), <span class="dt">credMass =</span> <span class="fl">0.9</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="estimación-de-densidades-con-bayes.html#cb151-1"></a><span class="kw">plot_post</span>(bern_mcmc[, <span class="st">&quot;theta&quot;</span>], <span class="dt">main =</span> <span class="st">&quot;theta&quot;</span>, <span class="dt">xlab =</span> <span class="kw">expression</span>(theta), </span>
+<span id="cb151-2"><a href="estimación-de-densidades-con-bayes.html#cb151-2"></a>    <span class="dt">cenTend =</span> <span class="st">&quot;median&quot;</span>, <span class="dt">compVal =</span> <span class="fl">0.5</span>, <span class="dt">ROPE =</span> <span class="kw">c</span>(<span class="fl">0.45</span>, </span>
+<span id="cb151-3"><a href="estimación-de-densidades-con-bayes.html#cb151-3"></a>        <span class="fl">0.55</span>), <span class="dt">credMass =</span> <span class="fl">0.9</span>, <span class="dt">quietly =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-158-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb152-1" title="1">twobernoulli &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/2bernoulli.csv&quot;</span>)</a>
-<a class="sourceLine" id="cb152-2" title="2"></a>
-<a class="sourceLine" id="cb152-3" title="3">knitr<span class="op">::</span><span class="kw">kable</span>(twobernoulli)</a></code></pre></div>
+<div class="sourceCode" id="cb152"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb152-1"><a href="estimación-de-densidades-con-bayes.html#cb152-1"></a>twobernoulli &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/2bernoulli.csv&quot;</span>)</span>
+<span id="cb152-2"><a href="estimación-de-densidades-con-bayes.html#cb152-2"></a></span>
+<span id="cb152-3"><a href="estimación-de-densidades-con-bayes.html#cb152-3"></a>knitr<span class="op">::</span><span class="kw">kable</span>(twobernoulli)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1139,28 +1149,28 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb153-1" title="1">Target &lt;-<span class="st"> </span>twobernoulli <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">hit =</span> y, <span class="dt">subject =</span> s)</a>
-<a class="sourceLine" id="cb153-2" title="2"></a>
-<a class="sourceLine" id="cb153-3" title="3">Target <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(subject) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">prop_0 =</span> <span class="kw">sum</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span></a>
-<a class="sourceLine" id="cb153-4" title="4"><span class="st">    </span>hit)<span class="op">/</span><span class="kw">n</span>(), <span class="dt">prop_1 =</span> <span class="kw">sum</span>(hit)<span class="op">/</span><span class="kw">n</span>(), <span class="dt">attemps =</span> <span class="kw">n</span>())</a></code></pre></div>
+<div class="sourceCode" id="cb153"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb153-1"><a href="estimación-de-densidades-con-bayes.html#cb153-1"></a>Target &lt;-<span class="st"> </span>twobernoulli <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">rename</span>(<span class="dt">hit =</span> y, <span class="dt">subject =</span> s)</span>
+<span id="cb153-2"><a href="estimación-de-densidades-con-bayes.html#cb153-2"></a></span>
+<span id="cb153-3"><a href="estimación-de-densidades-con-bayes.html#cb153-3"></a>Target <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">group_by</span>(subject) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">summarise</span>(<span class="dt">prop_0 =</span> <span class="kw">sum</span>(<span class="dv">1</span> <span class="op">-</span><span class="st"> </span></span>
+<span id="cb153-4"><a href="estimación-de-densidades-con-bayes.html#cb153-4"></a><span class="st">    </span>hit)<span class="op">/</span><span class="kw">n</span>(), <span class="dt">prop_1 =</span> <span class="kw">sum</span>(hit)<span class="op">/</span><span class="kw">n</span>(), <span class="dt">attemps =</span> <span class="kw">n</span>())</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 4
 ##   subject  prop_0 prop_1 attemps
 ##   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;   &lt;int&gt;
 ## 1 Reginald  0.25   0.75        8
 ## 2 Tony      0.714  0.286       7</code></pre>
-<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb155-1" title="1">bern2_model &lt;-<span class="st"> </span><span class="cf">function</span>() {</a>
-<a class="sourceLine" id="cb155-2" title="2">    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>Nobs) {</a>
-<a class="sourceLine" id="cb155-3" title="3">        <span class="co"># each response is Bernoulli with the appropriate</span></a>
-<a class="sourceLine" id="cb155-4" title="4">        <span class="co"># theta</span></a>
-<a class="sourceLine" id="cb155-5" title="5">        hit[i] <span class="op">~</span><span class="st"> </span><span class="kw">dbern</span>(theta[subject[i]])</a>
-<a class="sourceLine" id="cb155-6" title="6">    }</a>
-<a class="sourceLine" id="cb155-7" title="7">    <span class="cf">for</span> (s <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>Nsub) {</a>
-<a class="sourceLine" id="cb155-8" title="8">        theta[s] <span class="op">~</span><span class="st"> </span><span class="kw">dbeta</span>(<span class="dv">2</span>, <span class="dv">2</span>)  <span class="co"># prior for each theta</span></a>
-<a class="sourceLine" id="cb155-9" title="9">    }</a>
-<a class="sourceLine" id="cb155-10" title="10">}</a></code></pre></div>
-<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb156-1" title="1">TargetList &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">Nobs =</span> <span class="kw">nrow</span>(Target), <span class="dt">Nsub =</span> <span class="dv">2</span>, <span class="dt">hit =</span> Target<span class="op">$</span>hit, </a>
-<a class="sourceLine" id="cb156-2" title="2">    <span class="dt">subject =</span> <span class="kw">as.numeric</span>(<span class="kw">as.factor</span>(Target<span class="op">$</span>subject)))</a>
-<a class="sourceLine" id="cb156-3" title="3">TargetList</a></code></pre></div>
+<div class="sourceCode" id="cb155"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb155-1"><a href="estimación-de-densidades-con-bayes.html#cb155-1"></a>bern2_model &lt;-<span class="st"> </span><span class="cf">function</span>() {</span>
+<span id="cb155-2"><a href="estimación-de-densidades-con-bayes.html#cb155-2"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>Nobs) {</span>
+<span id="cb155-3"><a href="estimación-de-densidades-con-bayes.html#cb155-3"></a>        <span class="co"># each response is Bernoulli with the appropriate</span></span>
+<span id="cb155-4"><a href="estimación-de-densidades-con-bayes.html#cb155-4"></a>        <span class="co"># theta</span></span>
+<span id="cb155-5"><a href="estimación-de-densidades-con-bayes.html#cb155-5"></a>        hit[i] <span class="op">~</span><span class="st"> </span><span class="kw">dbern</span>(theta[subject[i]])</span>
+<span id="cb155-6"><a href="estimación-de-densidades-con-bayes.html#cb155-6"></a>    }</span>
+<span id="cb155-7"><a href="estimación-de-densidades-con-bayes.html#cb155-7"></a>    <span class="cf">for</span> (s <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span>Nsub) {</span>
+<span id="cb155-8"><a href="estimación-de-densidades-con-bayes.html#cb155-8"></a>        theta[s] <span class="op">~</span><span class="st"> </span><span class="kw">dbeta</span>(<span class="dv">2</span>, <span class="dv">2</span>)  <span class="co"># prior for each theta</span></span>
+<span id="cb155-9"><a href="estimación-de-densidades-con-bayes.html#cb155-9"></a>    }</span>
+<span id="cb155-10"><a href="estimación-de-densidades-con-bayes.html#cb155-10"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb156"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb156-1"><a href="estimación-de-densidades-con-bayes.html#cb156-1"></a>TargetList &lt;-<span class="st"> </span><span class="kw">list</span>(<span class="dt">Nobs =</span> <span class="kw">nrow</span>(Target), <span class="dt">Nsub =</span> <span class="dv">2</span>, <span class="dt">hit =</span> Target<span class="op">$</span>hit, </span>
+<span id="cb156-2"><a href="estimación-de-densidades-con-bayes.html#cb156-2"></a>    <span class="dt">subject =</span> <span class="kw">as.numeric</span>(<span class="kw">as.factor</span>(Target<span class="op">$</span>subject)))</span>
+<span id="cb156-3"><a href="estimación-de-densidades-con-bayes.html#cb156-3"></a>TargetList</span></code></pre></div>
 <pre><code>## $Nobs
 ## [1] 15
 ## 
@@ -1172,8 +1182,8 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## 
 ## $subject
 ##  [1] 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2</code></pre>
-<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb158-1" title="1">bern2_jags &lt;-<span class="st"> </span><span class="kw">jags</span>(<span class="dt">data =</span> TargetList, <span class="dt">model =</span> bern2_model, </a>
-<a class="sourceLine" id="cb158-2" title="2">    <span class="dt">parameters.to.save =</span> <span class="st">&quot;theta&quot;</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb158"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb158-1"><a href="estimación-de-densidades-con-bayes.html#cb158-1"></a>bern2_jags &lt;-<span class="st"> </span><span class="kw">jags</span>(<span class="dt">data =</span> TargetList, <span class="dt">model =</span> bern2_model, </span>
+<span id="cb158-2"><a href="estimación-de-densidades-con-bayes.html#cb158-2"></a>    <span class="dt">parameters.to.save =</span> <span class="st">&quot;theta&quot;</span>)</span></code></pre></div>
 <pre><code>## Compiling model graph
 ##    Resolving undeclared variables
 ##    Allocating nodes
@@ -1183,18 +1193,18 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ##    Total graph size: 35
 ## 
 ## Initializing model</code></pre>
-<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb160-1" title="1">bern2_mcmc &lt;-<span class="st"> </span><span class="kw">as.mcmc</span>(bern2_jags)</a>
-<a class="sourceLine" id="cb160-2" title="2"></a>
-<a class="sourceLine" id="cb160-3" title="3"><span class="kw">mcmc_acf</span>(bern2_mcmc)</a>
-<a class="sourceLine" id="cb160-4" title="4"></a>
-<a class="sourceLine" id="cb160-5" title="5"><span class="kw">mcmc_combo</span>(bern2_mcmc, <span class="dt">combo =</span> <span class="kw">c</span>(<span class="st">&quot;dens&quot;</span>, <span class="st">&quot;dens_overlay&quot;</span>, </a>
-<a class="sourceLine" id="cb160-6" title="6">    <span class="st">&quot;trace&quot;</span>, <span class="st">&quot;scatter&quot;</span>), <span class="dt">pars =</span> <span class="kw">c</span>(<span class="st">&quot;theta[1]&quot;</span>, <span class="st">&quot;theta[2]&quot;</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb160"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb160-1"><a href="estimación-de-densidades-con-bayes.html#cb160-1"></a>bern2_mcmc &lt;-<span class="st"> </span><span class="kw">as.mcmc</span>(bern2_jags)</span>
+<span id="cb160-2"><a href="estimación-de-densidades-con-bayes.html#cb160-2"></a></span>
+<span id="cb160-3"><a href="estimación-de-densidades-con-bayes.html#cb160-3"></a><span class="kw">mcmc_acf</span>(bern2_mcmc)</span>
+<span id="cb160-4"><a href="estimación-de-densidades-con-bayes.html#cb160-4"></a></span>
+<span id="cb160-5"><a href="estimación-de-densidades-con-bayes.html#cb160-5"></a><span class="kw">mcmc_combo</span>(bern2_mcmc, <span class="dt">combo =</span> <span class="kw">c</span>(<span class="st">&quot;dens&quot;</span>, <span class="st">&quot;dens_overlay&quot;</span>, </span>
+<span id="cb160-6"><a href="estimación-de-densidades-con-bayes.html#cb160-6"></a>    <span class="st">&quot;trace&quot;</span>, <span class="st">&quot;scatter&quot;</span>), <span class="dt">pars =</span> <span class="kw">c</span>(<span class="st">&quot;theta[1]&quot;</span>, <span class="st">&quot;theta[2]&quot;</span>))</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-163-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-163-2.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="uso-de-stan" class="section level2">
 <h2><span class="header-section-number">4.7</span> Uso de STAN</h2>
 <p>STAN<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> es otro tipo de lenguaje para definir modelos bayesiano. El lenguaje es un poco más sencillo, pero es particularmente útil para modelos bastante complejos.</p>
-<p>STAN no usa el muestreo de Gibbs, sino en el método de Monte-Carlo Hamiltoniano. En el artículo <span class="citation">(Hoffman and Gelman <a href="#ref-Hoffman2014">2014</a>)</span> se propone el método NUTS para mejorar el muestreo de Gibbs.</p>
+<p>STAN no usa el muestreo de Gibbs, sino en el método de Monte-Carlo Hamiltoniano. En el artículo <span class="citation">(Hoffman and Gelman <a href="#ref-Hoffman2014" role="doc-biblioref">2014</a>)</span> se propone el método NUTS para mejorar el muestreo de Gibbs.</p>
 <p>En este curso no nos referiremos a este procedimiento, pero si veremos un poco de la sintaxis del lenguaje STAN.</p>
 <pre class="stan"><code>data {
   int&lt;lower=0&gt; N;               // number of trials
@@ -1209,10 +1219,10 @@ model {
   theta ~ uniform(0, 1);        // prior
   y ~ bernoulli(theta);         // likelihood
 }</code></pre>
-<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb162-1" title="1"><span class="kw">library</span>(rstan)</a>
-<a class="sourceLine" id="cb162-2" title="2"></a>
-<a class="sourceLine" id="cb162-3" title="3">fit &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">model_code =</span> bern_stan<span class="op">@</span>model_code, <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> bernoulli<span class="op">$</span>y, </a>
-<a class="sourceLine" id="cb162-4" title="4">    <span class="dt">N =</span> <span class="kw">nrow</span>(bernoulli)), <span class="dt">iter =</span> <span class="dv">5000</span>)</a></code></pre></div>
+<div class="sourceCode" id="cb162"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb162-1"><a href="estimación-de-densidades-con-bayes.html#cb162-1"></a><span class="kw">library</span>(rstan)</span>
+<span id="cb162-2"><a href="estimación-de-densidades-con-bayes.html#cb162-2"></a></span>
+<span id="cb162-3"><a href="estimación-de-densidades-con-bayes.html#cb162-3"></a>fit &lt;-<span class="st"> </span><span class="kw">stan</span>(<span class="dt">model_code =</span> bern_stan<span class="op">@</span>model_code, <span class="dt">data =</span> <span class="kw">list</span>(<span class="dt">y =</span> bernoulli<span class="op">$</span>y, </span>
+<span id="cb162-4"><a href="estimación-de-densidades-con-bayes.html#cb162-4"></a>    <span class="dt">N =</span> <span class="kw">nrow</span>(bernoulli)), <span class="dt">iter =</span> <span class="dv">5000</span>)</span></code></pre></div>
 <pre><code>## 
 ## SAMPLING FOR MODEL &#39;4584de91ce47196187979d2da8a67926&#39; NOW (CHAIN 1).
 ## Chain 1: 
@@ -1313,7 +1323,7 @@ model {
 ## Chain 4:                0.01978 seconds (Sampling)
 ## Chain 4:                0.037909 seconds (Total)
 ## Chain 4:</code></pre>
-<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb164-1" title="1"><span class="kw">print</span>(fit, <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb164"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb164-1"><a href="estimación-de-densidades-con-bayes.html#cb164-1"></a><span class="kw">print</span>(fit, <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span></code></pre></div>
 <pre><code>## Inference for Stan model: 4584de91ce47196187979d2da8a67926.
 ## 4 chains, each with iter=5000; warmup=2500; thin=1; 
 ## post-warmup draws per chain=2500, total post-warmup draws=10000.
@@ -1326,14 +1336,14 @@ model {
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
-<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb166-1" title="1">theta_draws &lt;-<span class="st"> </span><span class="kw">extract</span>(fit)<span class="op">$</span>theta</a>
-<a class="sourceLine" id="cb166-2" title="2"></a>
-<a class="sourceLine" id="cb166-3" title="3"><span class="kw">mean</span>(theta_draws)</a></code></pre></div>
+<div class="sourceCode" id="cb166"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb166-1"><a href="estimación-de-densidades-con-bayes.html#cb166-1"></a>theta_draws &lt;-<span class="st"> </span><span class="kw">extract</span>(fit)<span class="op">$</span>theta</span>
+<span id="cb166-2"><a href="estimación-de-densidades-con-bayes.html#cb166-2"></a></span>
+<span id="cb166-3"><a href="estimación-de-densidades-con-bayes.html#cb166-3"></a><span class="kw">mean</span>(theta_draws)</span></code></pre></div>
 <pre><code>## [1] 0.3065303</code></pre>
-<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb168-1" title="1"><span class="kw">quantile</span>(theta_draws, <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</a></code></pre></div>
+<div class="sourceCode" id="cb168"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb168-1"><a href="estimación-de-densidades-con-bayes.html#cb168-1"></a><span class="kw">quantile</span>(theta_draws, <span class="dt">probs =</span> <span class="kw">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span></code></pre></div>
 <pre><code>##       10%       90% 
 ## 0.2253078 0.3906447</code></pre>
-<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><a class="sourceLine" id="cb170-1" title="1">shinystan<span class="op">::</span><span class="kw">launch_shinystan</span>(fit)</a></code></pre></div>
+<div class="sourceCode" id="cb170"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb170-1"><a href="estimación-de-densidades-con-bayes.html#cb170-1"></a>shinystan<span class="op">::</span><span class="kw">launch_shinystan</span>(fit)</span></code></pre></div>
 
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-167" class="exercise"><strong>Ejercicio 4.1  </strong></span>
@@ -1344,12 +1354,12 @@ Replique los resultados anteriores pero para el caso de 2 monedas y comente los 
 <div id="ejercicios-2" class="section level2">
 <h2><span class="header-section-number">4.8</span> Ejercicios</h2>
 <ol style="list-style-type: decimal">
-<li>Del libro <span class="citation">(Albert et al. <a href="#ref-Albert2009">2009</a>)</span>
+<li>Del libro <span class="citation">(Albert et al. <a href="#ref-Albert2009" role="doc-biblioref">2009</a>)</span>
 <ul>
 <li><strong>Sección 3:</strong> 3, 7.</li>
 <li><strong>Sección 6:</strong> 1, 3.</li>
 </ul></li>
-<li>Del libro <span class="citation">(Kruschke <a href="#ref-Kruschke2014">2014</a>)</span>
+<li>Del libro <span class="citation">(Kruschke <a href="#ref-Kruschke2014" role="doc-biblioref">2014</a>)</span>
 <ul>
 <li><strong>Sección 6:</strong> 2.</li>
 <li><strong>Sección 7:</strong> 2.</li>
@@ -1373,8 +1383,8 @@ Replique los resultados anteriores pero para el caso de 2 monedas y comente los 
 <div class="footnotes">
 <hr />
 <ol start="1">
-<li id="fn1"><p><a href="http://web.sgh.waw.pl/~atoroj/ekonometria_bayesowska/jags_user_manual.pdf">http://web.sgh.waw.pl/~atoroj/ekonometria_bayesowska/jags_user_manual.pdf</a><a href="estimación-de-densidades-con-bayes.html#fnref1" class="footnote-back">↩</a></p></li>
-<li id="fn2"><p><a href="https://mc-stan.org/">https://mc-stan.org/</a><a href="estimación-de-densidades-con-bayes.html#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn1"><p><a href="http://web.sgh.waw.pl/~atoroj/ekonometria_bayesowska/jags_user_manual.pdf">http://web.sgh.waw.pl/~atoroj/ekonometria_bayesowska/jags_user_manual.pdf</a><a href="estimación-de-densidades-con-bayes.html#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p><a href="https://mc-stan.org/">https://mc-stan.org/</a><a href="estimación-de-densidades-con-bayes.html#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
             </section>

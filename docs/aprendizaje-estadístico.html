@@ -52,9 +52,9 @@
 
 
 <style type="text/css">
-a.sourceLine { display: inline-block; line-height: 1.25; }
-a.sourceLine { pointer-events: none; color: inherit; text-decoration: inherit; }
-a.sourceLine:empty { height: 1.2em; }
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
 .sourceCode { overflow: visible; }
 code.sourceCode { white-space: pre; position: relative; }
 pre.sourceCode { margin: 0; }
@@ -63,14 +63,16 @@ div.sourceCode { overflow: auto; }
 }
 @media print {
 code.sourceCode { white-space: pre-wrap; }
-a.sourceLine { text-indent: -1em; padding-left: 1em; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
 }
-pre.numberSource a.sourceLine
-  { position: relative; left: -4em; }
-pre.numberSource a.sourceLine::before
-  { content: attr(title);
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
     position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; pointer-events: all; display: inline-block;
+    border: none; display: inline-block;
     -webkit-touch-callout: none; -webkit-user-select: none;
     -khtml-user-select: none; -moz-user-select: none;
     -ms-user-select: none; user-select: none;
@@ -79,9 +81,9 @@ pre.numberSource a.sourceLine::before
   }
 pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
 div.sourceCode
-  {  }
+  {   }
 @media screen {
-a.sourceLine::before { text-decoration: underline; }
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
 code span.al { color: #ff0000; font-weight: bold; } /* Alert */
 code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
@@ -169,11 +171,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html"><i class="fa fa-check"></i><b>3</b> Jacknife y Bootstrap</a><ul>
 <li class="chapter" data-level="3.1" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#caso-concreto"><i class="fa fa-check"></i><b>3.1</b> Caso concreto</a></li>
 <li class="chapter" data-level="3.2" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#jacknife"><i class="fa fa-check"></i><b>3.2</b> Jacknife</a></li>
-<li class="chapter" data-level="3.3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#bootstrap"><i class="fa fa-check"></i><b>3.3</b> Bootstrap</a><ul>
-<li class="chapter" data-level="3.3.1" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#intervalos-de-confianza"><i class="fa fa-check"></i><b>3.3.1</b> Intervalos de confianza</a></li>
-<li class="chapter" data-level="3.3.2" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#intervalo-pivotal-studentizado"><i class="fa fa-check"></i><b>3.3.2</b> Intervalo pivotal studentizado</a></li>
-<li class="chapter" data-level="3.3.3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#resumiendo"><i class="fa fa-check"></i><b>3.3.3</b> Resumiendo</a></li>
-</ul></li>
+<li class="chapter" data-level="3.3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#bootstrap"><i class="fa fa-check"></i><b>3.3</b> Bootstrap</a></li>
 <li class="chapter" data-level="3.4" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#ejercicios-1"><i class="fa fa-check"></i><b>3.4</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html"><i class="fa fa-check"></i><b>4</b> Estimación de densidades con Bayes</a><ul>
@@ -202,10 +200,22 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#introducción-1"><i class="fa fa-check"></i><b>5.1</b> Introducción</a></li>
 <li class="chapter" data-level="5.2" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#regresión-lineal"><i class="fa fa-check"></i><b>5.2</b> Regresión lineal</a><ul>
 <li class="chapter" data-level="5.2.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#forma-matricial"><i class="fa fa-check"></i><b>5.2.1</b> Forma matricial</a></li>
+<li class="chapter" data-level="5.2.2" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#laboratorio-1"><i class="fa fa-check"></i><b>5.2.2</b> Laboratorio</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#propiedades-estadísticas-2"><i class="fa fa-check"></i><b>5.3</b> Propiedades estadísticas</a></li>
-<li class="chapter" data-level="5.4" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-t"><i class="fa fa-check"></i><b>5.4</b> Prueba <span class="math inline">\(t\)</span></a></li>
-<li class="chapter" data-level="5.5" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-f"><i class="fa fa-check"></i><b>5.5</b> Prueba <span class="math inline">\(F\)</span></a></li>
+<li class="chapter" data-level="5.3" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#propiedades-estadísticas-2"><i class="fa fa-check"></i><b>5.3</b> Propiedades estadísticas</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-t"><i class="fa fa-check"></i><b>5.3.1</b> Prueba <span class="math inline">\(t\)</span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#prueba-f"><i class="fa fa-check"></i><b>5.3.2</b> Prueba <span class="math inline">\(F\)</span></a></li>
+<li class="chapter" data-level="5.3.3" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#laboratorio-2"><i class="fa fa-check"></i><b>5.3.3</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#predicción"><i class="fa fa-check"></i><b>5.4</b> Predicción</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#laboratorio-3"><i class="fa fa-check"></i><b>5.4.1</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#interacciones"><i class="fa fa-check"></i><b>5.5</b> Interacciones</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#laboratorio-4"><i class="fa fa-check"></i><b>5.5.1</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#posibles-problemas-en-los-supuestos-para-regresion-lineal"><i class="fa fa-check"></i><b>5.6</b> Posibles problemas en los supuestos para regresion lineal</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="aprendizaje-estadístico.html"><a href="aprendizaje-estadístico.html#no-linealidad-de-los-datos"><i class="fa fa-check"></i><b>5.6.1</b> No linealidad de los datos</a></li>
+</ul></li>
 </ul></li>
 </ul>
 
@@ -340,7 +350,7 @@ Y_{n}
  \tag{5.2}
  \end{align}\]</span></p>
 <div class="figure">
-<img src="manual_figures/ols.png" alt="Tomado de https://www.wikiwand.com/en/Ordinary_least_squares" />
+<img src="manual_figures/ols.png" alt="" />
 <p class="caption">Tomado de <a href="https://www.wikiwand.com/en/Ordinary_least_squares" class="uri">https://www.wikiwand.com/en/Ordinary_least_squares</a></p>
 </div>
 <p>Suponga que <span class="math inline">\(\gamma\)</span> es un vector cualquiera en <span class="math inline">\(\mathbb{R}^{p+1}\)</span> y tenemos a <span class="math inline">\(V = \{\boldsymbol{X}\boldsymbol{\gamma}, \gamma \in \mathbb{R}^{p+1}\}\)</span>.</p>
@@ -388,6 +398,157 @@ Y = \beta_{0} + \beta_{1}X_{1}+\varepsilon.
 </div>
 
 </div>
+<div id="laboratorio-1" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Laboratorio</h3>
+<p>Usemos la base <code>mtcars</code> para los siguientes ejemplos. Toda la información de esta base se encuentra en <code>?mtcars</code>.</p>
+<div class="sourceCode" id="cb171"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb171-1"><a href="aprendizaje-estadístico.html#cb171-1"></a>mtcars &lt;-<span class="st"> </span><span class="kw">within</span>(mtcars, {</span>
+<span id="cb171-2"><a href="aprendizaje-estadístico.html#cb171-2"></a>    vs &lt;-<span class="st"> </span><span class="kw">factor</span>(vs, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;V-Shape&quot;</span>, <span class="st">&quot;Straight-Line&quot;</span>))</span>
+<span id="cb171-3"><a href="aprendizaje-estadístico.html#cb171-3"></a>    am &lt;-<span class="st"> </span><span class="kw">factor</span>(am, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;automatic&quot;</span>, <span class="st">&quot;manual&quot;</span>))</span>
+<span id="cb171-4"><a href="aprendizaje-estadístico.html#cb171-4"></a>    cyl &lt;-<span class="st"> </span><span class="kw">factor</span>(cyl)</span>
+<span id="cb171-5"><a href="aprendizaje-estadístico.html#cb171-5"></a>    gear &lt;-<span class="st"> </span><span class="kw">factor</span>(gear)</span>
+<span id="cb171-6"><a href="aprendizaje-estadístico.html#cb171-6"></a>    carb &lt;-<span class="st"> </span><span class="kw">factor</span>(carb)</span>
+<span id="cb171-7"><a href="aprendizaje-estadístico.html#cb171-7"></a>})</span>
+<span id="cb171-8"><a href="aprendizaje-estadístico.html#cb171-8"></a></span>
+<span id="cb171-9"><a href="aprendizaje-estadístico.html#cb171-9"></a><span class="kw">head</span>(mtcars)</span></code></pre></div>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec            vs        am
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46       V-Shape    manual
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02       V-Shape    manual
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61 Straight-Line    manual
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44 Straight-Line automatic
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02       V-Shape automatic
+## Valiant           18.1   6  225 105 2.76 3.460 20.22 Straight-Line automatic
+##                   gear carb
+## Mazda RX4            4    4
+## Mazda RX4 Wag        4    4
+## Datsun 710           4    1
+## Hornet 4 Drive       3    1
+## Hornet Sportabout    3    2
+## Valiant              3    1</code></pre>
+<div class="sourceCode" id="cb173"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb173-1"><a href="aprendizaje-estadístico.html#cb173-1"></a><span class="kw">summary</span>(mtcars)</span></code></pre></div>
+<pre><code>##       mpg        cyl         disp             hp             drat      
+##  Min.   :10.40   4:11   Min.   : 71.1   Min.   : 52.0   Min.   :2.760  
+##  1st Qu.:15.43   6: 7   1st Qu.:120.8   1st Qu.: 96.5   1st Qu.:3.080  
+##  Median :19.20   8:14   Median :196.3   Median :123.0   Median :3.695  
+##  Mean   :20.09          Mean   :230.7   Mean   :146.7   Mean   :3.597  
+##  3rd Qu.:22.80          3rd Qu.:326.0   3rd Qu.:180.0   3rd Qu.:3.920  
+##  Max.   :33.90          Max.   :472.0   Max.   :335.0   Max.   :4.930  
+##        wt             qsec                   vs             am     gear  
+##  Min.   :1.513   Min.   :14.50   V-Shape      :18   automatic:19   3:15  
+##  1st Qu.:2.581   1st Qu.:16.89   Straight-Line:14   manual   :13   4:12  
+##  Median :3.325   Median :17.71                                     5: 5  
+##  Mean   :3.217   Mean   :17.85                                           
+##  3rd Qu.:3.610   3rd Qu.:18.90                                           
+##  Max.   :5.424   Max.   :22.90                                           
+##  carb  
+##  1: 7  
+##  2:10  
+##  3: 3  
+##  4:10  
+##  6: 1  
+##  8: 1</code></pre>
+<p>Observemos las relaciones generales de las variables de esta base de datos</p>
+<div class="sourceCode" id="cb175"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb175-1"><a href="aprendizaje-estadístico.html#cb175-1"></a><span class="kw">ggplot</span>(mtcars) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(wt, mpg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-172-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>El objetivo es tratar la eficiencia del automovil <code>mpg</code> con respecto a su peso <code>wt</code>.</p>
+<p>Usaremos una regresión lineal para encontrar los coeficientes.</p>
+<p>Primero hay que construir la matriz de diseño</p>
+<div class="sourceCode" id="cb176"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb176-1"><a href="aprendizaje-estadístico.html#cb176-1"></a>X &lt;-<span class="st"> </span>mtcars<span class="op">$</span>wt</span>
+<span id="cb176-2"><a href="aprendizaje-estadístico.html#cb176-2"></a><span class="kw">head</span>(X)</span></code></pre></div>
+<pre><code>## [1] 2.620 2.875 2.320 3.215 3.440 3.460</code></pre>
+<div class="sourceCode" id="cb178"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb178-1"><a href="aprendizaje-estadístico.html#cb178-1"></a>Y &lt;-<span class="st"> </span>mtcars<span class="op">$</span>mpg</span>
+<span id="cb178-2"><a href="aprendizaje-estadístico.html#cb178-2"></a><span class="kw">head</span>(Y)</span></code></pre></div>
+<pre><code>## [1] 21.0 21.0 22.8 21.4 18.7 18.1</code></pre>
+<div class="sourceCode" id="cb180"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb180-1"><a href="aprendizaje-estadístico.html#cb180-1"></a>(beta1 &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>Y)</span></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 5.291624</code></pre>
+<div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="aprendizaje-estadístico.html#cb182-1"></a>dfreg &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> X, <span class="dt">yreg =</span> X <span class="op">%*%</span><span class="st"> </span>beta1) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb182-2"><a href="aprendizaje-estadístico.html#cb182-2"></a><span class="st">    </span><span class="kw">arrange</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="aprendizaje-estadístico.html#cb183-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(x, </span>
+<span id="cb183-2"><a href="aprendizaje-estadístico.html#cb183-2"></a>    y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> dfreg, <span class="kw">aes</span>(x, yreg), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb183-3"><a href="aprendizaje-estadístico.html#cb183-3"></a><span class="st">    </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-174-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb184"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb184-1"><a href="aprendizaje-estadístico.html#cb184-1"></a>X &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, mtcars<span class="op">$</span>wt)</span>
+<span id="cb184-2"><a href="aprendizaje-estadístico.html#cb184-2"></a><span class="kw">head</span>(X)</span></code></pre></div>
+<pre><code>##      [,1]  [,2]
+## [1,]    1 2.620
+## [2,]    1 2.875
+## [3,]    1 2.320
+## [4,]    1 3.215
+## [5,]    1 3.440
+## [6,]    1 3.460</code></pre>
+<div class="sourceCode" id="cb186"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb186-1"><a href="aprendizaje-estadístico.html#cb186-1"></a>Y &lt;-<span class="st"> </span>mtcars<span class="op">$</span>mpg</span>
+<span id="cb186-2"><a href="aprendizaje-estadístico.html#cb186-2"></a><span class="kw">head</span>(Y)</span></code></pre></div>
+<pre><code>## [1] 21.0 21.0 22.8 21.4 18.7 18.1</code></pre>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="aprendizaje-estadístico.html#cb188-1"></a>(beta01 &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>Y)</span></code></pre></div>
+<pre><code>##           [,1]
+## [1,] 37.285126
+## [2,] -5.344472</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="aprendizaje-estadístico.html#cb190-1"></a>dfreg &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> X, <span class="dt">yreg =</span> X <span class="op">%*%</span><span class="st"> </span>beta01) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb190-2"><a href="aprendizaje-estadístico.html#cb190-2"></a><span class="st">    </span><span class="kw">arrange</span>(x<span class="fl">.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb191"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb191-1"><a href="aprendizaje-estadístico.html#cb191-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x0 =</span> X[, <span class="dv">1</span>], <span class="dt">x1 =</span> X[, <span class="dv">2</span>], </span>
+<span id="cb191-2"><a href="aprendizaje-estadístico.html#cb191-2"></a>    <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(x1, y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> dfreg, </span>
+<span id="cb191-3"><a href="aprendizaje-estadístico.html#cb191-3"></a>    <span class="kw">aes</span>(x<span class="fl">.2</span>, yreg), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-176-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>Ojo obviamente esto se puede hacer más fácil con los siguientes comandos</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="aprendizaje-estadístico.html#cb192-1"></a><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span><span class="dv">-1</span> <span class="op">+</span><span class="st"> </span>wt, <span class="dt">data =</span> mtcars)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ -1 + wt, data = mtcars)
+## 
+## Coefficients:
+##    wt  
+## 5.292</code></pre>
+<div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="aprendizaje-estadístico.html#cb194-1"></a><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> mtcars)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Coefficients:
+## (Intercept)           wt  
+##      37.285       -5.344</code></pre>
+<p>Suponga que queremos incluir una variable categorica como <code>cyl</code> (Número de cilindros). Lo que se debe hacer es convertir esta variable a dummy.</p>
+<div class="sourceCode" id="cb196"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb196-1"><a href="aprendizaje-estadístico.html#cb196-1"></a>X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(mpg <span class="op">~</span><span class="st"> </span>cyl, <span class="dt">data =</span> mtcars)</span>
+<span id="cb196-2"><a href="aprendizaje-estadístico.html#cb196-2"></a></span>
+<span id="cb196-3"><a href="aprendizaje-estadístico.html#cb196-3"></a><span class="kw">head</span>(X)</span></code></pre></div>
+<pre><code>##                   (Intercept) cyl6 cyl8
+## Mazda RX4                   1    1    0
+## Mazda RX4 Wag               1    1    0
+## Datsun 710                  1    0    0
+## Hornet 4 Drive              1    1    0
+## Hornet Sportabout           1    0    1
+## Valiant                     1    1    0</code></pre>
+<div class="sourceCode" id="cb198"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb198-1"><a href="aprendizaje-estadístico.html#cb198-1"></a>(betas &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>Y)</span></code></pre></div>
+<pre><code>##                   [,1]
+## (Intercept)  26.663636
+## cyl6         -6.920779
+## cyl8        -11.563636</code></pre>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="aprendizaje-estadístico.html#cb200-1"></a>(cylreg &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>cyl, <span class="dt">data =</span> mtcars))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ cyl, data = mtcars)
+## 
+## Coefficients:
+## (Intercept)         cyl6         cyl8  
+##      26.664       -6.921      -11.564</code></pre>
+<div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="aprendizaje-estadístico.html#cb202-1"></a>(betaslm &lt;-<span class="st"> </span><span class="kw">coefficients</span>(cylreg))</span></code></pre></div>
+<pre><code>## (Intercept)        cyl6        cyl8 
+##   26.663636   -6.920779  -11.563636</code></pre>
+<div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="aprendizaje-estadístico.html#cb204-1"></a><span class="co"># Efecto cyl4: cyl4 = 1, cyl6 = 0, cyl8 = 0</span></span>
+<span id="cb204-2"><a href="aprendizaje-estadístico.html#cb204-2"></a></span>
+<span id="cb204-3"><a href="aprendizaje-estadístico.html#cb204-3"></a>betaslm[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## (Intercept) 
+##    26.66364</code></pre>
+<div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="aprendizaje-estadístico.html#cb206-1"></a><span class="co"># Efecto cyl6: cyl4 = 1, cyl6 = 1, cyl8 = 0</span></span>
+<span id="cb206-2"><a href="aprendizaje-estadístico.html#cb206-2"></a></span>
+<span id="cb206-3"><a href="aprendizaje-estadístico.html#cb206-3"></a>betaslm[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>betaslm[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## (Intercept) 
+##    19.74286</code></pre>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="aprendizaje-estadístico.html#cb208-1"></a><span class="co"># Efecto cyl8: cyl4 = 1, cyl6 = 0, cyl8 = 1</span></span>
+<span id="cb208-2"><a href="aprendizaje-estadístico.html#cb208-2"></a></span>
+<span id="cb208-3"><a href="aprendizaje-estadístico.html#cb208-3"></a>betaslm[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>betaslm[<span class="dv">3</span>]</span></code></pre></div>
+<pre><code>## (Intercept) 
+##        15.1</code></pre>
+</div>
 </div>
 <div id="propiedades-estadísticas-2" class="section level2">
 <h2><span class="header-section-number">5.3</span> Propiedades estadísticas</h2>
@@ -412,7 +573,7 @@ Y = X\beta + \varepsilon \sim \mathcal{N}\left(X\beta,\sigma^{2}I\right)
 \end{align*}\]</span></p>
 
 <div class="exercise">
-<span id="exr:unnamed-chunk-171" class="exercise"><strong>Ejercicio 5.2  </strong></span>Encuentre la varianza para <span class="math inline">\(\beta_{0}\)</span> y <span class="math inline">\(\beta_{1}\)</span> para el caso de la regresión simple.
+<span id="exr:unnamed-chunk-180" class="exercise"><strong>Ejercicio 5.2  </strong></span>Encuentre la varianza para <span class="math inline">\(\beta_{0}\)</span> y <span class="math inline">\(\beta_{1}\)</span> para el caso de la regresión simple.
 </div>
 
 <p>La estimación de <span class="math inline">\(\sigma^{2}\)</span></p>
@@ -436,9 +597,8 @@ Y-\operatorname{Proy}_{V}Y
 \end{equation*}\]</span></p>
 <p>Cumple con la propiedad que <span class="math inline">\(\mathbb{E}\left[\hat{\sigma}^{}\right] = \sigma^{2}\)</span>.</p>
 <p>Y además <span class="math inline">\((n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.\)</span></p>
-</div>
-<div id="prueba-t" class="section level2">
-<h2><span class="header-section-number">5.4</span> Prueba <span class="math inline">\(t\)</span></h2>
+<div id="prueba-t" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> Prueba <span class="math inline">\(t\)</span></h3>
 <p>Dado que los coeficientes <span class="math inline">\(\beta\)</span> son normales, se puede hacer la prueba de hipotesis</p>
 <p><span class="math display">\[\begin{equation*}
  H_{0}: \beta_{j} = 0 \quad \text{ vs } \quad H_{1}:\beta_{j}\neq 0.
@@ -453,8 +613,8 @@ Y-\operatorname{Proy}_{V}Y
  \left\vert z_{j} \right\vert &gt; t_{n-p-1, 1-\frac{\alpha}{2}} 
  \end{equation*}\]</span></p>
 </div>
-<div id="prueba-f" class="section level2">
-<h2><span class="header-section-number">5.5</span> Prueba <span class="math inline">\(F\)</span></h2>
+<div id="prueba-f" class="section level3">
+<h3><span class="header-section-number">5.3.2</span> Prueba <span class="math inline">\(F\)</span></h3>
 <p><span class="math display">\[\begin{equation*}
  H_{0}: \beta_{1} = \cdots =\beta_{p} = 0 \quad 
  \text{  vs   }\quad H_{1}: \text{ al menos un \(\beta\) no es cero}.
@@ -475,6 +635,404 @@ Y-\operatorname{Proy}_{V}Y
 <p><span class="math display">\[\begin{equation*}
  F &gt; F_{p, n-p-1, 1-\alpha}.
  \end{equation*}\]</span></p>
+</div>
+<div id="laboratorio-2" class="section level3">
+<h3><span class="header-section-number">5.3.3</span> Laboratorio</h3>
+<p>Siguiendo con nuestro ejemplo, vamos a explorar un poco más la función <code>lm</code>.</p>
+<div class="sourceCode" id="cb210"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb210-1"><a href="aprendizaje-estadístico.html#cb210-1"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> mtcars)</span>
+<span id="cb210-2"><a href="aprendizaje-estadístico.html#cb210-2"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5432 -2.3647 -0.1252  1.4096  6.8727 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***
+## wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.046 on 30 degrees of freedom
+## Multiple R-squared:  0.7528, Adjusted R-squared:  0.7446 
+## F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
+<div class="sourceCode" id="cb212"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb212-1"><a href="aprendizaje-estadístico.html#cb212-1"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>cyl, <span class="dt">data =</span> mtcars)</span>
+<span id="cb212-2"><a href="aprendizaje-estadístico.html#cb212-2"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + cyl, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5890 -1.2357 -0.5159  1.3845  5.7915 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  33.9908     1.8878  18.006  &lt; 2e-16 ***
+## wt           -3.2056     0.7539  -4.252 0.000213 ***
+## cyl6         -4.2556     1.3861  -3.070 0.004718 ** 
+## cyl8         -6.0709     1.6523  -3.674 0.000999 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.557 on 28 degrees of freedom
+## Multiple R-squared:  0.8374, Adjusted R-squared:   0.82 
+## F-statistic: 48.08 on 3 and 28 DF,  p-value: 3.594e-11</code></pre>
+<div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="aprendizaje-estadístico.html#cb214-1"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</span>
+<span id="cb214-2"><a href="aprendizaje-estadístico.html#cb214-2"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ ., data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.5087 -1.3584 -0.0948  0.7745  4.6251 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)     23.87913   20.06582   1.190   0.2525  
+## cyl6            -2.64870    3.04089  -0.871   0.3975  
+## cyl8            -0.33616    7.15954  -0.047   0.9632  
+## disp             0.03555    0.03190   1.114   0.2827  
+## hp              -0.07051    0.03943  -1.788   0.0939 .
+## drat             1.18283    2.48348   0.476   0.6407  
+## wt              -4.52978    2.53875  -1.784   0.0946 .
+## qsec             0.36784    0.93540   0.393   0.6997  
+## vsStraight-Line  1.93085    2.87126   0.672   0.5115  
+## ammanual         1.21212    3.21355   0.377   0.7113  
+## gear4            1.11435    3.79952   0.293   0.7733  
+## gear5            2.52840    3.73636   0.677   0.5089  
+## carb2           -0.97935    2.31797  -0.423   0.6787  
+## carb3            2.99964    4.29355   0.699   0.4955  
+## carb4            1.09142    4.44962   0.245   0.8096  
+## carb6            4.47757    6.38406   0.701   0.4938  
+## carb8            7.25041    8.36057   0.867   0.3995  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.833 on 15 degrees of freedom
+## Multiple R-squared:  0.8931, Adjusted R-squared:  0.779 
+## F-statistic:  7.83 on 16 and 15 DF,  p-value: 0.000124</code></pre>
+</div>
+</div>
+<div id="predicción" class="section level2">
+<h2><span class="header-section-number">5.4</span> Predicción</h2>
+<p>Hay dos tipos de errores que se deben considerar en regresones lineales:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Error Reducible:</strong> Recuerde que <span class="math inline">\(\hat{Y} = \hat{X}\hat{\beta}\)</span> es el estimador de la función <span class="math inline">\(f(X)=X\beta = \beta_{0} + \beta_{1}X_{1}+\cdots+\beta_{p}X_{p}\)</span>.</li>
+</ol>
+<p>Por lo tanto su error (reducible) es:</p>
+<p><span class="math display">\[\begin{equation*}
+\left(  f(X) - \hat{Y}\right) ^{2}. 
+\end{equation*}\]</span></p>
+<p>Para un conjunto de datos <span class="math inline">\(X_{0}\)</span>, tenemos que</p>
+<p><span class="math display">\[\begin{align*}
+ &amp; \hat{\beta} \sim  \mathcal{N}\left(\beta, \sigma^{2}\left( (X_{0}^{\top}X_{0})^{-1} \right)\right) \\
+ \implies &amp; \hat{Y} = \hat{X_{0}}\hat{\beta} \sim \mathcal{N}\left(\hat{X_{0}}\beta , \sigma^{2}X_{0}^{\top}((X_{0}^{\top}X_{0})^{-1}X_{0}  \right)
+\end{align*}\]</span></p>
+<p>Por lo tanto un <strong>intervalo de confianza</strong> al <span class="math inline">\(1-\alpha\)</span> para <span class="math inline">\(X\beta\)</span> es</p>
+<p><span class="math display">\[\begin{equation*}
+X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{X_{0}^{\top}(X_{0}^{\top}X_{0})^{-1}X_{0}}.
+\end{equation*}\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Error irreducible:</strong> Aún conociendo perfectamente los <span class="math inline">\(\beta\)</span>’s, existe el error desconocido <span class="math inline">\(\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}\right)\)</span> del modelo</li>
+</ol>
+<p><span class="math display">\[\begin{equation*}
+Y = X\beta + \varepsilon.
+\end{equation*}\]</span></p>
+<p>Entonces la varianza total de la predicción sería</p>
+<p><span class="math display">\[\begin{equation*}
+\sigma^{2} +  \sigma^{2}X_{0}^{\top}( (X_{0}^{\top}X_{0})^{-1}X_{0} 
+\end{equation*}\]</span></p>
+<p>Entonces un <strong>intervalo de predicción</strong> al <span class="math inline">\(1-\alpha\)</span> debe tomar en cuenta ese error y por lo tanto</p>
+<p><span class="math display">\[\begin{equation*}
+X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{1+X_{0}^{\top}(X_{0}^{\top}X_{0})^{-1}X_{0}}.
+\end{equation*}\]</span></p>
+<p>Resumiendo</p>
+<ul>
+<li><strong>Intervalo de confianza:</strong> es la incertidumbre que existe alrededor de la línea de regresión.</li>
+<li><strong>Intervalo de predicción:</strong> es la incertidumbre que existe alrededor del proceso general que generararon los datos bajo el supuesto de linealidad.</li>
+</ul>
+<div id="laboratorio-3" class="section level3">
+<h3><span class="header-section-number">5.4.1</span> Laboratorio</h3>
+<div class="sourceCode" id="cb216"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb216-1"><a href="aprendizaje-estadístico.html#cb216-1"></a>lm.r &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> mtcars)</span>
+<span id="cb216-2"><a href="aprendizaje-estadístico.html#cb216-2"></a></span>
+<span id="cb216-3"><a href="aprendizaje-estadístico.html#cb216-3"></a><span class="kw">range</span>(mtcars<span class="op">$</span>wt)</span></code></pre></div>
+<pre><code>## [1] 1.513 5.424</code></pre>
+<div class="sourceCode" id="cb218"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb218-1"><a href="aprendizaje-estadístico.html#cb218-1"></a>(datos_nuevos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">wt =</span> <span class="kw">c</span>(<span class="fl">2.5</span>, <span class="dv">3</span>, <span class="fl">3.5</span>)))</span></code></pre></div>
+<pre><code>##    wt
+## 1 2.5
+## 2 3.0
+## 3 3.5</code></pre>
+<div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="aprendizaje-estadístico.html#cb220-1"></a><span class="kw">predict</span>(<span class="dt">object =</span> lm.r, <span class="dt">newdata =</span> datos_nuevos, <span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span></code></pre></div>
+<pre><code>##        fit      lwr      upr
+## 1 23.92395 22.55284 25.29506
+## 2 21.25171 20.12444 22.37899
+## 3 18.57948 17.43342 19.72553</code></pre>
+<div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="aprendizaje-estadístico.html#cb222-1"></a><span class="kw">predict</span>(<span class="dt">object =</span> lm.r, <span class="dt">newdata =</span> datos_nuevos, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)</span></code></pre></div>
+<pre><code>##        fit      lwr      upr
+## 1 23.92395 17.55411 30.29378
+## 2 21.25171 14.92987 27.57355
+## 3 18.57948 12.25426 24.90469</code></pre>
+<div id="ajuste-de-la-regresión-sin-intervalos-de-confianza" class="section level4">
+<h4><span class="header-section-number">5.4.1.1</span> Ajuste de la regresión sin intervalos de confianza</h4>
+<div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="aprendizaje-estadístico.html#cb224-1"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) </span>
+<span id="cb224-2"><a href="aprendizaje-estadístico.html#cb224-2"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)       <span class="co"># Use circulos de tamaño 2</span></span>
+<span id="cb224-3"><a href="aprendizaje-estadístico.html#cb224-3"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm,   <span class="co"># Agregar la línea de regresión </span></span>
+<span id="cb224-4"><a href="aprendizaje-estadístico.html#cb224-4"></a>              <span class="dt">se =</span> <span class="ot">FALSE</span>,           <span class="co"># NO incluir el intervalo de confianza   </span></span>
+<span id="cb224-5"><a href="aprendizaje-estadístico.html#cb224-5"></a>              <span class="dt">size =</span> <span class="dv">1</span>,</span>
+<span id="cb224-6"><a href="aprendizaje-estadístico.html#cb224-6"></a>              <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)          <span class="co"># Línea de color rojo </span></span>
+<span id="cb224-7"><a href="aprendizaje-estadístico.html#cb224-7"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()                 <span class="co"># Tema de fondo blanco</span></span>
+<span id="cb224-8"><a href="aprendizaje-estadístico.html#cb224-8"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>),  <span class="co"># Aumentar el tamaño </span></span>
+<span id="cb224-9"><a href="aprendizaje-estadístico.html#cb224-9"></a>               <span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>)) <span class="co"># de letra en los ejes</span></span>
+<span id="cb224-10"><a href="aprendizaje-estadístico.html#cb224-10"></a></span>
+<span id="cb224-11"><a href="aprendizaje-estadístico.html#cb224-11"></a><span class="co"># Dibujar el gráfico</span></span>
+<span id="cb224-12"><a href="aprendizaje-estadístico.html#cb224-12"></a>p   </span>
+<span id="cb224-13"><a href="aprendizaje-estadístico.html#cb224-13"></a></span>
+<span id="cb224-14"><a href="aprendizaje-estadístico.html#cb224-14"></a><span class="co"># # Guardar el gráfico en un archivo pdf</span></span>
+<span id="cb224-15"><a href="aprendizaje-estadístico.html#cb224-15"></a><span class="co"># ggsave(filename = &#39;linear_reg_sin_IC.pdf&#39;) # </span></span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-183-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ajuste-de-la-regresión-con-intervalos-de-confianza" class="section level4">
+<h4><span class="header-section-number">5.4.1.2</span> Ajuste de la regresión con intervalos de confianza</h4>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="aprendizaje-estadístico.html#cb225-1"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) </span>
+<span id="cb225-2"><a href="aprendizaje-estadístico.html#cb225-2"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)       <span class="co"># Use circulos de tamaño 2</span></span>
+<span id="cb225-3"><a href="aprendizaje-estadístico.html#cb225-3"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm,   <span class="co"># Agregar la línea de regresión </span></span>
+<span id="cb225-4"><a href="aprendizaje-estadístico.html#cb225-4"></a>              <span class="dt">se =</span> <span class="ot">TRUE</span>,            <span class="co"># Incluir el intervalo de confianza   </span></span>
+<span id="cb225-5"><a href="aprendizaje-estadístico.html#cb225-5"></a>              <span class="dt">size =</span> <span class="dv">1</span>,</span>
+<span id="cb225-6"><a href="aprendizaje-estadístico.html#cb225-6"></a>              <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)          <span class="co"># Línea de color rojo </span></span>
+<span id="cb225-7"><a href="aprendizaje-estadístico.html#cb225-7"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()                 <span class="co"># Tema de fondo blanco</span></span>
+<span id="cb225-8"><a href="aprendizaje-estadístico.html#cb225-8"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>),  <span class="co"># Aumentar el tamaño </span></span>
+<span id="cb225-9"><a href="aprendizaje-estadístico.html#cb225-9"></a>               <span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>)) <span class="co"># de letra en los ejes</span></span>
+<span id="cb225-10"><a href="aprendizaje-estadístico.html#cb225-10"></a></span>
+<span id="cb225-11"><a href="aprendizaje-estadístico.html#cb225-11"></a><span class="co"># Dibujar el gráfico</span></span>
+<span id="cb225-12"><a href="aprendizaje-estadístico.html#cb225-12"></a>p   </span>
+<span id="cb225-13"><a href="aprendizaje-estadístico.html#cb225-13"></a></span>
+<span id="cb225-14"><a href="aprendizaje-estadístico.html#cb225-14"></a><span class="co"># # Guardar el gráfico en un archivo pdf</span></span>
+<span id="cb225-15"><a href="aprendizaje-estadístico.html#cb225-15"></a><span class="co"># ggsave(filename = &#39;linear_reg_con_IC.pdf&#39;) # </span></span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-184-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="ajuste-de-la-regresión-con-intervalos-de-confianza-y-predicción" class="section level4">
+<h4><span class="header-section-number">5.4.1.3</span> Ajuste de la regresión con intervalos de confianza y predicción</h4>
+<div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="aprendizaje-estadístico.html#cb226-1"></a><span class="co"># Agregamos a mtcars el intervalo de predicción</span></span>
+<span id="cb226-2"><a href="aprendizaje-estadístico.html#cb226-2"></a><span class="co"># para cada dato</span></span>
+<span id="cb226-3"><a href="aprendizaje-estadístico.html#cb226-3"></a>mtcars.pred &lt;-<span class="st"> </span><span class="kw">data.frame</span>(mtcars, <span class="kw">predict</span>(lm.r, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>))</span>
+<span id="cb226-4"><a href="aprendizaje-estadístico.html#cb226-4"></a></span>
+<span id="cb226-5"><a href="aprendizaje-estadístico.html#cb226-5"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars.pred, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg))</span>
+<span id="cb226-6"><a href="aprendizaje-estadístico.html#cb226-6"></a><span class="co"># Use circulos de tamaño 2</span></span>
+<span id="cb226-7"><a href="aprendizaje-estadístico.html#cb226-7"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)</span>
+<span id="cb226-8"><a href="aprendizaje-estadístico.html#cb226-8"></a><span class="co"># Agregue una banda de tamaño [lwr, upr] para cada</span></span>
+<span id="cb226-9"><a href="aprendizaje-estadístico.html#cb226-9"></a><span class="co"># punto y llamela &#39;predicción&#39;</span></span>
+<span id="cb226-10"><a href="aprendizaje-estadístico.html#cb226-10"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lwr, <span class="dt">ymax =</span> upr, <span class="dt">fill =</span> <span class="st">&quot;predicción&quot;), </span></span>
+<span id="cb226-11"><a href="aprendizaje-estadístico.html#cb226-11"></a><span class="st">    alpha = 0.3)</span></span>
+<span id="cb226-12"><a href="aprendizaje-estadístico.html#cb226-12"></a><span class="st"># Agregue el intervalo de confianza usual y llame a</span></span>
+<span id="cb226-13"><a href="aprendizaje-estadístico.html#cb226-13"></a><span class="st"># ese intervalo &#39;confianza&#39;</span></span>
+<span id="cb226-14"><a href="aprendizaje-estadístico.html#cb226-14"></a><span class="st">p &lt;- p + geom_smooth(method = lm, aes(fill = &quot;</span>confianza<span class="st">&quot;), </span></span>
+<span id="cb226-15"><a href="aprendizaje-estadístico.html#cb226-15"></a><span class="st">    size = 1, col = &quot;</span>red<span class="st">&quot;)</span></span>
+<span id="cb226-16"><a href="aprendizaje-estadístico.html#cb226-16"></a><span class="st"># Para agregar bien las leyendas</span></span>
+<span id="cb226-17"><a href="aprendizaje-estadístico.html#cb226-17"></a><span class="st">p &lt;- p + scale_fill_manual(&quot;</span>Intervalos<span class="st">&quot;, values = c(&quot;</span>green<span class="st">&quot;, </span></span>
+<span id="cb226-18"><a href="aprendizaje-estadístico.html#cb226-18"></a><span class="st">    &quot;</span>yellow<span class="st">&quot;))</span></span>
+<span id="cb226-19"><a href="aprendizaje-estadístico.html#cb226-19"></a><span class="st">p &lt;- p + theme_bw()</span></span>
+<span id="cb226-20"><a href="aprendizaje-estadístico.html#cb226-20"></a><span class="st">p &lt;- p + theme(axis.text = element_text(size = 20), </span></span>
+<span id="cb226-21"><a href="aprendizaje-estadístico.html#cb226-21"></a><span class="st">    axis.title = element_text(size = 20))</span></span>
+<span id="cb226-22"><a href="aprendizaje-estadístico.html#cb226-22"></a></span>
+<span id="cb226-23"><a href="aprendizaje-estadístico.html#cb226-23"></a><span class="st"># Dibujar el gráfico</span></span>
+<span id="cb226-24"><a href="aprendizaje-estadístico.html#cb226-24"></a><span class="st">p</span></span>
+<span id="cb226-25"><a href="aprendizaje-estadístico.html#cb226-25"></a></span>
+<span id="cb226-26"><a href="aprendizaje-estadístico.html#cb226-26"></a><span class="st"># # Guardar el gráfico en un archivo pdf</span></span>
+<span id="cb226-27"><a href="aprendizaje-estadístico.html#cb226-27"></a><span class="st"># ggsave(filename = &#39;linear_reg_con_IC_IP.pdf&#39;) #</span></span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-185-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>Repitamos el mismo ejercicio anterior pero con un caso más sencillo.</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="aprendizaje-estadístico.html#cb227-1"></a>n &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb227-2"><a href="aprendizaje-estadístico.html#cb227-2"></a></span>
+<span id="cb227-3"><a href="aprendizaje-estadístico.html#cb227-3"></a>X &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb227-4"><a href="aprendizaje-estadístico.html#cb227-4"></a>Y &lt;-<span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="kw">sin</span>(<span class="dv">5</span> <span class="op">*</span><span class="st"> </span>X) <span class="op">+</span><span class="st"> </span>X <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb227-5"><a href="aprendizaje-estadístico.html#cb227-5"></a>toyex.initial &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X, Y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(X)</span>
+<span id="cb227-6"><a href="aprendizaje-estadístico.html#cb227-6"></a></span>
+<span id="cb227-7"><a href="aprendizaje-estadístico.html#cb227-7"></a><span class="kw">plot</span>(toyex.initial)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-186-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb228"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb228-1"><a href="aprendizaje-estadístico.html#cb228-1"></a>lm.toyex.initial &lt;-<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span>X, <span class="dt">data =</span> toyex.initial)</span>
+<span id="cb228-2"><a href="aprendizaje-estadístico.html#cb228-2"></a></span>
+<span id="cb228-3"><a href="aprendizaje-estadístico.html#cb228-3"></a><span class="kw">summary</span>(lm.toyex.initial)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Y ~ X, data = toyex.initial)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2880 -0.8153 -0.0376  0.8524  3.5583 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 10.10758    0.07618  132.68   &lt;2e-16 ***
+## X            0.96756    0.01353   71.54   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.213 on 998 degrees of freedom
+## Multiple R-squared:  0.8368, Adjusted R-squared:  0.8366 
+## F-statistic:  5118 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="aprendizaje-estadístico.html#cb230-1"></a>toyex.pred.initial &lt;-<span class="st"> </span><span class="kw">data.frame</span>(toyex.initial, <span class="kw">predict</span>(lm.toyex.initial, </span>
+<span id="cb230-2"><a href="aprendizaje-estadístico.html#cb230-2"></a>    <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>))</span></code></pre></div>
+<p>Ahora, quisiera generar muchas muestras del mismo experimento</p>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="aprendizaje-estadístico.html#cb231-1"></a>toyex.pred &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb231-2"><a href="aprendizaje-estadístico.html#cb231-2"></a></span>
+<span id="cb231-3"><a href="aprendizaje-estadístico.html#cb231-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {</span>
+<span id="cb231-4"><a href="aprendizaje-estadístico.html#cb231-4"></a>    X &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb231-5"><a href="aprendizaje-estadístico.html#cb231-5"></a>    Y &lt;-<span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="kw">sin</span>(<span class="dv">5</span> <span class="op">*</span><span class="st"> </span>X) <span class="op">+</span><span class="st"> </span>X <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb231-6"><a href="aprendizaje-estadístico.html#cb231-6"></a>    toyexi &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">im =</span> i, X, Y)</span>
+<span id="cb231-7"><a href="aprendizaje-estadístico.html#cb231-7"></a>    toyexi &lt;-<span class="st"> </span>toyexi <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(X)</span>
+<span id="cb231-8"><a href="aprendizaje-estadístico.html#cb231-8"></a>    toyex.pred &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(toyex.pred, <span class="kw">data.frame</span>(toyexi, </span>
+<span id="cb231-9"><a href="aprendizaje-estadístico.html#cb231-9"></a>        <span class="kw">predict</span>(lm.toyex.initial, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)))</span>
+<span id="cb231-10"><a href="aprendizaje-estadístico.html#cb231-10"></a>}</span>
+<span id="cb231-11"><a href="aprendizaje-estadístico.html#cb231-11"></a></span>
+<span id="cb231-12"><a href="aprendizaje-estadístico.html#cb231-12"></a></span>
+<span id="cb231-13"><a href="aprendizaje-estadístico.html#cb231-13"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {</span>
+<span id="cb231-14"><a href="aprendizaje-estadístico.html#cb231-14"></a>    toyex.pred<span class="op">$</span>fit &lt;-<span class="st"> </span><span class="kw">fitted</span>(<span class="kw">lm</span>(<span class="dt">formula =</span> Y <span class="op">~</span><span class="st"> </span>X, <span class="dt">data =</span> toyex.pred[toyex.pred<span class="op">$</span>im <span class="op">==</span><span class="st"> </span></span>
+<span id="cb231-15"><a href="aprendizaje-estadístico.html#cb231-15"></a><span class="st">        </span>i, ]))</span>
+<span id="cb231-16"><a href="aprendizaje-estadístico.html#cb231-16"></a>}</span>
+<span id="cb231-17"><a href="aprendizaje-estadístico.html#cb231-17"></a></span>
+<span id="cb231-18"><a href="aprendizaje-estadístico.html#cb231-18"></a>toyex.pred<span class="op">$</span>im &lt;-<span class="st"> </span><span class="kw">as.factor</span>(toyex.pred<span class="op">$</span>im)</span></code></pre></div>
+<div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="aprendizaje-estadístico.html#cb232-1"></a><span class="kw">library</span>(gganimate)</span>
+<span id="cb232-2"><a href="aprendizaje-estadístico.html#cb232-2"></a></span>
+<span id="cb232-3"><a href="aprendizaje-estadístico.html#cb232-3"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> toyex.pred, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb232-4"><a href="aprendizaje-estadístico.html#cb232-4"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">data =</span> toyex.initial, <span class="dt">method =</span> lm, </span>
+<span id="cb232-5"><a href="aprendizaje-estadístico.html#cb232-5"></a>        <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill =</span> <span class="st">&quot;confianza&quot;</span>), <span class="dt">size =</span> <span class="dv">1</span>, </span>
+<span id="cb232-6"><a href="aprendizaje-estadístico.html#cb232-6"></a>        <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="dt">data =</span> toyex.pred.initial, </span>
+<span id="cb232-7"><a href="aprendizaje-estadístico.html#cb232-7"></a>    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">ymin =</span> lwr, <span class="dt">ymax =</span> upr, <span class="dt">fill =</span> <span class="st">&quot;predicción&quot;, </span></span>
+<span id="cb232-8"><a href="aprendizaje-estadístico.html#cb232-8"></a><span class="st">        ), alpha = 0.3) + labs(title = paste0(&quot;</span>Muestra <span class="co">#: {closest_state}&quot;)) + </span></span>
+<span id="cb232-9"><a href="aprendizaje-estadístico.html#cb232-9"></a>    <span class="kw">scale_fill_manual</span>(<span class="st">&quot;Intervalos&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;green&quot;</span>, </span>
+<span id="cb232-10"><a href="aprendizaje-estadístico.html#cb232-10"></a>        <span class="st">&quot;yellow&quot;</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>), </span>
+<span id="cb232-11"><a href="aprendizaje-estadístico.html#cb232-11"></a>    <span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">transition_states</span>(im)</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="interacciones" class="section level2">
+<h2><span class="header-section-number">5.5</span> Interacciones</h2>
+<p>En el modelo clásico</p>
+<p><span class="math display">\[\begin{equation*}
+Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon
+\end{equation*}\]</span></p>
+<p>Aumentemos en 1 unidad <span class="math inline">\(X_{1}\)</span> y rescribamos el modelo original</p>
+<p><span class="math display">\[\begin{align*}
+Y &amp;=  \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon \\
+Y &amp;=  (\beta_{0} + \beta_{1}) + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon \\
+Y &amp;=  \tilde{\beta_{0}} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon \\
+\end{align*}\]</span></p>
+<p>Es decir, el modelo original sigue siendo el mismo aunque hayamos cambiado el <span class="math inline">\(X_1\)</span>. Este fenómeno ocurre siempre bajo transformaciones lineales de las variables.</p>
+<p>Ahora suponga que tenemos el siguiente modelo y aumentamos en 1 el <span class="math inline">\(X_1\)</span></p>
+<p><span class="math display">\[\begin{align*}
+Y &amp;=  \beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon \\
+\implies Y &amp;=  \beta_{0} + \beta_{1} (X_{1}+1) X_{2} +\varepsilon \\
+\implies Y &amp;=  \beta_{0} + \beta_{1}X_{2} +  \beta_{1} X_{1} X_{2} +\varepsilon \\
+\end{align*}\]</span></p>
+<p>OJO. Terminamos con un modelo diferente con el que empezamos. Esto es indeseable ya que no hay consistencia en la modelación,</p>
+<p>Una forma de arreglar el problema es incluir las interacciones junto con todos sus efectos directos.</p>
+<p><span class="math display">\[\begin{equation*}
+Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\varepsilon \\
+\end{equation*}\]</span></p>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-190" class="exercise"><strong>Ejercicio 5.3  </strong></span>Compruebe que para el caso anterior, si aumenta en una unidad <span class="math inline">\(X_{1}\)</span>, el modelo se mantiene.
+</div>
+
+<div id="laboratorio-4" class="section level3">
+<h3><span class="header-section-number">5.5.1</span> Laboratorio</h3>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="aprendizaje-estadístico.html#cb233-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + disp, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4087 -2.3243 -0.7683  1.7721  6.3484 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 34.96055    2.16454  16.151 4.91e-16 ***
+## wt          -3.35082    1.16413  -2.878  0.00743 ** 
+## disp        -0.01773    0.00919  -1.929  0.06362 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.917 on 29 degrees of freedom
+## Multiple R-squared:  0.7809, Adjusted R-squared:  0.7658 
+## F-statistic: 51.69 on 2 and 29 DF,  p-value: 2.744e-10</code></pre>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="aprendizaje-estadístico.html#cb235-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>wt <span class="op">*</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + disp + wt * disp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.267 -1.677 -0.836  1.351  5.017 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 44.081998   3.123063  14.115 2.96e-14 ***
+## wt          -6.495680   1.313383  -4.946 3.22e-05 ***
+## disp        -0.056358   0.013239  -4.257  0.00021 ***
+## wt:disp      0.011705   0.003255   3.596  0.00123 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.455 on 28 degrees of freedom
+## Multiple R-squared:  0.8501, Adjusted R-squared:  0.8341 
+## F-statistic: 52.95 on 3 and 28 DF,  p-value: 1.158e-11</code></pre>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="aprendizaje-estadístico.html#cb237-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">*</span><span class="st"> </span>disp <span class="op">-</span><span class="st"> </span>wt <span class="op">-</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt * disp - wt - disp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -4.259 -2.603 -1.657  2.165  8.589 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 26.2621926  1.0418029  25.208  &lt; 2e-16 ***
+## wt:disp     -0.0072897  0.0009721  -7.499 2.33e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.614 on 30 degrees of freedom
+## Multiple R-squared:  0.6521, Adjusted R-squared:  0.6405 
+## F-statistic: 56.24 on 1 and 30 DF,  p-value: 2.329e-08</code></pre>
+<!-- Y aumentamos -->
+<!--  aumenta en 1 unidad   y denotamos  -->
+<!-- \begin{equation*} -->
+<!-- Y_{+1} = \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon -->
+<!-- \end{equation*} -->
+<!-- vemos que  -->
+<!-- \begin{align*} -->
+<!-- Y_{+1} -Y &=  \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon \\ -->
+<!-- & -(\beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon) \\ -->
+<!-- &= \beta_{1}. -->
+<!-- \end{align*} -->
+<!-- Entonces \(\beta_{1}\) es la __razon de cambio__ discreta de aumentar 1 unidad en \(X_{1}\) con respecto a \(Y\).  -->
+<!-- En otras palabras,  -->
+<!-- Ahora suponga que tenemos los modelos: -->
+<!-- \begin{align*} -->
+<!-- Y &=  \beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon\\ -->
+<!-- Y_{+1} &=  \beta_{0} + \tilde{\beta_{1}} (X_{1}+1) X_{2}+\varepsilon \\ -->
+<!-- \end{align*} -->
+<!-- y hacemos el mismo cálculo que antes:  -->
+<!-- \begin{align*} -->
+<!-- Y_{+1} -Y &=  \beta_{0} + \tilde{\beta_{1}} (X_{1}+1) X_{2}+\varepsilon \\ -->
+<!-- & -(\beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon) \\ -->
+<!-- &=  \tilde{\beta_{1}} X_{2} -->
+<!-- \end{align*} -->
+<!-- Es decir esa razón de cambio depende  -->
+</div>
+</div>
+<div id="posibles-problemas-en-los-supuestos-para-regresion-lineal" class="section level2">
+<h2><span class="header-section-number">5.6</span> Posibles problemas en los supuestos para regresion lineal</h2>
+<div id="no-linealidad-de-los-datos" class="section level3">
+<h3><span class="header-section-number">5.6.1</span> No linealidad de los datos</h3>
+<p>Este supuesto se puede constatar a partir de un gráfico de residuos ya que en el caso ideal <span class="math inline">\(e_{i} = \hat{Y}_{i}- Y_{i} \perp \hat{Y}_{i}\)</span>. Entonces si este gráfico presenta patrones, se pueden aplicar transformaciones para hacerlos perpendiculares.</p>
 
 <div id="refs" class="references">
 <div>
@@ -494,6 +1052,7 @@ Y-\operatorname{Proy}_{V}Y
 </div>
 <div>
 <p>Wasserman, Larry. 2006. <em>All of Nonparametric Statistics</em>. Springer Texts in Statistics. New York, NY: Springer New York. <a href="https://doi.org/10.1007/0-387-30623-4">https://doi.org/10.1007/0-387-30623-4</a>.</p>
+</div>
 </div>
 </div>
 </div>
