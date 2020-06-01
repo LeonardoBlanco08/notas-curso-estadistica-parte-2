@@ -82,6 +82,8 @@ X_{1} & X_{2} & X_{3}\\
 Existen otras formas de codificar este tipo de variables, pero esa es la más común. 
 
 ```
+
+
 ### Forma matricial
 
 Podemos escribir la regresión de la forma 
@@ -198,6 +200,118 @@ usando los siguiente métodos:
 
 ````
 
+### Laboratorio
+
+Usemos la base `mtcars` para los siguientes ejemplos. Toda la información de esta base se encuentra en `?mtcars`. 
+
+
+```{r}
+mtcars <- within(mtcars, {
+  vs <- factor(vs, labels = c("V-Shape", "Straight-Line"))
+  am <- factor(am, labels = c("automatic", "manual"))
+  cyl  <- factor(cyl)
+  gear <- factor(gear)
+  carb <- factor(carb)
+})
+
+head(mtcars)
+summary(mtcars)
+```
+
+Observemos las relaciones generales de las variables de esta base de datos 
+
+```{r}
+ggplot(mtcars) + 
+  geom_point(aes(wt, mpg)) + 
+  theme_minimal()
+```
+
+El objetivo es tratar la eficiencia del automovil `mpg` con respecto a su peso `wt`. 
+
+
+Usaremos una regresión lineal para encontrar los coeficientes. 
+
+Primero hay que construir la matriz de diseño
+
+```{r}
+X <-  mtcars$wt
+head(X)
+Y <- mtcars$mpg
+head(Y)
+
+(beta1 <-  solve(t(X) %*% X) %*% t(X) %*% Y)
+
+dfreg <- data.frame(x = X, yreg = X %*% beta1) %>% arrange(x)
+```
+```{r}
+ggplot(data = data.frame(x = X, y = Y)) +
+  geom_point(aes(x, y)) +
+  geom_line(data = dfreg, aes(x, yreg), color = "red") +
+  theme_minimal()
+```
+
+
+```{r}
+X <-  cbind(1, mtcars$wt)
+head(X)
+Y <- mtcars$mpg
+head(Y)
+
+(beta01 <-  solve(t(X) %*% X) %*% t(X) %*% Y)
+
+dfreg <- data.frame(x = X, yreg = X %*% beta01) %>% arrange(x.2)
+```
+```{r}
+ggplot(data = data.frame(x0 = X[, 1], x1 = X[, 2], y = Y)) +
+  geom_point(aes(x1, y)) +
+  geom_line(data = dfreg, aes(x.2, yreg), color = "red") +
+  theme_minimal()
+```
+
+Ojo obviamente esto se puede hacer más fácil con los siguientes comandos
+
+```{r}
+
+lm(mpg ~ -1 + wt, data = mtcars)
+
+lm(mpg ~ wt, data = mtcars)
+
+```
+
+Suponga que queremos incluir una variable categorica como `cyl` (Número de cilindros).  Lo que se debe hacer es convertir esta variable a dummy. 
+
+```{r}
+X <- model.matrix(mpg ~ cyl, data = mtcars)
+
+head(X)
+
+(betas <-  solve(t(X) %*% X) %*% t(X) %*% Y)
+
+(cylreg <- lm(mpg ~ cyl, data = mtcars))
+
+(betaslm <- coefficients(cylreg))
+```
+
+```{r}
+# Efecto cyl4: 
+# cyl4 = 1, cyl6 = 0, cyl8 = 0
+
+betaslm[1]
+
+# Efecto cyl6:
+# cyl4 = 1, cyl6 = 1, cyl8 = 0
+
+betaslm[1] + betaslm[2]
+
+
+# Efecto cyl8: 
+# cyl4 = 1, cyl6 = 0, cyl8 = 1
+
+betaslm[1] + betaslm[3]
+```
+
+
+
 ## Propiedades estadísticas 
 
 Uno de los supuestos fundamentales de regresión lineal es que 
@@ -260,7 +374,7 @@ Y-\operatorname{Proy}_{V}Y
  Y además \((n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.\)
  
  
-## Prueba \(t\)
+### Prueba \(t\)
  
  Dado que los coeficientes \(\beta\) son normales, se puede hacer la prueba de hipotesis 
  
@@ -282,7 +396,7 @@ Y-\operatorname{Proy}_{V}Y
  \left\vert z_{j} \right\vert > t_{n-p-1, 1-\frac{\alpha}{2}} 
  \end{equation*}
  
-## Prueba \(F\)
+### Prueba \(F\)
  
  \begin{equation*}
  H_{0}: \beta_{1} = \cdots =\beta_{p} = 0 \quad 
@@ -314,3 +428,356 @@ Y-\operatorname{Proy}_{V}Y
  \begin{equation*}
  F > F_{p, n-p-1, 1-\alpha}.
  \end{equation*}
+ 
+###  Laboratorio
+
+
+Siguiendo con nuestro ejemplo, vamos a explorar un poco más la función `lm`. 
+```{r}
+
+fit <- lm(mpg ~ wt, data = mtcars)
+summary(fit)
+
+fit <- lm(mpg ~ wt + cyl, data = mtcars)
+summary(fit)
+
+
+fit <- lm(mpg ~ . , data = mtcars)
+summary(fit)
+
+```
+
+## Predicción 
+
+Hay dos tipos de errores que se deben considerar en regresones lineales: 
+
+1. **Error Reducible:** Recuerde que \(\hat{Y} = \hat{X}\hat{\beta} \) es el estimador de la función \(f(X)=X\beta = \beta_{0} + \beta_{1}X_{1}+\cdots+\beta_{p}X_{p}\). 
+
+Por lo tanto su error (reducible) es: 
+
+\begin{equation*}
+\left(  f(X) - \hat{Y}\right) ^{2}. 
+\end{equation*}
+
+Para un conjunto de datos \(X_{0}\), tenemos que  
+
+\begin{align*}
+ & \hat{\beta} \sim  \mathcal{N}\left(\beta, \sigma^{2}\left( (X_{0}^{\top}X_{0})^{-1} \right)\right) \\
+ \implies & \hat{Y} = \hat{X_{0}}\hat{\beta} \sim \mathcal{N}\left(\hat{X_{0}}\beta , \sigma^{2}X_{0}^{\top}((X_{0}^{\top}X_{0})^{-1}X_{0}  \right)
+\end{align*}
+
+Por lo tanto un **intervalo de confianza** al \(1-\alpha\) para \(X\beta\) es 
+
+\begin{equation*}
+X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{X_{0}^{\top}(X_{0}^{\top}X_{0})^{-1}X_{0}}.
+\end{equation*}
+
+2. **Error irreducible:** Aún conociendo perfectamente los \(\beta\)'s, existe  el error desconocido \(\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}\right)\) del modelo 
+
+\begin{equation*}
+Y = X\beta + \varepsilon.
+\end{equation*} 
+
+Entonces la varianza total de la predicción sería 
+
+\begin{equation*}
+\sigma^{2} +  \sigma^{2}X_{0}^{\top}( (X_{0}^{\top}X_{0})^{-1}X_{0} 
+\end{equation*}
+
+
+Entonces un **intervalo de predicción** al \(1-\alpha\) debe tomar en cuenta ese error  y por lo tanto 
+
+\begin{equation*}
+X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{1+X_{0}^{\top}(X_{0}^{\top}X_{0})^{-1}X_{0}}.
+\end{equation*}
+
+
+Resumiendo 
+
+- **Intervalo de confianza:** es la incertidumbre que existe alrededor de la línea de regresión.
+- **Intervalo de predicción:** es la incertidumbre que existe alrededor del proceso general que generararon los datos bajo el supuesto de linealidad. 
+
+### Laboratorio 
+
+```{r}
+lm.r <- lm(mpg ~ wt, data = mtcars)
+
+range(mtcars$wt)
+(datos_nuevos <-  data.frame(wt = c(2.5,3,3.5)))
+predict(object =  lm.r,
+        newdata = datos_nuevos,
+        interval = "confidence")
+
+predict(object =  lm.r,
+        newdata = datos_nuevos ,
+        interval = "prediction")
+```
+
+
+
+
+####  Ajuste de la regresión sin intervalos de confianza
+
+```{r}
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) 
+p <- p + geom_point(size = 2)       # Use circulos de tamaño 2
+p <- p + geom_smooth(method = lm,   # Agregar la línea de regresión 
+              se = FALSE,           # NO incluir el intervalo de confianza   
+              size = 1,
+              col = "red")          # Línea de color rojo 
+p <- p + theme_bw()                 # Tema de fondo blanco
+p <- p + theme(axis.text = element_text(size = 20),  # Aumentar el tamaño 
+               axis.title = element_text(size = 20)) # de letra en los ejes
+
+# Dibujar el gráfico
+p   
+
+# # Guardar el gráfico en un archivo pdf
+# ggsave(filename = 'linear_reg_sin_IC.pdf') # 
+```
+
+### Ajuste de la regresión con intervalos de confianza
+
+```{r}
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) 
+p <- p + geom_point(size = 2)       # Use circulos de tamaño 2
+p <- p + geom_smooth(method = lm,   # Agregar la línea de regresión 
+              se = TRUE,            # Incluir el intervalo de confianza   
+              size = 1,
+              col = "red")          # Línea de color rojo 
+p <- p + theme_bw()                 # Tema de fondo blanco
+p <- p + theme(axis.text = element_text(size = 20),  # Aumentar el tamaño 
+               axis.title = element_text(size = 20)) # de letra en los ejes
+
+# Dibujar el gráfico
+p   
+
+# # Guardar el gráfico en un archivo pdf
+# ggsave(filename = 'linear_reg_con_IC.pdf') # 
+```
+
+### Ajuste de la regresión con intervalos de confianza y predicción
+
+```{r}
+# Agregamos a mtcars el intervalo de predicción para cada dato
+mtcars.pred <-
+  data.frame(mtcars, predict(lm.r, interval = "prediction"))
+
+p <- ggplot(mtcars.pred, aes(x = wt, y = mpg))
+# Use circulos de tamaño 2
+p <- p + geom_point(size = 2)
+# Agregue una banda de tamaño [lwr, upr] para cada punto
+# y llamela 'predicción'
+p <- p + geom_ribbon(aes(ymin = lwr,
+                         ymax = upr,
+                         fill = 'predicción'),
+                     alpha = 0.3)
+# Agregue el intervalo de confianza usual
+# y llame a ese intervalo 'confianza'
+p <- p + geom_smooth(
+  method = lm,
+  aes(fill = 'confianza'),
+  size = 1,
+  col = 'red'
+)
+# Para agregar bien las leyendas
+p <- p + scale_fill_manual('Intervalos',
+                           values = c('green', 'yellow'))
+p <- p + theme_bw()
+p <- p + theme(axis.text = element_text(size = 20),
+               axis.title = element_text(size = 20))
+
+# Dibujar el gráfico
+p   
+
+# # Guardar el gráfico en un archivo pdf
+# ggsave(filename = 'linear_reg_con_IC_IP.pdf') # 
+```
+
+
+Repitamos el mismo ejercicio anterior pero con un caso más sencillo. 
+
+```{r}
+n <- 1000
+
+X <- runif(n, 0, 10)
+Y <- 10 + sin(5*X) + X + rnorm(1000, 0, 1)
+toyex.initial <- data.frame(X, Y) %>% arrange(X)
+
+plot(toyex.initial)
+
+```
+
+
+```{r}
+lm.toyex.initial <- lm(Y ~ X, data = toyex.initial)
+
+summary(lm.toyex.initial)
+
+toyex.pred.initial <- data.frame(toyex.initial, predict(lm.toyex.initial, interval = "prediction"))
+```
+
+Ahora, quisiera generar muchas muestras del mismo experimento
+
+```{r}
+toyex.pred <- NULL
+
+for (i in 1:10) {
+  X <- runif(n,0,10)
+  Y <- 10 + sin(5*X) + X + rnorm(1000, 0, 1)
+  toyexi <- data.frame(im = i, X, Y)
+  toyexi <- toyexi %>% arrange(X)
+  toyex.pred <-
+    bind_rows(toyex.pred, data.frame(toyexi, predict(lm.toyex.initial, interval = "prediction")))
+}
+
+
+for(i in 1:10) {
+  toyex.pred$fit <-
+    fitted(lm(formula = Y ~ X,
+              data = toyex.pred[toyex.pred$im == i, ]))
+}
+
+toyex.pred$im <- as.factor(toyex.pred$im)
+```
+
+
+```{r, eval=FALSE}
+library(gganimate)
+
+ggplot(data = toyex.pred,
+       aes(x = X, y = Y)) +
+  geom_point(size = 1) +
+    geom_smooth(
+    data = toyex.initial, 
+    method = lm,
+    mapping = aes(fill = "confianza"),
+    size = 1,
+    col = 'red'
+  ) +
+  geom_ribbon(
+    data = toyex.pred.initial,
+    mapping = aes(
+      x = X,
+      ymin = lwr,
+      ymax = upr,
+      fill = 'predicción',
+    ),
+    alpha = 0.3
+  ) +
+  labs(title = paste0("Muestra #: {closest_state}")) +
+  scale_fill_manual('Intervalos',
+                    values = c('green', 'yellow')) +
+  theme_bw() +
+  theme(axis.text = element_text(size = 20),
+        axis.title = element_text(size = 20)) +
+  transition_states(im)
+
+  
+
+```
+
+## Interacciones 
+
+En el modelo clásico 
+
+\begin{equation*}
+Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon
+\end{equation*}
+
+Aumentemos en 1 unidad \(X_{1}\) y rescribamos el modelo original 
+
+\begin{align*}
+Y &=  \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon \\
+Y &=  (\beta_{0} + \beta_{1}) + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon \\
+Y &=  \tilde{\beta_{0}} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon \\
+\end{align*}
+
+Es decir, el modelo original sigue siendo el mismo aunque hayamos cambiado el \(X_1\). Este fenómeno ocurre siempre bajo transformaciones lineales de las variables. 
+
+
+Ahora suponga que tenemos el siguiente modelo y aumentamos en 1 el \(X_1\)
+
+\begin{align*}
+Y &=  \beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon \\
+\implies Y &=  \beta_{0} + \beta_{1} (X_{1}+1) X_{2} +\varepsilon \\
+\implies Y &=  \beta_{0} + \beta_{1}X_{2} +  \beta_{1} X_{1} X_{2} +\varepsilon \\
+\end{align*}
+
+
+OJO. Terminamos con un modelo diferente con el que empezamos. Esto es indeseable ya que no hay consistencia en la modelación, 
+
+
+Una forma de arreglar el problema es incluir las interacciones junto con todos sus efectos directos. 
+
+
+\begin{equation*}
+Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\varepsilon \\
+\end{equation*}
+
+
+```{exercise}
+Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el modelo se mantiene. 
+````
+
+### Laboratorio
+
+
+```{r}
+summary(lm(mpg ~ wt + disp, data = mtcars))
+
+summary(lm(mpg ~ wt + disp + wt * disp, data = mtcars))
+
+summary(lm(mpg ~ wt * disp - wt - disp, data = mtcars))
+
+```
+
+
+
+<!-- Y aumentamos -->
+
+
+<!--  aumenta en 1 unidad   y denotamos  -->
+
+<!-- \begin{equation*} -->
+<!-- Y_{+1} = \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon -->
+<!-- \end{equation*} -->
+
+<!-- vemos que  -->
+<!-- \begin{align*} -->
+<!-- Y_{+1} -Y &=  \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon \\ -->
+<!-- & -(\beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon) \\ -->
+<!-- &= \beta_{1}. -->
+<!-- \end{align*} -->
+
+<!-- Entonces \(\beta_{1}\) es la __razon de cambio__ discreta de aumentar 1 unidad en \(X_{1}\) con respecto a \(Y\).  -->
+
+
+<!-- En otras palabras,  -->
+
+<!-- Ahora suponga que tenemos los modelos: -->
+
+<!-- \begin{align*} -->
+<!-- Y &=  \beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon\\ -->
+<!-- Y_{+1} &=  \beta_{0} + \tilde{\beta_{1}} (X_{1}+1) X_{2}+\varepsilon \\ -->
+<!-- \end{align*} -->
+
+<!-- y hacemos el mismo cálculo que antes:  -->
+
+<!-- \begin{align*} -->
+<!-- Y_{+1} -Y &=  \beta_{0} + \tilde{\beta_{1}} (X_{1}+1) X_{2}+\varepsilon \\ -->
+<!-- & -(\beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon) \\ -->
+<!-- &=  \tilde{\beta_{1}} X_{2} -->
+<!-- \end{align*} -->
+
+<!-- Es decir esa razón de cambio depende  -->
+
+
+
+## Posibles problemas en los supuestos para regresion lineal
+
+### No linealidad de los datos
+
+Este supuesto se puede constatar a partir de un gráfico de residuos ya que en el caso ideal  \(e_{i} = \hat{Y}_{i}- Y_{i}  \perp \hat{Y}_{i}\). Entonces si este gráfico presenta patrones, se pueden aplicar transformaciones para hacerlos perpendiculares. 
+
+
