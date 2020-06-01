@@ -536,7 +536,7 @@ p
 # ggsave(filename = 'linear_reg_sin_IC.pdf') # 
 ```
 
-### Ajuste de la regresión con intervalos de confianza
+#### Ajuste de la regresión con intervalos de confianza
 
 ```{r}
 p <- ggplot(mtcars, aes(x = wt, y = mpg)) 
@@ -556,7 +556,7 @@ p
 # ggsave(filename = 'linear_reg_con_IC.pdf') # 
 ```
 
-### Ajuste de la regresión con intervalos de confianza y predicción
+#### Ajuste de la regresión con intervalos de confianza y predicción
 
 ```{r}
 # Agregamos a mtcars el intervalo de predicción para cada dato
