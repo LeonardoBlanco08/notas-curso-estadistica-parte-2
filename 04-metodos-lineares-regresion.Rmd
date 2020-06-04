@@ -1,4 +1,9 @@
-# Aprendizaje estadístico 
+---
+output:
+  pdf_document: default
+  html_document: default
+---
+# Métodos lineares de regresión
 
 ## Introducción 
 
@@ -715,6 +720,8 @@ Una forma de arreglar el problema es incluir las interacciones junto con todos s
 Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\varepsilon \\
 \end{equation*}
 
+**Esto se le conoce como principio de jerarquía**. No es importante si los efectos directos son relevante o no dentro del modelo, siempre se deben de incluir para manter la consistencia. 
+
 
 ```{exercise}
 Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el modelo se mantiene. 
@@ -723,15 +730,50 @@ Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el mode
 ### Laboratorio
 
 
+Generamos una base de datos nueva con solamente `wt` centrado
+
 ```{r}
-summary(lm(mpg ~ wt + disp, data = mtcars))
+# La función across y where solo funciona solo para dplyr 1.0
+# Si tienen otra versión, pueden usar mutate_if
 
-summary(lm(mpg ~ wt + disp + wt * disp, data = mtcars))
-
-summary(lm(mpg ~ wt * disp - wt - disp, data = mtcars))
-
+mtcars_centered <- mtcars %>%
+  mutate(across("wt", scale, scale = TRUE, center = TRUE))
 ```
 
+
+Compare lo que ocurre con los coeficientes de la base original y la nueva base. 
+
+```{r}
+summary(lm(mpg ~ wt + disp, data = mtcars))
+summary(lm(mpg ~ wt + disp, data = mtcars_centered))
+```
+
+
+Supongamos que formamos un modelo con solo la interacción y no incluimos los efectos directos. 
+
+```{r}
+summary(lm(mpg ~ wt * disp - wt - disp, data = mtcars))
+summary(lm(mpg ~ wt * disp - wt - disp, data = mtcars_centered))
+```
+
+
+El modelo correcto sería el siguiente:
+
+```{r}
+summary(lm(mpg ~ wt + disp + wt * disp, data = mtcars))
+summary(lm(mpg ~ wt + disp + wt * disp, data = mtcars_centered))
+```
+
+
+:::{.exercise data-latex=""}
+
+Repita los comandos anteriores con la siguiente base de datos y explique los resultados. 
+```{r}
+mtcars_scaled <- mtcars %>%
+  mutate(across(c("wt", "disp"), scale, scale = TRUE, center = TRUE))
+```
+
+:::
 
 
 <!-- Y aumentamos -->
@@ -774,10 +816,406 @@ summary(lm(mpg ~ wt * disp - wt - disp, data = mtcars))
 
 
 
-## Posibles problemas en los supuestos para regresion lineal
+## Hipotesis en regresión lineal 
 
-### No linealidad de los datos
 
-Este supuesto se puede constatar a partir de un gráfico de residuos ya que en el caso ideal  \(e_{i} = \hat{Y}_{i}- Y_{i}  \perp \hat{Y}_{i}\). Entonces si este gráfico presenta patrones, se pueden aplicar transformaciones para hacerlos perpendiculares. 
+Hasta ahora hemos visto el modelo de regresión como un conjunto de partes separadas. Entonces, uniremos todo para 
 
+
+### Hipotésis
+
+Independencia lineal
+: El supuesto es que el modelo es lineal. 
+
+Errores con esperanza nula
+: Esto quiere decir que $\mathbb{E}(\varepsilon_i) = 0$.
+
+Homocedasticidad
+: $\text{Var}(\varepsilon_t) = \mathbb{E}(\varepsilon_t - \mathbb{E} \varepsilon_t)^2 = \mathbb{E} \varepsilon_t^2 = \sigma^2$ para todo $t$. Es decir, la varianza del modelo no depende de las variables independientes u otro factor. En otras palabras, el **error irreducible** es completamente ajeno a las variables independientes del modelo.
+
+Normalidad de los residuos
+: $\varepsilon \sim N(0, \sigma^2 )$.
+
+Independencia de los erroes
+: $\text{Cov}(\varepsilon_t,\varepsilon_s ) = \mathbb{E} (\varepsilon_t - \mathbb{E} \varepsilon_t) (\varepsilon_s - \mathbb{E} \varepsilon_s) = \mathbb{E} \varepsilon_t \varepsilon_s = 0$ para todo $t,s$ con $t\neq s$. Esto es una extensión del supuesto anterior y quiere decir, que además de los errores no depende de las variables, tampoco pueden depender entre si. Es decir, si para una observación dada existe un error, este no debe depender del error de otra observación.
+
+Esto puede provocar que los errores usados para  intervalos de confianza y predicción sean subestimados. Es decir que un intervalo del 95\% tendrá menos confianza y se rechazaría más fácilmente la hipotesis nula de las pruebas $t$ y $F$.
+
+Multicolineaidad 
+: Se asume que cada una de las variables es independiente de las otras. Es decir que cada variable explica "un aspecto o característica" del modelo. Sin embargo puede pasar que varias variables expliquen la misma característica y el modelo tenga que volverse __inestable__ por decidir entre las dos variables. Por ejemplo: la temperatura en grados centigrados y fareheint. 
+
+
+Más observaciones que predictores
+: En este caso siempre podremos construir correctamente la regresión y sus indices. (Volveremos a esto cuando veamos selección de modelos)
+
+
+### Chequeos básicos de las hipótesis de regresión lineal 
+
+#### Independencia lineal, Errores con esperanza nula, Homocedasticidad
+
+Estos supuestos se puede constantar a partir de un gráfico  de residuos ya que en el caso ideal  \(e_{i} = \hat{Y}_{i}- Y_{i}  \perp \hat{Y}_{i}\). Entonces si este gráfico presenta patrones, quiere indicar que la regresión, no es lineal, que los errores no tienen esperanza nula y que la varianza no es constante. 
+
+Se pueden aplicar transformaciones para resolver estos problemas. Normalmente se usan transformaciones como raiz cuadrada o logaritmos. 
+
+
+:::{.example data-latex=""}
+
+
+**Caso ideal**
+```{r}
+x <- rnorm(1000)
+y <- x + rnorm(1000, sd = 0.5)
+
+fit <- lm(y ~ x)
+plot(x, y)
+abline(a = coef(fit)[1],
+       b = coef(fit)[2],
+       col = "red")
+```
+
+
+```{r grafico-residuos-lineal, fig.cap='Gráfico de residuos caso lineal'}
+plot(fitted(fit), residuals(fit))
+abline(h = 0, col = "red")
+```
+
+
+
+**Caso no-lineal**
+```{r}
+x <- exp(rnorm(1000))
+y <- log(x) + rnorm(1000, sd = 0.5)
+
+fit <- lm(y ~ x)
+plot(x, y)
+abline(a = coef(fit)[1],
+       b = coef(fit)[2],
+       col = "red")
+```
+
+
+```{r grafico-residuos-no-lineal, fig.cap='Gráfico de residuos caso no-lineal'}
+plot(fitted(fit), residuals(fit))
+abline(h = 0, col = "red")
+```
+
+
+**Caso no-lineal transformado**
+
+```{r}
+xt <- log(x)
+
+
+fit <- lm(y ~ xt)
+plot(xt, y)
+abline(a = coef(fit)[1],
+       b = coef(fit)[2],
+       col = "red")
+
+plot(fitted(fit), residuals(fit));abline(h=0, col="red")
+
+```
+:::
+
+
+#### Independencia de los erroes
+
+En este caso defina $\rho(k) = \text{Cov}(\varepsilon_i,\varepsilon_{i+k} )$. Si los residuos son independientes, entonces debe ocurrir que 
+
+\begin{equation*}
+\rho(k) = \begin{cases}
+1 & k=0\\
+0 & k\neq 0.
+\end{cases}  
+\end{equation*}
+
+Se calcula la función de autocorrelación y se gráfica para analizar su comportamiento 
+
+**Caso ideal**
+```{r}
+x <- rnorm(1000)
+y <- 1 + x + rnorm(1000, sd = 1)
+```
+
+
+```{r}
+fit <- lm(y ~ x)
+plot(xt, y)
+abline(a = coef(fit)[1],
+       b = coef(fit)[2],
+       col = "red")
+```
+
+
+```{r}
+summary(fit)
+acf(residuals(fit))
+```
+
+**Caso errores auto-correlacionados**
+
+```{r}
+x <- rnorm(1000)
+y <- 1 + x + diffinv(rnorm(999, sd = 1), lag = 1)
+```
+
+
+```{r}
+fit <- lm(y ~ x)
+plot(xt, y)
+abline(a = coef(fit)[1],
+       b = coef(fit)[2],
+       col = "red")
+```
+
+
+```{r}
+summary(fit)
+acf(residuals(fit))
+```
+
+
+#### Normalidad de los errores 
+
+Este hipótesis es crucial para hacer las pruebas $t$ y $F$ que vimos anteriormente. 
+
+Para revisar si se cumple solo basta hacer una `qqplot` de los residuos. 
+
+
+**Caso ideal**
+```{r}
+x <- rnorm(1000)
+y <- 1 + x + rnorm(1000, sd = 1)
+fit <- lm(y ~ x)
+```
+
+
+```{r}
+qqnorm(residuals(fit), asp = 1)
+qqline(residuals(fit), col = "red")
+```
+
+**Caso errores auto-correlacionados**
+
+```{r}
+x <- rnorm(1000)
+y <- 1 + x + diffinv(rnorm(999, sd = 1), lag = 1)
+fit <- lm(y ~ x)
+```
+
+
+```{r}
+qqnorm(residuals(fit), asp = 1)
+qqline(residuals(fit), col = "red")
+```
+
+**Caso no-lineal**
+
+```{r}
+x <- rnorm(1000)
+y <- x^2 + rnorm(1000, sd = 0.5)
+fit <- lm(y ~ x)
+```
+
+
+```{r}
+qqnorm(residuals(fit), asp = 1)
+qqline(residuals(fit), col = "red")
+
+```
+
+### Otros chequeos importantes 
+
+#### Puntos extremos 
+
+Estos puntos son aquellos que $Y_i$ esta lejos de $\hat{Y}_i$. Otra forma de verlo son aquellos puntos que tienen residuos muy altos. 
+
+
+Se puede hacer un gráfico de los residuos vs los valores ajustados como en \@ref(fig:grafico-residuos-lineal) y \@ref(fig:grafico-residuos-no-lineal). 
+
+
+¿Qué tan grande deben ser los residuos?
+
+**Solución:** Se debe escalar los residuos adecuadamente. 
+
+Se construyen los residuos semi-studendizados 
+
+\begin{equation*}
+r_{i}^{s} = \frac{e_{i}}{\sqrt{\mathrm{Var}\left(e_{i}\right)}} 
+\end{equation*}
+
+
+Como \(H=X(X^{\top}X)^{-1}X^{\top}\) es la matriz de proyección entonces sabemos que 
+
+\begin{align*}
+\hat{Y}&=  H Y \\
+e &= Y - \hat{Y}  
+\end{align*}
+
+Entonces tenemos que 
+
+\begin{align*}
+\mathrm{Var}\left(e\right) 
+&=  \mathrm{Var}\left((I-H)Y\right)\\
+&= (I-H)^{2}\mathrm{Var}\left(Y\right)\\
+&= (I-H) \sigma^{2} \text{ (\(I-H\) es idempotente)}
+\end{align*} 
+
+
+Por lo tanto 
+
+\begin{equation*}
+\mathrm{Var}\left(e_{i}\right) = (1-h_{ii}) \sigma^{2}
+\end{equation*}
+
+Para cada observación se calcula los residuos de la forma 
+
+\begin{equation*}
+r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
+\end{equation*}
+
+**Caso sin valores extremos**
+```{r}
+x <- rnorm(1000)
+y <- 1 + x + rnorm(1000, sd = 0.5)
+fit <- lm(y~x)
+
+X <- model.matrix(y~x)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+I <-  diag(1, nrow = 1000)
+I_H <- I - H
+r_sdnt <-  residuals(fit)/sqrt(diag(I_H)*var(y))
+plot(fitted(fit), r_sdnt)
+
+fit
+```
+
+**Caso con valores extremos*
+
+```{r}
+x <- rnorm(1000)
+y <- 1 + x + rnorm(1000, sd = 0.5)
+y[1:5] <- runif(5, 30, 40)
+fit <- lm(y~x)
+
+X <- model.matrix(y~x)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+I <-  diag(1, nrow = 1000)
+I_H <- I - H
+r_sdnt <-  residuals(fit)/sqrt(diag(I_H)*var(y))
+plot(fitted(fit), r_sdnt)
+
+fit
+```
+
+#### Puntos de apalancamiento (leverage)
+
+
+Un outlier puede ser detectado pero aún así este puede no afectar el modelo como un todo. 
+
+El $r_{i}^s$ puede ser alto por 2 razones: 
+
+1. los residuos $e_i$ son altos (un outlier)
+2. el valor $h_{ii}$ es cercano a 1. (Se tiene que $0\leq h_{ii}\leq 1$). 
+
+Los valores donde $h_{ii}\approx 1$ se les denomina de **gran apalancamiento**. 
+
+La regla empirica dice que 
+
+\begin{equation*}
+\sum_{i=1}^{n} h_{ii} = p +1 \text{  (Los predictores más el intercepto)   }
+\end{equation*}
+
+**Regla empírica:** Si \(h_{ii}>\frac{p+1}{n}\) entonces decimos que el punto de **gran apalancamiento**.
+
+
+**Caso base**
+```{r}
+set.seed(42)
+apa_df  = data.frame(x = 1:10,
+                     y = 10:1 + rnorm(n = 10))
+modelo <-  lm(y ~ x, data = apa_df)
+coef(modelo)
+
+
+
+X <- model.matrix(y ~ x, data = apa_df)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+
+plot(apa_df)
+plot(modelo, 3)
+plot(diag(H),
+     col = c(rep("black", 10), "red"),
+     cex = 2,
+     pch = 16)
+```
+
+**Bajo apalancamiento, residuos grandes, influencia pequeña**
+
+```{r}
+p_1 <-  c(5.4, 11)
+apa_df_1  <-  rbind(apa_df, p_1)
+modelo_1 <-  lm(y ~ x, data = apa_df_1)
+coef(modelo_1)
+
+X <- model.matrix(y ~ x, data = apa_df_1)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+
+plot(apa_df_1,
+     col = c(rep("black", 10), "red"),
+     cex = 2,
+     pch = 16)
+plot(modelo_1, 3)
+plot(diag(H),
+     col = c(rep("black", 10), "red"),
+     cex = 2,
+     pch = 16)
+
+```
+
+
+**Alto apalancamiento, residuo pequeño, influencia pequeña** 
+```{r}
+p_2 <-  c(18, -5.7)
+apa_df_2  <-  rbind(apa_df, p_2)
+modelo_2 <-  lm(y ~ x, data = apa_df_2)
+coef(modelo_2)
+
+X <- model.matrix(y ~ x, data = apa_df_2)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+
+plot(apa_df_2,
+     col = c(rep("black", 10), "red"),
+     cex = 2,
+     pch = 16)
+plot(modelo_2, 3)
+plot(diag(H),
+     col = c(rep("black", 10), "red"),
+     cex = 2,
+     pch = 16)
+
+```
+
+
+**Alto apalancamiento, residuo altos, influencia grande** 
+```{r}
+p_3 <- c(14, 5.1)
+apa_df_3  <-  rbind(apa_df, p_3)
+modelo_3 <-  lm(y ~ x, data = apa_df_3)
+coef(modelo_3)
+
+X <- model.matrix(y ~ x, data = apa_df_3)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+
+plot(apa_df_3,
+     col = c(rep("black", 10), "red"),
+     cex = 2,
+     pch = 16)
+plot(modelo_3, 3)
+plot(diag(H),
+     col = c(rep("black", 10), "red"),
+     cex = 2,
+     pch = 16)
+
+```
 
