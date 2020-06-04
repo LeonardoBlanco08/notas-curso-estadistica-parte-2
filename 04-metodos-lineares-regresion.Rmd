@@ -452,6 +452,107 @@ summary(fit)
 
 ```
 
+## Medida de bondad de ajuste
+
+La prueba $F$ nos dice si un modelo es nulo o no, pero no nos dice si tengo dos modelos cuál es mejor que otro. 
+
+Hay varias medidas para comparar modelos (la veremos con más detalle en otro capítulo):
+
+- Error estándar residual (\(\sigma\))
+- $R^{2}$ y $R^{2}$ ajustado
+- \(C_{p}\) de Mallows
+- Akaike Information Criterion (AIC)
+- Bayesian Information Criterion (BIC)
+
+Los índices \(C_{p}\) de Mallows, AIC y BIC los veremos después. 
+
+Error estándar residual
+: Se define como 
+
+\begin{align*}
+\mathrm{RSE} 
+&=  \sqrt{\hat{\sigma^{2}}}\\
+&= \sqrt{\frac{1}{n-p-1} \sum_{i=1}^{n} \left( Y_{i} - \hat{Y}_{i}\right)^{2}} \\
+&= \sqrt{\frac{\mathrm{RSS}}{n-p-1}}
+\end{align*}
+
+Entre más pequeño mejor, pero **depende de las unidades de \(Y\)**.
+
+Estadístico \(R^{2}\) 
+: 
+\begin{equation*}
+R^{2} = \frac{\mathrm{TSS}-\mathrm{RSS}}{\mathrm{TSS}} = 1-\frac{\mathrm{RSS}}{\mathrm{TSS}}
+\end{equation*}
+
+- **RSS:** Varianza sin explicar por el modelo __completo__.
+- **TSS:** Varianza sin explicar por el modelo __nulo__.
+
+Estadístico \(R^{2}\) ajustado
+: 
+\begin{equation*}
+R^{2}_{adj} = 1-\frac{\frac{\mathrm{RSS}}{n-p-1}}{\frac{\mathrm{TSS}}{n-1}}
+\end{equation*}
+
+
+### Laboratorio
+
+```{r}
+# Número de datos
+n <- 1000
+# Número de variables
+p <- 2
+
+x1 <- rnorm(1000)
+x2 <- runif(1000)
+y <- 1 + x1 + x2 + rnorm(1000, sd = 0.5)
+
+fit <- lm(y ~ x1 + x2)
+
+```
+
+
+#### $R^2$
+```{r}
+(TSS <- sum((y - mean(y)) ^ 2))
+(RSS <- sum((y - fitted(fit)) ^ 2))
+
+1 - RSS / TSS
+
+```
+
+Otra forma de entender el $R^2$ es notando que 
+
+```{r}
+cor(y, fitted(fit))^2
+```
+
+
+
+#### $R^2$ ajustado
+```{r}
+
+(TSS_adj <- TSS / (n - 1))
+(RSS_adj <- RSS / (n - p - 1))
+
+
+1 - RSS_adj / TSS_adj
+```
+
+
+#### `summary`
+```{r}
+summary(fit)
+```
+
+
+```{r}
+```
+
+
+```{r}
+```
+
+ 
 ## Predicción 
 
 Hay dos tipos de errores que se deben considerar en regresones lineales: 
@@ -816,6 +917,9 @@ mtcars_scaled <- mtcars %>%
 
 
 
+
+
+
 ## Hipotesis en regresión lineal 
 
 
@@ -843,6 +947,13 @@ Esto puede provocar que los errores usados para  intervalos de confianza y predi
 
 Multicolineaidad 
 : Se asume que cada una de las variables es independiente de las otras. Es decir que cada variable explica "un aspecto o característica" del modelo. Sin embargo puede pasar que varias variables expliquen la misma característica y el modelo tenga que volverse __inestable__ por decidir entre las dos variables. Por ejemplo: la temperatura en grados centigrados y fareheint. 
+
+En este caso habría dos columnas linealmente dependientes y por lo tanto  \((X^{\top}X)^{-1}\)  se acercaría a una matriz singular con determinante cercano a 0. 
+
+Esto generaría que \(\mathrm{Var}\left(\beta\right)\) sea alto ya que 
+\begin{equation*}
+\beta =  (X^{\top}X)^{-1} X^{\top}Y.
+\end{equation*}
 
 
 Más observaciones que predictores
@@ -940,7 +1051,7 @@ y <- 1 + x + rnorm(1000, sd = 1)
 
 ```{r}
 fit <- lm(y ~ x)
-plot(xt, y)
+plot(x, y)
 abline(a = coef(fit)[1],
        b = coef(fit)[2],
        col = "red")
@@ -962,7 +1073,7 @@ y <- 1 + x + diffinv(rnorm(999, sd = 1), lag = 1)
 
 ```{r}
 fit <- lm(y ~ x)
-plot(xt, y)
+plot(x, y)
 abline(a = coef(fit)[1],
        b = coef(fit)[2],
        col = "red")
@@ -1005,7 +1116,7 @@ fit <- lm(y ~ x)
 
 
 ```{r}
-qqnorm(residuals(fit), asp = 1)
+qqnorm(residuals(fit), asp = 0)
 qqline(residuals(fit), col = "red")
 ```
 
@@ -1023,6 +1134,73 @@ qqnorm(residuals(fit), asp = 1)
 qqline(residuals(fit), col = "red")
 
 ```
+
+#### Multicolinealidad
+
+
+Hay dos formas de detectar multicolinealidad 
+
+1. Analizar la matriz de correlaciones de las variables (solamente detecta colinealidad entre pares). 
+
+2. Analizar la correlación multiple entre un predictor y el resto.
+
+
+Defina \(R^{2}_{X_{j}\vert X_{-j}}\) como el \(R^{2}\) de la regresión multiple entre \(X_{j}\) vs el resto de covariables. 
+
+Si \(R^{2}_{X_{j}\vert X_{-j}}\) es cercano a 1 entonces hay alta correlación entre \(X_j\) y el resto. 
+
+Defina el factor de inflación de la varianza como:
+
+\begin{equation*}
+ \mathrm{VIF}(\hat{\beta}_{j}) = \frac{1}{1-R^{2}_{X_{j}\vert X_{-j}}}
+\end{equation*}
+
+
+Si \(\mathrm{VIF}\) es alto 
+
+- Quitar las variables 
+- Combinar variables
+
+
+
+
+Hay muchos paquetes que tienen implementado la función `vif` (car, rms, entre otros).
+
+
+**Caso variables colineales**
+
+
+La variable `wt` está en unidades de 1000lb. La convertimos a Kilogramos. 
+
+```{r}
+mtcars_kg <- mtcars %>%
+  mutate(wt_kg = wt * 1000 * 0.4535 + rnorm(32))
+
+
+fit_kg <- lm(mpg ~ disp + wt + wt_kg, data = mtcars_kg)
+summary(fit_kg)
+```
+
+```{r}
+library(car)
+options(scipen = 1000)
+
+VIFs <- vif(fit_kg)
+
+VIFs <- as.data.frame(VIFs) %>% 
+  rownames_to_column(var = "vars")
+
+ggplot(VIFs, aes(x=vars, y=VIFs, group=1)) + 
+  geom_point()+
+  geom_line()+
+  theme_minimal(base_size = 16)
+
+
+```
+
+
+
+
 
 ### Otros chequeos importantes 
 
@@ -1129,6 +1307,15 @@ La regla empirica dice que
 **Regla empírica:** Si \(h_{ii}>\frac{p+1}{n}\) entonces decimos que el punto de **gran apalancamiento**.
 
 
+##### Distancia de Cook. 
+La distancia de Cook mide la influencia de las observaciones con respecto al ajuste del modelo lineal con $p$ variables. Esta se define como: 
+
+\[
+\displaystyle D_i = \frac{\sum\limits_{j=1}^n (\hat{Y}_j - \hat{Y}_{j(-i)})^2}{(p+1) \sigma^2}
+\]
+
+donde $\hat{Y}_{j(-i)}$ significa el ajuste del modelo lineal, removiendo la observación $i$-ésima. 
+
 **Caso base**
 ```{r}
 set.seed(42)
@@ -1137,17 +1324,28 @@ apa_df  = data.frame(x = 1:10,
 modelo <-  lm(y ~ x, data = apa_df)
 coef(modelo)
 
-
-
-X <- model.matrix(y ~ x, data = apa_df)
-H <- X %*% solve(t(X) %*% X) %*% t(X)
-
-plot(apa_df)
-plot(modelo, 3)
-plot(diag(H),
+plot(modelo,
+     5,
      col = c(rep("black", 10), "red"),
      cex = 2,
      pch = 16)
+
+plot(
+  hatvalues(modelo),
+  col = c(rep("black", 10), "red"),
+  cex = 2,
+  pch = 16
+)
+abline(h = 2 / 10, col = "blue")
+
+plot(apa_df,
+     col = c(rep("black", 10), "red"),
+     cex = 2,
+     pch = 16)
+abline(a = coef(modelo)[1],
+       b = coef(modelo)[2],
+       col = "blue")
+
 ```
 
 **Bajo apalancamiento, residuos grandes, influencia pequeña**
@@ -1158,19 +1356,31 @@ apa_df_1  <-  rbind(apa_df, p_1)
 modelo_1 <-  lm(y ~ x, data = apa_df_1)
 coef(modelo_1)
 
-X <- model.matrix(y ~ x, data = apa_df_1)
-H <- X %*% solve(t(X) %*% X) %*% t(X)
+
+plot(modelo_1,
+     5,
+     col = c(rep("black", 10), "red"),
+     cex = 2,
+     pch = 16)
+
+plot(
+  hatvalues(modelo_1),
+  col = c(rep("black", 10), "red"),
+  cex = 2,
+  pch = 16
+)
+abline(h = 2 / 11, col = "blue")
 
 plot(apa_df_1,
      col = c(rep("black", 10), "red"),
      cex = 2,
      pch = 16)
-plot(modelo_1, 3)
-plot(diag(H),
-     col = c(rep("black", 10), "red"),
-     cex = 2,
-     pch = 16)
-
+abline(a = coef(modelo)[1],
+       b = coef(modelo)[2],
+       col = "blue")
+abline(a = coef(modelo_1)[1],
+       b = coef(modelo_1)[2],
+       col = "red")
 ```
 
 
@@ -1181,18 +1391,30 @@ apa_df_2  <-  rbind(apa_df, p_2)
 modelo_2 <-  lm(y ~ x, data = apa_df_2)
 coef(modelo_2)
 
-X <- model.matrix(y ~ x, data = apa_df_2)
-H <- X %*% solve(t(X) %*% X) %*% t(X)
+
+
+plot(modelo_2,
+     5,
+     col = c(rep("black", 10), "red"),
+     cex = 2,
+     pch = 16)
+
+plot(hatvalues(modelo_2),
+     col = c(rep("black", 10), "red"),
+     cex = 2,
+     pch = 16)
+abline(h = 2 / 11, col = "blue")
 
 plot(apa_df_2,
      col = c(rep("black", 10), "red"),
      cex = 2,
      pch = 16)
-plot(modelo_2, 3)
-plot(diag(H),
-     col = c(rep("black", 10), "red"),
-     cex = 2,
-     pch = 16)
+abline(a = coef(modelo)[1],
+       b = coef(modelo)[2],
+       col = "blue")
+abline(a = coef(modelo_2)[1],
+       b = coef(modelo_2)[2],
+       col = "red")
 
 ```
 
@@ -1204,18 +1426,28 @@ apa_df_3  <-  rbind(apa_df, p_3)
 modelo_3 <-  lm(y ~ x, data = apa_df_3)
 coef(modelo_3)
 
-X <- model.matrix(y ~ x, data = apa_df_3)
-H <- X %*% solve(t(X) %*% X) %*% t(X)
+
+plot(modelo_3,
+     5,
+     col = c(rep("black", 10), "red"),
+     cex = 2,
+     pch = 16)
+
+plot(hatvalues(modelo_3),
+     col = c(rep("black", 10), "red"),
+     cex = 2,
+     pch = 16)
+abline(h = 2 / 11, col = "blue")
 
 plot(apa_df_3,
      col = c(rep("black", 10), "red"),
      cex = 2,
      pch = 16)
-plot(modelo_3, 3)
-plot(diag(H),
-     col = c(rep("black", 10), "red"),
-     cex = 2,
-     pch = 16)
+abline(a = coef(modelo)[1],
+       b = coef(modelo)[2],
+       col = "blue")
+abline(a = coef(modelo_3)[1],
+       b = coef(modelo_3)[2],
+       col = "red")
 
 ```
-
