@@ -185,7 +185,7 @@
 
 \title{Notas Curso de Estadística}
 \author{Maikol Solís}
-\date{Actualizado el 03 junio, 2020}
+\date{Actualizado el 04 junio, 2020}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -4920,6 +4920,195 @@ Siguiendo con nuestro ejemplo, vamos a explorar un poco más la función \texttt
 ## F-statistic:  7.83 on 16 and 15 DF,  p-value: 0.000124
 \end{verbatim}
 
+\hypertarget{medida-de-bondad-de-ajuste}{%
+\section{Medida de bondad de ajuste}\label{medida-de-bondad-de-ajuste}}
+
+La prueba \(F\) nos dice si un modelo es nulo o no, pero no nos dice si tengo dos modelos cuál es mejor que otro.
+
+Hay varias medidas para comparar modelos (la veremos con más detalle en otro capítulo):
+
+\begin{itemize}
+\tightlist
+\item
+  Error estándar residual (\(\sigma\))
+\item
+  \(R^{2}\) y \(R^{2}\) ajustado
+\item
+  \(C_{p}\) de Mallows
+\item
+  Akaike Information Criterion (AIC)
+\item
+  Bayesian Information Criterion (BIC)
+\end{itemize}
+
+Los índices \(C_{p}\) de Mallows, AIC y BIC los veremos después.
+
+\begin{description}
+\tightlist
+\item[Error estándar residual]
+Se define como
+\end{description}
+
+\begin{align*}
+\mathrm{RSE} 
+&=  \sqrt{\hat{\sigma^{2}}}\\
+&= \sqrt{\frac{1}{n-p-1} \sum_{i=1}^{n} \left( Y_{i} - \hat{Y}_{i}\right)^{2}} \\
+&= \sqrt{\frac{\mathrm{RSS}}{n-p-1}}
+\end{align*}
+
+Entre más pequeño mejor, pero \textbf{depende de las unidades de \(Y\)}.
+
+\begin{description}
+\tightlist
+\item[Estadístico \(R^{2}\)]
+\begin{equation*}
+R^{2} = \frac{\mathrm{TSS}-\mathrm{RSS}}{\mathrm{TSS}} = 1-\frac{\mathrm{RSS}}{\mathrm{TSS}}
+\end{equation*}
+\end{description}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{RSS:} Varianza sin explicar por el modelo \textbf{completo}.
+\item
+  \textbf{TSS:} Varianza sin explicar por el modelo \textbf{nulo}.
+\end{itemize}
+
+\begin{description}
+\tightlist
+\item[Estadístico \(R^{2}\) ajustado]
+\begin{equation*}
+R^{2}_{adj} = 1-\frac{\frac{\mathrm{RSS}}{n-p-1}}{\frac{\mathrm{TSS}}{n-1}}
+\end{equation*}
+\end{description}
+
+\hypertarget{laboratorio-3}{%
+\subsection{Laboratorio}\label{laboratorio-3}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{# Número de datos}
+\NormalTok{n <-}\StringTok{ }\DecValTok{1000}
+\CommentTok{# Número de variables}
+\NormalTok{p <-}\StringTok{ }\DecValTok{2}
+
+\NormalTok{x1 <-}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
+\NormalTok{x2 <-}\StringTok{ }\KeywordTok{runif}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
+\NormalTok{y <-}\StringTok{ }\DecValTok{1} \OperatorTok{+}\StringTok{ }\NormalTok{x1 }\OperatorTok{+}\StringTok{ }\NormalTok{x2 }\OperatorTok{+}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DataTypeTok{sd =} \FloatTok{0.5}\NormalTok{)}
+
+\NormalTok{fit <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{x1 }\OperatorTok{+}\StringTok{ }\NormalTok{x2)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{r2}{%
+\subsubsection{\texorpdfstring{\(R^2\)}{R\^{}2}}\label{r2}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(TSS <-}\StringTok{ }\KeywordTok{sum}\NormalTok{((y }\OperatorTok{-}\StringTok{ }\KeywordTok{mean}\NormalTok{(y))}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1402.26
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(RSS <-}\StringTok{ }\KeywordTok{sum}\NormalTok{((y }\OperatorTok{-}\StringTok{ }\KeywordTok{fitted}\NormalTok{(fit))}\OperatorTok{^}\DecValTok{2}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 250.6091
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{RSS}\OperatorTok{/}\NormalTok{TSS}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.821282
+\end{verbatim}
+
+Otra forma de entender el \(R^2\) es notando que
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{cor}\NormalTok{(y, }\KeywordTok{fitted}\NormalTok{(fit))}\OperatorTok{^}\DecValTok{2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.821282
+\end{verbatim}
+
+\hypertarget{r2-ajustado}{%
+\subsubsection{\texorpdfstring{\(R^2\) ajustado}{R\^{}2 ajustado}}\label{r2-ajustado}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(TSS_adj <-}\StringTok{ }\NormalTok{TSS}\OperatorTok{/}\NormalTok{(n }\OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 1.403663
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(RSS_adj <-}\StringTok{ }\NormalTok{RSS}\OperatorTok{/}\NormalTok{(n }\OperatorTok{-}\StringTok{ }\NormalTok{p }\OperatorTok{-}\StringTok{ }\DecValTok{1}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2513632
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\DecValTok{1} \OperatorTok{-}\StringTok{ }\NormalTok{RSS_adj}\OperatorTok{/}\NormalTok{TSS_adj}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.8209235
+\end{verbatim}
+
+\hypertarget{summary}{%
+\subsubsection{\texorpdfstring{\texttt{summary}}{summary}}\label{summary}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{summary}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = y ~ x1 + x2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.44716 -0.34692 -0.01095  0.34280  1.53693 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  0.94616    0.03196   29.60   <2e-16 ***
+## x1           1.03322    0.01614   64.02   <2e-16 ***
+## x2           1.09560    0.05491   19.95   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.5014 on 997 degrees of freedom
+## Multiple R-squared:  0.8213, Adjusted R-squared:  0.8209 
+## F-statistic:  2291 on 2 and 997 DF,  p-value: < 2.2e-16
+\end{verbatim}
+
 \hypertarget{predicciuxf3n}{%
 \section{Predicción}\label{predicciuxf3n}}
 
@@ -4985,8 +5174,8 @@ Resumiendo
   \textbf{Intervalo de predicción:} es la incertidumbre que existe alrededor del proceso general que generararon los datos bajo el supuesto de linealidad.
 \end{itemize}
 
-\hypertarget{laboratorio-3}{%
-\subsection{Laboratorio}\label{laboratorio-3}}
+\hypertarget{laboratorio-4}{%
+\subsection{Laboratorio}\label{laboratorio-4}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5059,7 +5248,7 @@ Resumiendo
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-183-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-190-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5088,7 +5277,7 @@ Resumiendo
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-184-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-191-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5129,7 +5318,7 @@ Resumiendo
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-185-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-192-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5152,7 +5341,7 @@ Repitamos el mismo ejercicio anterior pero con un caso más sencillo.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-186-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-193-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5169,18 +5358,18 @@ Repitamos el mismo ejercicio anterior pero con un caso más sencillo.
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -4.3259 -0.8335  0.0000  0.8651  3.6956 
+## -4.1440 -0.8238  0.0088  0.8823  3.0482 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 10.03445    0.07928   126.6   <2e-16 ***
-## X            0.98435    0.01412    69.7   <2e-16 ***
+## (Intercept) 10.11325    0.07220  140.07   <2e-16 ***
+## X            0.97761    0.01269   77.02   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 1.255 on 998 degrees of freedom
-## Multiple R-squared:  0.8296, Adjusted R-squared:  0.8294 
-## F-statistic:  4859 on 1 and 998 DF,  p-value: < 2.2e-16
+## Residual standard error: 1.186 on 998 degrees of freedom
+## Multiple R-squared:  0.856,  Adjusted R-squared:  0.8558 
+## F-statistic:  5932 on 1 and 998 DF,  p-value: < 2.2e-16
 \end{verbatim}
 
 \begin{Shaded}
@@ -5269,11 +5458,11 @@ Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\var
 \textbf{Esto se le conoce como principio de jerarquía}. No es importante si los efectos directos son relevante o no dentro del modelo, siempre se deben de incluir para manter la consistencia.
 
 \BeginKnitrBlock{exercise}
-\protect\hypertarget{exr:unnamed-chunk-190}{}{\label{exr:unnamed-chunk-190} }Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el modelo se mantiene.
+\protect\hypertarget{exr:unnamed-chunk-197}{}{\label{exr:unnamed-chunk-197} }Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el modelo se mantiene.
 \EndKnitrBlock{exercise}
 
-\hypertarget{laboratorio-4}{%
-\subsection{Laboratorio}\label{laboratorio-4}}
+\hypertarget{laboratorio-5}{%
+\subsection{Laboratorio}\label{laboratorio-5}}
 
 Generamos una base de datos nueva con solamente \texttt{wt} centrado
 
@@ -5503,6 +5692,17 @@ Esto puede provocar que los errores usados para intervalos de confianza y predic
 \tightlist
 \item[Multicolineaidad]
 Se asume que cada una de las variables es independiente de las otras. Es decir que cada variable explica \enquote{un aspecto o característica} del modelo. Sin embargo puede pasar que varias variables expliquen la misma característica y el modelo tenga que volverse \textbf{inestable} por decidir entre las dos variables. Por ejemplo: la temperatura en grados centigrados y fareheint.
+\end{description}
+
+En este caso habría dos columnas linealmente dependientes y por lo tanto \((X^{\top}X)^{-1}\) se acercaría a una matriz singular con determinante cercano a 0.
+
+Esto generaría que \(\mathrm{Var}\left(\beta\right)\) sea alto ya que
+\begin{equation*}
+\beta =  (X^{\top}X)^{-1} X^{\top}Y.
+\end{equation*}
+
+\begin{description}
+\tightlist
 \item[Más observaciones que predictores]
 En este caso siempre podremos construir correctamente la regresión y sus indices. (Volveremos a esto cuando veamos selección de modelos)
 \end{description}
@@ -5532,7 +5732,7 @@ Se pueden aplicar transformaciones para resolver estos problemas. Normalmente se
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-196-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-203-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5563,7 +5763,7 @@ Se pueden aplicar transformaciones para resolver estos problemas. Normalmente se
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-197-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-204-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5594,7 +5794,7 @@ Se pueden aplicar transformaciones para resolver estos problemas. Normalmente se
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-198-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-205-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5603,7 +5803,7 @@ Se pueden aplicar transformaciones para resolver estos problemas. Normalmente se
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-198-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-205-2} \end{center}
 
 \end{example}
 
@@ -5633,12 +5833,12 @@ Se calcula la función de autocorrelación y se gráfica para analizar su compor
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{fit <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{x)}
-\KeywordTok{plot}\NormalTok{(xt, y)}
+\KeywordTok{plot}\NormalTok{(x, y)}
 \KeywordTok{abline}\NormalTok{(}\DataTypeTok{a =} \KeywordTok{coef}\NormalTok{(fit)[}\DecValTok{1}\NormalTok{], }\DataTypeTok{b =} \KeywordTok{coef}\NormalTok{(fit)[}\DecValTok{2}\NormalTok{], }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-200-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-207-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5673,7 +5873,7 @@ Se calcula la función de autocorrelación y se gráfica para analizar su compor
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-201-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-208-1} \end{center}
 
 \textbf{Caso errores auto-correlacionados}
 
@@ -5687,12 +5887,12 @@ Se calcula la función de autocorrelación y se gráfica para analizar su compor
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{fit <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{x)}
-\KeywordTok{plot}\NormalTok{(xt, y)}
+\KeywordTok{plot}\NormalTok{(x, y)}
 \KeywordTok{abline}\NormalTok{(}\DataTypeTok{a =} \KeywordTok{coef}\NormalTok{(fit)[}\DecValTok{1}\NormalTok{], }\DataTypeTok{b =} \KeywordTok{coef}\NormalTok{(fit)[}\DecValTok{2}\NormalTok{], }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-203-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-210-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5727,7 +5927,7 @@ Se calcula la función de autocorrelación y se gráfica para analizar su compor
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-204-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-211-1} \end{center}
 
 \hypertarget{normalidad-de-los-errores}{%
 \subsubsection{Normalidad de los errores}\label{normalidad-de-los-errores}}
@@ -5753,7 +5953,7 @@ Para revisar si se cumple solo basta hacer una \texttt{qqplot} de los residuos.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-206-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-213-1} \end{center}
 
 \textbf{Caso errores auto-correlacionados}
 
@@ -5767,12 +5967,12 @@ Para revisar si se cumple solo basta hacer una \texttt{qqplot} de los residuos.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\KeywordTok{qqnorm}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(fit), }\DataTypeTok{asp =} \DecValTok{1}\NormalTok{)}
+\KeywordTok{qqnorm}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(fit), }\DataTypeTok{asp =} \DecValTok{0}\NormalTok{)}
 \KeywordTok{qqline}\NormalTok{(}\KeywordTok{residuals}\NormalTok{(fit), }\DataTypeTok{col =} \StringTok{"red"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-208-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-1} \end{center}
 
 \textbf{Caso no-lineal}
 
@@ -5791,7 +5991,96 @@ Para revisar si se cumple solo basta hacer una \texttt{qqplot} de los residuos.
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-210-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-217-1} \end{center}
+
+\hypertarget{multicolinealidad}{%
+\subsubsection{Multicolinealidad}\label{multicolinealidad}}
+
+Hay dos formas de detectar multicolinealidad
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Analizar la matriz de correlaciones de las variables (solamente detecta colinealidad entre pares).
+\item
+  Analizar la correlación multiple entre un predictor y el resto.
+\end{enumerate}
+
+Defina \(R^{2}_{X_{j}\vert X_{-j}}\) como el \(R^{2}\) de la regresión multiple entre \(X_{j}\) vs el resto de covariables.
+
+Si \(R^{2}_{X_{j}\vert X_{-j}}\) es cercano a 1 entonces hay alta correlación entre \(X_j\) y el resto.
+
+Defina el factor de inflación de la varianza como:
+
+\begin{equation*}
+ \mathrm{VIF}(\hat{\beta}_{j}) = \frac{1}{1-R^{2}_{X_{j}\vert X_{-j}}}
+\end{equation*}
+
+Si \(\mathrm{VIF}\) es alto
+
+\begin{itemize}
+\tightlist
+\item
+  Quitar las variables
+\item
+  Combinar variables
+\end{itemize}
+
+Hay muchos paquetes que tienen implementado la función \texttt{vif} (car, rms, entre otros).
+
+\textbf{Caso variables colineales}
+
+La variable \texttt{wt} está en unidades de 1000lb. La convertimos a Kilogramos.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mtcars_kg <-}\StringTok{ }\NormalTok{mtcars }\OperatorTok{%>%}\StringTok{ }\KeywordTok{mutate}\NormalTok{(}\DataTypeTok{wt_kg =}\NormalTok{ wt }\OperatorTok{*}\StringTok{ }\DecValTok{1000} \OperatorTok{*}\StringTok{ }
+\StringTok{    }\FloatTok{0.4535} \OperatorTok{+}\StringTok{ }\KeywordTok{rnorm}\NormalTok{(}\DecValTok{32}\NormalTok{))}
+
+
+\NormalTok{fit_kg <-}\StringTok{ }\KeywordTok{lm}\NormalTok{(mpg }\OperatorTok{~}\StringTok{ }\NormalTok{disp }\OperatorTok{+}\StringTok{ }\NormalTok{wt }\OperatorTok{+}\StringTok{ }\NormalTok{wt_kg, }\DataTypeTok{data =}\NormalTok{ mtcars_kg)}
+\KeywordTok{summary}\NormalTok{(fit_kg)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = mpg ~ disp + wt + wt_kg, data = mtcars_kg)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2214 -2.3952 -0.7982  1.6776  6.4158 
+## 
+## Coefficients:
+##               Estimate Std. Error t value           Pr(>|t|)    
+## (Intercept)  34.928910   2.201964  15.863 0.0000000000000016 ***
+## disp         -0.017985   0.009379  -1.918             0.0654 .  
+## wt           75.684191 265.966314   0.285             0.7781    
+## wt_kg        -0.174231   0.586313  -0.297             0.7685    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.964 on 28 degrees of freedom
+## Multiple R-squared:  0.7816, Adjusted R-squared:  0.7582 
+## F-statistic: 33.41 on 3 and 28 DF,  p-value: 0.00000000217
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{library}\NormalTok{(car)}
+\KeywordTok{options}\NormalTok{(}\DataTypeTok{scipen =} \DecValTok{1000}\NormalTok{)}
+
+\NormalTok{VIFs <-}\StringTok{ }\KeywordTok{vif}\NormalTok{(fit_kg)}
+
+\NormalTok{VIFs <-}\StringTok{ }\KeywordTok{as.data.frame}\NormalTok{(VIFs) }\OperatorTok{%>%}\StringTok{ }\KeywordTok{rownames_to_column}\NormalTok{(}\DataTypeTok{var =} \StringTok{"vars"}\NormalTok{)}
+
+\KeywordTok{ggplot}\NormalTok{(VIFs, }\KeywordTok{aes}\NormalTok{(}\DataTypeTok{x =}\NormalTok{ vars, }\DataTypeTok{y =}\NormalTok{ VIFs, }\DataTypeTok{group =} \DecValTok{1}\NormalTok{)) }\OperatorTok{+}\StringTok{ }
+\StringTok{    }\KeywordTok{geom_point}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{geom_line}\NormalTok{() }\OperatorTok{+}\StringTok{ }\KeywordTok{theme_minimal}\NormalTok{(}\DataTypeTok{base_size =} \DecValTok{16}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-219-1} \end{center}
 
 \hypertarget{otros-chequeos-importantes}{%
 \subsection{Otros chequeos importantes}\label{otros-chequeos-importantes}}
@@ -5858,7 +6147,7 @@ r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-211-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-220-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5873,7 +6162,7 @@ r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##      0.9950       0.9951
+##      0.9953       0.9953
 \end{verbatim}
 
 **Caso con valores extremos*
@@ -5894,7 +6183,7 @@ r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-212-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-221-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -5909,7 +6198,7 @@ r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##      1.1614       0.9677
+##      1.1700       0.9341
 \end{verbatim}
 
 \hypertarget{puntos-de-apalancamiento-leverage}{%
@@ -5938,6 +6227,17 @@ La regla empirica dice que
 
 \textbf{Regla empírica:} Si \(h_{ii}>\frac{p+1}{n}\) entonces decimos que el punto de \textbf{gran apalancamiento}.
 
+\hypertarget{distancia-de-cook.}{%
+\paragraph{Distancia de Cook.}\label{distancia-de-cook.}}
+
+La distancia de Cook mide la influencia de las observaciones con respecto al ajuste del modelo lineal con \(p\) variables. Esta se define como:
+
+\[
+\displaystyle D_i = \frac{\sum\limits_{j=1}^n (\hat{Y}_j - \hat{Y}_{j(-i)})^2}{(p+1) \sigma^2}
+\]
+
+donde \(\hat{Y}_{j(-i)}\) significa el ajuste del modelo lineal, removiendo la observación \(i\)-ésima.
+
 \textbf{Caso base}
 
 \begin{Shaded}
@@ -5956,31 +6256,32 @@ La regla empirica dice que
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{X <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{data =}\NormalTok{ apa_df)}
-\NormalTok{H <-}\StringTok{ }\NormalTok{X }\OperatorTok{%*%}\StringTok{ }\KeywordTok{solve}\NormalTok{(}\KeywordTok{t}\NormalTok{(X) }\OperatorTok{%*%}\StringTok{ }\NormalTok{X) }\OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(X)}
-
-\KeywordTok{plot}\NormalTok{(apa_df)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-213-1} \end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(modelo, }\DecValTok{3}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-213-2} \end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(}\KeywordTok{diag}\NormalTok{(H), }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\StringTok{"red"}\NormalTok{), }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }
+\KeywordTok{plot}\NormalTok{(modelo, }\DecValTok{5}\NormalTok{, }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\StringTok{"red"}\NormalTok{), }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }
     \DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-213-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-222-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{hatvalues}\NormalTok{(modelo), }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\StringTok{"red"}\NormalTok{), }
+    \DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h =} \DecValTok{2}\OperatorTok{/}\DecValTok{10}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-222-2} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(apa_df, }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\StringTok{"red"}\NormalTok{), }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }
+    \DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{a =} \KeywordTok{coef}\NormalTok{(modelo)[}\DecValTok{1}\NormalTok{], }\DataTypeTok{b =} \KeywordTok{coef}\NormalTok{(modelo)[}\DecValTok{2}\NormalTok{], }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-222-3} \end{center}
 
 \textbf{Bajo apalancamiento, residuos grandes, influencia pequeña}
 
@@ -6000,32 +6301,34 @@ La regla empirica dice que
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{X <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{data =}\NormalTok{ apa_df_}\DecValTok{1}\NormalTok{)}
-\NormalTok{H <-}\StringTok{ }\NormalTok{X }\OperatorTok{%*%}\StringTok{ }\KeywordTok{solve}\NormalTok{(}\KeywordTok{t}\NormalTok{(X) }\OperatorTok{%*%}\StringTok{ }\NormalTok{X) }\OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(X)}
+\KeywordTok{plot}\NormalTok{(modelo_}\DecValTok{1}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\StringTok{"red"}\NormalTok{), }
+    \DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-223-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{hatvalues}\NormalTok{(modelo_}\DecValTok{1}\NormalTok{), }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }
+    \StringTok{"red"}\NormalTok{), }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h =} \DecValTok{2}\OperatorTok{/}\DecValTok{11}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-223-2} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{plot}\NormalTok{(apa_df_}\DecValTok{1}\NormalTok{, }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\StringTok{"red"}\NormalTok{), }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }
     \DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{a =} \KeywordTok{coef}\NormalTok{(modelo)[}\DecValTok{1}\NormalTok{], }\DataTypeTok{b =} \KeywordTok{coef}\NormalTok{(modelo)[}\DecValTok{2}\NormalTok{], }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{a =} \KeywordTok{coef}\NormalTok{(modelo_}\DecValTok{1}\NormalTok{)[}\DecValTok{1}\NormalTok{], }\DataTypeTok{b =} \KeywordTok{coef}\NormalTok{(modelo_}\DecValTok{1}\NormalTok{)[}\DecValTok{2}\NormalTok{], }
+    \DataTypeTok{col =} \StringTok{"red"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-214-1} \end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(modelo_}\DecValTok{1}\NormalTok{, }\DecValTok{3}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-214-2} \end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(}\KeywordTok{diag}\NormalTok{(H), }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\StringTok{"red"}\NormalTok{), }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }
-    \DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-214-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-223-3} \end{center}
 
 \textbf{Alto apalancamiento, residuo pequeño, influencia pequeña}
 
@@ -6045,32 +6348,34 @@ La regla empirica dice que
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{X <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{data =}\NormalTok{ apa_df_}\DecValTok{2}\NormalTok{)}
-\NormalTok{H <-}\StringTok{ }\NormalTok{X }\OperatorTok{%*%}\StringTok{ }\KeywordTok{solve}\NormalTok{(}\KeywordTok{t}\NormalTok{(X) }\OperatorTok{%*%}\StringTok{ }\NormalTok{X) }\OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(X)}
+\KeywordTok{plot}\NormalTok{(modelo_}\DecValTok{2}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\StringTok{"red"}\NormalTok{), }
+    \DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-224-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{hatvalues}\NormalTok{(modelo_}\DecValTok{2}\NormalTok{), }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }
+    \StringTok{"red"}\NormalTok{), }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h =} \DecValTok{2}\OperatorTok{/}\DecValTok{11}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-224-2} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{plot}\NormalTok{(apa_df_}\DecValTok{2}\NormalTok{, }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\StringTok{"red"}\NormalTok{), }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }
     \DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{a =} \KeywordTok{coef}\NormalTok{(modelo)[}\DecValTok{1}\NormalTok{], }\DataTypeTok{b =} \KeywordTok{coef}\NormalTok{(modelo)[}\DecValTok{2}\NormalTok{], }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{a =} \KeywordTok{coef}\NormalTok{(modelo_}\DecValTok{2}\NormalTok{)[}\DecValTok{1}\NormalTok{], }\DataTypeTok{b =} \KeywordTok{coef}\NormalTok{(modelo_}\DecValTok{2}\NormalTok{)[}\DecValTok{2}\NormalTok{], }
+    \DataTypeTok{col =} \StringTok{"red"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-1} \end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(modelo_}\DecValTok{2}\NormalTok{, }\DecValTok{3}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-2} \end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(}\KeywordTok{diag}\NormalTok{(H), }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\StringTok{"red"}\NormalTok{), }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }
-    \DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-224-3} \end{center}
 
 \textbf{Alto apalancamiento, residuo altos, influencia grande}
 
@@ -6090,32 +6395,34 @@ La regla empirica dice que
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{X <-}\StringTok{ }\KeywordTok{model.matrix}\NormalTok{(y }\OperatorTok{~}\StringTok{ }\NormalTok{x, }\DataTypeTok{data =}\NormalTok{ apa_df_}\DecValTok{3}\NormalTok{)}
-\NormalTok{H <-}\StringTok{ }\NormalTok{X }\OperatorTok{%*%}\StringTok{ }\KeywordTok{solve}\NormalTok{(}\KeywordTok{t}\NormalTok{(X) }\OperatorTok{%*%}\StringTok{ }\NormalTok{X) }\OperatorTok{%*%}\StringTok{ }\KeywordTok{t}\NormalTok{(X)}
+\KeywordTok{plot}\NormalTok{(modelo_}\DecValTok{3}\NormalTok{, }\DecValTok{5}\NormalTok{, }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\StringTok{"red"}\NormalTok{), }
+    \DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-225-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{plot}\NormalTok{(}\KeywordTok{hatvalues}\NormalTok{(modelo_}\DecValTok{3}\NormalTok{), }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }
+    \StringTok{"red"}\NormalTok{), }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }\DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{h =} \DecValTok{2}\OperatorTok{/}\DecValTok{11}\NormalTok{, }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-225-2} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
 \KeywordTok{plot}\NormalTok{(apa_df_}\DecValTok{3}\NormalTok{, }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\StringTok{"red"}\NormalTok{), }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }
     \DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{a =} \KeywordTok{coef}\NormalTok{(modelo)[}\DecValTok{1}\NormalTok{], }\DataTypeTok{b =} \KeywordTok{coef}\NormalTok{(modelo)[}\DecValTok{2}\NormalTok{], }\DataTypeTok{col =} \StringTok{"blue"}\NormalTok{)}
+\KeywordTok{abline}\NormalTok{(}\DataTypeTok{a =} \KeywordTok{coef}\NormalTok{(modelo_}\DecValTok{3}\NormalTok{)[}\DecValTok{1}\NormalTok{], }\DataTypeTok{b =} \KeywordTok{coef}\NormalTok{(modelo_}\DecValTok{3}\NormalTok{)[}\DecValTok{2}\NormalTok{], }
+    \DataTypeTok{col =} \StringTok{"red"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-216-1} \end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(modelo_}\DecValTok{3}\NormalTok{, }\DecValTok{3}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-216-2} \end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\KeywordTok{plot}\NormalTok{(}\KeywordTok{diag}\NormalTok{(H), }\DataTypeTok{col =} \KeywordTok{c}\NormalTok{(}\KeywordTok{rep}\NormalTok{(}\StringTok{"black"}\NormalTok{, }\DecValTok{10}\NormalTok{), }\StringTok{"red"}\NormalTok{), }\DataTypeTok{cex =} \DecValTok{2}\NormalTok{, }
-    \DataTypeTok{pch =} \DecValTok{16}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-216-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-225-3} \end{center}
 
 \printbibliography
 

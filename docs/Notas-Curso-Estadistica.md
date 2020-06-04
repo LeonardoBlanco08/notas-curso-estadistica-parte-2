@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística"
 author: "Maikol Solís"
-date: "Actualizado el 03 junio, 2020"
+date: "Actualizado el 04 junio, 2020"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -4574,6 +4574,166 @@ summary(fit)
 ## F-statistic:  7.83 on 16 and 15 DF,  p-value: 0.000124
 ```
 
+## Medida de bondad de ajuste
+
+La prueba $F$ nos dice si un modelo es nulo o no, pero no nos dice si tengo dos modelos cuál es mejor que otro. 
+
+Hay varias medidas para comparar modelos (la veremos con más detalle en otro capítulo):
+
+- Error estándar residual (\(\sigma\))
+- $R^{2}$ y $R^{2}$ ajustado
+- \(C_{p}\) de Mallows
+- Akaike Information Criterion (AIC)
+- Bayesian Information Criterion (BIC)
+
+Los índices \(C_{p}\) de Mallows, AIC y BIC los veremos después. 
+
+Error estándar residual
+: Se define como 
+
+\begin{align*}
+\mathrm{RSE} 
+&=  \sqrt{\hat{\sigma^{2}}}\\
+&= \sqrt{\frac{1}{n-p-1} \sum_{i=1}^{n} \left( Y_{i} - \hat{Y}_{i}\right)^{2}} \\
+&= \sqrt{\frac{\mathrm{RSS}}{n-p-1}}
+\end{align*}
+
+Entre más pequeño mejor, pero **depende de las unidades de \(Y\)**.
+
+Estadístico \(R^{2}\) 
+: 
+\begin{equation*}
+R^{2} = \frac{\mathrm{TSS}-\mathrm{RSS}}{\mathrm{TSS}} = 1-\frac{\mathrm{RSS}}{\mathrm{TSS}}
+\end{equation*}
+
+- **RSS:** Varianza sin explicar por el modelo __completo__.
+- **TSS:** Varianza sin explicar por el modelo __nulo__.
+
+Estadístico \(R^{2}\) ajustado
+: 
+\begin{equation*}
+R^{2}_{adj} = 1-\frac{\frac{\mathrm{RSS}}{n-p-1}}{\frac{\mathrm{TSS}}{n-1}}
+\end{equation*}
+
+
+### Laboratorio
+
+
+```r
+# Número de datos
+n <- 1000
+# Número de variables
+p <- 2
+
+x1 <- rnorm(1000)
+x2 <- runif(1000)
+y <- 1 + x1 + x2 + rnorm(1000, sd = 0.5)
+
+fit <- lm(y ~ x1 + x2)
+```
+
+
+#### $R^2$
+
+```r
+(TSS <- sum((y - mean(y))^2))
+```
+
+```
+## [1] 1402.26
+```
+
+```r
+(RSS <- sum((y - fitted(fit))^2))
+```
+
+```
+## [1] 250.6091
+```
+
+```r
+1 - RSS/TSS
+```
+
+```
+## [1] 0.821282
+```
+
+Otra forma de entender el $R^2$ es notando que 
+
+
+```r
+cor(y, fitted(fit))^2
+```
+
+```
+## [1] 0.821282
+```
+
+
+
+#### $R^2$ ajustado
+
+```r
+(TSS_adj <- TSS/(n - 1))
+```
+
+```
+## [1] 1.403663
+```
+
+```r
+(RSS_adj <- RSS/(n - p - 1))
+```
+
+```
+## [1] 0.2513632
+```
+
+```r
+1 - RSS_adj/TSS_adj
+```
+
+```
+## [1] 0.8209235
+```
+
+
+#### `summary`
+
+```r
+summary(fit)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x1 + x2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.44716 -0.34692 -0.01095  0.34280  1.53693 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  0.94616    0.03196   29.60   <2e-16 ***
+## x1           1.03322    0.01614   64.02   <2e-16 ***
+## x2           1.09560    0.05491   19.95   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.5014 on 997 degrees of freedom
+## Multiple R-squared:  0.8213,	Adjusted R-squared:  0.8209 
+## F-statistic:  2291 on 2 and 997 DF,  p-value: < 2.2e-16
+```
+
+
+
+
+
+
+
+ 
 ## Predicción 
 
 Hay dos tipos de errores que se deben considerar en regresones lineales: 
@@ -4693,7 +4853,7 @@ p
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-183-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-190-1} \end{center}
 
 ```r
 # # Guardar el gráfico en un archivo pdf
@@ -4720,7 +4880,7 @@ p
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-184-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-191-1} \end{center}
 
 ```r
 # # Guardar el gráfico en un archivo pdf
@@ -4759,7 +4919,7 @@ p
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-185-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-192-1} \end{center}
 
 ```r
 # # Guardar el gráfico en un archivo pdf
@@ -4782,7 +4942,7 @@ plot(toyex.initial)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-186-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-193-1} \end{center}
 
 
 
@@ -4799,18 +4959,18 @@ summary(lm.toyex.initial)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -4.3259 -0.8335  0.0000  0.8651  3.6956 
+## -4.1440 -0.8238  0.0088  0.8823  3.0482 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 10.03445    0.07928   126.6   <2e-16 ***
-## X            0.98435    0.01412    69.7   <2e-16 ***
+## (Intercept) 10.11325    0.07220  140.07   <2e-16 ***
+## X            0.97761    0.01269   77.02   <2e-16 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 1.255 on 998 degrees of freedom
-## Multiple R-squared:  0.8296,	Adjusted R-squared:  0.8294 
-## F-statistic:  4859 on 1 and 998 DF,  p-value: < 2.2e-16
+## Residual standard error: 1.186 on 998 degrees of freedom
+## Multiple R-squared:  0.856,	Adjusted R-squared:  0.8558 
+## F-statistic:  5932 on 1 and 998 DF,  p-value: < 2.2e-16
 ```
 
 ```r
@@ -4899,7 +5059,7 @@ Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\var
 **Esto se le conoce como principio de jerarquía**. No es importante si los efectos directos son relevante o no dentro del modelo, siempre se deben de incluir para manter la consistencia. 
 
 
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-190"><strong>(\#exr:unnamed-chunk-190) </strong></span>Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el modelo se mantiene. </div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-197"><strong>(\#exr:unnamed-chunk-197) </strong></span>Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el modelo se mantiene. </div>\EndKnitrBlock{exercise}
 
 ### Laboratorio
 
@@ -5137,6 +5297,9 @@ mtcars_scaled <- mtcars %>% mutate(across(c("wt", "disp"),
 
 
 
+
+
+
 ## Hipotesis en regresión lineal 
 
 
@@ -5164,6 +5327,13 @@ Esto puede provocar que los errores usados para  intervalos de confianza y predi
 
 Multicolineaidad 
 : Se asume que cada una de las variables es independiente de las otras. Es decir que cada variable explica "un aspecto o característica" del modelo. Sin embargo puede pasar que varias variables expliquen la misma característica y el modelo tenga que volverse __inestable__ por decidir entre las dos variables. Por ejemplo: la temperatura en grados centigrados y fareheint. 
+
+En este caso habría dos columnas linealmente dependientes y por lo tanto  \((X^{\top}X)^{-1}\)  se acercaría a una matriz singular con determinante cercano a 0. 
+
+Esto generaría que \(\mathrm{Var}\left(\beta\right)\) sea alto ya que 
+\begin{equation*}
+\beta =  (X^{\top}X)^{-1} X^{\top}Y.
+\end{equation*}
 
 
 Más observaciones que predictores
@@ -5195,7 +5365,7 @@ abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-196-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-203-1} \end{center}
 
 
 
@@ -5228,7 +5398,7 @@ abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-197-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-204-1} \end{center}
 
 
 
@@ -5261,7 +5431,7 @@ abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-198-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-205-1} \end{center}
 
 ```r
 plot(fitted(fit), residuals(fit))
@@ -5270,7 +5440,7 @@ abline(h = 0, col = "red")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-198-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-205-2} \end{center}
 :::
 
 
@@ -5298,13 +5468,13 @@ y <- 1 + x + rnorm(1000, sd = 1)
 
 ```r
 fit <- lm(y ~ x)
-plot(xt, y)
+plot(x, y)
 abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-200-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-207-1} \end{center}
 
 
 
@@ -5339,7 +5509,7 @@ acf(residuals(fit))
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-201-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-208-1} \end{center}
 
 **Caso errores auto-correlacionados**
 
@@ -5353,13 +5523,13 @@ y <- 1 + x + diffinv(rnorm(999, sd = 1), lag = 1)
 
 ```r
 fit <- lm(y ~ x)
-plot(xt, y)
+plot(x, y)
 abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-203-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-210-1} \end{center}
 
 
 
@@ -5394,7 +5564,7 @@ acf(residuals(fit))
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-204-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-211-1} \end{center}
 
 
 #### Normalidad de los errores 
@@ -5421,7 +5591,7 @@ qqline(residuals(fit), col = "red")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-206-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-213-1} \end{center}
 
 **Caso errores auto-correlacionados**
 
@@ -5435,13 +5605,13 @@ fit <- lm(y ~ x)
 
 
 ```r
-qqnorm(residuals(fit), asp = 1)
+qqnorm(residuals(fit), asp = 0)
 qqline(residuals(fit), col = "red")
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-208-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-1} \end{center}
 
 **Caso no-lineal**
 
@@ -5461,7 +5631,98 @@ qqline(residuals(fit), col = "red")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-210-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-217-1} \end{center}
+
+#### Multicolinealidad
+
+
+Hay dos formas de detectar multicolinealidad 
+
+1. Analizar la matriz de correlaciones de las variables (solamente detecta colinealidad entre pares). 
+
+2. Analizar la correlación multiple entre un predictor y el resto.
+
+
+Defina \(R^{2}_{X_{j}\vert X_{-j}}\) como el \(R^{2}\) de la regresión multiple entre \(X_{j}\) vs el resto de covariables. 
+
+Si \(R^{2}_{X_{j}\vert X_{-j}}\) es cercano a 1 entonces hay alta correlación entre \(X_j\) y el resto. 
+
+Defina el factor de inflación de la varianza como:
+
+\begin{equation*}
+ \mathrm{VIF}(\hat{\beta}_{j}) = \frac{1}{1-R^{2}_{X_{j}\vert X_{-j}}}
+\end{equation*}
+
+
+Si \(\mathrm{VIF}\) es alto 
+
+- Quitar las variables 
+- Combinar variables
+
+
+
+
+Hay muchos paquetes que tienen implementado la función `vif` (car, rms, entre otros).
+
+
+**Caso variables colineales**
+
+
+La variable `wt` está en unidades de 1000lb. La convertimos a Kilogramos. 
+
+
+```r
+mtcars_kg <- mtcars %>% mutate(wt_kg = wt * 1000 * 
+    0.4535 + rnorm(32))
+
+
+fit_kg <- lm(mpg ~ disp + wt + wt_kg, data = mtcars_kg)
+summary(fit_kg)
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ disp + wt + wt_kg, data = mtcars_kg)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2214 -2.3952 -0.7982  1.6776  6.4158 
+## 
+## Coefficients:
+##               Estimate Std. Error t value           Pr(>|t|)    
+## (Intercept)  34.928910   2.201964  15.863 0.0000000000000016 ***
+## disp         -0.017985   0.009379  -1.918             0.0654 .  
+## wt           75.684191 265.966314   0.285             0.7781    
+## wt_kg        -0.174231   0.586313  -0.297             0.7685    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.964 on 28 degrees of freedom
+## Multiple R-squared:  0.7816,	Adjusted R-squared:  0.7582 
+## F-statistic: 33.41 on 3 and 28 DF,  p-value: 0.00000000217
+```
+
+
+```r
+library(car)
+options(scipen = 1000)
+
+VIFs <- vif(fit_kg)
+
+VIFs <- as.data.frame(VIFs) %>% rownames_to_column(var = "vars")
+
+ggplot(VIFs, aes(x = vars, y = VIFs, group = 1)) + 
+    geom_point() + geom_line() + theme_minimal(base_size = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-219-1} \end{center}
+
+
+
+
 
 ### Otros chequeos importantes 
 
@@ -5530,7 +5791,7 @@ plot(fitted(fit), r_sdnt)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-211-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-220-1} \end{center}
 
 ```r
 fit
@@ -5543,7 +5804,7 @@ fit
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##      0.9950       0.9951
+##      0.9953       0.9953
 ```
 
 **Caso con valores extremos*
@@ -5565,7 +5826,7 @@ plot(fitted(fit), r_sdnt)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-212-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-221-1} \end{center}
 
 ```r
 fit
@@ -5578,7 +5839,7 @@ fit
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##      1.1614       0.9677
+##      1.1700       0.9341
 ```
 
 #### Puntos de apalancamiento (leverage)
@@ -5602,6 +5863,15 @@ La regla empirica dice que
 **Regla empírica:** Si \(h_{ii}>\frac{p+1}{n}\) entonces decimos que el punto de **gran apalancamiento**.
 
 
+##### Distancia de Cook. 
+La distancia de Cook mide la influencia de las observaciones con respecto al ajuste del modelo lineal con $p$ variables. Esta se define como: 
+
+\[
+\displaystyle D_i = \frac{\sum\limits_{j=1}^n (\hat{Y}_j - \hat{Y}_{j(-i)})^2}{(p+1) \sigma^2}
+\]
+
+donde $\hat{Y}_{j(-i)}$ significa el ajuste del modelo lineal, removiendo la observación $i$-ésima. 
+
 **Caso base**
 
 ```r
@@ -5617,32 +5887,33 @@ coef(modelo)
 ```
 
 ```r
-X <- model.matrix(y ~ x, data = apa_df)
-H <- X %*% solve(t(X) %*% X) %*% t(X)
-
-plot(apa_df)
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-213-1} \end{center}
-
-```r
-plot(modelo, 3)
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-213-2} \end{center}
-
-```r
-plot(diag(H), col = c(rep("black", 10), "red"), cex = 2, 
+plot(modelo, 5, col = c(rep("black", 10), "red"), cex = 2, 
     pch = 16)
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-213-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-222-1} \end{center}
+
+```r
+plot(hatvalues(modelo), col = c(rep("black", 10), "red"), 
+    cex = 2, pch = 16)
+abline(h = 2/10, col = "blue")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-222-2} \end{center}
+
+```r
+plot(apa_df, col = c(rep("black", 10), "red"), cex = 2, 
+    pch = 16)
+abline(a = coef(modelo)[1], b = coef(modelo)[2], col = "blue")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-222-3} \end{center}
 
 **Bajo apalancamiento, residuos grandes, influencia pequeña**
 
@@ -5660,33 +5931,35 @@ coef(modelo_1)
 ```
 
 ```r
-X <- model.matrix(y ~ x, data = apa_df_1)
-H <- X %*% solve(t(X) %*% X) %*% t(X)
+plot(modelo_1, 5, col = c(rep("black", 10), "red"), 
+    cex = 2, pch = 16)
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-223-1} \end{center}
+
+```r
+plot(hatvalues(modelo_1), col = c(rep("black", 10), 
+    "red"), cex = 2, pch = 16)
+abline(h = 2/11, col = "blue")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-223-2} \end{center}
+
+```r
 plot(apa_df_1, col = c(rep("black", 10), "red"), cex = 2, 
     pch = 16)
+abline(a = coef(modelo)[1], b = coef(modelo)[2], col = "blue")
+abline(a = coef(modelo_1)[1], b = coef(modelo_1)[2], 
+    col = "red")
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-214-1} \end{center}
-
-```r
-plot(modelo_1, 3)
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-214-2} \end{center}
-
-```r
-plot(diag(H), col = c(rep("black", 10), "red"), cex = 2, 
-    pch = 16)
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-214-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-223-3} \end{center}
 
 
 **Alto apalancamiento, residuo pequeño, influencia pequeña** 
@@ -5704,33 +5977,35 @@ coef(modelo_2)
 ```
 
 ```r
-X <- model.matrix(y ~ x, data = apa_df_2)
-H <- X %*% solve(t(X) %*% X) %*% t(X)
+plot(modelo_2, 5, col = c(rep("black", 10), "red"), 
+    cex = 2, pch = 16)
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-224-1} \end{center}
+
+```r
+plot(hatvalues(modelo_2), col = c(rep("black", 10), 
+    "red"), cex = 2, pch = 16)
+abline(h = 2/11, col = "blue")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-224-2} \end{center}
+
+```r
 plot(apa_df_2, col = c(rep("black", 10), "red"), cex = 2, 
     pch = 16)
+abline(a = coef(modelo)[1], b = coef(modelo)[2], col = "blue")
+abline(a = coef(modelo_2)[1], b = coef(modelo_2)[2], 
+    col = "red")
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-1} \end{center}
-
-```r
-plot(modelo_2, 3)
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-2} \end{center}
-
-```r
-plot(diag(H), col = c(rep("black", 10), "red"), cex = 2, 
-    pch = 16)
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-224-3} \end{center}
 
 
 **Alto apalancamiento, residuo altos, influencia grande** 
@@ -5748,34 +6023,35 @@ coef(modelo_3)
 ```
 
 ```r
-X <- model.matrix(y ~ x, data = apa_df_3)
-H <- X %*% solve(t(X) %*% X) %*% t(X)
+plot(modelo_3, 5, col = c(rep("black", 10), "red"), 
+    cex = 2, pch = 16)
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-225-1} \end{center}
+
+```r
+plot(hatvalues(modelo_3), col = c(rep("black", 10), 
+    "red"), cex = 2, pch = 16)
+abline(h = 2/11, col = "blue")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-225-2} \end{center}
+
+```r
 plot(apa_df_3, col = c(rep("black", 10), "red"), cex = 2, 
     pch = 16)
+abline(a = coef(modelo)[1], b = coef(modelo)[2], col = "blue")
+abline(a = coef(modelo_3)[1], b = coef(modelo_3)[2], 
+    col = "red")
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-216-1} \end{center}
-
-```r
-plot(modelo_3, 3)
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-216-2} \end{center}
-
-```r
-plot(diag(H), col = c(rep("black", 10), "red"), cex = 2, 
-    pch = 16)
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-216-3} \end{center}
-
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-225-3} \end{center}
 
 <!--chapter:end:04-metodos-lineares-regresion.Rmd-->
 
