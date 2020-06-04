@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística"
 author: "Maikol Solís"
-date: "Actualizado el 01 junio, 2020"
+date: "Actualizado el 03 junio, 2020"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -850,23 +850,47 @@ library(KernSmooth)
 
 fhat_normal <- bkde(x, kernel = "normal", bandwidth = 0.05)
 plot(fhat_normal, type = "l")
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-1} \end{center}
+
+```r
 fhat_unif <- bkde(x, kernel = "box", bandwidth = 0.05)
 plot(fhat_unif, type = "l")
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-2} \end{center}
+
+```r
 fhat_epanech <- bkde(x, kernel = "epanech", bandwidth = 0.05)
 plot(fhat_epanech, type = "l")
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-3} \end{center}
+
+```r
 fhat_biweight <- bkde(x, kernel = "biweight", bandwidth = 0.05)
 plot(fhat_biweight, type = "l")
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-4} \end{center}
+
+```r
 fhat_triweight <- bkde(x, kernel = "triweight", bandwidth = 0.05)
 plot(fhat_triweight, type = "l")
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-2} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-3} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-4} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-5} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-42-5} \end{center}
 
 ### Efecto del ancho de banda en la estimación 
 
@@ -875,14 +899,20 @@ plot(fhat_triweight, type = "l")
 ```r
 fhat <- bkde(x, kernel = "box", bandwidth = 0.001)
 plot(fhat, type = "l")
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-1} \end{center}
+
+```r
 fhat <- bkde(x, kernel = "box", bandwidth = 0.5)
 plot(fhat, type = "l")
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-2} \end{center}
 
 ** Kernel Epanechnikov **
 
@@ -890,14 +920,20 @@ plot(fhat, type = "l")
 ```r
 fhat <- bkde(x, kernel = "epa", bandwidth = 0.001)
 plot(fhat, type = "l")
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-1} \end{center}
+
+```r
 fhat <- bkde(x, kernel = "epa", bandwidth = 0.5)
 plot(fhat, type = "l")
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-2} \end{center}
 
 
 ```r
@@ -964,7 +1000,13 @@ h <- 0.02
 n_bins <- floor(diff(range(x))/h)
 
 f_hist <- hist(x, breaks = n_bins)
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-47-1} \end{center}
+
+```r
 f_epa <- as.data.frame(bkde(x, kernel = "epa", bandwidth = h))
 
 x_df <- data.frame(x)
@@ -980,7 +1022,7 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-47-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-47-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-47-2} \end{center}
 
 
 
@@ -2057,7 +2099,7 @@ c(Tn - quantile(z_star, 1 - 0.05/2) * sdboot, Tn -
 
 ```
 ##    97.5%     2.5% 
-## 226.7564 585.9580
+## 317.7259 707.0044
 ```
 
 
@@ -2092,7 +2134,7 @@ Bootstrap Normal & 283.8315 & 574.6653\\
 \hline
 Bootstrap Pivotal & 271.2827 & 551.4989\\
 \hline
-Bootstrap Pivotal Estudentizado & 226.7564 & 585.9580\\
+Bootstrap Pivotal Estudentizado & 317.7259 & 707.0044\\
 \hline
 \end{tabular}
 
@@ -2556,15 +2598,20 @@ df <- data.frame(x = 1:n_pasos, P = trayectoria)
 
 ggplot(df[1:200, ]) + geom_line(aes(x, P)) + coord_flip() + 
     theme_minimal(base_size = 16)
+```
 
 
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-125-1} \end{center}
+
+```r
 ggplot(df) + geom_histogram(aes(P), stat = "count") + 
     theme_minimal(base_size = 16)
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-125-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-125-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-125-2} \end{center}
 
 
 ```r
@@ -2875,14 +2922,20 @@ df <- data.frame(x = 1:n_pasos, P = trayectoria)
 
 ggplot(df[1:500, ]) + geom_line(aes(x, P), size = 0.5) + 
     coord_flip() + theme_minimal(base_size = 16)
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-129-1} \end{center}
+
+```r
 ggplot(df[500:n_pasos, ]) + geom_histogram(aes(P, y = ..density..), 
     color = "white") + theme_minimal(base_size = 16)
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-129-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-129-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-129-2} \end{center}
 
 ## Dos monedas
 
@@ -3013,15 +3066,27 @@ Metro_2coinsA <- metro_2coins(z1 = 6, n1 = 8, z2 = 2,
         shape2 = 2), args2 = list(shape1 = 2, shape2 = 2))
 
 Metro_2coinsA %>% gf_density2d(theta2 ~ theta1)
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-1} \end{center}
+
+```r
 Metro_2coinsA %>% gf_density(~(theta2 - theta1))
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-2} \end{center}
+
+```r
 acf(Metro_2coinsA$theta2 - Metro_2coinsA$theta1)
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-2} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-131-3} \end{center}
 
 
 
@@ -3056,13 +3121,19 @@ Metro_2coinsB <- metro_2coins(z1 = 6, n1 = 8, z2 = 2,
         shape2 = 2), args2 = list(shape1 = 2, shape2 = 2))
 
 Metro_2coinsB %>% gf_density2d(theta2 ~ theta1)
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-135-1} \end{center}
+
+```r
 acf(Metro_2coinsB$theta2 - Metro_2coinsB$theta1)
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-135-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-135-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-135-2} \end{center}
 
 
 ```r
@@ -3161,15 +3232,27 @@ Gibbs <- gibbs_2coins(z1 = 6, n1 = 8, z2 = 2, n2 = 7,
     a1 = 2, b1 = 2, a2 = 2, b2 = 2)
 
 Gibbs %>% gf_density2d(theta2 ~ theta1)
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-1} \end{center}
+
+```r
 Gibbs %>% gf_dens(~theta1)
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-2} \end{center}
+
+```r
 acf(Gibbs$theta1)
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-2} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-3} \end{center}
 
 
 
@@ -3202,17 +3285,29 @@ Ciclos completos
 ```r
 Gibbs %>% filter(step%%2 == 0) %>% gf_density2d(theta2 ~ 
     theta1)
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-1} \end{center}
+
+```r
 Gibbs %>% filter(step%%2 == 0) %>% gf_density(~(theta2 - 
     theta1))
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-2} \end{center}
+
+```r
 Gibbs %>% filter(step%%2 == 0) %>% mutate(difference = theta2 - 
     theta1) %>% pull(difference) %>% acf()
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-2} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-3} \end{center}
 
 
 ```r
@@ -3340,7 +3435,7 @@ bern_jags
 ```
 
 ```
-## Inference for Bugs model at "/tmp/RtmpSiqiR5/model57fa38bfee50.txt", fit using jags,
+## Inference for Bugs model at "/tmp/RtmpEEWzw4/model7d129f359c9.txt", fit using jags,
 ##  3 chains, each with 2000 iterations (first 1000 discarded)
 ##  n.sims = 3000 iterations saved
 ##          mu.vect sd.vect   2.5%    25%    50%    75%  97.5%  Rhat n.eff
@@ -3549,14 +3644,20 @@ bern2_jags <- jags(data = TargetList, model = bern2_model,
 bern2_mcmc <- as.mcmc(bern2_jags)
 
 mcmc_acf(bern2_mcmc)
+```
 
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-1} \end{center}
+
+```r
 mcmc_combo(bern2_mcmc, combo = c("dens", "dens_overlay", 
     "trace", "scatter"), pars = c("theta[1]", "theta[2]"))
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-1} \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-2} \end{center}
 
 ## Uso de STAN
 
@@ -3598,8 +3699,8 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 1).
 ## Chain 1: 
-## Chain 1: Gradient evaluation took 1.2e-05 seconds
-## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.12 seconds.
+## Chain 1: Gradient evaluation took 1.3e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.13 seconds.
 ## Chain 1: Adjust your expectations accordingly!
 ## Chain 1: 
 ## Chain 1: 
@@ -3616,15 +3717,15 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 1: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 1: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 1: 
-## Chain 1:  Elapsed Time: 0.016092 seconds (Warm-up)
-## Chain 1:                0.015761 seconds (Sampling)
-## Chain 1:                0.031853 seconds (Total)
+## Chain 1:  Elapsed Time: 0.014946 seconds (Warm-up)
+## Chain 1:                0.016413 seconds (Sampling)
+## Chain 1:                0.031359 seconds (Total)
 ## Chain 1: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 2).
 ## Chain 2: 
-## Chain 2: Gradient evaluation took 4e-06 seconds
-## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
+## Chain 2: Gradient evaluation took 1.3e-05 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.13 seconds.
 ## Chain 2: Adjust your expectations accordingly!
 ## Chain 2: 
 ## Chain 2: 
@@ -3641,15 +3742,15 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 2: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 2: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 2: 
-## Chain 2:  Elapsed Time: 0.015679 seconds (Warm-up)
-## Chain 2:                0.015471 seconds (Sampling)
-## Chain 2:                0.03115 seconds (Total)
+## Chain 2:  Elapsed Time: 0.045072 seconds (Warm-up)
+## Chain 2:                0.022195 seconds (Sampling)
+## Chain 2:                0.067267 seconds (Total)
 ## Chain 2: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 3).
 ## Chain 3: 
-## Chain 3: Gradient evaluation took 4e-06 seconds
-## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
+## Chain 3: Gradient evaluation took 7e-06 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
 ## Chain 3: Adjust your expectations accordingly!
 ## Chain 3: 
 ## Chain 3: 
@@ -3666,15 +3767,15 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 3: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 3: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 3: 
-## Chain 3:  Elapsed Time: 0.017019 seconds (Warm-up)
-## Chain 3:                0.017291 seconds (Sampling)
-## Chain 3:                0.03431 seconds (Total)
+## Chain 3:  Elapsed Time: 0.021706 seconds (Warm-up)
+## Chain 3:                0.025588 seconds (Sampling)
+## Chain 3:                0.047294 seconds (Total)
 ## Chain 3: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 4).
 ## Chain 4: 
-## Chain 4: Gradient evaluation took 4e-06 seconds
-## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
+## Chain 4: Gradient evaluation took 6e-06 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
 ## Chain 4: Adjust your expectations accordingly!
 ## Chain 4: 
 ## Chain 4: 
@@ -3691,9 +3792,9 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 4: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 4: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 4: 
-## Chain 4:  Elapsed Time: 0.016114 seconds (Warm-up)
-## Chain 4:                0.015481 seconds (Sampling)
-## Chain 4:                0.031595 seconds (Total)
+## Chain 4:  Elapsed Time: 0.022942 seconds (Warm-up)
+## Chain 4:                0.019539 seconds (Sampling)
+## Chain 4:                0.042481 seconds (Total)
 ## Chain 4:
 ```
 
@@ -3710,7 +3811,7 @@ print(fit, probs = c(0.1, 0.9))
 ## theta   0.31    0.00 0.06   0.23   0.39  3136    1
 ## lp__  -32.60    0.01 0.72 -33.49 -32.11  4750    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Mon May 25 11:11:10 2020.
+## Samples were drawn using NUTS(diag_e) at Wed Jun  3 17:12:20 2020.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).
@@ -3759,8 +3860,13 @@ Replique los resultados anteriores pero para el caso de 2 monedas y comente los 
 
 <!--chapter:end:03-estimacion-densidades-bayes.Rmd-->
 
+---
+output:
+  pdf_document: default
+  html_document: default
+---
 
-# Aprendizaje estadístico 
+# Métodos lineares de regresión
 
 ## Introducción 
 
@@ -4583,14 +4689,16 @@ p <- p + theme(axis.text = element_text(size = 20),  # Aumentar el tamaño
 
 # Dibujar el gráfico
 p   
-
-# # Guardar el gráfico en un archivo pdf
-# ggsave(filename = 'linear_reg_sin_IC.pdf') # 
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-183-1} \end{center}
+
+```r
+# # Guardar el gráfico en un archivo pdf
+# ggsave(filename = 'linear_reg_sin_IC.pdf') # 
+```
 
 #### Ajuste de la regresión con intervalos de confianza
 
@@ -4608,14 +4716,16 @@ p <- p + theme(axis.text = element_text(size = 20),  # Aumentar el tamaño
 
 # Dibujar el gráfico
 p   
-
-# # Guardar el gráfico en un archivo pdf
-# ggsave(filename = 'linear_reg_con_IC.pdf') # 
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-184-1} \end{center}
+
+```r
+# # Guardar el gráfico en un archivo pdf
+# ggsave(filename = 'linear_reg_con_IC.pdf') # 
+```
 
 #### Ajuste de la regresión con intervalos de confianza y predicción
 
@@ -4645,14 +4755,16 @@ p <- p + theme(axis.text = element_text(size = 20),
 
 # Dibujar el gráfico
 p
-
-# # Guardar el gráfico en un archivo pdf
-# ggsave(filename = 'linear_reg_con_IC_IP.pdf') #
 ```
 
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-185-1} \end{center}
+
+```r
+# # Guardar el gráfico en un archivo pdf
+# ggsave(filename = 'linear_reg_con_IC_IP.pdf') #
+```
 
 
 Repitamos el mismo ejercicio anterior pero con un caso más sencillo. 
@@ -4784,11 +4896,28 @@ Una forma de arreglar el problema es incluir las interacciones junto con todos s
 Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\varepsilon \\
 \end{equation*}
 
+**Esto se le conoce como principio de jerarquía**. No es importante si los efectos directos son relevante o no dentro del modelo, siempre se deben de incluir para manter la consistencia. 
+
 
 \BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-190"><strong>(\#exr:unnamed-chunk-190) </strong></span>Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el modelo se mantiene. </div>\EndKnitrBlock{exercise}
 
 ### Laboratorio
 
+
+Generamos una base de datos nueva con solamente `wt` centrado
+
+
+```r
+# La función across y where solo funciona solo para
+# dplyr 1.0 Si tienen otra versión, pueden usar
+# mutate_if
+
+mtcars_centered <- mtcars %>% mutate(across("wt", scale, 
+    scale = TRUE, center = TRUE))
+```
+
+
+Compare lo que ocurre con los coeficientes de la base original y la nueva base. 
 
 
 ```r
@@ -4818,6 +4947,90 @@ summary(lm(mpg ~ wt + disp, data = mtcars))
 ```
 
 ```r
+summary(lm(mpg ~ wt + disp, data = mtcars_centered))
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt + disp, data = mtcars_centered)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4087 -2.3243 -0.7683  1.7721  6.3484 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 24.18011    2.18221  11.081 6.12e-12 ***
+## wt          -3.27864    1.13905  -2.878  0.00743 ** 
+## disp        -0.01773    0.00919  -1.929  0.06362 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.917 on 29 degrees of freedom
+## Multiple R-squared:  0.7809,	Adjusted R-squared:  0.7658 
+## F-statistic: 51.69 on 2 and 29 DF,  p-value: 2.744e-10
+```
+
+
+Supongamos que formamos un modelo con solo la interacción y no incluimos los efectos directos. 
+
+
+```r
+summary(lm(mpg ~ wt * disp - wt - disp, data = mtcars))
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt * disp - wt - disp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -4.259 -2.603 -1.657  2.165  8.589 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 26.2621926  1.0418029  25.208  < 2e-16 ***
+## wt:disp     -0.0072897  0.0009721  -7.499 2.33e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.614 on 30 degrees of freedom
+## Multiple R-squared:  0.6521,	Adjusted R-squared:  0.6405 
+## F-statistic: 56.24 on 1 and 30 DF,  p-value: 2.329e-08
+```
+
+```r
+summary(lm(mpg ~ wt * disp - wt - disp, data = mtcars_centered))
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt * disp - wt - disp, data = mtcars_centered)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -5.878 -2.775 -1.162  2.409 11.150 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 21.460008   0.859706  24.962  < 2e-16 ***
+## wt:disp     -0.012844   0.002655  -4.837 3.69e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.592 on 30 degrees of freedom
+## Multiple R-squared:  0.4382,	Adjusted R-squared:  0.4195 
+## F-statistic:  23.4 on 1 and 30 DF,  p-value: 3.686e-05
+```
+
+
+El modelo correcto sería el siguiente:
+
+
+```r
 summary(lm(mpg ~ wt + disp + wt * disp, data = mtcars))
 ```
 
@@ -4845,30 +5058,43 @@ summary(lm(mpg ~ wt + disp + wt * disp, data = mtcars))
 ```
 
 ```r
-summary(lm(mpg ~ wt * disp - wt - disp, data = mtcars))
+summary(lm(mpg ~ wt + disp + wt * disp, data = mtcars_centered))
 ```
 
 ```
 ## 
 ## Call:
-## lm(formula = mpg ~ wt * disp - wt - disp, data = mtcars)
+## lm(formula = mpg ~ wt + disp + wt * disp, data = mtcars_centered)
 ## 
 ## Residuals:
 ##    Min     1Q Median     3Q    Max 
-## -4.259 -2.603 -1.657  2.165  8.589 
+## -3.267 -1.677 -0.836  1.351  5.017 
 ## 
 ## Coefficients:
-##               Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 26.2621926  1.0418029  25.208  < 2e-16 ***
-## wt:disp     -0.0072897  0.0009721  -7.499 2.33e-08 ***
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 23.183772   1.857605  12.480 5.87e-13 ***
+## wt          -6.355746   1.285089  -4.946 3.22e-05 ***
+## disp        -0.018699   0.007741  -2.416  0.02248 *  
+## wt:disp      0.011453   0.003185   3.596  0.00123 ** 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 3.614 on 30 degrees of freedom
-## Multiple R-squared:  0.6521,	Adjusted R-squared:  0.6405 
-## F-statistic: 56.24 on 1 and 30 DF,  p-value: 2.329e-08
+## Residual standard error: 2.455 on 28 degrees of freedom
+## Multiple R-squared:  0.8501,	Adjusted R-squared:  0.8341 
+## F-statistic: 52.95 on 3 and 28 DF,  p-value: 1.158e-11
 ```
 
+
+:::{.exercise data-latex=""}
+
+Repita los comandos anteriores con la siguiente base de datos y explique los resultados. 
+
+```r
+mtcars_scaled <- mtcars %>% mutate(across(c("wt", "disp"), 
+    scale, scale = TRUE, center = TRUE))
+```
+
+:::
 
 
 <!-- Y aumentamos -->
@@ -4911,12 +5137,644 @@ summary(lm(mpg ~ wt * disp - wt - disp, data = mtcars))
 
 
 
-## Posibles problemas en los supuestos para regresion lineal
+## Hipotesis en regresión lineal 
 
-### No linealidad de los datos
 
-Este supuesto se puede constatar a partir de un gráfico de residuos ya que en el caso ideal  \(e_{i} = \hat{Y}_{i}- Y_{i}  \perp \hat{Y}_{i}\). Entonces si este gráfico presenta patrones, se pueden aplicar transformaciones para hacerlos perpendiculares. 
+Hasta ahora hemos visto el modelo de regresión como un conjunto de partes separadas. Entonces, uniremos todo para 
 
+
+### Hipotésis
+
+Independencia lineal
+: El supuesto es que el modelo es lineal. 
+
+Errores con esperanza nula
+: Esto quiere decir que $\mathbb{E}(\varepsilon_i) = 0$.
+
+Homocedasticidad
+: $\text{Var}(\varepsilon_t) = \mathbb{E}(\varepsilon_t - \mathbb{E} \varepsilon_t)^2 = \mathbb{E} \varepsilon_t^2 = \sigma^2$ para todo $t$. Es decir, la varianza del modelo no depende de las variables independientes u otro factor. En otras palabras, el **error irreducible** es completamente ajeno a las variables independientes del modelo.
+
+Normalidad de los residuos
+: $\varepsilon \sim N(0, \sigma^2 )$.
+
+Independencia de los erroes
+: $\text{Cov}(\varepsilon_t,\varepsilon_s ) = \mathbb{E} (\varepsilon_t - \mathbb{E} \varepsilon_t) (\varepsilon_s - \mathbb{E} \varepsilon_s) = \mathbb{E} \varepsilon_t \varepsilon_s = 0$ para todo $t,s$ con $t\neq s$. Esto es una extensión del supuesto anterior y quiere decir, que además de los errores no depende de las variables, tampoco pueden depender entre si. Es decir, si para una observación dada existe un error, este no debe depender del error de otra observación.
+
+Esto puede provocar que los errores usados para  intervalos de confianza y predicción sean subestimados. Es decir que un intervalo del 95\% tendrá menos confianza y se rechazaría más fácilmente la hipotesis nula de las pruebas $t$ y $F$.
+
+Multicolineaidad 
+: Se asume que cada una de las variables es independiente de las otras. Es decir que cada variable explica "un aspecto o característica" del modelo. Sin embargo puede pasar que varias variables expliquen la misma característica y el modelo tenga que volverse __inestable__ por decidir entre las dos variables. Por ejemplo: la temperatura en grados centigrados y fareheint. 
+
+
+Más observaciones que predictores
+: En este caso siempre podremos construir correctamente la regresión y sus indices. (Volveremos a esto cuando veamos selección de modelos)
+
+
+### Chequeos básicos de las hipótesis de regresión lineal 
+
+#### Independencia lineal, Errores con esperanza nula, Homocedasticidad
+
+Estos supuestos se puede constantar a partir de un gráfico  de residuos ya que en el caso ideal  \(e_{i} = \hat{Y}_{i}- Y_{i}  \perp \hat{Y}_{i}\). Entonces si este gráfico presenta patrones, quiere indicar que la regresión, no es lineal, que los errores no tienen esperanza nula y que la varianza no es constante. 
+
+Se pueden aplicar transformaciones para resolver estos problemas. Normalmente se usan transformaciones como raiz cuadrada o logaritmos. 
+
+
+:::{.example data-latex=""}
+
+
+**Caso ideal**
+
+```r
+x <- rnorm(1000)
+y <- x + rnorm(1000, sd = 0.5)
+
+fit <- lm(y ~ x)
+plot(x, y)
+abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-196-1} \end{center}
+
+
+
+```r
+plot(fitted(fit), residuals(fit))
+abline(h = 0, col = "red")
+```
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/grafico-residuos-lineal-1} 
+
+}
+
+\caption{Gráfico de residuos caso lineal}(\#fig:grafico-residuos-lineal)
+\end{figure}
+
+
+
+**Caso no-lineal**
+
+```r
+x <- exp(rnorm(1000))
+y <- log(x) + rnorm(1000, sd = 0.5)
+
+fit <- lm(y ~ x)
+plot(x, y)
+abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-197-1} \end{center}
+
+
+
+```r
+plot(fitted(fit), residuals(fit))
+abline(h = 0, col = "red")
+```
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/grafico-residuos-no-lineal-1} 
+
+}
+
+\caption{Gráfico de residuos caso no-lineal}(\#fig:grafico-residuos-no-lineal)
+\end{figure}
+
+
+**Caso no-lineal transformado**
+
+
+```r
+xt <- log(x)
+
+
+fit <- lm(y ~ xt)
+plot(xt, y)
+abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-198-1} \end{center}
+
+```r
+plot(fitted(fit), residuals(fit))
+abline(h = 0, col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-198-2} \end{center}
+:::
+
+
+#### Independencia de los erroes
+
+En este caso defina $\rho(k) = \text{Cov}(\varepsilon_i,\varepsilon_{i+k} )$. Si los residuos son independientes, entonces debe ocurrir que 
+
+\begin{equation*}
+\rho(k) = \begin{cases}
+1 & k=0\\
+0 & k\neq 0.
+\end{cases}  
+\end{equation*}
+
+Se calcula la función de autocorrelación y se gráfica para analizar su comportamiento 
+
+**Caso ideal**
+
+```r
+x <- rnorm(1000)
+y <- 1 + x + rnorm(1000, sd = 1)
+```
+
+
+
+```r
+fit <- lm(y ~ x)
+plot(xt, y)
+abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-200-1} \end{center}
+
+
+
+```r
+summary(fit)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.3117 -0.6623 -0.0212  0.6780  3.3605 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  0.98286    0.03180   30.90   <2e-16 ***
+## x            1.02163    0.03027   33.75   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.006 on 998 degrees of freedom
+## Multiple R-squared:  0.5331,	Adjusted R-squared:  0.5326 
+## F-statistic:  1139 on 1 and 998 DF,  p-value: < 2.2e-16
+```
+
+```r
+acf(residuals(fit))
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-201-1} \end{center}
+
+**Caso errores auto-correlacionados**
+
+
+```r
+x <- rnorm(1000)
+y <- 1 + x + diffinv(rnorm(999, sd = 1), lag = 1)
+```
+
+
+
+```r
+fit <- lm(y ~ x)
+plot(xt, y)
+abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-203-1} \end{center}
+
+
+
+```r
+summary(fit)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -16.0406  -4.8890  -0.8442   4.8950  16.4602 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  -3.3808     0.2259 -14.968  < 2e-16 ***
+## x             1.1687     0.2289   5.106 3.95e-07 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 7.14 on 998 degrees of freedom
+## Multiple R-squared:  0.02546,	Adjusted R-squared:  0.02448 
+## F-statistic: 26.07 on 1 and 998 DF,  p-value: 3.946e-07
+```
+
+```r
+acf(residuals(fit))
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-204-1} \end{center}
+
+
+#### Normalidad de los errores 
+
+Este hipótesis es crucial para hacer las pruebas $t$ y $F$ que vimos anteriormente. 
+
+Para revisar si se cumple solo basta hacer una `qqplot` de los residuos. 
+
+
+**Caso ideal**
+
+```r
+x <- rnorm(1000)
+y <- 1 + x + rnorm(1000, sd = 1)
+fit <- lm(y ~ x)
+```
+
+
+
+```r
+qqnorm(residuals(fit), asp = 1)
+qqline(residuals(fit), col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-206-1} \end{center}
+
+**Caso errores auto-correlacionados**
+
+
+```r
+x <- rnorm(1000)
+y <- 1 + x + diffinv(rnorm(999, sd = 1), lag = 1)
+fit <- lm(y ~ x)
+```
+
+
+
+```r
+qqnorm(residuals(fit), asp = 1)
+qqline(residuals(fit), col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-208-1} \end{center}
+
+**Caso no-lineal**
+
+
+```r
+x <- rnorm(1000)
+y <- x^2 + rnorm(1000, sd = 0.5)
+fit <- lm(y ~ x)
+```
+
+
+
+```r
+qqnorm(residuals(fit), asp = 1)
+qqline(residuals(fit), col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-210-1} \end{center}
+
+### Otros chequeos importantes 
+
+#### Puntos extremos 
+
+Estos puntos son aquellos que $Y_i$ esta lejos de $\hat{Y}_i$. Otra forma de verlo son aquellos puntos que tienen residuos muy altos. 
+
+
+Se puede hacer un gráfico de los residuos vs los valores ajustados como en \@ref(fig:grafico-residuos-lineal) y \@ref(fig:grafico-residuos-no-lineal). 
+
+
+¿Qué tan grande deben ser los residuos?
+
+**Solución:** Se debe escalar los residuos adecuadamente. 
+
+Se construyen los residuos semi-studendizados 
+
+\begin{equation*}
+r_{i}^{s} = \frac{e_{i}}{\sqrt{\mathrm{Var}\left(e_{i}\right)}} 
+\end{equation*}
+
+
+Como \(H=X(X^{\top}X)^{-1}X^{\top}\) es la matriz de proyección entonces sabemos que 
+
+\begin{align*}
+\hat{Y}&=  H Y \\
+e &= Y - \hat{Y}  
+\end{align*}
+
+Entonces tenemos que 
+
+\begin{align*}
+\mathrm{Var}\left(e\right) 
+&=  \mathrm{Var}\left((I-H)Y\right)\\
+&= (I-H)^{2}\mathrm{Var}\left(Y\right)\\
+&= (I-H) \sigma^{2} \text{ (\(I-H\) es idempotente)}
+\end{align*} 
+
+
+Por lo tanto 
+
+\begin{equation*}
+\mathrm{Var}\left(e_{i}\right) = (1-h_{ii}) \sigma^{2}
+\end{equation*}
+
+Para cada observación se calcula los residuos de la forma 
+
+\begin{equation*}
+r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
+\end{equation*}
+
+**Caso sin valores extremos**
+
+```r
+x <- rnorm(1000)
+y <- 1 + x + rnorm(1000, sd = 0.5)
+fit <- lm(y ~ x)
+
+X <- model.matrix(y ~ x)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+I <- diag(1, nrow = 1000)
+I_H <- I - H
+r_sdnt <- residuals(fit)/sqrt(diag(I_H) * var(y))
+plot(fitted(fit), r_sdnt)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-211-1} \end{center}
+
+```r
+fit
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Coefficients:
+## (Intercept)            x  
+##      0.9950       0.9951
+```
+
+**Caso con valores extremos*
+
+
+```r
+x <- rnorm(1000)
+y <- 1 + x + rnorm(1000, sd = 0.5)
+y[1:5] <- runif(5, 30, 40)
+fit <- lm(y ~ x)
+
+X <- model.matrix(y ~ x)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+I <- diag(1, nrow = 1000)
+I_H <- I - H
+r_sdnt <- residuals(fit)/sqrt(diag(I_H) * var(y))
+plot(fitted(fit), r_sdnt)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-212-1} \end{center}
+
+```r
+fit
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Coefficients:
+## (Intercept)            x  
+##      1.1614       0.9677
+```
+
+#### Puntos de apalancamiento (leverage)
+
+
+Un outlier puede ser detectado pero aún así este puede no afectar el modelo como un todo. 
+
+El $r_{i}^s$ puede ser alto por 2 razones: 
+
+1. los residuos $e_i$ son altos (un outlier)
+2. el valor $h_{ii}$ es cercano a 1. (Se tiene que $0\leq h_{ii}\leq 1$). 
+
+Los valores donde $h_{ii}\approx 1$ se les denomina de **gran apalancamiento**. 
+
+La regla empirica dice que 
+
+\begin{equation*}
+\sum_{i=1}^{n} h_{ii} = p +1 \text{  (Los predictores más el intercepto)   }
+\end{equation*}
+
+**Regla empírica:** Si \(h_{ii}>\frac{p+1}{n}\) entonces decimos que el punto de **gran apalancamiento**.
+
+
+**Caso base**
+
+```r
+set.seed(42)
+apa_df = data.frame(x = 1:10, y = 10:1 + rnorm(n = 10))
+modelo <- lm(y ~ x, data = apa_df)
+coef(modelo)
+```
+
+```
+## (Intercept)           x 
+##  11.3801152  -0.9696033
+```
+
+```r
+X <- model.matrix(y ~ x, data = apa_df)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+
+plot(apa_df)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-213-1} \end{center}
+
+```r
+plot(modelo, 3)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-213-2} \end{center}
+
+```r
+plot(diag(H), col = c(rep("black", 10), "red"), cex = 2, 
+    pch = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-213-3} \end{center}
+
+**Bajo apalancamiento, residuos grandes, influencia pequeña**
+
+
+```r
+p_1 <- c(5.4, 11)
+apa_df_1 <- rbind(apa_df, p_1)
+modelo_1 <- lm(y ~ x, data = apa_df_1)
+coef(modelo_1)
+```
+
+```
+## (Intercept)           x 
+##  11.8509232  -0.9749534
+```
+
+```r
+X <- model.matrix(y ~ x, data = apa_df_1)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+
+plot(apa_df_1, col = c(rep("black", 10), "red"), cex = 2, 
+    pch = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-214-1} \end{center}
+
+```r
+plot(modelo_1, 3)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-214-2} \end{center}
+
+```r
+plot(diag(H), col = c(rep("black", 10), "red"), cex = 2, 
+    pch = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-214-3} \end{center}
+
+
+**Alto apalancamiento, residuo pequeño, influencia pequeña** 
+
+```r
+p_2 <- c(18, -5.7)
+apa_df_2 <- rbind(apa_df, p_2)
+modelo_2 <- lm(y ~ x, data = apa_df_2)
+coef(modelo_2)
+```
+
+```
+## (Intercept)           x 
+##  11.2888153  -0.9507397
+```
+
+```r
+X <- model.matrix(y ~ x, data = apa_df_2)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+
+plot(apa_df_2, col = c(rep("black", 10), "red"), cex = 2, 
+    pch = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-1} \end{center}
+
+```r
+plot(modelo_2, 3)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-2} \end{center}
+
+```r
+plot(diag(H), col = c(rep("black", 10), "red"), cex = 2, 
+    pch = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-3} \end{center}
+
+
+**Alto apalancamiento, residuo altos, influencia grande** 
+
+```r
+p_3 <- c(14, 5.1)
+apa_df_3 <- rbind(apa_df, p_3)
+modelo_3 <- lm(y ~ x, data = apa_df_3)
+coef(modelo_3)
+```
+
+```
+## (Intercept)           x 
+##   9.6572209  -0.5892241
+```
+
+```r
+X <- model.matrix(y ~ x, data = apa_df_3)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+
+plot(apa_df_3, col = c(rep("black", 10), "red"), cex = 2, 
+    pch = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-216-1} \end{center}
+
+```r
+plot(modelo_3, 3)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-216-2} \end{center}
+
+```r
+plot(diag(H), col = c(rep("black", 10), "red"), cex = 2, 
+    pch = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-216-3} \end{center}
 
 
 <!--chapter:end:04-metodos-lineares-regresion.Rmd-->

@@ -1,0 +1,1548 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 5 Métodos lineares de regresión | Notas Curso de Estadística</title>
+  <meta name="description" content="Capítulo 5 Métodos lineares de regresión | Notas Curso de Estadística" />
+  <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 5 Métodos lineares de regresión | Notas Curso de Estadística" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 5 Métodos lineares de regresión | Notas Curso de Estadística" />
+  
+  
+  
+
+<meta name="author" content="Maikol Solís" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="estimación-de-densidades-con-bayes.html"/>
+
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+
+
+<style type="text/css">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Curso de Estadística</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
+<li class="chapter" data-level="2" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html"><i class="fa fa-check"></i><b>2</b> Estimación de densidades</a><ul>
+<li class="chapter" data-level="2.1" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#histograma"><i class="fa fa-check"></i><b>2.1</b> Histograma</a><ul>
+<li class="chapter" data-level="2.1.1" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#construcción-estadística"><i class="fa fa-check"></i><b>2.1.1</b> Construcción Estadística</a></li>
+<li class="chapter" data-level="2.1.2" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#construcción-probabilistica"><i class="fa fa-check"></i><b>2.1.2</b> Construcción probabilistica</a></li>
+<li class="chapter" data-level="2.1.3" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#propiedades-estadísticas"><i class="fa fa-check"></i><b>2.1.3</b> Propiedades estadísticas</a></li>
+<li class="chapter" data-level="2.1.4" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#sesgo"><i class="fa fa-check"></i><b>2.1.4</b> Sesgo</a></li>
+<li class="chapter" data-level="2.1.5" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#varianza"><i class="fa fa-check"></i><b>2.1.5</b> Varianza</a></li>
+<li class="chapter" data-level="2.1.6" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#error-cuadrático-medio"><i class="fa fa-check"></i><b>2.1.6</b> Error cuadrático medio</a></li>
+<li class="chapter" data-level="2.1.7" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#error-cuadrático-medio-integrado"><i class="fa fa-check"></i><b>2.1.7</b> Error cuadrático medio integrado</a></li>
+<li class="chapter" data-level="2.1.8" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#ancho-de-banda-óptimo-para-el-histograma"><i class="fa fa-check"></i><b>2.1.8</b> Ancho de banda óptimo para el histograma</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#estimación-no-paramétrica-de-densidad"><i class="fa fa-check"></i><b>2.2</b> Estimación No-paramétrica de densidad</a><ul>
+<li class="chapter" data-level="2.2.1" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#primera-construcción"><i class="fa fa-check"></i><b>2.2.1</b> Primera construcción</a></li>
+<li class="chapter" data-level="2.2.2" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#otra-construcción"><i class="fa fa-check"></i><b>2.2.2</b> Otra construcción</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#propiedades-estadísticas-1"><i class="fa fa-check"></i><b>2.3</b> Propiedades Estadísticas</a><ul>
+<li class="chapter" data-level="2.3.1" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#varianza-1"><i class="fa fa-check"></i><b>2.3.1</b> Varianza</a></li>
+<li class="chapter" data-level="2.3.2" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#sesgo-1"><i class="fa fa-check"></i><b>2.3.2</b> Sesgo</a></li>
+<li class="chapter" data-level="2.3.3" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#error-cuadrático-medio-y-error-cuadrático-medio-integrado"><i class="fa fa-check"></i><b>2.3.3</b> Error cuadrático medio y Error cuadrático medio integrado</a></li>
+<li class="chapter" data-level="2.3.4" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#ancho-de-banda-óptimo"><i class="fa fa-check"></i><b>2.3.4</b> Ancho de banda óptimo</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#escogiendo-el-ancho-de-banda"><i class="fa fa-check"></i><b>2.4</b> Escogiendo el ancho de banda</a><ul>
+<li class="chapter" data-level="2.4.1" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#referencia-normal"><i class="fa fa-check"></i><b>2.4.1</b> Referencia normal</a></li>
+<li class="chapter" data-level="2.4.2" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#validación-cruzada"><i class="fa fa-check"></i><b>2.4.2</b> Validación Cruzada</a></li>
+<li class="chapter" data-level="2.4.3" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#intervalos-de-confianza-para-estimadores-de-densidad-no-paramétricos"><i class="fa fa-check"></i><b>2.4.3</b> Intervalos de confianza para estimadores de densidad no paramétricos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.5" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#laboratorio"><i class="fa fa-check"></i><b>2.5</b> Laboratorio</a><ul>
+<li class="chapter" data-level="2.5.1" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#efecto-de-distintos-kernels-en-la-estimación"><i class="fa fa-check"></i><b>2.5.1</b> Efecto de distintos Kernels en la estimación</a></li>
+<li class="chapter" data-level="2.5.2" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#efecto-del-ancho-de-banda-en-la-estimación"><i class="fa fa-check"></i><b>2.5.2</b> Efecto del ancho de banda en la estimación</a></li>
+<li class="chapter" data-level="2.5.3" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#ancho-de-banda-óptimo-1"><i class="fa fa-check"></i><b>2.5.3</b> Ancho de banda óptimo</a></li>
+<li class="chapter" data-level="2.5.4" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#validación-cruzada-1"><i class="fa fa-check"></i><b>2.5.4</b> Validación cruzada</a></li>
+<li class="chapter" data-level="2.5.5" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#temas-adicionales"><i class="fa fa-check"></i><b>2.5.5</b> Temas adicionales</a></li>
+</ul></li>
+<li class="chapter" data-level="2.6" data-path="estimación-de-densidades.html"><a href="estimación-de-densidades.html#ejercicios"><i class="fa fa-check"></i><b>2.6</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html"><i class="fa fa-check"></i><b>3</b> Jacknife y Bootstrap</a><ul>
+<li class="chapter" data-level="3.1" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#caso-concreto"><i class="fa fa-check"></i><b>3.1</b> Caso concreto</a></li>
+<li class="chapter" data-level="3.2" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#jacknife"><i class="fa fa-check"></i><b>3.2</b> Jacknife</a></li>
+<li class="chapter" data-level="3.3" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#bootstrap"><i class="fa fa-check"></i><b>3.3</b> Bootstrap</a></li>
+<li class="chapter" data-level="3.4" data-path="jacknife-y-bootstrap.html"><a href="jacknife-y-bootstrap.html#ejercicios-1"><i class="fa fa-check"></i><b>3.4</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html"><i class="fa fa-check"></i><b>4</b> Estimación de densidades con Bayes</a><ul>
+<li class="chapter" data-level="4.1" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#introducción-a-la-estimación-bayesiana"><i class="fa fa-check"></i><b>4.1</b> Introducción a la estimación Bayesiana</a><ul>
+<li class="chapter" data-level="4.1.1" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#preliminares"><i class="fa fa-check"></i><b>4.1.1</b> Preliminares</a></li>
+<li class="chapter" data-level="4.1.2" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#ejemplo-sencillo"><i class="fa fa-check"></i><b>4.1.2</b> Ejemplo sencillo</a></li>
+<li class="chapter" data-level="4.1.3" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#datos-reales"><i class="fa fa-check"></i><b>4.1.3</b> Datos reales</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#previa-de-histograma"><i class="fa fa-check"></i><b>4.2</b> Previa de histograma</a></li>
+<li class="chapter" data-level="4.3" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#métodos-monte-carlo"><i class="fa fa-check"></i><b>4.3</b> Métodos Monte Carlo</a></li>
+<li class="chapter" data-level="4.4" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#una-moneda"><i class="fa fa-check"></i><b>4.4</b> Una moneda</a><ul>
+<li class="chapter" data-level="4.4.1" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#ejemplo-del-viajero"><i class="fa fa-check"></i><b>4.4.1</b> Ejemplo del viajero</a></li>
+<li class="chapter" data-level="4.4.2" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#cadenas-de-markov"><i class="fa fa-check"></i><b>4.4.2</b> Cadenas de Markov</a></li>
+<li class="chapter" data-level="4.4.3" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#el-algoritmo-de-metropolis-hasting"><i class="fa fa-check"></i><b>4.4.3</b> El algoritmo de Metropolis-Hasting</a></li>
+<li class="chapter" data-level="4.4.4" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#por-qué-el-algoritmo-de-metropolis-hasting-funciona"><i class="fa fa-check"></i><b>4.4.4</b> ¿Por qué el algoritmo de Metropolis Hasting funciona?</a></li>
+<li class="chapter" data-level="4.4.5" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#extensión-al-caso-del-viajero"><i class="fa fa-check"></i><b>4.4.5</b> Extensión al caso del viajero</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#dos-monedas"><i class="fa fa-check"></i><b>4.5</b> Dos monedas</a><ul>
+<li class="chapter" data-level="4.5.1" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#muestreo-de-gibbs"><i class="fa fa-check"></i><b>4.5.1</b> Muestreo de Gibbs</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#uso-de-jags"><i class="fa fa-check"></i><b>4.6</b> Uso de JAGS</a></li>
+<li class="chapter" data-level="4.7" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#uso-de-stan"><i class="fa fa-check"></i><b>4.7</b> Uso de STAN</a></li>
+<li class="chapter" data-level="4.8" data-path="estimación-de-densidades-con-bayes.html"><a href="estimación-de-densidades-con-bayes.html#ejercicios-2"><i class="fa fa-check"></i><b>4.8</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html"><i class="fa fa-check"></i><b>5</b> Métodos lineares de regresión</a><ul>
+<li class="chapter" data-level="5.1" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#introducción-1"><i class="fa fa-check"></i><b>5.1</b> Introducción</a></li>
+<li class="chapter" data-level="5.2" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#regresión-lineal"><i class="fa fa-check"></i><b>5.2</b> Regresión lineal</a><ul>
+<li class="chapter" data-level="5.2.1" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#forma-matricial"><i class="fa fa-check"></i><b>5.2.1</b> Forma matricial</a></li>
+<li class="chapter" data-level="5.2.2" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#laboratorio-1"><i class="fa fa-check"></i><b>5.2.2</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#propiedades-estadísticas-2"><i class="fa fa-check"></i><b>5.3</b> Propiedades estadísticas</a><ul>
+<li class="chapter" data-level="5.3.1" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#prueba-t"><i class="fa fa-check"></i><b>5.3.1</b> Prueba <span class="math inline">\(t\)</span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#prueba-f"><i class="fa fa-check"></i><b>5.3.2</b> Prueba <span class="math inline">\(F\)</span></a></li>
+<li class="chapter" data-level="5.3.3" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#laboratorio-2"><i class="fa fa-check"></i><b>5.3.3</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#predicción"><i class="fa fa-check"></i><b>5.4</b> Predicción</a><ul>
+<li class="chapter" data-level="5.4.1" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#laboratorio-3"><i class="fa fa-check"></i><b>5.4.1</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#interacciones"><i class="fa fa-check"></i><b>5.5</b> Interacciones</a><ul>
+<li class="chapter" data-level="5.5.1" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#laboratorio-4"><i class="fa fa-check"></i><b>5.5.1</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#hipotesis-en-regresión-lineal"><i class="fa fa-check"></i><b>5.6</b> Hipotesis en regresión lineal</a><ul>
+<li class="chapter" data-level="5.6.1" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#hipotésis"><i class="fa fa-check"></i><b>5.6.1</b> Hipotésis</a></li>
+<li class="chapter" data-level="5.6.2" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#chequeos-básicos-de-las-hipótesis-de-regresión-lineal"><i class="fa fa-check"></i><b>5.6.2</b> Chequeos básicos de las hipótesis de regresión lineal</a></li>
+<li class="chapter" data-level="5.6.3" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#otros-chequeos-importantes"><i class="fa fa-check"></i><b>5.6.3</b> Otros chequeos importantes</a></li>
+</ul></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notas Curso de Estadística</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="métodos-lineares-de-regresión" class="section level1">
+<h1><span class="header-section-number">Capítulo 5</span> Métodos lineares de regresión</h1>
+<div id="introducción-1" class="section level2">
+<h2><span class="header-section-number">5.1</span> Introducción</h2>
+<p>Supongamos que tenemos <span class="math inline">\(p\)</span> variables de entrada que mezcladas con alguna relación desconocida y que provocan una respuesta <span class="math inline">\(Y\)</span> de salida.</p>
+<p><span class="math display" id="eq:regresion-general">\[\begin{equation}
+Y = f(X_{1},\ldots,X_{p}) + \varepsilon
+\tag{5.1}
+\end{equation}\]</span></p>
+<p>Aquí <span class="math inline">\(f\)</span> es deconocida, las variables <span class="math inline">\(X\)</span>’s son las variables de entrada y <span class="math inline">\(\varepsilon\)</span> es el error cometido por hacer esta aproximación.</p>
+<p>Hay dos motivos para estimar <span class="math inline">\(f\)</span></p>
+<ol style="list-style-type: decimal">
+<li><strong>Predicción:</strong> Si se estima <span class="math inline">\(f\)</span> con <span class="math inline">\(\hat{f}\)</span> entonces
+<span class="math display">\[\begin{equation*}
+\hat{Y} = \hat{f}(X_{1},\ldots,X_{p}). 
+\end{equation*}\]</span></li>
+</ol>
+<p>Y si tuvieramos valores nuevos de los <span class="math inline">\(X\)</span>’s entonces podríamos estimar el valor que el corresponde a <span class="math inline">\(Y\)</span>.</p>
+<p>Aquí lo importante es que los resultados sean preciso:</p>
+<ol style="list-style-type: lower-alpha">
+<li><strong>Error reducible:</strong> Error de <span class="math inline">\(\hat{f}\)</span> alrededor de <span class="math inline">\(f\)</span>.</li>
+<li><strong>Error irreducible:</strong> Error propio de las observaciones (muestreo).</li>
+</ol>
+<p><span class="math display">\[\begin{align*}
+\mathbb{E}\left[\hat{Y}-Y\right] 
+&amp;=  \mathbb{E}\left[\left(  f(X_{1},\ldots,X_{p}) + \varepsilon - \hat{f}(X_{1},\ldots,X_{p}) \right)^{2}  \right] \\
+&amp;= \underbrace{\left( f(X_{1},\ldots,X_{p})- \hat{f}(X_{1},\ldots,X_{p})  \right) ^{2} }_{\text{Reducible}}
++\underbrace{\mathrm{Var}\left(\varepsilon\right)}_{\text{irreducible}}. 
+\end{align*}\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Inferencia:</strong> Entender la relación entre <span class="math inline">\(X\)</span> y <span class="math inline">\(Y\)</span>.</li>
+</ol>
+<ul>
+<li>¿Cuál es la relación entre las variables predictoras y la respuesta?</li>
+<li>¿Cuáles son más importantes?</li>
+<li>¿El modelo es correcto?</li>
+</ul>
+</div>
+<div id="regresión-lineal" class="section level2">
+<h2><span class="header-section-number">5.2</span> Regresión lineal</h2>
+<p>El caso más sencillo es cuando esta relación es lineal y se describe de la siguiente forma</p>
+<p><span class="math display">\[\begin{equation*}
+Y = \beta_{0} + \beta_{1}X_{1} + \cdots +  \beta_{1}X_{1} + \varepsilon.
+\end{equation*}\]</span></p>
+<p>Aquí los valores <span class="math inline">\(\beta\)</span>’s son constantes a estimar, las variables <span class="math inline">\(X\)</span>’s son las variables de entrada y <span class="math inline">\(\varepsilon\)</span> es el error cometido por hacer esta aproximación.</p>
+<p>Los <span class="math inline">\(X\)</span>’s pueden ser</p>
+<ol style="list-style-type: decimal">
+<li>Cuantitativos o Transformaciones.</li>
+<li>Cualitativos.</li>
+</ol>
+<p>En el caso de ser cualititativos existe un truco para incluirlos dentro de la regresión</p>
+
+<div class="example">
+<p><span id="exm:unnamed-chunk-169" class="example"><strong>Ejemplo 5.1  </strong></span>Se tiene la variable <span class="math inline">\(G\)</span> codificada con Casado (1), Soltero (2), Divorciado (3) y Unión Libre (4). Si queremos meter esta variable en una regresión debemos tomarla de la forma</p>
+<p><span class="math display">\[\begin{equation*}
+X_{j} = \mathbf{1}_{\{G=j+1\}} 
+\end{equation*}\]</span></p>
+<p>que resulta en la matriz</p>
+<p><span class="math display">\[\begin{equation*}
+\begin{matrix}
+X_{1} &amp; X_{2} &amp; X_{3}\\
+0 &amp; 0 &amp; 0 \\
+1 &amp; 0 &amp; 0 \\
+0 &amp; 1 &amp; 0 \\
+0 &amp; 0 &amp; 1 \\
+\end{matrix}
+\end{equation*}\]</span></p>
+<p>Existen otras formas de codificar este tipo de variables, pero esa es la más común.</p>
+</div>
+
+<div id="forma-matricial" class="section level3">
+<h3><span class="header-section-number">5.2.1</span> Forma matricial</h3>
+<p>Podemos escribir la regresión de la forma</p>
+<p><span class="math display">\[\begin{equation*}
+\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}
+\end{equation*}\]</span></p>
+<p>donde</p>
+<p><span class="math display">\[\begin{multline*}
+\boldsymbol{Y} = 
+\begin{pmatrix}
+Y_{1} \\
+\vdots \\
+Y_{n}
+\end{pmatrix}_{n\times 1} 
+\quad 
+\boldsymbol{Y} = 
+\begin{pmatrix}
+1 &amp; X_{1,1} &amp; \cdots &amp; X_{p,1} \\
+\vdots &amp; \vdots &amp; \cdots &amp; \vdots\\
+1 &amp; X_{1,n}&amp; \cdots &amp; X_{p,n}
+\end{pmatrix}_{n\times (p+1)}
+\\
+\boldsymbol{\varepsilon} = 
+\begin{pmatrix}
+\varepsilon_{1} \\
+\vdots \\
+\varepsilon_{n}
+\end{pmatrix}_{n\times 1} 
+\quad 
+\boldsymbol{\beta} = 
+\begin{pmatrix}
+\beta_{0} \\
+\beta_{1} \\
+\vdots \\
+\beta_{p}
+\end{pmatrix}_{(p+1)\times 1} 
+\end{multline*}\]</span></p>
+<p>Suponemos que <span class="math inline">\(\mathbb{E}\left[\varepsilon_{i}\right] = 0\)</span> y <span class="math inline">\(\mathrm{Var}\left(\varepsilon_{i}\right) = \sigma^{2}\)</span></p>
+<p>La forma de resolver este problema es por minimos cuadrados. Es decir, buscamos el <span class="math inline">\(\hat{\beta}\)</span> que cumpla lo siguiente:</p>
+<p><span class="math display" id="eq:minimos-cuadrados">\[\begin{align}
+\hat{\beta} &amp;= 
+ \operatorname{argmin}_\beta (\boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta})^{\top} (\boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta})\\
+ &amp;=  \operatorname{argmin}_\beta \sum_{i=1}^n \left( Y_{i} -\beta_{0} - \sum_{j=1}^p X_{j,i} \beta_{j} \right) 
+ \tag{5.2}
+ \end{align}\]</span></p>
+<div class="figure">
+<img src="manual_figures/ols.png" alt="" />
+<p class="caption">Tomado de <a href="https://www.wikiwand.com/en/Ordinary_least_squares" class="uri">https://www.wikiwand.com/en/Ordinary_least_squares</a></p>
+</div>
+<p>Suponga que <span class="math inline">\(\gamma\)</span> es un vector cualquiera en <span class="math inline">\(\mathbb{R}^{p+1}\)</span> y tenemos a <span class="math inline">\(V = \{\boldsymbol{X}\boldsymbol{\gamma}, \gamma \in \mathbb{R}^{p+1}\}\)</span>.</p>
+<p><span class="math display">\[\begin{align*}
+\boldsymbol{X}\boldsymbol{\beta}
+ &amp;= \operatorname{Proy}_{V} \boldsymbol{Y}
+\end{align*}\]</span></p>
+<p>Entonces dado que
+<span class="math display">\[\begin{equation*}
+\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp V \\
+\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp \boldsymbol{X}\boldsymbol{\gamma}, \forall \boldsymbol{\gamma} \in \mathbb{R}^{p+1}.
+\end{equation*}\]</span></p>
+<p><span class="math display">\[\begin{align*}
+&lt;\boldsymbol{X}\boldsymbol{\gamma}, \boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} &gt; &amp;=  0 \\
+ \boldsymbol{\gamma}^{\top}\boldsymbol{X}^{\top}(\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta}) &amp;=  0 \\
+ \boldsymbol{\gamma}^{\top}\boldsymbol{X}^{\top}\boldsymbol{Y} &amp;= \boldsymbol{\gamma}^{\top} \boldsymbol{X}^{\top} \boldsymbol{X}\boldsymbol{\beta}  \\
+  \boldsymbol{X}^{\top}\boldsymbol{Y} &amp;=  \boldsymbol{X}^{\top} \boldsymbol{X}\boldsymbol{\beta}  \\
+  \boldsymbol{\beta}  &amp;=  (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{Y} 
+\end{align*}\]</span></p>
+<p>Donde <span class="math inline">\(\boldsymbol{X}^{\top} \boldsymbol{X}\)</span> debe ser invertible. Si no es así, se puede construir su inversa generalizada pero no garantiza la unicidad de los <span class="math inline">\(\beta\)</span>’s. Es decir, puede existir <span class="math inline">\(\hat{\beta} \neq \tilde{\beta}\)</span> tal que <span class="math inline">\(\boldsymbol{X}\boldsymbol{\hat{\beta}} = \boldsymbol{X}\boldsymbol{\tilde{\beta}}\)</span></p>
+<p>En el caso de predicción tenemos que</p>
+<p><span class="math display">\[\begin{align*}
+\hat{Y} &amp;=  X\beta \\
+&amp;= \boldsymbol{X}(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{Y} \\
+&amp;=  H \boldsymbol{Y} 
+\end{align*}\]</span></p>
+<p>Donde <span class="math inline">\(H\)</span> es la matriz “techo” o “hat”. Es la proyección de Y al espacio de las columnas de <span class="math inline">\(X\)</span>.</p>
+
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-170" class="exercise"><strong>Ejercicio 5.1  </strong></span>Suponga que tenemos la regresión simple</p>
+<p><span class="math display">\[\begin{equation*}
+Y = \beta_{0} + \beta_{1}X_{1}+\varepsilon.
+\end{equation*}\]</span></p>
+<p>Muestre que <span class="math inline">\(\beta_{0}\)</span> y <span class="math inline">\(\beta_{1}\)</span> son</p>
+<p>Para el caso de la regresión simple tenemos que</p>
+<p><span class="math display">\[\begin{align*}
+\hat{\beta}_{1}&amp;= \frac{\sum_{i=1}^{n}\left(X_{i}-\overline{X}\right)\left(Y_{i}-\overline{Y}\right)}{\sum_{i=1}^{n}\left(X_{i}-\overline{x}\right)^{2}} \\ 
+\hat{\beta}_{0}&amp;= \bar{Y}-\widehat{\beta}_{1} \bar{X}
+\end{align*}\]</span></p>
+<p>usando los siguiente métodos:</p>
+<ol style="list-style-type: decimal">
+<li>El método de proyecciones.</li>
+<li>Minimizando el criterio de mínimos cuadrados. Ecuación <a href="métodos-lineares-de-regresión.html#eq:minimos-cuadrados">(5.2)</a>.</li>
+</ol>
+</div>
+
+</div>
+<div id="laboratorio-1" class="section level3">
+<h3><span class="header-section-number">5.2.2</span> Laboratorio</h3>
+<p>Usemos la base <code>mtcars</code> para los siguientes ejemplos. Toda la información de esta base se encuentra en <code>?mtcars</code>.</p>
+<div class="sourceCode" id="cb188"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb188-1"><a href="métodos-lineares-de-regresión.html#cb188-1"></a>mtcars &lt;-<span class="st"> </span><span class="kw">within</span>(mtcars, {</span>
+<span id="cb188-2"><a href="métodos-lineares-de-regresión.html#cb188-2"></a>    vs &lt;-<span class="st"> </span><span class="kw">factor</span>(vs, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;V-Shape&quot;</span>, <span class="st">&quot;Straight-Line&quot;</span>))</span>
+<span id="cb188-3"><a href="métodos-lineares-de-regresión.html#cb188-3"></a>    am &lt;-<span class="st"> </span><span class="kw">factor</span>(am, <span class="dt">labels =</span> <span class="kw">c</span>(<span class="st">&quot;automatic&quot;</span>, <span class="st">&quot;manual&quot;</span>))</span>
+<span id="cb188-4"><a href="métodos-lineares-de-regresión.html#cb188-4"></a>    cyl &lt;-<span class="st"> </span><span class="kw">factor</span>(cyl)</span>
+<span id="cb188-5"><a href="métodos-lineares-de-regresión.html#cb188-5"></a>    gear &lt;-<span class="st"> </span><span class="kw">factor</span>(gear)</span>
+<span id="cb188-6"><a href="métodos-lineares-de-regresión.html#cb188-6"></a>    carb &lt;-<span class="st"> </span><span class="kw">factor</span>(carb)</span>
+<span id="cb188-7"><a href="métodos-lineares-de-regresión.html#cb188-7"></a>})</span>
+<span id="cb188-8"><a href="métodos-lineares-de-regresión.html#cb188-8"></a></span>
+<span id="cb188-9"><a href="métodos-lineares-de-regresión.html#cb188-9"></a><span class="kw">head</span>(mtcars)</span></code></pre></div>
+<pre><code>##                    mpg cyl disp  hp drat    wt  qsec            vs        am
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46       V-Shape    manual
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02       V-Shape    manual
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61 Straight-Line    manual
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44 Straight-Line automatic
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02       V-Shape automatic
+## Valiant           18.1   6  225 105 2.76 3.460 20.22 Straight-Line automatic
+##                   gear carb
+## Mazda RX4            4    4
+## Mazda RX4 Wag        4    4
+## Datsun 710           4    1
+## Hornet 4 Drive       3    1
+## Hornet Sportabout    3    2
+## Valiant              3    1</code></pre>
+<div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="métodos-lineares-de-regresión.html#cb190-1"></a><span class="kw">summary</span>(mtcars)</span></code></pre></div>
+<pre><code>##       mpg        cyl         disp             hp             drat      
+##  Min.   :10.40   4:11   Min.   : 71.1   Min.   : 52.0   Min.   :2.760  
+##  1st Qu.:15.43   6: 7   1st Qu.:120.8   1st Qu.: 96.5   1st Qu.:3.080  
+##  Median :19.20   8:14   Median :196.3   Median :123.0   Median :3.695  
+##  Mean   :20.09          Mean   :230.7   Mean   :146.7   Mean   :3.597  
+##  3rd Qu.:22.80          3rd Qu.:326.0   3rd Qu.:180.0   3rd Qu.:3.920  
+##  Max.   :33.90          Max.   :472.0   Max.   :335.0   Max.   :4.930  
+##        wt             qsec                   vs             am     gear  
+##  Min.   :1.513   Min.   :14.50   V-Shape      :18   automatic:19   3:15  
+##  1st Qu.:2.581   1st Qu.:16.89   Straight-Line:14   manual   :13   4:12  
+##  Median :3.325   Median :17.71                                     5: 5  
+##  Mean   :3.217   Mean   :17.85                                           
+##  3rd Qu.:3.610   3rd Qu.:18.90                                           
+##  Max.   :5.424   Max.   :22.90                                           
+##  carb  
+##  1: 7  
+##  2:10  
+##  3: 3  
+##  4:10  
+##  6: 1  
+##  8: 1</code></pre>
+<p>Observemos las relaciones generales de las variables de esta base de datos</p>
+<div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="métodos-lineares-de-regresión.html#cb192-1"></a><span class="kw">ggplot</span>(mtcars) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(wt, mpg)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-172-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>El objetivo es tratar la eficiencia del automovil <code>mpg</code> con respecto a su peso <code>wt</code>.</p>
+<p>Usaremos una regresión lineal para encontrar los coeficientes.</p>
+<p>Primero hay que construir la matriz de diseño</p>
+<div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="métodos-lineares-de-regresión.html#cb193-1"></a>X &lt;-<span class="st"> </span>mtcars<span class="op">$</span>wt</span>
+<span id="cb193-2"><a href="métodos-lineares-de-regresión.html#cb193-2"></a><span class="kw">head</span>(X)</span></code></pre></div>
+<pre><code>## [1] 2.620 2.875 2.320 3.215 3.440 3.460</code></pre>
+<div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="métodos-lineares-de-regresión.html#cb195-1"></a>Y &lt;-<span class="st"> </span>mtcars<span class="op">$</span>mpg</span>
+<span id="cb195-2"><a href="métodos-lineares-de-regresión.html#cb195-2"></a><span class="kw">head</span>(Y)</span></code></pre></div>
+<pre><code>## [1] 21.0 21.0 22.8 21.4 18.7 18.1</code></pre>
+<div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="métodos-lineares-de-regresión.html#cb197-1"></a>(beta1 &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>Y)</span></code></pre></div>
+<pre><code>##          [,1]
+## [1,] 5.291624</code></pre>
+<div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="métodos-lineares-de-regresión.html#cb199-1"></a>dfreg &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> X, <span class="dt">yreg =</span> X <span class="op">%*%</span><span class="st"> </span>beta1) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb199-2"><a href="métodos-lineares-de-regresión.html#cb199-2"></a><span class="st">    </span><span class="kw">arrange</span>(x)</span></code></pre></div>
+<div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="métodos-lineares-de-regresión.html#cb200-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(x, </span>
+<span id="cb200-2"><a href="métodos-lineares-de-regresión.html#cb200-2"></a>    y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> dfreg, <span class="kw">aes</span>(x, yreg), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb200-3"><a href="métodos-lineares-de-regresión.html#cb200-3"></a><span class="st">    </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-174-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="métodos-lineares-de-regresión.html#cb201-1"></a>X &lt;-<span class="st"> </span><span class="kw">cbind</span>(<span class="dv">1</span>, mtcars<span class="op">$</span>wt)</span>
+<span id="cb201-2"><a href="métodos-lineares-de-regresión.html#cb201-2"></a><span class="kw">head</span>(X)</span></code></pre></div>
+<pre><code>##      [,1]  [,2]
+## [1,]    1 2.620
+## [2,]    1 2.875
+## [3,]    1 2.320
+## [4,]    1 3.215
+## [5,]    1 3.440
+## [6,]    1 3.460</code></pre>
+<div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="métodos-lineares-de-regresión.html#cb203-1"></a>Y &lt;-<span class="st"> </span>mtcars<span class="op">$</span>mpg</span>
+<span id="cb203-2"><a href="métodos-lineares-de-regresión.html#cb203-2"></a><span class="kw">head</span>(Y)</span></code></pre></div>
+<pre><code>## [1] 21.0 21.0 22.8 21.4 18.7 18.1</code></pre>
+<div class="sourceCode" id="cb205"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb205-1"><a href="métodos-lineares-de-regresión.html#cb205-1"></a>(beta01 &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>Y)</span></code></pre></div>
+<pre><code>##           [,1]
+## [1,] 37.285126
+## [2,] -5.344472</code></pre>
+<div class="sourceCode" id="cb207"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb207-1"><a href="métodos-lineares-de-regresión.html#cb207-1"></a>dfreg &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> X, <span class="dt">yreg =</span> X <span class="op">%*%</span><span class="st"> </span>beta01) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb207-2"><a href="métodos-lineares-de-regresión.html#cb207-2"></a><span class="st">    </span><span class="kw">arrange</span>(x<span class="fl">.2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb208"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb208-1"><a href="métodos-lineares-de-regresión.html#cb208-1"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> <span class="kw">data.frame</span>(<span class="dt">x0 =</span> X[, <span class="dv">1</span>], <span class="dt">x1 =</span> X[, <span class="dv">2</span>], </span>
+<span id="cb208-2"><a href="métodos-lineares-de-regresión.html#cb208-2"></a>    <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(x1, y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>(<span class="dt">data =</span> dfreg, </span>
+<span id="cb208-3"><a href="métodos-lineares-de-regresión.html#cb208-3"></a>    <span class="kw">aes</span>(x<span class="fl">.2</span>, yreg), <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-176-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>Ojo obviamente esto se puede hacer más fácil con los siguientes comandos</p>
+<div class="sourceCode" id="cb209"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb209-1"><a href="métodos-lineares-de-regresión.html#cb209-1"></a><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span><span class="dv">-1</span> <span class="op">+</span><span class="st"> </span>wt, <span class="dt">data =</span> mtcars)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ -1 + wt, data = mtcars)
+## 
+## Coefficients:
+##    wt  
+## 5.292</code></pre>
+<div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="métodos-lineares-de-regresión.html#cb211-1"></a><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> mtcars)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Coefficients:
+## (Intercept)           wt  
+##      37.285       -5.344</code></pre>
+<p>Suponga que queremos incluir una variable categorica como <code>cyl</code> (Número de cilindros). Lo que se debe hacer es convertir esta variable a dummy.</p>
+<div class="sourceCode" id="cb213"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb213-1"><a href="métodos-lineares-de-regresión.html#cb213-1"></a>X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(mpg <span class="op">~</span><span class="st"> </span>cyl, <span class="dt">data =</span> mtcars)</span>
+<span id="cb213-2"><a href="métodos-lineares-de-regresión.html#cb213-2"></a></span>
+<span id="cb213-3"><a href="métodos-lineares-de-regresión.html#cb213-3"></a><span class="kw">head</span>(X)</span></code></pre></div>
+<pre><code>##                   (Intercept) cyl6 cyl8
+## Mazda RX4                   1    1    0
+## Mazda RX4 Wag               1    1    0
+## Datsun 710                  1    0    0
+## Hornet 4 Drive              1    1    0
+## Hornet Sportabout           1    0    1
+## Valiant                     1    1    0</code></pre>
+<div class="sourceCode" id="cb215"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb215-1"><a href="métodos-lineares-de-regresión.html#cb215-1"></a>(betas &lt;-<span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>Y)</span></code></pre></div>
+<pre><code>##                   [,1]
+## (Intercept)  26.663636
+## cyl6         -6.920779
+## cyl8        -11.563636</code></pre>
+<div class="sourceCode" id="cb217"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb217-1"><a href="métodos-lineares-de-regresión.html#cb217-1"></a>(cylreg &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>cyl, <span class="dt">data =</span> mtcars))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ cyl, data = mtcars)
+## 
+## Coefficients:
+## (Intercept)         cyl6         cyl8  
+##      26.664       -6.921      -11.564</code></pre>
+<div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="métodos-lineares-de-regresión.html#cb219-1"></a>(betaslm &lt;-<span class="st"> </span><span class="kw">coefficients</span>(cylreg))</span></code></pre></div>
+<pre><code>## (Intercept)        cyl6        cyl8 
+##   26.663636   -6.920779  -11.563636</code></pre>
+<div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="métodos-lineares-de-regresión.html#cb221-1"></a><span class="co"># Efecto cyl4: cyl4 = 1, cyl6 = 0, cyl8 = 0</span></span>
+<span id="cb221-2"><a href="métodos-lineares-de-regresión.html#cb221-2"></a></span>
+<span id="cb221-3"><a href="métodos-lineares-de-regresión.html#cb221-3"></a>betaslm[<span class="dv">1</span>]</span></code></pre></div>
+<pre><code>## (Intercept) 
+##    26.66364</code></pre>
+<div class="sourceCode" id="cb223"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb223-1"><a href="métodos-lineares-de-regresión.html#cb223-1"></a><span class="co"># Efecto cyl6: cyl4 = 1, cyl6 = 1, cyl8 = 0</span></span>
+<span id="cb223-2"><a href="métodos-lineares-de-regresión.html#cb223-2"></a></span>
+<span id="cb223-3"><a href="métodos-lineares-de-regresión.html#cb223-3"></a>betaslm[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>betaslm[<span class="dv">2</span>]</span></code></pre></div>
+<pre><code>## (Intercept) 
+##    19.74286</code></pre>
+<div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="métodos-lineares-de-regresión.html#cb225-1"></a><span class="co"># Efecto cyl8: cyl4 = 1, cyl6 = 0, cyl8 = 1</span></span>
+<span id="cb225-2"><a href="métodos-lineares-de-regresión.html#cb225-2"></a></span>
+<span id="cb225-3"><a href="métodos-lineares-de-regresión.html#cb225-3"></a>betaslm[<span class="dv">1</span>] <span class="op">+</span><span class="st"> </span>betaslm[<span class="dv">3</span>]</span></code></pre></div>
+<pre><code>## (Intercept) 
+##        15.1</code></pre>
+</div>
+</div>
+<div id="propiedades-estadísticas-2" class="section level2">
+<h2><span class="header-section-number">5.3</span> Propiedades estadísticas</h2>
+<p>Uno de los supuestos fundamentales de regresión lineal es que</p>
+<p><span class="math display">\[\begin{equation*}
+\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}I\right)
+\end{equation*}\]</span> .</p>
+<p>En ese caso</p>
+<p><span class="math display">\[\begin{equation*}
+Y = X\beta + \varepsilon \sim \mathcal{N}\left(X\beta,\sigma^{2}I\right)
+\end{equation*}\]</span></p>
+<p>Y además</p>
+<p><span class="math display">\[\begin{align*}
+\hat{\beta} &amp;=  (X^{\top}X)^{-1}X^{\top}Y \\
+&amp;\sim  \mathcal{N}\left((X^{\top}X)^{-1}X^{\top}X\beta,((X^{\top}X)^{-1}X^{\top})\sigma I ((X^{\top}X)^{-1}X^{\top})^{\top}\right) \\
+&amp;\sim  \mathcal{N}\left(\beta,\sigma (X^{\top}X)^{-1}\right) \\
+\end{align*}\]</span></p>
+<p>Es decir, que</p>
+<p><span class="math display">\[\begin{align*}
+\mathbb{E}\left[\hat{\beta}\right] &amp;= \beta \\
+\operatorname{Var}(\hat{\beta}) &amp;=  \sigma^{2}\left(X^{\top} X\right)^{-1}
+\end{align*}\]</span></p>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-180" class="exercise"><strong>Ejercicio 5.2  </strong></span>Encuentre la varianza para <span class="math inline">\(\beta_{0}\)</span> y <span class="math inline">\(\beta_{1}\)</span> para el caso de la regresión simple.
+</div>
+
+<p>La estimación de <span class="math inline">\(\sigma^{2}\)</span></p>
+<p><span class="math display">\[\begin{align*}
+ \hat{\sigma}^{2} 
+ &amp;=  \frac{1}{n-p-1} \sum_{i=1}^{n} \left( Y_{i} - \hat{Y}_{i}\right)^{2} \\
+ &amp;= \frac{1}{n-p-1}\left\Vert Y - X\hat{\beta} \right\Vert^{2} \\
+ &amp;=   \frac{1}{n-p-1} \left\Vert Y-\operatorname{Proy}_{V}Y \right\Vert^{2} 
+ \end{align*}\]</span></p>
+<p>Otra forma de verlo es
+<span class="math display">\[\begin{align*}
+Y-\operatorname{Proy}_{V}Y  
+&amp;= X\beta + \varepsilon -  \operatorname{Proy}_{V}( X\beta + \varepsilon) \\
+&amp;= X\beta - \operatorname{Proy}_{V}( \underbrace{X\beta}_{\in V}) + \varepsilon - \underbrace{\operatorname{Proy}_{V}( \varepsilon)}_{=0} \\
+&amp;= X\beta -X\beta + \varepsilon \\
+&amp;=  \operatorname{Proy}_{V^{\top}}( \varepsilon)
+ \end{align*}\]</span></p>
+<p><span class="math display">\[\begin{equation*}
+\hat{\sigma}^{2} 
+= \frac{1}{dim(V^{\top})}\left\Vert \operatorname{Proy}_{V^{\top}}\varepsilon\right\Vert \\
+\end{equation*}\]</span></p>
+<p>Cumple con la propiedad que <span class="math inline">\(\mathbb{E}\left[\hat{\sigma}^{}\right] = \sigma^{2}\)</span>.</p>
+<p>Y además <span class="math inline">\((n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.\)</span></p>
+<div id="prueba-t" class="section level3">
+<h3><span class="header-section-number">5.3.1</span> Prueba <span class="math inline">\(t\)</span></h3>
+<p>Dado que los coeficientes <span class="math inline">\(\beta\)</span> son normales, se puede hacer la prueba de hipotesis</p>
+<p><span class="math display">\[\begin{equation*}
+ H_{0}: \beta_{j} = 0 \quad \text{ vs } \quad H_{1}:\beta_{j}\neq 0.
+ \end{equation*}\]</span></p>
+<p>El estadístico es</p>
+<p><span class="math display">\[\begin{equation*}
+ z_{j} = \frac{\hat{\beta}_{j}}{\hat{\sigma} \sqrt{v_{j}}} 
+ \end{equation*}\]</span></p>
+<p>donde <span class="math inline">\(v_{j}\)</span> es el <span class="math inline">\(j\)</span>-esimo elemento de la diagonal de <span class="math inline">\((X^{\top}X)^{-1}\)</span>.</p>
+<p>Bajo <span class="math inline">\(H_{0}\)</span> <span class="math inline">\(z_{j} \sim t_{n-p-1}\)</span> y se rechaza <span class="math inline">\(H_{0}\)</span> si</p>
+<p><span class="math display">\[\begin{equation*}
+ \left\vert z_{j} \right\vert &gt; t_{n-p-1, 1-\frac{\alpha}{2}} 
+ \end{equation*}\]</span></p>
+</div>
+<div id="prueba-f" class="section level3">
+<h3><span class="header-section-number">5.3.2</span> Prueba <span class="math inline">\(F\)</span></h3>
+<p><span class="math display">\[\begin{equation*}
+ H_{0}: \beta_{1} = \cdots =\beta_{p} = 0 \quad 
+ \text{  vs   }\quad H_{1}: \text{ al menos un \(\beta\) no es cero}.
+ \end{equation*}\]</span></p>
+<p>En este caso queremos comparar el modelo nulo <span class="math inline">\(Y=\beta_{0}+\varepsilon\)</span> contra el modelo completo <span class="math inline">\(Y=\beta_{0}+ \beta_{1}X_{1} + \cdots + \beta_{p}X_{p} + \varepsilon\)</span>.</p>
+<p>Defina</p>
+<p><span class="math display">\[\begin{align*}
+ TSS &amp;= \sum_{i=1}^{n} \left( Y_{i} -\overline{Y} \right)^{2} \\
+ RSS &amp;= \sum_{i=1}^{n} \left( Y_{i} -\overline{Y} \right)^{2} \\
+ \end{align*}\]</span></p>
+<p>TSS = Total sum of squares</p>
+<p>RSS = Residual sum of squares</p>
+<p>Entonces</p>
+<p><span class="math display">\[\begin{equation*}
+ F = \frac{\frac{TSS-RSS}{p}}{\frac{RSS}{n-p-1}} \sim \frac{\chi^{2}_{p}}{\chi^{2}_{n-p-1}}.
+ \end{equation*}\]</span></p>
+<p>Rechazamos <span class="math inline">\(H_{0}\)</span> si</p>
+<p><span class="math display">\[\begin{equation*}
+ F &gt; F_{p, n-p-1, 1-\alpha}.
+ \end{equation*}\]</span></p>
+</div>
+<div id="laboratorio-2" class="section level3">
+<h3><span class="header-section-number">5.3.3</span> Laboratorio</h3>
+<p>Siguiendo con nuestro ejemplo, vamos a explorar un poco más la función <code>lm</code>.</p>
+<div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="métodos-lineares-de-regresión.html#cb227-1"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> mtcars)</span>
+<span id="cb227-2"><a href="métodos-lineares-de-regresión.html#cb227-2"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5432 -2.3647 -0.1252  1.4096  6.8727 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  37.2851     1.8776  19.858  &lt; 2e-16 ***
+## wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.046 on 30 degrees of freedom
+## Multiple R-squared:  0.7528, Adjusted R-squared:  0.7446 
+## F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10</code></pre>
+<div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="métodos-lineares-de-regresión.html#cb229-1"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>cyl, <span class="dt">data =</span> mtcars)</span>
+<span id="cb229-2"><a href="métodos-lineares-de-regresión.html#cb229-2"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + cyl, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5890 -1.2357 -0.5159  1.3845  5.7915 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  33.9908     1.8878  18.006  &lt; 2e-16 ***
+## wt           -3.2056     0.7539  -4.252 0.000213 ***
+## cyl6         -4.2556     1.3861  -3.070 0.004718 ** 
+## cyl8         -6.0709     1.6523  -3.674 0.000999 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.557 on 28 degrees of freedom
+## Multiple R-squared:  0.8374, Adjusted R-squared:   0.82 
+## F-statistic: 48.08 on 3 and 28 DF,  p-value: 3.594e-11</code></pre>
+<div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="métodos-lineares-de-regresión.html#cb231-1"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> mtcars)</span>
+<span id="cb231-2"><a href="métodos-lineares-de-regresión.html#cb231-2"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ ., data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.5087 -1.3584 -0.0948  0.7745  4.6251 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(&gt;|t|)  
+## (Intercept)     23.87913   20.06582   1.190   0.2525  
+## cyl6            -2.64870    3.04089  -0.871   0.3975  
+## cyl8            -0.33616    7.15954  -0.047   0.9632  
+## disp             0.03555    0.03190   1.114   0.2827  
+## hp              -0.07051    0.03943  -1.788   0.0939 .
+## drat             1.18283    2.48348   0.476   0.6407  
+## wt              -4.52978    2.53875  -1.784   0.0946 .
+## qsec             0.36784    0.93540   0.393   0.6997  
+## vsStraight-Line  1.93085    2.87126   0.672   0.5115  
+## ammanual         1.21212    3.21355   0.377   0.7113  
+## gear4            1.11435    3.79952   0.293   0.7733  
+## gear5            2.52840    3.73636   0.677   0.5089  
+## carb2           -0.97935    2.31797  -0.423   0.6787  
+## carb3            2.99964    4.29355   0.699   0.4955  
+## carb4            1.09142    4.44962   0.245   0.8096  
+## carb6            4.47757    6.38406   0.701   0.4938  
+## carb8            7.25041    8.36057   0.867   0.3995  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.833 on 15 degrees of freedom
+## Multiple R-squared:  0.8931, Adjusted R-squared:  0.779 
+## F-statistic:  7.83 on 16 and 15 DF,  p-value: 0.000124</code></pre>
+</div>
+</div>
+<div id="predicción" class="section level2">
+<h2><span class="header-section-number">5.4</span> Predicción</h2>
+<p>Hay dos tipos de errores que se deben considerar en regresones lineales:</p>
+<ol style="list-style-type: decimal">
+<li><strong>Error Reducible:</strong> Recuerde que <span class="math inline">\(\hat{Y} = \hat{X}\hat{\beta}\)</span> es el estimador de la función <span class="math inline">\(f(X)=X\beta = \beta_{0} + \beta_{1}X_{1}+\cdots+\beta_{p}X_{p}\)</span>.</li>
+</ol>
+<p>Por lo tanto su error (reducible) es:</p>
+<p><span class="math display">\[\begin{equation*}
+\left(  f(X) - \hat{Y}\right) ^{2}. 
+\end{equation*}\]</span></p>
+<p>Para un conjunto de datos <span class="math inline">\(X_{0}\)</span>, tenemos que</p>
+<p><span class="math display">\[\begin{align*}
+ &amp; \hat{\beta} \sim  \mathcal{N}\left(\beta, \sigma^{2}\left( (X_{0}^{\top}X_{0})^{-1} \right)\right) \\
+ \implies &amp; \hat{Y} = \hat{X_{0}}\hat{\beta} \sim \mathcal{N}\left(\hat{X_{0}}\beta , \sigma^{2}X_{0}^{\top}((X_{0}^{\top}X_{0})^{-1}X_{0}  \right)
+\end{align*}\]</span></p>
+<p>Por lo tanto un <strong>intervalo de confianza</strong> al <span class="math inline">\(1-\alpha\)</span> para <span class="math inline">\(X\beta\)</span> es</p>
+<p><span class="math display">\[\begin{equation*}
+X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{X_{0}^{\top}(X_{0}^{\top}X_{0})^{-1}X_{0}}.
+\end{equation*}\]</span></p>
+<ol start="2" style="list-style-type: decimal">
+<li><strong>Error irreducible:</strong> Aún conociendo perfectamente los <span class="math inline">\(\beta\)</span>’s, existe el error desconocido <span class="math inline">\(\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}\right)\)</span> del modelo</li>
+</ol>
+<p><span class="math display">\[\begin{equation*}
+Y = X\beta + \varepsilon.
+\end{equation*}\]</span></p>
+<p>Entonces la varianza total de la predicción sería</p>
+<p><span class="math display">\[\begin{equation*}
+\sigma^{2} +  \sigma^{2}X_{0}^{\top}( (X_{0}^{\top}X_{0})^{-1}X_{0} 
+\end{equation*}\]</span></p>
+<p>Entonces un <strong>intervalo de predicción</strong> al <span class="math inline">\(1-\alpha\)</span> debe tomar en cuenta ese error y por lo tanto</p>
+<p><span class="math display">\[\begin{equation*}
+X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{1+X_{0}^{\top}(X_{0}^{\top}X_{0})^{-1}X_{0}}.
+\end{equation*}\]</span></p>
+<p>Resumiendo</p>
+<ul>
+<li><strong>Intervalo de confianza:</strong> es la incertidumbre que existe alrededor de la línea de regresión.</li>
+<li><strong>Intervalo de predicción:</strong> es la incertidumbre que existe alrededor del proceso general que generararon los datos bajo el supuesto de linealidad.</li>
+</ul>
+<div id="laboratorio-3" class="section level3">
+<h3><span class="header-section-number">5.4.1</span> Laboratorio</h3>
+<div class="sourceCode" id="cb233"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb233-1"><a href="métodos-lineares-de-regresión.html#cb233-1"></a>lm.r &lt;-<span class="st"> </span><span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt, <span class="dt">data =</span> mtcars)</span>
+<span id="cb233-2"><a href="métodos-lineares-de-regresión.html#cb233-2"></a></span>
+<span id="cb233-3"><a href="métodos-lineares-de-regresión.html#cb233-3"></a><span class="kw">range</span>(mtcars<span class="op">$</span>wt)</span></code></pre></div>
+<pre><code>## [1] 1.513 5.424</code></pre>
+<div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="métodos-lineares-de-regresión.html#cb235-1"></a>(datos_nuevos &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">wt =</span> <span class="kw">c</span>(<span class="fl">2.5</span>, <span class="dv">3</span>, <span class="fl">3.5</span>)))</span></code></pre></div>
+<pre><code>##    wt
+## 1 2.5
+## 2 3.0
+## 3 3.5</code></pre>
+<div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="métodos-lineares-de-regresión.html#cb237-1"></a><span class="kw">predict</span>(<span class="dt">object =</span> lm.r, <span class="dt">newdata =</span> datos_nuevos, <span class="dt">interval =</span> <span class="st">&quot;confidence&quot;</span>)</span></code></pre></div>
+<pre><code>##        fit      lwr      upr
+## 1 23.92395 22.55284 25.29506
+## 2 21.25171 20.12444 22.37899
+## 3 18.57948 17.43342 19.72553</code></pre>
+<div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="métodos-lineares-de-regresión.html#cb239-1"></a><span class="kw">predict</span>(<span class="dt">object =</span> lm.r, <span class="dt">newdata =</span> datos_nuevos, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)</span></code></pre></div>
+<pre><code>##        fit      lwr      upr
+## 1 23.92395 17.55411 30.29378
+## 2 21.25171 14.92987 27.57355
+## 3 18.57948 12.25426 24.90469</code></pre>
+<div id="ajuste-de-la-regresión-sin-intervalos-de-confianza" class="section level4">
+<h4><span class="header-section-number">5.4.1.1</span> Ajuste de la regresión sin intervalos de confianza</h4>
+<div class="sourceCode" id="cb241"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb241-1"><a href="métodos-lineares-de-regresión.html#cb241-1"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) </span>
+<span id="cb241-2"><a href="métodos-lineares-de-regresión.html#cb241-2"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)       <span class="co"># Use circulos de tamaño 2</span></span>
+<span id="cb241-3"><a href="métodos-lineares-de-regresión.html#cb241-3"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm,   <span class="co"># Agregar la línea de regresión </span></span>
+<span id="cb241-4"><a href="métodos-lineares-de-regresión.html#cb241-4"></a>              <span class="dt">se =</span> <span class="ot">FALSE</span>,           <span class="co"># NO incluir el intervalo de confianza   </span></span>
+<span id="cb241-5"><a href="métodos-lineares-de-regresión.html#cb241-5"></a>              <span class="dt">size =</span> <span class="dv">1</span>,</span>
+<span id="cb241-6"><a href="métodos-lineares-de-regresión.html#cb241-6"></a>              <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)          <span class="co"># Línea de color rojo </span></span>
+<span id="cb241-7"><a href="métodos-lineares-de-regresión.html#cb241-7"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()                 <span class="co"># Tema de fondo blanco</span></span>
+<span id="cb241-8"><a href="métodos-lineares-de-regresión.html#cb241-8"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>),  <span class="co"># Aumentar el tamaño </span></span>
+<span id="cb241-9"><a href="métodos-lineares-de-regresión.html#cb241-9"></a>               <span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>)) <span class="co"># de letra en los ejes</span></span>
+<span id="cb241-10"><a href="métodos-lineares-de-regresión.html#cb241-10"></a></span>
+<span id="cb241-11"><a href="métodos-lineares-de-regresión.html#cb241-11"></a><span class="co"># Dibujar el gráfico</span></span>
+<span id="cb241-12"><a href="métodos-lineares-de-regresión.html#cb241-12"></a>p   </span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-183-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="métodos-lineares-de-regresión.html#cb242-1"></a><span class="co"># # Guardar el gráfico en un archivo pdf</span></span>
+<span id="cb242-2"><a href="métodos-lineares-de-regresión.html#cb242-2"></a><span class="co"># ggsave(filename = &#39;linear_reg_sin_IC.pdf&#39;) # </span></span></code></pre></div>
+</div>
+<div id="ajuste-de-la-regresión-con-intervalos-de-confianza" class="section level4">
+<h4><span class="header-section-number">5.4.1.2</span> Ajuste de la regresión con intervalos de confianza</h4>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="métodos-lineares-de-regresión.html#cb243-1"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg)) </span>
+<span id="cb243-2"><a href="métodos-lineares-de-regresión.html#cb243-2"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)       <span class="co"># Use circulos de tamaño 2</span></span>
+<span id="cb243-3"><a href="métodos-lineares-de-regresión.html#cb243-3"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> lm,   <span class="co"># Agregar la línea de regresión </span></span>
+<span id="cb243-4"><a href="métodos-lineares-de-regresión.html#cb243-4"></a>              <span class="dt">se =</span> <span class="ot">TRUE</span>,            <span class="co"># Incluir el intervalo de confianza   </span></span>
+<span id="cb243-5"><a href="métodos-lineares-de-regresión.html#cb243-5"></a>              <span class="dt">size =</span> <span class="dv">1</span>,</span>
+<span id="cb243-6"><a href="métodos-lineares-de-regresión.html#cb243-6"></a>              <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)          <span class="co"># Línea de color rojo </span></span>
+<span id="cb243-7"><a href="métodos-lineares-de-regresión.html#cb243-7"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()                 <span class="co"># Tema de fondo blanco</span></span>
+<span id="cb243-8"><a href="métodos-lineares-de-regresión.html#cb243-8"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>),  <span class="co"># Aumentar el tamaño </span></span>
+<span id="cb243-9"><a href="métodos-lineares-de-regresión.html#cb243-9"></a>               <span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>)) <span class="co"># de letra en los ejes</span></span>
+<span id="cb243-10"><a href="métodos-lineares-de-regresión.html#cb243-10"></a></span>
+<span id="cb243-11"><a href="métodos-lineares-de-regresión.html#cb243-11"></a><span class="co"># Dibujar el gráfico</span></span>
+<span id="cb243-12"><a href="métodos-lineares-de-regresión.html#cb243-12"></a>p   </span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-184-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="métodos-lineares-de-regresión.html#cb244-1"></a><span class="co"># # Guardar el gráfico en un archivo pdf</span></span>
+<span id="cb244-2"><a href="métodos-lineares-de-regresión.html#cb244-2"></a><span class="co"># ggsave(filename = &#39;linear_reg_con_IC.pdf&#39;) # </span></span></code></pre></div>
+</div>
+<div id="ajuste-de-la-regresión-con-intervalos-de-confianza-y-predicción" class="section level4">
+<h4><span class="header-section-number">5.4.1.3</span> Ajuste de la regresión con intervalos de confianza y predicción</h4>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="métodos-lineares-de-regresión.html#cb245-1"></a><span class="co"># Agregamos a mtcars el intervalo de predicción</span></span>
+<span id="cb245-2"><a href="métodos-lineares-de-regresión.html#cb245-2"></a><span class="co"># para cada dato</span></span>
+<span id="cb245-3"><a href="métodos-lineares-de-regresión.html#cb245-3"></a>mtcars.pred &lt;-<span class="st"> </span><span class="kw">data.frame</span>(mtcars, <span class="kw">predict</span>(lm.r, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>))</span>
+<span id="cb245-4"><a href="métodos-lineares-de-regresión.html#cb245-4"></a></span>
+<span id="cb245-5"><a href="métodos-lineares-de-regresión.html#cb245-5"></a>p &lt;-<span class="st"> </span><span class="kw">ggplot</span>(mtcars.pred, <span class="kw">aes</span>(<span class="dt">x =</span> wt, <span class="dt">y =</span> mpg))</span>
+<span id="cb245-6"><a href="métodos-lineares-de-regresión.html#cb245-6"></a><span class="co"># Use circulos de tamaño 2</span></span>
+<span id="cb245-7"><a href="métodos-lineares-de-regresión.html#cb245-7"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">2</span>)</span>
+<span id="cb245-8"><a href="métodos-lineares-de-regresión.html#cb245-8"></a><span class="co"># Agregue una banda de tamaño [lwr, upr] para cada</span></span>
+<span id="cb245-9"><a href="métodos-lineares-de-regresión.html#cb245-9"></a><span class="co"># punto y llamela &#39;predicción&#39;</span></span>
+<span id="cb245-10"><a href="métodos-lineares-de-regresión.html#cb245-10"></a>p &lt;-<span class="st"> </span>p <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="kw">aes</span>(<span class="dt">ymin =</span> lwr, <span class="dt">ymax =</span> upr, <span class="dt">fill =</span> <span class="st">&quot;predicción&quot;), </span></span>
+<span id="cb245-11"><a href="métodos-lineares-de-regresión.html#cb245-11"></a><span class="st">    alpha = 0.3)</span></span>
+<span id="cb245-12"><a href="métodos-lineares-de-regresión.html#cb245-12"></a><span class="st"># Agregue el intervalo de confianza usual y llame a</span></span>
+<span id="cb245-13"><a href="métodos-lineares-de-regresión.html#cb245-13"></a><span class="st"># ese intervalo &#39;confianza&#39;</span></span>
+<span id="cb245-14"><a href="métodos-lineares-de-regresión.html#cb245-14"></a><span class="st">p &lt;- p + geom_smooth(method = lm, aes(fill = &quot;</span>confianza<span class="st">&quot;), </span></span>
+<span id="cb245-15"><a href="métodos-lineares-de-regresión.html#cb245-15"></a><span class="st">    size = 1, col = &quot;</span>red<span class="st">&quot;)</span></span>
+<span id="cb245-16"><a href="métodos-lineares-de-regresión.html#cb245-16"></a><span class="st"># Para agregar bien las leyendas</span></span>
+<span id="cb245-17"><a href="métodos-lineares-de-regresión.html#cb245-17"></a><span class="st">p &lt;- p + scale_fill_manual(&quot;</span>Intervalos<span class="st">&quot;, values = c(&quot;</span>green<span class="st">&quot;, </span></span>
+<span id="cb245-18"><a href="métodos-lineares-de-regresión.html#cb245-18"></a><span class="st">    &quot;</span>yellow<span class="st">&quot;))</span></span>
+<span id="cb245-19"><a href="métodos-lineares-de-regresión.html#cb245-19"></a><span class="st">p &lt;- p + theme_bw()</span></span>
+<span id="cb245-20"><a href="métodos-lineares-de-regresión.html#cb245-20"></a><span class="st">p &lt;- p + theme(axis.text = element_text(size = 20), </span></span>
+<span id="cb245-21"><a href="métodos-lineares-de-regresión.html#cb245-21"></a><span class="st">    axis.title = element_text(size = 20))</span></span>
+<span id="cb245-22"><a href="métodos-lineares-de-regresión.html#cb245-22"></a></span>
+<span id="cb245-23"><a href="métodos-lineares-de-regresión.html#cb245-23"></a><span class="st"># Dibujar el gráfico</span></span>
+<span id="cb245-24"><a href="métodos-lineares-de-regresión.html#cb245-24"></a><span class="st">p</span></span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-185-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="métodos-lineares-de-regresión.html#cb246-1"></a><span class="co"># # Guardar el gráfico en un archivo pdf</span></span>
+<span id="cb246-2"><a href="métodos-lineares-de-regresión.html#cb246-2"></a><span class="co"># ggsave(filename = &#39;linear_reg_con_IC_IP.pdf&#39;) #</span></span></code></pre></div>
+<p>Repitamos el mismo ejercicio anterior pero con un caso más sencillo.</p>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="métodos-lineares-de-regresión.html#cb247-1"></a>n &lt;-<span class="st"> </span><span class="dv">1000</span></span>
+<span id="cb247-2"><a href="métodos-lineares-de-regresión.html#cb247-2"></a></span>
+<span id="cb247-3"><a href="métodos-lineares-de-regresión.html#cb247-3"></a>X &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb247-4"><a href="métodos-lineares-de-regresión.html#cb247-4"></a>Y &lt;-<span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="kw">sin</span>(<span class="dv">5</span> <span class="op">*</span><span class="st"> </span>X) <span class="op">+</span><span class="st"> </span>X <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb247-5"><a href="métodos-lineares-de-regresión.html#cb247-5"></a>toyex.initial &lt;-<span class="st"> </span><span class="kw">data.frame</span>(X, Y) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(X)</span>
+<span id="cb247-6"><a href="métodos-lineares-de-regresión.html#cb247-6"></a></span>
+<span id="cb247-7"><a href="métodos-lineares-de-regresión.html#cb247-7"></a><span class="kw">plot</span>(toyex.initial)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-186-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="métodos-lineares-de-regresión.html#cb248-1"></a>lm.toyex.initial &lt;-<span class="st"> </span><span class="kw">lm</span>(Y <span class="op">~</span><span class="st"> </span>X, <span class="dt">data =</span> toyex.initial)</span>
+<span id="cb248-2"><a href="métodos-lineares-de-regresión.html#cb248-2"></a></span>
+<span id="cb248-3"><a href="métodos-lineares-de-regresión.html#cb248-3"></a><span class="kw">summary</span>(lm.toyex.initial)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = Y ~ X, data = toyex.initial)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2880 -0.8153 -0.0376  0.8524  3.5583 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 10.10758    0.07618  132.68   &lt;2e-16 ***
+## X            0.96756    0.01353   71.54   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.213 on 998 degrees of freedom
+## Multiple R-squared:  0.8368, Adjusted R-squared:  0.8366 
+## F-statistic:  5118 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="métodos-lineares-de-regresión.html#cb250-1"></a>toyex.pred.initial &lt;-<span class="st"> </span><span class="kw">data.frame</span>(toyex.initial, <span class="kw">predict</span>(lm.toyex.initial, </span>
+<span id="cb250-2"><a href="métodos-lineares-de-regresión.html#cb250-2"></a>    <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>))</span></code></pre></div>
+<p>Ahora, quisiera generar muchas muestras del mismo experimento</p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="métodos-lineares-de-regresión.html#cb251-1"></a>toyex.pred &lt;-<span class="st"> </span><span class="ot">NULL</span></span>
+<span id="cb251-2"><a href="métodos-lineares-de-regresión.html#cb251-2"></a></span>
+<span id="cb251-3"><a href="métodos-lineares-de-regresión.html#cb251-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {</span>
+<span id="cb251-4"><a href="métodos-lineares-de-regresión.html#cb251-4"></a>    X &lt;-<span class="st"> </span><span class="kw">runif</span>(n, <span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb251-5"><a href="métodos-lineares-de-regresión.html#cb251-5"></a>    Y &lt;-<span class="st"> </span><span class="dv">10</span> <span class="op">+</span><span class="st"> </span><span class="kw">sin</span>(<span class="dv">5</span> <span class="op">*</span><span class="st"> </span>X) <span class="op">+</span><span class="st"> </span>X <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">1</span>)</span>
+<span id="cb251-6"><a href="métodos-lineares-de-regresión.html#cb251-6"></a>    toyexi &lt;-<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">im =</span> i, X, Y)</span>
+<span id="cb251-7"><a href="métodos-lineares-de-regresión.html#cb251-7"></a>    toyexi &lt;-<span class="st"> </span>toyexi <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">arrange</span>(X)</span>
+<span id="cb251-8"><a href="métodos-lineares-de-regresión.html#cb251-8"></a>    toyex.pred &lt;-<span class="st"> </span><span class="kw">bind_rows</span>(toyex.pred, <span class="kw">data.frame</span>(toyexi, </span>
+<span id="cb251-9"><a href="métodos-lineares-de-regresión.html#cb251-9"></a>        <span class="kw">predict</span>(lm.toyex.initial, <span class="dt">interval =</span> <span class="st">&quot;prediction&quot;</span>)))</span>
+<span id="cb251-10"><a href="métodos-lineares-de-regresión.html#cb251-10"></a>}</span>
+<span id="cb251-11"><a href="métodos-lineares-de-regresión.html#cb251-11"></a></span>
+<span id="cb251-12"><a href="métodos-lineares-de-regresión.html#cb251-12"></a></span>
+<span id="cb251-13"><a href="métodos-lineares-de-regresión.html#cb251-13"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {</span>
+<span id="cb251-14"><a href="métodos-lineares-de-regresión.html#cb251-14"></a>    toyex.pred<span class="op">$</span>fit &lt;-<span class="st"> </span><span class="kw">fitted</span>(<span class="kw">lm</span>(<span class="dt">formula =</span> Y <span class="op">~</span><span class="st"> </span>X, <span class="dt">data =</span> toyex.pred[toyex.pred<span class="op">$</span>im <span class="op">==</span><span class="st"> </span></span>
+<span id="cb251-15"><a href="métodos-lineares-de-regresión.html#cb251-15"></a><span class="st">        </span>i, ]))</span>
+<span id="cb251-16"><a href="métodos-lineares-de-regresión.html#cb251-16"></a>}</span>
+<span id="cb251-17"><a href="métodos-lineares-de-regresión.html#cb251-17"></a></span>
+<span id="cb251-18"><a href="métodos-lineares-de-regresión.html#cb251-18"></a>toyex.pred<span class="op">$</span>im &lt;-<span class="st"> </span><span class="kw">as.factor</span>(toyex.pred<span class="op">$</span>im)</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="métodos-lineares-de-regresión.html#cb252-1"></a><span class="kw">library</span>(gganimate)</span>
+<span id="cb252-2"><a href="métodos-lineares-de-regresión.html#cb252-2"></a></span>
+<span id="cb252-3"><a href="métodos-lineares-de-regresión.html#cb252-3"></a><span class="kw">ggplot</span>(<span class="dt">data =</span> toyex.pred, <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">y =</span> Y)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="dv">1</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb252-4"><a href="métodos-lineares-de-regresión.html#cb252-4"></a><span class="st">    </span><span class="kw">geom_smooth</span>(<span class="dt">data =</span> toyex.initial, <span class="dt">method =</span> lm, </span>
+<span id="cb252-5"><a href="métodos-lineares-de-regresión.html#cb252-5"></a>        <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">fill =</span> <span class="st">&quot;confianza&quot;</span>), <span class="dt">size =</span> <span class="dv">1</span>, </span>
+<span id="cb252-6"><a href="métodos-lineares-de-regresión.html#cb252-6"></a>        <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_ribbon</span>(<span class="dt">data =</span> toyex.pred.initial, </span>
+<span id="cb252-7"><a href="métodos-lineares-de-regresión.html#cb252-7"></a>    <span class="dt">mapping =</span> <span class="kw">aes</span>(<span class="dt">x =</span> X, <span class="dt">ymin =</span> lwr, <span class="dt">ymax =</span> upr, <span class="dt">fill =</span> <span class="st">&quot;predicción&quot;, </span></span>
+<span id="cb252-8"><a href="métodos-lineares-de-regresión.html#cb252-8"></a><span class="st">        ), alpha = 0.3) + labs(title = paste0(&quot;</span>Muestra <span class="co">#: {closest_state}&quot;)) + </span></span>
+<span id="cb252-9"><a href="métodos-lineares-de-regresión.html#cb252-9"></a>    <span class="kw">scale_fill_manual</span>(<span class="st">&quot;Intervalos&quot;</span>, <span class="dt">values =</span> <span class="kw">c</span>(<span class="st">&quot;green&quot;</span>, </span>
+<span id="cb252-10"><a href="métodos-lineares-de-regresión.html#cb252-10"></a>        <span class="st">&quot;yellow&quot;</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme</span>(<span class="dt">axis.text =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>), </span>
+<span id="cb252-11"><a href="métodos-lineares-de-regresión.html#cb252-11"></a>    <span class="dt">axis.title =</span> <span class="kw">element_text</span>(<span class="dt">size =</span> <span class="dv">20</span>)) <span class="op">+</span><span class="st"> </span><span class="kw">transition_states</span>(im)</span></code></pre></div>
+</div>
+</div>
+</div>
+<div id="interacciones" class="section level2">
+<h2><span class="header-section-number">5.5</span> Interacciones</h2>
+<p>En el modelo clásico</p>
+<p><span class="math display">\[\begin{equation*}
+Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon
+\end{equation*}\]</span></p>
+<p>Aumentemos en 1 unidad <span class="math inline">\(X_{1}\)</span> y rescribamos el modelo original</p>
+<p><span class="math display">\[\begin{align*}
+Y &amp;=  \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon \\
+Y &amp;=  (\beta_{0} + \beta_{1}) + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon \\
+Y &amp;=  \tilde{\beta_{0}} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon \\
+\end{align*}\]</span></p>
+<p>Es decir, el modelo original sigue siendo el mismo aunque hayamos cambiado el <span class="math inline">\(X_1\)</span>. Este fenómeno ocurre siempre bajo transformaciones lineales de las variables.</p>
+<p>Ahora suponga que tenemos el siguiente modelo y aumentamos en 1 el <span class="math inline">\(X_1\)</span></p>
+<p><span class="math display">\[\begin{align*}
+Y &amp;=  \beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon \\
+\implies Y &amp;=  \beta_{0} + \beta_{1} (X_{1}+1) X_{2} +\varepsilon \\
+\implies Y &amp;=  \beta_{0} + \beta_{1}X_{2} +  \beta_{1} X_{1} X_{2} +\varepsilon \\
+\end{align*}\]</span></p>
+<p>OJO. Terminamos con un modelo diferente con el que empezamos. Esto es indeseable ya que no hay consistencia en la modelación,</p>
+<p>Una forma de arreglar el problema es incluir las interacciones junto con todos sus efectos directos.</p>
+<p><span class="math display">\[\begin{equation*}
+Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\varepsilon \\
+\end{equation*}\]</span></p>
+<p><strong>Esto se le conoce como principio de jerarquía</strong>. No es importante si los efectos directos son relevante o no dentro del modelo, siempre se deben de incluir para manter la consistencia.</p>
+
+<div class="exercise">
+<span id="exr:unnamed-chunk-190" class="exercise"><strong>Ejercicio 5.3  </strong></span>Compruebe que para el caso anterior, si aumenta en una unidad <span class="math inline">\(X_{1}\)</span>, el modelo se mantiene.
+</div>
+
+<div id="laboratorio-4" class="section level3">
+<h3><span class="header-section-number">5.5.1</span> Laboratorio</h3>
+<p>Generamos una base de datos nueva con solamente <code>wt</code> centrado</p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="métodos-lineares-de-regresión.html#cb253-1"></a><span class="co"># La función across y where solo funciona solo para</span></span>
+<span id="cb253-2"><a href="métodos-lineares-de-regresión.html#cb253-2"></a><span class="co"># dplyr 1.0 Si tienen otra versión, pueden usar</span></span>
+<span id="cb253-3"><a href="métodos-lineares-de-regresión.html#cb253-3"></a><span class="co"># mutate_if</span></span>
+<span id="cb253-4"><a href="métodos-lineares-de-regresión.html#cb253-4"></a></span>
+<span id="cb253-5"><a href="métodos-lineares-de-regresión.html#cb253-5"></a>mtcars_centered &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="st">&quot;wt&quot;</span>, scale, </span>
+<span id="cb253-6"><a href="métodos-lineares-de-regresión.html#cb253-6"></a>    <span class="dt">scale =</span> <span class="ot">TRUE</span>, <span class="dt">center =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+<p>Compare lo que ocurre con los coeficientes de la base original y la nueva base.</p>
+<div class="sourceCode" id="cb254"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb254-1"><a href="métodos-lineares-de-regresión.html#cb254-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + disp, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4087 -2.3243 -0.7683  1.7721  6.3484 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 34.96055    2.16454  16.151 4.91e-16 ***
+## wt          -3.35082    1.16413  -2.878  0.00743 ** 
+## disp        -0.01773    0.00919  -1.929  0.06362 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.917 on 29 degrees of freedom
+## Multiple R-squared:  0.7809, Adjusted R-squared:  0.7658 
+## F-statistic: 51.69 on 2 and 29 DF,  p-value: 2.744e-10</code></pre>
+<div class="sourceCode" id="cb256"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb256-1"><a href="métodos-lineares-de-regresión.html#cb256-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars_centered))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + disp, data = mtcars_centered)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4087 -2.3243 -0.7683  1.7721  6.3484 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 24.18011    2.18221  11.081 6.12e-12 ***
+## wt          -3.27864    1.13905  -2.878  0.00743 ** 
+## disp        -0.01773    0.00919  -1.929  0.06362 .  
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.917 on 29 degrees of freedom
+## Multiple R-squared:  0.7809, Adjusted R-squared:  0.7658 
+## F-statistic: 51.69 on 2 and 29 DF,  p-value: 2.744e-10</code></pre>
+<p>Supongamos que formamos un modelo con solo la interacción y no incluimos los efectos directos.</p>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="métodos-lineares-de-regresión.html#cb258-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">*</span><span class="st"> </span>disp <span class="op">-</span><span class="st"> </span>wt <span class="op">-</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt * disp - wt - disp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -4.259 -2.603 -1.657  2.165  8.589 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 26.2621926  1.0418029  25.208  &lt; 2e-16 ***
+## wt:disp     -0.0072897  0.0009721  -7.499 2.33e-08 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 3.614 on 30 degrees of freedom
+## Multiple R-squared:  0.6521, Adjusted R-squared:  0.6405 
+## F-statistic: 56.24 on 1 and 30 DF,  p-value: 2.329e-08</code></pre>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="métodos-lineares-de-regresión.html#cb260-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">*</span><span class="st"> </span>disp <span class="op">-</span><span class="st"> </span>wt <span class="op">-</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars_centered))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt * disp - wt - disp, data = mtcars_centered)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -5.878 -2.775 -1.162  2.409 11.150 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 21.460008   0.859706  24.962  &lt; 2e-16 ***
+## wt:disp     -0.012844   0.002655  -4.837 3.69e-05 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 4.592 on 30 degrees of freedom
+## Multiple R-squared:  0.4382, Adjusted R-squared:  0.4195 
+## F-statistic:  23.4 on 1 and 30 DF,  p-value: 3.686e-05</code></pre>
+<p>El modelo correcto sería el siguiente:</p>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="métodos-lineares-de-regresión.html#cb262-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>wt <span class="op">*</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + disp + wt * disp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.267 -1.677 -0.836  1.351  5.017 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 44.081998   3.123063  14.115 2.96e-14 ***
+## wt          -6.495680   1.313383  -4.946 3.22e-05 ***
+## disp        -0.056358   0.013239  -4.257  0.00021 ***
+## wt:disp      0.011705   0.003255   3.596  0.00123 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.455 on 28 degrees of freedom
+## Multiple R-squared:  0.8501, Adjusted R-squared:  0.8341 
+## F-statistic: 52.95 on 3 and 28 DF,  p-value: 1.158e-11</code></pre>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="métodos-lineares-de-regresión.html#cb264-1"></a><span class="kw">summary</span>(<span class="kw">lm</span>(mpg <span class="op">~</span><span class="st"> </span>wt <span class="op">+</span><span class="st"> </span>disp <span class="op">+</span><span class="st"> </span>wt <span class="op">*</span><span class="st"> </span>disp, <span class="dt">data =</span> mtcars_centered))</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = mpg ~ wt + disp + wt * disp, data = mtcars_centered)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.267 -1.677 -0.836  1.351  5.017 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 23.183772   1.857605  12.480 5.87e-13 ***
+## wt          -6.355746   1.285089  -4.946 3.22e-05 ***
+## disp        -0.018699   0.007741  -2.416  0.02248 *  
+## wt:disp      0.011453   0.003185   3.596  0.00123 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 2.455 on 28 degrees of freedom
+## Multiple R-squared:  0.8501, Adjusted R-squared:  0.8341 
+## F-statistic: 52.95 on 3 and 28 DF,  p-value: 1.158e-11</code></pre>
+<div class="exercise">
+<p>Repita los comandos anteriores con la siguiente base de datos y explique los resultados.</p>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="métodos-lineares-de-regresión.html#cb266-1"></a>mtcars_scaled &lt;-<span class="st"> </span>mtcars <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="kw">across</span>(<span class="kw">c</span>(<span class="st">&quot;wt&quot;</span>, <span class="st">&quot;disp&quot;</span>), </span>
+<span id="cb266-2"><a href="métodos-lineares-de-regresión.html#cb266-2"></a>    scale, <span class="dt">scale =</span> <span class="ot">TRUE</span>, <span class="dt">center =</span> <span class="ot">TRUE</span>))</span></code></pre></div>
+</div>
+<!-- Y aumentamos -->
+<!--  aumenta en 1 unidad   y denotamos  -->
+<!-- \begin{equation*} -->
+<!-- Y_{+1} = \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon -->
+<!-- \end{equation*} -->
+<!-- vemos que  -->
+<!-- \begin{align*} -->
+<!-- Y_{+1} -Y &=  \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon \\ -->
+<!-- & -(\beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon) \\ -->
+<!-- &= \beta_{1}. -->
+<!-- \end{align*} -->
+<!-- Entonces \(\beta_{1}\) es la __razon de cambio__ discreta de aumentar 1 unidad en \(X_{1}\) con respecto a \(Y\).  -->
+<!-- En otras palabras,  -->
+<!-- Ahora suponga que tenemos los modelos: -->
+<!-- \begin{align*} -->
+<!-- Y &=  \beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon\\ -->
+<!-- Y_{+1} &=  \beta_{0} + \tilde{\beta_{1}} (X_{1}+1) X_{2}+\varepsilon \\ -->
+<!-- \end{align*} -->
+<!-- y hacemos el mismo cálculo que antes:  -->
+<!-- \begin{align*} -->
+<!-- Y_{+1} -Y &=  \beta_{0} + \tilde{\beta_{1}} (X_{1}+1) X_{2}+\varepsilon \\ -->
+<!-- & -(\beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon) \\ -->
+<!-- &=  \tilde{\beta_{1}} X_{2} -->
+<!-- \end{align*} -->
+<!-- Es decir esa razón de cambio depende  -->
+</div>
+</div>
+<div id="hipotesis-en-regresión-lineal" class="section level2">
+<h2><span class="header-section-number">5.6</span> Hipotesis en regresión lineal</h2>
+<p>Hasta ahora hemos visto el modelo de regresión como un conjunto de partes separadas. Entonces, uniremos todo para</p>
+<div id="hipotésis" class="section level3">
+<h3><span class="header-section-number">5.6.1</span> Hipotésis</h3>
+<dl>
+<dt>Independencia lineal</dt>
+<dd>El supuesto es que el modelo es lineal.
+</dd>
+<dt>Errores con esperanza nula</dt>
+<dd>Esto quiere decir que <span class="math inline">\(\mathbb{E}(\varepsilon_i) = 0\)</span>.
+</dd>
+<dt>Homocedasticidad</dt>
+<dd><span class="math inline">\(\text{Var}(\varepsilon_t) = \mathbb{E}(\varepsilon_t - \mathbb{E} \varepsilon_t)^2 = \mathbb{E} \varepsilon_t^2 = \sigma^2\)</span> para todo <span class="math inline">\(t\)</span>. Es decir, la varianza del modelo no depende de las variables independientes u otro factor. En otras palabras, el <strong>error irreducible</strong> es completamente ajeno a las variables independientes del modelo.
+</dd>
+<dt>Normalidad de los residuos</dt>
+<dd><span class="math inline">\(\varepsilon \sim N(0, \sigma^2 )\)</span>.
+</dd>
+<dt>Independencia de los erroes</dt>
+<dd><span class="math inline">\(\text{Cov}(\varepsilon_t,\varepsilon_s ) = \mathbb{E} (\varepsilon_t - \mathbb{E} \varepsilon_t) (\varepsilon_s - \mathbb{E} \varepsilon_s) = \mathbb{E} \varepsilon_t \varepsilon_s = 0\)</span> para todo <span class="math inline">\(t,s\)</span> con <span class="math inline">\(t\neq s\)</span>. Esto es una extensión del supuesto anterior y quiere decir, que además de los errores no depende de las variables, tampoco pueden depender entre si. Es decir, si para una observación dada existe un error, este no debe depender del error de otra observación.
+</dd>
+</dl>
+<p>Esto puede provocar que los errores usados para intervalos de confianza y predicción sean subestimados. Es decir que un intervalo del 95% tendrá menos confianza y se rechazaría más fácilmente la hipotesis nula de las pruebas <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span>.</p>
+<dl>
+<dt>Multicolineaidad</dt>
+<dd>Se asume que cada una de las variables es independiente de las otras. Es decir que cada variable explica “un aspecto o característica” del modelo. Sin embargo puede pasar que varias variables expliquen la misma característica y el modelo tenga que volverse <strong>inestable</strong> por decidir entre las dos variables. Por ejemplo: la temperatura en grados centigrados y fareheint.
+</dd>
+<dt>Más observaciones que predictores</dt>
+<dd>En este caso siempre podremos construir correctamente la regresión y sus indices. (Volveremos a esto cuando veamos selección de modelos)
+</dd>
+</dl>
+</div>
+<div id="chequeos-básicos-de-las-hipótesis-de-regresión-lineal" class="section level3">
+<h3><span class="header-section-number">5.6.2</span> Chequeos básicos de las hipótesis de regresión lineal</h3>
+<div id="independencia-lineal-errores-con-esperanza-nula-homocedasticidad" class="section level4">
+<h4><span class="header-section-number">5.6.2.1</span> Independencia lineal, Errores con esperanza nula, Homocedasticidad</h4>
+<p>Estos supuestos se puede constantar a partir de un gráfico de residuos ya que en el caso ideal <span class="math inline">\(e_{i} = \hat{Y}_{i}- Y_{i} \perp \hat{Y}_{i}\)</span>. Entonces si este gráfico presenta patrones, quiere indicar que la regresión, no es lineal, que los errores no tienen esperanza nula y que la varianza no es constante.</p>
+<p>Se pueden aplicar transformaciones para resolver estos problemas. Normalmente se usan transformaciones como raiz cuadrada o logaritmos.</p>
+<div class="example">
+<p><strong>Caso ideal</strong></p>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="métodos-lineares-de-regresión.html#cb267-1"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb267-2"><a href="métodos-lineares-de-regresión.html#cb267-2"></a>y &lt;-<span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">sd =</span> <span class="fl">0.5</span>)</span>
+<span id="cb267-3"><a href="métodos-lineares-de-regresión.html#cb267-3"></a></span>
+<span id="cb267-4"><a href="métodos-lineares-de-regresión.html#cb267-4"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x)</span>
+<span id="cb267-5"><a href="métodos-lineares-de-regresión.html#cb267-5"></a><span class="kw">plot</span>(x, y)</span>
+<span id="cb267-6"><a href="métodos-lineares-de-regresión.html#cb267-6"></a><span class="kw">abline</span>(<span class="dt">a =</span> <span class="kw">coef</span>(fit)[<span class="dv">1</span>], <span class="dt">b =</span> <span class="kw">coef</span>(fit)[<span class="dv">2</span>], <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-196-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="métodos-lineares-de-regresión.html#cb268-1"></a><span class="kw">plot</span>(<span class="kw">fitted</span>(fit), <span class="kw">residuals</span>(fit))</span>
+<span id="cb268-2"><a href="métodos-lineares-de-regresión.html#cb268-2"></a><span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:grafico-residuos-lineal"></span>
+<img src="Notas-Curso-Estadistica_files/figure-html/grafico-residuos-lineal-1.svg" alt="Gráfico de residuos caso lineal" width="70%" />
+<p class="caption">
+Figura 5.1: Gráfico de residuos caso lineal
+</p>
+</div>
+<p><strong>Caso no-lineal</strong></p>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="métodos-lineares-de-regresión.html#cb269-1"></a>x &lt;-<span class="st"> </span><span class="kw">exp</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>))</span>
+<span id="cb269-2"><a href="métodos-lineares-de-regresión.html#cb269-2"></a>y &lt;-<span class="st"> </span><span class="kw">log</span>(x) <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">sd =</span> <span class="fl">0.5</span>)</span>
+<span id="cb269-3"><a href="métodos-lineares-de-regresión.html#cb269-3"></a></span>
+<span id="cb269-4"><a href="métodos-lineares-de-regresión.html#cb269-4"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x)</span>
+<span id="cb269-5"><a href="métodos-lineares-de-regresión.html#cb269-5"></a><span class="kw">plot</span>(x, y)</span>
+<span id="cb269-6"><a href="métodos-lineares-de-regresión.html#cb269-6"></a><span class="kw">abline</span>(<span class="dt">a =</span> <span class="kw">coef</span>(fit)[<span class="dv">1</span>], <span class="dt">b =</span> <span class="kw">coef</span>(fit)[<span class="dv">2</span>], <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-197-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="métodos-lineares-de-regresión.html#cb270-1"></a><span class="kw">plot</span>(<span class="kw">fitted</span>(fit), <span class="kw">residuals</span>(fit))</span>
+<span id="cb270-2"><a href="métodos-lineares-de-regresión.html#cb270-2"></a><span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="figure" style="text-align: center"><span id="fig:grafico-residuos-no-lineal"></span>
+<img src="Notas-Curso-Estadistica_files/figure-html/grafico-residuos-no-lineal-1.svg" alt="Gráfico de residuos caso no-lineal" width="70%" />
+<p class="caption">
+Figura 5.2: Gráfico de residuos caso no-lineal
+</p>
+</div>
+<p><strong>Caso no-lineal transformado</strong></p>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="métodos-lineares-de-regresión.html#cb271-1"></a>xt &lt;-<span class="st"> </span><span class="kw">log</span>(x)</span>
+<span id="cb271-2"><a href="métodos-lineares-de-regresión.html#cb271-2"></a></span>
+<span id="cb271-3"><a href="métodos-lineares-de-regresión.html#cb271-3"></a></span>
+<span id="cb271-4"><a href="métodos-lineares-de-regresión.html#cb271-4"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>xt)</span>
+<span id="cb271-5"><a href="métodos-lineares-de-regresión.html#cb271-5"></a><span class="kw">plot</span>(xt, y)</span>
+<span id="cb271-6"><a href="métodos-lineares-de-regresión.html#cb271-6"></a><span class="kw">abline</span>(<span class="dt">a =</span> <span class="kw">coef</span>(fit)[<span class="dv">1</span>], <span class="dt">b =</span> <span class="kw">coef</span>(fit)[<span class="dv">2</span>], <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-198-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="métodos-lineares-de-regresión.html#cb272-1"></a><span class="kw">plot</span>(<span class="kw">fitted</span>(fit), <span class="kw">residuals</span>(fit))</span>
+<span id="cb272-2"><a href="métodos-lineares-de-regresión.html#cb272-2"></a><span class="kw">abline</span>(<span class="dt">h =</span> <span class="dv">0</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-198-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="independencia-de-los-erroes" class="section level4">
+<h4><span class="header-section-number">5.6.2.2</span> Independencia de los erroes</h4>
+<p>En este caso defina <span class="math inline">\(\rho(k) = \text{Cov}(\varepsilon_i,\varepsilon_{i+k} )\)</span>. Si los residuos son independientes, entonces debe ocurrir que</p>
+<p><span class="math display">\[\begin{equation*}
+\rho(k) = \begin{cases}
+1 &amp; k=0\\
+0 &amp; k\neq 0.
+\end{cases}  
+\end{equation*}\]</span></p>
+<p>Se calcula la función de autocorrelación y se gráfica para analizar su comportamiento</p>
+<p><strong>Caso ideal</strong></p>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="métodos-lineares-de-regresión.html#cb273-1"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb273-2"><a href="métodos-lineares-de-regresión.html#cb273-2"></a>y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="métodos-lineares-de-regresión.html#cb274-1"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x)</span>
+<span id="cb274-2"><a href="métodos-lineares-de-regresión.html#cb274-2"></a><span class="kw">plot</span>(xt, y)</span>
+<span id="cb274-3"><a href="métodos-lineares-de-regresión.html#cb274-3"></a><span class="kw">abline</span>(<span class="dt">a =</span> <span class="kw">coef</span>(fit)[<span class="dv">1</span>], <span class="dt">b =</span> <span class="kw">coef</span>(fit)[<span class="dv">2</span>], <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-200-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="métodos-lineares-de-regresión.html#cb275-1"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2863 -0.6624  0.0114  0.6568  2.8455 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)  0.98557    0.03171   31.08   &lt;2e-16 ***
+## x            0.98740    0.03040   32.48   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 1.003 on 998 degrees of freedom
+## Multiple R-squared:  0.5139, Adjusted R-squared:  0.5134 
+## F-statistic:  1055 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="métodos-lineares-de-regresión.html#cb277-1"></a><span class="kw">acf</span>(<span class="kw">residuals</span>(fit))</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-201-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><strong>Caso errores auto-correlacionados</strong></p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="métodos-lineares-de-regresión.html#cb278-1"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb278-2"><a href="métodos-lineares-de-regresión.html#cb278-2"></a>y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">diffinv</span>(<span class="kw">rnorm</span>(<span class="dv">999</span>, <span class="dt">sd =</span> <span class="dv">1</span>), <span class="dt">lag =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb279"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb279-1"><a href="métodos-lineares-de-regresión.html#cb279-1"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x)</span>
+<span id="cb279-2"><a href="métodos-lineares-de-regresión.html#cb279-2"></a><span class="kw">plot</span>(xt, y)</span>
+<span id="cb279-3"><a href="métodos-lineares-de-regresión.html#cb279-3"></a><span class="kw">abline</span>(<span class="dt">a =</span> <span class="kw">coef</span>(fit)[<span class="dv">1</span>], <span class="dt">b =</span> <span class="kw">coef</span>(fit)[<span class="dv">2</span>], <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-203-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="métodos-lineares-de-regresión.html#cb280-1"></a><span class="kw">summary</span>(fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -16.3343  -5.0196   0.6828   4.3112  16.1396 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept)   3.7244     0.1874  19.871  &lt; 2e-16 ***
+## x             0.8971     0.1866   4.808 1.76e-06 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## Residual standard error: 5.925 on 998 degrees of freedom
+## Multiple R-squared:  0.02264,    Adjusted R-squared:  0.02166 
+## F-statistic: 23.12 on 1 and 998 DF,  p-value: 1.756e-06</code></pre>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="métodos-lineares-de-regresión.html#cb282-1"></a><span class="kw">acf</span>(<span class="kw">residuals</span>(fit))</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-204-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="normalidad-de-los-errores" class="section level4">
+<h4><span class="header-section-number">5.6.2.3</span> Normalidad de los errores</h4>
+<p>Este hipótesis es crucial para hacer las pruebas <span class="math inline">\(t\)</span> y <span class="math inline">\(F\)</span> que vimos anteriormente.</p>
+<p>Para revisar si se cumple solo basta hacer una <code>qqplot</code> de los residuos.</p>
+<p><strong>Caso ideal</strong></p>
+<div class="sourceCode" id="cb283"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb283-1"><a href="métodos-lineares-de-regresión.html#cb283-1"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb283-2"><a href="métodos-lineares-de-regresión.html#cb283-2"></a>y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">sd =</span> <span class="dv">1</span>)</span>
+<span id="cb283-3"><a href="métodos-lineares-de-regresión.html#cb283-3"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x)</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="métodos-lineares-de-regresión.html#cb284-1"></a><span class="kw">qqnorm</span>(<span class="kw">residuals</span>(fit), <span class="dt">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb284-2"><a href="métodos-lineares-de-regresión.html#cb284-2"></a><span class="kw">qqline</span>(<span class="kw">residuals</span>(fit), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-206-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><strong>Caso errores auto-correlacionados</strong></p>
+<div class="sourceCode" id="cb285"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb285-1"><a href="métodos-lineares-de-regresión.html#cb285-1"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb285-2"><a href="métodos-lineares-de-regresión.html#cb285-2"></a>y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">diffinv</span>(<span class="kw">rnorm</span>(<span class="dv">999</span>, <span class="dt">sd =</span> <span class="dv">1</span>), <span class="dt">lag =</span> <span class="dv">1</span>)</span>
+<span id="cb285-3"><a href="métodos-lineares-de-regresión.html#cb285-3"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x)</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="métodos-lineares-de-regresión.html#cb286-1"></a><span class="kw">qqnorm</span>(<span class="kw">residuals</span>(fit), <span class="dt">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb286-2"><a href="métodos-lineares-de-regresión.html#cb286-2"></a><span class="kw">qqline</span>(<span class="kw">residuals</span>(fit), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-208-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><strong>Caso no-lineal</strong></p>
+<div class="sourceCode" id="cb287"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb287-1"><a href="métodos-lineares-de-regresión.html#cb287-1"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb287-2"><a href="métodos-lineares-de-regresión.html#cb287-2"></a>y &lt;-<span class="st"> </span>x<span class="op">^</span><span class="dv">2</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">sd =</span> <span class="fl">0.5</span>)</span>
+<span id="cb287-3"><a href="métodos-lineares-de-regresión.html#cb287-3"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x)</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="métodos-lineares-de-regresión.html#cb288-1"></a><span class="kw">qqnorm</span>(<span class="kw">residuals</span>(fit), <span class="dt">asp =</span> <span class="dv">1</span>)</span>
+<span id="cb288-2"><a href="métodos-lineares-de-regresión.html#cb288-2"></a><span class="kw">qqline</span>(<span class="kw">residuals</span>(fit), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-210-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="otros-chequeos-importantes" class="section level3">
+<h3><span class="header-section-number">5.6.3</span> Otros chequeos importantes</h3>
+<div id="puntos-extremos" class="section level4">
+<h4><span class="header-section-number">5.6.3.1</span> Puntos extremos</h4>
+<p>Estos puntos son aquellos que <span class="math inline">\(Y_i\)</span> esta lejos de <span class="math inline">\(\hat{Y}_i\)</span>. Otra forma de verlo son aquellos puntos que tienen residuos muy altos.</p>
+<p>Se puede hacer un gráfico de los residuos vs los valores ajustados como en <a href="métodos-lineares-de-regresión.html#fig:grafico-residuos-lineal">5.1</a> y <a href="métodos-lineares-de-regresión.html#fig:grafico-residuos-no-lineal">5.2</a>.</p>
+<p>¿Qué tan grande deben ser los residuos?</p>
+<p><strong>Solución:</strong> Se debe escalar los residuos adecuadamente.</p>
+<p>Se construyen los residuos semi-studendizados</p>
+<p><span class="math display">\[\begin{equation*}
+r_{i}^{s} = \frac{e_{i}}{\sqrt{\mathrm{Var}\left(e_{i}\right)}} 
+\end{equation*}\]</span></p>
+<p>Como <span class="math inline">\(H=X(X^{\top}X)^{-1}X^{\top}\)</span> es la matriz de proyección entonces sabemos que</p>
+<p><span class="math display">\[\begin{align*}
+\hat{Y}&amp;=  H Y \\
+e &amp;= Y - \hat{Y}  
+\end{align*}\]</span></p>
+<p>Entonces tenemos que</p>
+<p><span class="math display">\[\begin{align*}
+\mathrm{Var}\left(e\right) 
+&amp;=  \mathrm{Var}\left((I-H)Y\right)\\
+&amp;= (I-H)^{2}\mathrm{Var}\left(Y\right)\\
+&amp;= (I-H) \sigma^{2} \text{ (\(I-H\) es idempotente)}
+\end{align*}\]</span></p>
+<p>Por lo tanto</p>
+<p><span class="math display">\[\begin{equation*}
+\mathrm{Var}\left(e_{i}\right) = (1-h_{ii}) \sigma^{2}
+\end{equation*}\]</span></p>
+<p>Para cada observación se calcula los residuos de la forma</p>
+<p><span class="math display">\[\begin{equation*}
+r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
+\end{equation*}\]</span></p>
+<p><strong>Caso sin valores extremos</strong></p>
+<div class="sourceCode" id="cb289"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb289-1"><a href="métodos-lineares-de-regresión.html#cb289-1"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb289-2"><a href="métodos-lineares-de-regresión.html#cb289-2"></a>y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">sd =</span> <span class="fl">0.5</span>)</span>
+<span id="cb289-3"><a href="métodos-lineares-de-regresión.html#cb289-3"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x)</span>
+<span id="cb289-4"><a href="métodos-lineares-de-regresión.html#cb289-4"></a></span>
+<span id="cb289-5"><a href="métodos-lineares-de-regresión.html#cb289-5"></a>X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(y <span class="op">~</span><span class="st"> </span>x)</span>
+<span id="cb289-6"><a href="métodos-lineares-de-regresión.html#cb289-6"></a>H &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X)</span>
+<span id="cb289-7"><a href="métodos-lineares-de-regresión.html#cb289-7"></a>I &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span>, <span class="dt">nrow =</span> <span class="dv">1000</span>)</span>
+<span id="cb289-8"><a href="métodos-lineares-de-regresión.html#cb289-8"></a>I_H &lt;-<span class="st"> </span>I <span class="op">-</span><span class="st"> </span>H</span>
+<span id="cb289-9"><a href="métodos-lineares-de-regresión.html#cb289-9"></a>r_sdnt &lt;-<span class="st"> </span><span class="kw">residuals</span>(fit)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">diag</span>(I_H) <span class="op">*</span><span class="st"> </span><span class="kw">var</span>(y))</span>
+<span id="cb289-10"><a href="métodos-lineares-de-regresión.html#cb289-10"></a><span class="kw">plot</span>(<span class="kw">fitted</span>(fit), r_sdnt)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-211-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="métodos-lineares-de-regresión.html#cb290-1"></a>fit</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Coefficients:
+## (Intercept)            x  
+##      1.0242       0.9937</code></pre>
+<p>**Caso con valores extremos*</p>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="métodos-lineares-de-regresión.html#cb292-1"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>)</span>
+<span id="cb292-2"><a href="métodos-lineares-de-regresión.html#cb292-2"></a>y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">sd =</span> <span class="fl">0.5</span>)</span>
+<span id="cb292-3"><a href="métodos-lineares-de-regresión.html#cb292-3"></a>y[<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>] &lt;-<span class="st"> </span><span class="kw">runif</span>(<span class="dv">5</span>, <span class="dv">30</span>, <span class="dv">40</span>)</span>
+<span id="cb292-4"><a href="métodos-lineares-de-regresión.html#cb292-4"></a>fit &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x)</span>
+<span id="cb292-5"><a href="métodos-lineares-de-regresión.html#cb292-5"></a></span>
+<span id="cb292-6"><a href="métodos-lineares-de-regresión.html#cb292-6"></a>X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(y <span class="op">~</span><span class="st"> </span>x)</span>
+<span id="cb292-7"><a href="métodos-lineares-de-regresión.html#cb292-7"></a>H &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X)</span>
+<span id="cb292-8"><a href="métodos-lineares-de-regresión.html#cb292-8"></a>I &lt;-<span class="st"> </span><span class="kw">diag</span>(<span class="dv">1</span>, <span class="dt">nrow =</span> <span class="dv">1000</span>)</span>
+<span id="cb292-9"><a href="métodos-lineares-de-regresión.html#cb292-9"></a>I_H &lt;-<span class="st"> </span>I <span class="op">-</span><span class="st"> </span>H</span>
+<span id="cb292-10"><a href="métodos-lineares-de-regresión.html#cb292-10"></a>r_sdnt &lt;-<span class="st"> </span><span class="kw">residuals</span>(fit)<span class="op">/</span><span class="kw">sqrt</span>(<span class="kw">diag</span>(I_H) <span class="op">*</span><span class="st"> </span><span class="kw">var</span>(y))</span>
+<span id="cb292-11"><a href="métodos-lineares-de-regresión.html#cb292-11"></a><span class="kw">plot</span>(<span class="kw">fitted</span>(fit), r_sdnt)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-212-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb293"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb293-1"><a href="métodos-lineares-de-regresión.html#cb293-1"></a>fit</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Coefficients:
+## (Intercept)            x  
+##      1.1663       0.9585</code></pre>
+</div>
+<div id="puntos-de-apalancamiento-leverage" class="section level4">
+<h4><span class="header-section-number">5.6.3.2</span> Puntos de apalancamiento (leverage)</h4>
+<p>Un outlier puede ser detectado pero aún así este puede no afectar el modelo como un todo.</p>
+<p>El <span class="math inline">\(r_{i}^s\)</span> puede ser alto por 2 razones:</p>
+<ol style="list-style-type: decimal">
+<li>los residuos <span class="math inline">\(e_i\)</span> son altos (un outlier)</li>
+<li>el valor <span class="math inline">\(h_{ii}\)</span> es cercano a 1. (Se tiene que <span class="math inline">\(0\leq h_{ii}\leq 1\)</span>).</li>
+</ol>
+<p>Los valores donde <span class="math inline">\(h_{ii}\approx 1\)</span> se les denomina de <strong>gran apalancamiento</strong>.</p>
+<p>La regla empirica dice que</p>
+<p><span class="math display">\[\begin{equation*}
+\sum_{i=1}^{n} h_{ii} = p +1 \text{  (Los predictores más el intercepto)   }
+\end{equation*}\]</span></p>
+<p><strong>Regla empírica:</strong> Si <span class="math inline">\(h_{ii}&gt;\frac{p+1}{n}\)</span> entonces decimos que el punto de <strong>gran apalancamiento</strong>.</p>
+<p><strong>Caso base</strong></p>
+<div class="sourceCode" id="cb295"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb295-1"><a href="métodos-lineares-de-regresión.html#cb295-1"></a><span class="kw">set.seed</span>(<span class="dv">42</span>)</span>
+<span id="cb295-2"><a href="métodos-lineares-de-regresión.html#cb295-2"></a>apa_df =<span class="st"> </span><span class="kw">data.frame</span>(<span class="dt">x =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>, <span class="dt">y =</span> <span class="dv">10</span><span class="op">:</span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dt">n =</span> <span class="dv">10</span>))</span>
+<span id="cb295-3"><a href="métodos-lineares-de-regresión.html#cb295-3"></a>modelo &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> apa_df)</span>
+<span id="cb295-4"><a href="métodos-lineares-de-regresión.html#cb295-4"></a><span class="kw">coef</span>(modelo)</span></code></pre></div>
+<pre><code>## (Intercept)           x 
+##  11.3801152  -0.9696033</code></pre>
+<div class="sourceCode" id="cb297"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb297-1"><a href="métodos-lineares-de-regresión.html#cb297-1"></a>X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> apa_df)</span>
+<span id="cb297-2"><a href="métodos-lineares-de-regresión.html#cb297-2"></a>H &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X)</span>
+<span id="cb297-3"><a href="métodos-lineares-de-regresión.html#cb297-3"></a></span>
+<span id="cb297-4"><a href="métodos-lineares-de-regresión.html#cb297-4"></a><span class="kw">plot</span>(apa_df)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-213-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="métodos-lineares-de-regresión.html#cb298-1"></a><span class="kw">plot</span>(modelo, <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-213-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="métodos-lineares-de-regresión.html#cb299-1"></a><span class="kw">plot</span>(<span class="kw">diag</span>(H), <span class="dt">col =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>), <span class="dt">cex =</span> <span class="dv">2</span>, </span>
+<span id="cb299-2"><a href="métodos-lineares-de-regresión.html#cb299-2"></a>    <span class="dt">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-213-3.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><strong>Bajo apalancamiento, residuos grandes, influencia pequeña</strong></p>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="métodos-lineares-de-regresión.html#cb300-1"></a>p_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="fl">5.4</span>, <span class="dv">11</span>)</span>
+<span id="cb300-2"><a href="métodos-lineares-de-regresión.html#cb300-2"></a>apa_df_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">rbind</span>(apa_df, p_<span class="dv">1</span>)</span>
+<span id="cb300-3"><a href="métodos-lineares-de-regresión.html#cb300-3"></a>modelo_<span class="dv">1</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> apa_df_<span class="dv">1</span>)</span>
+<span id="cb300-4"><a href="métodos-lineares-de-regresión.html#cb300-4"></a><span class="kw">coef</span>(modelo_<span class="dv">1</span>)</span></code></pre></div>
+<pre><code>## (Intercept)           x 
+##  11.8509232  -0.9749534</code></pre>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="métodos-lineares-de-regresión.html#cb302-1"></a>X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> apa_df_<span class="dv">1</span>)</span>
+<span id="cb302-2"><a href="métodos-lineares-de-regresión.html#cb302-2"></a>H &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X)</span>
+<span id="cb302-3"><a href="métodos-lineares-de-regresión.html#cb302-3"></a></span>
+<span id="cb302-4"><a href="métodos-lineares-de-regresión.html#cb302-4"></a><span class="kw">plot</span>(apa_df_<span class="dv">1</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>), <span class="dt">cex =</span> <span class="dv">2</span>, </span>
+<span id="cb302-5"><a href="métodos-lineares-de-regresión.html#cb302-5"></a>    <span class="dt">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-214-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="métodos-lineares-de-regresión.html#cb303-1"></a><span class="kw">plot</span>(modelo_<span class="dv">1</span>, <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-214-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="métodos-lineares-de-regresión.html#cb304-1"></a><span class="kw">plot</span>(<span class="kw">diag</span>(H), <span class="dt">col =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>), <span class="dt">cex =</span> <span class="dv">2</span>, </span>
+<span id="cb304-2"><a href="métodos-lineares-de-regresión.html#cb304-2"></a>    <span class="dt">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-214-3.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><strong>Alto apalancamiento, residuo pequeño, influencia pequeña</strong></p>
+<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="métodos-lineares-de-regresión.html#cb305-1"></a>p_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">18</span>, <span class="fl">-5.7</span>)</span>
+<span id="cb305-2"><a href="métodos-lineares-de-regresión.html#cb305-2"></a>apa_df_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">rbind</span>(apa_df, p_<span class="dv">2</span>)</span>
+<span id="cb305-3"><a href="métodos-lineares-de-regresión.html#cb305-3"></a>modelo_<span class="dv">2</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> apa_df_<span class="dv">2</span>)</span>
+<span id="cb305-4"><a href="métodos-lineares-de-regresión.html#cb305-4"></a><span class="kw">coef</span>(modelo_<span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## (Intercept)           x 
+##  11.2888153  -0.9507397</code></pre>
+<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="métodos-lineares-de-regresión.html#cb307-1"></a>X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> apa_df_<span class="dv">2</span>)</span>
+<span id="cb307-2"><a href="métodos-lineares-de-regresión.html#cb307-2"></a>H &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X)</span>
+<span id="cb307-3"><a href="métodos-lineares-de-regresión.html#cb307-3"></a></span>
+<span id="cb307-4"><a href="métodos-lineares-de-regresión.html#cb307-4"></a><span class="kw">plot</span>(apa_df_<span class="dv">2</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>), <span class="dt">cex =</span> <span class="dv">2</span>, </span>
+<span id="cb307-5"><a href="métodos-lineares-de-regresión.html#cb307-5"></a>    <span class="dt">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-215-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="métodos-lineares-de-regresión.html#cb308-1"></a><span class="kw">plot</span>(modelo_<span class="dv">2</span>, <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-215-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="métodos-lineares-de-regresión.html#cb309-1"></a><span class="kw">plot</span>(<span class="kw">diag</span>(H), <span class="dt">col =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>), <span class="dt">cex =</span> <span class="dv">2</span>, </span>
+<span id="cb309-2"><a href="métodos-lineares-de-regresión.html#cb309-2"></a>    <span class="dt">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-215-3.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><strong>Alto apalancamiento, residuo altos, influencia grande</strong></p>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="métodos-lineares-de-regresión.html#cb310-1"></a>p_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">14</span>, <span class="fl">5.1</span>)</span>
+<span id="cb310-2"><a href="métodos-lineares-de-regresión.html#cb310-2"></a>apa_df_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">rbind</span>(apa_df, p_<span class="dv">3</span>)</span>
+<span id="cb310-3"><a href="métodos-lineares-de-regresión.html#cb310-3"></a>modelo_<span class="dv">3</span> &lt;-<span class="st"> </span><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> apa_df_<span class="dv">3</span>)</span>
+<span id="cb310-4"><a href="métodos-lineares-de-regresión.html#cb310-4"></a><span class="kw">coef</span>(modelo_<span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## (Intercept)           x 
+##   9.6572209  -0.5892241</code></pre>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="métodos-lineares-de-regresión.html#cb312-1"></a>X &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">data =</span> apa_df_<span class="dv">3</span>)</span>
+<span id="cb312-2"><a href="métodos-lineares-de-regresión.html#cb312-2"></a>H &lt;-<span class="st"> </span>X <span class="op">%*%</span><span class="st"> </span><span class="kw">solve</span>(<span class="kw">t</span>(X) <span class="op">%*%</span><span class="st"> </span>X) <span class="op">%*%</span><span class="st"> </span><span class="kw">t</span>(X)</span>
+<span id="cb312-3"><a href="métodos-lineares-de-regresión.html#cb312-3"></a></span>
+<span id="cb312-4"><a href="métodos-lineares-de-regresión.html#cb312-4"></a><span class="kw">plot</span>(apa_df_<span class="dv">3</span>, <span class="dt">col =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>), <span class="dt">cex =</span> <span class="dv">2</span>, </span>
+<span id="cb312-5"><a href="métodos-lineares-de-regresión.html#cb312-5"></a>    <span class="dt">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-216-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb313"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb313-1"><a href="métodos-lineares-de-regresión.html#cb313-1"></a><span class="kw">plot</span>(modelo_<span class="dv">3</span>, <span class="dv">3</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-216-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="métodos-lineares-de-regresión.html#cb314-1"></a><span class="kw">plot</span>(<span class="kw">diag</span>(H), <span class="dt">col =</span> <span class="kw">c</span>(<span class="kw">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>), <span class="dt">cex =</span> <span class="dv">2</span>, </span>
+<span id="cb314-2"><a href="métodos-lineares-de-regresión.html#cb314-2"></a>    <span class="dt">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-216-3.svg" width="70%" style="display: block; margin: auto;" /></p>
+
+<div id="refs" class="references">
+<div>
+<p>Albert, Jim, Robert Gentleman, Giovanni Parmigiani, and Kurt Hornik. 2009. <em>Bayesian computation with R</em>. New York, NY: Springer New York. <a href="https://doi.org/10.1007/978-0-387-92298-0">https://doi.org/10.1007/978-0-387-92298-0</a>.</p>
+</div>
+<div>
+<p>Hall, Peter. 1987. “On Kullback-Leibler Loss and Density Estimation.” <em>The Annals of Statistics</em> 15 (4): 1491–1519. <a href="https://doi.org/10.1214/aos/1176350606">https://doi.org/10.1214/aos/1176350606</a>.</p>
+</div>
+<div>
+<p>Härdle, Wolfgang, Axel Werwatz, Marlene Müller, and Stefan Sperlich. 2004. <em>Nonparametric and Semiparametric Models</em>. Springer Series in Statistics. Berlin, Heidelberg: Springer Berlin Heidelberg. <a href="https://doi.org/10.1007/978-3-642-17146-8">https://doi.org/10.1007/978-3-642-17146-8</a>.</p>
+</div>
+<div>
+<p>Hoffman, Matthew D., and Andrew Gelman. 2014. “The no-U-turn sampler: Adaptively setting path lengths in Hamiltonian Monte Carlo.” <em>Journal of Machine Learning Research</em> 15 (47): 1593–1623. <a href="http://jmlr.org/papers/v15/hoffman14a.html">http://jmlr.org/papers/v15/hoffman14a.html</a>.</p>
+</div>
+<div>
+<p>Kruschke, John K. 2014. “Doing Bayesian data analysis: A tutorial with R, JAGS, and Stan, second edition.” In <em>Doing Bayesian Data Analysis: A Tutorial with R, Jags, and Stan, Second Edition</em>, 1–759.</p>
+</div>
+<div>
+<p>Wasserman, Larry. 2006. <em>All of Nonparametric Statistics</em>. Springer Texts in Statistics. New York, NY: Springer New York. <a href="https://doi.org/10.1007/0-387-30623-4">https://doi.org/10.1007/0-387-30623-4</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="estimación-de-densidades-con-bayes.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/maikol-solis/notas-curso-estadistica/edit/master/04-metodos-lineares-regresion.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/maikol-solis/notas-curso-estadistica/blob/master/04-metodos-lineares-regresion.Rmd",
+"text": null
+},
+"download": ["Notas-Curso-Estadistica.pdf"],
+"toc": {
+"collapse": "subsection"
+},
+"toc_depth": 5
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
