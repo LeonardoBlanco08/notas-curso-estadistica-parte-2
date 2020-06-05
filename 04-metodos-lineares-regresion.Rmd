@@ -545,12 +545,6 @@ summary(fit)
 ```
 
 
-```{r}
-```
-
-
-```{r}
-```
 
  
 ## Predicción 
@@ -838,7 +832,7 @@ Generamos una base de datos nueva con solamente `wt` centrado
 # Si tienen otra versión, pueden usar mutate_if
 
 mtcars_centered <- mtcars %>%
-  mutate(across("wt", scale, scale = TRUE, center = TRUE))
+  mutate(across("wt", scale, scale = FALSE, center = TRUE))
 ```
 
 
@@ -923,7 +917,7 @@ mtcars_scaled <- mtcars %>%
 ## Hipotesis en regresión lineal 
 
 
-Hasta ahora hemos visto el modelo de regresión como un conjunto de partes separadas. Entonces, uniremos todo para 
+Hasta ahora hemos visto el modelo de regresión como un conjunto de partes separadas.
 
 
 ### Hipotésis
@@ -1130,7 +1124,21 @@ fit <- lm(y ~ x)
 
 
 ```{r}
-qqnorm(residuals(fit), asp = 1)
+qqnorm(residuals(fit), asp = 0)
+qqline(residuals(fit), col = "red")
+
+```
+
+```{r}
+x <- rnorm(1000)
+y <- x ^ 2 + rnorm(1000, sd = 0.5)
+fit <- lm(y ~ x + I(x ^ 2))
+summary(fit)
+```
+
+
+```{r}
+qqnorm(residuals(fit), asp = 0)
 qqline(residuals(fit), col = "red")
 
 ```
