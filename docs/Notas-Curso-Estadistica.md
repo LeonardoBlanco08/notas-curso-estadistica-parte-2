@@ -4729,10 +4729,6 @@ summary(fit)
 
 
 
-
-
-
-
  
 ## Predicción 
 
@@ -4853,7 +4849,7 @@ p
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-190-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-188-1} \end{center}
 
 ```r
 # # Guardar el gráfico en un archivo pdf
@@ -4880,7 +4876,7 @@ p
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-191-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-189-1} \end{center}
 
 ```r
 # # Guardar el gráfico en un archivo pdf
@@ -4919,7 +4915,7 @@ p
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-192-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-190-1} \end{center}
 
 ```r
 # # Guardar el gráfico en un archivo pdf
@@ -4942,7 +4938,7 @@ plot(toyex.initial)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-193-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-191-1} \end{center}
 
 
 
@@ -4962,15 +4958,15 @@ summary(lm.toyex.initial)
 ## -4.1440 -0.8238  0.0088  0.8823  3.0482 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 10.11325    0.07220  140.07   <2e-16 ***
-## X            0.97761    0.01269   77.02   <2e-16 ***
+##             Estimate Std. Error t value            Pr(>|t|)    
+## (Intercept) 10.11325    0.07220  140.07 <0.0000000000000002 ***
+## X            0.97761    0.01269   77.02 <0.0000000000000002 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 1.186 on 998 degrees of freedom
 ## Multiple R-squared:  0.856,	Adjusted R-squared:  0.8558 
-## F-statistic:  5932 on 1 and 998 DF,  p-value: < 2.2e-16
+## F-statistic:  5932 on 1 and 998 DF,  p-value: < 0.00000000000000022
 ```
 
 ```r
@@ -5059,7 +5055,7 @@ Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\var
 **Esto se le conoce como principio de jerarquía**. No es importante si los efectos directos son relevante o no dentro del modelo, siempre se deben de incluir para manter la consistencia. 
 
 
-\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-197"><strong>(\#exr:unnamed-chunk-197) </strong></span>Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el modelo se mantiene. </div>\EndKnitrBlock{exercise}
+\BeginKnitrBlock{exercise}<div class="exercise"><span class="exercise" id="exr:unnamed-chunk-195"><strong>(\#exr:unnamed-chunk-195) </strong></span>Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el modelo se mantiene. </div>\EndKnitrBlock{exercise}
 
 ### Laboratorio
 
@@ -5073,7 +5069,7 @@ Generamos una base de datos nueva con solamente `wt` centrado
 # mutate_if
 
 mtcars_centered <- mtcars %>% mutate(across("wt", scale, 
-    scale = TRUE, center = TRUE))
+    scale = FALSE, center = TRUE))
 ```
 
 
@@ -5094,16 +5090,16 @@ summary(lm(mpg ~ wt + disp, data = mtcars))
 ## -3.4087 -2.3243 -0.7683  1.7721  6.3484 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 34.96055    2.16454  16.151 4.91e-16 ***
-## wt          -3.35082    1.16413  -2.878  0.00743 ** 
-## disp        -0.01773    0.00919  -1.929  0.06362 .  
+##             Estimate Std. Error t value             Pr(>|t|)    
+## (Intercept) 34.96055    2.16454  16.151 0.000000000000000491 ***
+## wt          -3.35082    1.16413  -2.878              0.00743 ** 
+## disp        -0.01773    0.00919  -1.929              0.06362 .  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 2.917 on 29 degrees of freedom
 ## Multiple R-squared:  0.7809,	Adjusted R-squared:  0.7658 
-## F-statistic: 51.69 on 2 and 29 DF,  p-value: 2.744e-10
+## F-statistic: 51.69 on 2 and 29 DF,  p-value: 0.0000000002744
 ```
 
 ```r
@@ -5120,16 +5116,16 @@ summary(lm(mpg ~ wt + disp, data = mtcars_centered))
 ## -3.4087 -2.3243 -0.7683  1.7721  6.3484 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 24.18011    2.18221  11.081 6.12e-12 ***
-## wt          -3.27864    1.13905  -2.878  0.00743 ** 
-## disp        -0.01773    0.00919  -1.929  0.06362 .  
+##             Estimate Std. Error t value         Pr(>|t|)    
+## (Intercept) 24.18011    2.18221  11.081 0.00000000000612 ***
+## wt          -3.35082    1.16413  -2.878          0.00743 ** 
+## disp        -0.01773    0.00919  -1.929          0.06362 .  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 2.917 on 29 degrees of freedom
 ## Multiple R-squared:  0.7809,	Adjusted R-squared:  0.7658 
-## F-statistic: 51.69 on 2 and 29 DF,  p-value: 2.744e-10
+## F-statistic: 51.69 on 2 and 29 DF,  p-value: 0.0000000002744
 ```
 
 
@@ -5150,15 +5146,15 @@ summary(lm(mpg ~ wt * disp - wt - disp, data = mtcars))
 ## -4.259 -2.603 -1.657  2.165  8.589 
 ## 
 ## Coefficients:
-##               Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 26.2621926  1.0418029  25.208  < 2e-16 ***
-## wt:disp     -0.0072897  0.0009721  -7.499 2.33e-08 ***
+##               Estimate Std. Error t value             Pr(>|t|)    
+## (Intercept) 26.2621926  1.0418029  25.208 < 0.0000000000000002 ***
+## wt:disp     -0.0072897  0.0009721  -7.499         0.0000000233 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 3.614 on 30 degrees of freedom
 ## Multiple R-squared:  0.6521,	Adjusted R-squared:  0.6405 
-## F-statistic: 56.24 on 1 and 30 DF,  p-value: 2.329e-08
+## F-statistic: 56.24 on 1 and 30 DF,  p-value: 0.00000002329
 ```
 
 ```r
@@ -5175,15 +5171,15 @@ summary(lm(mpg ~ wt * disp - wt - disp, data = mtcars_centered))
 ## -5.878 -2.775 -1.162  2.409 11.150 
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 21.460008   0.859706  24.962  < 2e-16 ***
-## wt:disp     -0.012844   0.002655  -4.837 3.69e-05 ***
+##              Estimate Std. Error t value             Pr(>|t|)    
+## (Intercept) 21.460008   0.859706  24.962 < 0.0000000000000002 ***
+## wt:disp     -0.013127   0.002714  -4.837            0.0000369 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 4.592 on 30 degrees of freedom
 ## Multiple R-squared:  0.4382,	Adjusted R-squared:  0.4195 
-## F-statistic:  23.4 on 1 and 30 DF,  p-value: 3.686e-05
+## F-statistic:  23.4 on 1 and 30 DF,  p-value: 0.00003686
 ```
 
 
@@ -5204,17 +5200,17 @@ summary(lm(mpg ~ wt + disp + wt * disp, data = mtcars))
 ## -3.267 -1.677 -0.836  1.351  5.017 
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 44.081998   3.123063  14.115 2.96e-14 ***
-## wt          -6.495680   1.313383  -4.946 3.22e-05 ***
-## disp        -0.056358   0.013239  -4.257  0.00021 ***
-## wt:disp      0.011705   0.003255   3.596  0.00123 ** 
+##              Estimate Std. Error t value           Pr(>|t|)    
+## (Intercept) 44.081998   3.123063  14.115 0.0000000000000296 ***
+## wt          -6.495680   1.313383  -4.946 0.0000321670456650 ***
+## disp        -0.056358   0.013239  -4.257            0.00021 ***
+## wt:disp      0.011705   0.003255   3.596            0.00123 ** 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 2.455 on 28 degrees of freedom
 ## Multiple R-squared:  0.8501,	Adjusted R-squared:  0.8341 
-## F-statistic: 52.95 on 3 and 28 DF,  p-value: 1.158e-11
+## F-statistic: 52.95 on 3 and 28 DF,  p-value: 0.00000000001158
 ```
 
 ```r
@@ -5231,17 +5227,17 @@ summary(lm(mpg ~ wt + disp + wt * disp, data = mtcars_centered))
 ## -3.267 -1.677 -0.836  1.351  5.017 
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value Pr(>|t|)    
-## (Intercept) 23.183772   1.857605  12.480 5.87e-13 ***
-## wt          -6.355746   1.285089  -4.946 3.22e-05 ***
-## disp        -0.018699   0.007741  -2.416  0.02248 *  
-## wt:disp      0.011453   0.003185   3.596  0.00123 ** 
+##              Estimate Std. Error t value          Pr(>|t|)    
+## (Intercept) 23.183772   1.857605  12.480 0.000000000000587 ***
+## wt          -6.495680   1.313383  -4.946 0.000032167045665 ***
+## disp        -0.018699   0.007741  -2.416           0.02248 *  
+## wt:disp      0.011705   0.003255   3.596           0.00123 ** 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 2.455 on 28 degrees of freedom
 ## Multiple R-squared:  0.8501,	Adjusted R-squared:  0.8341 
-## F-statistic: 52.95 on 3 and 28 DF,  p-value: 1.158e-11
+## F-statistic: 52.95 on 3 and 28 DF,  p-value: 0.00000000001158
 ```
 
 
@@ -5303,7 +5299,7 @@ mtcars_scaled <- mtcars %>% mutate(across(c("wt", "disp"),
 ## Hipotesis en regresión lineal 
 
 
-Hasta ahora hemos visto el modelo de regresión como un conjunto de partes separadas. Entonces, uniremos todo para 
+Hasta ahora hemos visto el modelo de regresión como un conjunto de partes separadas.
 
 
 ### Hipotésis
@@ -5365,7 +5361,7 @@ abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-203-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-201-1} \end{center}
 
 
 
@@ -5398,7 +5394,7 @@ abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-204-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-202-1} \end{center}
 
 
 
@@ -5431,7 +5427,7 @@ abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-205-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-203-1} \end{center}
 
 ```r
 plot(fitted(fit), residuals(fit))
@@ -5440,7 +5436,7 @@ abline(h = 0, col = "red")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-205-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-203-2} \end{center}
 :::
 
 
@@ -5474,7 +5470,7 @@ abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-207-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-205-1} \end{center}
 
 
 
@@ -5492,15 +5488,15 @@ summary(fit)
 ## -3.3117 -0.6623 -0.0212  0.6780  3.3605 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  0.98286    0.03180   30.90   <2e-16 ***
-## x            1.02163    0.03027   33.75   <2e-16 ***
+##             Estimate Std. Error t value            Pr(>|t|)    
+## (Intercept)  0.98286    0.03180   30.90 <0.0000000000000002 ***
+## x            1.02163    0.03027   33.75 <0.0000000000000002 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 1.006 on 998 degrees of freedom
 ## Multiple R-squared:  0.5331,	Adjusted R-squared:  0.5326 
-## F-statistic:  1139 on 1 and 998 DF,  p-value: < 2.2e-16
+## F-statistic:  1139 on 1 and 998 DF,  p-value: < 0.00000000000000022
 ```
 
 ```r
@@ -5509,7 +5505,7 @@ acf(residuals(fit))
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-208-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-206-1} \end{center}
 
 **Caso errores auto-correlacionados**
 
@@ -5529,7 +5525,7 @@ abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-210-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-208-1} \end{center}
 
 
 
@@ -5547,15 +5543,15 @@ summary(fit)
 ## -16.0406  -4.8890  -0.8442   4.8950  16.4602 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  -3.3808     0.2259 -14.968  < 2e-16 ***
-## x             1.1687     0.2289   5.106 3.95e-07 ***
+##             Estimate Std. Error t value             Pr(>|t|)    
+## (Intercept)  -3.3808     0.2259 -14.968 < 0.0000000000000002 ***
+## x             1.1687     0.2289   5.106          0.000000395 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 7.14 on 998 degrees of freedom
 ## Multiple R-squared:  0.02546,	Adjusted R-squared:  0.02448 
-## F-statistic: 26.07 on 1 and 998 DF,  p-value: 3.946e-07
+## F-statistic: 26.07 on 1 and 998 DF,  p-value: 0.0000003946
 ```
 
 ```r
@@ -5564,7 +5560,7 @@ acf(residuals(fit))
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-211-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-209-1} \end{center}
 
 
 #### Normalidad de los errores 
@@ -5591,7 +5587,7 @@ qqline(residuals(fit), col = "red")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-213-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-211-1} \end{center}
 
 **Caso errores auto-correlacionados**
 
@@ -5611,7 +5607,7 @@ qqline(residuals(fit), col = "red")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-213-1} \end{center}
 
 **Caso no-lineal**
 
@@ -5625,7 +5621,48 @@ fit <- lm(y ~ x)
 
 
 ```r
-qqnorm(residuals(fit), asp = 1)
+qqnorm(residuals(fit), asp = 0)
+qqline(residuals(fit), col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-1} \end{center}
+
+
+```r
+x <- rnorm(1000)
+y <- x^2 + rnorm(1000, sd = 0.5)
+fit <- lm(y ~ x + I(x^2))
+summary(fit)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x + I(x^2))
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.22821 -0.35880  0.00671  0.34656  1.50042 
+## 
+## Coefficients:
+##              Estimate Std. Error t value            Pr(>|t|)    
+## (Intercept) -0.002867   0.019706  -0.146               0.884    
+## x           -0.005072   0.015685  -0.323               0.747    
+## I(x^2)       0.997910   0.011481  86.915 <0.0000000000000002 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.5003 on 997 degrees of freedom
+## Multiple R-squared:  0.8841,	Adjusted R-squared:  0.8838 
+## F-statistic:  3801 on 2 and 997 DF,  p-value: < 0.00000000000000022
+```
+
+
+
+```r
+qqnorm(residuals(fit), asp = 0)
 qqline(residuals(fit), col = "red")
 ```
 
@@ -5687,20 +5724,20 @@ summary(fit_kg)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -3.2214 -2.3952 -0.7982  1.6776  6.4158 
+## -4.3444 -2.1246 -0.3308  1.5040  6.5010 
 ## 
 ## Coefficients:
-##               Estimate Std. Error t value           Pr(>|t|)    
-## (Intercept)  34.928910   2.201964  15.863 0.0000000000000016 ***
-## disp         -0.017985   0.009379  -1.918             0.0654 .  
-## wt           75.684191 265.966314   0.285             0.7781    
-## wt_kg        -0.174231   0.586313  -0.297             0.7685    
+##               Estimate Std. Error t value             Pr(>|t|)    
+## (Intercept)  35.295933   2.139467  16.498 0.000000000000000591 ***
+## disp         -0.014814   0.009256  -1.601                0.121    
+## wt          368.260011 259.878804   1.417                0.168    
+## wt_kg        -0.820065   0.573491  -1.430                0.164    
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 2.964 on 28 degrees of freedom
-## Multiple R-squared:  0.7816,	Adjusted R-squared:  0.7582 
-## F-statistic: 33.41 on 3 and 28 DF,  p-value: 0.00000000217
+## Residual standard error: 2.865 on 28 degrees of freedom
+## Multiple R-squared:  0.7958,	Adjusted R-squared:  0.774 
+## F-statistic: 36.38 on 3 and 28 DF,  p-value: 0.0000000008522
 ```
 
 
@@ -5804,7 +5841,7 @@ fit
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##      0.9953       0.9953
+##      0.9937       0.9757
 ```
 
 **Caso con valores extremos*
@@ -5839,7 +5876,7 @@ fit
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##      1.1700       0.9341
+##      1.1475       0.9688
 ```
 
 #### Puntos de apalancamiento (leverage)
