@@ -1264,13 +1264,13 @@ r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
 ```{r}
 x <- rnorm(1000)
 y <- 1 + x + rnorm(1000, sd = 0.5)
-fit <- lm(y~x)
+fit <- lm(y ~ x)
 
-X <- model.matrix(y~x)
+X <- model.matrix(y ~ x)
 H <- X %*% solve(t(X) %*% X) %*% t(X)
 I <-  diag(1, nrow = 1000)
 I_H <- I - H
-r_sdnt <-  residuals(fit)/sqrt(diag(I_H)*var(y))
+r_sdnt <-  residuals(fit) / sqrt(diag(I_H) * var(y))
 plot(fitted(fit), r_sdnt)
 
 fit
@@ -1282,13 +1282,13 @@ fit
 x <- rnorm(1000)
 y <- 1 + x + rnorm(1000, sd = 0.5)
 y[1:5] <- runif(5, 30, 40)
-fit <- lm(y~x)
+fit <- lm(y ~ x)
 
-X <- model.matrix(y~x)
+X <- model.matrix(y ~ x)
 H <- X %*% solve(t(X) %*% X) %*% t(X)
 I <-  diag(1, nrow = 1000)
 I_H <- I - H
-r_sdnt <-  residuals(fit)/sqrt(diag(I_H)*var(y))
+r_sdnt <-  residuals(fit) / sqrt(diag(I_H) * var(y))
 plot(fitted(fit), r_sdnt)
 
 fit
@@ -1329,15 +1329,25 @@ donde $\hat{Y}_{j(-i)}$ significa el ajuste del modelo lineal, removiendo la obs
 set.seed(42)
 apa_df  = data.frame(x = 1:10,
                      y = 10:1 + rnorm(n = 10))
+```
+
+
+```{r}
 modelo <-  lm(y ~ x, data = apa_df)
 coef(modelo)
+```
 
+
+```{r}
 plot(modelo,
      5,
      col = c(rep("black", 10), "red"),
      cex = 2,
      pch = 16)
+```
 
+
+```{r}
 plot(
   hatvalues(modelo),
   col = c(rep("black", 10), "red"),
@@ -1345,7 +1355,10 @@ plot(
   pch = 16
 )
 abline(h = 2 / 10, col = "blue")
+```
 
+
+```{r}
 plot(apa_df,
      col = c(rep("black", 10), "red"),
      cex = 2,
@@ -1363,14 +1376,21 @@ p_1 <-  c(5.4, 11)
 apa_df_1  <-  rbind(apa_df, p_1)
 modelo_1 <-  lm(y ~ x, data = apa_df_1)
 coef(modelo_1)
+```
 
 
+```{r}
 plot(modelo_1,
      5,
      col = c(rep("black", 10), "red"),
      cex = 2,
      pch = 16)
+```
 
+
+
+
+```{r}
 plot(
   hatvalues(modelo_1),
   col = c(rep("black", 10), "red"),
@@ -1378,7 +1398,10 @@ plot(
   pch = 16
 )
 abline(h = 2 / 11, col = "blue")
+```
 
+
+```{r}
 plot(apa_df_1,
      col = c(rep("black", 10), "red"),
      cex = 2,
@@ -1393,26 +1416,35 @@ abline(a = coef(modelo_1)[1],
 
 
 **Alto apalancamiento, residuo pequeño, influencia pequeña** 
+
+
 ```{r}
 p_2 <-  c(18, -5.7)
 apa_df_2  <-  rbind(apa_df, p_2)
 modelo_2 <-  lm(y ~ x, data = apa_df_2)
 coef(modelo_2)
+```
 
 
-
+```{r}
 plot(modelo_2,
      5,
      col = c(rep("black", 10), "red"),
      cex = 2,
      pch = 16)
+```
 
+
+```{r}
 plot(hatvalues(modelo_2),
      col = c(rep("black", 10), "red"),
      cex = 2,
      pch = 16)
 abline(h = 2 / 11, col = "blue")
+```
 
+
+```{r}
 plot(apa_df_2,
      col = c(rep("black", 10), "red"),
      cex = 2,
@@ -1433,20 +1465,29 @@ p_3 <- c(14, 5.1)
 apa_df_3  <-  rbind(apa_df, p_3)
 modelo_3 <-  lm(y ~ x, data = apa_df_3)
 coef(modelo_3)
+```
 
 
+```{r}
 plot(modelo_3,
      5,
      col = c(rep("black", 10), "red"),
      cex = 2,
      pch = 16)
+```
 
+
+
+```{r}
 plot(hatvalues(modelo_3),
      col = c(rep("black", 10), "red"),
      cex = 2,
      pch = 16)
 abline(h = 2 / 11, col = "blue")
+```
 
+
+```{r}
 plot(apa_df_3,
      col = c(rep("black", 10), "red"),
      cex = 2,
@@ -1459,3 +1500,17 @@ abline(a = coef(modelo_3)[1],
        col = "red")
 
 ```
+```{r}
+?stats:::plot.lm
+```
+
+
+```{r}
+plot(modelo_3, which = 1:6)
+```
+
+
+```{r}
+plot(modelo, which = 1:6)
+```
+
