@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística"
 author: "Maikol Solís"
-date: "Actualizado el 04 junio, 2020"
+date: "Actualizado el 09 junio, 2020"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -5914,6 +5914,11 @@ donde $\hat{Y}_{j(-i)}$ significa el ajuste del modelo lineal, removiendo la obs
 ```r
 set.seed(42)
 apa_df = data.frame(x = 1:10, y = 10:1 + rnorm(n = 10))
+```
+
+
+
+```r
 modelo <- lm(y ~ x, data = apa_df)
 coef(modelo)
 ```
@@ -5923,6 +5928,8 @@ coef(modelo)
 ##  11.3801152  -0.9696033
 ```
 
+
+
 ```r
 plot(modelo, 5, col = c(rep("black", 10), "red"), cex = 2, 
     pch = 16)
@@ -5930,7 +5937,9 @@ plot(modelo, 5, col = c(rep("black", 10), "red"), cex = 2,
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-222-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-224-1} \end{center}
+
+
 
 ```r
 plot(hatvalues(modelo), col = c(rep("black", 10), "red"), 
@@ -5940,7 +5949,9 @@ abline(h = 2/10, col = "blue")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-222-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-225-1} \end{center}
+
+
 
 ```r
 plot(apa_df, col = c(rep("black", 10), "red"), cex = 2, 
@@ -5950,7 +5961,7 @@ abline(a = coef(modelo)[1], b = coef(modelo)[2], col = "blue")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-222-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-226-1} \end{center}
 
 **Bajo apalancamiento, residuos grandes, influencia pequeña**
 
@@ -5967,6 +5978,8 @@ coef(modelo_1)
 ##  11.8509232  -0.9749534
 ```
 
+
+
 ```r
 plot(modelo_1, 5, col = c(rep("black", 10), "red"), 
     cex = 2, pch = 16)
@@ -5974,7 +5987,11 @@ plot(modelo_1, 5, col = c(rep("black", 10), "red"),
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-223-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-228-1} \end{center}
+
+
+
+
 
 ```r
 plot(hatvalues(modelo_1), col = c(rep("black", 10), 
@@ -5984,7 +6001,9 @@ abline(h = 2/11, col = "blue")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-223-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-229-1} \end{center}
+
+
 
 ```r
 plot(apa_df_1, col = c(rep("black", 10), "red"), cex = 2, 
@@ -5996,10 +6015,12 @@ abline(a = coef(modelo_1)[1], b = coef(modelo_1)[2],
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-223-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-230-1} \end{center}
 
 
 **Alto apalancamiento, residuo pequeño, influencia pequeña** 
+
+
 
 ```r
 p_2 <- c(18, -5.7)
@@ -6013,6 +6034,8 @@ coef(modelo_2)
 ##  11.2888153  -0.9507397
 ```
 
+
+
 ```r
 plot(modelo_2, 5, col = c(rep("black", 10), "red"), 
     cex = 2, pch = 16)
@@ -6020,7 +6043,9 @@ plot(modelo_2, 5, col = c(rep("black", 10), "red"),
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-224-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-232-1} \end{center}
+
+
 
 ```r
 plot(hatvalues(modelo_2), col = c(rep("black", 10), 
@@ -6030,7 +6055,9 @@ abline(h = 2/11, col = "blue")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-224-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-233-1} \end{center}
+
+
 
 ```r
 plot(apa_df_2, col = c(rep("black", 10), "red"), cex = 2, 
@@ -6042,7 +6069,7 @@ abline(a = coef(modelo_2)[1], b = coef(modelo_2)[2],
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-224-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-234-1} \end{center}
 
 
 **Alto apalancamiento, residuo altos, influencia grande** 
@@ -6059,6 +6086,8 @@ coef(modelo_3)
 ##   9.6572209  -0.5892241
 ```
 
+
+
 ```r
 plot(modelo_3, 5, col = c(rep("black", 10), "red"), 
     cex = 2, pch = 16)
@@ -6066,7 +6095,10 @@ plot(modelo_3, 5, col = c(rep("black", 10), "red"),
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-225-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-236-1} \end{center}
+
+
+
 
 ```r
 plot(hatvalues(modelo_3), col = c(rep("black", 10), 
@@ -6076,7 +6108,9 @@ abline(h = 2/11, col = "blue")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-225-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-237-1} \end{center}
+
+
 
 ```r
 plot(apa_df_3, col = c(rep("black", 10), "red"), cex = 2, 
@@ -6088,7 +6122,319 @@ abline(a = coef(modelo_3)[1], b = coef(modelo_3)[2],
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-225-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-238-1} \end{center}
+
+```r
+`?`(stats:::plot.lm)
+```
+
+
+
+```r
+plot(modelo_3, which = 1:6)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-240-1} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-240-2} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-240-3} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-240-4} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-240-5} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-240-6} \end{center}
+
+
+
+```r
+plot(modelo, which = 1:6)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-241-1} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-241-2} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-241-3} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-241-4} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-241-5} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-241-6} \end{center}
+
 
 <!--chapter:end:04-metodos-lineares-regresion.Rmd-->
+
+
+# Regresión Logística
+
+Asuma que ahora la variable \(Y\) solo contiene valores 0 o 1 y queremos hacer la regresión 
+
+\begin{equation*}
+Y = \beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \varepsilon.
+\end{equation*} 
+
+El problema es que \(\mathbb{E}\left[Y | \boldsymbol{X}\right] = \mathbb{P}\left(Y=1\vert \boldsymbol{X}\right)\) y se debe cumplir que 
+
+\begin{equation*}
+0\leq \mathbb{E}\left[Y | \boldsymbol{X}\right]\leq 1.
+\end{equation*} 
+
+pero el rango de \(\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p} \) es todo \(\mathbb{R}\). 
+
+Solución es cambiar \(Y\) por \(g(Y)\in [0,1]\). 
+
+\begin{equation*}
+g(X) = \frac{1}{1+e^{-(\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p})}}
+\end{equation*}  
+
+
+```r
+titanic <- read.csv("data/titanic.csv")
+summary(titanic)
+```
+
+```
+##   PassengerId       Survived          Pclass          Name          
+##  Min.   :  1.0   Min.   :0.0000   Min.   :1.000   Length:891        
+##  1st Qu.:223.5   1st Qu.:0.0000   1st Qu.:2.000   Class :character  
+##  Median :446.0   Median :0.0000   Median :3.000   Mode  :character  
+##  Mean   :446.0   Mean   :0.3838   Mean   :2.309                     
+##  3rd Qu.:668.5   3rd Qu.:1.0000   3rd Qu.:3.000                     
+##  Max.   :891.0   Max.   :1.0000   Max.   :3.000                     
+##                                                                     
+##      Sex                 Age            SibSp           Parch       
+##  Length:891         Min.   : 0.42   Min.   :0.000   Min.   :0.0000  
+##  Class :character   1st Qu.:20.12   1st Qu.:0.000   1st Qu.:0.0000  
+##  Mode  :character   Median :28.00   Median :0.000   Median :0.0000  
+##                     Mean   :29.70   Mean   :0.523   Mean   :0.3816  
+##                     3rd Qu.:38.00   3rd Qu.:1.000   3rd Qu.:0.0000  
+##                     Max.   :80.00   Max.   :8.000   Max.   :6.0000  
+##                     NA's   :177                                     
+##     Ticket               Fare           Cabin             Embarked        
+##  Length:891         Min.   :  0.00   Length:891         Length:891        
+##  Class :character   1st Qu.:  7.91   Class :character   Class :character  
+##  Mode  :character   Median : 14.45   Mode  :character   Mode  :character  
+##                     Mean   : 32.20                                        
+##                     3rd Qu.: 31.00                                        
+##                     Max.   :512.33                                        
+## 
+```
+
+
+```r
+fit_lm <- lm(Survived ~ Fare, data = titanic)
+```
+
+
+
+```r
+library(ggiraphExtra)
+ggPredict(fit_lm) + theme_minimal(base_size = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-245-1} \end{center}
+
+
+
+
+
+
+En lugar de esto, definamos el siguiente modelo 
+
+\begin{equation*}
+Y \sim Bernoulli (g_{\beta}(\boldsymbol{X})) 
+\end{equation*}
+
+con \(g_{\beta}(\boldsymbol{X}) = \mathbb{P}\left(Y=1 \vert \boldsymbol{X}\right)\).
+
+En `R` usaremos la función `glm` 
+
+
+```r
+fit_glm <- glm(Survived ~ Fare, data = titanic, family = "binomial")
+summary(fit_glm)
+```
+
+```
+## 
+## Call:
+## glm(formula = Survived ~ Fare, family = "binomial", data = titanic)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.4906  -0.8878  -0.8531   1.3429   1.5942  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) -0.941330   0.095129  -9.895  < 2e-16 ***
+## Fare         0.015197   0.002232   6.810 9.79e-12 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1186.7  on 890  degrees of freedom
+## Residual deviance: 1117.6  on 889  degrees of freedom
+## AIC: 1121.6
+## 
+## Number of Fisher Scoring iterations: 4
+```
+
+
+
+```r
+ggPredict(fit_glm) + theme_minimal(base_size = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-247-1} \end{center}
+
+
+
+
+**Nota:** Existen otros tipos de regresión y estas se definen a través del parámetro `family`. En este curso solo nos enfocaremos en el parámetro `family="binomial"`.
+
+## Razón de proporción 
+
+Defina 
+
+\begin{equation*}
+O(X) = \frac{g(X)}{1-g(X)} = e^{\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p}} \in [0,1].
+\end{equation*}
+
+Es la relación de obtener 1 ó 0. 
+
+Por suponga que  \(\mathbb{P}\left(Y=1\vert \boldsymbol{X}\right) = g(\boldsymbol{X}) = 0.8\) es la probabilidad de pagar la tarjeta de crédito y  \(1-g(\boldsymbol{X}) = 0.2\) es  la probabilidad de no pagar.  
+
+Se puede escribir \(O(X) = \frac{0.8}{0.2} = \frac{4}{1}\), lo que dice que es 4 veces más probable de pagar la tarjeta que no pagarla. 
+
+
+## Máxima verosimilitud 
+
+Los valores de \(\beta\) se pueden encontrar por máxima verosimilitud. 
+
+Defina \(p(\boldsymbol{X}) = \mathbb{P}\left(Y=1\vert \boldsymbol{X}\right)\).
+
+La verosimilitud es:
+
+\[
+L\left(\beta\right)=\prod_{i=1}^{n} p\left(\boldsymbol{X}_{i}\right)^{Y_{i}}\left(1-p\left(\boldsymbol{X}_{i}\right)\right)^{1-Y_{i}}
+\]
+
+
+
+\begin{align*}
+\ell\left(\beta\right) 
+&=\sum_{i=1}^{n} Y_{i} \log p\left(\boldsymbol{X}_{i}\right)+\left(1-Y_{i}\right) \log \left(1-p\left(\boldsymbol{X}_{i}\right)\right) \\
+&=\sum_{i=1}^{n} \log \left(1-p\left(\boldsymbol{X}_{i}\right)\right)+\sum_{i=1}^{n} Y_{i} \log \frac{p\left(\boldsymbol{X}_{i}\right)}{1-p\left(\boldsymbol{X}_{i}\right)} \\
+&=\sum_{i=1}^{n} \log \left(1-p\left(\boldsymbol{X}_{i}\right)\right)+\sum_{i=1}^{n} Y_{i}\left(\boldsymbol{X}_{i} \cdot \beta\right) \\
+&=\sum_{i=1}^{n}-\log \left(1+e^{\boldsymbol{X}_{i} \cdot \beta}\right)+\sum_{i=1}^{n} Y_{i}\left(\boldsymbol{X}_{i} \cdot \beta\right)
+\end{align*}
+
+
+\begin{align*}
+\frac{\partial \ell}{\partial \beta} 
+&=-\sum_{i=1}^{n} \frac{1}{1+e^{\boldsymbol{X}_{i} \cdot \beta}} e^{\boldsymbol{X}_{i} \cdot \beta} \boldsymbol{X}_{i}+\sum_{i=1}^{n} Y_{i} \boldsymbol{X}_{i} \\
+&=\sum_{i=1}^{n}\left(Y_{i}-p\left(\boldsymbol{X}_{i}\right)\right) \boldsymbol{X}_{i} \\
+&= X^{\top}(Y-p(\boldsymbol{X}))
+\end{align*}
+
+**Solución:** Netwon-Raphson
+
+:::{.exercise data-latex=""}
+Muestre que 
+
+\begin{equation*}
+\frac{\partial^{2} \ell}{\partial \beta^{2}} = -\boldsymbol{X}W\boldsymbol{X} 
+\end{equation*}
+
+donde \(W = \mathrm{diag}{p(\boldsymbol{X}_{i})(1-p(X_{i}))}\).
+:::
+
+
+El algoritmo de Netwon-Raphson usa el hecho que 
+
+\begin{equation*}
+\beta^{(t)} = \beta ^{(t-1)} - \left(  \frac{\partial^{2} \ell}{\partial \beta^{2}}\right)^{-1} \frac{\partial \ell}{\partial \beta}  \Bigg\vert_{\beta ^{(t-1)}}
+\end{equation*}
+
+:::{.exercise data-latex=""}
+Muestre que 
+
+\begin{equation*}
+\beta^{(t)} = \left( X^{\top}WX \right)^{-1}X^{\top}Z_{\beta},
+\end{equation*}
+
+donde \(Z_{\beta} = Z\beta + W^{-1}_{\beta} (Y-p(X))\).
+:::
+
+
+A esta técnica se le conoce como __mínimos cuadrados ponderados e iterados__ o en inglés __Iteratively Re-Weighted Least Squares__ (IRLS).
+
+Se comienza con \(\beta^{(0)}\) cualquiera y se va iterando \(\beta^{(1)}, \beta^{(2)}, \ldots\) hasta encontrar la convergencia. 
+
+Para cada \(t\) se resueelve el problema 
+
+\begin{equation*}
+\beta ^{t} = \operatorname{argmin}_{\beta} (Z-X\beta)^{\top}W(Z-X\beta).
+\end{equation*}
+
+
+
+### Residuos
+
+La suma al cuadrado de los residuos  se convierte en un estadístico de pearson: 
+
+
+\begin{align*}
+\chi^{2}=\sum_{i=1}^{n} \frac{\left(Y_{i}-\hat{p}(X_{i})\right)^{2}}{\hat{p}(X_{i})(\hat{p}(X_{i}))}
+\end{align*}
+
+la cual es una aproximación cuadrática de la devianza (Curso pasado). 
+
+\begin{equation*}
+D = -2 \ell(\hat{\beta})
+\end{equation*} 
+
+Además tenemos los resultados que 
+
+- \(\hat{\beta} \xrightarrow{\mathbb{P}} \beta \)
+- \(\hat{\beta} \xrightarrow{\mathcal{D}} \mathcal{N}\left(\beta,(X^{\top}WX)^{-1}\right) \) (Prueba de Wald)
+- Se pueden comparar un modelo completo con un reducido a través de pruebas asintóticas LRT 
+\begin{equation*}
+D_c -D_r \sim =chi^{2}_{df_{c}} - chi^{2}_{df_{r}}.
+\end{equation*}
+
+
+<!--chapter:end:05-regresion-logistica.Rmd-->
 

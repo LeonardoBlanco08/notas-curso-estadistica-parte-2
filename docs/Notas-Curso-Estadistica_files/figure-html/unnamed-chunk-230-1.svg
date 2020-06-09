@@ -60,8 +60,11 @@
 <clipPath id="clip3">
   <path d="M 59.039062 70 L 401.757812 70 L 401.757812 184 L 59.039062 184 Z M 59.039062 70 "/>
 </clipPath>
+<clipPath id="clip4">
+  <path d="M 59.039062 65 L 401.757812 65 L 401.757812 179 L 59.039062 179 Z M 59.039062 65 "/>
+</clipPath>
 </defs>
-<g id="surface85">
+<g id="surface120">
 <rect x="0" y="0" width="432" height="266" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
 <g clip-path="url(#clip1)" clip-rule="nonzero">
 <path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 77.132812 63.984375 C 77.132812 71.183594 66.332031 71.183594 66.332031 63.984375 C 66.332031 56.785156 77.132812 56.785156 77.132812 63.984375 "/>
@@ -77,6 +80,7 @@
 <g clip-path="url(#clip2)" clip-rule="nonzero">
 <path style=" stroke:none;fill-rule:nonzero;fill:rgb(0%,0%,0%);fill-opacity:1;" d="M 394.464844 187.613281 C 394.464844 194.816406 383.667969 194.816406 383.667969 187.613281 C 383.667969 180.414062 394.464844 180.414062 394.464844 187.613281 "/>
 </g>
+<path style=" stroke:none;fill-rule:nonzero;fill:rgb(100%,0%,0%);fill-opacity:1;" d="M 232.273438 68.378906 C 232.273438 75.582031 221.472656 75.582031 221.472656 68.378906 C 221.472656 61.179688 232.273438 61.179688 232.273438 68.378906 "/>
 <path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 106.992188 192.558594 L 389.066406 192.558594 "/>
 <path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 106.992188 192.558594 L 106.992188 199.761719 "/>
 <path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 177.511719 192.558594 L 177.511719 199.761719 "/>
@@ -130,6 +134,9 @@
 </g>
 <g clip-path="url(#clip3)" clip-rule="nonzero">
 <path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,100%);stroke-opacity:1;stroke-miterlimit:10;" d="M 59.039062 71.230469 L 401.761719 182.902344 "/>
+</g>
+<g clip-path="url(#clip4)" clip-rule="nonzero">
+<path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 59.039062 65.691406 L 401.761719 177.980469 "/>
 </g>
 </g>
 </svg>

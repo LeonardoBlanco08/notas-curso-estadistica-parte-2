@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Notas Curso de Estadística</title>
-  <meta name="description" content="Notas Curso de Estadística" />
+  <title>Capítulo 6 Regresión Logística | Notas Curso de Estadística</title>
+  <meta name="description" content="Capítulo 6 Regresión Logística | Notas Curso de Estadística" />
   <meta name="generator" content="bookdown 0.18 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Notas Curso de Estadística" />
+  <meta property="og:title" content="Capítulo 6 Regresión Logística | Notas Curso de Estadística" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Notas Curso de Estadística" />
+  <meta name="twitter:title" content="Capítulo 6 Regresión Logística | Notas Curso de Estadística" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
+<link rel="prev" href="métodos-lineares-de-regresión.html"/>
 
-<link rel="next" href="estimación-de-densidades.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -245,22 +245,197 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="header">
-<h1 class="title">Notas Curso de Estadística</h1>
-<p class="author"><em>Maikol Solís</em></p>
-<p class="date"><em>Actualizado el 09 junio, 2020</em></p>
+<div id="regresión-logística" class="section level1">
+<h1><span class="header-section-number">Capítulo 6</span> Regresión Logística</h1>
+<p>Asuma que ahora la variable <span class="math inline">\(Y\)</span> solo contiene valores 0 o 1 y queremos hacer la regresión</p>
+<p><span class="math display">\[\begin{equation*}
+Y = \beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \varepsilon.
+\end{equation*}\]</span></p>
+<p>El problema es que <span class="math inline">\(\mathbb{E}\left[Y | \boldsymbol{X}\right] = \mathbb{P}\left(Y=1\vert \boldsymbol{X}\right)\)</span> y se debe cumplir que</p>
+<p><span class="math display">\[\begin{equation*}
+0\leq \mathbb{E}\left[Y | \boldsymbol{X}\right]\leq 1.
+\end{equation*}\]</span></p>
+<p>pero el rango de <span class="math inline">\(\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p}\)</span> es todo <span class="math inline">\(\mathbb{R}\)</span>.</p>
+<p>Solución es cambiar <span class="math inline">\(Y\)</span> por <span class="math inline">\(g(Y)\in [0,1]\)</span>.</p>
+<p><span class="math display">\[\begin{equation*}
+g(X) = \frac{1}{1+e^{-(\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p})}}
+\end{equation*}\]</span></p>
+<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="regresión-logística.html#cb342-1"></a>titanic &lt;-<span class="st"> </span><span class="kw">read.csv</span>(<span class="st">&quot;data/titanic.csv&quot;</span>)</span>
+<span id="cb342-2"><a href="regresión-logística.html#cb342-2"></a><span class="kw">summary</span>(titanic)</span></code></pre></div>
+<pre><code>##   PassengerId       Survived          Pclass          Name          
+##  Min.   :  1.0   Min.   :0.0000   Min.   :1.000   Length:891        
+##  1st Qu.:223.5   1st Qu.:0.0000   1st Qu.:2.000   Class :character  
+##  Median :446.0   Median :0.0000   Median :3.000   Mode  :character  
+##  Mean   :446.0   Mean   :0.3838   Mean   :2.309                     
+##  3rd Qu.:668.5   3rd Qu.:1.0000   3rd Qu.:3.000                     
+##  Max.   :891.0   Max.   :1.0000   Max.   :3.000                     
+##                                                                     
+##      Sex                 Age            SibSp           Parch       
+##  Length:891         Min.   : 0.42   Min.   :0.000   Min.   :0.0000  
+##  Class :character   1st Qu.:20.12   1st Qu.:0.000   1st Qu.:0.0000  
+##  Mode  :character   Median :28.00   Median :0.000   Median :0.0000  
+##                     Mean   :29.70   Mean   :0.523   Mean   :0.3816  
+##                     3rd Qu.:38.00   3rd Qu.:1.000   3rd Qu.:0.0000  
+##                     Max.   :80.00   Max.   :8.000   Max.   :6.0000  
+##                     NA&#39;s   :177                                     
+##     Ticket               Fare           Cabin             Embarked        
+##  Length:891         Min.   :  0.00   Length:891         Length:891        
+##  Class :character   1st Qu.:  7.91   Class :character   Class :character  
+##  Mode  :character   Median : 14.45   Mode  :character   Mode  :character  
+##                     Mean   : 32.20                                        
+##                     3rd Qu.: 31.00                                        
+##                     Max.   :512.33                                        
+## </code></pre>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="regresión-logística.html#cb344-1"></a>fit_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(Survived <span class="op">~</span><span class="st"> </span>Fare, <span class="dt">data =</span> titanic)</span></code></pre></div>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="regresión-logística.html#cb345-1"></a><span class="kw">library</span>(ggiraphExtra)</span>
+<span id="cb345-2"><a href="regresión-logística.html#cb345-2"></a><span class="kw">ggPredict</span>(fit_lm) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-245-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>En lugar de esto, definamos el siguiente modelo</p>
+<p><span class="math display">\[\begin{equation*}
+Y \sim Bernoulli (g_{\beta}(\boldsymbol{X})) 
+\end{equation*}\]</span></p>
+<p>con <span class="math inline">\(g_{\beta}(\boldsymbol{X}) = \mathbb{P}\left(Y=1 \vert \boldsymbol{X}\right)\)</span>.</p>
+<p>En <code>R</code> usaremos la función <code>glm</code></p>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="regresión-logística.html#cb346-1"></a>fit_glm &lt;-<span class="st"> </span><span class="kw">glm</span>(Survived <span class="op">~</span><span class="st"> </span>Fare, <span class="dt">data =</span> titanic, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb346-2"><a href="regresión-logística.html#cb346-2"></a><span class="kw">summary</span>(fit_glm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Survived ~ Fare, family = &quot;binomial&quot;, data = titanic)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.4906  -0.8878  -0.8531   1.3429   1.5942  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -0.941330   0.095129  -9.895  &lt; 2e-16 ***
+## Fare         0.015197   0.002232   6.810 9.79e-12 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 1186.7  on 890  degrees of freedom
+## Residual deviance: 1117.6  on 889  degrees of freedom
+## AIC: 1121.6
+## 
+## Number of Fisher Scoring iterations: 4</code></pre>
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="regresión-logística.html#cb348-1"></a><span class="kw">ggPredict</span>(fit_glm) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-247-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><strong>Nota:</strong> Existen otros tipos de regresión y estas se definen a través del parámetro <code>family</code>. En este curso solo nos enfocaremos en el parámetro <code>family="binomial"</code>.</p>
+<div id="razón-de-proporción" class="section level2">
+<h2><span class="header-section-number">6.1</span> Razón de proporción</h2>
+<p>Defina</p>
+<p><span class="math display">\[\begin{equation*}
+O(X) = \frac{g(X)}{1-g(X)} = e^{\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p}} \in [0,1].
+\end{equation*}\]</span></p>
+<p>Es la relación de obtener 1 ó 0.</p>
+<p>Por suponga que <span class="math inline">\(\mathbb{P}\left(Y=1\vert \boldsymbol{X}\right) = g(\boldsymbol{X}) = 0.8\)</span> es la probabilidad de pagar la tarjeta de crédito y <span class="math inline">\(1-g(\boldsymbol{X}) = 0.2\)</span> es la probabilidad de no pagar.</p>
+<p>Se puede escribir <span class="math inline">\(O(X) = \frac{0.8}{0.2} = \frac{4}{1}\)</span>, lo que dice que es 4 veces más probable de pagar la tarjeta que no pagarla.</p>
 </div>
-<div id="introducción" class="section level1">
-<h1><span class="header-section-number">Capítulo 1</span> Introducción</h1>
+<div id="máxima-verosimilitud" class="section level2">
+<h2><span class="header-section-number">6.2</span> Máxima verosimilitud</h2>
+<p>Los valores de <span class="math inline">\(\beta\)</span> se pueden encontrar por máxima verosimilitud.</p>
+<p>Defina <span class="math inline">\(p(\boldsymbol{X}) = \mathbb{P}\left(Y=1\vert \boldsymbol{X}\right)\)</span>.</p>
+<p>La verosimilitud es:</p>
+<p><span class="math display">\[
+L\left(\beta\right)=\prod_{i=1}^{n} p\left(\boldsymbol{X}_{i}\right)^{Y_{i}}\left(1-p\left(\boldsymbol{X}_{i}\right)\right)^{1-Y_{i}}
+\]</span></p>
+<p><span class="math display">\[\begin{align*}
+\ell\left(\beta\right) 
+&amp;=\sum_{i=1}^{n} Y_{i} \log p\left(\boldsymbol{X}_{i}\right)+\left(1-Y_{i}\right) \log \left(1-p\left(\boldsymbol{X}_{i}\right)\right) \\
+&amp;=\sum_{i=1}^{n} \log \left(1-p\left(\boldsymbol{X}_{i}\right)\right)+\sum_{i=1}^{n} Y_{i} \log \frac{p\left(\boldsymbol{X}_{i}\right)}{1-p\left(\boldsymbol{X}_{i}\right)} \\
+&amp;=\sum_{i=1}^{n} \log \left(1-p\left(\boldsymbol{X}_{i}\right)\right)+\sum_{i=1}^{n} Y_{i}\left(\boldsymbol{X}_{i} \cdot \beta\right) \\
+&amp;=\sum_{i=1}^{n}-\log \left(1+e^{\boldsymbol{X}_{i} \cdot \beta}\right)+\sum_{i=1}^{n} Y_{i}\left(\boldsymbol{X}_{i} \cdot \beta\right)
+\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}
+\frac{\partial \ell}{\partial \beta} 
+&amp;=-\sum_{i=1}^{n} \frac{1}{1+e^{\boldsymbol{X}_{i} \cdot \beta}} e^{\boldsymbol{X}_{i} \cdot \beta} \boldsymbol{X}_{i}+\sum_{i=1}^{n} Y_{i} \boldsymbol{X}_{i} \\
+&amp;=\sum_{i=1}^{n}\left(Y_{i}-p\left(\boldsymbol{X}_{i}\right)\right) \boldsymbol{X}_{i} \\
+&amp;= X^{\top}(Y-p(\boldsymbol{X}))
+\end{align*}\]</span></p>
+<p><strong>Solución:</strong> Netwon-Raphson</p>
+<div class="exercise">
+<p>Muestre que</p>
+<p><span class="math display">\[\begin{equation*}
+\frac{\partial^{2} \ell}{\partial \beta^{2}} = -\boldsymbol{X}W\boldsymbol{X} 
+\end{equation*}\]</span></p>
+<p>donde <span class="math inline">\(W = \mathrm{diag}{p(\boldsymbol{X}_{i})(1-p(X_{i}))}\)</span>.</p>
+</div>
+<p>El algoritmo de Netwon-Raphson usa el hecho que</p>
+<p><span class="math display">\[\begin{equation*}
+\beta^{(t)} = \beta ^{(t-1)} - \left(  \frac{\partial^{2} \ell}{\partial \beta^{2}}\right)^{-1} \frac{\partial \ell}{\partial \beta}  \Bigg\vert_{\beta ^{(t-1)}}
+\end{equation*}\]</span></p>
+<div class="exercise">
+<p>Muestre que</p>
+<p><span class="math display">\[\begin{equation*}
+\beta^{(t)} = \left( X^{\top}WX \right)^{-1}X^{\top}Z_{\beta},
+\end{equation*}\]</span></p>
+<p>donde <span class="math inline">\(Z_{\beta} = Z\beta + W^{-1}_{\beta} (Y-p(X))\)</span>.</p>
+</div>
+<p>A esta técnica se le conoce como <strong>mínimos cuadrados ponderados e iterados</strong> o en inglés <strong>Iteratively Re-Weighted Least Squares</strong> (IRLS).</p>
+<p>Se comienza con <span class="math inline">\(\beta^{(0)}\)</span> cualquiera y se va iterando <span class="math inline">\(\beta^{(1)}, \beta^{(2)}, \ldots\)</span> hasta encontrar la convergencia.</p>
+<p>Para cada <span class="math inline">\(t\)</span> se resueelve el problema</p>
+<p><span class="math display">\[\begin{equation*}
+\beta ^{t} = \operatorname{argmin}_{\beta} (Z-X\beta)^{\top}W(Z-X\beta).
+\end{equation*}\]</span></p>
+<div id="residuos" class="section level3">
+<h3><span class="header-section-number">6.2.1</span> Residuos</h3>
+<p>La suma al cuadrado de los residuos se convierte en un estadístico de pearson:</p>
+<p><span class="math display">\[\begin{align*}
+\chi^{2}=\sum_{i=1}^{n} \frac{\left(Y_{i}-\hat{p}(X_{i})\right)^{2}}{\hat{p}(X_{i})(\hat{p}(X_{i}))}
+\end{align*}\]</span></p>
+<p>la cual es una aproximación cuadrática de la devianza (Curso pasado).</p>
+<p><span class="math display">\[\begin{equation*}
+D = -2 \ell(\hat{\beta})
+\end{equation*}\]</span></p>
+<p>Además tenemos los resultados que</p>
+<ul>
+<li><span class="math inline">\(\hat{\beta} \xrightarrow{\mathbb{P}} \beta\)</span></li>
+<li><span class="math inline">\(\hat{\beta} \xrightarrow{\mathcal{D}} \mathcal{N}\left(\beta,(X^{\top}WX)^{-1}\right)\)</span> (Prueba de Wald)</li>
+<li>Se pueden comparar un modelo completo con un reducido a través de pruebas asintóticas LRT
+<span class="math display">\[\begin{equation*}
+D_c -D_r \sim =chi^{2}_{df_{c}} - chi^{2}_{df_{r}}.
+\end{equation*}\]</span></li>
+</ul>
 
+<div id="refs" class="references">
+<div>
+<p>Albert, Jim, Robert Gentleman, Giovanni Parmigiani, and Kurt Hornik. 2009. <em>Bayesian computation with R</em>. New York, NY: Springer New York. <a href="https://doi.org/10.1007/978-0-387-92298-0">https://doi.org/10.1007/978-0-387-92298-0</a>.</p>
 </div>
+<div>
+<p>Hall, Peter. 1987. “On Kullback-Leibler Loss and Density Estimation.” <em>The Annals of Statistics</em> 15 (4): 1491–1519. <a href="https://doi.org/10.1214/aos/1176350606">https://doi.org/10.1214/aos/1176350606</a>.</p>
+</div>
+<div>
+<p>Härdle, Wolfgang, Axel Werwatz, Marlene Müller, and Stefan Sperlich. 2004. <em>Nonparametric and Semiparametric Models</em>. Springer Series in Statistics. Berlin, Heidelberg: Springer Berlin Heidelberg. <a href="https://doi.org/10.1007/978-3-642-17146-8">https://doi.org/10.1007/978-3-642-17146-8</a>.</p>
+</div>
+<div>
+<p>Hoffman, Matthew D., and Andrew Gelman. 2014. “The no-U-turn sampler: Adaptively setting path lengths in Hamiltonian Monte Carlo.” <em>Journal of Machine Learning Research</em> 15 (47): 1593–1623. <a href="http://jmlr.org/papers/v15/hoffman14a.html">http://jmlr.org/papers/v15/hoffman14a.html</a>.</p>
+</div>
+<div>
+<p>Kruschke, John K. 2014. “Doing Bayesian data analysis: A tutorial with R, JAGS, and Stan, second edition.” In <em>Doing Bayesian Data Analysis: A Tutorial with R, Jags, and Stan, Second Edition</em>, 1–759.</p>
+</div>
+<div>
+<p>Wasserman, Larry. 2006. <em>All of Nonparametric Statistics</em>. Springer Texts in Statistics. New York, NY: Springer New York. <a href="https://doi.org/10.1007/0-387-30623-4">https://doi.org/10.1007/0-387-30623-4</a>.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
             </section>
 
           </div>
         </div>
       </div>
+<a href="métodos-lineares-de-regresión.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
-<a href="estimación-de-densidades.html" class="navigation navigation-next navigation-unique" aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -291,7 +466,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/maikol-solis/notas-curso-estadistica/edit/master/index.Rmd",
+"link": "https://github.com/maikol-solis/notas-curso-estadistica/edit/master/05-regresion-logistica.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -299,7 +474,7 @@ gitbook.start({
 "text": null
 },
 "view": {
-"link": "https://github.com/maikol-solis/notas-curso-estadistica/blob/master/index.Rmd",
+"link": "https://github.com/maikol-solis/notas-curso-estadistica/blob/master/05-regresion-logistica.Rmd",
 "text": null
 },
 "download": ["Notas-Curso-Estadistica.pdf"],
