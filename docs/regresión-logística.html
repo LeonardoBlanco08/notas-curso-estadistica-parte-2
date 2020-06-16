@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="métodos-lineares-de-regresión.html"/>
-
+<link rel="next" href="métodos-de-selección-de-variables.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -227,6 +227,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2" data-path="regresión-logística.html"><a href="regresión-logística.html#máxima-verosimilitud"><i class="fa fa-check"></i><b>6.2</b> Máxima verosimilitud</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="regresión-logística.html"><a href="regresión-logística.html#residuos"><i class="fa fa-check"></i><b>6.2.1</b> Residuos</a></li>
 </ul></li>
+<li class="chapter" data-level="6.3" data-path="regresión-logística.html"><a href="regresión-logística.html#diágnosticos-del-modelo"><i class="fa fa-check"></i><b>6.3</b> Diágnosticos del modelo</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="regresión-logística.html"><a href="regresión-logística.html#supuesto-de-linealidad"><i class="fa fa-check"></i><b>6.3.1</b> Supuesto de linealidad</a></li>
+<li class="chapter" data-level="6.3.2" data-path="regresión-logística.html"><a href="regresión-logística.html#valor-de-gran-influencia"><i class="fa fa-check"></i><b>6.3.2</b> Valor de gran influencia</a></li>
+<li class="chapter" data-level="6.3.3" data-path="regresión-logística.html"><a href="regresión-logística.html#multicolinealidad-1"><i class="fa fa-check"></i><b>6.3.3</b> Multicolinealidad</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="regresión-logística.html"><a href="regresión-logística.html#predicción-y-poder-de-clasificación"><i class="fa fa-check"></i><b>6.4</b> Predicción y poder de clasificación</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="regresión-logística.html"><a href="regresión-logística.html#curva-roc"><i class="fa fa-check"></i><b>6.4.1</b> Curva ROC</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html"><i class="fa fa-check"></i><b>7</b> Métodos de selección de variables</a><ul>
+<li class="chapter" data-level="7.1" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#selección-del-mejor-subconjunto."><i class="fa fa-check"></i><b>7.1</b> 1. Selección del mejor subconjunto.</a></li>
+<li class="chapter" data-level="7.2" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#posibles-soluciones"><i class="fa fa-check"></i><b>7.2</b> 2. Posibles soluciones</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#ajuste-al-error-de-entrenamiento"><i class="fa fa-check"></i><b>7.2.1</b> Ajuste al error de entrenamiento</a></li>
+<li class="chapter" data-level="7.2.2" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#selección-de-modelos-hacia-adelante-forward-stepwise-selection"><i class="fa fa-check"></i><b>7.2.2</b> Selección de modelos hacia adelante (<strong>Forward Stepwise Selection</strong>)</a></li>
+<li class="chapter" data-level="7.2.3" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#selección-de-modelos-hacia-atrás-backward-stepwise-selection"><i class="fa fa-check"></i><b>7.2.3</b> Selección de modelos hacia atrás (<strong>Backward Stepwise Selection</strong>)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html"><i class="fa fa-check"></i><b>8</b> Métodos de regularización</a><ul>
+<li class="chapter" data-level="8.1" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html#regresión-ridge"><i class="fa fa-check"></i><b>8.1</b> Regresión Ridge</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html#estimación-clásica-por-mínimos-cuadrados."><i class="fa fa-check"></i><b>8.1.1</b> Estimación clásica por mínimos cuadrados.</a></li>
+<li class="chapter" data-level="8.1.2" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html#ventajas"><i class="fa fa-check"></i><b>8.1.2</b> Ventajas</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html#regresión-lasso"><i class="fa fa-check"></i><b>8.2</b> Regresión Lasso</a></li>
 </ul></li>
 </ul>
 
@@ -286,7 +309,10 @@ g(X) = \frac{1}{1+e^{-(\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p})}}
 ##                     3rd Qu.: 31.00                                        
 ##                     Max.   :512.33                                        
 ## </code></pre>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="regresión-logística.html#cb344-1"></a>fit_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(Survived <span class="op">~</span><span class="st"> </span>Fare, <span class="dt">data =</span> titanic)</span></code></pre></div>
+<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="regresión-logística.html#cb344-1"></a>titanic &lt;-<span class="st"> </span>titanic <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Survived, Fare, Age) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb344-2"><a href="regresión-logística.html#cb344-2"></a><span class="st">    </span><span class="kw">drop_na</span>()</span>
+<span id="cb344-3"><a href="regresión-logística.html#cb344-3"></a></span>
+<span id="cb344-4"><a href="regresión-logística.html#cb344-4"></a>fit_lm &lt;-<span class="st"> </span><span class="kw">lm</span>(Survived <span class="op">~</span><span class="st"> </span>Fare <span class="op">+</span><span class="st"> </span>Age, <span class="dt">data =</span> titanic)</span></code></pre></div>
 <div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="regresión-logística.html#cb345-1"></a><span class="kw">library</span>(ggiraphExtra)</span>
 <span id="cb345-2"><a href="regresión-logística.html#cb345-2"></a><span class="kw">ggPredict</span>(fit_lm) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-245-1.svg" width="70%" style="display: block; margin: auto;" /></p>
@@ -296,30 +322,32 @@ Y \sim Bernoulli (g_{\beta}(\boldsymbol{X}))
 \end{equation*}\]</span></p>
 <p>con <span class="math inline">\(g_{\beta}(\boldsymbol{X}) = \mathbb{P}\left(Y=1 \vert \boldsymbol{X}\right)\)</span>.</p>
 <p>En <code>R</code> usaremos la función <code>glm</code></p>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="regresión-logística.html#cb346-1"></a>fit_glm &lt;-<span class="st"> </span><span class="kw">glm</span>(Survived <span class="op">~</span><span class="st"> </span>Fare, <span class="dt">data =</span> titanic, <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
-<span id="cb346-2"><a href="regresión-logística.html#cb346-2"></a><span class="kw">summary</span>(fit_glm)</span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="regresión-logística.html#cb346-1"></a>fit_glm &lt;-<span class="st"> </span><span class="kw">glm</span>(Survived <span class="op">~</span><span class="st"> </span>Fare <span class="op">+</span><span class="st"> </span>Age, <span class="dt">data =</span> titanic, </span>
+<span id="cb346-2"><a href="regresión-logística.html#cb346-2"></a>    <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb346-3"><a href="regresión-logística.html#cb346-3"></a><span class="kw">summary</span>(fit_glm)</span></code></pre></div>
 <pre><code>## 
 ## Call:
-## glm(formula = Survived ~ Fare, family = &quot;binomial&quot;, data = titanic)
+## glm(formula = Survived ~ Fare + Age, family = &quot;binomial&quot;, data = titanic)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -2.4906  -0.8878  -0.8531   1.3429   1.5942  
+## -2.7605  -0.9232  -0.8214   1.2362   1.7820  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(&gt;|z|)    
-## (Intercept) -0.941330   0.095129  -9.895  &lt; 2e-16 ***
-## Fare         0.015197   0.002232   6.810 9.79e-12 ***
+## (Intercept) -0.417055   0.185976  -2.243  0.02493 *  
+## Fare         0.017258   0.002617   6.596 4.23e-11 ***
+## Age         -0.017578   0.005666  -3.103  0.00192 ** 
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 1186.7  on 890  degrees of freedom
-## Residual deviance: 1117.6  on 889  degrees of freedom
-## AIC: 1121.6
+##     Null deviance: 964.52  on 713  degrees of freedom
+## Residual deviance: 891.34  on 711  degrees of freedom
+## AIC: 897.34
 ## 
-## Number of Fisher Scoring iterations: 4</code></pre>
+## Number of Fisher Scoring iterations: 5</code></pre>
 <div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="regresión-logística.html#cb348-1"></a><span class="kw">ggPredict</span>(fit_glm) <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>(<span class="dt">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-247-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Nota:</strong> Existen otros tipos de regresión y estas se definen a través del parámetro <code>family</code>. En este curso solo nos enfocaremos en el parámetro <code>family="binomial"</code>.</p>
@@ -395,47 +423,330 @@ D = -2 \ell(\hat{\beta})
 <li><span class="math inline">\(\hat{\beta} \xrightarrow{\mathcal{D}} \mathcal{N}\left(\beta,(X^{\top}WX)^{-1}\right)\)</span> (Prueba de Wald)</li>
 <li>Se pueden comparar un modelo completo con un reducido a través de pruebas asintóticas LRT
 <span class="math display">\[\begin{equation*}
-D_c -D_r \sim =chi^{2}_{df_{c}} - chi^{2}_{df_{r}}.
+D_c -D_r \sim =\chi^{2}_{df_{c}} - \chi^{2}_{df_{r}}.
 \end{equation*}\]</span></li>
 </ul>
+</div>
+</div>
+<div id="diágnosticos-del-modelo" class="section level2">
+<h2><span class="header-section-number">6.3</span> Diágnosticos del modelo</h2>
+<p><strong>CUIADADO: La función <code>glm</code> no tiene un equivalente de <code>plot</code> como en los modelos lineales. De esta forma, si se aplica <code>plot</code> a un objeto <code>glm</code> solo generará los mismos chequeos que el capítulo anterior. Sin embargo estos podrían estar equivocados si no se leen con cuidado.</strong></p>
+<div id="supuesto-de-linealidad" class="section level3">
+<h3><span class="header-section-number">6.3.1</span> Supuesto de linealidad</h3>
+<p>Este supuesto debe ser chequeado con la función logit de las respuestas.</p>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="regresión-logística.html#cb349-1"></a>fit_glm &lt;-<span class="st"> </span><span class="kw">glm</span>(Survived <span class="op">~</span><span class="st"> </span>Fare <span class="op">+</span><span class="st"> </span>Age, <span class="dt">data =</span> titanic, </span>
+<span id="cb349-2"><a href="regresión-logística.html#cb349-2"></a>    <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb349-3"><a href="regresión-logística.html#cb349-3"></a><span class="kw">summary</span>(fit_glm)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = Survived ~ Fare + Age, family = &quot;binomial&quot;, data = titanic)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.7605  -0.9232  -0.8214   1.2362   1.7820  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(&gt;|z|)    
+## (Intercept) -0.417055   0.185976  -2.243  0.02493 *  
+## Fare         0.017258   0.002617   6.596 4.23e-11 ***
+## Age         -0.017578   0.005666  -3.103  0.00192 ** 
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 964.52  on 713  degrees of freedom
+## Residual deviance: 891.34  on 711  degrees of freedom
+## AIC: 897.34
+## 
+## Number of Fisher Scoring iterations: 5</code></pre>
+<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="regresión-logística.html#cb351-1"></a>probs &lt;-<span class="st"> </span><span class="kw">predict</span>(fit_glm, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb351-2"><a href="regresión-logística.html#cb351-2"></a></span>
+<span id="cb351-3"><a href="regresión-logística.html#cb351-3"></a>df &lt;-<span class="st"> </span>titanic <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">select</span>(Fare, Age) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">logit =</span> <span class="kw">qlogis</span>(probs)) <span class="op">%&gt;%</span><span class="st"> </span></span>
+<span id="cb351-4"><a href="regresión-logística.html#cb351-4"></a><span class="st">    </span><span class="kw">pivot_longer</span>(<span class="dt">names_to =</span> <span class="st">&quot;predictores&quot;</span>, <span class="dt">values_to =</span> <span class="st">&quot;valores.ajustados&quot;</span>, </span>
+<span id="cb351-5"><a href="regresión-logística.html#cb351-5"></a>        <span class="op">-</span>logit)</span>
+<span id="cb351-6"><a href="regresión-logística.html#cb351-6"></a></span>
+<span id="cb351-7"><a href="regresión-logística.html#cb351-7"></a></span>
+<span id="cb351-8"><a href="regresión-logística.html#cb351-8"></a><span class="kw">ggplot</span>(df, <span class="kw">aes</span>(valores.ajustados, logit)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="dt">size =</span> <span class="fl">0.5</span>, </span>
+<span id="cb351-9"><a href="regresión-logística.html#cb351-9"></a>    <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_smooth</span>(<span class="dt">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb351-10"><a href="regresión-logística.html#cb351-10"></a><span class="st">    </span><span class="kw">theme_bw</span>() <span class="op">+</span><span class="st"> </span><span class="kw">facet_wrap</span>(<span class="op">~</span>predictores, <span class="dt">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-249-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="valor-de-gran-influencia" class="section level3">
+<h3><span class="header-section-number">6.3.2</span> Valor de gran influencia</h3>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="regresión-logística.html#cb352-1"></a><span class="kw">plot</span>(fit_glm, <span class="dt">which =</span> <span class="dv">4</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-250-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="regresión-logística.html#cb353-1"></a><span class="kw">library</span>(broom)</span>
+<span id="cb353-2"><a href="regresión-logística.html#cb353-2"></a>fit_data &lt;-<span class="st"> </span><span class="kw">augment</span>(fit_glm) <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">mutate</span>(<span class="dt">indice =</span> <span class="dv">1</span><span class="op">:</span><span class="kw">n</span>())</span>
+<span id="cb353-3"><a href="regresión-logística.html#cb353-3"></a></span>
+<span id="cb353-4"><a href="regresión-logística.html#cb353-4"></a>fit_data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">top_n</span>(<span class="dv">3</span>, .cooksd)</span></code></pre></div>
+<pre><code>## # A tibble: 3 x 11
+##   Survived  Fare   Age .fitted .se.fit .resid    .hat .sigma .cooksd .std.resid
+##      &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;      &lt;dbl&gt;
+## 1        0  263     19    3.79   0.631  -2.76 0.00862   1.12   0.129      -2.77
+## 2        0  248.    24    3.43   0.584  -2.63 0.0103    1.12   0.109      -2.65
+## 3        0  263     64    3.00   0.615  -2.47 0.0171    1.12   0.118      -2.49
+## # … with 1 more variable: indice &lt;int&gt;</code></pre>
+<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="regresión-logística.html#cb355-1"></a><span class="kw">ggplot</span>(fit_data, <span class="kw">aes</span>(indice, .std.resid)) <span class="op">+</span><span class="st"> </span><span class="kw">geom_point</span>(<span class="kw">aes</span>(<span class="dt">color =</span> <span class="kw">as.factor</span>(Survived)), </span>
+<span id="cb355-2"><a href="regresión-logística.html#cb355-2"></a>    <span class="dt">alpha =</span> <span class="fl">0.5</span>) <span class="op">+</span><span class="st"> </span><span class="kw">theme_bw</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-252-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="regresión-logística.html#cb356-1"></a>fit_data <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">filter</span>(<span class="kw">abs</span>(.std.resid) <span class="op">&gt;</span><span class="st"> </span><span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 0 x 11
+## # … with 11 variables: Survived &lt;int&gt;, Fare &lt;dbl&gt;, Age &lt;dbl&gt;, .fitted &lt;dbl&gt;,
+## #   .se.fit &lt;dbl&gt;, .resid &lt;dbl&gt;, .hat &lt;dbl&gt;, .sigma &lt;dbl&gt;, .cooksd &lt;dbl&gt;,
+## #   .std.resid &lt;dbl&gt;, indice &lt;int&gt;</code></pre>
+</div>
+<div id="multicolinealidad-1" class="section level3">
+<h3><span class="header-section-number">6.3.3</span> Multicolinealidad</h3>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="regresión-logística.html#cb358-1"></a>car<span class="op">::</span><span class="kw">vif</span>(fit_glm)</span></code></pre></div>
+<pre><code>##     Fare      Age 
+## 1.033878 1.033878</code></pre>
+</div>
+</div>
+<div id="predicción-y-poder-de-clasificación" class="section level2">
+<h2><span class="header-section-number">6.4</span> Predicción y poder de clasificación</h2>
+<p>Si queremos predecir posibles resultados con nuestro modelo logístico, debemos asegurarnos que el error no sea “muy grande”.</p>
+<p>Ahora el error en este caso, se interpreta diferente que en regresión lineal clásica ya que nuestra salida solamente serán 0’s o 1’s.</p>
+<p>Primero recordemos que el modelo predictivo estaría definido por</p>
+<p><span class="math display">\[\begin{equation*}
+\hat{p}(X)=\frac{1}{1+e^{-(\hat{\beta}_{0}+\hat{\beta}_{1} X_{1}+\cdots+\hat{\beta}_{p} X_{p})}}
+\end{equation*}\]</span></p>
+<p>donde los <span class="math inline">\(\beta\)</span>’s son estimados usando IRLS.</p>
+<p>Ahora imaginemos que tenemos un conjunto de datos nuevo <span class="math inline">\((X^{*}_{1},\ldots,X^{*}_{p})\)</span> y queremos ver que tipo de respuesta <span class="math inline">\(Y^{*}\)</span> obtenemos (0 o 1).</p>
+<p>Obviamente nuestro modelo puede equivocarse y darnos una respuesta errónea. Por ejemplo digamos que en el caso del <code>titanic</code> uno esperaría que personas más jóvenes y que hayan pagado más por su tiquete tengan mayor probabilidad de sobrevivencia.</p>
+<p>Entonces tenemos realmente 4 opciones</p>
+<table>
+<tbody>
+<tr class="odd">
+<td align="center"></td>
+<td align="center"></td>
+<td align="center"><strong>Clase</strong></td>
+<td align="center"><strong>Predicción</strong></td>
+<td align="center"></td>
+</tr>
+<tr class="even">
+<td align="center"></td>
+<td align="center"></td>
+<td align="center">0</td>
+<td align="center">1</td>
+<td align="center"></td>
+</tr>
+<tr class="odd">
+<td align="center"><strong>Clase</strong></td>
+<td align="center">0</td>
+<td align="center">Verdaderos Negativos. (TN)</td>
+<td align="center">Falsos Positivos (FP)</td>
+<td align="center"><span class="math inline">\(N\)</span></td>
+</tr>
+<tr class="even">
+<td align="center"><strong>Real</strong></td>
+<td align="center">1</td>
+<td align="center">Falsos Negativos (FN)</td>
+<td align="center">Verdaderos Positivos (TP)</td>
+<td align="center"><span class="math inline">\(P\)</span></td>
+</tr>
+<tr class="odd">
+<td align="center"></td>
+<td align="center">Total</td>
+<td align="center"><span class="math inline">\(N^{*}\)</span></td>
+<td align="center"><span class="math inline">\(P^{*}\)</span></td>
+<td align="center"></td>
+</tr>
+</tbody>
+</table>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="regresión-logística.html#cb360-1"></a>predict_numeric &lt;-<span class="st"> </span><span class="kw">predict</span>(fit_glm, <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb360-2"><a href="regresión-logística.html#cb360-2"></a>predict_<span class="dv">01</span> &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(predict_numeric <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>)</span>
+<span id="cb360-3"><a href="regresión-logística.html#cb360-3"></a></span>
+<span id="cb360-4"><a href="regresión-logística.html#cb360-4"></a>matriz_confusion &lt;-<span class="st"> </span><span class="kw">table</span>(titanic<span class="op">$</span>Survived, predict_<span class="dv">01</span>)</span>
+<span id="cb360-5"><a href="regresión-logística.html#cb360-5"></a></span>
+<span id="cb360-6"><a href="regresión-logística.html#cb360-6"></a><span class="kw">colnames</span>(matriz_confusion) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
+<span id="cb360-7"><a href="regresión-logística.html#cb360-7"></a><span class="kw">rownames</span>(matriz_confusion) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
+<span id="cb360-8"><a href="regresión-logística.html#cb360-8"></a></span>
+<span id="cb360-9"><a href="regresión-logística.html#cb360-9"></a>matriz_confusion</span></code></pre></div>
+<pre><code>##    predict_01
+##       N   P
+##   N 380  44
+##   P 201  89</code></pre>
+<p>Para entender la siguiente tabla vamos a definir los siguietes términos:</p>
+<dl>
+<dt>Exactitud (Accuracy)</dt>
+<dd>Es la tasa de todos los individuos bien etiquetados <span class="math inline">\((TP+TN)/(TP+TN+FN+FP)\)</span>.
+</dd>
+<dt>Precisión</dt>
+<dd>Es la tasa de elementos etiquetados 1 correctamente con respecto a los que fueron etiquetados 1 <span class="math inline">\(Precisión = TP/P^*\)</span>
+</dd>
+<dt>Sensibilidad (Exhaustividad)</dt>
+<dd>Es la tasa de elementos etiquetados 1 correctamente con respecto a los que realmente son 1. <span class="math inline">\(Sensibilidad = TP/P\)</span>
+</dd>
+<dt>F-Score</dt>
+<dd>Es la media armónica entre la precisión y la sensibilidad. <span class="math inline">\(F-Score = 2*(Sensibilidad * Precisión)/(Sensibilidad + Precisión)\)</span>
+</dd>
+<dt>Especificidad</dt>
+<dd>Es la tasa de elementos etiquetados 0 que realmente estaban etiquetados como 1.
+</dd>
+</dl>
+<p>Entonces esto nos da las siguientes posibilidades.</p>
+<table>
+<colgroup>
+<col width="20%" />
+<col width="36%" />
+<col width="42%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Tipo</th>
+<th align="left">Cálculo</th>
+<th align="left">Sinónimos</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Tasa Falsos Positivos</td>
+<td align="left"><span class="math inline">\(FP/N\)</span></td>
+<td align="left">Error Tipo I, 1-Especificidad</td>
+</tr>
+<tr class="even">
+<td align="left">Tasa Verdaderos Positivos</td>
+<td align="left"><span class="math inline">\(TP/P\)</span></td>
+<td align="left">1-Error Tipo II, Poder, Sensibilidad, Exhaustividad (Recall)</td>
+</tr>
+<tr class="odd">
+<td align="left">Valor de Predicción Positivos</td>
+<td align="left"><span class="math inline">\(TP/P^{*}\)</span></td>
+<td align="left">Precisión, 1 - Proporción de Falsos Descubrimientos</td>
+</tr>
+<tr class="even">
+<td align="left">Valor de Predicción Negativos</td>
+<td align="left"><span class="math inline">\(TN/N^{*}\)</span></td>
+<td align="left"></td>
+</tr>
+<tr class="odd">
+<td align="left">F-Score</td>
+<td align="left"><span class="math inline">\(\frac{2(TP/P^{*} \times TP/P )}{(TP/P^{*} + TP/P )}\)</span></td>
+<td align="left"></td>
+</tr>
+</tbody>
+</table>
+<p><strong>CUIDADO:</strong></p>
+<ul>
+<li>Exactitud funciona bien cuando los datos son simétricos (igual número de FP y FN).</li>
+<li>F-Scores es cuando los datos son asimétricos</li>
+<li>Precisión es qué tan seguro se está de los verdaderos positivos.</li>
+<li>Sensibilidad es que tan seguro es que no se está perdiendo ningún positivo.</li>
+</ul>
+<p>En un modelo se debe escoger entre sensibilidad y precisión de acuerdo a ciertas ideas:</p>
+<ul>
+<li><strong>Sensibilidad</strong> es importante si la ocurrencia de <strong>falsos negativos</strong> es inaceptable. Por ejemplo las prueba COVID-19. Posiblemente se obtendrá más falsos positivos pero este caso es aceptable.</li>
+<li><strong>Precisión</strong> es importante si se quiere estar más seguro de los <strong>verdaderos positivos</strong>. Por ejemplo detectar <strong>spam</strong> en correos electrónicos.</li>
+<li><strong>Especificidad</strong> es importante si lo que se quiere es cubrir todos los <strong>verdaderos negativos</strong>, es decir, que no se quieren falsas alarmas. Por ejemplo se hacen pruebas de detección de drogas y si es positivo va a la cárcel. Los <strong>falsos positivos</strong> son intolerables.</li>
+</ul>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="regresión-logística.html#cb362-1"></a>(TN &lt;-<span class="st"> </span>matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] 380</code></pre>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="regresión-logística.html#cb364-1"></a>(TP &lt;-<span class="st"> </span>matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] 89</code></pre>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="regresión-logística.html#cb366-1"></a>(FP &lt;-<span class="st"> </span>matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] 44</code></pre>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="regresión-logística.html#cb368-1"></a>(FN &lt;-<span class="st"> </span>matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] 201</code></pre>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="regresión-logística.html#cb370-1"></a>(exactitud &lt;-<span class="st"> </span>(TP <span class="op">+</span><span class="st"> </span>TN)<span class="op">/</span>(TP <span class="op">+</span><span class="st"> </span>TN <span class="op">+</span><span class="st"> </span>FP <span class="op">+</span><span class="st"> </span>FN))</span></code></pre></div>
+<pre><code>## [1] 0.6568627</code></pre>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="regresión-logística.html#cb372-1"></a>(precision &lt;-<span class="st"> </span>TP<span class="op">/</span>(TP <span class="op">+</span><span class="st"> </span>FP))</span></code></pre></div>
+<pre><code>## [1] 0.6691729</code></pre>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="regresión-logística.html#cb374-1"></a>(sensibilidad &lt;-<span class="st"> </span>TP<span class="op">/</span>(TP <span class="op">+</span><span class="st"> </span>FN))</span></code></pre></div>
+<pre><code>## [1] 0.3068966</code></pre>
+<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="regresión-logística.html#cb376-1"></a>(F_score &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(precision <span class="op">*</span><span class="st"> </span>sensibilidad)<span class="op">/</span>(precision <span class="op">+</span><span class="st"> </span></span>
+<span id="cb376-2"><a href="regresión-logística.html#cb376-2"></a><span class="st">    </span>sensibilidad))</span></code></pre></div>
+<pre><code>## [1] 0.4208038</code></pre>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="regresión-logística.html#cb378-1"></a>(especificidad &lt;-<span class="st"> </span>TN<span class="op">/</span>(TN <span class="op">+</span><span class="st"> </span>FP))</span></code></pre></div>
+<pre><code>## [1] 0.8962264</code></pre>
+<div id="curva-roc" class="section level3">
+<h3><span class="header-section-number">6.4.1</span> Curva ROC</h3>
+<p>Un excelente clasificador debería detectar correctamente los <strong>verdaderos positivos (TP)</strong> e ignorar los <strong>falsos positivos (FP)</strong>.</p>
+<p>Puesto de otra forma, si el clasificador es malo, los <strong>verdaderos positivos</strong> serían indistingibles de los <strong>falsos positivos</strong>.</p>
+<p>La curva ROC (Receiver Operation Curve) gráfica la Tasa Falsos Positivos vs Sensibilidad del modelo.</p>
+<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="regresión-logística.html#cb380-1"></a><span class="kw">library</span>(ROCR)</span>
+<span id="cb380-2"><a href="regresión-logística.html#cb380-2"></a></span>
+<span id="cb380-3"><a href="regresión-logística.html#cb380-3"></a>logist.pred.ROCR &lt;-<span class="st"> </span><span class="kw">prediction</span>(predict_numeric, titanic<span class="op">$</span>Survived)</span>
+<span id="cb380-4"><a href="regresión-logística.html#cb380-4"></a></span>
+<span id="cb380-5"><a href="regresión-logística.html#cb380-5"></a>logist.perf &lt;-<span class="st"> </span><span class="kw">performance</span>(logist.pred.ROCR, <span class="st">&quot;tpr&quot;</span>, </span>
+<span id="cb380-6"><a href="regresión-logística.html#cb380-6"></a>    <span class="st">&quot;fpr&quot;</span>)</span>
+<span id="cb380-7"><a href="regresión-logística.html#cb380-7"></a></span>
+<span id="cb380-8"><a href="regresión-logística.html#cb380-8"></a><span class="kw">plot</span>(logist.perf)</span>
+<span id="cb380-9"><a href="regresión-logística.html#cb380-9"></a><span class="kw">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-257-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="regresión-logística.html#cb381-1"></a>auc &lt;-<span class="st"> </span><span class="kw">performance</span>(logist.pred.ROCR, <span class="dt">measure =</span> <span class="st">&quot;auc&quot;</span>)</span>
+<span id="cb381-2"><a href="regresión-logística.html#cb381-2"></a></span>
+<span id="cb381-3"><a href="regresión-logística.html#cb381-3"></a>auc<span class="op">@</span>y.values</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 0.7063313</code></pre>
+<p><strong>PELIGRO</strong></p>
+<p>Aquí estamos chequeando el poder de clasificación del modelo, con los mismos datos que usamos para ajustar el modelo. Es decir, le estamos diciendo al modelo que compruebe la veracidad de la clasificación que ya hizo previamente.</p>
+<p>Esto es incorrecto, ya que el modelo ya sabe “las respuestas” y no estamos midiendo su poder de clasficación.</p>
+<p>Para resolver esto, debemos tomar otra muestra de prueba (<strong>training</strong>) que nos diga si el ajuste que hicimos es correcto.</p>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="regresión-logística.html#cb383-1"></a>titanic<span class="op">$</span>id &lt;-<span class="st"> </span><span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(titanic)</span>
+<span id="cb383-2"><a href="regresión-logística.html#cb383-2"></a></span>
+<span id="cb383-3"><a href="regresión-logística.html#cb383-3"></a>train &lt;-<span class="st"> </span>titanic <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">sample_frac</span>(<span class="fl">0.75</span>)</span>
+<span id="cb383-4"><a href="regresión-logística.html#cb383-4"></a></span>
+<span id="cb383-5"><a href="regresión-logística.html#cb383-5"></a>test &lt;-<span class="st"> </span>titanic <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">anti_join</span>(train, <span class="dt">by =</span> <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="regresión-logística.html#cb384-1"></a>fit_glm &lt;-<span class="st"> </span><span class="kw">glm</span>(Survived <span class="op">~</span><span class="st"> </span>Fare <span class="op">+</span><span class="st"> </span>Age, <span class="dt">data =</span> train, </span>
+<span id="cb384-2"><a href="regresión-logística.html#cb384-2"></a>    <span class="dt">family =</span> <span class="st">&quot;binomial&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="regresión-logística.html#cb385-1"></a>predict_numeric &lt;-<span class="st"> </span><span class="kw">predict</span>(fit_glm, <span class="dt">newdata =</span> test, </span>
+<span id="cb385-2"><a href="regresión-logística.html#cb385-2"></a>    <span class="dt">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb385-3"><a href="regresión-logística.html#cb385-3"></a>predict_<span class="dv">01</span> &lt;-<span class="st"> </span><span class="kw">as.numeric</span>(predict_numeric <span class="op">&gt;=</span><span class="st"> </span><span class="fl">0.5</span>)</span>
+<span id="cb385-4"><a href="regresión-logística.html#cb385-4"></a></span>
+<span id="cb385-5"><a href="regresión-logística.html#cb385-5"></a>matriz_confusion &lt;-<span class="st"> </span><span class="kw">table</span>(test<span class="op">$</span>Survived, predict_<span class="dv">01</span>)</span>
+<span id="cb385-6"><a href="regresión-logística.html#cb385-6"></a></span>
+<span id="cb385-7"><a href="regresión-logística.html#cb385-7"></a><span class="kw">colnames</span>(matriz_confusion) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
+<span id="cb385-8"><a href="regresión-logística.html#cb385-8"></a><span class="kw">rownames</span>(matriz_confusion) &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
+<span id="cb385-9"><a href="regresión-logística.html#cb385-9"></a></span>
+<span id="cb385-10"><a href="regresión-logística.html#cb385-10"></a>matriz_confusion</span></code></pre></div>
+<pre><code>##    predict_01
+##      N  P
+##   N 93  9
+##   P 57 19</code></pre>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="regresión-logística.html#cb387-1"></a>(TN &lt;-<span class="st"> </span>matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] 93</code></pre>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="regresión-logística.html#cb389-1"></a>(TP &lt;-<span class="st"> </span>matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] 19</code></pre>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="regresión-logística.html#cb391-1"></a>(FP &lt;-<span class="st"> </span>matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] 9</code></pre>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="regresión-logística.html#cb393-1"></a>(FN &lt;-<span class="st"> </span>matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] 57</code></pre>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="regresión-logística.html#cb395-1"></a>(exactitud &lt;-<span class="st"> </span>(TP <span class="op">+</span><span class="st"> </span>TN)<span class="op">/</span>(TP <span class="op">+</span><span class="st"> </span>TN <span class="op">+</span><span class="st"> </span>FP <span class="op">+</span><span class="st"> </span>FN))</span></code></pre></div>
+<pre><code>## [1] 0.6292135</code></pre>
+<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="regresión-logística.html#cb397-1"></a>(precision &lt;-<span class="st"> </span>TP<span class="op">/</span>(TP <span class="op">+</span><span class="st"> </span>FP))</span></code></pre></div>
+<pre><code>## [1] 0.6785714</code></pre>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="regresión-logística.html#cb399-1"></a>(sensibilidad &lt;-<span class="st"> </span>TP<span class="op">/</span>(TP <span class="op">+</span><span class="st"> </span>FN))</span></code></pre></div>
+<pre><code>## [1] 0.25</code></pre>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="regresión-logística.html#cb401-1"></a>(F_score &lt;-<span class="st"> </span><span class="dv">2</span> <span class="op">*</span><span class="st"> </span>(precision <span class="op">*</span><span class="st"> </span>sensibilidad)<span class="op">/</span>(precision <span class="op">+</span><span class="st"> </span></span>
+<span id="cb401-2"><a href="regresión-logística.html#cb401-2"></a><span class="st">    </span>sensibilidad))</span></code></pre></div>
+<pre><code>## [1] 0.3653846</code></pre>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="regresión-logística.html#cb403-1"></a>(especificidad &lt;-<span class="st"> </span>TN<span class="op">/</span>(TN <span class="op">+</span><span class="st"> </span>FP))</span></code></pre></div>
+<pre><code>## [1] 0.9117647</code></pre>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="regresión-logística.html#cb405-1"></a>logist.pred.ROCR &lt;-<span class="st"> </span><span class="kw">prediction</span>(predict_numeric, test<span class="op">$</span>Survived)</span>
+<span id="cb405-2"><a href="regresión-logística.html#cb405-2"></a></span>
+<span id="cb405-3"><a href="regresión-logística.html#cb405-3"></a>logist.perf &lt;-<span class="st"> </span><span class="kw">performance</span>(logist.pred.ROCR, <span class="st">&quot;tpr&quot;</span>, </span>
+<span id="cb405-4"><a href="regresión-logística.html#cb405-4"></a>    <span class="st">&quot;fpr&quot;</span>)</span>
+<span id="cb405-5"><a href="regresión-logística.html#cb405-5"></a></span>
+<span id="cb405-6"><a href="regresión-logística.html#cb405-6"></a><span class="kw">plot</span>(logist.perf)</span>
+<span id="cb405-7"><a href="regresión-logística.html#cb405-7"></a><span class="kw">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-262-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="regresión-logística.html#cb406-1"></a>auc &lt;-<span class="st"> </span><span class="kw">performance</span>(logist.pred.ROCR, <span class="dt">measure =</span> <span class="st">&quot;auc&quot;</span>)</span>
+<span id="cb406-2"><a href="regresión-logística.html#cb406-2"></a></span>
+<span id="cb406-3"><a href="regresión-logística.html#cb406-3"></a>auc<span class="op">@</span>y.values</span></code></pre></div>
+<pre><code>## [[1]]
+## [1] 0.7138803</code></pre>
 
-<div id="refs" class="references">
-<div>
-<p>Albert, Jim, Robert Gentleman, Giovanni Parmigiani, and Kurt Hornik. 2009. <em>Bayesian computation with R</em>. New York, NY: Springer New York. <a href="https://doi.org/10.1007/978-0-387-92298-0">https://doi.org/10.1007/978-0-387-92298-0</a>.</p>
-</div>
-<div>
-<p>Hall, Peter. 1987. “On Kullback-Leibler Loss and Density Estimation.” <em>The Annals of Statistics</em> 15 (4): 1491–1519. <a href="https://doi.org/10.1214/aos/1176350606">https://doi.org/10.1214/aos/1176350606</a>.</p>
-</div>
-<div>
-<p>Härdle, Wolfgang, Axel Werwatz, Marlene Müller, and Stefan Sperlich. 2004. <em>Nonparametric and Semiparametric Models</em>. Springer Series in Statistics. Berlin, Heidelberg: Springer Berlin Heidelberg. <a href="https://doi.org/10.1007/978-3-642-17146-8">https://doi.org/10.1007/978-3-642-17146-8</a>.</p>
-</div>
-<div>
-<p>Hoffman, Matthew D., and Andrew Gelman. 2014. “The no-U-turn sampler: Adaptively setting path lengths in Hamiltonian Monte Carlo.” <em>Journal of Machine Learning Research</em> 15 (47): 1593–1623. <a href="http://jmlr.org/papers/v15/hoffman14a.html">http://jmlr.org/papers/v15/hoffman14a.html</a>.</p>
-</div>
-<div>
-<p>Kruschke, John K. 2014. “Doing Bayesian data analysis: A tutorial with R, JAGS, and Stan, second edition.” In <em>Doing Bayesian Data Analysis: A Tutorial with R, Jags, and Stan, Second Edition</em>, 1–759.</p>
-</div>
-<div>
-<p>Wasserman, Larry. 2006. <em>All of Nonparametric Statistics</em>. Springer Texts in Statistics. New York, NY: Springer New York. <a href="https://doi.org/10.1007/0-387-30623-4">https://doi.org/10.1007/0-387-30623-4</a>.</p>
 </div>
 </div>
 </div>
-</div>
-</div>
-
-
-
-
-
-
-
             </section>
 
           </div>
         </div>
       </div>
-<a href="métodos-lineares-de-regresión.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="métodos-lineares-de-regresión.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="métodos-de-selección-de-variables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

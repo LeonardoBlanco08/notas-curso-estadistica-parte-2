@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística"
 author: "Maikol Solís"
-date: "Actualizado el 09 junio, 2020"
+date: "Actualizado el 16 junio, 2020"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -3868,6 +3868,9 @@ output:
 
 # Métodos lineares de regresión
 
+**NOTA: Para los siguientes capítulos nos basaremos en los libros [@Hastie2009a] y [@James2013b].**
+
+
 ## Introducción 
 
 Supongamos que tenemos \(p\) variables de entrada que mezcladas  con alguna relación desconocida y que provocan una respuesta \(Y\) de salida. 
@@ -6249,7 +6252,10 @@ summary(titanic)
 
 
 ```r
-fit_lm <- lm(Survived ~ Fare, data = titanic)
+titanic <- titanic %>% select(Survived, Fare, Age) %>% 
+    drop_na()
+
+fit_lm <- lm(Survived ~ Fare + Age, data = titanic)
 ```
 
 
@@ -6265,9 +6271,6 @@ ggPredict(fit_lm) + theme_minimal(base_size = 16)
 
 
 
-
-
-
 En lugar de esto, definamos el siguiente modelo 
 
 \begin{equation*}
@@ -6280,33 +6283,35 @@ En `R` usaremos la función `glm`
 
 
 ```r
-fit_glm <- glm(Survived ~ Fare, data = titanic, family = "binomial")
+fit_glm <- glm(Survived ~ Fare + Age, data = titanic, 
+    family = "binomial")
 summary(fit_glm)
 ```
 
 ```
 ## 
 ## Call:
-## glm(formula = Survived ~ Fare, family = "binomial", data = titanic)
+## glm(formula = Survived ~ Fare + Age, family = "binomial", data = titanic)
 ## 
 ## Deviance Residuals: 
 ##     Min       1Q   Median       3Q      Max  
-## -2.4906  -0.8878  -0.8531   1.3429   1.5942  
+## -2.7605  -0.9232  -0.8214   1.2362   1.7820  
 ## 
 ## Coefficients:
 ##              Estimate Std. Error z value Pr(>|z|)    
-## (Intercept) -0.941330   0.095129  -9.895  < 2e-16 ***
-## Fare         0.015197   0.002232   6.810 9.79e-12 ***
+## (Intercept) -0.417055   0.185976  -2.243  0.02493 *  
+## Fare         0.017258   0.002617   6.596 4.23e-11 ***
+## Age         -0.017578   0.005666  -3.103  0.00192 ** 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## (Dispersion parameter for binomial family taken to be 1)
 ## 
-##     Null deviance: 1186.7  on 890  degrees of freedom
-## Residual deviance: 1117.6  on 889  degrees of freedom
-## AIC: 1121.6
+##     Null deviance: 964.52  on 713  degrees of freedom
+## Residual deviance: 891.34  on 711  degrees of freedom
+## AIC: 897.34
 ## 
-## Number of Fisher Scoring iterations: 4
+## Number of Fisher Scoring iterations: 5
 ```
 
 
@@ -6318,9 +6323,6 @@ ggPredict(fit_glm) + theme_minimal(base_size = 16)
 
 
 \begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-247-1} \end{center}
-
-
-
 
 **Nota:** Existen otros tipos de regresión y estas se definen a través del parámetro `family`. En este curso solo nos enfocaremos en el parámetro `family="binomial"`.
 
@@ -6379,6 +6381,7 @@ Muestre que
 \end{equation*}
 
 donde \(W = \mathrm{diag}{p(\boldsymbol{X}_{i})(1-p(X_{i}))}\).
+
 :::
 
 
@@ -6432,9 +6435,663 @@ Además tenemos los resultados que
 - \(\hat{\beta} \xrightarrow{\mathcal{D}} \mathcal{N}\left(\beta,(X^{\top}WX)^{-1}\right) \) (Prueba de Wald)
 - Se pueden comparar un modelo completo con un reducido a través de pruebas asintóticas LRT 
 \begin{equation*}
-D_c -D_r \sim =chi^{2}_{df_{c}} - chi^{2}_{df_{r}}.
+D_c -D_r \sim =\chi^{2}_{df_{c}} - \chi^{2}_{df_{r}}.
 \end{equation*}
 
 
+## Diágnosticos del modelo
+
+ 
+ **CUIADADO: La función `glm` no tiene un equivalente de `plot` como en los modelos lineales. De esta forma, si se aplica `plot` a un objeto `glm` solo generará los mismos chequeos que el capítulo anterior. Sin embargo estos podrían estar equivocados si no se leen con cuidado.**
+ 
+ 
+###  Supuesto de linealidad
+
+Este supuesto debe ser chequeado con la función logit de las respuestas. 
+
+
+```r
+fit_glm <- glm(Survived ~ Fare + Age, data = titanic, 
+    family = "binomial")
+summary(fit_glm)
+```
+
+```
+## 
+## Call:
+## glm(formula = Survived ~ Fare + Age, family = "binomial", data = titanic)
+## 
+## Deviance Residuals: 
+##     Min       1Q   Median       3Q      Max  
+## -2.7605  -0.9232  -0.8214   1.2362   1.7820  
+## 
+## Coefficients:
+##              Estimate Std. Error z value Pr(>|z|)    
+## (Intercept) -0.417055   0.185976  -2.243  0.02493 *  
+## Fare         0.017258   0.002617   6.596 4.23e-11 ***
+## Age         -0.017578   0.005666  -3.103  0.00192 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## (Dispersion parameter for binomial family taken to be 1)
+## 
+##     Null deviance: 964.52  on 713  degrees of freedom
+## Residual deviance: 891.34  on 711  degrees of freedom
+## AIC: 897.34
+## 
+## Number of Fisher Scoring iterations: 5
+```
+
+
+```r
+probs <- predict(fit_glm, type = "response")
+
+df <- titanic %>% select(Fare, Age) %>% mutate(logit = qlogis(probs)) %>% 
+    pivot_longer(names_to = "predictores", values_to = "valores.ajustados", 
+        -logit)
+
+
+ggplot(df, aes(valores.ajustados, logit)) + geom_point(size = 0.5, 
+    alpha = 0.5) + geom_smooth(method = "loess") + 
+    theme_bw() + facet_wrap(~predictores, scales = "free")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-249-1} \end{center}
+
+
+
+### Valor de gran influencia 
+
+
+```r
+plot(fit_glm, which = 4)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-250-1} \end{center}
+
+```r
+library(broom)
+fit_data <- augment(fit_glm) %>% mutate(indice = 1:n())
+
+fit_data %>% top_n(3, .cooksd)
+```
+
+```
+## # A tibble: 3 x 11
+##   Survived  Fare   Age .fitted .se.fit .resid    .hat .sigma .cooksd .std.resid
+##      <int> <dbl> <dbl>   <dbl>   <dbl>  <dbl>   <dbl>  <dbl>   <dbl>      <dbl>
+## 1        0  263     19    3.79   0.631  -2.76 0.00862   1.12   0.129      -2.77
+## 2        0  248.    24    3.43   0.584  -2.63 0.0103    1.12   0.109      -2.65
+## 3        0  263     64    3.00   0.615  -2.47 0.0171    1.12   0.118      -2.49
+## # ... with 1 more variable: indice <int>
+```
+
+
+```r
+ggplot(fit_data, aes(indice, .std.resid)) + geom_point(aes(color = as.factor(Survived)), 
+    alpha = 0.5) + theme_bw()
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-252-1} \end{center}
+
+
+```r
+fit_data %>% filter(abs(.std.resid) > 3)
+```
+
+```
+## # A tibble: 0 x 11
+## # ... with 11 variables: Survived <int>, Fare <dbl>, Age <dbl>, .fitted <dbl>,
+## #   .se.fit <dbl>, .resid <dbl>, .hat <dbl>, .sigma <dbl>, .cooksd <dbl>,
+## #   .std.resid <dbl>, indice <int>
+```
+
+
+
+### Multicolinealidad 
+
+ 
+ 
+
+```r
+car::vif(fit_glm)
+```
+
+```
+##     Fare      Age 
+## 1.033878 1.033878
+```
+
+
+## Predicción y poder de clasificación 
+
+Si queremos predecir posibles resultados con nuestro modelo logístico, debemos asegurarnos que el error no sea "muy grande". 
+
+
+Ahora el error en este caso, se interpreta diferente que en regresión lineal clásica ya que nuestra salida solamente serán 0's o 1's. 
+
+
+Primero recordemos que el modelo predictivo estaría definido por 
+
+
+\begin{equation*}
+\hat{p}(X)=\frac{1}{1+e^{-(\hat{\beta}_{0}+\hat{\beta}_{1} X_{1}+\cdots+\hat{\beta}_{p} X_{p})}}
+\end{equation*}
+
+donde los \(\beta\)'s son estimados usando IRLS. 
+
+
+Ahora imaginemos que tenemos un conjunto de datos nuevo \((X^{*}_{1},\ldots,X^{*}_{p})\) y queremos ver que tipo de respuesta \(Y^{*}\) obtenemos (0 o 1). 
+
+Obviamente nuestro modelo puede equivocarse y darnos una respuesta errónea. Por ejemplo digamos que en el caso del `titanic` uno esperaría que personas más jóvenes y que hayan pagado más por su tiquete tengan mayor probabilidad de sobrevivencia. 
+
+Entonces tenemos realmente 4 opciones 
+
+
+|           |       |                 |                 |     |
+|:---------:|:-----:|:---------------:|:---------------:|:---:|
+|           |       | **Clase**       | **Predicción**  |     |
+|           |       | 0               | 1               |     |
+| **Clase** | 0     | Verdaderos Negativos. (TN)  | Falsos Positivos (FP) | $N$ |
+| **Real**  | 1     | Falsos Negativos (FN) | Verdaderos Positivos (TP)  | $P$ |
+|           | Total | \(N^{*}\)       | \(P^{*}\)       |     |
+
+
+
+
+```r
+predict_numeric <- predict(fit_glm, type = "response")
+predict_01 <- as.numeric(predict_numeric >= 0.5)
+
+matriz_confusion <- table(titanic$Survived, predict_01)
+
+colnames(matriz_confusion) <- c("N", "P")
+rownames(matriz_confusion) <- c("N", "P")
+
+matriz_confusion
+```
+
+```
+##    predict_01
+##       N   P
+##   N 380  44
+##   P 201  89
+```
+
+
+Para entender la siguiente tabla vamos a definir los siguietes términos:
+
+Exactitud (Accuracy)
+: Es la tasa de todos los individuos bien etiquetados $(TP+TN)/(TP+TN+FN+FP)$.
+
+Precisión
+: Es la tasa de elementos etiquetados 1 correctamente con respecto a los que fueron etiquetados 1 $Precisión = TP/P^*$
+
+
+Sensibilidad (Exhaustividad)
+: Es la tasa de elementos etiquetados 1 correctamente con respecto a los que realmente son 1. $Sensibilidad = TP/P$
+
+F-Score
+: Es la media armónica entre la precisión y la sensibilidad. $F-Score = 2*(Sensibilidad * Precisión)/(Sensibilidad + Precisión)$
+
+Especificidad
+: Es la tasa de elementos etiquetados 0 que realmente estaban etiquetados como 1. 
+
+Entonces esto nos da las siguientes posibilidades. 
+
+
+| Tipo                          | Cálculo                                               | Sinónimos                                                      |
+|:------------------------------|:------------------------------------------------------|:---------------------------------------------------------------|
+| Tasa Falsos Positivos         | $FP/N$                                                | Error Tipo I, 1-Especificidad                                  |
+| Tasa Verdaderos Positivos     | \(TP/P\)                                              | 1-Error Tipo II, Poder, Sensibilidad,   Exhaustividad (Recall) |
+| Valor de Predicción Positivos | $TP/P^{*}$                                            | Precisión, 1 - Proporción de Falsos Descubrimientos            |
+| Valor de Predicción Negativos | $TN/N^{*}$                                            |                                                                |
+| F-Score                       | $\frac{2(TP/P^{*} \times TP/P )}{(TP/P^{*} + TP/P )}$ |                                                                |
+
+
+
+**CUIDADO:**
+
+- Exactitud funciona bien cuando los datos son simétricos (igual número de FP y FN). 
+- F-Scores es cuando los datos son asimétricos
+- Precisión es qué tan seguro se está de los verdaderos positivos. 
+- Sensibilidad es que tan seguro es que no se está perdiendo ningún positivo. 
+
+En un modelo se debe escoger entre sensibilidad y precisión de acuerdo a ciertas ideas:
+
+- **Sensibilidad** es importante si la ocurrencia de **falsos negativos** es inaceptable. Por ejemplo las prueba COVID-19. Posiblemente se obtendrá más falsos positivos pero este caso es aceptable. 
+- **Precisión** es importante si se quiere estar más seguro de los **verdaderos positivos**. Por ejemplo detectar __spam__ en correos electrónicos. 
+- **Especificidad** es importante si lo que se quiere es cubrir todos los **verdaderos negativos**, es decir, que no se quieren falsas alarmas. Por ejemplo se hacen pruebas de detección de drogas y si es positivo va a la cárcel. Los **falsos positivos** son intolerables. 
+
+
+```r
+(TN <- matriz_confusion["N", "N"])
+```
+
+```
+## [1] 380
+```
+
+```r
+(TP <- matriz_confusion["P", "P"])
+```
+
+```
+## [1] 89
+```
+
+```r
+(FP <- matriz_confusion["N", "P"])
+```
+
+```
+## [1] 44
+```
+
+```r
+(FN <- matriz_confusion["P", "N"])
+```
+
+```
+## [1] 201
+```
+
+```r
+(exactitud <- (TP + TN)/(TP + TN + FP + FN))
+```
+
+```
+## [1] 0.6568627
+```
+
+```r
+(precision <- TP/(TP + FP))
+```
+
+```
+## [1] 0.6691729
+```
+
+```r
+(sensibilidad <- TP/(TP + FN))
+```
+
+```
+## [1] 0.3068966
+```
+
+```r
+(F_score <- 2 * (precision * sensibilidad)/(precision + 
+    sensibilidad))
+```
+
+```
+## [1] 0.4208038
+```
+
+```r
+(especificidad <- TN/(TN + FP))
+```
+
+```
+## [1] 0.8962264
+```
+
+
+### Curva ROC
+
+
+Un excelente clasificador debería detectar correctamente los **verdaderos positivos (TP)** e ignorar los **falsos positivos (FP)**.
+
+Puesto de otra forma, si el clasificador es malo, los **verdaderos positivos** serían indistingibles de los **falsos positivos**. 
+
+La curva ROC (Receiver Operation Curve) gráfica la Tasa Falsos Positivos vs Sensibilidad del modelo. 
+
+
+
+
+```r
+library(ROCR)
+
+logist.pred.ROCR <- prediction(predict_numeric, titanic$Survived)
+
+logist.perf <- performance(logist.pred.ROCR, "tpr", 
+    "fpr")
+
+plot(logist.perf)
+abline(0, 1, col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-257-1} \end{center}
+
+```r
+auc <- performance(logist.pred.ROCR, measure = "auc")
+
+auc@y.values
+```
+
+```
+## [[1]]
+## [1] 0.7063313
+```
+**PELIGRO**
+
+Aquí estamos chequeando el poder de clasificación del modelo, con los mismos datos que usamos para ajustar el modelo. Es decir, le estamos diciendo al modelo que compruebe la veracidad de la clasificación que ya hizo previamente. 
+
+Esto es incorrecto, ya que el modelo ya sabe "las respuestas"  y no estamos midiendo su poder de clasficación. 
+
+Para resolver esto, debemos tomar otra muestra de prueba (__training__) que nos diga si el ajuste que hicimos es correcto. 
+
+
+```r
+titanic$id <- 1:nrow(titanic)
+
+train <- titanic %>% sample_frac(0.75)
+
+test <- titanic %>% anti_join(train, by = "id")
+```
+
+
+```r
+fit_glm <- glm(Survived ~ Fare + Age, data = train, 
+    family = "binomial")
+```
+
+
+```r
+predict_numeric <- predict(fit_glm, newdata = test, 
+    type = "response")
+predict_01 <- as.numeric(predict_numeric >= 0.5)
+
+matriz_confusion <- table(test$Survived, predict_01)
+
+colnames(matriz_confusion) <- c("N", "P")
+rownames(matriz_confusion) <- c("N", "P")
+
+matriz_confusion
+```
+
+```
+##    predict_01
+##      N  P
+##   N 93  9
+##   P 57 19
+```
+
+```r
+(TN <- matriz_confusion["N", "N"])
+```
+
+```
+## [1] 93
+```
+
+```r
+(TP <- matriz_confusion["P", "P"])
+```
+
+```
+## [1] 19
+```
+
+```r
+(FP <- matriz_confusion["N", "P"])
+```
+
+```
+## [1] 9
+```
+
+```r
+(FN <- matriz_confusion["P", "N"])
+```
+
+```
+## [1] 57
+```
+
+```r
+(exactitud <- (TP + TN)/(TP + TN + FP + FN))
+```
+
+```
+## [1] 0.6292135
+```
+
+```r
+(precision <- TP/(TP + FP))
+```
+
+```
+## [1] 0.6785714
+```
+
+```r
+(sensibilidad <- TP/(TP + FN))
+```
+
+```
+## [1] 0.25
+```
+
+```r
+(F_score <- 2 * (precision * sensibilidad)/(precision + 
+    sensibilidad))
+```
+
+```
+## [1] 0.3653846
+```
+
+```r
+(especificidad <- TN/(TN + FP))
+```
+
+```
+## [1] 0.9117647
+```
+
+
+
+
+```r
+logist.pred.ROCR <- prediction(predict_numeric, test$Survived)
+
+logist.perf <- performance(logist.pred.ROCR, "tpr", 
+    "fpr")
+
+plot(logist.perf)
+abline(0, 1, col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-262-1} \end{center}
+
+```r
+auc <- performance(logist.pred.ROCR, measure = "auc")
+
+auc@y.values
+```
+
+```
+## [[1]]
+## [1] 0.7138803
+```
+
+
+
+
 <!--chapter:end:05-regresion-logistica.Rmd-->
+
+
+
+
+
+# Métodos de selección de variables
+
+## 1. Selección del mejor subconjunto.
+
+*Algoritmo:*
+\begin{itemize}
+\item[1.] Sea $M_0$ el modelo nulo (solo tiene constantes).
+\item[2.]  Para $k=1,2,\dots,p$ (número de variables),
+\begin{itemize}
+\item[a.] Ajuste todos los $\binom{p}{k}$ modelos que contengan $k$ predictores.
+\item[b.] Seleccione el mejor entre esos $\binom{p}{k}$ modelos. El "mejor" es el que tenga el $RSS$ menor, o el $R^2$ más grande. Llame a este modelo $M_k$. 
+\end{itemize}
+\item[3.]  Seleccione el mejor modelo entre $M_0,M_1,\dots,M_p$ usando un error de validación cruzada, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
+\end{itemize}
+
+*Ejemplo:* $Y = \beta_0+\beta_1X_1+ \beta_2X_2 + \beta_3X_3$. 
+
+Puede ser que el mejor modelo sea
+
+* $Y = \beta_0$, 
+
+* $Y = \beta_0+\beta_1X_1$, 
+
+* $Y = \beta_0+\beta_2X_2$, 
+
+* $Y = \beta_0+\beta_3X_3$,
+
+* $Y = \beta_0+\beta_1X_1+\beta_2X_2$,
+
+* $Y = \beta_0+\beta_1X_1+\beta_3X_3$, entre otras.
+
+De los que tienen $k=1$ variable, hay $\binom{3}{1}$ = 3 modelos. Para $k=2$, son $\binom{3}{2}$ = 3, y para $k=3$, solo un modelo. Para $k=1$, se ajustan los 3 y al mejor se le llama $M_1$. Así para los otros $k$. Obtenidos estos modelos, se escoge el que tenga la mejor medida, con respecto a los errores antes mencionados.
+
+*Notas:* 
+
+\begin{itemize}
+\item La parte 2.b. se hace con la muestra de entrenamiento. La parte 3 se selecciona con los datos de prueba. 
+\item Si se usa el $RSS$ o $R^2$, siempre se selecciona el modelo con el número mayor de variables. Este es un problema de sobreajuste.
+\item El gran problema es la cantidad de variables y los modelos por ajustar. Computacionalmente ineficiente.
+\end{itemize}
+
+
+## 2. Posibles soluciones
+
+a) Estimar indirectamente el error de prueba al añadirle un factor de sobreajuste (más sesgo).
+b) Estimar directamente el error de prueba usando validación cruzada.
+
+### Ajuste al error de entrenamiento
+
+* $C_p$. Se usa en ajustes con mínimos cuadrados. 
+$$ C_p = \dfrac{1}{n}\left[RSS+2k\hat\sigma^2\right]$$
+donde $k$ es el número de predictores y $\hat\sigma^2$ es el estimador de la varianza de los errores $\epsilon$. Si $\hat\sigma^2$ es insegado de $\sigma^2$, entonces $C_p$ es un estimador insesgado del $MSE$ de prueba. 
+
+* $C_p$ de Mallows. Se denota $C_p'$.
+$$ C_p' = \dfrac{RSS}{\hat\sigma^2} + 2k-n \implies C_p = \dfrac1n\hat\sigma^2[C_p'+n] \propto C_p'$$
+
+* $AIC$ (Akaike Information Criterion).
+$$AIC = \dfrac{1}{n\hat\sigma^2}[RSS + 2k\hat\sigma^2] \propto C_p'$$
+* $MLE$: $2\ln L(\beta | x) + 2k$.
+
+* $BIC$ (Bayesian Information Criterion).
+
+$$BIC =  \dfrac1n[RSS+\ln(n)k\hat\sigma²]$$
+
+* $R^2$ ajustado. Recuerde que $R^2 = 1 - \dfrac{RSS}{TSS}$. Como $RSS$ decrece si se le agrega más variables, entonces $R^2 \nearrow 1$. Vea que $RSS = \sum(y_i-\hat{y}_i)^2$ y $TSS = \sum(y_i-\bar{y}_i)^2$, entonces,
+$$R^2 \text{ ajustado}= 1-\dfrac{\dfrac{RSS}{n-k-1}}{\dfrac{TSS}{n-1}}$$
+
+### Selección de modelos hacia adelante (**Forward Stepwise Selection**)
+
+\begin{itemize}
+\item[1.] Sea $M_0$ el modelo nulo. 
+\item[2.] Para $k=0,1,\dots,p-1$,
+\begin{itemize}
+\item[a.] Considere los $p-k$ modelos que contenga los predictores en $M_k$ con un predictor adicional.
+\item[b.] Seleccione el mejor entre esos $p-k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k+1}$.
+\end{itemize}
+\item[3.] Seleccione el mejor modelo entre $M_0,\dots, M_p$ usando $VC$, $Cp$, $AIC$, $BIC$ o $R^2$ ajustado.
+\end{itemize}
+
+*Ejemplo:*  $Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3$
+
+* $M_0$: $Y = \beta_0$
+
+* $M_1$: $Y = \beta_0+\beta_1X_1$, $Y = \beta_0+\beta_2X_2$ o $Y = \beta_0+\beta_3X_3$. De los tres se escoge el mejor (por ejemplo, la segundo) y se le llama $M_1$. 
+
+* $M_2$: a $Y = \beta_0+\beta_2X_2$, que es $M_1$, se le suma una variable extra ($\beta_1X_1$ o $\beta_3X_1$) y se selecciona la mejor. 
+
+* $M_3$: $M_2$ más la variable no incluida.
+
+*Nota:* el número de modelos por calcular usando el mejor subconjunto  es $n^p$, mientras que usando Forward es $1+\displaystyle\sum_0^ {p-1} p-k = \dfrac{1+p(1+p)}2$.
+
+### Selección de modelos hacia atrás (**Backward Stepwise Selection**)
+
+\begin{itemize}
+\item[1.] Sea $M_p$ el modelo completo.
+\item[2.] Para $k=p,p-1,\dots,1$,
+\begin{itemize}
+\item[a.] Considere los $k$ modelos que contienen todos excepto uno de los predictores en $M_k$ para un total de $k-1$ predictores.
+\item[b.] Seleccione el mejor entre esos $k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k+1}$.
+\end{itemize}
+\item[3.] Seleccione el mejor modelo entre $M_0,\dots,M_p$ usando $VC$, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
+\end{itemize}
+
+*Ejemplo:*  $Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3$
+
+* $M_3$: $Y = \beta_0 +\beta_1X_1+\beta_2X_2+\beta_3X_3$.
+
+* $M_2$: se quita una variable ($X_1$, $X_2$ o $X_3$) y se selecciona el mejor. Por ejemplo, se remueve $X_1$.
+
+* $M_1$: A $M_{2}$ le quito otra variable. En este caso, $X_2$ o $X_3$ y se escoge el mejor.
+
+* $M_0$: $Y=\beta_0$, el modelo nulo.
+
+# Métodos de regularización
+
+## Regresión Ridge
+
+Considere 
+$$ RSS = \sum_{i=1}^{n}\left(y_i-\beta\sigma\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 \text{ y } \hat\beta = \underset{\beta}{\operatorname{argmin}} RSS$$
+
+La regresión Ridge consiste en determinar
+$$ \hat\beta^R_\lambda = \underset{\beta}{\operatorname{argmin}}\left[RSS + \lambda\sum_{j=1}^n\beta_j^2\right]$$
+
+Se define:
+$$\|\beta_{-0}\|^2_2 = \sum_{j=1}^{n}\beta_j^2$$
+\begin{itemize}
+\item Si $\lambda = 0$, $\hat\beta = \beta^R_\lambda$: caso de máxima varianza, con el menor sesgo posible.
+\item Si $\lambda \to +\infty$, $\beta \to 0$: se sacrifican todos los parámetros $\beta$. Máximo sesgo pero varianza nula.
+\end{itemize}
+
+¿Cómo se debe seleccionar el $\lambda$?
+El método para seleccionarlo es por validación cruzada
+
+### Estimación clásica por mínimos cuadrados.
+$$ \hat\beta = (X^T\cdot X)^{-1}X^Ty$$
+Si se multiplica una constante $c$ a $Xi$, entonces $\hat\beta = \dfrac{\hat\beta_i}{c}$. La constante $c$ afecta directamente al $\|\beta_{-0}\|^2_2$, por lo que se recomienda estandarizar las covariables.
+
+### Ventajas
+
+\begin{itemize}
+\item Indica el balance entre sesgo y varianza.
+\item Si $p>n$ (mayor cantidad de variables que datos), al realizar mínimos cuadrados, no se puede dar una solución, pero con la forma de regresión de Ridge es posible alcanzarla.
+\item Computacionalmente es más eficiente que usando selección de "todos los subconjuntos".
+\end{itemize}
+
+## Regresión Lasso
+$$ \beta_{\lambda}^{LASSO} = \underset{\beta}{\operatorname{argmin}}\left(RSS + \lambda\sum_{j=1}^n |\beta_j|\right)$$
+Se define
+$$ \|\beta_{-0}\|_1 = \sum_{j=1}^n|\beta_j|$$
+Otra formulación para los métodos vistos son:
+
+\begin{itemize}
+\item \textbf{Ridge}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p\beta_j^2 \leq s$.
+\item \textbf{Lasso}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p|\beta_j| \leq s$.
+\item \textbf{Mejor subconjunto}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p \boldsymbol{1}_{\lbrace\beta_j \neq 0\rbrace} \leq s$.
+\end{itemize}
+
+<!--chapter:end:06-seleccion-de-variables.Rmd-->
 

@@ -227,6 +227,29 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.2" data-path="regresión-logística.html"><a href="regresión-logística.html#máxima-verosimilitud"><i class="fa fa-check"></i><b>6.2</b> Máxima verosimilitud</a><ul>
 <li class="chapter" data-level="6.2.1" data-path="regresión-logística.html"><a href="regresión-logística.html#residuos"><i class="fa fa-check"></i><b>6.2.1</b> Residuos</a></li>
 </ul></li>
+<li class="chapter" data-level="6.3" data-path="regresión-logística.html"><a href="regresión-logística.html#diágnosticos-del-modelo"><i class="fa fa-check"></i><b>6.3</b> Diágnosticos del modelo</a><ul>
+<li class="chapter" data-level="6.3.1" data-path="regresión-logística.html"><a href="regresión-logística.html#supuesto-de-linealidad"><i class="fa fa-check"></i><b>6.3.1</b> Supuesto de linealidad</a></li>
+<li class="chapter" data-level="6.3.2" data-path="regresión-logística.html"><a href="regresión-logística.html#valor-de-gran-influencia"><i class="fa fa-check"></i><b>6.3.2</b> Valor de gran influencia</a></li>
+<li class="chapter" data-level="6.3.3" data-path="regresión-logística.html"><a href="regresión-logística.html#multicolinealidad-1"><i class="fa fa-check"></i><b>6.3.3</b> Multicolinealidad</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="regresión-logística.html"><a href="regresión-logística.html#predicción-y-poder-de-clasificación"><i class="fa fa-check"></i><b>6.4</b> Predicción y poder de clasificación</a><ul>
+<li class="chapter" data-level="6.4.1" data-path="regresión-logística.html"><a href="regresión-logística.html#curva-roc"><i class="fa fa-check"></i><b>6.4.1</b> Curva ROC</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html"><i class="fa fa-check"></i><b>7</b> Métodos de selección de variables</a><ul>
+<li class="chapter" data-level="7.1" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#selección-del-mejor-subconjunto."><i class="fa fa-check"></i><b>7.1</b> 1. Selección del mejor subconjunto.</a></li>
+<li class="chapter" data-level="7.2" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#posibles-soluciones"><i class="fa fa-check"></i><b>7.2</b> 2. Posibles soluciones</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#ajuste-al-error-de-entrenamiento"><i class="fa fa-check"></i><b>7.2.1</b> Ajuste al error de entrenamiento</a></li>
+<li class="chapter" data-level="7.2.2" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#selección-de-modelos-hacia-adelante-forward-stepwise-selection"><i class="fa fa-check"></i><b>7.2.2</b> Selección de modelos hacia adelante (<strong>Forward Stepwise Selection</strong>)</a></li>
+<li class="chapter" data-level="7.2.3" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#selección-de-modelos-hacia-atrás-backward-stepwise-selection"><i class="fa fa-check"></i><b>7.2.3</b> Selección de modelos hacia atrás (<strong>Backward Stepwise Selection</strong>)</a></li>
+</ul></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html"><i class="fa fa-check"></i><b>8</b> Métodos de regularización</a><ul>
+<li class="chapter" data-level="8.1" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html#regresión-ridge"><i class="fa fa-check"></i><b>8.1</b> Regresión Ridge</a><ul>
+<li class="chapter" data-level="8.1.1" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html#estimación-clásica-por-mínimos-cuadrados."><i class="fa fa-check"></i><b>8.1.1</b> Estimación clásica por mínimos cuadrados.</a></li>
+<li class="chapter" data-level="8.1.2" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html#ventajas"><i class="fa fa-check"></i><b>8.1.2</b> Ventajas</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html#regresión-lasso"><i class="fa fa-check"></i><b>8.2</b> Regresión Lasso</a></li>
 </ul></li>
 </ul>
 
@@ -247,6 +270,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="métodos-lineares-de-regresión" class="section level1">
 <h1><span class="header-section-number">Capítulo 5</span> Métodos lineares de regresión</h1>
+<p><strong>NOTA: Para los siguientes capítulos nos basaremos en los libros <span class="citation">(Hastie, Tibshirani, and Friedman <a href="#ref-Hastie2009a" role="doc-biblioref">2009</a>)</span> y <span class="citation">(James et al. <a href="#ref-James2013b" role="doc-biblioref">2013</a>)</span>.</strong></p>
 <div id="introducción-1" class="section level2">
 <h2><span class="header-section-number">5.1</span> Introducción</h2>
 <p>Supongamos que tenemos <span class="math inline">\(p\)</span> variables de entrada que mezcladas con alguna relación desconocida y que provocan una respuesta <span class="math inline">\(Y\)</span> de salida.</p>
@@ -1663,6 +1687,15 @@ r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
 </div>
 </div>
 </div>
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Hastie2009a">
+<p>Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. <em>The Elements of Statistical Learning</em>. Springer Series in Statistics. New York, NY: Springer New York. <a href="https://doi.org/10.1007/978-0-387-84858-7">https://doi.org/10.1007/978-0-387-84858-7</a>.</p>
+</div>
+<div id="ref-James2013b">
+<p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 103. Springer Texts in Statistics. New York, NY: Springer New York. <a href="https://doi.org/10.1007/978-1-4614-7138-7">https://doi.org/10.1007/978-1-4614-7138-7</a>.</p>
 </div>
 </div>
             </section>
