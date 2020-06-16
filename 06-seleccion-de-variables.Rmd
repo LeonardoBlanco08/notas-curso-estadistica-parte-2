@@ -1,0 +1,161 @@
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Métodos de selección de variables
+
+## 1. Selección del mejor subconjunto.
+
+*Algoritmo:*
+\begin{itemize}
+\item[1.] Sea $M_0$ el modelo nulo (solo tiene constantes).
+\item[2.]  Para $k=1,2,\dots,p$ (número de variables),
+\begin{itemize}
+\item[a.] Ajuste todos los $\binom{p}{k}$ modelos que contengan $k$ predictores.
+\item[b.] Seleccione el mejor entre esos $\binom{p}{k}$ modelos. El "mejor" es el que tenga el $RSS$ menor, o el $R^2$ más grande. Llame a este modelo $M_k$. 
+\end{itemize}
+\item[3.]  Seleccione el mejor modelo entre $M_0,M_1,\dots,M_p$ usando un error de validación cruzada, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
+\end{itemize}
+
+*Ejemplo:* $Y = \beta_0+\beta_1X_1+ \beta_2X_2 + \beta_3X_3$. 
+
+Puede ser que el mejor modelo sea
+
+* $Y = \beta_0$, 
+
+* $Y = \beta_0+\beta_1X_1$, 
+
+* $Y = \beta_0+\beta_2X_2$, 
+
+* $Y = \beta_0+\beta_3X_3$,
+
+* $Y = \beta_0+\beta_1X_1+\beta_2X_2$,
+
+* $Y = \beta_0+\beta_1X_1+\beta_3X_3$, entre otras.
+
+De los que tienen $k=1$ variable, hay $\binom{3}{1}$ = 3 modelos. Para $k=2$, son $\binom{3}{2}$ = 3, y para $k=3$, solo un modelo. Para $k=1$, se ajustan los 3 y al mejor se le llama $M_1$. Así para los otros $k$. Obtenidos estos modelos, se escoge el que tenga la mejor medida, con respecto a los errores antes mencionados.
+
+*Notas:* 
+
+\begin{itemize}
+\item La parte 2.b. se hace con la muestra de entrenamiento. La parte 3 se selecciona con los datos de prueba. 
+\item Si se usa el $RSS$ o $R^2$, siempre se selecciona el modelo con el número mayor de variables. Este es un problema de sobreajuste.
+\item El gran problema es la cantidad de variables y los modelos por ajustar. Computacionalmente ineficiente.
+\end{itemize}
+
+
+## 2. Posibles soluciones
+
+a) Estimar indirectamente el error de prueba al añadirle un factor de sobreajuste (más sesgo).
+b) Estimar directamente el error de prueba usando validación cruzada.
+
+### Ajuste al error de entrenamiento
+
+* $C_p$. Se usa en ajustes con mínimos cuadrados. 
+$$ C_p = \dfrac{1}{n}\left[RSS+2k\hat\sigma^2\right]$$
+donde $k$ es el número de predictores y $\hat\sigma^2$ es el estimador de la varianza de los errores $\epsilon$. Si $\hat\sigma^2$ es insegado de $\sigma^2$, entonces $C_p$ es un estimador insesgado del $MSE$ de prueba. 
+
+* $C_p$ de Mallows. Se denota $C_p'$.
+$$ C_p' = \dfrac{RSS}{\hat\sigma^2} + 2k-n \implies C_p = \dfrac1n\hat\sigma^2[C_p'+n] \propto C_p'$$
+
+* $AIC$ (Akaike Information Criterion).
+$$AIC = \dfrac{1}{n\hat\sigma^2}[RSS + 2k\hat\sigma^2] \propto C_p'$$
+* $MLE$: $2\ln L(\beta | x) + 2k$.
+
+* $BIC$ (Bayesian Information Criterion).
+
+$$BIC =  \dfrac1n[RSS+\ln(n)k\hat\sigma²]$$
+
+* $R^2$ ajustado. Recuerde que $R^2 = 1 - \dfrac{RSS}{TSS}$. Como $RSS$ decrece si se le agrega más variables, entonces $R^2 \nearrow 1$. Vea que $RSS = \sum(y_i-\hat{y}_i)^2$ y $TSS = \sum(y_i-\bar{y}_i)^2$, entonces,
+$$R^2 \text{ ajustado}= 1-\dfrac{\dfrac{RSS}{n-k-1}}{\dfrac{TSS}{n-1}}$$
+
+### Selección de modelos hacia adelante (**Forward Stepwise Selection**)
+
+\begin{itemize}
+\item[1.] Sea $M_0$ el modelo nulo. 
+\item[2.] Para $k=0,1,\dots,p-1$,
+\begin{itemize}
+\item[a.] Considere los $p-k$ modelos que contenga los predictores en $M_k$ con un predictor adicional.
+\item[b.] Seleccione el mejor entre esos $p-k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k+1}$.
+\end{itemize}
+\item[3.] Seleccione el mejor modelo entre $M_0,\dots, M_p$ usando $VC$, $Cp$, $AIC$, $BIC$ o $R^2$ ajustado.
+\end{itemize}
+
+*Ejemplo:*  $Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3$
+
+* $M_0$: $Y = \beta_0$
+
+* $M_1$: $Y = \beta_0+\beta_1X_1$, $Y = \beta_0+\beta_2X_2$ o $Y = \beta_0+\beta_3X_3$. De los tres se escoge el mejor (por ejemplo, la segundo) y se le llama $M_1$. 
+
+* $M_2$: a $Y = \beta_0+\beta_2X_2$, que es $M_1$, se le suma una variable extra ($\beta_1X_1$ o $\beta_3X_1$) y se selecciona la mejor. 
+
+* $M_3$: $M_2$ más la variable no incluida.
+
+*Nota:* el número de modelos por calcular usando el mejor subconjunto  es $n^p$, mientras que usando Forward es $1+\displaystyle\sum_0^ {p-1} p-k = \dfrac{1+p(1+p)}2$.
+
+### Selección de modelos hacia atrás (**Backward Stepwise Selection**)
+
+\begin{itemize}
+\item[1.] Sea $M_p$ el modelo completo.
+\item[2.] Para $k=p,p-1,\dots,1$,
+\begin{itemize}
+\item[a.] Considere los $k$ modelos que contienen todos excepto uno de los predictores en $M_k$ para un total de $k-1$ predictores.
+\item[b.] Seleccione el mejor entre esos $k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k+1}$.
+\end{itemize}
+\item[3.] Seleccione el mejor modelo entre $M_0,\dots,M_p$ usando $VC$, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
+\end{itemize}
+
+*Ejemplo:*  $Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3$
+
+* $M_3$: $Y = \beta_0 +\beta_1X_1+\beta_2X_2+\beta_3X_3$.
+
+* $M_2$: se quita una variable ($X_1$, $X_2$ o $X_3$) y se selecciona el mejor. Por ejemplo, se remueve $X_1$.
+
+* $M_1$: A $M_{2}$ le quito otra variable. En este caso, $X_2$ o $X_3$ y se escoge el mejor.
+
+* $M_0$: $Y=\beta_0$, el modelo nulo.
+
+# Métodos de regularización
+
+## Regresión Ridge
+
+Considere 
+$$ RSS = \sum_{i=1}^{n}\left(y_i-\beta\sigma\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 \text{ y } \hat\beta = \underset{\beta}{\operatorname{argmin}} RSS$$
+
+La regresión Ridge consiste en determinar
+$$ \hat\beta^R_\lambda = \underset{\beta}{\operatorname{argmin}}\left[RSS + \lambda\sum_{j=1}^n\beta_j^2\right]$$
+
+Se define:
+$$\|\beta_{-0}\|^2_2 = \sum_{j=1}^{n}\beta_j^2$$
+\begin{itemize}
+\item Si $\lambda = 0$, $\hat\beta = \beta^R_\lambda$: caso de máxima varianza, con el menor sesgo posible.
+\item Si $\lambda \to +\infty$, $\beta \to 0$: se sacrifican todos los parámetros $\beta$. Máximo sesgo pero varianza nula.
+\end{itemize}
+
+¿Cómo se debe seleccionar el $\lambda$?
+El método para seleccionarlo es por validación cruzada
+
+### Estimación clásica por mínimos cuadrados.
+$$ \hat\beta = (X^T\cdot X)^{-1}X^Ty$$
+Si se multiplica una constante $c$ a $Xi$, entonces $\hat\beta = \dfrac{\hat\beta_i}{c}$. La constante $c$ afecta directamente al $\|\beta_{-0}\|^2_2$, por lo que se recomienda estandarizar las covariables.
+
+### Ventajas
+
+\begin{itemize}
+\item Indica el balance entre sesgo y varianza.
+\item Si $p>n$ (mayor cantidad de variables que datos), al realizar mínimos cuadrados, no se puede dar una solución, pero con la forma de regresión de Ridge es posible alcanzarla.
+\item Computacionalmente es más eficiente que usando selección de "todos los subconjuntos".
+\end{itemize}
+
+## Regresión Lasso
+$$ \beta_{\lambda}^{LASSO} = \underset{\beta}{\operatorname{argmin}}\left(RSS + \lambda\sum_{j=1}^n |\beta_j|\right)$$
+Se define
+$$ \|\beta_{-0}\|_1 = \sum_{j=1}^n|\beta_j|$$
+Otra formulación para los métodos vistos son:
+
+\begin{itemize}
+\item \textbf{Ridge}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p\beta_j^2 \leq s$.
+\item \textbf{Lasso}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p|\beta_j| \leq s$.
+\item \textbf{Mejor subconjunto}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p \boldsymbol{1}_{\lbrace\beta_j \neq 0\rbrace} \leq s$.
+\end{itemize}
