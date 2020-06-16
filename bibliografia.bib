@@ -1,3 +1,41 @@
+@book{James2013b,
+address = {New York, NY},
+author = {James, Gareth and Witten, Daniela and Hastie, Trevor and Tibshirani, Robert},
+doi = {10.1007/978-1-4614-7138-7},
+isbn = {978-1-4614-7137-0},
+publisher = {Springer New York},
+series = {Springer Texts in Statistics},
+title = {{An Introduction to Statistical Learning}},
+url = {http://link.springer.com/10.1007/978-1-4614-7138-7},
+volume = {103},
+year = {2013}
+}
+@book{Wasserman2006,
+abstract = {Aimed at Masters or PhD level students in statistics, computer science, and engineering, this comprehensive text provides the reader with a single book where ...},
+address = {New York, NY},
+author = {Wasserman, Larry},
+booktitle = {All of Nonparametric Statistics},
+doi = {10.1007/0-387-30623-4},
+isbn = {978-0-387-25145-5},
+publisher = {Springer New York},
+series = {Springer Texts in Statistics},
+title = {{All of Nonparametric Statistics}},
+url = {http://link.springer.com/10.1007/0-387-30623-4},
+year = {2006}
+}
+@book{Albert2009,
+abstract = {There has been a dramatic growth in the development and application of Bayesian inferential methods. Some of this growth is due to the availability of powerful simulation-based algorithms to summarize posterior distributions. There has been also a growing interest in the use of the system R for statistical analyses. R's open source nature, free availability, and large number of contributor packages have made R the software of choice for many statisticians in education and industry. Bayesian Computation with R introduces Bayesian modeling by the use of computation using the R language. The early chapters present the basic tenets of Bayesian thinking by use of familiar one and two-parameter inferential problems. Bayesian computational methods such as Laplace's method, rejection sampling, and the SIR algorithm are illustrated in the context of a random effects model. The construction and implementation of Markov Chain Monte Carlo (MCMC) methods is introduced. These simulation-based algorithms are implemented for a variety of Bayesian applications such as normal and binary response regression, hierarchical modeling, order-restricted inference, and robust modeling. Algorithms written in R are used to develop Bayesian tests and assess Bayesian models by use of the posterior predictive distribution. The use of R to interface with WinBUGS, a popular MCMC computing language, is described with several illustrative examples. This book is a suitable companion book for an introductory course on Bayesian methods and is valuable to the statistical practitioner who wishes to learn more about the R language and Bayesian methodology. The LearnBayes package, written by the author and available from the CRAN website, contains all of the R functions described in the book. The second edition contains several new topics such as the use of mixtures of conjugate priors and the use of Zellner's g priors to choose between models in linear regression. There are more illustrations of the construction of informative prior distributions, such as the use of conditional means priors and multivariate normal priors in binary regressions. The new edition contains changes in the R code illustrations according to the latest edition of the LearnBayes package. Jim Albert is Professor of Statistics at Bowling Green State University. He is Fellow of the American Statistical Association and is past editor of The American Statistician. His books include Ordinal Data Modeling (with Val Johnson), Workshop Statistics: Discovery with Data, A Bayesian Approach (with Allan Rossman), and Bayesian Computation using Minitab. {\textcopyright} 2009 Springer Science+Business Media, LLC. All rights reserved.},
+address = {New York, NY},
+author = {Albert, Jim and Gentleman, Robert and Parmigiani, Giovanni and Hornik, Kurt},
+booktitle = {Bayesian Computation with R},
+doi = {10.1007/978-0-387-92298-0},
+isbn = {9780387922973},
+pages = {1--298},
+publisher = {Springer New York},
+title = {{Bayesian computation with R}},
+url = {http://link.springer.com/10.1007/978-0-387-92298-0},
+year = {2009}
+}
 @article{Hoffman2014,
 abstract = {Hamiltonian Monte Carlo (HMC) is a Markov chain Monte Carlo (MCMC) algorithm that avoids the random walk behavior and sensitivity to correlated parameters that plague many MCMC methods by taking a series of steps informed by first-order gradient information. These features allow it to converge to high-dimensional target distributions much more quickly than simpler methods such as random walk Metropolis or Gibbs sampling. However, HMC's performance is highly sensitive to two user-specified parameters: a step size e and a desired number of steps L. In particular, if L is too small then the algorithm exhibits undesirable random walk behavior, while if L is too large the algorithm wastes computation. We introduce the No-U-Turn Sampler (NUTS), an extension to HMC that eliminates the need to set a number of steps L. NUTS uses a recursive algorithm to build a set of likely candidate points that spans a wide swath of the target distribution, stopping automatically when it starts to double back and retrace its steps. Empirically, NUTS performs at least as efficiently as (and sometimes more efficiently than) a well tuned standard HMC method, without requiring user intervention or costly tuning runs. We also derive a method for adapting the step size parameter e on the fly based on primal-dual averaging. NUTS can thus be used with no hand-tuning at all, making it suitable for applications such as BUGS-style automatic inference engines that require efficient "turnkey" samplers. {\textcopyright} 2014 Matthew D. Hoffman and Andrew Gelman.},
 archivePrefix = {arXiv},
@@ -13,32 +51,6 @@ title = {{The no-U-turn sampler: Adaptively setting path lengths in Hamiltonian 
 url = {http://jmlr.org/papers/v15/hoffman14a.html},
 volume = {15},
 year = {2014}
-}
-@book{Albert2009,
-abstract = {There has been a dramatic growth in the development and application of Bayesian inferential methods. Some of this growth is due to the availability of powerful simulation-based algorithms to summarize posterior distributions. There has been also a growing interest in the use of the system R for statistical analyses. R's open source nature, free availability, and large number of contributor packages have made R the software of choice for many statisticians in education and industry. Bayesian Computation with R introduces Bayesian modeling by the use of computation using the R language. The early chapters present the basic tenets of Bayesian thinking by use of familiar one and two-parameter inferential problems. Bayesian computational methods such as Laplace's method, rejection sampling, and the SIR algorithm are illustrated in the context of a random effects model. The construction and implementation of Markov Chain Monte Carlo (MCMC) methods is introduced. These simulation-based algorithms are implemented for a variety of Bayesian applications such as normal and binary response regression, hierarchical modeling, order-restricted inference, and robust modeling. Algorithms written in R are used to develop Bayesian tests and assess Bayesian models by use of the posterior predictive distribution. The use of R to interface with WinBUGS, a popular MCMC computing language, is described with several illustrative examples. This book is a suitable companion book for an introductory course on Bayesian methods and is valuable to the statistical practitioner who wishes to learn more about the R language and Bayesian methodology. The LearnBayes package, written by the author and available from the CRAN website, contains all of the R functions described in the book. The second edition contains several new topics such as the use of mixtures of conjugate priors and the use of Zellner's g priors to choose between models in linear regression. There are more illustrations of the construction of informative prior distributions, such as the use of conditional means priors and multivariate normal priors in binary regressions. The new edition contains changes in the R code illustrations according to the latest edition of the LearnBayes package. Jim Albert is Professor of Statistics at Bowling Green State University. He is Fellow of the American Statistical Association and is past editor of The American Statistician. His books include Ordinal Data Modeling (with Val Johnson), Workshop Statistics: Discovery with Data, A Bayesian Approach (with Allan Rossman), and Bayesian Computation using Minitab. {\textcopyright} 2009 Springer Science+Business Media, LLC. All rights reserved.},
-address = {New York, NY},
-author = {Albert, Jim and Gentleman, Robert and Parmigiani, Giovanni and Hornik, Kurt},
-booktitle = {Bayesian Computation with R},
-doi = {10.1007/978-0-387-92298-0},
-isbn = {9780387922973},
-pages = {1--298},
-publisher = {Springer New York},
-title = {{Bayesian computation with R}},
-url = {http://link.springer.com/10.1007/978-0-387-92298-0},
-year = {2009}
-}
-@book{Wasserman2006,
-abstract = {Aimed at Masters or PhD level students in statistics, computer science, and engineering, this comprehensive text provides the reader with a single book where ...},
-address = {New York, NY},
-author = {Wasserman, Larry},
-booktitle = {All of Nonparametric Statistics},
-doi = {10.1007/0-387-30623-4},
-isbn = {978-0-387-25145-5},
-publisher = {Springer New York},
-series = {Springer Texts in Statistics},
-title = {{All of Nonparametric Statistics}},
-url = {http://link.springer.com/10.1007/0-387-30623-4},
-year = {2006}
 }
 @incollection{Kruschke2014,
 abstract = {There is an explosion of interest in Bayesian statistics, primarily because recently created computational methods have finally made Bayesian analysis obtainable to a wide audience. Doing Bayesian Data Analysis: A Tutorial with R, JAGS, and Stan provides an accessible approach to Bayesian data analysis, as material is explained clearly with concrete examples. The book begins with the basics, including essential concepts of probability and random sampling, and gradually progresses to advanced hierarchical modeling methods for realistic data. Included are step-by-step instructions on how to conduct Bayesian data analyses in the popular and free software R and WinBugs. This book is intended for first-year graduate students or advanced undergraduates. It provides a bridge between undergraduate training and modern Bayesian methods for data analysis, which is becoming the accepted research standard. Knowledge of algebra and basic calculus is a prerequisite.},
@@ -101,4 +113,18 @@ series = {Springer Series in Statistics},
 title = {{Nonparametric and Semiparametric Models}},
 url = {http://link.springer.com/10.1007/978-3-642-17146-8},
 year = {2004}
+}
+@book{Hastie2009a,
+abstract = {During the past decade there has been an explosion in computation and information technology. With it has come vast amounts of data in a variety of fields such as medicine, biology, finance, and marketing. The challenge of understanding these data has led to the development of new tools in the field of statistics, and spawned new areas such as data mining, machine learning, and bioinformatics. Many of these tools have common underpinnings but are often expressed with different terminology. This book describes the important ideas in these areas in a common conceptual framework. While the approach is statistical, the emphasis is on concepts rather than mathematics. Many examples are given, with a liberal use of color graphics. It should be a valuable resource for statisticians and anyone interested in data mining in science or industry. The book's coverage is broad, from supervised learning (prediction) to unsupervised learning. The many topics include neural networks, support vector machines, classification trees and boosting-the first comprehensive treatment of this topic in any book. Trevor Hastie, Robert Tibshirani, and Jerome Friedman are professors of statistics at Stanford University. They are prominent researchers in this area: Hastie and Tibshirani developed generalized additive models and wrote a popular book of that title. Hastie wrote much of the statistical modeling software in S-PLUS and invented principal curves and surfaces. Tibshirani proposed the Lasso and is co-author of the very successful An Introduction to the Bootstrap. Friedman is the co-inventor of many data-mining tools including CART, MARS, and projection pursuit. FROM THE REVIEWS: TECHNOMETRICS "This is a vast and complex book. Generally, it concentrates on explaining why and how the methods work, rather than how to use them. Examples and especially the visualizations are principle features...As a source for the methods of statistical learning...it will probably be a long time before there is a competitor to this book."},
+address = {New York, NY},
+author = {Hastie, Trevor and Tibshirani, Robert and Friedman, Jerome},
+doi = {10.1007/978-0-387-84858-7},
+isbn = {978-0-387-84857-0},
+issn = {01727397},
+pmid = {15512507},
+publisher = {Springer New York},
+series = {Springer Series in Statistics},
+title = {{The Elements of Statistical Learning}},
+url = {http://link.springer.com/10.1007/978-0-387-84858-7},
+year = {2009}
 }
