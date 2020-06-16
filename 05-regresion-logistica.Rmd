@@ -26,7 +26,11 @@ summary(titanic)
 ```
 
 ```{r}
-fit_lm <- lm(Survived ~ Fare, data = titanic)
+titanic <- titanic %>%
+  select(Survived, Fare, Age) %>%
+  drop_na()
+
+fit_lm <- lm(Survived ~ Fare + Age, data = titanic)
 ```
 
 
@@ -35,9 +39,6 @@ library(ggiraphExtra)
 ggPredict(fit_lm) + 
   theme_minimal(base_size = 16)
 ```
-
-
-
 
 
 
@@ -52,7 +53,7 @@ con \(g_{\beta}(\boldsymbol{X}) = \mathbb{P}\left(Y=1 \vert \boldsymbol{X}\right
 En `R` usaremos la función `glm` 
 
 ```{r}
-fit_glm <- glm(Survived ~ Fare, data = titanic, family = "binomial")
+fit_glm <- glm(Survived ~ Fare + Age, data = titanic, family = "binomial")
 summary(fit_glm)
 ```
 
@@ -61,9 +62,6 @@ summary(fit_glm)
 ggPredict(fit_glm) +
   theme_minimal(base_size = 16)
 ```
-
-
-
 
 **Nota:** Existen otros tipos de regresión y estas se definen a través del parámetro `family`. En este curso solo nos enfocaremos en el parámetro `family="binomial"`.
 
@@ -122,6 +120,7 @@ Muestre que
 \end{equation*}
 
 donde \(W = \mathrm{diag}{p(\boldsymbol{X}_{i})(1-p(X_{i}))}\).
+
 :::
 
 
@@ -175,6 +174,286 @@ Además tenemos los resultados que
 - \(\hat{\beta} \xrightarrow{\mathcal{D}} \mathcal{N}\left(\beta,(X^{\top}WX)^{-1}\right) \) (Prueba de Wald)
 - Se pueden comparar un modelo completo con un reducido a través de pruebas asintóticas LRT 
 \begin{equation*}
-D_c -D_r \sim =chi^{2}_{df_{c}} - chi^{2}_{df_{r}}.
+D_c -D_r \sim =\chi^{2}_{df_{c}} - \chi^{2}_{df_{r}}.
 \end{equation*}
+
+
+## Diágnosticos del modelo
+
+ 
+ **CUIADADO: La función `glm` no tiene un equivalente de `plot` como en los modelos lineales. De esta forma, si se aplica `plot` a un objeto `glm` solo generará los mismos chequeos que el capítulo anterior. Sin embargo estos podrían estar equivocados si no se leen con cuidado.**
+ 
+ 
+###  Supuesto de linealidad
+
+Este supuesto debe ser chequeado con la función logit de las respuestas. 
+
+```{r }
+
+fit_glm <- glm(Survived ~ Fare + Age, data = titanic, family = "binomial")
+summary(fit_glm)
+```
+
+```{r}
+
+probs <-  predict(fit_glm, type = "response")
+
+df <- titanic %>%
+  select(Fare, Age) %>%
+  mutate(logit = qlogis(probs)) %>%
+  pivot_longer(names_to = "predictores", values_to = "valores.ajustados", -logit)
+
+
+ggplot(df, aes(valores.ajustados, logit)) +
+  geom_point(size = 0.5, alpha = 0.5) +
+  geom_smooth(method = "loess") +
+  theme_bw() +
+  facet_wrap( ~ predictores, scales = "free")
+
+
+```
+
+
+
+### Valor de gran influencia 
+
+```{r }
+plot(fit_glm, which = 4)
+```
+```{r}
+library(broom)
+fit_data <- augment(fit_glm) %>% 
+  mutate(indice = 1:n()) 
+
+fit_data %>% top_n(3, .cooksd)
+```
+
+```{r}
+ggplot(fit_data, aes(indice, .std.resid)) +
+  geom_point(aes(color = as.factor(Survived)), alpha = .5) +
+  theme_bw()
+```
+
+```{r}
+fit_data %>%
+  filter(abs(.std.resid) > 3)
+```
+
+
+
+### Multicolinealidad 
+
+ 
+ 
+```{r }
+car::vif(fit_glm)
+```
+
+
+## Predicción y poder de clasificación 
+
+Si queremos predecir posibles resultados con nuestro modelo logístico, debemos asegurarnos que el error no sea "muy grande". 
+
+
+Ahora el error en este caso, se interpreta diferente que en regresión lineal clásica ya que nuestra salida solamente serán 0's o 1's. 
+
+
+Primero recordemos que el modelo predictivo estaría definido por 
+
+
+\begin{equation*}
+\hat{p}(X)=\frac{1}{1+e^{-(\hat{\beta}_{0}+\hat{\beta}_{1} X_{1}+\cdots+\hat{\beta}_{p} X_{p})}}
+\end{equation*}
+
+donde los \(\beta\)'s son estimados usando IRLS. 
+
+
+Ahora imaginemos que tenemos un conjunto de datos nuevo \((X^{*}_{1},\ldots,X^{*}_{p})\) y queremos ver que tipo de respuesta \(Y^{*}\) obtenemos (0 o 1). 
+
+Obviamente nuestro modelo puede equivocarse y darnos una respuesta errónea. Por ejemplo digamos que en el caso del `titanic` uno esperaría que personas más jóvenes y que hayan pagado más por su tiquete tengan mayor probabilidad de sobrevivencia. 
+
+Entonces tenemos realmente 4 opciones 
+
+
+|           |       |                 |                 |     |
+|:---------:|:-----:|:---------------:|:---------------:|:---:|
+|           |       | **Clase**       | **Predicción**  |     |
+|           |       | 0               | 1               |     |
+| **Clase** | 0     | Verdaderos Negativos. (TN)  | Falsos Positivos (FP) | $N$ |
+| **Real**  | 1     | Falsos Negativos (FN) | Verdaderos Positivos (TP)  | $P$ |
+|           | Total | \(N^{*}\)       | \(P^{*}\)       |     |
+
+
+
+```{r}
+predict_numeric <-  predict(fit_glm, type = "response")
+predict_01 <- as.numeric(predict_numeric >= 0.5)
+
+matriz_confusion <- table(titanic$Survived, predict_01)
+
+colnames(matriz_confusion) <- c("N", "P")
+rownames(matriz_confusion)<- c("N", "P")
+
+matriz_confusion
+```
+
+
+Para entender la siguiente tabla vamos a definir los siguietes términos:
+
+Exactitud (Accuracy)
+: Es la tasa de todos los individuos bien etiquetados $(TP+TN)/(TP+TN+FN+FP)$.
+
+Precisión
+: Es la tasa de elementos etiquetados 1 correctamente con respecto a los que fueron etiquetados 1 $Precisión = TP/P^*$
+
+
+Sensibilidad (Exhaustividad)
+: Es la tasa de elementos etiquetados 1 correctamente con respecto a los que realmente son 1. $Sensibilidad = TP/P$
+
+F-Score
+: Es la media armónica entre la precisión y la sensibilidad. $F-Score = 2*(Sensibilidad * Precisión)/(Sensibilidad + Precisión)$
+
+Especificidad
+: Es la tasa de elementos etiquetados 0 que realmente estaban etiquetados como 1. 
+
+Entonces esto nos da las siguientes posibilidades. 
+
+
+| Tipo                          | Cálculo                                               | Sinónimos                                                      |
+|:------------------------------|:------------------------------------------------------|:---------------------------------------------------------------|
+| Tasa Falsos Positivos         | $FP/N$                                                | Error Tipo I, 1-Especificidad                                  |
+| Tasa Verdaderos Positivos     | \(TP/P\)                                              | 1-Error Tipo II, Poder, Sensibilidad,   Exhaustividad (Recall) |
+| Valor de Predicción Positivos | $TP/P^{*}$                                            | Precisión, 1 - Proporción de Falsos Descubrimientos            |
+| Valor de Predicción Negativos | $TN/N^{*}$                                            |                                                                |
+| F-Score                       | $\frac{2(TP/P^{*} \times TP/P )}{(TP/P^{*} + TP/P )}$ |                                                                |
+
+
+
+**CUIDADO:**
+
+- Exactitud funciona bien cuando los datos son simétricos (igual número de FP y FN). 
+- F-Scores es cuando los datos son asimétricos
+- Precisión es qué tan seguro se está de los verdaderos positivos. 
+- Sensibilidad es que tan seguro es que no se está perdiendo ningún positivo. 
+
+En un modelo se debe escoger entre sensibilidad y precisión de acuerdo a ciertas ideas:
+
+- **Sensibilidad** es importante si la ocurrencia de **falsos negativos** es inaceptable. Por ejemplo las prueba COVID-19. Posiblemente se obtendrá más falsos positivos pero este caso es aceptable. 
+- **Precisión** es importante si se quiere estar más seguro de los **verdaderos positivos**. Por ejemplo detectar __spam__ en correos electrónicos. 
+- **Especificidad** es importante si lo que se quiere es cubrir todos los **verdaderos negativos**, es decir, que no se quieren falsas alarmas. Por ejemplo se hacen pruebas de detección de drogas y si es positivo va a la cárcel. Los **falsos positivos** son intolerables. 
+
+```{r}
+
+(TN <- matriz_confusion["N", "N"])
+(TP <- matriz_confusion["P", "P"])
+(FP <- matriz_confusion["N", "P"])
+(FN <- matriz_confusion["P", "N"])
+
+(exactitud <-  (TP + TN) / (TP + TN + FP + FN))
+
+(precision <- TP / (TP + FP))
+
+(sensibilidad <- TP / (TP + FN))
+
+(F_score <- 2 * (precision * sensibilidad) / (precision + sensibilidad))
+
+(especificidad <-  TN / (TN + FP))
+
+```
+
+
+### Curva ROC
+
+
+Un excelente clasificador debería detectar correctamente los **verdaderos positivos (TP)** e ignorar los **falsos positivos (FP)**.
+
+Puesto de otra forma, si el clasificador es malo, los **verdaderos positivos** serían indistingibles de los **falsos positivos**. 
+
+La curva ROC (Receiver Operation Curve) gráfica la Tasa Falsos Positivos vs Sensibilidad del modelo. 
+
+
+
+```{r}
+library(ROCR)
+
+logist.pred.ROCR <- prediction(predict_numeric, titanic$Survived)
+
+logist.perf <- performance(logist.pred.ROCR, "tpr", "fpr")
+
+plot(logist.perf)
+abline(0, 1, col = "red")
+
+auc <- performance(logist.pred.ROCR, measure = "auc")
+
+auc@y.values
+
+```
+**PELIGRO**
+
+Aquí estamos chequeando el poder de clasificación del modelo, con los mismos datos que usamos para ajustar el modelo. Es decir, le estamos diciendo al modelo que compruebe la veracidad de la clasificación que ya hizo previamente. 
+
+Esto es incorrecto, ya que el modelo ya sabe "las respuestas"  y no estamos midiendo su poder de clasficación. 
+
+Para resolver esto, debemos tomar otra muestra de prueba (__training__) que nos diga si el ajuste que hicimos es correcto. 
+
+```{r}
+
+titanic$id <- 1:nrow(titanic)
+
+train <- titanic %>%
+  sample_frac(0.75)
+
+test <- titanic %>%
+  anti_join(train, by = "id")
+```
+
+```{r}
+fit_glm <- glm(Survived ~ Fare + Age, data = train, family = "binomial")
+```
+
+```{r}
+predict_numeric <-  predict(fit_glm, newdata = test, type = "response")
+predict_01 <- as.numeric(predict_numeric >= 0.5)
+
+matriz_confusion <- table(test$Survived, predict_01)
+
+colnames(matriz_confusion) <- c("N", "P")
+rownames(matriz_confusion)<- c("N", "P")
+
+matriz_confusion
+```
+```{r}
+(TN <- matriz_confusion["N", "N"])
+(TP <- matriz_confusion["P", "P"])
+(FP <- matriz_confusion["N", "P"])
+(FN <- matriz_confusion["P", "N"])
+
+(exactitud <-  (TP + TN) / (TP + TN + FP + FN))
+
+(precision <- TP / (TP + FP))
+
+(sensibilidad <- TP / (TP + FN))
+
+(F_score <- 2 * (precision * sensibilidad) / (precision + sensibilidad))
+
+(especificidad <-  TN / (TN + FP))
+```
+
+
+
+```{r}
+
+logist.pred.ROCR <- prediction(predict_numeric, test$Survived)
+
+logist.perf <- performance(logist.pred.ROCR, "tpr", "fpr")
+
+plot(logist.perf)
+abline(0, 1, col = "red")
+
+auc <- performance(logist.pred.ROCR, measure = "auc")
+
+auc@y.values
+```
+
+
 
