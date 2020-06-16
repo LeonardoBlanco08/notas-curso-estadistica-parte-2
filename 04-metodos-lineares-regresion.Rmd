@@ -5,6 +5,9 @@ output:
 ---
 # Métodos lineares de regresión
 
+**NOTA: Para los siguientes capítulos nos basaremos en los libros [@Hastie2009a] y [@James2013b].**
+
+
 ## Introducción 
 
 Supongamos que tenemos \(p\) variables de entrada que mezcladas  con alguna relación desconocida y que provocan una respuesta \(Y\) de salida. 
