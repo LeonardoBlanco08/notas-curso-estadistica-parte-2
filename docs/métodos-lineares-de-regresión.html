@@ -1351,18 +1351,18 @@ Figura 5.2: Gráfico de residuos caso no-lineal
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -3.2863 -0.6624  0.0114  0.6568  2.8455 
+## -3.2769 -0.6893  0.0203  0.6654  2.9470 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.98557    0.03171   31.08   &lt;2e-16 ***
-## x            0.98740    0.03040   32.48   &lt;2e-16 ***
+## (Intercept)  1.05887    0.03177   33.33   &lt;2e-16 ***
+## x            0.99015    0.03269   30.29   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 1.003 on 998 degrees of freedom
-## Multiple R-squared:  0.5139, Adjusted R-squared:  0.5134 
-## F-statistic:  1055 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 1.005 on 998 degrees of freedom
+## Multiple R-squared:  0.4789, Adjusted R-squared:  0.4784 
+## F-statistic: 917.2 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="métodos-lineares-de-regresión.html#cb294-1"></a><span class="kw">acf</span>(<span class="kw">residuals</span>(fit))</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-206-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Caso errores auto-correlacionados</strong></p>
@@ -1378,19 +1378,19 @@ Figura 5.2: Gráfico de residuos caso no-lineal
 ## lm(formula = y ~ x)
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -16.3343  -5.0196   0.6828   4.3112  16.1396 
+##     Min      1Q  Median      3Q     Max 
+## -29.515  -7.332  -0.650   8.439  32.911 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)   3.7244     0.1874  19.871  &lt; 2e-16 ***
-## x             0.8971     0.1866   4.808 1.76e-06 ***
+## (Intercept)  25.7818     0.4513  57.127  &lt; 2e-16 ***
+## x             2.0390     0.4489   4.543 6.23e-06 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 5.925 on 998 degrees of freedom
-## Multiple R-squared:  0.02264,    Adjusted R-squared:  0.02166 
-## F-statistic: 23.12 on 1 and 998 DF,  p-value: 1.756e-06</code></pre>
+## Residual standard error: 14.27 on 998 degrees of freedom
+## Multiple R-squared:  0.02026,    Adjusted R-squared:  0.01928 
+## F-statistic: 20.64 on 1 and 998 DF,  p-value: 6.234e-06</code></pre>
 <div class="sourceCode" id="cb299"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb299-1"><a href="métodos-lineares-de-regresión.html#cb299-1"></a><span class="kw">acf</span>(<span class="kw">residuals</span>(fit))</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-209-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
@@ -1429,19 +1429,19 @@ Figura 5.2: Gráfico de residuos caso no-lineal
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -1.61416 -0.32847  0.01077  0.32597  1.54105 
+## -1.86219 -0.31537 -0.01142  0.33770  1.68161 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  0.03750    0.01873   2.002   0.0456 *  
-## x           -0.00694    0.01478  -0.469   0.6389    
-## I(x^2)       0.98728    0.01055  93.562   &lt;2e-16 ***
+## (Intercept)  0.02710    0.01967   1.377    0.169    
+## x           -0.02398    0.01598  -1.500    0.134    
+## I(x^2)       0.98615    0.01185  83.250   &lt;2e-16 ***
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 0.4782 on 997 degrees of freedom
-## Multiple R-squared:  0.8979, Adjusted R-squared:  0.8977 
-## F-statistic:  4385 on 2 and 997 DF,  p-value: &lt; 2.2e-16</code></pre>
+## Residual standard error: 0.5013 on 997 degrees of freedom
+## Multiple R-squared:  0.8744, Adjusted R-squared:  0.8741 
+## F-statistic:  3469 on 2 and 997 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="métodos-lineares-de-regresión.html#cb308-1"></a><span class="kw">qqnorm</span>(<span class="kw">residuals</span>(fit), <span class="dt">asp =</span> <span class="dv">0</span>)</span>
 <span id="cb308-2"><a href="métodos-lineares-de-regresión.html#cb308-2"></a><span class="kw">qqline</span>(<span class="kw">residuals</span>(fit), <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-217-1.svg" width="70%" style="display: block; margin: auto;" /></p>
@@ -1479,20 +1479,20 @@ Figura 5.2: Gráfico de residuos caso no-lineal
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -4.0122 -2.1937 -0.9606  1.5147  6.6799 
+## -3.8102 -2.1545 -0.7507  1.5108  5.9400 
 ## 
 ## Coefficients:
 ##               Estimate Std. Error t value Pr(&gt;|t|)    
-## (Intercept)  3.452e+01  2.204e+00  15.664  2.2e-15 ***
-## disp        -2.046e-02  9.551e-03  -2.142    0.041 *  
-## wt          -2.999e+02  2.864e+02  -1.047    0.304    
-## wt_kg        6.546e-01  6.322e-01   1.035    0.309    
+## (Intercept)  3.516e+01  2.192e+00  16.038 1.21e-15 ***
+## disp        -1.779e-02  9.249e-03  -1.923   0.0647 .  
+## wt          -2.325e+02  2.870e+02  -0.810   0.4248    
+## wt_kg        5.051e-01  6.328e-01   0.798   0.4314    
 ## ---
 ## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
 ## 
-## Residual standard error: 2.913 on 28 degrees of freedom
-## Multiple R-squared:  0.789,  Adjusted R-squared:  0.7664 
-## F-statistic:  34.9 on 3 and 28 DF,  p-value: 1.346e-09</code></pre>
+## Residual standard error: 2.935 on 28 degrees of freedom
+## Multiple R-squared:  0.7858, Adjusted R-squared:  0.7629 
+## F-statistic: 34.24 on 3 and 28 DF,  p-value: 1.659e-09</code></pre>
 <div class="sourceCode" id="cb311"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb311-1"><a href="métodos-lineares-de-regresión.html#cb311-1"></a><span class="kw">library</span>(car)</span>
 <span id="cb311-2"><a href="métodos-lineares-de-regresión.html#cb311-2"></a><span class="kw">options</span>(<span class="dt">scipen =</span> <span class="dv">1000</span>)</span>
 <span id="cb311-3"><a href="métodos-lineares-de-regresión.html#cb311-3"></a></span>
@@ -1556,7 +1556,7 @@ r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##      1.0071       0.9804</code></pre>
+##      0.9788       0.9684</code></pre>
 <p>**Caso con valores extremos*</p>
 <div class="sourceCode" id="cb315"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb315-1"><a href="métodos-lineares-de-regresión.html#cb315-1"></a>x &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>)</span>
 <span id="cb315-2"><a href="métodos-lineares-de-regresión.html#cb315-2"></a>y &lt;-<span class="st"> </span><span class="dv">1</span> <span class="op">+</span><span class="st"> </span>x <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dt">sd =</span> <span class="fl">0.5</span>)</span>
@@ -1577,7 +1577,7 @@ r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##       1.188        1.047</code></pre>
+##      1.1556       0.9486</code></pre>
 </div>
 <div id="puntos-de-apalancamiento-leverage" class="section level4">
 <h4><span class="header-section-number">5.7.3.2</span> Puntos de apalancamiento (leverage)</h4>

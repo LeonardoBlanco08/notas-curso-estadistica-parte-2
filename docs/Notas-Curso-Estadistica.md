@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística"
 author: "Maikol Solís"
-date: "Actualizado el 16 junio, 2020"
+date: "Actualizado el 17 junio, 2020"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -3435,7 +3435,7 @@ bern_jags
 ```
 
 ```
-## Inference for Bugs model at "/tmp/RtmpEEWzw4/model7d129f359c9.txt", fit using jags,
+## Inference for Bugs model at "/tmp/RtmpEajct8/model3d86204b61d.txt", fit using jags,
 ##  3 chains, each with 2000 iterations (first 1000 discarded)
 ##  n.sims = 3000 iterations saved
 ##          mu.vect sd.vect   2.5%    25%    50%    75%  97.5%  Rhat n.eff
@@ -3699,8 +3699,8 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 1).
 ## Chain 1: 
-## Chain 1: Gradient evaluation took 1.3e-05 seconds
-## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.13 seconds.
+## Chain 1: Gradient evaluation took 1.5e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.15 seconds.
 ## Chain 1: Adjust your expectations accordingly!
 ## Chain 1: 
 ## Chain 1: 
@@ -3717,15 +3717,15 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 1: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 1: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 1: 
-## Chain 1:  Elapsed Time: 0.014946 seconds (Warm-up)
-## Chain 1:                0.016413 seconds (Sampling)
-## Chain 1:                0.031359 seconds (Total)
+## Chain 1:  Elapsed Time: 0.016561 seconds (Warm-up)
+## Chain 1:                0.015825 seconds (Sampling)
+## Chain 1:                0.032386 seconds (Total)
 ## Chain 1: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 2).
 ## Chain 2: 
-## Chain 2: Gradient evaluation took 1.3e-05 seconds
-## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.13 seconds.
+## Chain 2: Gradient evaluation took 5e-06 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.05 seconds.
 ## Chain 2: Adjust your expectations accordingly!
 ## Chain 2: 
 ## Chain 2: 
@@ -3742,15 +3742,15 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 2: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 2: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 2: 
-## Chain 2:  Elapsed Time: 0.045072 seconds (Warm-up)
-## Chain 2:                0.022195 seconds (Sampling)
-## Chain 2:                0.067267 seconds (Total)
+## Chain 2:  Elapsed Time: 0.015872 seconds (Warm-up)
+## Chain 2:                0.019947 seconds (Sampling)
+## Chain 2:                0.035819 seconds (Total)
 ## Chain 2: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 3).
 ## Chain 3: 
-## Chain 3: Gradient evaluation took 7e-06 seconds
-## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
+## Chain 3: Gradient evaluation took 8e-06 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.08 seconds.
 ## Chain 3: Adjust your expectations accordingly!
 ## Chain 3: 
 ## Chain 3: 
@@ -3767,15 +3767,15 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 3: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 3: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 3: 
-## Chain 3:  Elapsed Time: 0.021706 seconds (Warm-up)
-## Chain 3:                0.025588 seconds (Sampling)
-## Chain 3:                0.047294 seconds (Total)
+## Chain 3:  Elapsed Time: 0.020457 seconds (Warm-up)
+## Chain 3:                0.017149 seconds (Sampling)
+## Chain 3:                0.037606 seconds (Total)
 ## Chain 3: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 4).
 ## Chain 4: 
-## Chain 4: Gradient evaluation took 6e-06 seconds
-## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
+## Chain 4: Gradient evaluation took 4e-06 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.04 seconds.
 ## Chain 4: Adjust your expectations accordingly!
 ## Chain 4: 
 ## Chain 4: 
@@ -3792,9 +3792,9 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 4: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 4: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 4: 
-## Chain 4:  Elapsed Time: 0.022942 seconds (Warm-up)
-## Chain 4:                0.019539 seconds (Sampling)
-## Chain 4:                0.042481 seconds (Total)
+## Chain 4:  Elapsed Time: 0.01831 seconds (Warm-up)
+## Chain 4:                0.015764 seconds (Sampling)
+## Chain 4:                0.034074 seconds (Total)
 ## Chain 4:
 ```
 
@@ -3811,7 +3811,7 @@ print(fit, probs = c(0.1, 0.9))
 ## theta   0.31    0.00 0.06   0.23   0.39  3136    1
 ## lp__  -32.60    0.01 0.72 -33.49 -32.11  4750    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Wed Jun  3 17:12:20 2020.
+## Samples were drawn using NUTS(diag_e) at Wed Jun 17 15:30:58 2020.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).
@@ -4497,15 +4497,15 @@ summary(fit)
 ## -4.5432 -2.3647 -0.1252  1.4096  6.8727 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  37.2851     1.8776  19.858  < 2e-16 ***
-## wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+##             Estimate Std. Error t value             Pr(>|t|)    
+## (Intercept)  37.2851     1.8776  19.858 < 0.0000000000000002 ***
+## wt           -5.3445     0.5591  -9.559       0.000000000129 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 3.046 on 30 degrees of freedom
 ## Multiple R-squared:  0.7528,	Adjusted R-squared:  0.7446 
-## F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10
+## F-statistic: 91.38 on 1 and 30 DF,  p-value: 0.0000000001294
 ```
 
 ```r
@@ -4523,17 +4523,17 @@ summary(fit)
 ## -4.5890 -1.2357 -0.5159  1.3845  5.7915 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  33.9908     1.8878  18.006  < 2e-16 ***
-## wt           -3.2056     0.7539  -4.252 0.000213 ***
-## cyl6         -4.2556     1.3861  -3.070 0.004718 ** 
-## cyl8         -6.0709     1.6523  -3.674 0.000999 ***
+##             Estimate Std. Error t value             Pr(>|t|)    
+## (Intercept)  33.9908     1.8878  18.006 < 0.0000000000000002 ***
+## wt           -3.2056     0.7539  -4.252             0.000213 ***
+## cyl6         -4.2556     1.3861  -3.070             0.004718 ** 
+## cyl8         -6.0709     1.6523  -3.674             0.000999 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 2.557 on 28 degrees of freedom
 ## Multiple R-squared:  0.8374,	Adjusted R-squared:   0.82 
-## F-statistic: 48.08 on 3 and 28 DF,  p-value: 3.594e-11
+## F-statistic: 48.08 on 3 and 28 DF,  p-value: 0.00000000003594
 ```
 
 ```r
@@ -4718,16 +4718,16 @@ summary(fit)
 ## -1.44716 -0.34692 -0.01095  0.34280  1.53693 
 ## 
 ## Coefficients:
-##             Estimate Std. Error t value Pr(>|t|)    
-## (Intercept)  0.94616    0.03196   29.60   <2e-16 ***
-## x1           1.03322    0.01614   64.02   <2e-16 ***
-## x2           1.09560    0.05491   19.95   <2e-16 ***
+##             Estimate Std. Error t value            Pr(>|t|)    
+## (Intercept)  0.94616    0.03196   29.60 <0.0000000000000002 ***
+## x1           1.03322    0.01614   64.02 <0.0000000000000002 ***
+## x2           1.09560    0.05491   19.95 <0.0000000000000002 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
 ## Residual standard error: 0.5014 on 997 degrees of freedom
 ## Multiple R-squared:  0.8213,	Adjusted R-squared:  0.8209 
-## F-statistic:  2291 on 2 and 997 DF,  p-value: < 2.2e-16
+## F-statistic:  2291 on 2 and 997 DF,  p-value: < 0.00000000000000022
 ```
 
 
@@ -5488,18 +5488,18 @@ summary(fit)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -3.3117 -0.6623 -0.0212  0.6780  3.3605 
+## -3.2665 -0.6871  0.0002  0.6670  2.9410 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value            Pr(>|t|)    
-## (Intercept)  0.98286    0.03180   30.90 <0.0000000000000002 ***
-## x            1.02163    0.03027   33.75 <0.0000000000000002 ***
+## (Intercept)  1.04643    0.03183   32.87 <0.0000000000000002 ***
+## x            0.95650    0.03287   29.10 <0.0000000000000002 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 1.006 on 998 degrees of freedom
-## Multiple R-squared:  0.5331,	Adjusted R-squared:  0.5326 
-## F-statistic:  1139 on 1 and 998 DF,  p-value: < 0.00000000000000022
+## Residual standard error: 1.007 on 998 degrees of freedom
+## Multiple R-squared:  0.4589,	Adjusted R-squared:  0.4584 
+## F-statistic: 846.6 on 1 and 998 DF,  p-value: < 0.00000000000000022
 ```
 
 ```r
@@ -5542,19 +5542,19 @@ summary(fit)
 ## lm(formula = y ~ x)
 ## 
 ## Residuals:
-##      Min       1Q   Median       3Q      Max 
-## -16.0406  -4.8890  -0.8442   4.8950  16.4602 
+##     Min      1Q  Median      3Q     Max 
+## -45.109 -13.583   3.439  11.036  26.104 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value             Pr(>|t|)    
-## (Intercept)  -3.3808     0.2259 -14.968 < 0.0000000000000002 ***
-## x             1.1687     0.2289   5.106          0.000000395 ***
+## (Intercept)  43.4918     0.4791  90.787 < 0.0000000000000002 ***
+## x             1.5347     0.4771   3.217              0.00134 ** 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 7.14 on 998 degrees of freedom
-## Multiple R-squared:  0.02546,	Adjusted R-squared:  0.02448 
-## F-statistic: 26.07 on 1 and 998 DF,  p-value: 0.0000003946
+## Residual standard error: 15.15 on 998 degrees of freedom
+## Multiple R-squared:  0.01026,	Adjusted R-squared:  0.00927 
+## F-statistic: 10.35 on 1 and 998 DF,  p-value: 0.001339
 ```
 
 ```r
@@ -5647,19 +5647,19 @@ summary(fit)
 ## 
 ## Residuals:
 ##      Min       1Q   Median       3Q      Max 
-## -1.22821 -0.35880  0.00671  0.34656  1.50042 
+## -1.84371 -0.30372 -0.01256  0.32728  1.68466 
 ## 
 ## Coefficients:
-##              Estimate Std. Error t value            Pr(>|t|)    
-## (Intercept) -0.002867   0.019706  -0.146               0.884    
-## x           -0.005072   0.015685  -0.323               0.747    
-## I(x^2)       0.997910   0.011481  86.915 <0.0000000000000002 ***
+##             Estimate Std. Error t value            Pr(>|t|)    
+## (Intercept)  0.01010    0.01979   0.511              0.6098    
+## x           -0.03009    0.01587  -1.896              0.0582 .  
+## I(x^2)       0.99172    0.01196  82.906 <0.0000000000000002 ***
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 0.5003 on 997 degrees of freedom
-## Multiple R-squared:  0.8841,	Adjusted R-squared:  0.8838 
-## F-statistic:  3801 on 2 and 997 DF,  p-value: < 0.00000000000000022
+## Residual standard error: 0.5001 on 997 degrees of freedom
+## Multiple R-squared:  0.8734,	Adjusted R-squared:  0.8731 
+## F-statistic:  3438 on 2 and 997 DF,  p-value: < 0.00000000000000022
 ```
 
 
@@ -5727,20 +5727,20 @@ summary(fit_kg)
 ## 
 ## Residuals:
 ##     Min      1Q  Median      3Q     Max 
-## -4.3444 -2.1246 -0.3308  1.5040  6.5010 
+## -4.0609 -1.8566 -0.6442  1.1658  6.1471 
 ## 
 ## Coefficients:
 ##               Estimate Std. Error t value             Pr(>|t|)    
-## (Intercept)  35.295933   2.139467  16.498 0.000000000000000591 ***
-## disp         -0.014814   0.009256  -1.601                0.121    
-## wt          368.260011 259.878804   1.417                0.168    
-## wt_kg        -0.820065   0.573491  -1.430                0.164    
+## (Intercept)  36.263681   2.143546  16.918 0.000000000000000311 ***
+## disp         -0.016980   0.008712  -1.949               0.0614 .  
+## wt          455.378192 220.448899   2.066               0.0482 *  
+## wt_kg        -1.012338   0.486488  -2.081               0.0467 *  
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
-## Residual standard error: 2.865 on 28 degrees of freedom
-## Multiple R-squared:  0.7958,	Adjusted R-squared:  0.774 
-## F-statistic: 36.38 on 3 and 28 DF,  p-value: 0.0000000008522
+## Residual standard error: 2.762 on 28 degrees of freedom
+## Multiple R-squared:  0.8103,	Adjusted R-squared:  0.7899 
+## F-statistic: 39.86 on 3 and 28 DF,  p-value: 0.0000000003079
 ```
 
 
@@ -5844,7 +5844,7 @@ fit
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##      0.9937       0.9757
+##      0.9893       0.9701
 ```
 
 **Caso con valores extremos*
@@ -5879,7 +5879,7 @@ fit
 ## 
 ## Coefficients:
 ## (Intercept)            x  
-##      1.1475       0.9688
+##      1.1505       0.9397
 ```
 
 #### Puntos de apalancamiento (leverage)
@@ -6298,10 +6298,10 @@ summary(fit_glm)
 ## -2.7605  -0.9232  -0.8214   1.2362   1.7820  
 ## 
 ## Coefficients:
-##              Estimate Std. Error z value Pr(>|z|)    
-## (Intercept) -0.417055   0.185976  -2.243  0.02493 *  
-## Fare         0.017258   0.002617   6.596 4.23e-11 ***
-## Age         -0.017578   0.005666  -3.103  0.00192 ** 
+##              Estimate Std. Error z value        Pr(>|z|)    
+## (Intercept) -0.417055   0.185976  -2.243         0.02493 *  
+## Fare         0.017258   0.002617   6.596 0.0000000000423 ***
+## Age         -0.017578   0.005666  -3.103         0.00192 ** 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
@@ -6466,10 +6466,10 @@ summary(fit_glm)
 ## -2.7605  -0.9232  -0.8214   1.2362   1.7820  
 ## 
 ## Coefficients:
-##              Estimate Std. Error z value Pr(>|z|)    
-## (Intercept) -0.417055   0.185976  -2.243  0.02493 *  
-## Fare         0.017258   0.002617   6.596 4.23e-11 ***
-## Age         -0.017578   0.005666  -3.103  0.00192 ** 
+##              Estimate Std. Error z value        Pr(>|z|)    
+## (Intercept) -0.417055   0.185976  -2.243         0.02493 *  
+## Fare         0.017258   0.002617   6.596 0.0000000000423 ***
+## Age         -0.017578   0.005666  -3.103         0.00192 ** 
 ## ---
 ## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
 ## 
