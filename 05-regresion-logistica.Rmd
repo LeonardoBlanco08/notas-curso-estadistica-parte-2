@@ -219,10 +219,12 @@ ggplot(df, aes(valores.ajustados, logit)) +
 
 ```{r }
 plot(fit_glm, which = 4)
+
+plot(fit_glm, which = 1:6)
 ```
 ```{r}
 library(broom)
-fit_data <- augment(fit_glm) %>% 
+fit_data <- broom::augment(fit_glm) %>% 
   mutate(indice = 1:n()) 
 
 fit_data %>% top_n(3, .cooksd)
