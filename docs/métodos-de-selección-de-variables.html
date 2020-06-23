@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="regresión-logística.html"/>
-<link rel="next" href="métodos-de-regularización.html"/>
+<link rel="next" href="análisis-en-componentes-principales.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -221,6 +221,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="5.7.2" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#chequeos-básicos-de-las-hipótesis-de-regresión-lineal"><i class="fa fa-check"></i><b>5.7.2</b> Chequeos básicos de las hipótesis de regresión lineal</a></li>
 <li class="chapter" data-level="5.7.3" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#otros-chequeos-importantes"><i class="fa fa-check"></i><b>5.7.3</b> Otros chequeos importantes</a></li>
 </ul></li>
+<li class="chapter" data-level="5.8" data-path="métodos-lineares-de-regresión.html"><a href="métodos-lineares-de-regresión.html#ejercicios-3"><i class="fa fa-check"></i><b>5.8</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="6" data-path="regresión-logística.html"><a href="regresión-logística.html"><i class="fa fa-check"></i><b>6</b> Regresión Logística</a><ul>
 <li class="chapter" data-level="6.1" data-path="regresión-logística.html"><a href="regresión-logística.html#razón-de-proporción"><i class="fa fa-check"></i><b>6.1</b> Razón de proporción</a></li>
@@ -235,22 +236,33 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="6.4" data-path="regresión-logística.html"><a href="regresión-logística.html#predicción-y-poder-de-clasificación"><i class="fa fa-check"></i><b>6.4</b> Predicción y poder de clasificación</a><ul>
 <li class="chapter" data-level="6.4.1" data-path="regresión-logística.html"><a href="regresión-logística.html#curva-roc"><i class="fa fa-check"></i><b>6.4.1</b> Curva ROC</a></li>
 </ul></li>
+<li class="chapter" data-level="6.5" data-path="regresión-logística.html"><a href="regresión-logística.html#ejercicios-4"><i class="fa fa-check"></i><b>6.5</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="7" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html"><i class="fa fa-check"></i><b>7</b> Métodos de selección de variables</a><ul>
-<li class="chapter" data-level="7.1" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#selección-del-mejor-subconjunto."><i class="fa fa-check"></i><b>7.1</b> 1. Selección del mejor subconjunto.</a></li>
-<li class="chapter" data-level="7.2" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#posibles-soluciones"><i class="fa fa-check"></i><b>7.2</b> 2. Posibles soluciones</a><ul>
-<li class="chapter" data-level="7.2.1" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#ajuste-al-error-de-entrenamiento"><i class="fa fa-check"></i><b>7.2.1</b> Ajuste al error de entrenamiento</a></li>
-<li class="chapter" data-level="7.2.2" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#selección-de-modelos-hacia-adelante-forward-stepwise-selection"><i class="fa fa-check"></i><b>7.2.2</b> Selección de modelos hacia adelante (<strong>Forward Stepwise Selection</strong>)</a></li>
-<li class="chapter" data-level="7.2.3" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#selección-de-modelos-hacia-atrás-backward-stepwise-selection"><i class="fa fa-check"></i><b>7.2.3</b> Selección de modelos hacia atrás (<strong>Backward Stepwise Selection</strong>)</a></li>
+<li class="chapter" data-level="7.1" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#selección-del-mejor-subconjunto."><i class="fa fa-check"></i><b>7.1</b> Selección del mejor subconjunto.</a><ul>
+<li class="chapter" data-level="7.1.1" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#error-de-prueba"><i class="fa fa-check"></i><b>7.1.1</b> Error de prueba</a></li>
+<li class="chapter" data-level="7.1.2" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#otras-medidas-de-error-de-entrenamiento"><i class="fa fa-check"></i><b>7.1.2</b> Otras medidas de error de entrenamiento</a></li>
+<li class="chapter" data-level="7.1.3" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#selección-de-modelos-hacia-adelante-forward-stepwise-selection"><i class="fa fa-check"></i><b>7.1.3</b> Selección de modelos hacia adelante (<strong>Forward Stepwise Selection</strong>)</a></li>
+<li class="chapter" data-level="7.1.4" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#selección-de-modelos-hacia-atrás-backward-stepwise-selection"><i class="fa fa-check"></i><b>7.1.4</b> Selección de modelos hacia atrás (<strong>Backward Stepwise Selection</strong>)</a></li>
 </ul></li>
+<li class="chapter" data-level="7.2" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#métodos-de-regularización"><i class="fa fa-check"></i><b>7.2</b> Métodos de regularización</a><ul>
+<li class="chapter" data-level="7.2.1" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#regresión-ridge"><i class="fa fa-check"></i><b>7.2.1</b> Regresión Ridge</a></li>
+<li class="chapter" data-level="7.2.2" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#regresión-lasso"><i class="fa fa-check"></i><b>7.2.2</b> Regresión Lasso</a></li>
+<li class="chapter" data-level="7.2.3" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#explicación-gráfica"><i class="fa fa-check"></i><b>7.2.3</b> Explicación gráfica</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html"><i class="fa fa-check"></i><b>8</b> Métodos de regularización</a><ul>
-<li class="chapter" data-level="8.1" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html#regresión-ridge"><i class="fa fa-check"></i><b>8.1</b> Regresión Ridge</a><ul>
-<li class="chapter" data-level="8.1.1" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html#estimación-clásica-por-mínimos-cuadrados."><i class="fa fa-check"></i><b>8.1.1</b> Estimación clásica por mínimos cuadrados.</a></li>
-<li class="chapter" data-level="8.1.2" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html#ventajas"><i class="fa fa-check"></i><b>8.1.2</b> Ventajas</a></li>
+<li class="chapter" data-level="7.3" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#laboratorio-6"><i class="fa fa-check"></i><b>7.3</b> Laboratorio</a><ul>
+<li class="chapter" data-level="7.3.1" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#cross-validation"><i class="fa fa-check"></i><b>7.3.1</b> Cross-Validation</a></li>
+<li class="chapter" data-level="7.3.2" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#selección-de-variables"><i class="fa fa-check"></i><b>7.3.2</b> Selección de variables</a></li>
+<li class="chapter" data-level="7.3.3" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#regresión-lasso-1"><i class="fa fa-check"></i><b>7.3.3</b> Regresión Lasso</a></li>
 </ul></li>
-<li class="chapter" data-level="8.2" data-path="métodos-de-regularización.html"><a href="métodos-de-regularización.html#regresión-lasso"><i class="fa fa-check"></i><b>8.2</b> Regresión Lasso</a></li>
+<li class="chapter" data-level="7.4" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#ejercicios-5"><i class="fa fa-check"></i><b>7.4</b> Ejercicios</a></li>
 </ul></li>
+<li class="chapter" data-level="8" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html"><i class="fa fa-check"></i><b>8</b> Análisis en componentes principales</a><ul>
+<li class="chapter" data-level="8.1" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#primer-componente-principal"><i class="fa fa-check"></i><b>8.1</b> Primer componente principal</a></li>
+<li class="chapter" data-level="8.2" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#segunda-componente-principal"><i class="fa fa-check"></i><b>8.2</b> Segunda componente principal</a></li>
+<li class="chapter" data-level="8.3" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#cuántos-componentes-usar"><i class="fa fa-check"></i><b>8.3</b> ¿Cuántos componentes usar?</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="laboratorio-7.html"><a href="laboratorio-7.html"><i class="fa fa-check"></i><b>9</b> Laboratorio</a></li>
 </ul>
 
       </nav>
@@ -270,10 +282,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="métodos-de-selección-de-variables" class="section level1">
 <h1><span class="header-section-number">Capítulo 7</span> Métodos de selección de variables</h1>
+<p>Cuando se construye un modelo de regresión (lineal o logística) existe la posibilidad de que existan más variables que datos disponibles.</p>
+<p>Si se recuerdan del Capítulo 4, el <span class="math inline">\(R^{2}\)</span> ajustado tenía un factor <span class="math inline">\(n-p-1\)</span> en el denominador y si <span class="math inline">\(n&gt;p\)</span> este tipo de indicador no se podría estimar.</p>
+<p>En este capítulo veremos cómo construir modelos más pequeños y hacer comparaciones entre ellos.</p>
 <div id="selección-del-mejor-subconjunto." class="section level2">
-<h2><span class="header-section-number">7.1</span> 1. Selección del mejor subconjunto.</h2>
-<em>Algoritmo:</em>
-
+<h2><span class="header-section-number">7.1</span> Selección del mejor subconjunto.</h2>
+<p>En este caso trataremos de seleccionar el mejor subconjunto de un total de <span class="math inline">\(p\)</span> variables. Claramente si escogieramos solo <span class="math inline">\(k\)</span> varibles existiría <span class="math inline">\(\binom{p}{k}\)</span> modelos diferentes que escoger.</p>
+<p>El algoritmo para este caso sería:</p>
+<p><em>Algoritmo:</em>
+1. Sea <span class="math inline">\(M_0\)</span> el modelo nulo (solo tiene constantes).
+1. Para <span class="math inline">\(k=1,2,\dots,p\)</span> (número de variables),
+a. Ajuste todos los <span class="math inline">\(\binom{p}{k}\)</span> modelos que contengan <span class="math inline">\(k\)</span> predictores.
+b. Seleccione el mejor entre esos <span class="math inline">\(\binom{p}{k}\)</span> modelos. El “mejor” es el que tenga el <span class="math inline">\(RSS\)</span> menor, o el <span class="math inline">\(R^2\)</span> más grande. Llame a este modelo <span class="math inline">\(M_k\)</span>.
+1. Seleccione el mejor modelo entre <span class="math inline">\(M_0,M_1,\dots,M_p\)</span> seleccione aquel que tenga mejor error de validación cruzada, <span class="math inline">\(C_p\)</span>, <span class="math inline">\(AIC\)</span>, <span class="math inline">\(BIC\)</span> o <span class="math inline">\(R^2\)</span> ajustado.</p>
+<p><strong>Nota: Más adelante veremos qué es validación cruzada, <span class="math inline">\(C_p\)</span>, <span class="math inline">\(AIC\)</span> y <span class="math inline">\(BIC\)</span></strong></p>
 <p><em>Ejemplo:</em> <span class="math inline">\(Y = \beta_0+\beta_1X_1+ \beta_2X_2 + \beta_3X_3\)</span>.</p>
 <p>Puede ser que el mejor modelo sea</p>
 <ul>
@@ -286,16 +308,76 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul>
 <p>De los que tienen <span class="math inline">\(k=1\)</span> variable, hay <span class="math inline">\(\binom{3}{1}\)</span> = 3 modelos. Para <span class="math inline">\(k=2\)</span>, son <span class="math inline">\(\binom{3}{2}\)</span> = 3, y para <span class="math inline">\(k=3\)</span>, solo un modelo. Para <span class="math inline">\(k=1\)</span>, se ajustan los 3 y al mejor se le llama <span class="math inline">\(M_1\)</span>. Así para los otros <span class="math inline">\(k\)</span>. Obtenidos estos modelos, se escoge el que tenga la mejor medida, con respecto a los errores antes mencionados.</p>
 <p><em>Notas:</em></p>
-
-</div>
-<div id="posibles-soluciones" class="section level2">
-<h2><span class="header-section-number">7.2</span> 2. Posibles soluciones</h2>
+<ul>
+<li>La parte 2.b. se hace con la muestra de entrenamiento. <strong>Objetivo: Minimizar el error de entrenamiento.</strong></li>
+<li>La parte 3 se selecciona con los datos de prueba. <strong>Objetivo: Minimizar el error de prueba</strong>.</li>
+<li>Si se usa el <span class="math inline">\(RSS\)</span> o <span class="math inline">\(R^2\)</span>, siempre se selecciona el modelo con el número mayor de variables. Este es un problema de sobreajuste.</li>
+<li>El gran problema es la cantidad de variables y los modelos por ajustar, los cuales son <span class="math inline">\(\sum_{k=1}^n \binom{p}{k}\)</span>. Computacionalmente ineficiente.</li>
+</ul>
+<div id="error-de-prueba" class="section level3">
+<h3><span class="header-section-number">7.1.1</span> Error de prueba</h3>
+<p>El problema con el error de prueba es que contiene una fuente de variabilidad no observada por el modelo.</p>
+<p><strong>2 soluciones</strong></p>
 <ol style="list-style-type: lower-alpha">
-<li>Estimar indirectamente el error de prueba al añadirle un factor de sobreajuste (más sesgo).</li>
+<li>Estimar indirectamente el error de prueba al añadirle un factor de sobreajuste. Es decir, agregarle artificialmente la variabilidad no observada, pero incluyendo más sesgo.</li>
 <li>Estimar directamente el error de prueba usando validación cruzada.</li>
 </ol>
-<div id="ajuste-al-error-de-entrenamiento" class="section level3">
-<h3><span class="header-section-number">7.2.1</span> Ajuste al error de entrenamiento</h3>
+<div id="validación-cruzada-2" class="section level4">
+<h4><span class="header-section-number">7.1.1.1</span> Validación cruzada</h4>
+<p>Dividir aleatoriamente los datos totales en 2 partes (con tamaños comparables)</p>
+<ul>
+<li>Conjunto de prueba: Se ajusta el modelo.</li>
+<li>Conjunto de validación: El modelo ajustado se usa para predecir en este conjunto.</li>
+</ul>
+<p>Se usa una medida de validación en cada escogencia de los dos conjuntos (<span class="math inline">\(MSE\)</span> en el caso cuantitativo)</p>
+<ol style="list-style-type: decimal">
+<li>Puede que el varianza del estimador tenga una varianza muy alta.</li>
+<li>El error de validación tiende a ser mayor que el error de entrenamiento. Puede haber sobreestimación.</li>
+</ol>
+<div id="validación-cruzada-leave-one-out-loocv" class="section level5">
+<h5><span class="header-section-number">7.1.1.1.1</span> Validación cruzada “Leave-One-Out” (LOOCV)</h5>
+<p>Una sola observación <span class="math inline">\(\left( X_{i}, Y_{i} \right)\)</span> se usa en el conjunto de validación. Observaciones restantes, se usan en el conjunto de entrenamiento.</p>
+<p>Defina</p>
+<p><span class="math display">\[\begin{equation*}
+MSE_{i} =(Y_{i}-\hat{Y}_{i})^{2}
+\end{equation*}\]</span></p>
+<p>como el error cometido por usar la observación <span class="math inline">\(i\)</span> como muestra de prueba y el resto de valores como muestra de entrenamiento.</p>
+<p>El estimador LOOCV es</p>
+<p><span class="math display">\[\begin{equation*}
+CV_{n} = \frac{1}{n} \sum_{i=1}^{n} MSE_{i}
+\end{equation*}\]</span></p>
+<p><strong>Ventajas</strong></p>
+<ol style="list-style-type: decimal">
+<li>Menos sesgo. (Conjunto de prueba de tamaño casi igual que los datos totales).</li>
+<li>Menos varianza.</li>
+</ol>
+<p><strong>Problema: Puede ser lento, dependiendo de la cantidad de datos.</strong></p>
+</div>
+<div id="validación-cruzada-k-veces" class="section level5">
+<h5><span class="header-section-number">7.1.1.1.2</span> Validación cruzada <span class="math inline">\(k-\)</span>veces</h5>
+<p>Se aplica el mismo principio que LOOCV, pero se divide la muestra en <span class="math inline">\(k\)</span> distintas partes.</p>
+<p><span class="math display">\[\begin{equation*}
+CV_{k} = \frac{1}{k} \sum_{i=1}^{k} MSE_{k}
+\end{equation*}\]</span></p>
+<p><strong>Ventajas: Es más económico</strong></p>
+<p><strong>Desventaja: Nivel intermedio de sesgo</strong></p>
+<p><span class="math display">\[\begin{equation*}
+\frac{n}{2} &lt; \frac{(k-1)n}{k} &lt; n-1
+\end{equation*}\]</span></p>
+</div>
+</div>
+<div id="validación-cruzada-para-clasificación" class="section level4">
+<h4><span class="header-section-number">7.1.1.2</span> Validación cruzada para clasificación</h4>
+<p>Se usa</p>
+<p><span class="math display">\[\begin{equation*}
+CV_{n} = \frac{1}{n} \sum_{i=1}^{n} Err_{n}
+\end{equation*}\]</span></p>
+<p>donde <span class="math inline">\(Err_i = I_{Y_i \neq \hat{Y}_{i}}\)</span></p>
+<p>y <span class="math inline">\(CV_{k}\)</span> se define similar</p>
+</div>
+</div>
+<div id="otras-medidas-de-error-de-entrenamiento" class="section level3">
+<h3><span class="header-section-number">7.1.2</span> Otras medidas de error de entrenamiento</h3>
 <ul>
 <li><p><span class="math inline">\(C_p\)</span>. Se usa en ajustes con mínimos cuadrados.
 <span class="math display">\[ C_p = \dfrac{1}{n}\left[RSS+2k\hat\sigma^2\right]\]</span>
@@ -312,10 +394,19 @@ donde <span class="math inline">\(k\)</span> es el número de predictores y <spa
 <li><span class="math inline">\(R^2\)</span> ajustado. Recuerde que <span class="math inline">\(R^2 = 1 - \dfrac{RSS}{TSS}\)</span>. Como <span class="math inline">\(RSS\)</span> decrece si se le agrega más variables, entonces <span class="math inline">\(R^2 \nearrow 1\)</span>. Vea que <span class="math inline">\(RSS = \sum(y_i-\hat{y}_i)^2\)</span> y <span class="math inline">\(TSS = \sum(y_i-\bar{y}_i)^2\)</span>, entonces,
 <span class="math display">\[R^2 \text{ ajustado}= 1-\dfrac{\dfrac{RSS}{n-k-1}}{\dfrac{TSS}{n-1}}\]</span></li>
 </ul>
+<p>Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 <span class="citation">(Hastie, Tibshirani, and Friedman <a href="#ref-Hastie2009a" role="doc-biblioref">2009</a>)</span>.</p>
 </div>
 <div id="selección-de-modelos-hacia-adelante-forward-stepwise-selection" class="section level3">
-<h3><span class="header-section-number">7.2.2</span> Selección de modelos hacia adelante (<strong>Forward Stepwise Selection</strong>)</h3>
-
+<h3><span class="header-section-number">7.1.3</span> Selección de modelos hacia adelante (<strong>Forward Stepwise Selection</strong>)</h3>
+<ol style="list-style-type: decimal">
+<li>Sea <span class="math inline">\(M_0\)</span> el modelo nulo.</li>
+<li>Para <span class="math inline">\(k=0,1,\dots,p-1\)</span>,
+<ol style="list-style-type: lower-alpha">
+<li>Considere los <span class="math inline">\(p-k\)</span> modelos que contenga los predictores en <span class="math inline">\(M_k\)</span> con un predictor adicional.</li>
+<li>Seleccione el mejor entre esos <span class="math inline">\(p-k\)</span> modelos usando el <span class="math inline">\(R^2\)</span> o <span class="math inline">\(RSS\)</span>. Llámelo <span class="math inline">\(M_{k+1}\)</span>.</li>
+</ol></li>
+<li>Seleccione el mejor modelo entre <span class="math inline">\(M_0,\dots, M_p\)</span> usando <span class="math inline">\(VC\)</span>, <span class="math inline">\(Cp\)</span>, <span class="math inline">\(AIC\)</span>, <span class="math inline">\(BIC\)</span> o <span class="math inline">\(R^2\)</span> ajustado.</li>
+</ol>
 <p><em>Ejemplo:</em> <span class="math inline">\(Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3\)</span></p>
 <ul>
 <li><p><span class="math inline">\(M_0\)</span>: <span class="math inline">\(Y = \beta_0\)</span></p></li>
@@ -326,8 +417,16 @@ donde <span class="math inline">\(k\)</span> es el número de predictores y <spa
 <p><em>Nota:</em> el número de modelos por calcular usando el mejor subconjunto es <span class="math inline">\(n^p\)</span>, mientras que usando Forward es <span class="math inline">\(1+\displaystyle\sum_0^ {p-1} p-k = \dfrac{1+p(1+p)}2\)</span>.</p>
 </div>
 <div id="selección-de-modelos-hacia-atrás-backward-stepwise-selection" class="section level3">
-<h3><span class="header-section-number">7.2.3</span> Selección de modelos hacia atrás (<strong>Backward Stepwise Selection</strong>)</h3>
-
+<h3><span class="header-section-number">7.1.4</span> Selección de modelos hacia atrás (<strong>Backward Stepwise Selection</strong>)</h3>
+<ol style="list-style-type: decimal">
+<li>Sea <span class="math inline">\(M_p\)</span> el modelo completo.</li>
+<li>Para <span class="math inline">\(k=p,p-1,\dots,1\)</span>,
+<ol style="list-style-type: lower-alpha">
+<li>Considere los <span class="math inline">\(k\)</span> modelos que contienen todos excepto uno de los predictores en <span class="math inline">\(M_k\)</span> para un total de <span class="math inline">\(k-1\)</span> predictores.</li>
+<li>Seleccione el mejor entre esos <span class="math inline">\(k\)</span> modelos usando el <span class="math inline">\(R^2\)</span> o <span class="math inline">\(RSS\)</span>. Llámelo <span class="math inline">\(M_{k+1}\)</span>.</li>
+</ol></li>
+<li>Seleccione el mejor modelo entre <span class="math inline">\(M_0,\dots,M_p\)</span> usando <span class="math inline">\(VC\)</span>, <span class="math inline">\(C_p\)</span>, <span class="math inline">\(AIC\)</span>, <span class="math inline">\(BIC\)</span> o <span class="math inline">\(R^2\)</span> ajustado.</li>
+</ol>
 <p><em>Ejemplo:</em> <span class="math inline">\(Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3\)</span></p>
 <ul>
 <li><p><span class="math inline">\(M_3\)</span>: <span class="math inline">\(Y = \beta_0 +\beta_1X_1+\beta_2X_2+\beta_3X_3\)</span>.</p></li>
@@ -337,6 +436,816 @@ donde <span class="math inline">\(k\)</span> es el número de predictores y <spa
 </ul>
 </div>
 </div>
+<div id="métodos-de-regularización" class="section level2">
+<h2><span class="header-section-number">7.2</span> Métodos de regularización</h2>
+<div id="regresión-ridge" class="section level3">
+<h3><span class="header-section-number">7.2.1</span> Regresión Ridge</h3>
+<p>Considere
+<span class="math display">\[ RSS = \sum_{i=1}^{n}\left(y_i-\beta\sigma\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 \]</span>
+y
+<span class="math display">\[
+\hat\beta = \underset{\beta}{\mathrm{argmin}} RSS
+\]</span></p>
+<p>La regresión Ridge consiste en determinar</p>
+<p><span class="math display">\[ \hat\beta^R_\lambda = \underset{\beta}{\mathrm{argmin}}\left[RSS + \lambda\sum_{j=1}^n\beta_j^2\right]\]</span></p>
+<p>Se define:
+<span class="math display">\[\|\beta_{-0}\|^2_2 = \sum_{j=1}^{n}\beta_j^2\]</span></p>
+<ul>
+<li>Si <span class="math inline">\(\lambda = 0\)</span>, <span class="math inline">\(\hat\beta = \beta^R_\lambda\)</span>: caso de máxima varianza, con el menor sesgo posible.</li>
+<li>Si <span class="math inline">\(\lambda \to +\infty\)</span>, <span class="math inline">\(\beta \to 0\)</span>: se sacrifican todos los parámetros <span class="math inline">\(\beta\)</span>. Máximo sesgo pero varianza nula.</li>
+</ul>
+<p>¿Cómo se debe seleccionar el <span class="math inline">\(\lambda\)</span>?
+El método para seleccionarlo es por validación cruzada</p>
+<div id="estimación-clásica-por-mínimos-cuadrados." class="section level4">
+<h4><span class="header-section-number">7.2.1.1</span> Estimación clásica por mínimos cuadrados.</h4>
+<p><span class="math display">\[ \hat\beta = (X^T\cdot X)^{-1}X^Ty\]</span>
+Si se multiplica una constante <span class="math inline">\(c\)</span> a <span class="math inline">\(Xi\)</span>, entonces <span class="math inline">\(\hat\beta = \dfrac{\hat\beta_i}{c}\)</span>. La constante <span class="math inline">\(c\)</span> afecta directamente al <span class="math inline">\(\|\beta_{-0}\|^2_2\)</span>, por lo que se recomienda estandarizar las covariables.</p>
+</div>
+<div id="ventajas" class="section level4">
+<h4><span class="header-section-number">7.2.1.2</span> Ventajas</h4>
+<ol style="list-style-type: decimal">
+<li>Indica el balance entre sesgo y varianza.</li>
+<li>Si <span class="math inline">\(p&gt;n\)</span> (mayor cantidad de variables que datos), al realizar mínimos cuadrados, no se puede dar una solución, pero con la forma de regresión de Ridge es posible alcanzarla.</li>
+<li>Computacionalmente es más eficiente que usando selección de “todos los subconjuntos”.</li>
+</ol>
+</div>
+</div>
+<div id="regresión-lasso" class="section level3">
+<h3><span class="header-section-number">7.2.2</span> Regresión Lasso</h3>
+<p><span class="math display">\[ \beta_{\lambda}^{LASSO} = \underset{\beta}{\mathrm{argmin}}\left(RSS + \lambda\sum_{j=1}^n |\beta_j|\right)\]</span>
+Se define
+<span class="math display">\[ \|\beta_{-0}\|_1 = \sum_{j=1}^n|\beta_j|\]</span>
+Otra formulación para los métodos vistos son:</p>
+<ol style="list-style-type: decimal">
+<li>: <span class="math inline">\(\underset{\beta}{\min} RSS\)</span>, sujeto a <span class="math inline">\(\displaystyle\sum_{j=1}^p\beta_j^2 \leq s\)</span>.</li>
+<li>: <span class="math inline">\(\underset{\beta}{\min} RSS\)</span>, sujeto a <span class="math inline">\(\displaystyle\sum_{j=1}^p|\beta_j| \leq s\)</span>.
+<!-- 1. \textbf{Mejor subconjunto}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p I_{\lbrace\beta_j \neq 0\rbrace} \leq s$. --></li>
+</ol>
+</div>
+<div id="explicación-gráfica" class="section level3">
+<h3><span class="header-section-number">7.2.3</span> Explicación gráfica</h3>
+<div class="figure">
+<img src="manual_figures/ridge-lasso.png" alt="" />
+<p class="caption">Tomado de <a href="https://www.datasklr.com/extensions-of-ols-regression/regularization-and-shrinkage-ridge-lasso-and-elastic-net-regression">DataSklr</a></p>
+</div>
+<div class="figure">
+<img src="manual_figures/ridge-lasso2.png" alt="" />
+<p class="caption">Tomado de <a href="https://towardsdatascience.com/regularization-in-machine-learning-connecting-the-dots-c6e030bfaddd">Towards to Data Science</a></p>
+</div>
+</div>
+</div>
+<div id="laboratorio-6" class="section level2">
+<h2><span class="header-section-number">7.3</span> Laboratorio</h2>
+<div id="cross-validation" class="section level3">
+<h3><span class="header-section-number">7.3.1</span> Cross-Validation</h3>
+<div id="leave-one-out-cross-validation-loocv" class="section level4">
+<h4><span class="header-section-number">7.3.1.1</span> Leave-one-out Cross Validation (LOOCV)</h4>
+<p>Es posible comparar distintos ajustes de modelos usando cross-validation.</p>
+<p>Carguemos la base de datos <code>Auto</code> de <code>ISLR</code>.</p>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="métodos-de-selección-de-variables.html#cb409-1"></a><span class="kw">library</span>(ISLR)</span>
+<span id="cb409-2"><a href="métodos-de-selección-de-variables.html#cb409-2"></a><span class="kw">data</span>(<span class="st">&quot;Auto&quot;</span>)</span></code></pre></div>
+<p>Y ajustamos un modelo entre las millas por galon contra los caballos de fuerza de ciertos vehículos.</p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="métodos-de-selección-de-variables.html#cb410-1"></a>glm.fit &lt;-<span class="st"> </span><span class="kw">glm</span>(mpg <span class="op">~</span><span class="st"> </span>horsepower, <span class="dt">data =</span> Auto)</span>
+<span id="cb410-2"><a href="métodos-de-selección-de-variables.html#cb410-2"></a><span class="kw">summary</span>(glm.fit)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## glm(formula = mpg ~ horsepower, data = Auto)
+## 
+## Deviance Residuals: 
+##      Min        1Q    Median        3Q       Max  
+## -13.5710   -3.2592   -0.3435    2.7630   16.9240  
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(&gt;|t|)    
+## (Intercept) 39.935861   0.717499   55.66   &lt;2e-16 ***
+## horsepower  -0.157845   0.006446  -24.49   &lt;2e-16 ***
+## ---
+## Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1
+## 
+## (Dispersion parameter for gaussian family taken to be 24.06645)
+## 
+##     Null deviance: 23819.0  on 391  degrees of freedom
+## Residual deviance:  9385.9  on 390  degrees of freedom
+## AIC: 2363.3
+## 
+## Number of Fisher Scoring iterations: 2</code></pre>
+<p>La librería <code>boot</code> tiene funciones para aplicar cross-validation. Por ejemplo,</p>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="métodos-de-selección-de-variables.html#cb412-1"></a><span class="kw">library</span>(boot)</span>
+<span id="cb412-2"><a href="métodos-de-selección-de-variables.html#cb412-2"></a>glm.fit &lt;-<span class="st"> </span><span class="kw">glm</span>(mpg <span class="op">~</span><span class="st"> </span>horsepower, <span class="dt">data =</span> Auto)</span>
+<span id="cb412-3"><a href="métodos-de-selección-de-variables.html#cb412-3"></a>cv.err &lt;-<span class="st"> </span><span class="kw">cv.glm</span>(Auto, glm.fit)</span>
+<span id="cb412-4"><a href="métodos-de-selección-de-variables.html#cb412-4"></a>cv.err<span class="op">$</span>delta</span></code></pre></div>
+<pre><code>## [1] 24.23151 24.23114</code></pre>
+<p>En particular se puede usar un <code>for</code> para aplicar este mismo procedimiento a múltiples modelos.</p>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="métodos-de-selección-de-variables.html#cb414-1"></a>cv.error.LOOCV =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb414-2"><a href="métodos-de-selección-de-variables.html#cb414-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">5</span>) {</span>
+<span id="cb414-3"><a href="métodos-de-selección-de-variables.html#cb414-3"></a>    glm.fit =<span class="st"> </span><span class="kw">glm</span>(mpg <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(horsepower, i), <span class="dt">data =</span> Auto)</span>
+<span id="cb414-4"><a href="métodos-de-selección-de-variables.html#cb414-4"></a>    cv.error.LOOCV[i] =<span class="st"> </span><span class="kw">cv.glm</span>(Auto, glm.fit)<span class="op">$</span>delta[<span class="dv">1</span>]</span>
+<span id="cb414-5"><a href="métodos-de-selección-de-variables.html#cb414-5"></a>}</span>
+<span id="cb414-6"><a href="métodos-de-selección-de-variables.html#cb414-6"></a>cv.error.LOOCV</span></code></pre></div>
+<pre><code>## [1] 24.23151 19.24821 19.33498 19.42443 19.03321</code></pre>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="métodos-de-selección-de-variables.html#cb416-1"></a><span class="kw">plot</span>(cv.error.LOOCV, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-267-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="k-fold-cross-validation" class="section level4">
+<h4><span class="header-section-number">7.3.1.2</span> K-Fold Cross Validation</h4>
+<p>Este procedimiento se puede repetir con los el K-fold.</p>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="métodos-de-selección-de-variables.html#cb417-1"></a><span class="kw">set.seed</span>(<span class="dv">17</span>)</span>
+<span id="cb417-2"><a href="métodos-de-selección-de-variables.html#cb417-2"></a>cv.error<span class="fl">.10</span> =<span class="st"> </span><span class="kw">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb417-3"><a href="métodos-de-selección-de-variables.html#cb417-3"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>) {</span>
+<span id="cb417-4"><a href="métodos-de-selección-de-variables.html#cb417-4"></a>    glm.fit =<span class="st"> </span><span class="kw">glm</span>(mpg <span class="op">~</span><span class="st"> </span><span class="kw">poly</span>(horsepower, i), <span class="dt">data =</span> Auto)</span>
+<span id="cb417-5"><a href="métodos-de-selección-de-variables.html#cb417-5"></a>    cv.error<span class="fl">.10</span>[i] =<span class="st"> </span><span class="kw">cv.glm</span>(Auto, glm.fit, <span class="dt">K =</span> <span class="dv">10</span>)<span class="op">$</span>delta[<span class="dv">1</span>]</span>
+<span id="cb417-6"><a href="métodos-de-selección-de-variables.html#cb417-6"></a>}</span>
+<span id="cb417-7"><a href="métodos-de-selección-de-variables.html#cb417-7"></a>cv.error<span class="fl">.10</span></span></code></pre></div>
+<pre><code>##  [1] 24.27207 19.26909 19.34805 19.29496 19.03198 18.89781 19.12061 19.14666
+##  [9] 18.87013 20.95520</code></pre>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="métodos-de-selección-de-variables.html#cb419-1"></a><span class="kw">plot</span>(cv.error.LOOCV, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb419-2"><a href="métodos-de-selección-de-variables.html#cb419-2"></a><span class="kw">lines</span>(cv.error<span class="fl">.10</span>, <span class="dt">type =</span> <span class="st">&quot;l&quot;</span>, <span class="dt">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-268-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="selección-de-variables" class="section level3">
+<h3><span class="header-section-number">7.3.2</span> Selección de variables</h3>
+<p>Cargue los datos <code>Hitters</code> del paquete <code>ISLR</code> que representan el salario de varios jugadores de beisbol y sus estadística de juego (número de bateos, home runs, carreras, etc.).</p>
+<div id="análisis-exploratorio" class="section level4">
+<h4><span class="header-section-number">7.3.2.1</span> Análisis exploratorio</h4>
+<p>Con esta información, haga un análisis exploratorio de los datos usando <code>ggpairs</code>.</p>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="métodos-de-selección-de-variables.html#cb420-1"></a><span class="kw">library</span>(GGally)</span>
+<span id="cb420-2"><a href="métodos-de-selección-de-variables.html#cb420-2"></a><span class="kw">ggpairs</span>(Hitters)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-269-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="métodos-de-selección-de-variables.html#cb421-1"></a><span class="kw">summary</span>(Hitters)</span></code></pre></div>
+<pre><code>##      AtBat            Hits         HmRun            Runs       
+##  Min.   : 16.0   Min.   :  1   Min.   : 0.00   Min.   :  0.00  
+##  1st Qu.:255.2   1st Qu.: 64   1st Qu.: 4.00   1st Qu.: 30.25  
+##  Median :379.5   Median : 96   Median : 8.00   Median : 48.00  
+##  Mean   :380.9   Mean   :101   Mean   :10.77   Mean   : 50.91  
+##  3rd Qu.:512.0   3rd Qu.:137   3rd Qu.:16.00   3rd Qu.: 69.00  
+##  Max.   :687.0   Max.   :238   Max.   :40.00   Max.   :130.00  
+##                                                                
+##       RBI             Walks            Years            CAtBat       
+##  Min.   :  0.00   Min.   :  0.00   Min.   : 1.000   Min.   :   19.0  
+##  1st Qu.: 28.00   1st Qu.: 22.00   1st Qu.: 4.000   1st Qu.:  816.8  
+##  Median : 44.00   Median : 35.00   Median : 6.000   Median : 1928.0  
+##  Mean   : 48.03   Mean   : 38.74   Mean   : 7.444   Mean   : 2648.7  
+##  3rd Qu.: 64.75   3rd Qu.: 53.00   3rd Qu.:11.000   3rd Qu.: 3924.2  
+##  Max.   :121.00   Max.   :105.00   Max.   :24.000   Max.   :14053.0  
+##                                                                      
+##      CHits            CHmRun           CRuns             CRBI        
+##  Min.   :   4.0   Min.   :  0.00   Min.   :   1.0   Min.   :   0.00  
+##  1st Qu.: 209.0   1st Qu.: 14.00   1st Qu.: 100.2   1st Qu.:  88.75  
+##  Median : 508.0   Median : 37.50   Median : 247.0   Median : 220.50  
+##  Mean   : 717.6   Mean   : 69.49   Mean   : 358.8   Mean   : 330.12  
+##  3rd Qu.:1059.2   3rd Qu.: 90.00   3rd Qu.: 526.2   3rd Qu.: 426.25  
+##  Max.   :4256.0   Max.   :548.00   Max.   :2165.0   Max.   :1659.00  
+##                                                                      
+##      CWalks        League  Division    PutOuts          Assists     
+##  Min.   :   0.00   A:175   E:157    Min.   :   0.0   Min.   :  0.0  
+##  1st Qu.:  67.25   N:147   W:165    1st Qu.: 109.2   1st Qu.:  7.0  
+##  Median : 170.50                    Median : 212.0   Median : 39.5  
+##  Mean   : 260.24                    Mean   : 288.9   Mean   :106.9  
+##  3rd Qu.: 339.25                    3rd Qu.: 325.0   3rd Qu.:166.0  
+##  Max.   :1566.00                    Max.   :1378.0   Max.   :492.0  
+##                                                                     
+##      Errors          Salary       NewLeague
+##  Min.   : 0.00   Min.   :  67.5   A:176    
+##  1st Qu.: 3.00   1st Qu.: 190.0   N:146    
+##  Median : 6.00   Median : 425.0            
+##  Mean   : 8.04   Mean   : 535.9            
+##  3rd Qu.:11.00   3rd Qu.: 750.0            
+##  Max.   :32.00   Max.   :2460.0            
+##                  NA&#39;s   :59</code></pre>
+<p>Para limpiar la base de datos de <code>NA</code> usamos <code>dplyr</code>.</p>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="métodos-de-selección-de-variables.html#cb423-1"></a><span class="kw">library</span>(tidyverse)</span>
+<span id="cb423-2"><a href="métodos-de-selección-de-variables.html#cb423-2"></a>Hitters &lt;-<span class="st"> </span>Hitters <span class="op">%&gt;%</span><span class="st"> </span><span class="kw">drop_na</span>()</span></code></pre></div>
+</div>
+<div id="selección-del-mejor-subconjunto" class="section level4">
+<h4><span class="header-section-number">7.3.2.2</span> Selección del mejor subconjunto</h4>
+<p>Cargue la librería</p>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="métodos-de-selección-de-variables.html#cb424-1"></a><span class="kw">library</span>(leaps)</span></code></pre></div>
+<p>y busque la ayuda de la función <code>regsubsets</code>. Use esta función para ajustar todo los posibles modelos de la forma <code>Salary ~ .</code>.</p>
+<p>Puede guardar estos modelos en ciertas variables (e.g. <code>regfit.full</code>) y usar la función <code>plot</code>.</p>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="métodos-de-selección-de-variables.html#cb425-1"></a><span class="kw">library</span>(leaps)</span>
+<span id="cb425-2"><a href="métodos-de-selección-de-variables.html#cb425-2"></a>regfit.full &lt;-<span class="st"> </span><span class="kw">regsubsets</span>(Salary <span class="op">~</span><span class="st"> </span>., Hitters)</span>
+<span id="cb425-3"><a href="métodos-de-selección-de-variables.html#cb425-3"></a><span class="kw">summary</span>(regfit.full)</span></code></pre></div>
+<pre><code>## Subset selection object
+## Call: regsubsets.formula(Salary ~ ., Hitters)
+## 19 Variables  (and intercept)
+##            Forced in Forced out
+## AtBat          FALSE      FALSE
+## Hits           FALSE      FALSE
+## HmRun          FALSE      FALSE
+## Runs           FALSE      FALSE
+## RBI            FALSE      FALSE
+## Walks          FALSE      FALSE
+## Years          FALSE      FALSE
+## CAtBat         FALSE      FALSE
+## CHits          FALSE      FALSE
+## CHmRun         FALSE      FALSE
+## CRuns          FALSE      FALSE
+## CRBI           FALSE      FALSE
+## CWalks         FALSE      FALSE
+## LeagueN        FALSE      FALSE
+## DivisionW      FALSE      FALSE
+## PutOuts        FALSE      FALSE
+## Assists        FALSE      FALSE
+## Errors         FALSE      FALSE
+## NewLeagueN     FALSE      FALSE
+## 1 subsets of each size up to 8
+## Selection Algorithm: exhaustive
+##          AtBat Hits HmRun Runs RBI Walks Years CAtBat CHits CHmRun CRuns CRBI
+## 1  ( 1 ) &quot; &quot;   &quot; &quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 2  ( 1 ) &quot; &quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 3  ( 1 ) &quot; &quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 4  ( 1 ) &quot; &quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 5  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 6  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 7  ( 1 ) &quot; &quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot;*&quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot; 
+## 8  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot;    &quot;*&quot;   &quot; &quot; 
+##          CWalks LeagueN DivisionW PutOuts Assists Errors NewLeagueN
+## 1  ( 1 ) &quot; &quot;    &quot; &quot;     &quot; &quot;       &quot; &quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 2  ( 1 ) &quot; &quot;    &quot; &quot;     &quot; &quot;       &quot; &quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 3  ( 1 ) &quot; &quot;    &quot; &quot;     &quot; &quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 4  ( 1 ) &quot; &quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 5  ( 1 ) &quot; &quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 6  ( 1 ) &quot; &quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 7  ( 1 ) &quot; &quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 8  ( 1 ) &quot;*&quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;</code></pre>
+<p>Se puede incluir todas las variables con <code>nvmax = 19</code>.</p>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="métodos-de-selección-de-variables.html#cb427-1"></a><span class="kw">library</span>(leaps)</span>
+<span id="cb427-2"><a href="métodos-de-selección-de-variables.html#cb427-2"></a>regfit.full &lt;-<span class="st"> </span><span class="kw">regsubsets</span>(Salary <span class="op">~</span><span class="st"> </span>., Hitters, <span class="dt">nvmax =</span> <span class="dv">19</span>)</span>
+<span id="cb427-3"><a href="métodos-de-selección-de-variables.html#cb427-3"></a>regfit.full.summary &lt;-<span class="st"> </span><span class="kw">summary</span>(regfit.full)</span>
+<span id="cb427-4"><a href="métodos-de-selección-de-variables.html#cb427-4"></a>regfit.full.summary</span></code></pre></div>
+<pre><code>## Subset selection object
+## Call: regsubsets.formula(Salary ~ ., Hitters, nvmax = 19)
+## 19 Variables  (and intercept)
+##            Forced in Forced out
+## AtBat          FALSE      FALSE
+## Hits           FALSE      FALSE
+## HmRun          FALSE      FALSE
+## Runs           FALSE      FALSE
+## RBI            FALSE      FALSE
+## Walks          FALSE      FALSE
+## Years          FALSE      FALSE
+## CAtBat         FALSE      FALSE
+## CHits          FALSE      FALSE
+## CHmRun         FALSE      FALSE
+## CRuns          FALSE      FALSE
+## CRBI           FALSE      FALSE
+## CWalks         FALSE      FALSE
+## LeagueN        FALSE      FALSE
+## DivisionW      FALSE      FALSE
+## PutOuts        FALSE      FALSE
+## Assists        FALSE      FALSE
+## Errors         FALSE      FALSE
+## NewLeagueN     FALSE      FALSE
+## 1 subsets of each size up to 19
+## Selection Algorithm: exhaustive
+##           AtBat Hits HmRun Runs RBI Walks Years CAtBat CHits CHmRun CRuns CRBI
+## 1  ( 1 )  &quot; &quot;   &quot; &quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 2  ( 1 )  &quot; &quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 3  ( 1 )  &quot; &quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 4  ( 1 )  &quot; &quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 5  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 6  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 7  ( 1 )  &quot; &quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot;*&quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot; 
+## 8  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot;    &quot;*&quot;   &quot; &quot; 
+## 9  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 10  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 11  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 12  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot;*&quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 13  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot;*&quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 14  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 15  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot;*&quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 16  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot;*&quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot;*&quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 17  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot;*&quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot;*&quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 18  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot;*&quot; &quot;*&quot;   &quot;*&quot;   &quot;*&quot;    &quot;*&quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 19  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot;*&quot; &quot;*&quot;   &quot;*&quot;   &quot;*&quot;    &quot;*&quot;   &quot;*&quot;    &quot;*&quot;   &quot;*&quot; 
+##           CWalks LeagueN DivisionW PutOuts Assists Errors NewLeagueN
+## 1  ( 1 )  &quot; &quot;    &quot; &quot;     &quot; &quot;       &quot; &quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 2  ( 1 )  &quot; &quot;    &quot; &quot;     &quot; &quot;       &quot; &quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 3  ( 1 )  &quot; &quot;    &quot; &quot;     &quot; &quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 4  ( 1 )  &quot; &quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 5  ( 1 )  &quot; &quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 6  ( 1 )  &quot; &quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 7  ( 1 )  &quot; &quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 8  ( 1 )  &quot;*&quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 9  ( 1 )  &quot;*&quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 10  ( 1 ) &quot;*&quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot; &quot;    &quot; &quot;       
+## 11  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot; &quot;    &quot; &quot;       
+## 12  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot; &quot;    &quot; &quot;       
+## 13  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot; &quot;       
+## 14  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot; &quot;       
+## 15  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot; &quot;       
+## 16  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot; &quot;       
+## 17  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;       
+## 18  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;       
+## 19  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;</code></pre>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="métodos-de-selección-de-variables.html#cb429-1"></a><span class="kw">str</span>(regfit.full.summary)</span></code></pre></div>
+<pre><code>## List of 8
+##  $ which : logi [1:19, 1:20] TRUE TRUE TRUE TRUE TRUE TRUE ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:19] &quot;1&quot; &quot;2&quot; &quot;3&quot; &quot;4&quot; ...
+##   .. ..$ : chr [1:20] &quot;(Intercept)&quot; &quot;AtBat&quot; &quot;Hits&quot; &quot;HmRun&quot; ...
+##  $ rsq   : num [1:19] 0.321 0.425 0.451 0.475 0.491 ...
+##  $ rss   : num [1:19] 36179679 30646560 29249297 27970852 27149899 ...
+##  $ adjr2 : num [1:19] 0.319 0.421 0.445 0.467 0.481 ...
+##  $ cp    : num [1:19] 104.3 50.7 38.7 27.9 21.6 ...
+##  $ bic   : num [1:19] -90.8 -128.9 -135.6 -141.8 -144.1 ...
+##  $ outmat: chr [1:19, 1:19] &quot; &quot; &quot; &quot; &quot; &quot; &quot; &quot; ...
+##   ..- attr(*, &quot;dimnames&quot;)=List of 2
+##   .. ..$ : chr [1:19] &quot;1  ( 1 )&quot; &quot;2  ( 1 )&quot; &quot;3  ( 1 )&quot; &quot;4  ( 1 )&quot; ...
+##   .. ..$ : chr [1:19] &quot;AtBat&quot; &quot;Hits&quot; &quot;HmRun&quot; &quot;Runs&quot; ...
+##  $ obj   :List of 28
+##   ..$ np       : int 20
+##   ..$ nrbar    : int 190
+##   ..$ d        : num [1:20] 2.63e+02 1.10e+08 1.61e+05 1.85e+07 5.58e+03 ...
+##   ..$ rbar     : num [1:190] 722.19 51.49 290.71 11.62 7.31 ...
+##   ..$ thetab   : num [1:20] 535.926 0.382 5.509 0.306 -4.051 ...
+##   ..$ first    : int 2
+##   ..$ last     : int 20
+##   ..$ vorder   : int [1:20] 1 10 6 17 4 8 19 16 5 15 ...
+##   ..$ tol      : num [1:20] 8.11e-09 1.71e-05 7.91e-07 7.08e-06 1.94e-07 ...
+##   ..$ rss      : num [1:20] 53319113 37253973 32381808 30651377 30559801 ...
+##   ..$ bound    : num [1:20] 53319113 36179679 30646560 29249297 27970852 ...
+##   ..$ nvmax    : int 20
+##   ..$ ress     : num [1:20, 1] 53319113 36179679 30646560 29249297 27970852 ...
+##   ..$ ir       : int 20
+##   ..$ nbest    : int 1
+##   ..$ lopt     : int [1:210, 1] 1 1 13 1 3 13 1 3 17 13 ...
+##   ..$ il       : int 210
+##   ..$ ier      : int 0
+##   ..$ xnames   : chr [1:20] &quot;(Intercept)&quot; &quot;AtBat&quot; &quot;Hits&quot; &quot;HmRun&quot; ...
+##   ..$ method   : chr &quot;exhaustive&quot;
+##   ..$ force.in : Named logi [1:20] TRUE FALSE FALSE FALSE FALSE FALSE ...
+##   .. ..- attr(*, &quot;names&quot;)= chr [1:20] &quot;&quot; &quot;AtBat&quot; &quot;Hits&quot; &quot;HmRun&quot; ...
+##   ..$ force.out: Named logi [1:20] FALSE FALSE FALSE FALSE FALSE FALSE ...
+##   .. ..- attr(*, &quot;names&quot;)= chr [1:20] &quot;&quot; &quot;AtBat&quot; &quot;Hits&quot; &quot;HmRun&quot; ...
+##   ..$ sserr    : num 24200700
+##   ..$ intercept: logi TRUE
+##   ..$ lindep   : logi [1:20] FALSE FALSE FALSE FALSE FALSE FALSE ...
+##   ..$ nullrss  : num 53319113
+##   ..$ nn       : int 263
+##   ..$ call     : language regsubsets.formula(Salary ~ ., Hitters, nvmax = 19)
+##   ..- attr(*, &quot;class&quot;)= chr &quot;regsubsets&quot;
+##  - attr(*, &quot;class&quot;)= chr &quot;summary.regsubsets&quot;</code></pre>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="métodos-de-selección-de-variables.html#cb431-1"></a>idx &lt;-<span class="st"> </span><span class="kw">which.max</span>(regfit.full.summary<span class="op">$</span>rsq)</span>
+<span id="cb431-2"><a href="métodos-de-selección-de-variables.html#cb431-2"></a><span class="kw">plot</span>(regfit.full.summary<span class="op">$</span>rsq)</span>
+<span id="cb431-3"><a href="métodos-de-selección-de-variables.html#cb431-3"></a><span class="kw">points</span>(idx, regfit.full.summary<span class="op">$</span>rsq[idx], <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb431-4"><a href="métodos-de-selección-de-variables.html#cb431-4"></a>    <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">pch =</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-273-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="métodos-de-selección-de-variables.html#cb432-1"></a>idx &lt;-<span class="st"> </span><span class="kw">which.min</span>(regfit.full.summary<span class="op">$</span>rss)</span>
+<span id="cb432-2"><a href="métodos-de-selección-de-variables.html#cb432-2"></a><span class="kw">plot</span>(regfit.full.summary<span class="op">$</span>rss)</span>
+<span id="cb432-3"><a href="métodos-de-selección-de-variables.html#cb432-3"></a><span class="kw">points</span>(idx, regfit.full.summary<span class="op">$</span>rss[idx], <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb432-4"><a href="métodos-de-selección-de-variables.html#cb432-4"></a>    <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">pch =</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-273-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="métodos-de-selección-de-variables.html#cb433-1"></a>idx &lt;-<span class="st"> </span><span class="kw">which.max</span>(regfit.full.summary<span class="op">$</span>adjr2)</span>
+<span id="cb433-2"><a href="métodos-de-selección-de-variables.html#cb433-2"></a><span class="kw">plot</span>(regfit.full.summary<span class="op">$</span>adjr2)</span>
+<span id="cb433-3"><a href="métodos-de-selección-de-variables.html#cb433-3"></a><span class="kw">points</span>(idx, regfit.full.summary<span class="op">$</span>adjr2[idx], <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb433-4"><a href="métodos-de-selección-de-variables.html#cb433-4"></a>    <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">pch =</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-273-3.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="métodos-de-selección-de-variables.html#cb434-1"></a>idx &lt;-<span class="st"> </span><span class="kw">which.min</span>(regfit.full.summary<span class="op">$</span>cp)</span>
+<span id="cb434-2"><a href="métodos-de-selección-de-variables.html#cb434-2"></a><span class="kw">plot</span>(regfit.full.summary<span class="op">$</span>cp)</span>
+<span id="cb434-3"><a href="métodos-de-selección-de-variables.html#cb434-3"></a><span class="kw">points</span>(idx, regfit.full.summary<span class="op">$</span>cp[idx], <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb434-4"><a href="métodos-de-selección-de-variables.html#cb434-4"></a>    <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">pch =</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-273-4.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="métodos-de-selección-de-variables.html#cb435-1"></a>idx &lt;-<span class="st"> </span><span class="kw">which.min</span>(regfit.full.summary<span class="op">$</span>bic)</span>
+<span id="cb435-2"><a href="métodos-de-selección-de-variables.html#cb435-2"></a><span class="kw">plot</span>(regfit.full.summary<span class="op">$</span>bic)</span>
+<span id="cb435-3"><a href="métodos-de-selección-de-variables.html#cb435-3"></a><span class="kw">points</span>(idx, regfit.full.summary<span class="op">$</span>bic[idx], <span class="dt">col =</span> <span class="st">&quot;red&quot;</span>, </span>
+<span id="cb435-4"><a href="métodos-de-selección-de-variables.html#cb435-4"></a>    <span class="dt">cex =</span> <span class="dv">2</span>, <span class="dt">pch =</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-273-5.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="métodos-de-selección-de-variables.html#cb436-1"></a><span class="kw">plot</span>(regfit.full, <span class="dt">scale =</span> <span class="st">&quot;r2&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-273-6.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="métodos-de-selección-de-variables.html#cb437-1"></a><span class="kw">plot</span>(regfit.full, <span class="dt">scale =</span> <span class="st">&quot;bic&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-273-7.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="métodos-de-selección-de-variables.html#cb438-1"></a><span class="kw">plot</span>(regfit.full, <span class="dt">scale =</span> <span class="st">&quot;Cp&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-273-8.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="métodos-de-selección-de-variables.html#cb439-1"></a><span class="kw">plot</span>(regfit.full, <span class="dt">scale =</span> <span class="st">&quot;adjr2&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-273-9.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="métodos-de-selección-de-variables.html#cb440-1"></a><span class="kw">coef</span>(regfit.full, <span class="dv">10</span>)</span></code></pre></div>
+<pre><code>##  (Intercept)        AtBat         Hits        Walks       CAtBat        CRuns 
+##  162.5354420   -2.1686501    6.9180175    5.7732246   -0.1300798    1.4082490 
+##         CRBI       CWalks    DivisionW      PutOuts      Assists 
+##    0.7743122   -0.8308264 -112.3800575    0.2973726    0.2831680</code></pre>
+</div>
+<div id="regresión-forward-y-backward" class="section level4">
+<h4><span class="header-section-number">7.3.2.3</span> Regresión forward y backward</h4>
+<p>La función <code>regsubsets</code> tiene un paramétro <code>method</code>. Usen los valores <code>forward</code> y <code>backward</code> y comparen los resultados.</p>
+<p>Puede guardar estos modelos en ciertas variables (e.g. <code>regfit.fwd</code> y <code>regfit.bwd</code>) y usar la función <code>plot</code>.</p>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="métodos-de-selección-de-variables.html#cb442-1"></a>regfit.fwd &lt;-<span class="st"> </span><span class="kw">regsubsets</span>(Salary <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Hitters, </span>
+<span id="cb442-2"><a href="métodos-de-selección-de-variables.html#cb442-2"></a>    <span class="dt">nvmax =</span> <span class="dv">19</span>, <span class="dt">method =</span> <span class="st">&quot;forward&quot;</span>)</span>
+<span id="cb442-3"><a href="métodos-de-selección-de-variables.html#cb442-3"></a><span class="kw">summary</span>(regfit.fwd)</span></code></pre></div>
+<pre><code>## Subset selection object
+## Call: regsubsets.formula(Salary ~ ., data = Hitters, nvmax = 19, method = &quot;forward&quot;)
+## 19 Variables  (and intercept)
+##            Forced in Forced out
+## AtBat          FALSE      FALSE
+## Hits           FALSE      FALSE
+## HmRun          FALSE      FALSE
+## Runs           FALSE      FALSE
+## RBI            FALSE      FALSE
+## Walks          FALSE      FALSE
+## Years          FALSE      FALSE
+## CAtBat         FALSE      FALSE
+## CHits          FALSE      FALSE
+## CHmRun         FALSE      FALSE
+## CRuns          FALSE      FALSE
+## CRBI           FALSE      FALSE
+## CWalks         FALSE      FALSE
+## LeagueN        FALSE      FALSE
+## DivisionW      FALSE      FALSE
+## PutOuts        FALSE      FALSE
+## Assists        FALSE      FALSE
+## Errors         FALSE      FALSE
+## NewLeagueN     FALSE      FALSE
+## 1 subsets of each size up to 19
+## Selection Algorithm: forward
+##           AtBat Hits HmRun Runs RBI Walks Years CAtBat CHits CHmRun CRuns CRBI
+## 1  ( 1 )  &quot; &quot;   &quot; &quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 2  ( 1 )  &quot; &quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 3  ( 1 )  &quot; &quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 4  ( 1 )  &quot; &quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 5  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 6  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 7  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot;*&quot; 
+## 8  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 9  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 10  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 11  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 12  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot;*&quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 13  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot;*&quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 14  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 15  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot;*&quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 16  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot;*&quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot;*&quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 17  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot;*&quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot;*&quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 18  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot;*&quot; &quot;*&quot;   &quot;*&quot;   &quot;*&quot;    &quot;*&quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 19  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot;*&quot; &quot;*&quot;   &quot;*&quot;   &quot;*&quot;    &quot;*&quot;   &quot;*&quot;    &quot;*&quot;   &quot;*&quot; 
+##           CWalks LeagueN DivisionW PutOuts Assists Errors NewLeagueN
+## 1  ( 1 )  &quot; &quot;    &quot; &quot;     &quot; &quot;       &quot; &quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 2  ( 1 )  &quot; &quot;    &quot; &quot;     &quot; &quot;       &quot; &quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 3  ( 1 )  &quot; &quot;    &quot; &quot;     &quot; &quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 4  ( 1 )  &quot; &quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 5  ( 1 )  &quot; &quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 6  ( 1 )  &quot; &quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 7  ( 1 )  &quot;*&quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 8  ( 1 )  &quot;*&quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 9  ( 1 )  &quot;*&quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 10  ( 1 ) &quot;*&quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot; &quot;    &quot; &quot;       
+## 11  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot; &quot;    &quot; &quot;       
+## 12  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot; &quot;    &quot; &quot;       
+## 13  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot; &quot;       
+## 14  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot; &quot;       
+## 15  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot; &quot;       
+## 16  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot; &quot;       
+## 17  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;       
+## 18  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;       
+## 19  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;</code></pre>
+<div class="sourceCode" id="cb444"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb444-1"><a href="métodos-de-selección-de-variables.html#cb444-1"></a>regfit.bwd &lt;-<span class="st"> </span><span class="kw">regsubsets</span>(Salary <span class="op">~</span><span class="st"> </span>., <span class="dt">data =</span> Hitters, </span>
+<span id="cb444-2"><a href="métodos-de-selección-de-variables.html#cb444-2"></a>    <span class="dt">nvmax =</span> <span class="dv">19</span>, <span class="dt">method =</span> <span class="st">&quot;backward&quot;</span>)</span>
+<span id="cb444-3"><a href="métodos-de-selección-de-variables.html#cb444-3"></a><span class="kw">summary</span>(regfit.bwd)</span></code></pre></div>
+<pre><code>## Subset selection object
+## Call: regsubsets.formula(Salary ~ ., data = Hitters, nvmax = 19, method = &quot;backward&quot;)
+## 19 Variables  (and intercept)
+##            Forced in Forced out
+## AtBat          FALSE      FALSE
+## Hits           FALSE      FALSE
+## HmRun          FALSE      FALSE
+## Runs           FALSE      FALSE
+## RBI            FALSE      FALSE
+## Walks          FALSE      FALSE
+## Years          FALSE      FALSE
+## CAtBat         FALSE      FALSE
+## CHits          FALSE      FALSE
+## CHmRun         FALSE      FALSE
+## CRuns          FALSE      FALSE
+## CRBI           FALSE      FALSE
+## CWalks         FALSE      FALSE
+## LeagueN        FALSE      FALSE
+## DivisionW      FALSE      FALSE
+## PutOuts        FALSE      FALSE
+## Assists        FALSE      FALSE
+## Errors         FALSE      FALSE
+## NewLeagueN     FALSE      FALSE
+## 1 subsets of each size up to 19
+## Selection Algorithm: backward
+##           AtBat Hits HmRun Runs RBI Walks Years CAtBat CHits CHmRun CRuns CRBI
+## 1  ( 1 )  &quot; &quot;   &quot; &quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot; &quot; 
+## 2  ( 1 )  &quot; &quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot; &quot; 
+## 3  ( 1 )  &quot; &quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot; &quot; 
+## 4  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot; &quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot; &quot; 
+## 5  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot; &quot; 
+## 6  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot; &quot; 
+## 7  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot; &quot; 
+## 8  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot; &quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 9  ( 1 )  &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 10  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 11  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot; &quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 12  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot;*&quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 13  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot; &quot;   &quot;*&quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 14  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot; &quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 15  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot; &quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot;*&quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 16  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot;*&quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot;*&quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 17  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot;*&quot; &quot;*&quot;   &quot; &quot;   &quot;*&quot;    &quot;*&quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 18  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot;*&quot; &quot;*&quot;   &quot;*&quot;   &quot;*&quot;    &quot;*&quot;   &quot; &quot;    &quot;*&quot;   &quot;*&quot; 
+## 19  ( 1 ) &quot;*&quot;   &quot;*&quot;  &quot;*&quot;   &quot;*&quot;  &quot;*&quot; &quot;*&quot;   &quot;*&quot;   &quot;*&quot;    &quot;*&quot;   &quot;*&quot;    &quot;*&quot;   &quot;*&quot; 
+##           CWalks LeagueN DivisionW PutOuts Assists Errors NewLeagueN
+## 1  ( 1 )  &quot; &quot;    &quot; &quot;     &quot; &quot;       &quot; &quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 2  ( 1 )  &quot; &quot;    &quot; &quot;     &quot; &quot;       &quot; &quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 3  ( 1 )  &quot; &quot;    &quot; &quot;     &quot; &quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 4  ( 1 )  &quot; &quot;    &quot; &quot;     &quot; &quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 5  ( 1 )  &quot; &quot;    &quot; &quot;     &quot; &quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 6  ( 1 )  &quot; &quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 7  ( 1 )  &quot;*&quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 8  ( 1 )  &quot;*&quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 9  ( 1 )  &quot;*&quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot; &quot;     &quot; &quot;    &quot; &quot;       
+## 10  ( 1 ) &quot;*&quot;    &quot; &quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot; &quot;    &quot; &quot;       
+## 11  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot; &quot;    &quot; &quot;       
+## 12  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot; &quot;    &quot; &quot;       
+## 13  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot; &quot;       
+## 14  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot; &quot;       
+## 15  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot; &quot;       
+## 16  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot; &quot;       
+## 17  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;       
+## 18  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;       
+## 19  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;</code></pre>
+<div class="sourceCode" id="cb446"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb446-1"><a href="métodos-de-selección-de-variables.html#cb446-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb446-2"><a href="métodos-de-selección-de-variables.html#cb446-2"></a><span class="kw">plot</span>(regfit.fwd, <span class="dt">scale =</span> <span class="st">&quot;r2&quot;</span>)</span>
+<span id="cb446-3"><a href="métodos-de-selección-de-variables.html#cb446-3"></a><span class="kw">plot</span>(regfit.bwd, <span class="dt">scale =</span> <span class="st">&quot;r2&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-274-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="métodos-de-selección-de-variables.html#cb447-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb447-2"><a href="métodos-de-selección-de-variables.html#cb447-2"></a><span class="kw">plot</span>(regfit.fwd, <span class="dt">scale =</span> <span class="st">&quot;bic&quot;</span>)</span>
+<span id="cb447-3"><a href="métodos-de-selección-de-variables.html#cb447-3"></a><span class="kw">plot</span>(regfit.bwd, <span class="dt">scale =</span> <span class="st">&quot;bic&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-274-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb448"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb448-1"><a href="métodos-de-selección-de-variables.html#cb448-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb448-2"><a href="métodos-de-selección-de-variables.html#cb448-2"></a><span class="kw">plot</span>(regfit.fwd, <span class="dt">scale =</span> <span class="st">&quot;Cp&quot;</span>)</span>
+<span id="cb448-3"><a href="métodos-de-selección-de-variables.html#cb448-3"></a><span class="kw">plot</span>(regfit.bwd, <span class="dt">scale =</span> <span class="st">&quot;Cp&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-274-3.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="métodos-de-selección-de-variables.html#cb449-1"></a><span class="kw">par</span>(<span class="dt">mfrow =</span> <span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb449-2"><a href="métodos-de-selección-de-variables.html#cb449-2"></a><span class="kw">plot</span>(regfit.fwd, <span class="dt">scale =</span> <span class="st">&quot;adjr2&quot;</span>)</span>
+<span id="cb449-3"><a href="métodos-de-selección-de-variables.html#cb449-3"></a><span class="kw">plot</span>(regfit.bwd, <span class="dt">scale =</span> <span class="st">&quot;adjr2&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-274-4.svg" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="regresión-ridge-1" class="section level4">
+<h4><span class="header-section-number">7.3.2.4</span> Regresión Ridge</h4>
+<div class="sourceCode" id="cb450"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb450-1"><a href="métodos-de-selección-de-variables.html#cb450-1"></a>x &lt;-<span class="st"> </span><span class="kw">model.matrix</span>(Salary <span class="op">~</span><span class="st"> </span>., Hitters)[, <span class="dv">-1</span>]</span>
+<span id="cb450-2"><a href="métodos-de-selección-de-variables.html#cb450-2"></a>y &lt;-<span class="st"> </span>Hitters<span class="op">$</span>Salary</span></code></pre></div>
+<p>Usando el paquete <code>glmnet</code> y la función con el mismo nombre, ejecute el siguiente comando</p>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="métodos-de-selección-de-variables.html#cb451-1"></a><span class="kw">library</span>(glmnet)</span>
+<span id="cb451-2"><a href="métodos-de-selección-de-variables.html#cb451-2"></a>grid &lt;-<span class="st"> </span><span class="dv">10</span><span class="op">^</span><span class="kw">seq</span>(<span class="dv">10</span>, <span class="dv">-2</span>, <span class="dt">length =</span> <span class="dv">100</span>)</span>
+<span id="cb451-3"><a href="métodos-de-selección-de-variables.html#cb451-3"></a>ridge.mod &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x, y, <span class="dt">alpha =</span> <span class="dv">0</span>, <span class="dt">lambda =</span> grid)</span></code></pre></div>
+<p>El factor <code>lambda</code> representa el <span class="math inline">\(\lambda\)</span> de la fórmula</p>
+<p><span class="math display">\[ \hat{\beta} = \underset{\beta}{\mathrm{argmin}} \left\{RSS + \lambda \Vert \beta \Vert_2^2\right\}.\]</span></p>
+<p>Si no se incluye el paramétro lambda del modelo, R construye una secuencia de <span class="math inline">\(\lambda&#39;\)</span>s estimados por validación cruzada.</p>
+<p>Haga lo siguiente:</p>
+<ol style="list-style-type: decimal">
+<li><p>Construya un modelo usando todos los datos (sin separar muestra de entrenamiento y prueba).</p></li>
+<li><p>Construya el siguiente modelo</p></li>
+</ol>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="métodos-de-selección-de-variables.html#cb452-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb452-2"><a href="métodos-de-selección-de-variables.html#cb452-2"></a>train &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(x), <span class="kw">nrow</span>(x)<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb452-3"><a href="métodos-de-selección-de-variables.html#cb452-3"></a>test &lt;-<span class="st"> </span><span class="op">-</span>train</span>
+<span id="cb452-4"><a href="métodos-de-selección-de-variables.html#cb452-4"></a>y.test &lt;-<span class="st"> </span>y[test]</span>
+<span id="cb452-5"><a href="métodos-de-selección-de-variables.html#cb452-5"></a>ridge.mod &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x[train, ], y[train], <span class="dt">alpha =</span> <span class="dv">0</span>, </span>
+<span id="cb452-6"><a href="métodos-de-selección-de-variables.html#cb452-6"></a>    <span class="dt">lambda =</span> grid)</span>
+<span id="cb452-7"><a href="métodos-de-selección-de-variables.html#cb452-7"></a>ridge.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(ridge.mod, <span class="dt">s =</span> <span class="dv">4</span>, <span class="dt">newx =</span> x[test, </span>
+<span id="cb452-8"><a href="métodos-de-selección-de-variables.html#cb452-8"></a>    ])</span>
+<span id="cb452-9"><a href="métodos-de-selección-de-variables.html#cb452-9"></a></span>
+<span id="cb452-10"><a href="métodos-de-selección-de-variables.html#cb452-10"></a><span class="co"># MSE</span></span>
+<span id="cb452-11"><a href="métodos-de-selección-de-variables.html#cb452-11"></a><span class="kw">mean</span>((ridge.pred <span class="op">-</span><span class="st"> </span>y.test)<span class="op">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 142226.5</code></pre>
+<p>¿Qué ocurre si se cambia el paramétro <span class="math inline">\(s\)</span> de <code>predict</code> por un <code>10e10</code> (i.e. <span class="math inline">\(10^{10}\)</span>). Comente los resultados. ¿Y qué ocurre si <span class="math inline">\(s=0\)</span>?</p>
+<ol start="3" style="list-style-type: decimal">
+<li>Finalmente, ejecute el siguiente código</li>
+</ol>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="métodos-de-selección-de-variables.html#cb454-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb454-2"><a href="métodos-de-selección-de-variables.html#cb454-2"></a>cv.out &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x[train, ], y[train], <span class="dt">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb454-3"><a href="métodos-de-selección-de-variables.html#cb454-3"></a><span class="kw">plot</span>(cv.out)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-278-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>Busque la ayuda de <code>cv.glmnet</code> y deduzca qué significa el gráfico.</p>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="métodos-de-selección-de-variables.html#cb455-1"></a><span class="kw">library</span>(glmnet)</span>
+<span id="cb455-2"><a href="métodos-de-selección-de-variables.html#cb455-2"></a>grid &lt;-<span class="st"> </span><span class="dv">10</span><span class="op">^</span><span class="kw">seq</span>(<span class="dv">10</span>, <span class="dv">-2</span>, <span class="dt">length =</span> <span class="dv">100</span>)</span>
+<span id="cb455-3"><a href="métodos-de-selección-de-variables.html#cb455-3"></a>ridge.mod &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x, y, <span class="dt">alpha =</span> <span class="dv">0</span>, <span class="dt">lambda =</span> grid)</span>
+<span id="cb455-4"><a href="métodos-de-selección-de-variables.html#cb455-4"></a></span>
+<span id="cb455-5"><a href="métodos-de-selección-de-variables.html#cb455-5"></a>ridge.mod<span class="op">$</span>lambda[<span class="dv">50</span>]</span></code></pre></div>
+<pre><code>## [1] 11497.57</code></pre>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="métodos-de-selección-de-variables.html#cb457-1"></a><span class="kw">coef</span>(ridge.mod)[, <span class="dv">50</span>]</span></code></pre></div>
+<pre><code>##   (Intercept)         AtBat          Hits         HmRun          Runs 
+## 407.356050200   0.036957182   0.138180344   0.524629976   0.230701523 
+##           RBI         Walks         Years        CAtBat         CHits 
+##   0.239841459   0.289618741   1.107702929   0.003131815   0.011653637 
+##        CHmRun         CRuns          CRBI        CWalks       LeagueN 
+##   0.087545670   0.023379882   0.024138320   0.025015421   0.085028114 
+##     DivisionW       PutOuts       Assists        Errors    NewLeagueN 
+##  -6.215440973   0.016482577   0.002612988  -0.020502690   0.301433531</code></pre>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="métodos-de-selección-de-variables.html#cb459-1"></a><span class="kw">sqrt</span>(<span class="kw">sum</span>(<span class="kw">coef</span>(ridge.mod)[<span class="op">-</span><span class="dv">1</span>, <span class="dv">50</span>]<span class="op">^</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 6.360612</code></pre>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="métodos-de-selección-de-variables.html#cb461-1"></a>ridge.mod<span class="op">$</span>lambda[<span class="dv">60</span>]</span></code></pre></div>
+<pre><code>## [1] 705.4802</code></pre>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="métodos-de-selección-de-variables.html#cb463-1"></a><span class="kw">coef</span>(ridge.mod)[, <span class="dv">60</span>]</span></code></pre></div>
+<pre><code>##  (Intercept)        AtBat         Hits        HmRun         Runs          RBI 
+##  54.32519950   0.11211115   0.65622409   1.17980910   0.93769713   0.84718546 
+##        Walks        Years       CAtBat        CHits       CHmRun        CRuns 
+##   1.31987948   2.59640425   0.01083413   0.04674557   0.33777318   0.09355528 
+##         CRBI       CWalks      LeagueN    DivisionW      PutOuts      Assists 
+##   0.09780402   0.07189612  13.68370191 -54.65877750   0.11852289   0.01606037 
+##       Errors   NewLeagueN 
+##  -0.70358655   8.61181213</code></pre>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="métodos-de-selección-de-variables.html#cb465-1"></a><span class="kw">sqrt</span>(<span class="kw">sum</span>(<span class="kw">coef</span>(ridge.mod)[<span class="op">-</span><span class="dv">1</span>, <span class="dv">60</span>]<span class="op">^</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 57.11001</code></pre>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="métodos-de-selección-de-variables.html#cb467-1"></a><span class="kw">plot</span>(ridge.mod)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-279-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="métodos-de-selección-de-variables.html#cb468-1"></a>ridge.mod &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x, y, <span class="dt">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb468-2"><a href="métodos-de-selección-de-variables.html#cb468-2"></a>ridge.mod<span class="op">$</span>lambda</span></code></pre></div>
+<pre><code>##   [1] 255282.09651 232603.53866 211939.68139 193111.54424 175956.04690
+##   [6] 160324.59666 146081.80138 133104.29678 121279.67791 110505.52560
+##  [11] 100688.51928  91743.62874  83593.37763  76167.17236  69400.69070
+##  [16]  63235.32462  57617.67267  52499.07743  47835.20409  43585.65640
+##  [21]  39713.62682  36185.57767  32970.95069  30041.90230  27373.06250
+##  [26]  24941.31507  22725.59739  20706.71795  18867.19020  17191.08102
+##  [31]  15663.87277  14272.33748  13004.42236  11849.14532  10796.49991
+##  [36]   9837.36861   8963.44390   8167.15625   7441.60860   6780.51660
+##  [41]   6178.15419   5629.30400   5129.21215   4673.54708   4258.36204
+##  [46]   3880.06089   3535.36698   3221.29472   2935.12377   2674.37547
+##  [51]   2436.79132   2220.31350   2023.06697   1843.34327   1679.58574
+##  [56]   1530.37597   1394.42159   1270.54502   1157.67330   1054.82879
+##  [61]    961.12071    875.73740    797.93930    727.05257    662.46322
+##  [66]    603.61182    549.98861    501.12914    456.61020    416.04621
+##  [71]    379.08581    345.40887    314.72370    286.76452    261.28915
+##  [76]    238.07694    216.92684    197.65566    180.09647    164.09720
+##  [81]    149.51926    136.23638    124.13351    113.10583    103.05782
+##  [86]     93.90245     85.56042     77.95946     71.03376     64.72332
+##  [91]     58.97348     53.73443     48.96082     44.61127     40.64813
+##  [96]     37.03706     33.74679     30.74882     28.01718     25.52821</code></pre>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="métodos-de-selección-de-variables.html#cb470-1"></a><span class="kw">plot</span>(ridge.mod)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-279-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="métodos-de-selección-de-variables.html#cb471-1"></a><span class="kw">predict</span>(ridge.mod, <span class="dt">s =</span> <span class="dv">50</span>, <span class="dt">type =</span> <span class="st">&quot;coefficients&quot;</span>)</span></code></pre></div>
+<pre><code>## 20 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                         1
+## (Intercept)  4.821654e+01
+## AtBat       -3.538650e-01
+## Hits         1.953167e+00
+## HmRun       -1.285127e+00
+## Runs         1.156329e+00
+## RBI          8.087771e-01
+## Walks        2.709765e+00
+## Years       -6.202919e+00
+## CAtBat       6.085854e-03
+## CHits        1.070832e-01
+## CHmRun       6.290984e-01
+## CRuns        2.172926e-01
+## CRBI         2.152888e-01
+## CWalks      -1.488961e-01
+## LeagueN      4.586262e+01
+## DivisionW   -1.182304e+02
+## PutOuts      2.501647e-01
+## Assists      1.208491e-01
+## Errors      -3.277073e+00
+## NewLeagueN  -9.423459e+00</code></pre>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="métodos-de-selección-de-variables.html#cb473-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb473-2"><a href="métodos-de-selección-de-variables.html#cb473-2"></a>train &lt;-<span class="st"> </span><span class="kw">sample</span>(<span class="dv">1</span><span class="op">:</span><span class="kw">nrow</span>(x), <span class="kw">nrow</span>(x)<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb473-3"><a href="métodos-de-selección-de-variables.html#cb473-3"></a>test &lt;-<span class="st"> </span><span class="op">-</span>train</span>
+<span id="cb473-4"><a href="métodos-de-selección-de-variables.html#cb473-4"></a>y.test &lt;-<span class="st"> </span>y[test]</span>
+<span id="cb473-5"><a href="métodos-de-selección-de-variables.html#cb473-5"></a>ridge.mod &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x[train, ], y[train], <span class="dt">alpha =</span> <span class="dv">0</span>, </span>
+<span id="cb473-6"><a href="métodos-de-selección-de-variables.html#cb473-6"></a>    <span class="dt">lambda =</span> grid)</span>
+<span id="cb473-7"><a href="métodos-de-selección-de-variables.html#cb473-7"></a>ridge.pred &lt;-<span class="st"> </span><span class="kw">predict.glmnet</span>(ridge.mod, <span class="dt">s =</span> <span class="dv">4</span>, <span class="dt">newx =</span> x[test, </span>
+<span id="cb473-8"><a href="métodos-de-selección-de-variables.html#cb473-8"></a>    ], <span class="dt">exact =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb473-9"><a href="métodos-de-selección-de-variables.html#cb473-9"></a></span>
+<span id="cb473-10"><a href="métodos-de-selección-de-variables.html#cb473-10"></a><span class="co"># MSE</span></span>
+<span id="cb473-11"><a href="métodos-de-selección-de-variables.html#cb473-11"></a><span class="kw">mean</span>((ridge.pred <span class="op">-</span><span class="st"> </span>y.test)<span class="op">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 142226.5</code></pre>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="métodos-de-selección-de-variables.html#cb475-1"></a>ridge.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(ridge.mod, <span class="dt">s =</span> <span class="fl">1e+10</span>, <span class="dt">newx =</span> x[test, </span>
+<span id="cb475-2"><a href="métodos-de-selección-de-variables.html#cb475-2"></a>    ], <span class="dt">exact =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb475-3"><a href="métodos-de-selección-de-variables.html#cb475-3"></a><span class="kw">mean</span>((ridge.pred <span class="op">-</span><span class="st"> </span>y.test)<span class="op">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 224669.8</code></pre>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="métodos-de-selección-de-variables.html#cb477-1"></a>ridge.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(ridge.mod, <span class="dt">s =</span> <span class="dv">0</span>, <span class="dt">newx =</span> x[test, </span>
+<span id="cb477-2"><a href="métodos-de-selección-de-variables.html#cb477-2"></a>    ], <span class="dt">exact =</span> <span class="ot">FALSE</span>)</span>
+<span id="cb477-3"><a href="métodos-de-selección-de-variables.html#cb477-3"></a><span class="kw">mean</span>((ridge.pred <span class="op">-</span><span class="st"> </span>y.test)<span class="op">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 166258.3</code></pre>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="métodos-de-selección-de-variables.html#cb479-1"></a><span class="kw">lm</span>(y <span class="op">~</span><span class="st"> </span>x, <span class="dt">subset =</span> train)</span></code></pre></div>
+<pre><code>## 
+## Call:
+## lm(formula = y ~ x, subset = train)
+## 
+## Coefficients:
+## (Intercept)       xAtBat        xHits       xHmRun        xRuns         xRBI  
+##    274.0145      -0.3521      -1.6377       5.8145       1.5424       1.1243  
+##      xWalks       xYears      xCAtBat       xCHits      xCHmRun       xCRuns  
+##      3.7287     -16.3773      -0.6412       3.1632       3.4008      -0.9739  
+##       xCRBI      xCWalks     xLeagueN   xDivisionW     xPutOuts     xAssists  
+##     -0.6005       0.3379     119.1486    -144.0831       0.1976       0.6804  
+##     xErrors  xNewLeagueN  
+##     -4.7128     -71.0951</code></pre>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="métodos-de-selección-de-variables.html#cb481-1"></a><span class="kw">predict</span>(ridge.mod, <span class="dt">s =</span> <span class="dv">0</span>, <span class="dt">type =</span> <span class="st">&quot;coefficients&quot;</span>, <span class="dt">exact =</span> <span class="ot">FALSE</span>)</span></code></pre></div>
+<pre><code>## 20 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
+##                        1
+## (Intercept)  275.7172204
+## AtBat         -0.4118004
+## Hits          -1.3490261
+## HmRun          6.0905436
+## Runs           1.4271781
+## RBI            0.9898408
+## Walks          3.8088184
+## Years        -17.2171582
+## CAtBat        -0.6086644
+## CHits          3.0142526
+## CHmRun         3.1935999
+## CRuns         -0.9320183
+## CRBI          -0.5105934
+## CWalks         0.3200890
+## LeagueN      116.5487876
+## DivisionW   -145.0182286
+## PutOuts        0.1959973
+## Assists        0.6722372
+## Errors        -4.6629290
+## NewLeagueN   -68.0666960</code></pre>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="métodos-de-selección-de-variables.html#cb483-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb483-2"><a href="métodos-de-selección-de-variables.html#cb483-2"></a>cv.out &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x[train, ], y[train], <span class="dt">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb483-3"><a href="métodos-de-selección-de-variables.html#cb483-3"></a></span>
+<span id="cb483-4"><a href="métodos-de-selección-de-variables.html#cb483-4"></a><span class="kw">plot</span>(cv.out)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-279-3.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="métodos-de-selección-de-variables.html#cb484-1"></a>bestlam &lt;-<span class="st"> </span>cv.out<span class="op">$</span>lambda.min</span>
+<span id="cb484-2"><a href="métodos-de-selección-de-variables.html#cb484-2"></a>bestlam</span></code></pre></div>
+<pre><code>## [1] 326.0828</code></pre>
+<div class="sourceCode" id="cb486"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb486-1"><a href="métodos-de-selección-de-variables.html#cb486-1"></a><span class="kw">log</span>(bestlam)</span></code></pre></div>
+<pre><code>## [1] 5.787151</code></pre>
+<div class="sourceCode" id="cb488"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb488-1"><a href="métodos-de-selección-de-variables.html#cb488-1"></a>ridge.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(ridge.mod, <span class="dt">s =</span> bestlam, <span class="dt">newx =</span> x[test, </span>
+<span id="cb488-2"><a href="métodos-de-selección-de-variables.html#cb488-2"></a>    ])</span>
+<span id="cb488-3"><a href="métodos-de-selección-de-variables.html#cb488-3"></a><span class="kw">mean</span>((ridge.pred <span class="op">-</span><span class="st"> </span>y.test)<span class="op">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 139833.6</code></pre>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="métodos-de-selección-de-variables.html#cb490-1"></a>out &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x, y, <span class="dt">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb490-2"><a href="métodos-de-selección-de-variables.html#cb490-2"></a><span class="kw">predict</span>(out, <span class="dt">type =</span> <span class="st">&quot;coefficients&quot;</span>, <span class="dt">s =</span> bestlam, <span class="dt">exact =</span> <span class="ot">FALSE</span>)[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, </span>
+<span id="cb490-3"><a href="métodos-de-selección-de-variables.html#cb490-3"></a>    ]</span></code></pre></div>
+<pre><code>##  (Intercept)        AtBat         Hits        HmRun         Runs          RBI 
+##  15.44383135   0.07715547   0.85911581   0.60103107   1.06369007   0.87936105 
+##        Walks        Years       CAtBat        CHits       CHmRun        CRuns 
+##   1.62444616   1.35254780   0.01134999   0.05746654   0.40680157   0.11456224 
+##         CRBI       CWalks      LeagueN    DivisionW      PutOuts      Assists 
+##   0.12116504   0.05299202  22.09143189 -79.04032637   0.16619903   0.02941950 
+##       Errors   NewLeagueN 
+##  -1.36092945   9.12487767</code></pre>
+</div>
+</div>
+<div id="regresión-lasso-1" class="section level3">
+<h3><span class="header-section-number">7.3.3</span> Regresión Lasso</h3>
+<p>Ejecute los procedimientos anteriores con glmnet pero modifique el paramétro <code>alpha = 0</code>. Compare los resultados.</p>
+<p>En este caso, se están encontrando los valores de <span class="math inline">\(\beta\)</span> tal que
+<span class="math display">\[\hat{\beta} = \underset{\beta}{\mathrm{argmin}} \left\{RSS + \lambda \Vert \beta \Vert_1^2\right\}.\]</span></p>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="métodos-de-selección-de-variables.html#cb492-1"></a>lasso.mod &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x[train, ], y[train], <span class="dt">alpha =</span> <span class="dv">1</span>, </span>
+<span id="cb492-2"><a href="métodos-de-selección-de-variables.html#cb492-2"></a>    <span class="dt">lambda =</span> grid)</span>
+<span id="cb492-3"><a href="métodos-de-selección-de-variables.html#cb492-3"></a><span class="kw">plot</span>(lasso.mod)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-280-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="métodos-de-selección-de-variables.html#cb493-1"></a><span class="kw">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb493-2"><a href="métodos-de-selección-de-variables.html#cb493-2"></a>cv.out &lt;-<span class="st"> </span><span class="kw">cv.glmnet</span>(x[train, ], y[train], <span class="dt">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb493-3"><a href="métodos-de-selección-de-variables.html#cb493-3"></a><span class="kw">plot</span>(cv.out)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-280-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb494"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb494-1"><a href="métodos-de-selección-de-variables.html#cb494-1"></a>bestlam &lt;-<span class="st"> </span>cv.out<span class="op">$</span>lambda.min</span>
+<span id="cb494-2"><a href="métodos-de-selección-de-variables.html#cb494-2"></a>bestlam</span></code></pre></div>
+<pre><code>## [1] 9.286955</code></pre>
+<div class="sourceCode" id="cb496"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb496-1"><a href="métodos-de-selección-de-variables.html#cb496-1"></a><span class="kw">log</span>(bestlam)</span></code></pre></div>
+<pre><code>## [1] 2.228611</code></pre>
+<div class="sourceCode" id="cb498"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb498-1"><a href="métodos-de-selección-de-variables.html#cb498-1"></a>lasso.pred &lt;-<span class="st"> </span><span class="kw">predict</span>(lasso.mod, <span class="dt">s =</span> bestlam, <span class="dt">newx =</span> x[test, </span>
+<span id="cb498-2"><a href="métodos-de-selección-de-variables.html#cb498-2"></a>    ])</span>
+<span id="cb498-3"><a href="métodos-de-selección-de-variables.html#cb498-3"></a><span class="kw">mean</span>((lasso.pred <span class="op">-</span><span class="st"> </span>y.test)<span class="op">^</span><span class="dv">2</span>)</span></code></pre></div>
+<pre><code>## [1] 143673.6</code></pre>
+<div class="sourceCode" id="cb500"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb500-1"><a href="métodos-de-selección-de-variables.html#cb500-1"></a>out &lt;-<span class="st"> </span><span class="kw">glmnet</span>(x, y, <span class="dt">alpha =</span> <span class="dv">1</span>, <span class="dt">lambda =</span> grid)</span>
+<span id="cb500-2"><a href="métodos-de-selección-de-variables.html#cb500-2"></a>lasso.coef &lt;-<span class="st"> </span><span class="kw">predict</span>(out, <span class="dt">type =</span> <span class="st">&quot;coefficients&quot;</span>, <span class="dt">s =</span> bestlam)[<span class="dv">1</span><span class="op">:</span><span class="dv">20</span>, </span>
+<span id="cb500-3"><a href="métodos-de-selección-de-variables.html#cb500-3"></a>    ]</span>
+<span id="cb500-4"><a href="métodos-de-selección-de-variables.html#cb500-4"></a>lasso.coef</span></code></pre></div>
+<pre><code>##   (Intercept)         AtBat          Hits         HmRun          Runs 
+##    1.27479059   -0.05497143    2.18034583    0.00000000    0.00000000 
+##           RBI         Walks         Years        CAtBat         CHits 
+##    0.00000000    2.29192406   -0.33806109    0.00000000    0.00000000 
+##        CHmRun         CRuns          CRBI        CWalks       LeagueN 
+##    0.02825013    0.21628385    0.41712537    0.00000000   20.28615023 
+##     DivisionW       PutOuts       Assists        Errors    NewLeagueN 
+## -116.16755870    0.23752385    0.00000000   -0.85629148    0.00000000</code></pre>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="métodos-de-selección-de-variables.html#cb502-1"></a>lasso.coef[lasso.coef <span class="op">!=</span><span class="st"> </span><span class="dv">0</span>]</span></code></pre></div>
+<pre><code>##   (Intercept)         AtBat          Hits         Walks         Years 
+##    1.27479059   -0.05497143    2.18034583    2.29192406   -0.33806109 
+##        CHmRun         CRuns          CRBI       LeagueN     DivisionW 
+##    0.02825013    0.21628385    0.41712537   20.28615023 -116.16755870 
+##       PutOuts        Errors 
+##    0.23752385   -0.85629148</code></pre>
+</div>
+</div>
+<div id="ejercicios-5" class="section level2">
+<h2><span class="header-section-number">7.4</span> Ejercicios</h2>
+<ul>
+<li>Del libro <span class="citation">(James et al. <a href="#ref-James2013b" role="doc-biblioref">2013</a>)</span>
+<ul>
+<li>Capítulo 5. 2, 5, 8.</li>
+<li>Capítulo 6: 5, 6, 7, 8, 10.</li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+<h3>References</h3>
+<div id="refs" class="references">
+<div id="ref-Hastie2009a">
+<p>Hastie, Trevor, Robert Tibshirani, and Jerome Friedman. 2009. <em>The Elements of Statistical Learning</em>. Springer Series in Statistics. New York, NY: Springer New York. <a href="https://doi.org/10.1007/978-0-387-84858-7">https://doi.org/10.1007/978-0-387-84858-7</a>.</p>
+</div>
+<div id="ref-James2013b">
+<p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 103. Springer Texts in Statistics. New York, NY: Springer New York. <a href="https://doi.org/10.1007/978-1-4614-7138-7">https://doi.org/10.1007/978-1-4614-7138-7</a>.</p>
+</div>
 </div>
             </section>
 
@@ -344,7 +1253,7 @@ donde <span class="math inline">\(k\)</span> es el número de predictores y <spa
         </div>
       </div>
 <a href="regresión-logística.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="métodos-de-regularización.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="análisis-en-componentes-principales.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
