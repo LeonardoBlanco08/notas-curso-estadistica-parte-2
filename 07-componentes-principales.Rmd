@@ -67,7 +67,7 @@ pvc <- res.pca$eig[,3]
 qplot(1:10,pvc, geom = "point") + xlab("Cantidad de componentes") + ylab("Varianza acumulada") + geom_line() + theme_minimal() + geom_hline(yintercept = 80, color = "red")+scale_x_continuous(breaks = 1:10)
 ```
 
-# Laboratorio
+## Laboratorio
 
 Vamos a usar los datos `USArrests` que represente estadísticas de arrestos por motivos de asaltos, asesinatos, violaciones, etc; en 50 estados de EEUU en 1973.
 
@@ -129,5 +129,9 @@ a <- c(1, 2, 8, -3)
 cumsum(a)
 ```
 
+## Ejercicios 
 
+- Del libro [@James2013b] 
+    - Capítulo 10:  6, 8
+`
 
