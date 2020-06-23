@@ -1,22 +1,39 @@
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(echo = TRUE,message = FALSE)
 ```
 
 # Métodos de selección de variables
 
-## 1. Selección del mejor subconjunto.
+
+Cuando se construye un modelo de regresión (lineal o logística) existe la posibilidad de que existan más variables que datos disponibles. 
+
+Si se recuerdan del Capítulo 4, el \(R^{2}\) ajustado tenía un factor \(n-p-1\) en el denominador y si \(n>p\) este tipo de indicador no se podría estimar.  
+
+En este capítulo veremos cómo construir modelos más pequeños y hacer comparaciones entre ellos. 
+
+  
+
+
+
+## Selección del mejor subconjunto.
+
+En este caso trataremos de seleccionar el mejor subconjunto de un total de \(p\) variables. Claramente si escogieramos solo \(k\)  varibles existiría $\binom{p}{k}$ modelos diferentes que escoger. 
+
+
+El algoritmo para este caso sería: 
+
+
+
 
 *Algoritmo:*
-\begin{itemize}
-\item[1.] Sea $M_0$ el modelo nulo (solo tiene constantes).
-\item[2.]  Para $k=1,2,\dots,p$ (número de variables),
-\begin{itemize}
-\item[a.] Ajuste todos los $\binom{p}{k}$ modelos que contengan $k$ predictores.
-\item[b.] Seleccione el mejor entre esos $\binom{p}{k}$ modelos. El "mejor" es el que tenga el $RSS$ menor, o el $R^2$ más grande. Llame a este modelo $M_k$. 
-\end{itemize}
-\item[3.]  Seleccione el mejor modelo entre $M_0,M_1,\dots,M_p$ usando un error de validación cruzada, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
-\end{itemize}
+1. Sea $M_0$ el modelo nulo (solo tiene constantes).
+1.  Para $k=1,2,\dots,p$ (número de variables),
+    a. Ajuste todos los $\binom{p}{k}$ modelos que contengan $k$ predictores.
+    b. Seleccione el mejor entre esos $\binom{p}{k}$ modelos. El "mejor" es el que tenga el $RSS$ menor, o el $R^2$ más grande. Llame a este modelo $M_k$. 
+1.  Seleccione el mejor modelo entre $M_0,M_1,\dots,M_p$  seleccione aquel que tenga mejor error de validación cruzada, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
+
+**Nota: Más adelante veremos qué es validación cruzada, \(C_p\),  \(AIC\) y \(BIC\)**
 
 *Ejemplo:* $Y = \beta_0+\beta_1X_1+ \beta_2X_2 + \beta_3X_3$. 
 
@@ -38,19 +55,93 @@ De los que tienen $k=1$ variable, hay $\binom{3}{1}$ = 3 modelos. Para $k=2$, so
 
 *Notas:* 
 
-\begin{itemize}
-\item La parte 2.b. se hace con la muestra de entrenamiento. La parte 3 se selecciona con los datos de prueba. 
-\item Si se usa el $RSS$ o $R^2$, siempre se selecciona el modelo con el número mayor de variables. Este es un problema de sobreajuste.
-\item El gran problema es la cantidad de variables y los modelos por ajustar. Computacionalmente ineficiente.
-\end{itemize}
+- La parte 2.b. se hace con la muestra de entrenamiento. **Objetivo: Minimizar el error de entrenamiento.**
+* La parte 3 se selecciona con los datos de prueba. **Objetivo: Minimizar el error de prueba**. 
+- Si se usa el $RSS$ o $R^2$, siempre se selecciona el modelo con el número mayor de variables. Este es un problema de sobreajuste.
+- El gran problema es la cantidad de variables y los modelos por ajustar, los cuales son \(\sum_{k=1}^n \binom{p}{k}\). Computacionalmente ineficiente. 
 
 
-## 2. Posibles soluciones
+### Error de prueba
+El problema con el error de prueba es que contiene una fuente de variabilidad no observada por el modelo. 
 
-a) Estimar indirectamente el error de prueba al añadirle un factor de sobreajuste (más sesgo).
-b) Estimar directamente el error de prueba usando validación cruzada.
+**2 soluciones**
 
-### Ajuste al error de entrenamiento
+a. Estimar indirectamente el error de prueba al añadirle un factor de sobreajuste. Es decir, agregarle artificialmente la variabilidad no observada, pero incluyendo más sesgo. 
+b. Estimar directamente el error de prueba usando validación cruzada.
+
+
+#### Validación cruzada
+
+
+Dividir aleatoriamente los datos totales en 2 partes (con tamaños comparables)
+
+- Conjunto de prueba: Se ajusta el modelo. 
+- Conjunto de validación: El modelo ajustado se usa para predecir en este conjunto. 
+
+Se usa una medida de validación en cada escogencia de los dos conjuntos (\(MSE\) en el caso cuantitativo)
+
+1. Puede que el varianza del estimador tenga una varianza muy alta. 
+2. El error de validación tiende a ser mayor que el error de entrenamiento. Puede haber sobreestimación. 
+
+##### Validación cruzada "Leave-One-Out" (LOOCV)
+
+Una sola observación \( \left( X_{i}, Y_{i} \right) \) se usa en el conjunto de validación. Observaciones restantes, se usan en el conjunto de entrenamiento. 
+
+Defina 
+
+\begin{equation*}
+MSE_{i} =(Y_{i}-\hat{Y}_{i})^{2}
+\end{equation*}
+ 
+como el error cometido por usar la observación \(i\) como muestra de prueba y el resto de valores como muestra de entrenamiento. 
+
+El estimador LOOCV es 
+
+\begin{equation*}
+CV_{n} = \frac{1}{n} \sum_{i=1}^{n} MSE_{i}
+\end{equation*}
+
+
+**Ventajas**
+
+1. Menos sesgo. (Conjunto de prueba de tamaño casi igual que los datos totales). 
+2. Menos varianza.
+
+**Problema: Puede ser lento, dependiendo de la cantidad de datos.**
+
+##### Validación cruzada \(k-\)veces
+
+Se aplica el mismo principio que LOOCV, pero se divide la muestra en \(k\) distintas partes. 
+
+\begin{equation*}
+CV_{k} = \frac{1}{k} \sum_{i=1}^{k} MSE_{k}
+\end{equation*}
+
+**Ventajas: Es más económico**
+
+**Desventaja: Nivel intermedio de sesgo**
+
+\begin{equation*}
+\frac{n}{2} < \frac{(k-1)n}{k} < n-1
+\end{equation*}
+
+#### Validación cruzada para clasificación
+
+Se usa 
+
+\begin{equation*}
+CV_{n} = \frac{1}{n} \sum_{i=1}^{n} Err_{n}
+\end{equation*}
+
+
+donde \(Err_i = I_{Y_i \neq \hat{Y}_{i}}\)
+
+
+y \(CV_{k}\) se define similar 
+
+
+### Otras medidas de error de entrenamiento
+
 
 * $C_p$. Se usa en ajustes con mínimos cuadrados. 
 $$ C_p = \dfrac{1}{n}\left[RSS+2k\hat\sigma^2\right]$$
@@ -70,17 +161,18 @@ $$BIC =  \dfrac1n[RSS+\ln(n)k\hat\sigma²]$$
 * $R^2$ ajustado. Recuerde que $R^2 = 1 - \dfrac{RSS}{TSS}$. Como $RSS$ decrece si se le agrega más variables, entonces $R^2 \nearrow 1$. Vea que $RSS = \sum(y_i-\hat{y}_i)^2$ y $TSS = \sum(y_i-\bar{y}_i)^2$, entonces,
 $$R^2 \text{ ajustado}= 1-\dfrac{\dfrac{RSS}{n-k-1}}{\dfrac{TSS}{n-1}}$$
 
+
+Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@Hastie2009a].
+
+
 ### Selección de modelos hacia adelante (**Forward Stepwise Selection**)
 
-\begin{itemize}
-\item[1.] Sea $M_0$ el modelo nulo. 
-\item[2.] Para $k=0,1,\dots,p-1$,
-\begin{itemize}
-\item[a.] Considere los $p-k$ modelos que contenga los predictores en $M_k$ con un predictor adicional.
-\item[b.] Seleccione el mejor entre esos $p-k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k+1}$.
-\end{itemize}
-\item[3.] Seleccione el mejor modelo entre $M_0,\dots, M_p$ usando $VC$, $Cp$, $AIC$, $BIC$ o $R^2$ ajustado.
-\end{itemize}
+1. Sea $M_0$ el modelo nulo. 
+1. Para $k=0,1,\dots,p-1$,
+    a. Considere los $p-k$ modelos que contenga los predictores en $M_k$ con un predictor adicional.
+    a. Seleccione el mejor entre esos $p-k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k+1}$.
+1. Seleccione el mejor modelo entre $M_0,\dots, M_p$ usando $VC$, $Cp$, $AIC$, $BIC$ o $R^2$ ajustado.
+
 
 *Ejemplo:*  $Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3$
 
@@ -96,15 +188,13 @@ $$R^2 \text{ ajustado}= 1-\dfrac{\dfrac{RSS}{n-k-1}}{\dfrac{TSS}{n-1}}$$
 
 ### Selección de modelos hacia atrás (**Backward Stepwise Selection**)
 
-\begin{itemize}
-\item[1.] Sea $M_p$ el modelo completo.
-\item[2.] Para $k=p,p-1,\dots,1$,
-\begin{itemize}
-\item[a.] Considere los $k$ modelos que contienen todos excepto uno de los predictores en $M_k$ para un total de $k-1$ predictores.
-\item[b.] Seleccione el mejor entre esos $k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k+1}$.
-\end{itemize}
-\item[3.] Seleccione el mejor modelo entre $M_0,\dots,M_p$ usando $VC$, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
-\end{itemize}
+
+1. Sea $M_p$ el modelo completo.
+1. Para $k=p,p-1,\dots,1$,
+    a. Considere los $k$ modelos que contienen todos excepto uno de los predictores en $M_k$ para un total de $k-1$ predictores.
+    a. Seleccione el mejor entre esos $k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k+1}$.
+1. Seleccione el mejor modelo entre $M_0,\dots,M_p$ usando $VC$, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
+
 
 *Ejemplo:*  $Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3$
 
@@ -116,46 +206,380 @@ $$R^2 \text{ ajustado}= 1-\dfrac{\dfrac{RSS}{n-k-1}}{\dfrac{TSS}{n-1}}$$
 
 * $M_0$: $Y=\beta_0$, el modelo nulo.
 
-# Métodos de regularización
+## Métodos de regularización
 
-## Regresión Ridge
+### Regresión Ridge
 
 Considere 
-$$ RSS = \sum_{i=1}^{n}\left(y_i-\beta\sigma\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 \text{ y } \hat\beta = \underset{\beta}{\operatorname{argmin}} RSS$$
+$$ RSS = \sum_{i=1}^{n}\left(y_i-\beta\sigma\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 $$
+y 
+\[
+\hat\beta = \underset{\beta}{\mathrm{argmin}} RSS
+\]
+
 
 La regresión Ridge consiste en determinar
-$$ \hat\beta^R_\lambda = \underset{\beta}{\operatorname{argmin}}\left[RSS + \lambda\sum_{j=1}^n\beta_j^2\right]$$
+
+$$ \hat\beta^R_\lambda = \underset{\beta}{\mathrm{argmin}}\left[RSS + \lambda\sum_{j=1}^n\beta_j^2\right]$$
 
 Se define:
 $$\|\beta_{-0}\|^2_2 = \sum_{j=1}^{n}\beta_j^2$$
-\begin{itemize}
-\item Si $\lambda = 0$, $\hat\beta = \beta^R_\lambda$: caso de máxima varianza, con el menor sesgo posible.
-\item Si $\lambda \to +\infty$, $\beta \to 0$: se sacrifican todos los parámetros $\beta$. Máximo sesgo pero varianza nula.
-\end{itemize}
+
+- Si $\lambda = 0$, $\hat\beta = \beta^R_\lambda$: caso de máxima varianza, con el menor sesgo posible.
+- Si $\lambda \to +\infty$, $\beta \to 0$: se sacrifican todos los parámetros $\beta$. Máximo sesgo pero varianza nula.
+
 
 ¿Cómo se debe seleccionar el $\lambda$?
 El método para seleccionarlo es por validación cruzada
 
-### Estimación clásica por mínimos cuadrados.
+#### Estimación clásica por mínimos cuadrados.
 $$ \hat\beta = (X^T\cdot X)^{-1}X^Ty$$
 Si se multiplica una constante $c$ a $Xi$, entonces $\hat\beta = \dfrac{\hat\beta_i}{c}$. La constante $c$ afecta directamente al $\|\beta_{-0}\|^2_2$, por lo que se recomienda estandarizar las covariables.
 
-### Ventajas
+#### Ventajas
 
-\begin{itemize}
-\item Indica el balance entre sesgo y varianza.
-\item Si $p>n$ (mayor cantidad de variables que datos), al realizar mínimos cuadrados, no se puede dar una solución, pero con la forma de regresión de Ridge es posible alcanzarla.
-\item Computacionalmente es más eficiente que usando selección de "todos los subconjuntos".
-\end{itemize}
 
-## Regresión Lasso
-$$ \beta_{\lambda}^{LASSO} = \underset{\beta}{\operatorname{argmin}}\left(RSS + \lambda\sum_{j=1}^n |\beta_j|\right)$$
+1. Indica el balance entre sesgo y varianza.
+1. Si $p>n$ (mayor cantidad de variables que datos), al realizar mínimos cuadrados, no se puede dar una solución, pero con la forma de regresión de Ridge es posible alcanzarla.
+1. Computacionalmente es más eficiente que usando selección de "todos los subconjuntos".
+
+
+### Regresión Lasso
+$$ \beta_{\lambda}^{LASSO} = \underset{\beta}{\mathrm{argmin}}\left(RSS + \lambda\sum_{j=1}^n |\beta_j|\right)$$
 Se define
 $$ \|\beta_{-0}\|_1 = \sum_{j=1}^n|\beta_j|$$
 Otra formulación para los métodos vistos son:
 
-\begin{itemize}
-\item \textbf{Ridge}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p\beta_j^2 \leq s$.
-\item \textbf{Lasso}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p|\beta_j| \leq s$.
-\item \textbf{Mejor subconjunto}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p \boldsymbol{1}_{\lbrace\beta_j \neq 0\rbrace} \leq s$.
-\end{itemize}
+
+1. \textbf{Ridge}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p\beta_j^2 \leq s$.
+1. \textbf{Lasso}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p|\beta_j| \leq s$.
+<!-- 1. \textbf{Mejor subconjunto}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p I_{\lbrace\beta_j \neq 0\rbrace} \leq s$. -->
+
+
+### Explicación gráfica
+
+![Tomado de [DataSklr](https://www.datasklr.com/extensions-of-ols-regression/regularization-and-shrinkage-ridge-lasso-and-elastic-net-regression)](manual_figures/ridge-lasso.png)
+
+
+
+![Tomado de [Towards to Data Science](https://towardsdatascience.com/regularization-in-machine-learning-connecting-the-dots-c6e030bfaddd)](manual_figures/ridge-lasso2.png)
+
+## Laboratorio
+
+### Cross-Validation
+
+#### Leave-one-out Cross Validation (LOOCV)
+
+Es posible comparar distintos ajustes de modelos usando cross-validation.
+
+Carguemos la base de datos `Auto` de `ISLR`.
+
+```{r}
+library(ISLR)
+data("Auto")
+```
+
+Y ajustamos un modelo entre las millas por galon contra los caballos de fuerza de ciertos vehículos.
+
+```{r}
+glm.fit <- glm(mpg ~ horsepower, data = Auto)
+summary(glm.fit)
+```
+
+La librería `boot` tiene funciones para aplicar cross-validation. Por ejemplo,
+
+```{r}
+library(boot)
+glm.fit <- glm(mpg ~ horsepower, data = Auto)
+cv.err <- cv.glm(Auto, glm.fit)
+cv.err$delta
+```
+
+En particular se puede usar un `for` para aplicar este mismo procedimiento a múltiples modelos.
+
+```{r}
+cv.error.LOOCV = rep(0, 5)
+for (i in 1:5) {
+    glm.fit = glm(mpg ~ poly(horsepower, i), data = Auto)
+    cv.error.LOOCV[i] = cv.glm(Auto, glm.fit)$delta[1]
+}
+cv.error.LOOCV
+plot(cv.error.LOOCV, type = "l")
+```
+
+#### K-Fold Cross Validation
+
+Este procedimiento se puede repetir con los el K-fold.
+
+```{r}
+set.seed(17)
+cv.error.10 = rep(0, 10)
+for (i in 1:10) {
+    glm.fit = glm(mpg ~ poly(horsepower, i), data = Auto)
+    cv.error.10[i] = cv.glm(Auto, glm.fit, K = 10)$delta[1]
+}
+cv.error.10
+
+plot(cv.error.LOOCV, type = "l", col = "red")
+lines(cv.error.10, type = "l", col = "blue")
+```
+
+### Selección de variables
+
+Cargue los datos `Hitters` del paquete `ISLR` que representan el salario de varios jugadores de beisbol y sus estadística de juego (número de bateos, home runs, carreras, etc.).
+
+#### Análisis exploratorio
+
+Con esta información, haga un análisis exploratorio de los datos usando `ggpairs`.
+
+```{r}
+library(GGally)
+ggpairs(Hitters)
+summary(Hitters)
+```
+
+Para limpiar la base de datos de `NA` usamos `dplyr`.
+
+```{r}
+library(tidyverse)
+Hitters <- Hitters %>% drop_na()
+```
+
+#### Selección del mejor subconjunto
+
+Cargue la librería
+
+```{r}
+library(leaps)
+```
+
+y busque la ayuda de la función `regsubsets`. Use esta función para ajustar todo los posibles modelos de la forma `Salary ~ .`.
+
+Puede guardar estos modelos en ciertas variables (e.g. `regfit.full`) y usar la función `plot`.
+
+```{r}
+library(leaps)
+regfit.full <- regsubsets(Salary ~ ., Hitters)
+summary(regfit.full)
+```
+
+Se puede incluir todas las variables con `nvmax = 19`.
+
+```{r}
+library(leaps)
+regfit.full <- regsubsets(Salary ~ ., Hitters, nvmax = 19)
+regfit.full.summary <- summary(regfit.full)
+regfit.full.summary
+
+str(regfit.full.summary)
+
+idx <- which.max(regfit.full.summary$rsq)
+plot(regfit.full.summary$rsq)
+points(idx, regfit.full.summary$rsq[idx], col = "red", 
+       cex = 2,pch = 20)
+
+idx <- which.min(regfit.full.summary$rss)
+plot(regfit.full.summary$rss)
+points(idx, regfit.full.summary$rss[idx], col = "red", 
+       cex = 2,pch = 20)
+
+idx <- which.max(regfit.full.summary$adjr2)
+plot(regfit.full.summary$adjr2)
+points(idx, regfit.full.summary$adjr2[idx], col = "red", 
+       cex = 2,pch = 20)
+
+idx <- which.min(regfit.full.summary$cp)
+plot(regfit.full.summary$cp)
+points(idx, regfit.full.summary$cp[idx], col = "red", 
+       cex = 2,pch = 20)
+
+idx <- which.min(regfit.full.summary$bic)
+plot(regfit.full.summary$bic)
+points(idx, regfit.full.summary$bic[idx], col = "red", 
+       cex = 2,pch = 20)
+
+plot(regfit.full, scale = "r2")
+plot(regfit.full, scale = "bic")
+plot(regfit.full, scale = "Cp")
+plot(regfit.full, scale = "adjr2")
+coef(regfit.full, 10)
+```
+
+#### Regresión forward y backward
+
+La función `regsubsets` tiene un paramétro `method`. Usen los valores `forward` y `backward` y comparen los resultados.
+
+Puede guardar estos modelos en ciertas variables (e.g. `regfit.fwd` y `regfit.bwd`) y usar la función `plot`.
+
+```{r}
+regfit.fwd <- regsubsets(Salary ~ ., data = Hitters, nvmax = 19, 
+                         method = "forward")
+summary(regfit.fwd)
+
+regfit.bwd <- regsubsets(Salary ~ ., data = Hitters, nvmax = 19, 
+                         method = "backward")
+summary(regfit.bwd)
+
+par(mfrow = c(1, 2))
+plot(regfit.fwd, scale = "r2")
+plot(regfit.bwd, scale = "r2")
+
+par(mfrow = c(1, 2))
+plot(regfit.fwd, scale = "bic")
+plot(regfit.bwd, scale = "bic")
+
+par(mfrow = c(1, 2))
+plot(regfit.fwd, scale = "Cp")
+plot(regfit.bwd, scale = "Cp")
+
+par(mfrow = c(1, 2))
+plot(regfit.fwd, scale = "adjr2")
+plot(regfit.bwd, scale = "adjr2")
+```
+
+#### Regresión Ridge
+
+```{r}
+x <- model.matrix(Salary~.,Hitters)[,-1]
+y <- Hitters$Salary
+```
+
+Usando el paquete `glmnet` y la función con el mismo nombre, ejecute el siguiente comando
+
+```{r}
+library(glmnet)
+grid <- 10 ^ seq(10, -2, length = 100)
+ridge.mod <- glmnet(x, y, alpha = 0, lambda = grid)
+```
+
+El factor `lambda` representa el $\lambda$ de la fórmula
+
+
+$$ \hat{\beta} = \underset{\beta}{\mathrm{argmin}} \left\{RSS + \lambda \Vert \beta \Vert_2^2\right\}.$$
+
+Si no se incluye el paramétro lambda del modelo, R construye una secuencia de $\lambda'$s estimados por validación cruzada.
+
+Haga lo siguiente:
+
+1. Construya un modelo usando todos los datos (sin separar muestra de entrenamiento y prueba).
+
+2. Construya el siguiente modelo
+
+
+```{r}
+set.seed(1)
+train <- sample(1:nrow(x), nrow(x)/2)
+test <- -train
+y.test <- y[test]
+ridge.mod <- glmnet(x[train, ], y[train], alpha = 0, lambda = grid)
+ridge.pred <- predict(ridge.mod, s = 4, newx = x[test, ])
+
+# MSE
+mean((ridge.pred - y.test)^2)
+```
+
+¿Qué ocurre si se cambia el paramétro $s$ de `predict` por un `10e10` (i.e. $10^{10}$). Comente los resultados. ¿Y qué ocurre si $s=0$?
+
+3. Finalmente, ejecute el siguiente código
+
+```{r}
+set.seed(1)
+cv.out <- cv.glmnet(x[train, ], y[train], alpha = 0)
+plot(cv.out)
+```
+
+Busque la ayuda de `cv.glmnet` y deduzca qué significa el gráfico.
+
+```{r}
+library(glmnet)
+grid <- 10 ^ seq(10, -2, length = 100)
+ridge.mod <- glmnet(x, y, alpha = 0, lambda = grid)
+
+ridge.mod$lambda[50]
+coef(ridge.mod)[,50]
+
+sqrt(sum(coef(ridge.mod)[-1,50]^2))
+ridge.mod$lambda[60]
+coef(ridge.mod)[,60]
+sqrt(sum(coef(ridge.mod)[-1,60]^2))
+plot(ridge.mod)
+ridge.mod <- glmnet(x, y, alpha = 0)
+ridge.mod$lambda
+plot(ridge.mod)
+predict(ridge.mod, s = 50, type = "coefficients")
+
+set.seed(1)
+train <- sample(1:nrow(x), nrow(x)/2)
+test <- -train
+y.test <- y[test]
+ridge.mod <- glmnet(x[train, ], y[train], alpha = 0, lambda = grid)
+ridge.pred <- predict.glmnet(ridge.mod, s = 4, newx = x[test, ], exact = FALSE)
+
+# MSE
+mean((ridge.pred - y.test)^2)
+
+ridge.pred <- predict(ridge.mod, s = 1e+10, newx = x[test, ], exact = TRUE)
+mean((ridge.pred - y.test)^2)
+
+ridge.pred <- predict(ridge.mod, s = 0, newx = x[test, ], exact = FALSE)
+mean((ridge.pred - y.test)^2)
+
+lm(y ~ x, subset = train)
+
+predict(ridge.mod, s = 0, type = "coefficients", exact = FALSE)
+
+set.seed(1)
+cv.out <- cv.glmnet(x[train, ], y[train], alpha = 0)
+
+plot(cv.out)
+
+bestlam <- cv.out$lambda.min
+bestlam
+
+log(bestlam)
+
+ridge.pred <- predict(ridge.mod, s = bestlam, newx = x[test, ])
+mean((ridge.pred - y.test)^2)
+
+out <- glmnet(x, y, alpha = 0)
+predict(out, type = "coefficients", s = bestlam, exact = FALSE)[1:20, ]
+```
+
+### Regresión Lasso
+
+Ejecute los procedimientos anteriores con glmnet pero modifique el paramétro `alpha = 0`. Compare los resultados.
+
+En este caso, se están encontrando los valores de $\beta$ tal que
+$$\hat{\beta} = \underset{\beta}{\mathrm{argmin}} \left\{RSS + \lambda \Vert \beta \Vert_1^2\right\}.$$
+```{r}
+lasso.mod <- glmnet(x[train,], y[train], alpha = 1, lambda = grid)
+plot(lasso.mod)
+
+set.seed(1)
+cv.out <- cv.glmnet(x[train,], y[train], alpha = 1)
+plot(cv.out)
+
+bestlam <- cv.out$lambda.min
+bestlam
+
+log(bestlam)
+
+lasso.pred <- predict(lasso.mod, s = bestlam, newx = x[test,])
+mean((lasso.pred - y.test) ^ 2)
+
+out <- glmnet(x, y, alpha = 1, lambda = grid)
+lasso.coef <-
+  predict(out, type = "coefficients", s = bestlam)[1:20,]
+lasso.coef
+
+lasso.coef[lasso.coef != 0]
+```
+
+
+## Ejercicios 
+
+- Del libro [@James2013b] 
+    - Capítulo 5. 2, 5, 8.
+    - Capítulo 6: 5, 6, 7, 8, 10.
+  
+
