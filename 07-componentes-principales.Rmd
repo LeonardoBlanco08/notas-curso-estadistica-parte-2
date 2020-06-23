@@ -1,0 +1,133 @@
+# Análisis en componentes principales
+
+Si se quiere seleccionar la mejor proyección de 2 variables de una nube de puntos $X_1,\dots, X_p$, se debe hacer $\binom{p}{2}$ gráficos de dispersión. Se debe seleccionar la que tenga menor varianza, es decir, en los siguientes gráficos, la mejor foto sería la que tenga la mayor variabilidad:
+
+
+```{r, echo=FALSE}
+library(ggplot2)
+
+qplot(1:300,rnorm(300,sd=0.1)+5,ylim = c(0,10)) + theme_minimal() + xlab("") + ylab("")
+qplot(1:300,(3*1:300 + 100*cos(1:300/(2*pi))+200*rnorm(300,sd=0.1))/100)+ theme_minimal() + xlab("") + ylab("")
+```
+
+El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones.
+
+## Primer componente principal
+
+```{r,echo=FALSE}
+knitr::include_graphics("pca1.png")
+```
+
+
+$$ Z_1 := \phi_{11}x_1 +  \phi_{21}x_2 + \dots + \phi_{p1}x_p;\quad \text{con } \sum_{j=1}^{p}\phi_{j1} = 1$$
+tal que $Z_1$ tenga la varianza máxima.
+
+Al vector $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$ se le llama *pasos o cargas*. 
+
+$X = (X_1,\dots,X_p)_{n\times p}$ es la *matriz de diseño* donde cada columna tiene media 0. Se resuelve el problema
+$$\underset{\phi_1}{\max} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace \text{ sujeto a } \sum_{j=1}^p \phi_{j1}^2 = 1 $$
+Los $Z_{11},\dots, Z_{n1}$ son los scores del primer componente principal.
+
+*Representación gráfica*
+
+```{r,echo=FALSE}
+knitr::include_graphics("representacion.jpg")
+```
+
+$\phi_1$ es la dirección en el espacio característico en $\mathbb{R}^p$ en donde los datos tengan la máxima varianza.
+
+## Segunda componente principal
+
+```{r,echo=FALSE}
+knitr::include_graphics("pca2.png")
+```
+
+$$ Z_{2}:= \phi_{12}x_1 + \phi_{22}x_2+\dots+\phi_{p2}x_p$$
+ $$\underset{\phi_1}{\max} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j2} X_{ij} \right)^2 \right\rbrace \text{ sujeto a } \sum_{j=1}^p \phi_{j1}^2 = 1$$
+ Se tiene, además, que $\forall i$, $Z_{i2}\perp Z_1$, entonces 
+ $$ Z_{i2}\perp Z_1 \implies \phi_{2} \perp \phi_{1}$$
+De la misma forma se construye $\phi_3,\phi_4,\dots, \phi_p$.
+
+Notas: 
+\begin{itemize}
+\item \textbf{Escalas}: la varianza de las variables depende de las unidades. El problema es que los pesos $\phi_i$ son distintos dependiendo de las escalas. La solución es estandarizar las variables: $\dfrac{X_i-\mu_i}{\hat\sigma_i}$.
+\item \textbf{Unicidad}: los componentes principales son únicos, módulo cambio de signo.
+\end{itemize}
+
+## ¿Cuántos componentes usar?
+
+```{r,message=F,echo=F}
+library("factoextra")
+data("decathlon2")
+df <- decathlon2[1:23, 1:10]
+library("FactoMineR")
+res.pca <- PCA(df,  graph = FALSE)
+fviz_screeplot(res.pca, addlabels = F, ylim = c(0, 50)) + xlab("Variables") + ylab("Porcentaje de varianza de Z explicada") + labs(title = "Diagrama")
+pvc <- res.pca$eig[,3]
+qplot(1:10,pvc, geom = "point") + xlab("Cantidad de componentes") + ylab("Varianza acumulada") + geom_line() + theme_minimal() + geom_hline(yintercept = 80, color = "red")+scale_x_continuous(breaks = 1:10)
+```
+
+# Laboratorio
+
+Vamos a usar los datos `USArrests` que represente estadísticas de arrestos por motivos de asaltos, asesinatos, violaciones, etc; en 50 estados de EEUU en 1973.
+
+El objetivo es encontrar si hay patrones entre ciudad y tipos de crimen.
+
+Exploración de datos
+Ejecute una exploración de datos
+
+
+```{r}
+library(GGally)
+ggpairs(USArrests)
+summary(USArrests)
+```
+
+Use la función `prcomp` y ejecute un análisis en componentes principales.
+
+Luego use la función `biplot` para visualizar los resultados. Nota: Es posible que los ejes estén invertidos!
+
+Finalmente construya un gráfico que represente la varianza explicada por cada componente principal para identificar cuántos componentes principales se deberían usar.
+
+```{r}
+pr.out <- prcomp(USArrests, scale = TRUE)
+summary(pr.out)
+pr.out$center
+pr.out$scale
+pr.out$rotation
+biplot(pr.out, scale = 0)
+pr.out$rotation <- -pr.out$rotation
+pr.out$x <- -pr.out$x
+biplot(pr.out, scale = 0)
+pr.out$rotation <- -pr.out$rotation
+pr.out$x <- -pr.out$x
+biplot(pr.out, scale = 0)
+
+pr.var <- pr.out$sdev ^ 2
+pr.var
+
+pve <- pr.var / sum(pr.var)
+pve
+
+plot(
+  pve,
+  xlab = "Principal Component",
+  ylab = "Proportion of Variance Explained",
+  ylim = c(0, 1),
+  type = "b"
+)
+
+plot(
+  cumsum(pve),
+  xlab = "Principal Component",
+  ylab = "Cumulative Proportion of Variance Explained",
+  ylim = c(0, 1),
+  type = "b"
+)
+
+a <- c(1, 2, 8, -3)
+cumsum(a)
+```
+
+
+
