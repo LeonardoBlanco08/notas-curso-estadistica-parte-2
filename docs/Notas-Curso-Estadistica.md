@@ -8433,7 +8433,7 @@ Notas:
 
 \begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-286-2} \end{center}
 
-# Laboratorio
+## Laboratorio
 
 Vamos a usar los datos `USArrests` que represente estadísticas de arrestos por motivos de asaltos, asesinatos, violaciones, etc; en 50 estados de EEUU en 1973.
 
@@ -8590,7 +8590,11 @@ cumsum(a)
 ## [1]  1  3 11  8
 ```
 
+## Ejercicios 
 
+- Del libro [@James2013b] 
+    - Capítulo 10:  6, 8
+`
 
 
 <!--chapter:end:07-componentes-principales.Rmd-->
