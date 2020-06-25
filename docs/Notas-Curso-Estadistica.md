@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística"
 author: "Maikol Solís"
-date: "Actualizado el 23 junio, 2020"
+date: "Actualizado el 24 junio, 2020"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -7105,7 +7105,7 @@ CV_{k} = \frac{1}{k} \sum_{i=1}^{k} MSE_{k}
 Se usa 
 
 \begin{equation*}
-CV_{n} = \frac{1}{n} \sum_{i=1}^{n} Err_{n}
+CV_{n} = \frac{1}{n} \sum_{i=1}^{n} Err_{i}
 \end{equation*}
 
 
@@ -7117,27 +7117,48 @@ y \(CV_{k}\) se define similar
 
 ### Otras medidas de error de entrenamiento
 
-
-* $C_p$. Se usa en ajustes con mínimos cuadrados. 
-$$ C_p = \dfrac{1}{n}\left[RSS+2k\hat\sigma^2\right]$$
-donde $k$ es el número de predictores y $\hat\sigma^2$ es el estimador de la varianza de los errores $\epsilon$. Si $\hat\sigma^2$ es insegado de $\sigma^2$, entonces $C_p$ es un estimador insesgado del $MSE$ de prueba. 
-
-* $C_p$ de Mallows. Se denota $C_p'$.
-$$ C_p' = \dfrac{RSS}{\hat\sigma^2} + 2k-n \implies C_p = \dfrac1n\hat\sigma^2[C_p'+n] \propto C_p'$$
-
-* $AIC$ (Akaike Information Criterion).
-$$AIC = \dfrac{1}{n\hat\sigma^2}[RSS + 2k\hat\sigma^2] \propto C_p'$$
-* $MLE$: $2\ln L(\beta | x) + 2k$.
-
-* $BIC$ (Bayesian Information Criterion).
-
-$$BIC =  \dfrac1n[RSS+\ln(n)k\hat\sigma²]$$
-
 * $R^2$ ajustado. Recuerde que $R^2 = 1 - \dfrac{RSS}{TSS}$. Como $RSS$ decrece si se le agrega más variables, entonces $R^2 \nearrow 1$. Vea que $RSS = \sum(y_i-\hat{y}_i)^2$ y $TSS = \sum(y_i-\bar{y}_i)^2$, entonces,
 $$R^2 \text{ ajustado}= 1-\dfrac{\dfrac{RSS}{n-k-1}}{\dfrac{TSS}{n-1}}$$
 
 
-Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@Hastie2009a].
+* $C_p$. Se usa en ajustes con mínimos cuadrados.
+
+$$ C_p = \dfrac{1}{n}\left[RSS+2p\hat\sigma^2\right]$$
+
+donde $k$ es el número de predictores y $\hat\sigma^2$ es el estimador de la varianza de los errores $\epsilon$. Si $\hat\sigma^2$ es insegado de $\sigma^2$, entonces $C_p$ es un estimador insesgado del $MSE$ de prueba. 
+
+
+
+* $C_p$ de Mallows. Se denota $C_p'$.
+
+$$ C_p' = \dfrac{RSS}{\hat\sigma^2} + 2p-n \implies C_p = \dfrac1n\hat\sigma^2[C_p'+n] \propto C_p'$$
+
+* $MLE$: $2\ln L(\hat{\beta} | x)$.
+
+
+* $AIC$ (Akaike Information Criterion).
+
+
+\[
+AIC = -2\log(L(\hat{\beta} \vert X)) + 2p 
+\]
+
+Esta medida es derivada asintóticamente de $-2n\mathbb{E}[\log(L(\hat{\beta} \vert X))]$ cuando $n\to \infty$. 
+
+
+
+* $BIC$ (Bayesian Information Criterion).
+
+\[
+AIC = -2\log(L(\hat{\beta} \vert X)) + \log(n)p. 
+\]
+
+Representa asintóticamente hablando, el negativo del logaritmo de la distribución posterior. 
+
+**Validación cruzada LOOCV es asintóticamente equivalente al AIC para modelos de regresión lineal múltiple [@StoneAsymptotic1977]** 
+
+
+Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@Hastie2009a] o en el artículo [@CavanaughAkaike2019].
 
 
 ### Selección de modelos hacia adelante (**Forward Stepwise Selection**)
@@ -7497,8 +7518,10 @@ summary(regfit.full)
 Se puede incluir todas las variables con `nvmax = 19`.
 
 
+
+
+
 ```r
-library(leaps)
 regfit.full <- regsubsets(Salary ~ ., Hitters, nvmax = 19)
 regfit.full.summary <- summary(regfit.full)
 regfit.full.summary
@@ -7572,6 +7595,8 @@ regfit.full.summary
 ## 19  ( 1 ) "*"    "*"     "*"       "*"     "*"     "*"    "*"
 ```
 
+
+
 ```r
 str(regfit.full.summary)
 ```
@@ -7626,6 +7651,8 @@ str(regfit.full.summary)
 ##  - attr(*, "class")= chr "summary.regsubsets"
 ```
 
+
+
 ```r
 idx <- which.max(regfit.full.summary$rsq)
 plot(regfit.full.summary$rsq)
@@ -7635,7 +7662,9 @@ points(idx, regfit.full.summary$rsq[idx], col = "red",
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-273-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-275-1} \end{center}
+
+
 
 ```r
 idx <- which.min(regfit.full.summary$rss)
@@ -7646,7 +7675,9 @@ points(idx, regfit.full.summary$rss[idx], col = "red",
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-273-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-276-1} \end{center}
+
+
 
 ```r
 idx <- which.max(regfit.full.summary$adjr2)
@@ -7657,7 +7688,9 @@ points(idx, regfit.full.summary$adjr2[idx], col = "red",
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-273-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-277-1} \end{center}
+
+
 
 ```r
 idx <- which.min(regfit.full.summary$cp)
@@ -7668,7 +7701,9 @@ points(idx, regfit.full.summary$cp[idx], col = "red",
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-273-4} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-278-1} \end{center}
+
+
 
 ```r
 idx <- which.min(regfit.full.summary$bic)
@@ -7679,7 +7714,9 @@ points(idx, regfit.full.summary$bic[idx], col = "red",
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-273-5} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-279-1} \end{center}
+
+
 
 ```r
 plot(regfit.full, scale = "r2")
@@ -7687,7 +7724,7 @@ plot(regfit.full, scale = "r2")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-273-6} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-280-1} \end{center}
 
 ```r
 plot(regfit.full, scale = "bic")
@@ -7695,7 +7732,7 @@ plot(regfit.full, scale = "bic")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-273-7} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-280-2} \end{center}
 
 ```r
 plot(regfit.full, scale = "Cp")
@@ -7703,7 +7740,7 @@ plot(regfit.full, scale = "Cp")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-273-8} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-280-3} \end{center}
 
 ```r
 plot(regfit.full, scale = "adjr2")
@@ -7711,7 +7748,7 @@ plot(regfit.full, scale = "adjr2")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-273-9} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-280-4} \end{center}
 
 ```r
 coef(regfit.full, 10)
@@ -7805,6 +7842,8 @@ summary(regfit.fwd)
 ## 19  ( 1 ) "*"    "*"     "*"       "*"     "*"     "*"    "*"
 ```
 
+
+
 ```r
 regfit.bwd <- regsubsets(Salary ~ ., data = Hitters, 
     nvmax = 19, method = "backward")
@@ -7879,6 +7918,8 @@ summary(regfit.bwd)
 ## 19  ( 1 ) "*"    "*"     "*"       "*"     "*"     "*"    "*"
 ```
 
+
+
 ```r
 par(mfrow = c(1, 2))
 plot(regfit.fwd, scale = "r2")
@@ -7887,7 +7928,9 @@ plot(regfit.bwd, scale = "r2")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-274-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-283-1} \end{center}
+
+
 
 ```r
 par(mfrow = c(1, 2))
@@ -7897,7 +7940,9 @@ plot(regfit.bwd, scale = "bic")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-274-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-284-1} \end{center}
+
+
 
 ```r
 par(mfrow = c(1, 2))
@@ -7907,7 +7952,9 @@ plot(regfit.bwd, scale = "Cp")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-274-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-285-1} \end{center}
+
+
 
 ```r
 par(mfrow = c(1, 2))
@@ -7917,7 +7964,9 @@ plot(regfit.bwd, scale = "adjr2")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-274-4} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-286-1} \end{center}
+
+
 
 #### Regresión Ridge
 
@@ -7982,7 +8031,7 @@ plot(cv.out)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-278-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-290-1} \end{center}
 
 Busque la ayuda de `cv.glmnet` y deduzca qué significa el gráfico.
 
@@ -7991,7 +8040,11 @@ Busque la ayuda de `cv.glmnet` y deduzca qué significa el gráfico.
 library(glmnet)
 grid <- 10^seq(10, -2, length = 100)
 ridge.mod <- glmnet(x, y, alpha = 0, lambda = grid)
+```
 
+
+
+```r
 ridge.mod$lambda[50]
 ```
 
@@ -8013,6 +8066,8 @@ coef(ridge.mod)[, 50]
 ##     DivisionW       PutOuts       Assists        Errors    NewLeagueN 
 ##  -6.215440973   0.016482577   0.002612988  -0.020502690   0.301433531
 ```
+
+
 
 ```r
 sqrt(sum(coef(ridge.mod)[-1, 50]^2))
@@ -8045,6 +8100,8 @@ coef(ridge.mod)[, 60]
 ##  -0.70358655   8.61181213
 ```
 
+
+
 ```r
 sqrt(sum(coef(ridge.mod)[-1, 60]^2))
 ```
@@ -8059,10 +8116,15 @@ plot(ridge.mod)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-279-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-294-1} \end{center}
 
 ```r
 ridge.mod <- glmnet(x, y, alpha = 0)
+```
+
+
+
+```r
 ridge.mod$lambda
 ```
 
@@ -8095,7 +8157,7 @@ plot(ridge.mod)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-279-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-295-1} \end{center}
 
 ```r
 predict(ridge.mod, s = 50, type = "coefficients")
@@ -8126,6 +8188,8 @@ predict(ridge.mod, s = 50, type = "coefficients")
 ## NewLeagueN  -9.423459e+00
 ```
 
+
+
 ```r
 set.seed(1)
 train <- sample(1:nrow(x), nrow(x)/2)
@@ -8135,7 +8199,11 @@ ridge.mod <- glmnet(x[train, ], y[train], alpha = 0,
     lambda = grid)
 ridge.pred <- predict.glmnet(ridge.mod, s = 4, newx = x[test, 
     ], exact = FALSE)
+```
 
+
+
+```r
 # MSE
 mean((ridge.pred - y.test)^2)
 ```
@@ -8222,7 +8290,7 @@ plot(cv.out)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-279-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-297-1} \end{center}
 
 ```r
 bestlam <- cv.out$lambda.min
@@ -8283,7 +8351,9 @@ plot(lasso.mod)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-280-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-298-1} \end{center}
+
+
 
 ```r
 set.seed(1)
@@ -8293,7 +8363,9 @@ plot(cv.out)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-280-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-299-1} \end{center}
+
+
 
 ```r
 bestlam <- cv.out$lambda.min
@@ -8304,6 +8376,8 @@ bestlam
 ## [1] 9.286955
 ```
 
+
+
 ```r
 log(bestlam)
 ```
@@ -8311,6 +8385,8 @@ log(bestlam)
 ```
 ## [1] 2.228611
 ```
+
+
 
 ```r
 lasso.pred <- predict(lasso.mod, s = bestlam, newx = x[test, 
@@ -8321,6 +8397,8 @@ mean((lasso.pred - y.test)^2)
 ```
 ## [1] 143673.6
 ```
+
+
 
 ```r
 out <- glmnet(x, y, alpha = 1, lambda = grid)
@@ -8339,6 +8417,8 @@ lasso.coef
 ##     DivisionW       PutOuts       Assists        Errors    NewLeagueN 
 ## -116.16755870    0.23752385    0.00000000   -0.85629148    0.00000000
 ```
+
+
 
 ```r
 lasso.coef[lasso.coef != 0]
@@ -8371,11 +8451,11 @@ Si se quiere seleccionar la mejor proyección de 2 variables de una nube de punt
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-282-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-306-1} \end{center}
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-282-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-306-2} \end{center}
 
 El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones.
 
@@ -8427,11 +8507,11 @@ Notas:
 ## ¿Cuántos componentes usar?
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-286-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-310-1} \end{center}
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-286-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-310-2} \end{center}
 
 ## Laboratorio
 
@@ -8451,7 +8531,7 @@ ggpairs(USArrests)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-287-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-311-1} \end{center}
 
 ```r
 summary(USArrests)
@@ -8523,7 +8603,7 @@ biplot(pr.out, scale = 0)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-288-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-312-1} \end{center}
 
 ```r
 pr.out$rotation <- -pr.out$rotation
@@ -8533,7 +8613,7 @@ biplot(pr.out, scale = 0)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-288-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-312-2} \end{center}
 
 ```r
 pr.out$rotation <- -pr.out$rotation
@@ -8543,7 +8623,7 @@ biplot(pr.out, scale = 0)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-288-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-312-3} \end{center}
 
 ```r
 pr.var <- pr.out$sdev^2
@@ -8570,7 +8650,7 @@ plot(pve, xlab = "Principal Component", ylab = "Proportion of Variance Explained
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-288-4} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-312-4} \end{center}
 
 ```r
 plot(cumsum(pve), xlab = "Principal Component", ylab = "Cumulative Proportion of Variance Explained", 
@@ -8579,7 +8659,7 @@ plot(cumsum(pve), xlab = "Principal Component", ylab = "Cumulative Proportion of
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-288-5} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-312-5} \end{center}
 
 ```r
 a <- c(1, 2, 8, -3)
