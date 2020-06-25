@@ -130,7 +130,7 @@ CV_{k} = \frac{1}{k} \sum_{i=1}^{k} MSE_{k}
 Se usa 
 
 \begin{equation*}
-CV_{n} = \frac{1}{n} \sum_{i=1}^{n} Err_{n}
+CV_{n} = \frac{1}{n} \sum_{i=1}^{n} Err_{i}
 \end{equation*}
 
 
@@ -142,27 +142,48 @@ y \(CV_{k}\) se define similar
 
 ### Otras medidas de error de entrenamiento
 
-
-* $C_p$. Se usa en ajustes con mínimos cuadrados. 
-$$ C_p = \dfrac{1}{n}\left[RSS+2k\hat\sigma^2\right]$$
-donde $k$ es el número de predictores y $\hat\sigma^2$ es el estimador de la varianza de los errores $\epsilon$. Si $\hat\sigma^2$ es insegado de $\sigma^2$, entonces $C_p$ es un estimador insesgado del $MSE$ de prueba. 
-
-* $C_p$ de Mallows. Se denota $C_p'$.
-$$ C_p' = \dfrac{RSS}{\hat\sigma^2} + 2k-n \implies C_p = \dfrac1n\hat\sigma^2[C_p'+n] \propto C_p'$$
-
-* $AIC$ (Akaike Information Criterion).
-$$AIC = \dfrac{1}{n\hat\sigma^2}[RSS + 2k\hat\sigma^2] \propto C_p'$$
-* $MLE$: $2\ln L(\beta | x) + 2k$.
-
-* $BIC$ (Bayesian Information Criterion).
-
-$$BIC =  \dfrac1n[RSS+\ln(n)k\hat\sigma²]$$
-
 * $R^2$ ajustado. Recuerde que $R^2 = 1 - \dfrac{RSS}{TSS}$. Como $RSS$ decrece si se le agrega más variables, entonces $R^2 \nearrow 1$. Vea que $RSS = \sum(y_i-\hat{y}_i)^2$ y $TSS = \sum(y_i-\bar{y}_i)^2$, entonces,
 $$R^2 \text{ ajustado}= 1-\dfrac{\dfrac{RSS}{n-k-1}}{\dfrac{TSS}{n-1}}$$
 
 
-Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@Hastie2009a].
+* $C_p$. Se usa en ajustes con mínimos cuadrados.
+
+$$ C_p = \dfrac{1}{n}\left[RSS+2p\hat\sigma^2\right]$$
+
+donde $k$ es el número de predictores y $\hat\sigma^2$ es el estimador de la varianza de los errores $\epsilon$. Si $\hat\sigma^2$ es insegado de $\sigma^2$, entonces $C_p$ es un estimador insesgado del $MSE$ de prueba. 
+
+
+
+* $C_p$ de Mallows. Se denota $C_p'$.
+
+$$ C_p' = \dfrac{RSS}{\hat\sigma^2} + 2p-n \implies C_p = \dfrac1n\hat\sigma^2[C_p'+n] \propto C_p'$$
+
+* $MLE$: $2\ln L(\hat{\beta} | x)$.
+
+
+* $AIC$ (Akaike Information Criterion).
+
+
+\[
+AIC = -2\log(L(\hat{\beta} \vert X)) + 2p 
+\]
+
+Esta medida es derivada asintóticamente de $-2n\mathbb{E}[\log(L(\hat{\beta} \vert X))]$ cuando $n\to \infty$. 
+
+
+
+* $BIC$ (Bayesian Information Criterion).
+
+\[
+AIC = -2\log(L(\hat{\beta} \vert X)) + \log(n)p. 
+\]
+
+Representa asintóticamente hablando, el negativo del logaritmo de la distribución posterior. 
+
+**Validación cruzada LOOCV es asintóticamente equivalente al AIC para modelos de regresión lineal múltiple [@StoneAsymptotic1977]** 
+
+
+Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@Hastie2009a] o en el artículo [@CavanaughAkaike2019].
 
 
 ### Selección de modelos hacia adelante (**Forward Stepwise Selection**)
@@ -365,39 +386,62 @@ summary(regfit.full)
 
 Se puede incluir todas las variables con `nvmax = 19`.
 
+
+
+
 ```{r}
-library(leaps)
 regfit.full <- regsubsets(Salary ~ ., Hitters, nvmax = 19)
 regfit.full.summary <- summary(regfit.full)
 regfit.full.summary
+```
 
+
+```{r}
 str(regfit.full.summary)
+```
 
+
+```{r}
 idx <- which.max(regfit.full.summary$rsq)
 plot(regfit.full.summary$rsq)
 points(idx, regfit.full.summary$rsq[idx], col = "red", 
        cex = 2,pch = 20)
+```
 
+
+```{r}
 idx <- which.min(regfit.full.summary$rss)
 plot(regfit.full.summary$rss)
 points(idx, regfit.full.summary$rss[idx], col = "red", 
        cex = 2,pch = 20)
+```
 
+
+```{r}
 idx <- which.max(regfit.full.summary$adjr2)
 plot(regfit.full.summary$adjr2)
 points(idx, regfit.full.summary$adjr2[idx], col = "red", 
        cex = 2,pch = 20)
+```
 
+
+```{r}
 idx <- which.min(regfit.full.summary$cp)
 plot(regfit.full.summary$cp)
 points(idx, regfit.full.summary$cp[idx], col = "red", 
        cex = 2,pch = 20)
+```
 
+
+```{r}
 idx <- which.min(regfit.full.summary$bic)
 plot(regfit.full.summary$bic)
 points(idx, regfit.full.summary$bic[idx], col = "red", 
        cex = 2,pch = 20)
+```
 
+
+```{r}
 plot(regfit.full, scale = "r2")
 plot(regfit.full, scale = "bic")
 plot(regfit.full, scale = "Cp")
@@ -415,27 +459,44 @@ Puede guardar estos modelos en ciertas variables (e.g. `regfit.fwd` y `regfit.bw
 regfit.fwd <- regsubsets(Salary ~ ., data = Hitters, nvmax = 19, 
                          method = "forward")
 summary(regfit.fwd)
+```
 
+
+```{r}
 regfit.bwd <- regsubsets(Salary ~ ., data = Hitters, nvmax = 19, 
                          method = "backward")
 summary(regfit.bwd)
+```
 
+
+```{r}
 par(mfrow = c(1, 2))
 plot(regfit.fwd, scale = "r2")
 plot(regfit.bwd, scale = "r2")
+```
 
+
+```{r}
 par(mfrow = c(1, 2))
 plot(regfit.fwd, scale = "bic")
 plot(regfit.bwd, scale = "bic")
+```
 
+
+```{r}
 par(mfrow = c(1, 2))
 plot(regfit.fwd, scale = "Cp")
 plot(regfit.bwd, scale = "Cp")
+```
 
+
+```{r}
 par(mfrow = c(1, 2))
 plot(regfit.fwd, scale = "adjr2")
 plot(regfit.bwd, scale = "adjr2")
 ```
+
+
 
 #### Regresión Ridge
 
@@ -494,27 +555,47 @@ Busque la ayuda de `cv.glmnet` y deduzca qué significa el gráfico.
 library(glmnet)
 grid <- 10 ^ seq(10, -2, length = 100)
 ridge.mod <- glmnet(x, y, alpha = 0, lambda = grid)
+```
 
+
+```{r}
 ridge.mod$lambda[50]
 coef(ridge.mod)[,50]
+```
 
+
+```{r}
 sqrt(sum(coef(ridge.mod)[-1,50]^2))
 ridge.mod$lambda[60]
 coef(ridge.mod)[,60]
+```
+
+
+```{r}
 sqrt(sum(coef(ridge.mod)[-1,60]^2))
 plot(ridge.mod)
 ridge.mod <- glmnet(x, y, alpha = 0)
+```
+
+
+```{r}
 ridge.mod$lambda
 plot(ridge.mod)
 predict(ridge.mod, s = 50, type = "coefficients")
+```
 
+
+```{r}
 set.seed(1)
 train <- sample(1:nrow(x), nrow(x)/2)
 test <- -train
 y.test <- y[test]
 ridge.mod <- glmnet(x[train, ], y[train], alpha = 0, lambda = grid)
 ridge.pred <- predict.glmnet(ridge.mod, s = 4, newx = x[test, ], exact = FALSE)
+```
 
+
+```{r}
 # MSE
 mean((ridge.pred - y.test)^2)
 
@@ -554,24 +635,42 @@ $$\hat{\beta} = \underset{\beta}{\mathrm{argmin}} \left\{RSS + \lambda \Vert \be
 ```{r}
 lasso.mod <- glmnet(x[train,], y[train], alpha = 1, lambda = grid)
 plot(lasso.mod)
+```
 
+
+```{r}
 set.seed(1)
 cv.out <- cv.glmnet(x[train,], y[train], alpha = 1)
 plot(cv.out)
+```
 
+
+```{r}
 bestlam <- cv.out$lambda.min
 bestlam
+```
 
+
+```{r}
 log(bestlam)
+```
 
+
+```{r}
 lasso.pred <- predict(lasso.mod, s = bestlam, newx = x[test,])
 mean((lasso.pred - y.test) ^ 2)
+```
 
+
+```{r}
 out <- glmnet(x, y, alpha = 1, lambda = grid)
 lasso.coef <-
   predict(out, type = "coefficients", s = bestlam)[1:20,]
 lasso.coef
+```
 
+
+```{r}
 lasso.coef[lasso.coef != 0]
 ```
 
