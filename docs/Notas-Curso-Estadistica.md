@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística"
 author: "Maikol Solís"
-date: "Actualizado el 24 junio, 2020"
+date: "Actualizado el 01 julio, 2020"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -8447,24 +8447,66 @@ lasso.coef[lasso.coef != 0]
 
 # Análisis en componentes principales
 
-Si se quiere seleccionar la mejor proyección de 2 variables de una nube de puntos $X_1,\dots, X_p$, se debe hacer $\binom{p}{2}$ gráficos de dispersión. Se debe seleccionar la que tenga menor varianza, es decir, en los siguientes gráficos, la mejor foto sería la que tenga la mayor variabilidad:
+Si se quiere seleccionar la mejor proyección de 2 variables de una nube de puntos $X_1,\dots, X_p$, se debe hacer $\binom{p}{2}$ gráficos de dispersión. Se debe seleccionar la que tenga menor varianza, es decir, en los siguientes gráficos, la mejor foto sería la que tenga la mayor variabilidad. 
+
+Usaremos como base los libros de [@HussonExploratory2017] y [@James2013b].
+
+
+```r
+library(rgl)
+library(car)
+knitr::knit_hooks$set(webgl = hook_webgl, rgl = hook_rgl)
+knitr::opts_chunk$set(fig.pos = "!h")
+```
+
+
+```r
+set.seed(123)
+x1 <- rnorm(1000, 0, 2)
+x2 <- cos(rnorm(1000, 0, 2))
+x3 <- x1 + rnorm(1000, 0, 2)
+```
+
+
+```r
+GGally::ggpairs(data.frame(x1, x2, x3))
+```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-306-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-308-1} \end{center}
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-306-2} \end{center}
 
-El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones.
+
+```r
+plot3d(x1, x3, x2, point.col = "black")
+
+plot3d(scale(x1), scale(x2), scale(x3), point.col = "black")
+```
+
+
+
+
+<!-- ```{r, echo=FALSE} -->
+<!-- library(ggplot2) -->
+
+<!-- qplot(1:300, rnorm(300, sd = 0.1) + 5, ylim = c(0, 10)) + theme_minimal() + xlab("") + ylab("") -->
+<!-- qplot(1:300, (3 * 1:300 + 100 * cos(1:300 / (2 * pi)) + 200 * rnorm(300, sd = -->
+<!--                                                                       0.1)) / 100) + theme_minimal() + xlab("") + ylab("") -->
+<!-- ``` -->
+
+El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones eliminando la mayor cantidad de ruido posible. 
+
+## Representación gráfica
+
+![Tomado de [The shape of data](https://shapeofdata.wordpress.com/2013/04/09/principle-component-analysis/)](manual_figures/pca.png)
 
 ## Primer componente principal
 
 
-```
-## Error in knitr::include_graphics("pca1.png"): Cannot find the file(s): "pca1.png"
-```
+
 
 
 $$ Z_1 := \phi_{11}x_1 +  \phi_{21}x_2 + \dots + \phi_{p1}x_p;\quad \text{con } \sum_{j=1}^{p}\phi_{j1} = 1$$
@@ -8473,49 +8515,152 @@ tal que $Z_1$ tenga la varianza máxima.
 Al vector $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$ se le llama *pasos o cargas*. 
 
 $X = (X_1,\dots,X_p)_{n\times p}$ es la *matriz de diseño* donde cada columna tiene media 0. Se resuelve el problema
-$$\underset{\phi_1}{\max} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace \text{ sujeto a } \sum_{j=1}^p \phi_{j1}^2 = 1 $$
+$$\hat{\phi}_1=\underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace $$
+La restricción de minimización se puede rescribir como $\Vert\phi_1\Vert_2^2= \sum_{j=1}^p \phi_{j1}^2 = 1$
+
 Los $Z_{11},\dots, Z_{n1}$ son los scores del primer componente principal.
 
-*Representación gráfica*
-
-
-```
-## Error in knitr::include_graphics("representacion.jpg"): Cannot find the file(s): "representacion.jpg"
-```
-
 $\phi_1$ es la dirección en el espacio característico en $\mathbb{R}^p$ en donde los datos tengan la máxima varianza.
+
+
+Esta última expresión se podría rescribir de forma matricial como 
+
+\[
+\hat{\phi}_1 = \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{ \phi_1^\top X^\top X \phi_1 \right\}
+\]
+
+donde $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$
+
+
+dadas las condiciones, esta expresión se podría simplificar un poco más en 
+
+\[
+\hat{\phi}_1 = \underset{\phi_1}{\mathrm{argmax}} \left\{\frac{\phi_1^\top X^\top X \phi_1 }{\phi_1^\top \phi_1}\right\}
+\]
+
+Dado que la expresión anterio es un coeficiente de Rayleigh, se puede probar  que \(\hat{\phi}_{1}\) corresponde al primer vector propio de la matriz $X^\top X = \mathrm{Cov}(X)$ si las columnas de $X$ son centradas.
 
 ## Segunda componente principal
 
 
-```
-## Error in knitr::include_graphics("pca2.png"): Cannot find the file(s): "pca2.png"
-```
 
 $$ Z_{2}:= \phi_{12}x_1 + \phi_{22}x_2+\dots+\phi_{p2}x_p$$
- $$\underset{\phi_1}{\max} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j2} X_{ij} \right)^2 \right\rbrace \text{ sujeto a } \sum_{j=1}^p \phi_{j1}^2 = 1$$
+ $$\underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j2} X_{ij} \right)^2 \right\rbrace$$
  Se tiene, además, que $\forall i$, $Z_{i2}\perp Z_1$, entonces 
  $$ Z_{i2}\perp Z_1 \implies \phi_{2} \perp \phi_{1}$$
+
+Esto se logra primero construyendo una matriz nueva de diseño, restando a la matrix $X$ original, el primer componente principal. 
+
+\[
+\tilde{X}_2 = X - X\phi_1\phi_1^\top
+\]
+
+Luego a esa matriz, se le aplica el procedimiento anterior 
+
+\[
+\hat{\phi}_2 = \underset{\phi_2}{\mathrm{argmax}} \left\{\frac{\phi_2^\top X^\top X \phi_2 }{\phi_2^\top \phi_2}\right\}
+\]
+
+Y nuevamente se puede probar que el componente principal corresponde al segundo vector propio de 
+$X^\top X = \mathrm{Cov}(X)$
+
+
 De la misma forma se construye $\phi_3,\phi_4,\dots, \phi_p$.
 
 Notas: 
-\begin{itemize}
-\item \textbf{Escalas}: la varianza de las variables depende de las unidades. El problema es que los pesos $\phi_i$ son distintos dependiendo de las escalas. La solución es estandarizar las variables: $\dfrac{X_i-\mu_i}{\hat\sigma_i}$.
-\item \textbf{Unicidad}: los componentes principales son únicos, módulo cambio de signo.
+
+- **Escalas**: la varianza de las variables depende de las unidades. El problema es que los pesos $\phi_i$ son distintos dependiendo de las escalas. La solución es estandarizar las variables: $\dfrac{X_i-\mu_i}{\hat\sigma_i}$.
+- **Unicidad**: los componentes principales son únicos, módulo cambio de signo.
 \end{itemize}
+
+
+## Circulo de correlaciones 
+
+Se puede construir la correlación de cada variable con respecto a cada componente principal 
+
+\[
+cos(\theta_{i,j^\prime}) = \mathrm{Corr}(X_i, \mathrm{PC}_{j^\prime})
+\]
+
+El ángulo $\theta_{i,j^\prime}$ significa la lejanía o cercanía de cierta variable con respecto a cada componente principal. 
+
+Además, basados en el el círculo identidad $\cos^2(\theta)+\sin^2(\theta)=1$, el valor de $cos^2(\theta_{i,j^\prime})$ representa la "intensidad" con la cual la variable $X_i$ es representada por el componente principal $\mathrm{PC}_{i^\prime}$.
+
+## Volvamos a nuestro ejemplo 
+
+
+```r
+library("factoextra")
+library("FactoMineR")
+p <- PCA(scale(cbind(x1, x2, x3)))
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-311-1} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-311-2} \end{center}
+
+
+```r
+p$var$cor
+```
+
+```
+##          Dim.1       Dim.2       Dim.3
+## x1  0.92280569 0.037753401 -0.38341145
+## x2 -0.03690606 0.999225664  0.01363871
+## x3  0.92346176 0.002207375  0.38368413
+```
+
+```r
+p$var$cos2
+```
+
+```
+##          Dim.1        Dim.2        Dim.3
+## x1 0.851570337 1.425319e-03 0.1470043434
+## x2 0.001362057 9.984519e-01 0.0001860145
+## x3 0.852781615 4.872503e-06 0.1472135129
+```
+
+
+
+
 
 ## ¿Cuántos componentes usar?
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-310-1} \end{center}
+```r
+fviz_screeplot(p, addlabels = F, ylim = c(0, 50)) + 
+    xlab("Variables") + ylab("Porcentaje de varianza de Z explicada") + 
+    labs(title = "Diagrama")
+```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-310-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-313-1} \end{center}
+
+```r
+qplot(1:3, p$eig[, 3], geom = "point") + xlab("Cantidad de componentes") + 
+    ylab("Varianza acumulada") + geom_line() + theme_minimal() + 
+    geom_hline(yintercept = 80, color = "red") + scale_x_continuous(breaks = 1:10)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-314-1} \end{center}
+
+
+
+
+
 
 ## Laboratorio
 
-Vamos a usar los datos `USArrests` que represente estadísticas de arrestos por motivos de asaltos, asesinatos, violaciones, etc; en 50 estados de EEUU en 1973.
+Vamos a usar los datos `decathlon` de `FactomineR` que representa los resultados de varios atletas en pruebas de decathlon en el 2004. 
 
 El objetivo es encontrar si hay patrones entre ciudad y tipos de crimen.
 
@@ -8524,150 +8669,69 @@ Ejecute una exploración de datos
 
 
 
-```r
-library(GGally)
-ggpairs(USArrests)
+```
+##       100m         Long.jump       Shot.put       High.jump          400m      
+##  Min.   :10.44   Min.   :6.61   Min.   :12.68   Min.   :1.850   Min.   :46.81  
+##  1st Qu.:10.85   1st Qu.:7.03   1st Qu.:13.88   1st Qu.:1.920   1st Qu.:48.93  
+##  Median :10.98   Median :7.30   Median :14.57   Median :1.950   Median :49.40  
+##  Mean   :11.00   Mean   :7.26   Mean   :14.48   Mean   :1.977   Mean   :49.62  
+##  3rd Qu.:11.14   3rd Qu.:7.48   3rd Qu.:14.97   3rd Qu.:2.040   3rd Qu.:50.30  
+##  Max.   :11.64   Max.   :7.96   Max.   :16.36   Max.   :2.150   Max.   :53.20  
+##   110m.hurdle        Discus        Pole.vault       Javeline    
+##  Min.   :13.97   Min.   :37.92   Min.   :4.200   Min.   :50.31  
+##  1st Qu.:14.21   1st Qu.:41.90   1st Qu.:4.500   1st Qu.:55.27  
+##  Median :14.48   Median :44.41   Median :4.800   Median :58.36  
+##  Mean   :14.61   Mean   :44.33   Mean   :4.762   Mean   :58.32  
+##  3rd Qu.:14.98   3rd Qu.:46.07   3rd Qu.:4.920   3rd Qu.:60.89  
+##  Max.   :15.67   Max.   :51.65   Max.   :5.400   Max.   :70.52  
+##      1500m            Rank           Points       Competition
+##  Min.   :262.1   Min.   : 1.00   Min.   :7313   Decastar:13  
+##  1st Qu.:271.0   1st Qu.: 6.00   1st Qu.:7802   OlympicG:28  
+##  Median :278.1   Median :11.00   Median :8021                
+##  Mean   :279.0   Mean   :12.12   Mean   :8005                
+##  3rd Qu.:285.1   3rd Qu.:18.00   3rd Qu.:8122                
+##  Max.   :317.0   Max.   :28.00   Max.   :8893
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-311-1} \end{center}
-
-```r
-summary(USArrests)
-```
-
-```
-##      Murder          Assault         UrbanPop          Rape      
-##  Min.   : 0.800   Min.   : 45.0   Min.   :32.00   Min.   : 7.30  
-##  1st Qu.: 4.075   1st Qu.:109.0   1st Qu.:54.50   1st Qu.:15.07  
-##  Median : 7.250   Median :159.0   Median :66.00   Median :20.10  
-##  Mean   : 7.788   Mean   :170.8   Mean   :65.54   Mean   :21.23  
-##  3rd Qu.:11.250   3rd Qu.:249.0   3rd Qu.:77.75   3rd Qu.:26.18  
-##  Max.   :17.400   Max.   :337.0   Max.   :91.00   Max.   :46.00
-```
-
-Use la función `prcomp` y ejecute un análisis en componentes principales.
-
-Luego use la función `biplot` para visualizar los resultados. Nota: Es posible que los ejes estén invertidos!
-
-Finalmente construya un gráfico que represente la varianza explicada por cada componente principal para identificar cuántos componentes principales se deberían usar.
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-316-1} \end{center}
 
 
-```r
-pr.out <- prcomp(USArrests, scale = TRUE)
-summary(pr.out)
-```
 
-```
-## Importance of components:
-##                           PC1    PC2     PC3     PC4
-## Standard deviation     1.5749 0.9949 0.59713 0.41645
-## Proportion of Variance 0.6201 0.2474 0.08914 0.04336
-## Cumulative Proportion  0.6201 0.8675 0.95664 1.00000
-```
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-316-2} \end{center}
 
-```r
-pr.out$center
-```
 
-```
-##   Murder  Assault UrbanPop     Rape 
-##    7.788  170.760   65.540   21.232
-```
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-317-1} \end{center}
+
+
+
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-319-1} \end{center}
+
+
 
 ```r
-pr.out$scale
+plot(acp.decathlon$ind$coord[, 1], acp.decathlon$ind$coord[, 
+    2])
 ```
 
-```
-##    Murder   Assault  UrbanPop      Rape 
-##  4.355510 83.337661 14.474763  9.366385
-```
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-320-1} \end{center}
 
 ```r
-pr.out$rotation
-```
-
-```
-##                 PC1        PC2        PC3         PC4
-## Murder   -0.5358995  0.4181809 -0.3412327  0.64922780
-## Assault  -0.5831836  0.1879856 -0.2681484 -0.74340748
-## UrbanPop -0.2781909 -0.8728062 -0.3780158  0.13387773
-## Rape     -0.5434321 -0.1673186  0.8177779  0.08902432
-```
-
-```r
-biplot(pr.out, scale = 0)
+plot(acp.decathlon$ind$coord[, 3], acp.decathlon$ind$coord[, 
+    4])
 ```
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-312-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-320-2} \end{center}
 
-```r
-pr.out$rotation <- -pr.out$rotation
-pr.out$x <- -pr.out$x
-biplot(pr.out, scale = 0)
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-312-2} \end{center}
-
-```r
-pr.out$rotation <- -pr.out$rotation
-pr.out$x <- -pr.out$x
-biplot(pr.out, scale = 0)
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-312-3} \end{center}
-
-```r
-pr.var <- pr.out$sdev^2
-pr.var
-```
-
-```
-## [1] 2.4802416 0.9897652 0.3565632 0.1734301
-```
-
-```r
-pve <- pr.var/sum(pr.var)
-pve
-```
-
-```
-## [1] 0.62006039 0.24744129 0.08914080 0.04335752
-```
-
-```r
-plot(pve, xlab = "Principal Component", ylab = "Proportion of Variance Explained", 
-    ylim = c(0, 1), type = "b")
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-312-4} \end{center}
-
-```r
-plot(cumsum(pve), xlab = "Principal Component", ylab = "Cumulative Proportion of Variance Explained", 
-    ylim = c(0, 1), type = "b")
-```
-
-
-
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-312-5} \end{center}
-
-```r
-a <- c(1, 2, 8, -3)
-cumsum(a)
-```
-
-```
-## [1]  1  3 11  8
 ```
 
 ## Ejercicios 

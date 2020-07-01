@@ -258,11 +258,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="7.4" data-path="métodos-de-selección-de-variables.html"><a href="métodos-de-selección-de-variables.html#ejercicios-5"><i class="fa fa-check"></i><b>7.4</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html"><i class="fa fa-check"></i><b>8</b> Análisis en componentes principales</a><ul>
-<li class="chapter" data-level="8.1" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#primer-componente-principal"><i class="fa fa-check"></i><b>8.1</b> Primer componente principal</a></li>
-<li class="chapter" data-level="8.2" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#segunda-componente-principal"><i class="fa fa-check"></i><b>8.2</b> Segunda componente principal</a></li>
-<li class="chapter" data-level="8.3" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#cuántos-componentes-usar"><i class="fa fa-check"></i><b>8.3</b> ¿Cuántos componentes usar?</a></li>
-<li class="chapter" data-level="8.4" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#laboratorio-7"><i class="fa fa-check"></i><b>8.4</b> Laboratorio</a></li>
-<li class="chapter" data-level="8.5" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#ejercicios-6"><i class="fa fa-check"></i><b>8.5</b> Ejercicios</a></li>
+<li class="chapter" data-level="8.1" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#representación-gráfica"><i class="fa fa-check"></i><b>8.1</b> Representación gráfica</a></li>
+<li class="chapter" data-level="8.2" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#primer-componente-principal"><i class="fa fa-check"></i><b>8.2</b> Primer componente principal</a></li>
+<li class="chapter" data-level="8.3" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#segunda-componente-principal"><i class="fa fa-check"></i><b>8.3</b> Segunda componente principal</a></li>
+<li class="chapter" data-level="8.4" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#circulo-de-correlaciones"><i class="fa fa-check"></i><b>8.4</b> Circulo de correlaciones</a></li>
+<li class="chapter" data-level="8.5" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#volvamos-a-nuestro-ejemplo"><i class="fa fa-check"></i><b>8.5</b> Volvamos a nuestro ejemplo</a></li>
+<li class="chapter" data-level="8.6" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#cuántos-componentes-usar"><i class="fa fa-check"></i><b>8.6</b> ¿Cuántos componentes usar?</a></li>
+<li class="chapter" data-level="8.7" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#laboratorio-7"><i class="fa fa-check"></i><b>8.7</b> Laboratorio</a></li>
+<li class="chapter" data-level="8.8" data-path="análisis-en-componentes-principales.html"><a href="análisis-en-componentes-principales.html#ejercicios-6"><i class="fa fa-check"></i><b>8.8</b> Ejercicios</a></li>
 </ul></li>
 </ul>
 
@@ -283,104 +286,157 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="análisis-en-componentes-principales" class="section level1">
 <h1><span class="header-section-number">Capítulo 8</span> Análisis en componentes principales</h1>
-<p>Si se quiere seleccionar la mejor proyección de 2 variables de una nube de puntos <span class="math inline">\(X_1,\dots, X_p\)</span>, se debe hacer <span class="math inline">\(\binom{p}{2}\)</span> gráficos de dispersión. Se debe seleccionar la que tenga menor varianza, es decir, en los siguientes gráficos, la mejor foto sería la que tenga la mayor variabilidad:</p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-306-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-306-2.svg" width="70%" style="display: block; margin: auto;" /></p>
-<p>El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones.</p>
+<p>Si se quiere seleccionar la mejor proyección de 2 variables de una nube de puntos <span class="math inline">\(X_1,\dots, X_p\)</span>, se debe hacer <span class="math inline">\(\binom{p}{2}\)</span> gráficos de dispersión. Se debe seleccionar la que tenga menor varianza, es decir, en los siguientes gráficos, la mejor foto sería la que tenga la mayor variabilidad.</p>
+<p>Usaremos como base los libros de <span class="citation">(Husson, Le, and Pagès <a href="#ref-HussonExploratory2017" role="doc-biblioref">2017</a>)</span> y <span class="citation">(James et al. <a href="#ref-James2013b" role="doc-biblioref">2013</a>)</span>.</p>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="análisis-en-componentes-principales.html#cb507-1"></a><span class="kw">library</span>(rgl)</span>
+<span id="cb507-2"><a href="análisis-en-componentes-principales.html#cb507-2"></a><span class="kw">library</span>(car)</span>
+<span id="cb507-3"><a href="análisis-en-componentes-principales.html#cb507-3"></a>knitr<span class="op">::</span>knit_hooks<span class="op">$</span><span class="kw">set</span>(<span class="dt">webgl =</span> hook_webgl, <span class="dt">rgl =</span> hook_rgl)</span>
+<span id="cb507-4"><a href="análisis-en-componentes-principales.html#cb507-4"></a>knitr<span class="op">::</span>opts_chunk<span class="op">$</span><span class="kw">set</span>(<span class="dt">fig.pos =</span> <span class="st">&quot;!h&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="análisis-en-componentes-principales.html#cb508-1"></a><span class="kw">set.seed</span>(<span class="dv">123</span>)</span>
+<span id="cb508-2"><a href="análisis-en-componentes-principales.html#cb508-2"></a>x1 &lt;-<span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
+<span id="cb508-3"><a href="análisis-en-componentes-principales.html#cb508-3"></a>x2 &lt;-<span class="st"> </span><span class="kw">cos</span>(<span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>))</span>
+<span id="cb508-4"><a href="análisis-en-componentes-principales.html#cb508-4"></a>x3 &lt;-<span class="st"> </span>x1 <span class="op">+</span><span class="st"> </span><span class="kw">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="análisis-en-componentes-principales.html#cb509-1"></a>GGally<span class="op">::</span><span class="kw">ggpairs</span>(<span class="kw">data.frame</span>(x1, x2, x3))</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-308-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="análisis-en-componentes-principales.html#cb510-1"></a><span class="kw">plot3d</span>(x1, x2, x3, <span class="dt">point.col =</span> <span class="st">&quot;black&quot;</span>)</span>
+<span id="cb510-2"><a href="análisis-en-componentes-principales.html#cb510-2"></a></span>
+<span id="cb510-3"><a href="análisis-en-componentes-principales.html#cb510-3"></a><span class="kw">plot3d</span>(<span class="kw">scale</span>(x1), <span class="kw">scale</span>(x2), <span class="kw">scale</span>(x3), <span class="dt">point.col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
+<!-- ```{r, echo=FALSE} -->
+<!-- library(ggplot2) -->
+<!-- qplot(1:300, rnorm(300, sd = 0.1) + 5, ylim = c(0, 10)) + theme_minimal() + xlab("") + ylab("") -->
+<!-- qplot(1:300, (3 * 1:300 + 100 * cos(1:300 / (2 * pi)) + 200 * rnorm(300, sd = -->
+<!--                                                                       0.1)) / 100) + theme_minimal() + xlab("") + ylab("") -->
+<!-- ``` -->
+<p>El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones eliminando la mayor cantidad de ruido posible.</p>
+<div id="representación-gráfica" class="section level2">
+<h2><span class="header-section-number">8.1</span> Representación gráfica</h2>
+<div class="figure">
+<img src="manual_figures/pca.png" alt="" />
+<p class="caption">Tomado de <a href="https://shapeofdata.wordpress.com/2013/04/09/principle-component-analysis/">The shape of data</a></p>
+</div>
+</div>
 <div id="primer-componente-principal" class="section level2">
-<h2><span class="header-section-number">8.1</span> Primer componente principal</h2>
-<pre><code>## Error in knitr::include_graphics(&quot;pca1.png&quot;): Cannot find the file(s): &quot;pca1.png&quot;</code></pre>
+<h2><span class="header-section-number">8.2</span> Primer componente principal</h2>
 <p><span class="math display">\[ Z_1 := \phi_{11}x_1 +  \phi_{21}x_2 + \dots + \phi_{p1}x_p;\quad \text{con } \sum_{j=1}^{p}\phi_{j1} = 1\]</span>
 tal que <span class="math inline">\(Z_1\)</span> tenga la varianza máxima.</p>
 <p>Al vector <span class="math inline">\(\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})\)</span> se le llama <em>pasos o cargas</em>.</p>
 <p><span class="math inline">\(X = (X_1,\dots,X_p)_{n\times p}\)</span> es la <em>matriz de diseño</em> donde cada columna tiene media 0. Se resuelve el problema
-<span class="math display">\[\underset{\phi_1}{\max} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace \text{ sujeto a } \sum_{j=1}^p \phi_{j1}^2 = 1 \]</span>
-Los <span class="math inline">\(Z_{11},\dots, Z_{n1}\)</span> son los scores del primer componente principal.</p>
-<p><em>Representación gráfica</em></p>
-<pre><code>## Error in knitr::include_graphics(&quot;representacion.jpg&quot;): Cannot find the file(s): &quot;representacion.jpg&quot;</code></pre>
+<span class="math display">\[\hat{\phi}_1=\underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace \]</span>
+La restricción de minimización se puede rescribir como <span class="math inline">\(\Vert\phi_1\Vert_2^2= \sum_{j=1}^p \phi_{j1}^2 = 1\)</span></p>
+<p>Los <span class="math inline">\(Z_{11},\dots, Z_{n1}\)</span> son los scores del primer componente principal.</p>
 <p><span class="math inline">\(\phi_1\)</span> es la dirección en el espacio característico en <span class="math inline">\(\mathbb{R}^p\)</span> en donde los datos tengan la máxima varianza.</p>
+<p>Esta última expresión se podría rescribir de forma matricial como</p>
+<p><span class="math display">\[
+\hat{\phi}_1 = \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{ \phi_1^\top X^\top X \phi_1 \right\}
+\]</span></p>
+<p>donde <span class="math inline">\(\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})\)</span></p>
+<p>dadas las condiciones, esta expresión se podría simplificar un poco más en</p>
+<p><span class="math display">\[
+\hat{\phi}_1 = \underset{\phi_1}{\mathrm{argmax}} \left\{\frac{\phi_1^\top X^\top X \phi_1 }{\phi_1^\top \phi_1}\right\}
+\]</span></p>
+<p>Dado que la expresión anterio es un coeficiente de Rayleigh, se puede probar que <span class="math inline">\(\hat{\phi}_{1}\)</span> corresponde al primer vector propio de la matriz <span class="math inline">\(X^\top X = \mathrm{Cov}(X)\)</span> si las columnas de <span class="math inline">\(X\)</span> son centradas.</p>
 </div>
 <div id="segunda-componente-principal" class="section level2">
-<h2><span class="header-section-number">8.2</span> Segunda componente principal</h2>
-<pre><code>## Error in knitr::include_graphics(&quot;pca2.png&quot;): Cannot find the file(s): &quot;pca2.png&quot;</code></pre>
+<h2><span class="header-section-number">8.3</span> Segunda componente principal</h2>
 <p><span class="math display">\[ Z_{2}:= \phi_{12}x_1 + \phi_{22}x_2+\dots+\phi_{p2}x_p\]</span>
-<span class="math display">\[\underset{\phi_1}{\max} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j2} X_{ij} \right)^2 \right\rbrace \text{ sujeto a } \sum_{j=1}^p \phi_{j1}^2 = 1\]</span>
+<span class="math display">\[\underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j2} X_{ij} \right)^2 \right\rbrace\]</span>
 Se tiene, además, que <span class="math inline">\(\forall i\)</span>, <span class="math inline">\(Z_{i2}\perp Z_1\)</span>, entonces
-<span class="math display">\[ Z_{i2}\perp Z_1 \implies \phi_{2} \perp \phi_{1}\]</span>
-De la misma forma se construye <span class="math inline">\(\phi_3,\phi_4,\dots, \phi_p\)</span>.</p>
-Notas:
-
+<span class="math display">\[ Z_{i2}\perp Z_1 \implies \phi_{2} \perp \phi_{1}\]</span></p>
+<p>Esto se logra primero construyendo una matriz nueva de diseño, restando a la matrix <span class="math inline">\(X\)</span> original, el primer componente principal.</p>
+<p><span class="math display">\[
+\tilde{X}_2 = X - X\phi_1\phi_1^\top
+\]</span></p>
+<p>Luego a esa matriz, se le aplica el procedimiento anterior</p>
+<p><span class="math display">\[
+\hat{\phi}_2 = \underset{\phi_2}{\mathrm{argmax}} \left\{\frac{\phi_2^\top X^\top X \phi_2 }{\phi_2^\top \phi_2}\right\}
+\]</span></p>
+<p>Y nuevamente se puede probar que el componente principal corresponde al segundo vector propio de
+<span class="math inline">\(X^\top X = \mathrm{Cov}(X)\)</span></p>
+<p>De la misma forma se construye <span class="math inline">\(\phi_3,\phi_4,\dots, \phi_p\)</span>.</p>
+<p>Notas:</p>
+<ul>
+<li><strong>Escalas</strong>: la varianza de las variables depende de las unidades. El problema es que los pesos <span class="math inline">\(\phi_i\)</span> son distintos dependiendo de las escalas. La solución es estandarizar las variables: <span class="math inline">\(\dfrac{X_i-\mu_i}{\hat\sigma_i}\)</span>.</li>
+<li><strong>Unicidad</strong>: los componentes principales son únicos, módulo cambio de signo.
+\end{itemize}</li>
+</ul>
+</div>
+<div id="circulo-de-correlaciones" class="section level2">
+<h2><span class="header-section-number">8.4</span> Circulo de correlaciones</h2>
+<p>Se puede construir la correlación de cada variable con respecto a cada componente principal</p>
+<p><span class="math display">\[
+cos(\theta_{i,j^\prime}) = \mathrm{Corr}(X_i, \mathrm{PC}_{j^\prime})
+\]</span></p>
+<p>El ángulo <span class="math inline">\(\theta_{i,j^\prime}\)</span> significa la lejanía o cercanía de cierta variable con respecto a cada componente principal.</p>
+<p>Además, basados en el el círculo identidad <span class="math inline">\(\cos^2(\theta)+\sin^2(\theta)=1\)</span>, el valor de <span class="math inline">\(cos^2(\theta_{i,j^\prime})\)</span> representa la “intensidad” con la cual la variable <span class="math inline">\(X_i\)</span> es representada por el componente principal <span class="math inline">\(\mathrm{PC}_{i^\prime}\)</span>.</p>
+</div>
+<div id="volvamos-a-nuestro-ejemplo" class="section level2">
+<h2><span class="header-section-number">8.5</span> Volvamos a nuestro ejemplo</h2>
+<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="análisis-en-componentes-principales.html#cb511-1"></a><span class="kw">library</span>(<span class="st">&quot;factoextra&quot;</span>)</span>
+<span id="cb511-2"><a href="análisis-en-componentes-principales.html#cb511-2"></a><span class="kw">library</span>(<span class="st">&quot;FactoMineR&quot;</span>)</span>
+<span id="cb511-3"><a href="análisis-en-componentes-principales.html#cb511-3"></a>p &lt;-<span class="st"> </span><span class="kw">PCA</span>(<span class="kw">scale</span>(<span class="kw">cbind</span>(x1, x2, x3)))</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-311-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-311-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb512"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb512-1"><a href="análisis-en-componentes-principales.html#cb512-1"></a>p<span class="op">$</span>var<span class="op">$</span>cor</span></code></pre></div>
+<pre><code>##          Dim.1       Dim.2       Dim.3
+## x1  0.92280569 0.037753401 -0.38341145
+## x2 -0.03690606 0.999225664  0.01363871
+## x3  0.92346176 0.002207375  0.38368413</code></pre>
+<div class="sourceCode" id="cb514"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb514-1"><a href="análisis-en-componentes-principales.html#cb514-1"></a>p<span class="op">$</span>var<span class="op">$</span>cos2</span></code></pre></div>
+<pre><code>##          Dim.1        Dim.2        Dim.3
+## x1 0.851570337 1.425319e-03 0.1470043434
+## x2 0.001362057 9.984519e-01 0.0001860145
+## x3 0.852781615 4.872503e-06 0.1472135129</code></pre>
 </div>
 <div id="cuántos-componentes-usar" class="section level2">
-<h2><span class="header-section-number">8.3</span> ¿Cuántos componentes usar?</h2>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-310-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-310-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<h2><span class="header-section-number">8.6</span> ¿Cuántos componentes usar?</h2>
+<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="análisis-en-componentes-principales.html#cb516-1"></a><span class="kw">fviz_screeplot</span>(p, <span class="dt">addlabels =</span> F, <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">50</span>)) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb516-2"><a href="análisis-en-componentes-principales.html#cb516-2"></a><span class="st">    </span><span class="kw">xlab</span>(<span class="st">&quot;Variables&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">ylab</span>(<span class="st">&quot;Porcentaje de varianza de Z explicada&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb516-3"><a href="análisis-en-componentes-principales.html#cb516-3"></a><span class="st">    </span><span class="kw">labs</span>(<span class="dt">title =</span> <span class="st">&quot;Diagrama&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-313-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="análisis-en-componentes-principales.html#cb517-1"></a><span class="kw">qplot</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">3</span>, p<span class="op">$</span>eig[, <span class="dv">3</span>], <span class="dt">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">xlab</span>(<span class="st">&quot;Cantidad de componentes&quot;</span>) <span class="op">+</span><span class="st"> </span></span>
+<span id="cb517-2"><a href="análisis-en-componentes-principales.html#cb517-2"></a><span class="st">    </span><span class="kw">ylab</span>(<span class="st">&quot;Varianza acumulada&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">geom_line</span>() <span class="op">+</span><span class="st"> </span><span class="kw">theme_minimal</span>() <span class="op">+</span><span class="st"> </span></span>
+<span id="cb517-3"><a href="análisis-en-componentes-principales.html#cb517-3"></a><span class="st">    </span><span class="kw">geom_hline</span>(<span class="dt">yintercept =</span> <span class="dv">80</span>, <span class="dt">color =</span> <span class="st">&quot;red&quot;</span>) <span class="op">+</span><span class="st"> </span><span class="kw">scale_x_continuous</span>(<span class="dt">breaks =</span> <span class="dv">1</span><span class="op">:</span><span class="dv">10</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-314-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="laboratorio-7" class="section level2">
-<h2><span class="header-section-number">8.4</span> Laboratorio</h2>
-<p>Vamos a usar los datos <code>USArrests</code> que represente estadísticas de arrestos por motivos de asaltos, asesinatos, violaciones, etc; en 50 estados de EEUU en 1973.</p>
+<h2><span class="header-section-number">8.7</span> Laboratorio</h2>
+<p>Vamos a usar los datos <code>decathlon</code> de <code>FactomineR</code> que representa los resultados de varios atletas en pruebas de decathlon en el 2004.</p>
 <p>El objetivo es encontrar si hay patrones entre ciudad y tipos de crimen.</p>
 <p>Exploración de datos
 Ejecute una exploración de datos</p>
-<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="análisis-en-componentes-principales.html#cb510-1"></a><span class="kw">library</span>(GGally)</span>
-<span id="cb510-2"><a href="análisis-en-componentes-principales.html#cb510-2"></a><span class="kw">ggpairs</span>(USArrests)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-311-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="análisis-en-componentes-principales.html#cb511-1"></a><span class="kw">summary</span>(USArrests)</span></code></pre></div>
-<pre><code>##      Murder          Assault         UrbanPop          Rape      
-##  Min.   : 0.800   Min.   : 45.0   Min.   :32.00   Min.   : 7.30  
-##  1st Qu.: 4.075   1st Qu.:109.0   1st Qu.:54.50   1st Qu.:15.07  
-##  Median : 7.250   Median :159.0   Median :66.00   Median :20.10  
-##  Mean   : 7.788   Mean   :170.8   Mean   :65.54   Mean   :21.23  
-##  3rd Qu.:11.250   3rd Qu.:249.0   3rd Qu.:77.75   3rd Qu.:26.18  
-##  Max.   :17.400   Max.   :337.0   Max.   :91.00   Max.   :46.00</code></pre>
-<p>Use la función <code>prcomp</code> y ejecute un análisis en componentes principales.</p>
-<p>Luego use la función <code>biplot</code> para visualizar los resultados. Nota: Es posible que los ejes estén invertidos!</p>
-<p>Finalmente construya un gráfico que represente la varianza explicada por cada componente principal para identificar cuántos componentes principales se deberían usar.</p>
-<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="análisis-en-componentes-principales.html#cb513-1"></a>pr.out &lt;-<span class="st"> </span><span class="kw">prcomp</span>(USArrests, <span class="dt">scale =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb513-2"><a href="análisis-en-componentes-principales.html#cb513-2"></a><span class="kw">summary</span>(pr.out)</span></code></pre></div>
-<pre><code>## Importance of components:
-##                           PC1    PC2     PC3     PC4
-## Standard deviation     1.5749 0.9949 0.59713 0.41645
-## Proportion of Variance 0.6201 0.2474 0.08914 0.04336
-## Cumulative Proportion  0.6201 0.8675 0.95664 1.00000</code></pre>
-<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="análisis-en-componentes-principales.html#cb515-1"></a>pr.out<span class="op">$</span>center</span></code></pre></div>
-<pre><code>##   Murder  Assault UrbanPop     Rape 
-##    7.788  170.760   65.540   21.232</code></pre>
-<div class="sourceCode" id="cb517"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb517-1"><a href="análisis-en-componentes-principales.html#cb517-1"></a>pr.out<span class="op">$</span>scale</span></code></pre></div>
-<pre><code>##    Murder   Assault  UrbanPop      Rape 
-##  4.355510 83.337661 14.474763  9.366385</code></pre>
-<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="análisis-en-componentes-principales.html#cb519-1"></a>pr.out<span class="op">$</span>rotation</span></code></pre></div>
-<pre><code>##                 PC1        PC2        PC3         PC4
-## Murder   -0.5358995  0.4181809 -0.3412327  0.64922780
-## Assault  -0.5831836  0.1879856 -0.2681484 -0.74340748
-## UrbanPop -0.2781909 -0.8728062 -0.3780158  0.13387773
-## Rape     -0.5434321 -0.1673186  0.8177779  0.08902432</code></pre>
-<div class="sourceCode" id="cb521"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb521-1"><a href="análisis-en-componentes-principales.html#cb521-1"></a><span class="kw">biplot</span>(pr.out, <span class="dt">scale =</span> <span class="dv">0</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-312-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="análisis-en-componentes-principales.html#cb522-1"></a>pr.out<span class="op">$</span>rotation &lt;-<span class="st"> </span><span class="op">-</span>pr.out<span class="op">$</span>rotation</span>
-<span id="cb522-2"><a href="análisis-en-componentes-principales.html#cb522-2"></a>pr.out<span class="op">$</span>x &lt;-<span class="st"> </span><span class="op">-</span>pr.out<span class="op">$</span>x</span>
-<span id="cb522-3"><a href="análisis-en-componentes-principales.html#cb522-3"></a><span class="kw">biplot</span>(pr.out, <span class="dt">scale =</span> <span class="dv">0</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-312-2.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb523"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb523-1"><a href="análisis-en-componentes-principales.html#cb523-1"></a>pr.out<span class="op">$</span>rotation &lt;-<span class="st"> </span><span class="op">-</span>pr.out<span class="op">$</span>rotation</span>
-<span id="cb523-2"><a href="análisis-en-componentes-principales.html#cb523-2"></a>pr.out<span class="op">$</span>x &lt;-<span class="st"> </span><span class="op">-</span>pr.out<span class="op">$</span>x</span>
-<span id="cb523-3"><a href="análisis-en-componentes-principales.html#cb523-3"></a><span class="kw">biplot</span>(pr.out, <span class="dt">scale =</span> <span class="dv">0</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-312-3.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="análisis-en-componentes-principales.html#cb524-1"></a>pr.var &lt;-<span class="st"> </span>pr.out<span class="op">$</span>sdev<span class="op">^</span><span class="dv">2</span></span>
-<span id="cb524-2"><a href="análisis-en-componentes-principales.html#cb524-2"></a>pr.var</span></code></pre></div>
-<pre><code>## [1] 2.4802416 0.9897652 0.3565632 0.1734301</code></pre>
-<div class="sourceCode" id="cb526"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb526-1"><a href="análisis-en-componentes-principales.html#cb526-1"></a>pve &lt;-<span class="st"> </span>pr.var<span class="op">/</span><span class="kw">sum</span>(pr.var)</span>
-<span id="cb526-2"><a href="análisis-en-componentes-principales.html#cb526-2"></a>pve</span></code></pre></div>
-<pre><code>## [1] 0.62006039 0.24744129 0.08914080 0.04335752</code></pre>
-<div class="sourceCode" id="cb528"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb528-1"><a href="análisis-en-componentes-principales.html#cb528-1"></a><span class="kw">plot</span>(pve, <span class="dt">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Proportion of Variance Explained&quot;</span>, </span>
-<span id="cb528-2"><a href="análisis-en-componentes-principales.html#cb528-2"></a>    <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-312-4.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="análisis-en-componentes-principales.html#cb529-1"></a><span class="kw">plot</span>(<span class="kw">cumsum</span>(pve), <span class="dt">xlab =</span> <span class="st">&quot;Principal Component&quot;</span>, <span class="dt">ylab =</span> <span class="st">&quot;Cumulative Proportion of Variance Explained&quot;</span>, </span>
-<span id="cb529-2"><a href="análisis-en-componentes-principales.html#cb529-2"></a>    <span class="dt">ylim =</span> <span class="kw">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="dt">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-312-5.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb530"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb530-1"><a href="análisis-en-componentes-principales.html#cb530-1"></a>a &lt;-<span class="st"> </span><span class="kw">c</span>(<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">8</span>, <span class="dv">-3</span>)</span>
-<span id="cb530-2"><a href="análisis-en-componentes-principales.html#cb530-2"></a><span class="kw">cumsum</span>(a)</span></code></pre></div>
-<pre><code>## [1]  1  3 11  8</code></pre>
+<pre><code>##       100m         Long.jump       Shot.put       High.jump          400m      
+##  Min.   :10.44   Min.   :6.61   Min.   :12.68   Min.   :1.850   Min.   :46.81  
+##  1st Qu.:10.85   1st Qu.:7.03   1st Qu.:13.88   1st Qu.:1.920   1st Qu.:48.93  
+##  Median :10.98   Median :7.30   Median :14.57   Median :1.950   Median :49.40  
+##  Mean   :11.00   Mean   :7.26   Mean   :14.48   Mean   :1.977   Mean   :49.62  
+##  3rd Qu.:11.14   3rd Qu.:7.48   3rd Qu.:14.97   3rd Qu.:2.040   3rd Qu.:50.30  
+##  Max.   :11.64   Max.   :7.96   Max.   :16.36   Max.   :2.150   Max.   :53.20  
+##   110m.hurdle        Discus        Pole.vault       Javeline    
+##  Min.   :13.97   Min.   :37.92   Min.   :4.200   Min.   :50.31  
+##  1st Qu.:14.21   1st Qu.:41.90   1st Qu.:4.500   1st Qu.:55.27  
+##  Median :14.48   Median :44.41   Median :4.800   Median :58.36  
+##  Mean   :14.61   Mean   :44.33   Mean   :4.762   Mean   :58.32  
+##  3rd Qu.:14.98   3rd Qu.:46.07   3rd Qu.:4.920   3rd Qu.:60.89  
+##  Max.   :15.67   Max.   :51.65   Max.   :5.400   Max.   :70.52  
+##      1500m            Rank           Points       Competition
+##  Min.   :262.1   Min.   : 1.00   Min.   :7313   Decastar:13  
+##  1st Qu.:271.0   1st Qu.: 6.00   1st Qu.:7802   OlympicG:28  
+##  Median :278.1   Median :11.00   Median :8021                
+##  Mean   :279.0   Mean   :12.12   Mean   :8005                
+##  3rd Qu.:285.1   3rd Qu.:18.00   3rd Qu.:8122                
+##  Max.   :317.0   Max.   :28.00   Max.   :8893</code></pre>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-316-1.svg" width="70%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-316-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-317-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-319-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="análisis-en-componentes-principales.html#cb519-1"></a><span class="kw">plot</span>(acp.decathlon<span class="op">$</span>ind<span class="op">$</span>coord[, <span class="dv">1</span>], acp.decathlon<span class="op">$</span>ind<span class="op">$</span>coord[, </span>
+<span id="cb519-2"><a href="análisis-en-componentes-principales.html#cb519-2"></a>    <span class="dv">2</span>])</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-320-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb520"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb520-1"><a href="análisis-en-componentes-principales.html#cb520-1"></a><span class="kw">plot</span>(acp.decathlon<span class="op">$</span>ind<span class="op">$</span>coord[, <span class="dv">3</span>], acp.decathlon<span class="op">$</span>ind<span class="op">$</span>coord[, </span>
+<span id="cb520-2"><a href="análisis-en-componentes-principales.html#cb520-2"></a>    <span class="dv">4</span>])</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-320-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>```</p>
 </div>
 <div id="ejercicios-6" class="section level2">
-<h2><span class="header-section-number">8.5</span> Ejercicios</h2>
+<h2><span class="header-section-number">8.8</span> Ejercicios</h2>
 <ul>
 <li>Del libro <span class="citation">(James et al. <a href="#ref-James2013b" role="doc-biblioref">2013</a>)</span>
 <ul>
@@ -400,10 +456,10 @@ Ejecute una exploración de datos</p>
 <p>Hall, Peter. 1987. “On Kullback-Leibler Loss and Density Estimation.” <em>The Annals of Statistics</em> 15 (4): 1491–1519. <a href="https://doi.org/10.1214/aos/1176350606">https://doi.org/10.1214/aos/1176350606</a>.</p>
 </div>
 <div>
-<p>Härdle, Wolfgang, Axel Werwatz, Marlene Müller, and Stefan Sperlich. 2004. <em>Nonparametric and Semiparametric Models</em>. Berlin, Heidelberg: Springer Berlin Heidelberg. <a href="https://doi.org/10.1007/978-3-642-17146-8">https://doi.org/10.1007/978-3-642-17146-8</a>.</p>
+<p>Hoffman, Matthew D., and Andrew Gelman. 2014. “The No-U-Turn Sampler: Adaptively Setting Path Lengths in Hamiltonian Monte Carlo.” <em>Journal of Machine Learning Research</em> 15 (47): 1593–1623. <a href="http://arxiv.org/abs/1111.4246">http://arxiv.org/abs/1111.4246</a>.</p>
 </div>
 <div>
-<p>Hoffman, Matthew D., and Andrew Gelman. 2014. “The No-U-Turn Sampler: Adaptively Setting Path Lengths in Hamiltonian Monte Carlo.” <em>Journal of Machine Learning Research</em> 15 (47): 1593–1623. <a href="http://arxiv.org/abs/1111.4246">http://arxiv.org/abs/1111.4246</a>.</p>
+<p>Husson, Francois, Sebastien Le, and Jérôme Pagès. 2017. <em>Exploratory Multivariate Analysis by Example Using R</em>. CRC Press.</p>
 </div>
 <div>
 <p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 103. New York, NY: Springer New York. <a href="https://doi.org/10.1007/978-1-4614-7138-7">https://doi.org/10.1007/978-1-4614-7138-7</a>.</p>
@@ -429,6 +485,9 @@ Ejecute una exploración de datos</p>
 
 <h3>References</h3>
 <div id="refs" class="references">
+<div id="ref-HussonExploratory2017">
+<p>Husson, Francois, Sebastien Le, and Jérôme Pagès. 2017. <em>Exploratory Multivariate Analysis by Example Using R</em>. CRC Press.</p>
+</div>
 <div id="ref-James2013b">
 <p>James, Gareth, Daniela Witten, Trevor Hastie, and Robert Tibshirani. 2013. <em>An Introduction to Statistical Learning</em>. Vol. 103. New York, NY: Springer New York. <a href="https://doi.org/10.1007/978-1-4614-7138-7">https://doi.org/10.1007/978-1-4614-7138-7</a>.</p>
 </div>
