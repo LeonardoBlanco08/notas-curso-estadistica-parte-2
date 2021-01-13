@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística"
-author: "Maikol Solís"
-date: "Actualizado el 01 julio, 2020"
+author: "Maikol Solís Chacón y Luis Barboza Chichilla"
+date: "Actualizado el 12 January, 2021"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -7972,8 +7972,9 @@ plot(regfit.bwd, scale = "adjr2")
 
 
 ```r
-x <- model.matrix(Salary ~ ., Hitters)[, -1]
-y <- Hitters$Salary
+mm <- model.matrix(Salary ~ ., Hitters)[, -1]
+x <- mm[, -1]
+y <- mm[, 1]
 ```
 
 Usando el paquete `glmnet` y la función con el mismo nombre, ejecute el siguiente comando
