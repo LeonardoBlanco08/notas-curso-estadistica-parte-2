@@ -1,6 +1,6 @@
 --- 
 title: "Notas Curso de Estadística"
-author: "Maikol Solís"
+author: "Maikol Solís Chacón y Luis Barboza Chichilla"
 date: "Actualizado el `r format(Sys.time(), '%d %B, %Y')`"
 site: bookdown::bookdown_site
 documentclass: book
