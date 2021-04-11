@@ -21,3 +21,4 @@ language:
     solution: 'Solución. '
   ui:
     chapter_name: 'Capítulo '
+rmd_files: ["index.Rmd", "01-estimacion-densidades-no-parametricas.Rmd"]

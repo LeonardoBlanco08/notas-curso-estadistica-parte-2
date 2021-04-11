@@ -1,19 +1,21 @@
-# Estimación de densidades
+# Estimación no-paramétrica de densidades
 
 ## Histograma
 
-El histograma es una de las estructuras básicas en estadística. Básicamente con este objeto se puede visualizar la distribución de los datos sin tener conocimiento previo de los mismos.
+El histograma es una de las estructuras básicas en estadística y es una herramienta descriptiva que permite visualizar la distribución de los datos sin tener conocimiento previo de los mismos. En esta sección definiremos el histograma más como un estadístico que como una herramienta de visualización de datos.
 
 ### Construcción Estadística
 
-Suponga que  \(X_1,X_2, \dots ,X_n\) proviene de una distribución desconocida.
+Suponga que  \(X_1,X_2, \dots ,X_n\) es una muestra independiente que proviene de una distribución desconocida $f$. En este caso no asumiremos que $f$ tenga alguna forma particular, que permita definirla de manera paramétrica como en el curso anterior.
+
+Construcción:
 
 - Seleccione un origen \(x_0\) y divida la linea real en _segmentos_.
 \begin{equation*}
-B_j = [x_0 +(j - 1)h,x_0 + jh) \quad j\in \mathbb{Z}
+B_j = [x_0 +(j - 1)h,x_0 + jh), \quad j\in \mathbb{Z}
 \end{equation*}
 
-- Cuente cuántas observaciones caen en cada segmento. \(n_j\).
+- Cuente cuántas observaciones caen en el segmento $B_j$. Denótelo como \(n_j\).
 
 ```{r, observaciones-histograma, echo=FALSE,fig.asp=0.2}
 
@@ -37,10 +39,11 @@ axis.title.y = element_blank()
 )
 
 ```
-- Cuente la frecuencia por el tamaño de muestra \(n\) y el ancho de banda \(h\).
+- Divida el número de observaciones en $B_j$ por el tamaño de muestra \(n\) y el ancho de banda \(h\) de cada caja.
 \begin{equation*}
 f_j = \frac{n_j}{nh}
 \end{equation*}
+De esta forma si se suma las áreas definidas por el histograma da un total de 1.
 
 - Dibuje el histograma.
 
@@ -66,7 +69,7 @@ Formalmente el histograma es el
 
 donde \(I\) es la indicadora.
 
-### Construcción probabilistica
+### Construcción probabilística
 
 Denote \(m_j=jh-h/2\) el centro del segmento,
 
@@ -77,7 +80,7 @@ Denote \(m_j=jh-h/2\) el centro del segmento,
 	  & \approx f(m_j)h
 \end{align*}
 
-Esto se puede aproximar como
+Otra forma de aproximarlo es:
 
 \begin{equation*}
 	\mathbb{P} \left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right)  \approx   \frac{1}{n} \#
@@ -91,28 +94,27 @@ Acomodando un poco la expresión
 \left\{X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right\}
 \end{equation*}
 
+Note que el estimador de histograma $\hat f_h$ tiende a ser más suave conforme aumenta el ancho de banda $h$. 
+
 ### Propiedades estadísticas 
 
-Suponga que  \(x_0 = 0\) y que \(x \in B_j\) fijo, entonces
+Suponga que  \(x_0 = 0\) y que \(x \in B_j\) es un punto fijo, entonces el estimador evaluado en $x$ es:
 
 \begin{equation*}
-\hat{f}_h(m_j) =  \frac{1}{nh} \sum_{i = 1}^{n} I(X_i \in B_j)
+\hat{f}_h(x) =  \frac{1}{nh} \sum_{i = 1}^{n} I(X_i \in B_j)
 \end{equation*}
 
 ### Sesgo
 
-El cálculo del sesgo es el
+Para calcular el sesgo primero calculamos:
 
 \begin{align*}
-\mathbb{E}\left[ \hat{f}_h(m_j)\right]
+\mathbb{E}\left[ \hat{f}_h(x)\right]
 & =  \frac{1}{nh} \sum_{i = 1}^{n} \mathbb{E}\left[ I(X_i \in B_j)\right] \\
 & = \frac{1}{nh} n \mathbb{E}\left[ I(X_i \in B_j)\right]
 \end{align*}
 
-\(I(X_i \in B_j)\) es una indicadora con probabilidad de 1 de \(\int_{(j -
-1)h}^{jh} f(u)du\) y 0 sino.
-
-Entonces
+donde \(I(X_i \in B_j)\) es una variable Bernoulli con valor esperado:
 
 \begin{align*}
 \mathbb{E}\left[ I(X_i \in B_j)\right] = \mathbb{P}\left(I(X_i \in
@@ -121,28 +123,34 @@ B_j)=1\right) = \int_{(j - 1)h}^{jh} f(u)du.
 
 Entonces,
 \begin{align*}
-\mathbb{E}\left[{f}_h(m_j)\right]
+\mathbb{E}\left[{f}_h(x)\right]
 & = \frac{1}{h} \int_{(j - 1)h}^{jh} f(u)du
 \end{align*}
 
+y por lo tanto el sesgo de $\hat f_h(x)$ es: 
 \begin{equation*}
-Sesgo(\hat{f}_h(m_j)) = \frac{1}{h} \int_{(j -
+Sesgo(\hat{f}_h(x)) = \frac{1}{h} \int_{(j -
 1)h}^{jh} f(u)du - f(x)
 \end{equation*}
 
 Esto se puede aproximar usando Taylor alrededor del centro \(m_j = jh - h/2\) de \(B_j\) de modo que \(f(u) - f(x) \approx f^{\prime}(m_j)(u - x)\).
 
 \begin{equation*}
-Sesgo(\hat{f}_h(m_j)) =  \frac{1}{h} \int_{(j -
-1)h}^{jh} f(u) - f(x) du \approx f^\prime(m_j)(m_j - x)
+Sesgo(\hat{f}_h(x)) =  \frac{1}{h} \int_{(j -
+1)h}^{jh} [f(u) - f(x)] du \approx f^\prime(m_j)(m_j - x)
 \end{equation*}
+Entonces se puede concluir que:
+
+- $\hat f_h(x)$ es un estimador sesgado de $f(x)$.
+- El sesgo tiende a ser cero cerca del punto medio de $B_j$.
+- El sesgo es creciente con respecto a la pendiente de la verdadera densidad evaluada en el punto medio $m_j$.
 
 ### Varianza
 
 Dado que todos los \(X_i\) son i.i.d., entonces
 
 \begin{align*}
-\mathrm{Var}\left( \hat{f}_h(m_j)\right) & =
+\mathrm{Var}\left( \hat{f}_h(x)\right) & =
 \mathrm{Var}\left( \frac{1}{nh} \sum_{i = 1}^{n} I(X_i \in B_j)\right)                                  \\
 & = \frac{1}{n^2h^2} n\mathrm{Var}\left( I(X_i \in B_j)\right)
 \end{align*}
@@ -163,6 +171,10 @@ Usando un desarrollo de Taylor como en la parte anterior, pruebe que:
 \end{equation*}
 ``` 
 
+Consecuencias:
+
+- La varianza del estimador es proporcional a $f(x)$.
+- La varianza decrece si el ancho de banda $h$ crece.
 
 ### Error cuadrático medio
 
@@ -177,7 +189,7 @@ El error cuadrático medio del histograma es el
 ¿Pueden probar la segunda igualdad de la expresión anterior?
 ``` 
 
-```{solution}
+```{solution include=FALSE}
 Prueba segunda igualdad:
 \begin{align*}
 & \text{Sesgo}^2\left(\hat{f}_h(x)  \right) + \text{Var}\left( \hat{f}_h(x)\right)  = \\ & \left[ E\left(\hat{f}_h(x)\right) - f(x)\right]^2 + E\left[\left( E\left(\hat{f}_h(x)\right) - \hat{f}_h(x)\right)^2\right] \ =
@@ -202,9 +214,9 @@ Entonces:
 \qed
 ```
 
-Retomando los términos anteriores se tiene que
+Retomando los términos anteriores se puede comprobar que:
 
-\begin{multline*}
+\begin{align}
 \mathrm{MSE}\left( \hat{f}_h(x)\right) =
 \frac{1}{nh} f(x) + f^\prime
 \left\{
@@ -218,21 +230,22 @@ j - \frac{1}{2}
 \right) h - x
 \right\}^2 \\
 + o\left(h \right) + 		o\left(\frac{1}{nh} \right)
-\end{multline*}
+(\#eq:MSE)
+\end{align}
 
 ```{remark}
-Si \(h \to 0\) y \(nh \to \infty\) entonces \(\mathrm{MSE}\left(  \hat{f}_h(x)\right) \to 0 \). Es decir, conforme usamos más observaciones, pero el ancho de banda de banda no decrece tan rápida, entonces el error cuadrático medio converge a 0.
+Si \(h \to 0\) y \(nh \to \infty\) entonces \(\mathrm{MSE}\left(  \hat{f}_h(x)\right) \to 0 \). Es decir, conforme usamos más observaciones, pero el ancho de banda de banda no decrece tan rápido, entonces el error cuadrático medio converge a 0.
 
-Esto indica que si \(\mathrm{MSE}\left(  \hat{f}_h(x)\right) \to 0 \) (convergencia en \(\mathbb{L}^2\)) implica que \(\hat{f}_h(x) \stackrel{\mathcal{P}}{\to} f(x)\), por lo tanto \(\hat{f}_h\) es consistente.
-```
-
-La fórmula anterior tiene la siguiente particularidad
+Como \(\mathrm{MSE}\left(  \hat{f}_h(x)\right) \to 0 \) (convergencia en \(\mathbb{L}^2\)) implica que \(\hat{f}_h(x) \stackrel{\mathcal{P}}{\to} f(x)\), entonces \(\hat{f}_h\) es consistente. Además según la fórmula \@ref(eq:MSE), concluimos lo siguiente: 
 
 - Si \(h\to 0\), la varianza crece (converge a \(\infty\)) y el sesgo decrece (converge a \(f^\prime (0)x^2\)).
 - Si \(h\to \infty\), la varianza decrece (hacia 0)  y el sesgo crece (hacia \(\infty\))
 
+```{exercise}
+Si $f\sim N(0,1)$, aproxime los componentes de sesgo, varianza y MSE, y grafíquelos para distintos valores de $h$. 
+``` 
 
-Note que la figura siguiente tiene esa propiedad. 
+Solución:
 
 ```{r, echo=FALSE}
 #Generate 1000 numbers with normal standard distribution
@@ -314,12 +327,10 @@ theme_minimal(base_size = 16)
 
 ### Error cuadrático medio integrado
 
-El problema con el \(\mathrm{MSE}\left(  \hat{f}_h(x)\right)\) es que depende completamente del punto escogido \(x\).
-
-La solución a esto es integrar el MSE.
-
+Uno de los problemas con el \(\mathrm{MSE}\left(  \hat{f}_h(x)\right)\) es que depende de $x$ y de la función de densidad $f$ (desconocida). Integrando con respecto a $x$ el MSE se logra resolver el primer problema:
+  
 \begin{align*}
-\mathrm{MISE}\left(  \hat{f}_h(x)\right)
+\mathrm{MISE}\left(  \hat{f}_h\right)
 & = \mathrm{E}\left[
 \int_{ -\infty}^{\infty} \left\{
 \hat{f}_h(x) - f(x)
@@ -333,11 +344,11 @@ La solución a esto es integrar el MSE.
 & = \int_{ -\infty}^{\infty}\mathrm{MSE}(\hat{f}_h(x)) \, dx
 \end{align*}
 
-Además,
+Al $\mathrm{MISE}$ se le llama error cuadrático medio integrado. Además,
 
 \begin{align*}
-\mathrm{MISE} (\hat{f}_h(x))
-& = \int_{ -\infty}^{\infty} \frac{1}{nh} f(x)dx                                                                                                                                          \\
+\mathrm{MISE} (\hat{f}_h)
+& \approx \int_{ -\infty}^{\infty} \frac{1}{nh} f(x)dx                                                                                                                                          \\
 & + \int_{ -\infty}^{\infty}\, \sum_{j}^{} I(x\in B_j) \left\{ \left( j- \frac{1}{2} \right)h -x  \right\}^2 \left [f^\prime \left( \left\{j - \frac{1}{2}\right\}h \right)  \right]^2 dx \\
 & = \frac{1}{nh} + \sum_{j}^{} \left [f^\prime \left( \left\{j - \frac{1}{2}\right\}h \right)  \right]^2 \int_{ B_j}    \left\{ \left( j- \frac{1}{2} \right)h -x  \right\}^2 dx          \\
 & =\frac{1}{nh} + \frac{h^2}{12} \sum_{j} \left [f^\prime \left( \left\{j - \frac{1}{2}\right\}h \right)  \right]^2                                                                       \\
@@ -345,9 +356,11 @@ Además,
 & =\frac{1}{nh} + \frac{h^2}{12} \Vert f^\prime\Vert_{2}^2
 \end{align*}
 
+la cual es una buena aproximación si $h\rightarrow 0$. A este último término se le llama MISE asintótico.
+
 ### Ancho de banda óptimo para el histograma
 
-El MISE tiene el mismo comportamiento que el MSE. La figura siguiente presenta el comportamiento de la varianza, sesgo y MISE para nuestro ejemplo.
+El MISE tiene un comportamiento asintótico similar al observado en el MSE. La figura siguiente presenta el comportamiento de la varianza, sesgo y MISE para nuestro ejemplo anterior:
 
 ```{r, MISE-histograma, fig.cap=' ',echo=FALSE}
 ggplot(df_MISE) +
@@ -355,7 +368,7 @@ geom_line(aes(x=h, y=Valor, color=Medida, linetype=Medida), size=1) +
 theme_minimal(base_size = 16)
 ```
 
-La mala elección del parámetro $h$ causa que el histograma no capture toda la estructura de los datos.
+Un problema frecuente en los histogramas es que la mala elección del parámetro $h$ causa que estos no capturen toda la estructura de los datos. Por ejemplo, en el siguiente caso se muestra histogramas construídos a partir de 1000 números aleatorios según una $N(0,1)$, bajo 4 distintas escogencias de ancho de banda.
 
 ```{r, echo=FALSE}
 
@@ -398,26 +411,26 @@ theme_minimal()
 
 ```
 
-En este caso se puede simplemente minimizar el MISE de la forma usual,
+Un criterio más preciso para seleccionar el ancho de banda es a través de la minimización del MISE:
 
 \begin{equation*}
 \frac{\partial \mathrm{MISE}(f_{h})}{\partial h} = -\frac{1}{nh^2} + \frac{1}{6} h \Vert f^\prime\Vert_{2}^2 = 0
 \end{equation*}
 
-implica que
+lo implica que
 
 \begin{equation*}
-h_{opt} = \left(\frac{6}{n\Vert f^\prime\Vert_{2}^2}\right) ^{1/3} = O\left( n^{1/3} \right).
+h_{opt} = \left(\frac{6}{n\Vert f^\prime\Vert_{2}^2}\right) ^{1/3} = O\left( n^{-1/3} \right).
 \end{equation*}
 
-y que por lo tanto
+y por lo tanto
 
 \begin{equation*}
 \mathrm{MISE}(\hat{f}_{h}) = \frac{1}{n} \left(\frac{n\Vert f^\prime\Vert_{2}^2}{6}\right)  ^{1/3}
 \end{equation*}
 
 ```{remark, name='Recuerde de Estadística I' }
-Si \(X_1, \ldots, X_2 \sim f_{\theta} \) i.i.d, con \(\mathrm{Var}(X) = \sigma^2\), recuerde que el estimador \(\hat{\theta}\)  de \(\theta\) tiene la característica que
+Si \(X_1, \ldots, X_2 \sim f_{\theta} \) i.i.d, con \(\mathrm{Var}(X) = \sigma^2\) y media $\theta$, recuerde que el estimador \(\hat{\theta}\)  de \(\theta\) tiene la característica que
 
 \begin{equation*}
 \mathrm{MSE}(\theta) = \mathrm{Var}(\hat{\theta}) +
@@ -425,7 +438,7 @@ Si \(X_1, \ldots, X_2 \sim f_{\theta} \) i.i.d, con \(\mathrm{Var}(X) = \sigma^2
 \end{equation*}
 ```
 
-Según la nota anterior la tasas de convergencia del histograma es más lenta que la de un estimador parámetrico considerando la misma cantidad de datos.
+Según la nota anterior la tasas de convergencia del histograma es más lenta que la de un estimador parámetrico considerando la misma cantidad de datos, tal y como se ilustra en el siguiente gráfico:
 
 ```{r, echo=FALSE}
 nvec <- 5:50
@@ -462,7 +475,7 @@ breaks = floor((min(x)) / h_opt):ceiling((max(x)) / h_opt)
 breaks = breaks * h_opt
 ```
 
-Finalmente, podemos encontrar el valor óptimo  de esta datos dado por  $h=$`h_opt_MISE`
+Finalmente, podemos encontrar el valor óptimo  del ancho de banda ($h=$ `r h_opt_MISE`) del conjunto de datos en el ejemplo anterior.  
 ```{r, echo=FALSE}
 df <- data.frame(x)
 ggplot(df) +
@@ -476,30 +489,28 @@ geom_rug(aes(x), col = "blue4") +
 geom_density(aes(x = x)) + theme_minimal()
 ```
 
+```{exercise}
+Verifique que en el caso normal estándar: $h_{opt}\approx 3.5 n^{-1/3}$.
+```
 
 
-
-## Estimación No-paramétrica de densidad
+## Estimación de densidades basada en kernels.
 
 ### Primera construcción
 
-Sea $X_{1},\ldots,X_{n}$ variables aleatorias i.i.d. con distribución $f$ en $\mathbb{R}$.
+Sea $X_{1},\ldots,X_{n}$ variables aleatorias i.i.d. con distribución $f$ en $\mathbb{R}$. La distribución de  $f$ es $F(x)=\int_{-\infty}^{x}f(t)dt$.
 
-La distribución de  $f$ es  $F(x)=\int_{-\infty}^{x}f(t)dt$.
-
-Considere la distribución empírica como
+La distribución empírica de $F$ es:
 \[
 F_{n}(x)=\frac{1}{n}\sum_{i=1}^{n}I(X_{i}\leq x).
 \]
 
-Por la ley de los grandes números tenemos que \(\hat{F}_{n}(x)
-\xrightarrow{c.s} F(x)\) para todo  $x$ en $\mathbb{R}$as
-$n\rightarrow\infty$. Entonces, $F_{n}(x)$ es consistente
-
-para todo $x$ in $\mathbb{R}$.
+Por la ley de los grandes números tenemos que \(F_{n}(x)
+\xrightarrow{c.s} F(x)\) para todo  $x$ en $\mathbb{R}$, conforme
+$n\rightarrow\infty$. Entonces, $F_{n}(x)$ es un estimador consistente de $F(x)$ para todo $x$ in $\mathbb{R}$.
 
 ```{remark}
-¿Podríamos derivar \(\hat{F}_n\) para encontrar el estimar \(\hat{f}_n\)?
+¿Podríamos derivar \(F_n\) para encontrar el estimador \(\hat{f}_n\)?
 ```
 
 La respuesta es si (más o menos).
@@ -509,7 +520,7 @@ Suponga que $h>0$ tenemos la aproximación
 f(x)\approx\frac{F(x+h)-F(x-h)}{2h}.
 \]
 
-Remplazando $F$  por su estimador  $\hat{F}_{n}$, defina
+Remplazando $F$  por su estimador  $F_{n}$, defina
 \[
 \hat{f}_{n}^{R}(x)=\frac{F_{n}(x+h)-F_{n}(x-h)}{2h},
 \]
@@ -519,44 +530,39 @@ Podemos rescribirlo de la forma,
 \[
 \hat{f}_{n}^{R}(x)=\frac{1}{2nh}\sum_{i=1}^{n}I(x-h<X_{i}\leq x+h)=\frac{1}{nh}\sum_{i=1}^{n}K_{0}\left(\frac{X_{i}-x}{h}\right)
 \]
-con  $K_{0}(u)=\frac{1}{2}I(-1<u\leq1)$, lo cuál es equivalente al caso del histograma.
+con  $K_{0}(u)=\frac{1}{2}I(-1<u\leq1)$, lo cual es equivalente al caso del histograma.
 
 
 
 ### Otra construcción
 
-Con el histograma construimos una serie de segmentos fijo \(B_{j}\) y contabamos el número de datos que estaban **CONTENIDOS en $B_{j}$**
+Con el histograma construimos una serie de segmentos fijo \(B_{j}\) y contabamos el número de datos que estaban **contenidos en $B_{j}$**
 
 ```{remark}
-¿Qué pasaría si cambiamos la palabra **CONTENIDOS** por **ALREDEDOR DE "x"**?
+¿Qué pasaría si cambiamos la palabra **contenidos** por **alrededor de "x"**?
 ```
 
-Suponga que se tienen intervalos de longitud $ 2h $, es decir, intervalos de la forma $ [x-h,x+h) $.
+Suponga que se tienen intervalos de longitud $2h$, es decir, intervalos de la forma $[x-h,x+h)$.
 
-El histograma  se escribe como
+El estimador de histograma se escribe como
 
 \begin{equation*}
 \hat{f_{h}}(x) = \dfrac{1}{2hn} \# \{ X_i \in [x-h,x+h) \}.
 \end{equation*}
 
-Ahora tratemos de modificar ligeramente esta expresión notando dos cosas
-
-1. \begin{equation*}
-\frac{1}{2} I \left( \left\vert u \right\vert \leq 1 \right)
+Note que si definimos
+\begin{equation*}
+K(u)=\frac{1}{2} I \left( \left\vert u \right\vert \leq 1 \right)
 \end{equation*}
-con \(u = \frac{x-xi}{h}\)
-
-2.
-
+con \(u = \frac{x-xi}{h}\), entonces parte del estimador de histograma se puede escribir como:
 \begin{equation*}
 \frac{1}{2}\# \{ X_i \in [x-h,x+h) \}
 =\sum_{i=1}^{n} K\left( \frac{x-x_{i}}{h} \right)
 =\sum_{i=1}^{n}  \frac{1}{2} I \left( \left\vert \frac{x-x_{i}}{h}
 \right\vert \leq 1 \right)
 \end{equation*}
-\end{enumerate}
 
-Finalmente se tiene que
+Finalmente se tendría que
 
 \begin{equation*}
 \hat{f}_{h}\left( x \right) = \frac{1}{nh}\sum_{i=1}^{n} K\left( \frac{x-x_{i}}{h} \right)
@@ -568,7 +574,7 @@ Finalmente se tiene que
 
 
 ```{remark}
-¿Qué pasaría si cambiaríamos la función \(K\) del histograma por una más general?
+¿Qué pasaría si cambiaríamos la función \(K\) del histograma por una más general? Esto permitiría incluir la noción de "cercanía" de cada dato alrededor de $x$.
 ```
 
 Esta función debería cumplir las siguientes características
@@ -627,19 +633,22 @@ theme(axis.line = element_line(size = 1))
 
 ```
 
-Entonces se tendría que la expresión general para un estimador por núcleos es
+Entonces se tendría que la expresión general para un estimador por núcleos (kernel) de $f$:
 
 \begin{equation*}
-\hat{f}_{h}\left( x \right) = \frac{1}{nh}\sum_{i=1}^{n} K\left( \frac{x-x_{i}}{h} \right)
+\hat{f}_{h}\left( x \right) = \frac{1}{nh}\sum_{i=1}^{n} K\left( \frac{x-x_{i}}{h} \right)=\frac{1}{n}\sum_{i=1}^{n} K_h(x-x_{i}) 
 \end{equation*}
 
-
-
+donde $x_1,\ldots,x_n$ es una muestra i.i.d. de $f$,
+\begin{align*}
+K_h(\cdot)=\frac 1 h K(\cdot /h).
+\end{align*}
+y $K$ es un kernel según las 4 propiedades anteriores.  
 ```{remark}
 ¿Qué pasaría si modificamos el ancho de banda \(h\) para un mismo kernel?
 ```
 
-Nuevamente sería el ancho de banda ya que
+Nuevamente controlaríamos la suavidad del estimador a como se ilustra a continuación:
 
 ```{r, echo=FALSE}
 r <- rnorm(1000)
@@ -680,12 +689,12 @@ facet_wrap(~ Ancho.de.banda) +
 theme_minimal()
 ```
 
-
+Inconveniente: no tenemos aún un criterio para un $h$ óptimo.
 
 ```{remark}
 ¿Qué pasaría si modificamos el kernel para un mismo ancho de banda \(h\)?
 ```
-
+Usando 1000 números aleatorios según una normal estándar, con un ancho de banda fijo ($h=0.3$) podemos ver que no hay diferencias muy marcadas entre los estimadores por kernel:
 ```{r, echo=FALSE}
 r <- rnorm(1000)
 df <- rbind(
