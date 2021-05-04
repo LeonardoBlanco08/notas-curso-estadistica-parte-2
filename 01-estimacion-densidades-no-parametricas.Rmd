@@ -592,7 +592,7 @@ Por ejemplo:
 - **Uniforme:** \(\frac{1}{2} I \left( \left\vert u \right\vert \leq 1 \right)\).
 - **Triangular:** \( (1-|u|) I \left( \left\vert u \right\vert \leq 1 \right)\).
 - **Epanechnikov:** \(\frac{3}{4} (1-u^{2}) I \left( \left\vert u \right\vert \leq 1 \right)\).
-- **Gausian:** \(\frac{1}{\sqrt{2\pi}} \exp \left( -\frac{1}{2}u^{2} \right)\).
+- **Gaussian:** \(\frac{1}{\sqrt{2\pi}} \exp \left( -\frac{1}{2}u^{2} \right)\).
 
 
 ```{r, echo=FALSE}
@@ -621,7 +621,7 @@ df <- rbind(
 data.frame(u, K = K_Uniform, Kernel = "Uniforme"),
 data.frame(u, K = K_Epanechnikov, Kernel = "Epanechnikov"),
 data.frame(u, K = K_Triangle, Kernel = "Triangular"),
-data.frame(u, K = K_Gaussian, Kernel = "Gausiano")
+data.frame(u, K = K_Gaussian, Kernel = "Gaussiano")
 )
 
 ggplot(df, aes(x=u, y=K))+
@@ -1050,7 +1050,7 @@ Para solucionar el problema anterior, se puede considerar una medida más robust
 \begin{equation*}
 \mathrm{IQR}^{X} = Q^{X}_{3} - Q^{X}_{1}
 \end{equation*}
-donde \(Q^{X}_{1}\) y \(Q^{X}_{3}\) son el primer y tercer  de un conjunto de datos \(X_{1},\ldots, X_n\).
+donde \(Q^{X}_{1}\) y \(Q^{X}_{3}\) son el primer y tercer cuartil de un conjunto de datos \(X_{1},\ldots, X_n\).
 
 Con el supuesto que \(X\sim \mathcal{N}(\mu,\sigma^{2})\) entonces \(\displaystyle Z = \frac{X-\mu}{\sigma} \sim \mathcal{N}(0,1)\) y entonces:
 
@@ -1059,7 +1059,7 @@ Con el supuesto que \(X\sim \mathcal{N}(\mu,\sigma^{2})\) entonces \(\displaysty
 & = Q^{X}_{3} - Q^{X}_{1}                                                     \\
 & = \left( \mu+\sigma Q^{Z}_{3} \right) - \left( \mu+\sigma Q^{Z}_{1} \right) \\
 & = \sigma \left(Q^{Z}_{3} - Q^{Z}_{1} \right)                                \\
-& \approx \sigma \left( 0.67 - (0.67) \right)                                 \\
+& \approx \sigma \left( 0.67 - (-0.67) \right)                                 \\
 & =1.34 \sigma.
 \end{align*}
 

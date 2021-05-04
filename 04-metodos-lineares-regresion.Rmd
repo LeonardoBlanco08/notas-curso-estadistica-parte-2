@@ -3,73 +3,96 @@ output:
   pdf_document: default
   html_document: default
 ---
-# Métodos lineares de regresión
+# Métodos lineales de regresión
 
-**NOTA: Para los siguientes capítulos nos basaremos en los libros [@Hastie2009a] y [@James2013b].**
+**NOTA: Para los siguientes capítulos nos basaremos en los libros [@HastieElements2009] y [@James2013b].**
 
 
-## Introducción 
+## Introducción al Aprendizaje Estadístico.
 
-Supongamos que tenemos \(p\) variables de entrada que mezcladas  con alguna relación desconocida y que provocan una respuesta \(Y\) de salida. 
+Supongamos que tenemos \(p\) variables de entrada que provocan una respuesta \(Y\) (variable dependiente) a través de la siguiente relación:
 
 \begin{equation}
 Y = f(X_{1},\ldots,X_{p}) + \varepsilon
 (\#eq:regresion-general)
 \end{equation}
-
-
-Aquí \(f\) es deconocida, las variables \(X\)'s son las variables de entrada y  \(\varepsilon\) es el error cometido por hacer esta aproximación.  
+donde \(f\) es desconocida, las variables \(X\)'s son las variables de entrada (covariables o predictores) y \(\varepsilon\) representa un error aditivo a la relación definida por $f$.
 
 
 
-Hay dos motivos para estimar \(f\)
+Hay dos motivos por los que estimamos \(f\):
 
 1. **Predicción:** Si se estima \(f\) con \(\hat{f}\) entonces
 \begin{equation*}
 \hat{Y} = \hat{f}(X_{1},\ldots,X_{p}). 
 \end{equation*}
+asumiendo que el valor medio del error $\epsilon$ es cero. Si tuvieramos valores nuevos de los \(X\)'s entonces podríamos estimar el valor que el corresponde a \(Y\). 
 
-Y si tuvieramos valores nuevos de los \(X\)'s entonces podríamos estimar el valor que el corresponde a \(Y\). 
+En este caso obtener una estructura óptima o precisa de la función $\hat f$ no es importante, siempre y cuando sea posible obtener buenas predicciones de $Y$. Para entender mejor esta idea se puede definir:
 
-Aquí lo importante es que los resultados sean preciso: 
-
-  a. **Error reducible:** Error de \(\hat{f}\) alrededor de \(f\). 
-  a. **Error irreducible:** Error propio de las observaciones (muestreo). 
+  a. **Error reducible:** Error de \(\hat{f}\) alrededor de \(f\), el cual es propio de la escogencia del modelo. 
+  a. **Error irreducible:** Error que escapa a una estimación perfecta de $f$. Puede venir de covariables no consideradas en el problema, fuentes de error que no se pueden cuantificar, etc.
 
 \begin{align*}
-\mathbb{E}\left[\hat{Y}-Y\right] 
+\mathbb{E}\left[(\hat{Y}-Y\right)^2] 
 &=  \mathbb{E}\left[\left(  f(X_{1},\ldots,X_{p}) + \varepsilon - \hat{f}(X_{1},\ldots,X_{p}) \right)^{2}  \right] \\
 &= \underbrace{\left( f(X_{1},\ldots,X_{p})- \hat{f}(X_{1},\ldots,X_{p})  \right) ^{2} }_{\text{Reducible}}
-+\underbrace{\mathrm{Var}\left(\varepsilon\right)}_{\text{irreducible}}. 
++\underbrace{\mathrm{Var}\left(\varepsilon\right)}_{\text{irreducible}}.
 \end{align*}
+asumiendo que $f$ y $X$ son conocidas y determinísticas.
 
+2. **Inferencia:**  Entender la relación entre \(X\) y \(Y\), es decir entender cómo $Y$ cambia como función de las covariables. 
+En este caso sí nos interesa obtener un estimador preciso e interpretable de la función $f$. Las siguientes preguntas son de interés:
+- ¿Cuáles covariables están asociadas con la variable respuesta o dependiente?
+- ¿Cuál es la relación entre cada variable predictora y la respuesta?
+- ¿La relación entre covariables y variable dependiente es lineal? o ¿la relación es más compleja?
 
-2. **Inferencia:**  Entender la relación entre \(X\) y \(Y\). 
+### Formas de estimar $f$
 
-- ¿Cuál es la relación entre las variables predictoras y la respuesta?
-- ¿Cuáles son más importantes?
-- ¿El modelo es correcto?
+El proceso de estimación de $f$ a través de $\hat f$ se realiza sobre un subconjunto de los datos disponibles. A este conjunto se le llama *datos de entrenamiento*. El resto de los datos se puede utilizar para probar la capacidad predictiva del modelo seleccionado. 
+
+Existen varias clasificaciones de modelos para estimar $f$:
+
+- Modelos paramétricos vs modelos no parámetricos. Los modelos pueden tener parámetros que facilitan el proceso de estimación, pero el número de parámetros debe ser conservador para evitar situaciones de *sobreajuste*. Los modelos no-paramétricos requieren de mucha información para dar un buen ajuste, sea a través de una muestra grande o a través de manipular parámetros generales de suavidad (ancho de banda).
+- Modelos predictivos vs modelos interpretativos. Entre más flexible (complejo) sea un modelo, más dificil es su interpretación, por lo tanto más dificil es hacer inferencia. Hay modelos muy flexibles que permiten hacer muy buena predicción, pero fácilmente se puede caer en sobreajuste.
+- Modelos supervisados vs no supervisados. ¿La variable $Y$ está disponible en la muestra?
+- Modelos de regresión vs modelos de clasificación. ¿La variable $Y$ es continua o es una variable categórica?
+
+### Medidas de bondad de ajuste
+
+En el caso de regresión, la medida más utilizada es el Error Cuadrático Medio (MSE):
+\begin{align*}
+MSE=\frac 1 n \sum_{i=1}^n(y_i-\hat f(x_i))^2
+\end{align*}
+calculada sobre la base de entrenamiento del modelo para evaluar la capacidad de ajuste de $\hat f$. Para evaluar la capacidad predictiva del modelo se puede usar el mismo concepto sobre la *base de prueba*. La diferencia entre la magnitud del MSE en los dos conjuntos de datos, puede ser un indicador de sobreajuste. 
+
+Para el caso de un problema de aprendizaje estadístico hay interpretaciones de los componentes de sesgo y varianza:
+
+- *Varianza*: variación de $\hat f$ ante cambios en los datos de entrenamiento. Modelos más flexibles tienen mayor varianza.
+- *Sesgo*: error al aproximar la realidad complicada con un modelo más simple.  Modelos más flexibles tienen menor sesgo.
+
+**Estrategia de búsqueda de modelos**: conforme aumenta la flexibilidad de un modelo el sesgo disminuye, y la varianza no aumenta en el mismo ritmo. A partir de un cierto momento la disminución del sesgo no es lo suficientemente fuerte como para contrarrestar el crecimiento en varianza. 
+
+**Conclusión**: un modelo parsimonioso posiblemente garantizará un valor óptimo en MSE.
 
 ## Regresión lineal
 
-El caso más sencillo es cuando esta relación es lineal y se describe de la siguiente forma 
+El caso más sencillo es cuando se asume que la relación es lineal y se describe de la siguiente forma: 
 
 \begin{equation*}
-Y = \beta_{0} + \beta_{1}X_{1} + \cdots +  \beta_{1}X_{1} + \varepsilon.
+Y = \beta_{0} + \beta_{1}X_{1} + \cdots +  \beta_{p}X_{p} + \varepsilon.
 \end{equation*} 
  
- Aquí los valores \(\beta\)'s son constantes a estimar, las variables \(X\)'s son las variables de entrada y  \(\varepsilon\) es el error cometido por hacer esta aproximación. 
+ Aquí los valores \(\beta\)'s son constantes a estimar, las variables \(X\)'s son las variables de entrada y  \(\varepsilon\) es el error irreducible cometido por hacer esta aproximación. 
  
 
-Los \(X\)'s pueden ser 
+Las covariables en un modelo de regresión pueden ser: 
 
-1. Cuantitativos o Transformaciones. 
-1. Cualitativos. 
-
-En el caso de ser cualititativos existe un truco para incluirlos dentro de la regresión 
+1. Cuantitativas: variables continuas. 
+2. Categóricas: variables tipo factor que admiten un número de niveles. Estas variables pueden ser ordinales o nominales, dependiendo si hay un orden natural en la escala de los niveles. Para incorporarla en el modelo de regresión debemos *codificar* la variable:
 
 ```{example}
-Se tiene la variable \(G\) codificada con Casado (1), Soltero (2), Divorciado (3) y Unión Libre (4). Si queremos meter esta variable en una regresión debemos tomarla de la forma 
+Se tiene la variable \(G\) codificada con Casado (1), Soltero (2), Divorciado (3) y Unión Libre (4). Si queremos incorporar esta variable en una regresión podríamos usar la siguiente codificación: 
 
 \begin{equation*}
 X_{j} = \mathbf{1}_{\{G=j+1\}} 
@@ -87,14 +110,14 @@ X_{1} & X_{2} & X_{3}\\
 \end{matrix}
 \end{equation*}
 
-Existen otras formas de codificar este tipo de variables, pero esa es la más común. 
+Existen otras formas de codificar este tipo de variables, pero esta es una de las más usuales.
 
 ```
 
 
 ### Forma matricial
 
-Podemos escribir la regresión de la forma 
+Podemos escribir el modelo de regresión en forma matricial: 
 
 \begin{equation*}
 \boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}
@@ -110,7 +133,7 @@ Y_{1} \\
 Y_{n}
 \end{pmatrix}_{n\times 1} 
 \quad 
-\boldsymbol{Y} = 
+\boldsymbol{X} = 
 \begin{pmatrix}
 1 & X_{1,1} & \cdots & X_{p,1} \\
 \vdots & \vdots & \cdots & \vdots\\
@@ -133,7 +156,7 @@ Y_{n}
 \end{pmatrix}_{(p+1)\times 1} 
 \end{multline*}
 
-Suponemos que \(\mathbb{E}\left[\varepsilon_{i}\right] = 0\) y \(\mathrm{Var}\left(\varepsilon_{i}\right) = \sigma^{2}\)
+Suponemos que \(\mathbb{E}\left[\varepsilon_{i}\right] = 0\) y \(\mathrm{Var}\left(\varepsilon_{i}\right) = \sigma^{2}\).
 
 La forma de resolver este problema es  por minimos cuadrados.  Es decir, buscamos el \(\hat{\beta}\) que cumpla lo siguiente:
 
@@ -141,26 +164,22 @@ La forma de resolver este problema es  por minimos cuadrados.  Es decir, buscamo
 \begin{align}
 \hat{\beta} &= 
  \operatorname{argmin}_\beta (\boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta})^{\top} (\boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta})\\
- &=  \operatorname{argmin}_\beta \sum_{i=1}^n \left( Y_{i} -\beta_{0} - \sum_{j=1}^p X_{j,i} \beta_{j} \right) 
+ &=  \operatorname{argmin}_\beta \sum_{i=1}^n \left( Y_{i} -\beta_{0} - \sum_{j=1}^p X_{j,i} \beta_{j} \right)^2 
  (\#eq:minimos-cuadrados)
  \end{align}
 
 
 ![Tomado de https://www.wikiwand.com/en/Ordinary_least_squares](manual_figures/ols.png)
+Por lo tanto buscaríamos minimizar la suma de *residuos* al cuadrado.
 
-Suponga que \(\gamma\) es un vector cualquiera en \(\mathbb{R}^{p+1}\)  y tenemos a \(V = \{\boldsymbol{X}\boldsymbol{\gamma}, \gamma \in \mathbb{R}^{p+1}\}\).
+Suponga que \(\gamma\) es un vector cualquiera en \(\mathbb{R}^{p+1}\)  y defina \(V := \{\boldsymbol{X}\boldsymbol{\gamma}, \gamma \in \mathbb{R}^{p+1}\}\), es decir el espacio lineal generado por las columnas (covariables) de $\boldsymbol{X}$. Buscamos entonces un vector $\beta$ que cumpla:
 
 \begin{align*}
 \boldsymbol{X}\boldsymbol{\beta}
  &= \operatorname{Proy}_{V} \boldsymbol{Y}
 \end{align*}
 
-Entonces dado que 
-\begin{equation*}
-\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp V \\
-\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp \boldsymbol{X}\boldsymbol{\gamma}, \forall \boldsymbol{\gamma} \in \mathbb{R}^{p+1}.
-\end{equation*}
-
+Entonces dado que $\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp V$, es decir $\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp \boldsymbol{X}\boldsymbol{\gamma}, \forall \boldsymbol{\gamma} \in \mathbb{R}^{p+1}$ entonces:
 
 \begin{align*}
 <\boldsymbol{X}\boldsymbol{\gamma}, \boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} > &=  0 \\
@@ -170,19 +189,17 @@ Entonces dado que
   \boldsymbol{\beta}  &=  (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{Y} 
 \end{align*}
 
-Donde \(\boldsymbol{X}^{\top} \boldsymbol{X}\) debe ser invertible. Si no es así, se puede construir su inversa generalizada pero no garantiza la unicidad de los \(\beta\)'s. Es decir, puede existir \(\hat{\beta} \neq \tilde{\beta}\) tal que \(\boldsymbol{X}\boldsymbol{\hat{\beta}} = \boldsymbol{X}\boldsymbol{\tilde{\beta}} \)
-
-
+Donde se asume que \(\boldsymbol{X}^{\top} \boldsymbol{X}\) debe ser invertible. Si no es así, se puede construir su inversa generalizada pero no garantiza la unicidad de los \(\beta\)'s. Es decir, puede existir \(\hat{\beta} \neq \tilde{\beta}\) tal que \(\boldsymbol{X}\boldsymbol{\hat{\beta}} = \boldsymbol{X}\boldsymbol{\tilde{\beta}} \). A $\hat \beta$ se le llama estimador por mínimos cuadrados de $\beta$.
 
 En el caso de predicción tenemos que 
 
 \begin{align*}
-\hat{Y} &=  X\beta \\
+\hat{Y} &=  X\hat \beta \\
 &= \boldsymbol{X}(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{Y} \\
 &=  H \boldsymbol{Y} 
 \end{align*}
 
-Donde \(H\) es la matriz "techo" o  "hat". Es la proyección de Y al espacio de las columnas de \(X\).
+Donde \(H\) es la matriz "techo" o  "hat". La matriz $H$ es la matriz de proyección de Y al espacio de las columnas de \(X\).
 
 ```{exercise}
 Suponga que tenemos la regresión simple
@@ -192,9 +209,7 @@ Y = \beta_{0} + \beta_{1}X_{1}+\varepsilon.
 \end{equation*}
 
 
-Muestre que \(\beta_{0}\) y \(\beta_{1}\) son 
-
-Para el caso de la regresión simple tenemos que 
+Verifique que los estimadores de mínimos cuadrados de \(\beta_{0}\) y \(\beta_{1}\) son: 
 
 \begin{align*}
 \hat{\beta}_{1}&= \frac{\sum_{i=1}^{n}\left(X_{i}-\overline{X}\right)\left(Y_{i}-\overline{Y}\right)}{\sum_{i=1}^{n}\left(X_{i}-\overline{x}\right)^{2}} \\ 
@@ -204,7 +219,7 @@ Para el caso de la regresión simple tenemos que
 usando los siguiente métodos:
 
 1. El método de proyecciones. 
-2. Minimizando el criterio de mínimos cuadrados. Ecuación \@ref(eq:minimos-cuadrados).
+2. Aplicando el criterio de mínimos cuadrados. Ecuación \@ref(eq:minimos-cuadrados).
 
 ````
 
@@ -258,6 +273,7 @@ ggplot(data = data.frame(x = X, y = Y)) +
   theme_minimal()
 ```
 
+en donde podemos concluir que la relación lineal no modela de manera apropiada la relación observada en los datos. Por lo tanto es necesario incluir el intercepto $\beta_0$ al modelo lineal:
 
 ```{r}
 X <-  cbind(1, mtcars$wt)
@@ -276,7 +292,7 @@ ggplot(data = data.frame(x0 = X[, 1], x1 = X[, 2], y = Y)) +
   theme_minimal()
 ```
 
-Ojo obviamente esto se puede hacer más fácil con los siguientes comandos
+El mismo resultado se puede obtener a través del comando \verb|lm|: 
 
 ```{r}
 
@@ -286,7 +302,7 @@ lm(mpg ~ wt, data = mtcars)
 
 ```
 
-Suponga que queremos incluir una variable categorica como `cyl` (Número de cilindros).  Lo que se debe hacer es convertir esta variable a dummy. 
+Suponga que queremos trabajar con la variable categorica `cyl` (Número de cilindros) como única covariable.  Lo que se debe hacer es codificar la variable categórica: 
 
 ```{r}
 X <- model.matrix(mpg ~ cyl, data = mtcars)
@@ -322,38 +338,14 @@ betaslm[1] + betaslm[3]
 
 ## Propiedades estadísticas 
 
-Uno de los supuestos fundamentales de regresión lineal es que 
-
-\begin{equation*}
-\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}I\right)
-\end{equation*} . 
-
-En ese caso 
-
-\begin{equation*}
-Y = X\beta + \varepsilon \sim \mathcal{N}\left(X\beta,\sigma^{2}I\right)
-\end{equation*} 
-
-Y además 
-
+Hasta ahora se han hecho pocos supuestos acerca de la distribución de los datos. Si asumimos que las observaciones $Y_i$ son no correlacionadas y que tienen varianza constante $\sigma^2$ y además las covariables son fijas (no aleatorias), entonces:
 \begin{align*}
-\hat{\beta} &=  (X^{\top}X)^{-1}X^{\top}Y \\
-&\sim  \mathcal{N}\left((X^{\top}X)^{-1}X^{\top}X\beta,((X^{\top}X)^{-1}X^{\top})\sigma I ((X^{\top}X)^{-1}X^{\top})^{\top}\right) \\
-&\sim  \mathcal{N}\left(\beta,\sigma (X^{\top}X)^{-1}\right) \\
+E[\hat \beta]&=(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}E[\boldsymbol{Y}]=(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{X}\beta=\beta \\
+\text{Var}[\hat \beta] &= (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\text{Var}[Y] ((\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top})^{\top} \\
+& = \sigma^2 (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1}
 \end{align*}
 
-Es decir, que 
-
-\begin{align*}
-\mathbb{E}\left[\hat{\beta}\right] &= \beta \\
-\operatorname{Var}(\hat{\beta}) &=  \sigma^{2}\left(X^{\top} X\right)^{-1}
-\end{align*}
-
-```{exercise}
-Encuentre la varianza para \(\beta_{0}\) y \(\beta_{1}\) para el caso de la regresión simple. 
-````
- 
- La estimación de \(\sigma^{2}\) 
+Note que \(\sigma^{2}\) puede ser estimado a través de:
  
  \begin{align*}
  \hat{\sigma}^{2} 
@@ -376,12 +368,32 @@ Y-\operatorname{Proy}_{V}Y
 = \frac{1}{dim(V^{\top})}\left\Vert \operatorname{Proy}_{V^{\top}}\varepsilon\right\Vert \\
 \end{equation*}
  
- 
- Cumple con la propiedad que \(\mathbb{E}\left[\hat{\sigma}^{}\right] = \sigma^{2}\). 
- 
- Y además \((n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.\)
- 
- 
+Cumple con la propiedad que \(\mathbb{E}\left[\hat{\sigma}^{}\right] = \sigma^{2}\) (estimador insesgado).
+
+Para poder hacer inferencia sobre $\beta$ y $\sigma^2$ se puede asumir además que los errores son gaussianos:
+
+\begin{equation*}
+\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}I\right)
+\end{equation*} . 
+
+y de esta forma se obtiene:
+
+\begin{equation*}
+Y = X\beta + \varepsilon \sim \mathcal{N}\left(X\beta,\sigma^{2}I\right)
+\end{equation*} 
+
+Y además: 
+
+\begin{align*}
+\hat{\beta} \sim  \mathcal{N}\left(\beta,\sigma (X^{\top}X)^{-1}\right) 
+\end{align*}
+
+Por otro lado se puede comprobar que: 
+$$(n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.$$
+```{exercise}
+Encuentre la varianza para \(\beta_{0}\) y \(\beta_{1}\) para el caso de la regresión simple. 
+````
+
 ### Prueba \(t\)
  
  Dado que los coeficientes \(\beta\) son normales, se puede hacer la prueba de hipotesis 
