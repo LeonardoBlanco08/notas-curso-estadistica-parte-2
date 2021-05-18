@@ -368,7 +368,7 @@ Y-\operatorname{Proy}_{V}Y
 = \frac{1}{dim(V^{\top})}\left\Vert \operatorname{Proy}_{V^{\top}}\varepsilon\right\Vert \\
 \end{equation*}
  
-Cumple con la propiedad que \(\mathbb{E}\left[\hat{\sigma}^{}\right] = \sigma^{2}\) (estimador insesgado).
+Cumple con la propiedad que \(\mathbb{E}\left[\hat{\sigma}^{2}\right] = \sigma^{2}\) (estimador insesgado).
 
 Para poder hacer inferencia sobre $\beta$ y $\sigma^2$ se puede asumir además que los errores son gaussianos:
 
@@ -385,24 +385,25 @@ Y = X\beta + \varepsilon \sim \mathcal{N}\left(X\beta,\sigma^{2}I\right)
 Y además: 
 
 \begin{align*}
-\hat{\beta} \sim  \mathcal{N}\left(\beta,\sigma (X^{\top}X)^{-1}\right) 
+\hat{\beta} \sim  \mathcal{N}\left(\beta,\sigma^2 (X^{\top}X)^{-1}\right) 
 \end{align*}
 
 Por otro lado se puede comprobar que: 
 $$(n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.$$
+y además se puede comprobar que $\hat \beta$ y $\hat \sigma^2$ son independientes. 
 ```{exercise}
-Encuentre la varianza para \(\beta_{0}\) y \(\beta_{1}\) para el caso de la regresión simple. 
+Encuentre la varianza para \(\hat \beta_{0}\) y \(\hat \beta_{1}\) para el caso de la regresión simple. 
 ````
 
 ### Prueba \(t\)
  
- Dado que los coeficientes \(\beta\) son normales, se puede hacer la prueba de hipotesis 
- 
+La significancia de los parámetros $\beta_j$ se puede verificar a través de la siguiente prueba de hipótesis:
+
  \begin{equation*}
  H_{0}: \beta_{j} = 0 \quad \text{ vs } \quad H_{1}:\beta_{j}\neq 0.
  \end{equation*}
  
- El estadístico es 
+ En donde el estadístico de prueba es: 
  
  \begin{equation*}
  z_{j} = \frac{\hat{\beta}_{j}}{\hat{\sigma} \sqrt{v_{j}}} 
@@ -410,57 +411,77 @@ Encuentre la varianza para \(\beta_{0}\) y \(\beta_{1}\) para el caso de la regr
  
  donde \(v_{j}\) es el \(j\)-esimo elemento de la diagonal de \((X^{\top}X)^{-1}\).
  
- Bajo \(H_{0}\) \(z_{j} \sim t_{n-p-1}\) y se rechaza \(H_{0}\) si 
+ Bajo \(H_{0}\):  \(z_{j} \sim t_{n-p-1}\) y se rechaza \(H_{0}\) al nivel $\alpha$ si: 
  
  \begin{equation*}
  \left\vert z_{j} \right\vert > t_{n-p-1, 1-\frac{\alpha}{2}} 
  \end{equation*}
  
 ### Prueba \(F\)
- 
+
+Si uno busca medir la significancia de todos los parámetros $\beta_j$ de forma simultánea, excepto el intercepto. En este caso podemos definir la siguiente hipótesis nula:
  \begin{equation*}
  H_{0}: \beta_{1} = \cdots =\beta_{p} = 0 \quad 
  \text{  vs   }\quad H_{1}: \text{ al menos un \(\beta\) no es cero}.
  \end{equation*}
  
  
- En este caso queremos comparar el modelo  nulo \(Y=\beta_{0}+\varepsilon\) contra el modelo completo \(Y=\beta_{0}+ \beta_{1}X_{1} + \cdots + \beta_{p}X_{p} + \varepsilon\). 
+Lo cual es equivalente a comparar el modelo  nulo \(Y=\beta_{0}+\varepsilon\) contra el modelo completo \(Y=\beta_{0}+ \beta_{1}X_{1} + \cdots + \beta_{p}X_{p} + \varepsilon\). 
  
- Defina 
- 
+ Defina la suma total de cuadrados ($TSS$) y la suma de residuos al cuadrado ($RSS$) como: 
  \begin{align*}
  TSS &= \sum_{i=1}^{n} \left( Y_{i} -\overline{Y} \right)^{2} \\
- RSS &= \sum_{i=1}^{n} \left( Y_{i} -\overline{Y} \right)^{2} \\
+ RSS &= \sum_{i=1}^{n} \left( Y_{i} -\hat{Y_i} \right)^{2} \\
  \end{align*}
  
- TSS = Total sum of squares 
- 
- RSS =  Residual sum of squares 
- 
- Entonces 
+ Entonces el estadístico de prueba es:
  
  \begin{equation*}
- F = \frac{\frac{TSS-RSS}{p}}{\frac{RSS}{n-p-1}} \sim \frac{\chi^{2}_{p}}{\chi^{2}_{n-p-1}}.
+ F = \frac{\frac{TSS-RSS}{p}}{\frac{RSS}{n-p-1}} \stackrel{H_0}{\sim} \frac{\chi^{2}_{p}}{\chi^{2}_{n-p-1}}.
  \end{equation*}
  
- Rechazamos \(H_{0}\) si 
+ y rechazaríamos \(H_{0}\) al nivel $\alpha$ si: 
  
  \begin{equation*}
  F > F_{p, n-p-1, 1-\alpha}.
  \end{equation*}
+ 
+ Si por otro lado queremos probar que un conjunto de $q$ covariables son no-significativas entonces probamos (sin pérdida de generalidad):
+\begin{align*}
+H_0: \beta_{p-q+1}=\beta_{p-q+2}=\cdots=\beta_p=0
+\end{align*}
+
+a través de la comparación de un modelo completo y uno reducido:
+\begin{align*}
+Y&=\beta_{0}+ \beta_{1}X_{1} + \cdots + \beta_{p}X_{p} + \varepsilon \qquad \text{Modelo completo} \\
+Y&=\beta_{0}+ \beta_{1}X_{1} + \cdots + \beta_{p-q}X_{p-q} + \varepsilon \qquad \text{Modelo reducido}
+\end{align*}
+
+usando el estadístico de prueba:
+
+ \begin{equation*}
+ F = \frac{\frac{RSS_0-RSS}{q}}{\frac{RSS}{n-p-1}} \stackrel{H_0}{\sim} \frac{\chi^{2}_{q}}{\chi^{2}_{n-p-1}}.
+ \end{equation*}
+
+donde $RSS_0$ es la suma de residuos al cuadrado del modelo reducido. En este caso se rechazaría $H_0$ al nivel $\alpha$ si $F>F_{q, n-p-1, 1-\alpha}$. 
  
 ###  Laboratorio
 
 
 Siguiendo con nuestro ejemplo, vamos a explorar un poco más la función `lm`. 
 ```{r}
+modelo_wt <- lm(mpg ~ wt, data = mtcars)
+summary(modelo_wt)
 
-fit <- lm(mpg ~ wt, data = mtcars)
-summary(fit)
+modelo_wt_cyl <- lm(mpg ~ wt + cyl, data = mtcars)
+summary(modelo_wt_cyl)
 
-fit <- lm(mpg ~ wt + cyl, data = mtcars)
-summary(fit)
+anova(modelo_wt,modelo_wt_cyl)
 
+modelo_nulo <- lm(mpg ~ 1, data = mtcars)
+summary(modelo_nulo)
+
+anova(modelo_nulo,modelo_wt_cyl)
 
 fit <- lm(mpg ~ . , data = mtcars)
 summary(fit)
@@ -469,7 +490,7 @@ summary(fit)
 
 ## Medida de bondad de ajuste
 
-La prueba $F$ nos dice si un modelo es nulo o no, pero no nos dice si tengo dos modelos cuál es mejor que otro. 
+A través de la prueba $F$ uno puede concluir si un modelo es significativo o no bajo un cierto nivel de confianza, o bien puede comparar si un modelo reducido es más significativo que uno completo, pero no nos da herramientas para decidir si un modelo es mejor que otro.
 
 Hay varias medidas para comparar modelos (la veremos con más detalle en otro capítulo):
 
@@ -501,6 +522,11 @@ R^{2} = \frac{\mathrm{TSS}-\mathrm{RSS}}{\mathrm{TSS}} = 1-\frac{\mathrm{RSS}}{\
 
 - **RSS:** Varianza sin explicar por el modelo __completo__.
 - **TSS:** Varianza sin explicar por el modelo __nulo__.
+
+Interpretación: proporción de variabilidad en $Y$ que es explicada a través de las covariables en $X$. Ya que $TSS-RSS$ representa la variabilidad explicada a través del modelo de regresión.
+
+Limitación: puede tener un valor alto bajo un número grande de covariables, ya que $RSS$ tiende a ser bajo conforme aumenta la complejidad del modelo (sobreajuste).
+
 
 Estadístico \(R^{2}\) ajustado
 : 
@@ -564,9 +590,9 @@ summary(fit)
  
 ## Predicción 
 
-Hay dos tipos de errores que se deben considerar en regresones lineales: 
+Hay dos tipos de errores que se deben considerar en regresiones lineales: 
 
-1. **Error Reducible:** Recuerde que \(\hat{Y} = \hat{X}\hat{\beta} \) es el estimador de la función \(f(X)=X\beta = \beta_{0} + \beta_{1}X_{1}+\cdots+\beta_{p}X_{p}\). 
+1. **Error Reducible:** Recuerde que \(\hat{Y} = X\hat{\beta} \) es el estimador de la función \(f(X)=X\beta = \beta_{0} + \beta_{1}X_{1}+\cdots+\beta_{p}X_{p}\). 
 
 Por lo tanto su error (reducible) es: 
 
@@ -578,13 +604,13 @@ Para un conjunto de datos \(X_{0}\), tenemos que
 
 \begin{align*}
  & \hat{\beta} \sim  \mathcal{N}\left(\beta, \sigma^{2}\left( (X_{0}^{\top}X_{0})^{-1} \right)\right) \\
- \implies & \hat{Y} = \hat{X_{0}}\hat{\beta} \sim \mathcal{N}\left(\hat{X_{0}}\beta , \sigma^{2}X_{0}^{\top}((X_{0}^{\top}X_{0})^{-1}X_{0}  \right)
+ \implies & \hat{Y} = X_{0}\hat{\beta} \sim \mathcal{N}\left(X_{0}\beta , \sigma^{2}X_{0}^{\top}((X_{0}^{\top}X_{0})^{-1}X_{0}  \right)
 \end{align*}
 
-Por lo tanto un **intervalo de confianza** al \(1-\alpha\) para \(X\beta\) es 
+Por lo tanto un **intervalo de confianza** al \(1-\alpha\) para \(X_0\beta\) es 
 
 \begin{equation*}
-X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{X_{0}^{\top}(X_{0}^{\top}X_{0})^{-1}X_{0}}.
+X_{0}\hat \beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{X_{0}^{\top}(X_{0}^{\top}X_{0})^{-1}X_{0}}.
 \end{equation*}
 
 2. **Error irreducible:** Aún conociendo perfectamente los \(\beta\)'s, existe  el error desconocido \(\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}\right)\) del modelo 
@@ -606,11 +632,6 @@ Entonces un **intervalo de predicción** al \(1-\alpha\) debe tomar en cuenta es
 X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{1+X_{0}^{\top}(X_{0}^{\top}X_{0})^{-1}X_{0}}.
 \end{equation*}
 
-
-Resumiendo 
-
-- **Intervalo de confianza:** es la incertidumbre que existe alrededor de la línea de regresión.
-- **Intervalo de predicción:** es la incertidumbre que existe alrededor del proceso general que generararon los datos bajo el supuesto de linealidad. 
 
 ### Laboratorio 
 
@@ -794,7 +815,7 @@ ggplot(data = toyex.pred,
 
 ## Interacciones 
 
-En el modelo clásico 
+Suponga un modelo lineal con dos covariables:
 
 \begin{equation*}
 Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon
@@ -808,33 +829,34 @@ Y &=  (\beta_{0} + \beta_{1}) + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon 
 Y &=  \tilde{\beta_{0}} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon \\
 \end{align*}
 
-Es decir, el modelo original sigue siendo el mismo aunque hayamos cambiado el \(X_1\). Este fenómeno ocurre siempre bajo transformaciones lineales de las variables. 
+Es decir, el modelo original sigue siendo teniendo la misma estructura aunque hayamos cambiado el \(X_1\). Este fenómeno ocurre siempre bajo transformaciones lineales de las variables. 
 
 
-Ahora suponga que tenemos el siguiente modelo y aumentamos en 1 el \(X_1\)
-
+Ahora suponga que tenemos el siguiente modelo:
 \begin{align*}
-Y &=  \beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon \\
-\implies Y &=  \beta_{0} + \beta_{1} (X_{1}+1) X_{2} +\varepsilon \\
-\implies Y &=  \beta_{0} + \beta_{1}X_{2} +  \beta_{1} X_{1} X_{2} +\varepsilon \\
+Y =  \beta_{0} + \beta_{1} X_{1} X_{2} +\varepsilon \\
 \end{align*}
 
+y aumentamos en 1 el \(X_1\):
 
-OJO. Terminamos con un modelo diferente con el que empezamos. Esto es indeseable ya que no hay consistencia en la modelación, 
+\begin{align*}
+Y &=  \beta_{0} + \beta_{1} (X_{1}+1) X_{2} +\varepsilon \\
+Y &=  \beta_{0} + \beta_{1}X_{2} +  \beta_{1} X_{1} X_{2} +\varepsilon \\
+\end{align*}
 
-
-Una forma de arreglar el problema es incluir las interacciones junto con todos sus efectos directos. 
-
+Note que en este caso no se logra mantener el mismo tipo de estructura. Una forma de arreglar el problema es incluir las *interacciones* junto con todos sus *efectos principales*. 
 
 \begin{equation*}
 Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\varepsilon \\
 \end{equation*}
 
-**Esto se le conoce como principio de jerarquía**. No es importante si los efectos directos son relevante o no dentro del modelo, siempre se deben de incluir para manter la consistencia. 
+Este modelo se le conoce como modelo lineal con interacciones (caso de 2 covariables). Este modelo considera la posible interacción entre las covariables $X_1$ y $X_2$ que permiten cambiar tanto el intercepto como las pendientes de los efectos principales.
+
+**Principio de jerarquía**. Con el fin de mantener la estructura del modelo lineal, siempre es necesario incluir los efectos principales cuando se determina que una interacción entre ellos es significativa.
 
 
 ```{exercise}
-Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el modelo se mantiene. 
+Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el modelo preserva su estructura. 
 ````
 
 ### Laboratorio
@@ -936,49 +958,43 @@ mtcars_scaled <- mtcars %>%
 
 
 
-## Hipotesis en regresión lineal 
+## Supuestos 
 
+El modelo lineal tiene los siguientes supuestos:
 
-Hasta ahora hemos visto el modelo de regresión como un conjunto de partes separadas.
+Linealidad
+: En la forma lineal de la relación variable dependiente-covariables.
 
-
-### Hipotésis
-
-Independencia lineal
-: El supuesto es que el modelo es lineal. 
-
-Errores con esperanza nula
-: Esto quiere decir que $\mathbb{E}(\varepsilon_i) = 0$.
+Errores centrados
+: $\mathbb{E}(\varepsilon_i) = 0$.
 
 Homocedasticidad
-: $\text{Var}(\varepsilon_t) = \mathbb{E}(\varepsilon_t - \mathbb{E} \varepsilon_t)^2 = \mathbb{E} \varepsilon_t^2 = \sigma^2$ para todo $t$. Es decir, la varianza del modelo no depende de las variables independientes u otro factor. En otras palabras, el **error irreducible** es completamente ajeno a las variables independientes del modelo.
+: $\text{Var}(\varepsilon_t) = \mathbb{E}(\varepsilon_t - \mathbb{E} \varepsilon_t)^2 = \mathbb{E} \varepsilon_t^2 = \sigma^2$ para todo $t$. Es decir, la varianza del modelo (**error irreducible**) no depende de las variables independientes u otro factor. 
 
 Normalidad de los residuos
 : $\varepsilon \sim N(0, \sigma^2 )$.
 
-Independencia de los erroes
-: $\text{Cov}(\varepsilon_t,\varepsilon_s ) = \mathbb{E} (\varepsilon_t - \mathbb{E} \varepsilon_t) (\varepsilon_s - \mathbb{E} \varepsilon_s) = \mathbb{E} \varepsilon_t \varepsilon_s = 0$ para todo $t,s$ con $t\neq s$. Esto es una extensión del supuesto anterior y quiere decir, que además de los errores no depende de las variables, tampoco pueden depender entre si. Es decir, si para una observación dada existe un error, este no debe depender del error de otra observación.
+Independencia de los errores
+: $\text{Cov}(\varepsilon_t,\varepsilon_s ) = \mathbb{E} (\varepsilon_t - \mathbb{E} \varepsilon_t) (\varepsilon_s - \mathbb{E} \varepsilon_s) = \mathbb{E} \varepsilon_t \varepsilon_s = 0$ para todo $t,s$ con $t\neq s$: si para una observación dada existe un error, este no debe depender del error de otra observación.
 
-Esto puede provocar que los errores usados para  intervalos de confianza y predicción sean subestimados. Es decir que un intervalo del 95\% tendrá menos confianza y se rechazaría más fácilmente la hipotesis nula de las pruebas $t$ y $F$.
+Si este supuesto no se cumple puede provocar que los errores estándar en intervalos de confianza y predicción sean subestimados. Es decir que un intervalo del 95\% tendrá un margen de error menor y se rechazaría más fácilmente la hipotesis nula de las pruebas $t$ y $F$.
 
-Multicolineaidad 
-: Se asume que cada una de las variables es independiente de las otras. Es decir que cada variable explica "un aspecto o característica" del modelo. Sin embargo puede pasar que varias variables expliquen la misma característica y el modelo tenga que volverse __inestable__ por decidir entre las dos variables. Por ejemplo: la temperatura en grados centigrados y fareheint. 
-
-En este caso habría dos columnas linealmente dependientes y por lo tanto  \((X^{\top}X)^{-1}\)  se acercaría a una matriz singular con determinante cercano a 0. 
+Multicolinealidad 
+: Se asume que la matriz $X^TX$ es invertible, es decir $X$ es una matriz de rango completo. Para esto cada una las covariables no debe ser linealmente dependientes, es decir $X^TX$ de debe acercarse a ser a una matriz singular con determinante cercano a 0. Es decir que cada variable explica aproximadamente "un aspecto o característica" del modelo. Sin embargo puede pasar que varias variables expliquen la misma característica y el modelo se vuelve __inestable__ por decidir entre las dos variables. Por ejemplo: la temperatura en grados centigrados y farenheit. 
 
 Esto generaría que \(\mathrm{Var}\left(\beta\right)\) sea alto ya que 
 \begin{equation*}
-\beta =  (X^{\top}X)^{-1} X^{\top}Y.
+\text{Var}(\beta) =  \sigma^2(X^{\top}X)^{-1}
 \end{equation*}
 
 
 Más observaciones que predictores
-: En este caso siempre podremos construir correctamente la regresión y sus indices. (Volveremos a esto cuando veamos selección de modelos)
+: En caso contrario existen formas alternativas de definir el problema de regresión. (Volveremos a esto cuando veamos selección de modelos)
 
 
 ### Chequeos básicos de las hipótesis de regresión lineal 
 
-#### Independencia lineal, Errores con esperanza nula, Homocedasticidad
+#### Linealidad, Errores con esperanza nula, Homocedasticidad
 
 Estos supuestos se puede constantar a partir de un gráfico  de residuos ya que en el caso ideal  \(e_{i} = \hat{Y}_{i}- Y_{i}  \perp \hat{Y}_{i}\). Entonces si este gráfico presenta patrones, quiere indicar que la regresión, no es lineal, que los errores no tienen esperanza nula y que la varianza no es constante. 
 
@@ -1045,7 +1061,7 @@ plot(fitted(fit), residuals(fit));abline(h=0, col="red")
 :::
 
 
-#### Independencia de los erroes
+#### Independencia de los errores
 
 En este caso defina $\rho(k) = \text{Cov}(\varepsilon_i,\varepsilon_{i+k} )$. Si los residuos son independientes, entonces debe ocurrir que 
 
@@ -1056,7 +1072,7 @@ En este caso defina $\rho(k) = \text{Cov}(\varepsilon_i,\varepsilon_{i+k} )$. Si
 \end{cases}  
 \end{equation*}
 
-Se calcula la función de autocorrelación y se gráfica para analizar su comportamiento 
+Se calcula la función de autocorrelación empírica y se grafica para analizar su comportamiento 
 
 **Caso ideal**
 ```{r}
@@ -1236,7 +1252,7 @@ ggplot(VIFs, aes(x=vars, y=VIFs, group=1)) +
 
 #### Puntos extremos 
 
-Estos puntos son aquellos que $Y_i$ esta lejos de $\hat{Y}_i$. Otra forma de verlo son aquellos puntos que tienen residuos muy altos. 
+Estos puntos son aquellos que $Y_i$ esta lejos de $\hat{Y}_i$, es decir son puntos en donde los residuos son particularmente muy altos. 
 
 
 Se puede hacer un gráfico de los residuos vs los valores ajustados como en \@ref(fig:grafico-residuos-lineal) y \@ref(fig:grafico-residuos-no-lineal). 
@@ -1252,8 +1268,7 @@ Se construyen los residuos semi-studendizados
 r_{i}^{s} = \frac{e_{i}}{\sqrt{\mathrm{Var}\left(e_{i}\right)}} 
 \end{equation*}
 
-
-Como \(H=X(X^{\top}X)^{-1}X^{\top}\) es la matriz de proyección entonces sabemos que 
+donde $e_i=Y_i-\hat Y_i$. Como \(H=X(X^{\top}X)^{-1}X^{\top}\) es la matriz de proyección entonces sabemos que 
 
 \begin{align*}
 \hat{Y}&=  H Y \\
@@ -1266,17 +1281,16 @@ Entonces tenemos que
 \mathrm{Var}\left(e\right) 
 &=  \mathrm{Var}\left((I-H)Y\right)\\
 &= (I-H)^{2}\mathrm{Var}\left(Y\right)\\
-&= (I-H) \sigma^{2} \text{ (\(I-H\) es idempotente)}
+&= (I-H) \sigma^{2} 
 \end{align*} 
 
-
-Por lo tanto 
+ya que $I-H$ es idempotente. Por lo tanto 
 
 \begin{equation*}
 \mathrm{Var}\left(e_{i}\right) = (1-h_{ii}) \sigma^{2}
 \end{equation*}
 
-Para cada observación se calcula los residuos de la forma 
+Para cada observación se estandarizan los residuos de siguiente forma 
 
 \begin{equation*}
 r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
@@ -1298,7 +1312,7 @@ plot(fitted(fit), r_sdnt)
 fit
 ```
 
-**Caso con valores extremos*
+**Caso con valores extremos**
 
 ```{r}
 x <- rnorm(1000)
@@ -1328,7 +1342,7 @@ El $r_{i}^s$ puede ser alto por 2 razones:
 
 Los valores donde $h_{ii}\approx 1$ se les denomina de **gran apalancamiento**. 
 
-La regla empirica dice que 
+Como la matriz $H$ es de idempotente y de rango completo:
 
 \begin{equation*}
 \sum_{i=1}^{n} h_{ii} = p +1 \text{  (Los predictores más el intercepto)   }
