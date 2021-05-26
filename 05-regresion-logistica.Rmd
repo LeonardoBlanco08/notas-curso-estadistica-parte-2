@@ -1,6 +1,8 @@
 # Regresión Logística
 
-Asuma que ahora la variable \(Y\) solo contiene valores 0 o 1 y queremos hacer la regresión 
+## Preliminares
+
+Asuma que la variable dependiente \(Y\) solo contiene valores 0 o 1 y queremos hacer la regresión: 
 
 \begin{equation*}
 Y = \beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \varepsilon.
@@ -14,7 +16,7 @@ El problema es que \(\mathbb{E}\left[Y | \boldsymbol{X}\right] = \mathbb{P}\left
 
 pero el rango de \(\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p} \) es todo \(\mathbb{R}\). 
 
-Solución es cambiar \(Y\) por \(g(Y)\in [0,1]\). 
+Solución: Cambiar \(Y\) por \(g(Y)\in [0,1]\), donde:
 
 \begin{equation*}
 g(X) = \frac{1}{1+e^{-(\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p})}}
@@ -65,28 +67,28 @@ ggPredict(fit_glm) +
 
 **Nota:** Existen otros tipos de regresión y estas se definen a través del parámetro `family`. En este curso solo nos enfocaremos en el parámetro `family="binomial"`.
 
-## Razón de proporción 
+### Oportunidad relativa (Odds Ratio) 
 
-Defina 
+Defina la oportunidad relativa:
 
 \begin{equation*}
 O(X) = \frac{g(X)}{1-g(X)} = e^{\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p}} \in [0,1].
 \end{equation*}
 
-Es la relación de obtener 1 ó 0. 
+como la razón de la probabilidad de obtener un 1 con respecto a la de obtener un 0. 
 
-Por suponga que  \(\mathbb{P}\left(Y=1\vert \boldsymbol{X}\right) = g(\boldsymbol{X}) = 0.8\) es la probabilidad de pagar la tarjeta de crédito y  \(1-g(\boldsymbol{X}) = 0.2\) es  la probabilidad de no pagar.  
+Por ejemplo, suponga que  \(\mathbb{P}\left(Y=1\vert \boldsymbol{X}\right) = g(\boldsymbol{X}) = 0.8\) es la probabilidad de pagar la tarjeta de crédito y  \(1-g(\boldsymbol{X}) = 0.2\) es  la probabilidad de no pagar.  
 
-Se puede escribir \(O(X) = \frac{0.8}{0.2} = \frac{4}{1}\), lo que dice que es 4 veces más probable de pagar la tarjeta que no pagarla. 
+Entonces la oportunidad relativa de pagar la tarjeta es \(O(X) = \frac{0.8}{0.2} = \frac{4}{1}\), lo que se interpreta como que es 4 veces más probable de pagar que no pagar. 
 
 
 ## Máxima verosimilitud 
 
 Los valores de \(\beta\) se pueden encontrar por máxima verosimilitud. 
 
-Defina \(p(\boldsymbol{X}) = \mathbb{P}\left(Y=1\vert \boldsymbol{X}\right)\).
+Defina \(p_{\beta}(\boldsymbol{X}) = \mathbb{P}\left(Y=1\vert \boldsymbol{X}\right)\).
 
-La verosimilitud es:
+La verosimilitud es (donde asumimos sin pérdida de generalidad que $p(\boldsymbol{X}):=p_{\beta}(\boldsymbol{X})$):
 
 \[
 L\left(\beta\right)=\prod_{i=1}^{n} p\left(\boldsymbol{X}_{i}\right)^{Y_{i}}\left(1-p\left(\boldsymbol{X}_{i}\right)\right)^{1-Y_{i}}
@@ -110,7 +112,7 @@ L\left(\beta\right)=\prod_{i=1}^{n} p\left(\boldsymbol{X}_{i}\right)^{Y_{i}}\lef
 &= X^{\top}(Y-p(\boldsymbol{X}))
 \end{align*}
 
-**Solución:** Netwon-Raphson
+**Solución:** Algoritmo de Netwon-Raphson.
 
 :::{.exercise data-latex=""}
 Muestre que 
@@ -119,7 +121,7 @@ Muestre que
 \frac{\partial^{2} \ell}{\partial \beta^{2}} = -\boldsymbol{X}W\boldsymbol{X} 
 \end{equation*}
 
-donde \(W = \mathrm{diag}{p(\boldsymbol{X}_{i})(1-p(X_{i}))}\).
+donde \(W_\beta = \mathrm{diag}\{p(\boldsymbol{X}_{i})(1-p(X_{i}))\}\).
 
 :::
 
@@ -134,32 +136,31 @@ El algoritmo de Netwon-Raphson usa el hecho que
 Muestre que 
 
 \begin{equation*}
-\beta^{(t)} = \left( X^{\top}WX \right)^{-1}X^{\top}Z_{\beta},
+\beta^{(t)} = \left( X^{\top}W_\beta X \right)^{-1}X^{\top}Z_{\beta},
 \end{equation*}
 
-donde \(Z_{\beta} = Z\beta + W^{-1}_{\beta} (Y-p(X))\).
+donde \(Z_{\beta} = Z\beta + W^{-1}_{\beta} (Y-p(X))\) y $\beta=\beta^{(t-1)}$.
 :::
 
 
 A esta técnica se le conoce como __mínimos cuadrados ponderados e iterados__ o en inglés __Iteratively Re-Weighted Least Squares__ (IRLS).
 
-Se comienza con \(\beta^{(0)}\) cualquiera y se va iterando \(\beta^{(1)}, \beta^{(2)}, \ldots\) hasta encontrar la convergencia. 
+<!-- Se comienza con \(\beta^{(0)}\) cualquiera y se va iterando \(\beta^{(1)}, \beta^{(2)}, \ldots\) hasta encontrar la convergencia.  -->
 
-Para cada \(t\) se resueelve el problema 
+<!-- Para cada \(t\) se resueelve el problema  -->
 
-\begin{equation*}
-\beta ^{t} = \operatorname{argmin}_{\beta} (Z-X\beta)^{\top}W(Z-X\beta).
-\end{equation*}
+<!-- \begin{equation*} -->
+<!-- \beta ^{t} = \operatorname{argmin}_{\beta} (Z-X\beta)^{\top}W(Z-X\beta). -->
+<!-- \end{equation*} -->
 
 
+### Resultados adicionales
 
-### Residuos
-
-La suma al cuadrado de los residuos  se convierte en un estadístico de pearson: 
+La suma al cuadrado de los residuos estandarizados se convierte en el estadístico de pearson: 
 
 
 \begin{align*}
-\chi^{2}=\sum_{i=1}^{n} \frac{\left(Y_{i}-\hat{p}(X_{i})\right)^{2}}{\hat{p}(X_{i})(\hat{p}(X_{i}))}
+\chi^{2}=\sum_{i=1}^{n} \frac{\left(Y_{i}-\hat{p}(X_{i})\right)^{2}}{\hat{p}(X_{i})}
 \end{align*}
 
 la cual es una aproximación cuadrática de la devianza (Curso pasado). 
@@ -172,16 +173,16 @@ Además tenemos los resultados que
 
 - \(\hat{\beta} \xrightarrow{\mathbb{P}} \beta \)
 - \(\hat{\beta} \xrightarrow{\mathcal{D}} \mathcal{N}\left(\beta,(X^{\top}WX)^{-1}\right) \) (Prueba de Wald)
-- Se pueden comparar un modelo completo con un reducido a través de pruebas asintóticas LRT 
+- Se pueden comparar un modelo completo con un reducido a través de pruebas asintóticas LRT: 
 \begin{equation*}
-D_c -D_r \sim =\chi^{2}_{df_{c}} - \chi^{2}_{df_{r}}.
+D_c -D_r \stackrel{H_0}{\sim} =\chi^{2}_{df_{c}-df_r}.
 \end{equation*}
 
 
 ## Diágnosticos del modelo
 
  
- **CUIADADO: La función `glm` no tiene un equivalente de `plot` como en los modelos lineales. De esta forma, si se aplica `plot` a un objeto `glm` solo generará los mismos chequeos que el capítulo anterior. Sin embargo estos podrían estar equivocados si no se leen con cuidado.**
+ **Advertencia**: La función `glm` no tiene un equivalente de `plot` como en los modelos lineales. De esta forma, si se aplica `plot` a un objeto `glm` solo generará los mismos chequeos que el capítulo anterior. Sin embargo estos podrían estar equivocados si no se leen con cuidado.
  
  
 ###  Supuesto de linealidad
@@ -201,10 +202,10 @@ probs <-  predict(fit_glm, type = "response")
 df <- titanic %>%
   select(Fare, Age) %>%
   mutate(logit = qlogis(probs)) %>%
-  pivot_longer(names_to = "predictores", values_to = "valores.ajustados", -logit)
+  pivot_longer(names_to = "predictores", values_to = "valores.predictores", -logit)
 
 
-ggplot(df, aes(valores.ajustados, logit)) +
+ggplot(df, aes(valores.predictores, logit)) +
   geom_point(size = 0.5, alpha = 0.5) +
   geom_smooth(method = "loess") +
   theme_bw() +
@@ -215,9 +216,9 @@ ggplot(df, aes(valores.ajustados, logit)) +
 
 
 
-### Valor de gran influencia 
+### Valores de gran influencia 
 
-```{r }
+```{r eval=FALSE, include=FALSE}
 plot(fit_glm, which = 4)
 
 plot(fit_glm, which = 1:6)
@@ -254,14 +255,7 @@ car::vif(fit_glm)
 
 ## Predicción y poder de clasificación 
 
-Si queremos predecir posibles resultados con nuestro modelo logístico, debemos asegurarnos que el error no sea "muy grande". 
-
-
-Ahora el error en este caso, se interpreta diferente que en regresión lineal clásica ya que nuestra salida solamente serán 0's o 1's. 
-
-
-Primero recordemos que el modelo predictivo estaría definido por 
-
+La capacidad predictiva de un modelo de clasificación como el de regresión logística se debe medir conforme a la naturaleza de la variable dependiente. Primero recordemos que el modelo predictivo en este caso estaría definido por: 
 
 \begin{equation*}
 \hat{p}(X)=\frac{1}{1+e^{-(\hat{\beta}_{0}+\hat{\beta}_{1} X_{1}+\cdots+\hat{\beta}_{p} X_{p})}}
@@ -270,7 +264,7 @@ Primero recordemos que el modelo predictivo estaría definido por
 donde los \(\beta\)'s son estimados usando IRLS. 
 
 
-Ahora imaginemos que tenemos un conjunto de datos nuevo \((X^{*}_{1},\ldots,X^{*}_{p})\) y queremos ver que tipo de respuesta \(Y^{*}\) obtenemos (0 o 1). 
+Ahora imaginemos que tenemos un conjunto de datos nuevo \((X^{*}_{1},\ldots,X^{*}_{p})\) y queremos ver que tipo de respuesta \(Y^{*}\) obtenemos (0 o 1) para este conjunto de datos. 
 
 Obviamente nuestro modelo puede equivocarse y darnos una respuesta errónea. Por ejemplo digamos que en el caso del `titanic` uno esperaría que personas más jóvenes y que hayan pagado más por su tiquete tengan mayor probabilidad de sobrevivencia. 
 
@@ -300,23 +294,23 @@ matriz_confusion
 ```
 
 
-Para entender la siguiente tabla vamos a definir los siguietes términos:
+Noten que se utilizó un umbral de .5 como separador de que un evento genera un 1 o un 0 a nivel de predicción. Para entender la siguiente tabla vamos a definir los siguientes términos:
 
 Exactitud (Accuracy)
-: Es la tasa de todos los individuos bien etiquetados $(TP+TN)/(TP+TN+FN+FP)$.
+: Es la tasa de que un individuo esté bien identificado por el modelo de clasificación $(TP+TN)/(TP+TN+FN+FP)$.
 
 Precisión
-: Es la tasa de elementos etiquetados 1 correctamente con respecto a los que fueron etiquetados 1 $Precisión = TP/P^*$
+: Es la tasa de elementos identificados como 1 de forma correcta con respecto a los que fueron identificados con un valor de 1 $Precisión = TP/P^*$
 
 
 Sensibilidad (Exhaustividad)
-: Es la tasa de elementos etiquetados 1 correctamente con respecto a los que realmente son 1. $Sensibilidad = TP/P$
+: Es la tasa de elementos identificados como 1 de forma correcta con respecto a los que realmente son 1. $Sensibilidad = TP/P$
 
 F-Score
 : Es la media armónica entre la precisión y la sensibilidad. $F-Score = 2*(Sensibilidad * Precisión)/(Sensibilidad + Precisión)$
 
 Especificidad
-: Es la tasa de elementos etiquetados 0 que realmente estaban etiquetados como 1. 
+: Es la tasa de elementos identificados correctamente como 0 que realmente estaban etiquetados como 0. 
 
 Entonces esto nos da las siguientes posibilidades. 
 
@@ -331,16 +325,16 @@ Entonces esto nos da las siguientes posibilidades.
 
 
 
-**CUIDADO:**
+**Nota:**
 
-- Exactitud funciona bien cuando los datos son simétricos (igual número de FP y FN). 
-- F-Scores es cuando los datos son asimétricos
-- Precisión es qué tan seguro se está de los verdaderos positivos. 
-- Sensibilidad es que tan seguro es que no se está perdiendo ningún positivo. 
+- Exactitud es un buen indicador cuando los datos son simétricos (igual número de FP y FN). 
+- F-Scores es un mejor indicador cuando los datos son asimétricos
+- La precisión nos permite describir la capacidad del modelo de predecir verdaderos positivos. 
+- La sensibilidad nos permite describir la capacidad de categorizar los verdaderos positivos de forma correcta. 
 
 En un modelo se debe escoger entre sensibilidad y precisión de acuerdo a ciertas ideas:
 
-- **Sensibilidad** es importante si la ocurrencia de **falsos negativos** es inaceptable. Por ejemplo las prueba COVID-19. Posiblemente se obtendrá más falsos positivos pero este caso es aceptable. 
+- **Sensibilidad** es importante si la ocurrencia de **falsos negativos** es inaceptable. Por ejemplo en el caso de pruebas clínicas. Posiblemente obtener falsos positivos en este caso es aceptable. 
 - **Precisión** es importante si se quiere estar más seguro de los **verdaderos positivos**. Por ejemplo detectar __spam__ en correos electrónicos. 
 - **Especificidad** es importante si lo que se quiere es cubrir todos los **verdaderos negativos**, es decir, que no se quieren falsas alarmas. Por ejemplo se hacen pruebas de detección de drogas y si es positivo va a la cárcel. Los **falsos positivos** son intolerables. 
 
@@ -367,12 +361,9 @@ En un modelo se debe escoger entre sensibilidad y precisión de acuerdo a cierta
 ### Curva ROC
 
 
-Un excelente clasificador debería detectar correctamente los **verdaderos positivos (TP)** e ignorar los **falsos positivos (FP)**.
+Un excelente clasificador debería detectar correctamente los **verdaderos positivos (TP)** e ignorar los **falsos positivos (FP)**. Puesto de otra forma, si el clasificador es malo, los **verdaderos positivos** serían indistingibles de los **falsos positivos**. 
 
-Puesto de otra forma, si el clasificador es malo, los **verdaderos positivos** serían indistingibles de los **falsos positivos**. 
-
-La curva ROC (Receiver Operation Curve) gráfica la Tasa Falsos Positivos vs Sensibilidad del modelo. 
-
+La curva ROC (Receiver Operation Curve) grafica la Tasa Falsos Positivos vs Sensibilidad del modelo. Y el estadístico AUC mide el área bajo la curva ROC.
 
 
 ```{r}
@@ -390,11 +381,11 @@ auc <- performance(logist.pred.ROCR, measure = "auc")
 auc@y.values
 
 ```
-**PELIGRO**
+**Nota:**
 
-Aquí estamos chequeando el poder de clasificación del modelo, con los mismos datos que usamos para ajustar el modelo. Es decir, le estamos diciendo al modelo que compruebe la veracidad de la clasificación que ya hizo previamente. 
+Hasta este momento estamos verificando el poder de clasificación del modelo con los mismos datos que usamos para ajustarlo. Es decir, le estamos diciendo al modelo que compruebe la veracidad de la clasificación que ya se hizo previamente. 
 
-Esto es incorrecto, ya que el modelo ya sabe "las respuestas"  y no estamos midiendo su poder de clasficación. 
+Esto es incorrecto, ya que el modelo ya sabe "las respuestas"  y no estamos midiendo su poder de clasificación sino más bien su capacidad predictiva dentro del conjunto de entrenamiento. 
 
 Para resolver esto, debemos tomar otra muestra de prueba (__training__) que nos diga si el ajuste que hicimos es correcto. 
 
