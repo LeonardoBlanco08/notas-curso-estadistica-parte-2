@@ -270,7 +270,7 @@ y
 
 \[
 v_{jack}=\frac{\sum_{i=1}^{n}\left(\widetilde{T}_{i}-\frac{1}{n}
-\sum_{i=1}^{n} \widetilde{T}_{i}\right)^{2}}{n(n-1)}.
+\sum_{i=1}^{n} \widetilde{T}_{i}\right)^{2}}{n-1}.
 \]
 
 

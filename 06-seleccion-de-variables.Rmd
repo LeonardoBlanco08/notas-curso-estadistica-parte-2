@@ -3,35 +3,168 @@
 knitr::opts_chunk$set(echo = TRUE,message = FALSE)
 ```
 
-# Métodos de selección de variables
+# Métodos de selección de variables y regularización.
+
+## Estimación del error de prueba
+Recuerden que el error de prueba es el error promedio que se obtiene al usar un método de aprendizaje estadístico para predecir una observación que no está en el conjunto de calibración o entrenamiento. Si se tuviera un conjunto de prueba designado para medir el error de prueba, este último sería muy fácil de calcular. Cuando no se tiene un conjunto de prueba designado, entonces hay dos formas de estimar el error de prueba:
+
+a. Estimar indirectamente el error de prueba al hacerle un ajuste al error de entrenamiento. Es decir, agregarle artificialmente la variabilidad no observada, con el fin de corregir el exceso de sesgo producto de sobreajuste. 
+b. Estimar el error de prueba usando técnicas de muestreo sobre el conjunto de entrenamiento.
+
+Por ahora explicaremos la segunda solución:
+
+### Técnica de conjunto de validación 
+
+Dividir aleatoriamente los datos totales en 2 partes:
+
+- Conjunto de entrenamiento: en donde se ajusta el modelo. 
+- Conjunto de validación o prueba: en donde el modelo ajustado se usa para realizar predicciones. 
+
+Se usa una medida de validación en cada uno de los dos conjuntos (\(MSE\) en el caso cuantitativo)
+
+1. Puede que el estimador del error de prueba tenga una varianza muy alta, dependiendo de las observaciones que se incluyeron en la muestra de prueba. 
+2. El error de validación tiende a ser mayor que el error de entrenamiento debido a que se usa un número pequeño de observaciones en el conjunto de entrenamiento. (sobreestimación del error de prueba o validación)  
 
 
-Cuando se construye un modelo de regresión (lineal o logística) existe la posibilidad de que existan más variables que datos disponibles. 
+### Validación cruzada "Leave-One-Out" (LOOCV)
 
-Si se recuerdan del Capítulo 4, el \(R^{2}\) ajustado tenía un factor \(n-p-1\) en el denominador y si \(n>p\) este tipo de indicador no se podría estimar.  
+Una sola observación \( \left( X_{i}, Y_{i} \right) \) se usa en el conjunto de validación. Observaciones restantes, se usan en el conjunto de entrenamiento. Este proceso se repite para $i=1,\ldots,n$.  
 
-En este capítulo veremos cómo construir modelos más pequeños y hacer comparaciones entre ellos. 
+Defina 
+
+\begin{equation*}
+MSE_{i} =(Y_{i}-\hat{Y}_{i})^{2}
+\end{equation*}
+ 
+como el error cometido por usar la observación \(i\) como muestra de prueba y el resto de valores como muestra de entrenamiento. 
+
+El estimador LOOCV es 
+
+\begin{equation*}
+CV_{n} = \frac{1}{n} \sum_{i=1}^{n} MSE_{i}
+\end{equation*}
+
+
+**Ventajas**
+
+1. Menos sesgo. (Conjunto de prueba de tamaño casi igual que los datos totales). Es decir el error de prueba no tiende a sobrestimarse.
+2. No hay aleatoriedad en la aproximación del error de prueba producto de la separación conjunto de prueba-entrenamiento.
+
+**Desventaja**: Puede ser lento, dependiendo de la cantidad de datos.
+
+En el caso de un modelo lineal, se puede calcular $CV_n$ es una sola iteración:
+
+\begin{align*}
+CV_n=\frac 1 n \sum_{i=1}^n\left(\frac{y_i-\hat y_i}{1-h_{ii}}\right)^2
+\end{align*}
+
+### Validación cruzada \(k-\)veces
+
+Se aplica el mismo principio que LOOCV, pero se divide la muestra en \(k\) distintas partes (folds). El estimador del error de prueba es: 
+
+\begin{equation*}
+CV_{k} = \frac{1}{k} \sum_{i=1}^{k} MSE_{i}
+\end{equation*}
+
+donde en este caso $MSE_i$ es el MSE obtenido al utilizar la $i$-ésima parte de la muestra como conjunto de prueba y las restantes $k-1$ partes como conjunto de entrenamiento. Los valores usuales de $k$ son 5 o 10. Note que LOOCV es un caso especial de esta técnica de validación tomando $k=n$.
+
+**Ventaja**: Es más económico
+
+**Desventaja**: Nivel intermedio de sesgo respecto a las dos técnicas anteriores. 
+
+- Recuerden que entre más grande sea el conjunto de entrenamiento, menos sesgo hay en la estimación de error de prueba.
+- El nivel de correlación entre los MSE's de los conjuntos de prueba aumenta si los tamaños de entrenamiento aumentan. Por lo tanto la varianza del error de prueba estimado es mayor en estos casos.
+
+\begin{equation*}
+\frac{n}{2} < \frac{(k-1)n}{k} < n-1
+\end{equation*}
+
+### Validación cruzada para clasificación
+
+Se usa 
+
+\begin{equation*}
+CV_{n} = \frac{1}{n} \sum_{i=1}^{n} Err_{i}
+\end{equation*}
+
+
+donde \(Err_i = I_{Y_i \neq \hat{Y}_{i}}\) y \(CV_{k}\) se define de manera análoga. 
+
+### Otras medidas de error de prueba
+
+* $R^2$ ajustado. Recuerde que $R^2 = 1 - \dfrac{RSS}{TSS}$. Como $RSS$ decrece si se le agrega más variables, entonces $R^2 \nearrow 1$. Recuerden que $RSS = \sum(y_i-\hat{y}_i)^2$ y $TSS = \sum(y_i-\bar{y}_i)^2$. En este caso definimos:
+
+$$R^2 \text{ ajustado}= 1-\dfrac{\dfrac{RSS}{n-p-1}}{\dfrac{TSS}{n-1}}$$
+
+* $C_p$ de Mallows:
+
+$$ C_p = \dfrac{1}{n}\left[RSS+2p\hat\sigma^2\right]$$
+
+donde $p$ es el número de predictores y $\hat\sigma^2$ es el estimador de la varianza de los errores $\epsilon$. Si $\hat\sigma^2$ es insesgado de $\sigma^2$, entonces $C_p$ es un estimador insesgado del $MSE$ de prueba. 
+
+Definición alternativa:
+
+$$ C_p' = \dfrac{RSS}{\hat\sigma^2} + 2p-n \implies C_p = \dfrac1n\hat\sigma^2[C_p'+n] \propto C_p'$$
+
+* $MLE$: $2\ln L(\hat{\beta} | x)$.
+
+
+* $AIC$ (Akaike Information Criterion).
+
+
+\[
+AIC = -2\log(L(\hat{\beta} \vert X)) + 2p 
+\]
+
+Esta medida es derivada asintóticamente de $-2n\mathbb{E}[\log(L(\hat{\beta} \vert X))]$ cuando $n\to \infty$. En el caso gaussiano, el AIC se puede escribir como:
+
+\begin{align*}
+AIC = \frac{1}{n\hat \sigma^2}(RSS+2p\hat \sigma^2)
+\end{align*}
+
+
+* $BIC$ (Bayesian Information Criterion).
+
+\[
+BIC = -2\log(L(\hat{\beta} \vert X)) + \log(n)p. 
+\]
+
+Representa asintóticamente hablando, el negativo del logaritmo de la distribución posterior. En el caso gaussiano:
+
+\begin{align*}
+BIC = \frac{1}{n}(RSS+2\log (n)p\hat \sigma^2).
+\end{align*}
+
+**Validación cruzada LOOCV es asintóticamente equivalente al AIC para modelos de regresión lineal múltiple [@StoneAsymptotic1977]** 
+
+
+Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@Hastie2009a] o en el artículo [@CavanaughAkaike2019].
+
+
+## Selección de variables
+
+Cuando se construye un modelo de regresión (lineal o logística) existe la posibilidad de que existan más variables que datos disponibles. En este caso definitivamente la matriz de diseño $X$ no sería de rango completo, y otros estadísticos no tendrían una definición clara, por ejemplo el \(R^{2}\) ajustado tenía un factor \(n-p-1\) en el denominador y si \(n>p\) este tipo de indicador no se podría estimar.  
+
+En este capítulo veremos cómo construir modelos más simples y cómo hacer comparaciones entre ellos. 
 
   
+### Selección del mejor subconjunto.
 
-
-
-## Selección del mejor subconjunto.
-
-En este caso trataremos de seleccionar el mejor subconjunto de un total de \(p\) variables. Claramente si escogieramos solo \(k\)  varibles existiría $\binom{p}{k}$ modelos diferentes que escoger. 
+En este caso trataremos de seleccionar el mejor subconjunto de un total de \(p\) variables. Claramente si escogieramos solo \(k\)  variables existiría un total de $\binom{p}{k}$ modelos diferentes que escoger. Por lo tanto existe un total de $2^p$ posibles modelos para escoger con cualquier número de covariables. 
 
 
 El algoritmo para este caso sería: 
 
 
-
-
 *Algoritmo:*
-1. Sea $M_0$ el modelo nulo (solo tiene constantes).
-1.  Para $k=1,2,\dots,p$ (número de variables),
+
+1. Sea $M_0$ el modelo nulo.
+
+2.  Para $k=1,2,\dots,p$ (número de variables),
     a. Ajuste todos los $\binom{p}{k}$ modelos que contengan $k$ predictores.
     b. Seleccione el mejor entre esos $\binom{p}{k}$ modelos. El "mejor" es el que tenga el $RSS$ menor, o el $R^2$ más grande. Llame a este modelo $M_k$. 
-1.  Seleccione el mejor modelo entre $M_0,M_1,\dots,M_p$  seleccione aquel que tenga mejor error de validación cruzada, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
+    
+3.  Seleccione el mejor modelo entre $M_0,M_1,\dots,M_p$  usando el error de validación cruzada, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
 
 **Nota: Más adelante veremos qué es validación cruzada, \(C_p\),  \(AIC\) y \(BIC\)**
 
@@ -57,164 +190,48 @@ De los que tienen $k=1$ variable, hay $\binom{3}{1}$ = 3 modelos. Para $k=2$, so
 
 - La parte 2.b. se hace con la muestra de entrenamiento. **Objetivo: Minimizar el error de entrenamiento.**
 * La parte 3 se selecciona con los datos de prueba. **Objetivo: Minimizar el error de prueba**. 
-- Si se usa el $RSS$ o $R^2$, siempre se selecciona el modelo con el número mayor de variables. Este es un problema de sobreajuste.
-- El gran problema es la cantidad de variables y los modelos por ajustar, los cuales son \(\sum_{k=1}^n \binom{p}{k}\). Computacionalmente ineficiente. 
+- Si se usa el $RSS$ o $R^2$, siempre se selecciona el modelo con el número mayor de variables. Esto puede provocar sobreajuste.
+- El principal inconveniente de este método es que es computacionalmente ineficiente cuando $p$ es relativamente grande.
 
 
-### Error de prueba
-El problema con el error de prueba es que contiene una fuente de variabilidad no observada por el modelo. 
-
-**2 soluciones**
-
-a. Estimar indirectamente el error de prueba al añadirle un factor de sobreajuste. Es decir, agregarle artificialmente la variabilidad no observada, pero incluyendo más sesgo. 
-b. Estimar directamente el error de prueba usando validación cruzada.
-
-
-#### Validación cruzada
-
-
-Dividir aleatoriamente los datos totales en 2 partes (con tamaños comparables)
-
-- Conjunto de prueba: Se ajusta el modelo. 
-- Conjunto de validación: El modelo ajustado se usa para predecir en este conjunto. 
-
-Se usa una medida de validación en cada escogencia de los dos conjuntos (\(MSE\) en el caso cuantitativo)
-
-1. Puede que el varianza del estimador tenga una varianza muy alta. 
-2. El error de validación tiende a ser mayor que el error de entrenamiento. Puede haber sobreestimación. 
-
-##### Validación cruzada "Leave-One-Out" (LOOCV)
-
-Una sola observación \( \left( X_{i}, Y_{i} \right) \) se usa en el conjunto de validación. Observaciones restantes, se usan en el conjunto de entrenamiento. 
-
-Defina 
-
-\begin{equation*}
-MSE_{i} =(Y_{i}-\hat{Y}_{i})^{2}
-\end{equation*}
- 
-como el error cometido por usar la observación \(i\) como muestra de prueba y el resto de valores como muestra de entrenamiento. 
-
-El estimador LOOCV es 
-
-\begin{equation*}
-CV_{n} = \frac{1}{n} \sum_{i=1}^{n} MSE_{i}
-\end{equation*}
-
-
-**Ventajas**
-
-1. Menos sesgo. (Conjunto de prueba de tamaño casi igual que los datos totales). 
-2. Menos varianza.
-
-**Problema: Puede ser lento, dependiendo de la cantidad de datos.**
-
-##### Validación cruzada \(k-\)veces
-
-Se aplica el mismo principio que LOOCV, pero se divide la muestra en \(k\) distintas partes. 
-
-\begin{equation*}
-CV_{k} = \frac{1}{k} \sum_{i=1}^{k} MSE_{k}
-\end{equation*}
-
-**Ventajas: Es más económico**
-
-**Desventaja: Nivel intermedio de sesgo**
-
-\begin{equation*}
-\frac{n}{2} < \frac{(k-1)n}{k} < n-1
-\end{equation*}
-
-#### Validación cruzada para clasificación
-
-Se usa 
-
-\begin{equation*}
-CV_{n} = \frac{1}{n} \sum_{i=1}^{n} Err_{i}
-\end{equation*}
-
-
-donde \(Err_i = I_{Y_i \neq \hat{Y}_{i}}\)
-
-
-y \(CV_{k}\) se define similar 
-
-
-### Otras medidas de error de entrenamiento
-
-* $R^2$ ajustado. Recuerde que $R^2 = 1 - \dfrac{RSS}{TSS}$. Como $RSS$ decrece si se le agrega más variables, entonces $R^2 \nearrow 1$. Vea que $RSS = \sum(y_i-\hat{y}_i)^2$ y $TSS = \sum(y_i-\bar{y}_i)^2$, entonces,
-$$R^2 \text{ ajustado}= 1-\dfrac{\dfrac{RSS}{n-k-1}}{\dfrac{TSS}{n-1}}$$
-
-
-* $C_p$. Se usa en ajustes con mínimos cuadrados.
-
-$$ C_p = \dfrac{1}{n}\left[RSS+2p\hat\sigma^2\right]$$
-
-donde $k$ es el número de predictores y $\hat\sigma^2$ es el estimador de la varianza de los errores $\epsilon$. Si $\hat\sigma^2$ es insegado de $\sigma^2$, entonces $C_p$ es un estimador insesgado del $MSE$ de prueba. 
-
-
-
-* $C_p$ de Mallows. Se denota $C_p'$.
-
-$$ C_p' = \dfrac{RSS}{\hat\sigma^2} + 2p-n \implies C_p = \dfrac1n\hat\sigma^2[C_p'+n] \propto C_p'$$
-
-* $MLE$: $2\ln L(\hat{\beta} | x)$.
-
-
-* $AIC$ (Akaike Information Criterion).
-
-
-\[
-AIC = -2\log(L(\hat{\beta} \vert X)) + 2p 
-\]
-
-Esta medida es derivada asintóticamente de $-2n\mathbb{E}[\log(L(\hat{\beta} \vert X))]$ cuando $n\to \infty$. 
-
-
-
-* $BIC$ (Bayesian Information Criterion).
-
-\[
-AIC = -2\log(L(\hat{\beta} \vert X)) + \log(n)p. 
-\]
-
-Representa asintóticamente hablando, el negativo del logaritmo de la distribución posterior. 
-
-**Validación cruzada LOOCV es asintóticamente equivalente al AIC para modelos de regresión lineal múltiple [@StoneAsymptotic1977]** 
-
-
-Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@Hastie2009a] o en el artículo [@CavanaughAkaike2019].
 
 
 ### Selección de modelos hacia adelante (**Forward Stepwise Selection**)
+
+*Algoritmo:*
 
 1. Sea $M_0$ el modelo nulo. 
 1. Para $k=0,1,\dots,p-1$,
     a. Considere los $p-k$ modelos que contenga los predictores en $M_k$ con un predictor adicional.
     a. Seleccione el mejor entre esos $p-k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k+1}$.
-1. Seleccione el mejor modelo entre $M_0,\dots, M_p$ usando $VC$, $Cp$, $AIC$, $BIC$ o $R^2$ ajustado.
+1. Seleccione el mejor modelo entre $M_0,\dots, M_p$ usando $CV$, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
 
 
 *Ejemplo:*  $Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3$
 
 * $M_0$: $Y = \beta_0$
 
-* $M_1$: $Y = \beta_0+\beta_1X_1$, $Y = \beta_0+\beta_2X_2$ o $Y = \beta_0+\beta_3X_3$. De los tres se escoge el mejor (por ejemplo, la segundo) y se le llama $M_1$. 
+* $M_1$: $Y = \beta_0+\beta_1X_1$, $Y = \beta_0+\beta_2X_2$ o $Y = \beta_0+\beta_3X_3$. De los tres se escoge el mejor (por ejemplo, el segundo) y se le llama $M_1$. 
 
-* $M_2$: a $Y = \beta_0+\beta_2X_2$, que es $M_1$, se le suma una variable extra ($\beta_1X_1$ o $\beta_3X_1$) y se selecciona la mejor. 
+* $M_2$: a $Y = \beta_0+\beta_2X_2$, que es $M_1$, se le suma una variable extra ($\beta_1X_1$ o $\beta_3X_3$) y se selecciona el mejor. 
 
 * $M_3$: $M_2$ más la variable no incluida.
 
-*Nota:* el número de modelos por calcular usando el mejor subconjunto  es $n^p$, mientras que usando Forward es $1+\displaystyle\sum_0^ {p-1} p-k = \dfrac{1+p(1+p)}2$.
+*Nota:* 
+
+- El número de modelos por calcular usando el mejor subconjunto  es $2^p$, mientras que usando Forward Selection es $1+\displaystyle\sum_0^ {p-1} p-k = \dfrac{1+p(1+p)}2$.
+
+- No hay garantía de que el modelo seleccionado con este método sea el mejor de todos los posibles.
 
 ### Selección de modelos hacia atrás (**Backward Stepwise Selection**)
 
+*Algoritmo:*
 
 1. Sea $M_p$ el modelo completo.
 1. Para $k=p,p-1,\dots,1$,
     a. Considere los $k$ modelos que contienen todos excepto uno de los predictores en $M_k$ para un total de $k-1$ predictores.
     a. Seleccione el mejor entre esos $k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k+1}$.
-1. Seleccione el mejor modelo entre $M_0,\dots,M_p$ usando $VC$, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
+1. Seleccione el mejor modelo entre $M_0,\dots,M_p$ usando $CV$, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
 
 
 *Ejemplo:*  $Y=\beta_0+\beta_1X_1+\beta_2X_2+\beta_3X_3$
@@ -227,12 +244,17 @@ Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 
 
 * $M_0$: $Y=\beta_0$, el modelo nulo.
 
+Las dos notas del método de Forward Selection aplican para este caso también.
+
 ## Métodos de regularización
+
+Una forma alternativa de hacer selección de variables es a través de la restricción o regularización de los coeficientes de los modelos. 
 
 ### Regresión Ridge
 
-Considere 
-$$ RSS = \sum_{i=1}^{n}\left(y_i-\beta\sigma\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 $$
+Considere el problema de mínimos cuadrados en el modelo lineal:
+
+$$ RSS = \sum_{i=1}^{n}\left(y_i-\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 $$
 y 
 \[
 \hat\beta = \underset{\beta}{\mathrm{argmin}} RSS
@@ -241,34 +263,31 @@ y
 
 La regresión Ridge consiste en determinar
 
-$$ \hat\beta^R_\lambda = \underset{\beta}{\mathrm{argmin}}\left[RSS + \lambda\sum_{j=1}^n\beta_j^2\right]$$
+$$ \hat\beta^R_\lambda = \underset{\beta}{\mathrm{argmin}}\left[RSS + \lambda\|\beta_{-0}\|^2_2 \right]$$
 
-Se define:
-$$\|\beta_{-0}\|^2_2 = \sum_{j=1}^{n}\beta_j^2$$
-
-- Si $\lambda = 0$, $\hat\beta = \beta^R_\lambda$: caso de máxima varianza, con el menor sesgo posible.
-- Si $\lambda \to +\infty$, $\beta \to 0$: se sacrifican todos los parámetros $\beta$. Máximo sesgo pero varianza nula.
-
-
+donde:
+$$\|\beta_{-0}\|^2_2 = \sum_{j=1}^{p}\beta_j^2$$
 ¿Cómo se debe seleccionar el $\lambda$?
 El método para seleccionarlo es por validación cruzada
 
-#### Estimación clásica por mínimos cuadrados.
-$$ \hat\beta = (X^T\cdot X)^{-1}X^Ty$$
-Si se multiplica una constante $c$ a $Xi$, entonces $\hat\beta = \dfrac{\hat\beta_i}{c}$. La constante $c$ afecta directamente al $\|\beta_{-0}\|^2_2$, por lo que se recomienda estandarizar las covariables.
+*Nota:*
 
-#### Ventajas
+- Si $\lambda = 0$, $\hat\beta = \beta^R_\lambda$: caso de máxima varianza, con el menor sesgo posible.
+- Si $\lambda \to +\infty$, $\beta \to 0$: se sacrifican todos los parámetros $\beta$. Máximo sesgo pero varianza nula.
+- Cuando $p$ es cercano a $n$, la varianza a nivel de parámetros es alta (matriz $X$ deja de comportarse como de rango completo). En ese caso la regresión ridge se convierte en una solución para disminuir esa varianza.
+- Si $p>n$ (mayor cantidad de variables que observaciones), al realizar mínimos cuadrados, no existe una solución única, pero con la forma de regresión de Ridge es posible alcanzarla para un cierto valor de $\lambda$.
+- La regresión ridge tiene ventajas computacionales comparado con el método de selección de todos los subconjuntos.
+- Los estimadores de ridge no son invariantes a cambios de escala (transformaciones $cX_i$), a diferencia de los estimadores por mínimos cuadrados. Por lo tanto se recomienda estandarizar todas los predictores antes de aplicar ridge.
 
-
-1. Indica el balance entre sesgo y varianza.
-1. Si $p>n$ (mayor cantidad de variables que datos), al realizar mínimos cuadrados, no se puede dar una solución, pero con la forma de regresión de Ridge es posible alcanzarla.
-1. Computacionalmente es más eficiente que usando selección de "todos los subconjuntos".
 
 
 ### Regresión Lasso
-$$ \beta_{\lambda}^{LASSO} = \underset{\beta}{\mathrm{argmin}}\left(RSS + \lambda\sum_{j=1}^n |\beta_j|\right)$$
-Se define
-$$ \|\beta_{-0}\|_1 = \sum_{j=1}^n|\beta_j|$$
+
+La regresión ridge tiene el inconveniente de que incluye todas los predictores en el modelo, lo cual puede ser un inconveniente para efectos interpretativos (de parámetros) pero no tanto para efectos predictivos, especialmente cuando el número de predictores es alto. Para solucionar este problema se plantea:
+
+$$ \beta_{\lambda}^{LASSO} = \underset{\beta}{\mathrm{argmin}}\left(RSS + \lambda\|\beta_{-0}\|_1 \right)$$
+donde:
+$$ \|\beta_{-0}\|_1 = \sum_{j=1}^p|\beta_j|$$
 Otra formulación para los métodos vistos son:
 
 
@@ -276,6 +295,7 @@ Otra formulación para los métodos vistos son:
 1. \textbf{Lasso}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p|\beta_j| \leq s$.
 <!-- 1. \textbf{Mejor subconjunto}: $\underset{\beta}{\min} RSS$, sujeto a $\displaystyle\sum_{j=1}^p I_{\lbrace\beta_j \neq 0\rbrace} \leq s$. -->
 
+*Nota:* la regresión lasso causa una selección de predictores debido a que $RSS$ suele intersecar la región de penalización en esquinas.
 
 ### Explicación gráfica
 
@@ -311,7 +331,6 @@ La librería `boot` tiene funciones para aplicar cross-validation. Por ejemplo,
 
 ```{r}
 library(boot)
-glm.fit <- glm(mpg ~ horsepower, data = Auto)
 cv.err <- cv.glm(Auto, glm.fit)
 cv.err$delta
 ```

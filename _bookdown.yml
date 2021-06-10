@@ -21,4 +21,4 @@ language:
     solution: 'Solución. '
   ui:
     chapter_name: 'Capítulo '
-rmd_files: ["index.Rmd", "01-estimacion-densidades-no-parametricas.Rmd", "02-jacknife-bootstrap.Rmd", "04-metodos-lineares-regresion.Rmd", "05-regresion-logistica.Rmd"]
+rmd_files: ["index.Rmd", "01-estimacion-densidades-no-parametricas.Rmd", "02-jacknife-bootstrap.Rmd", "04-metodos-lineares-regresion.Rmd", "05-regresion-logistica.Rmd", "06-seleccion-de-variables.Rmd"]
