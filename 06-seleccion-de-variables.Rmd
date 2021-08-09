@@ -1,8 +1,3 @@
-
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE,message = FALSE)
-```
-
 # Métodos de selección de variables y regularización.
 
 ## Estimación del error de prueba
@@ -327,8 +322,8 @@ glm.fit <- glm(mpg ~ horsepower, data = Auto)
 summary(glm.fit)
 ```
 
-La librería `boot` tiene funciones para aplicar cross-validation. Por ejemplo,
-
+La librería `boot` tiene funciones para aplicar cross-validation. Por ejemplo:
+  
 ```{r}
 library(boot)
 cv.err <- cv.glm(Auto, glm.fit)
@@ -340,8 +335,8 @@ En particular se puede usar un `for` para aplicar este mismo procedimiento a mú
 ```{r}
 cv.error.LOOCV = rep(0, 5)
 for (i in 1:5) {
-    glm.fit = glm(mpg ~ poly(horsepower, i), data = Auto)
-    cv.error.LOOCV[i] = cv.glm(Auto, glm.fit)$delta[1]
+  glm.fit = glm(mpg ~ poly(horsepower, i), data = Auto)
+  cv.error.LOOCV[i] = cv.glm(Auto, glm.fit)$delta[1]
 }
 cv.error.LOOCV
 plot(cv.error.LOOCV, type = "l")
@@ -355,15 +350,14 @@ Este procedimiento se puede repetir con los el K-fold.
 set.seed(17)
 cv.error.10 = rep(0, 10)
 for (i in 1:10) {
-    glm.fit = glm(mpg ~ poly(horsepower, i), data = Auto)
-    cv.error.10[i] = cv.glm(Auto, glm.fit, K = 10)$delta[1]
+  glm.fit = glm(mpg ~ poly(horsepower, i), data = Auto)
+  cv.error.10[i] = cv.glm(Auto, glm.fit, K = 10)$delta[1]
 }
 cv.error.10
 
 plot(cv.error.LOOCV, type = "l", col = "red")
 lines(cv.error.10, type = "l", col = "blue")
 ```
-
 ### Selección de variables
 
 Cargue los datos `Hitters` del paquete `ISLR` que representan el salario de varios jugadores de beisbol y sus estadística de juego (número de bateos, home runs, carreras, etc.).
@@ -385,8 +379,6 @@ library(tidyverse)
 Hitters <- Hitters %>% drop_na()
 ```
 
-#### Selección del mejor subconjunto
-
 Cargue la librería
 
 ```{r}
@@ -399,42 +391,14 @@ Puede guardar estos modelos en ciertas variables (e.g. `regfit.full`) y usar la 
 
 ```{r}
 library(leaps)
-regfit.full <- regsubsets(Salary ~ ., Hitters)
-summary(regfit.full)
-```
-
-Se puede incluir todas las variables con `nvmax = 19`.
-
-
-
-
-```{r}
 regfit.full <- regsubsets(Salary ~ ., Hitters, nvmax = 19)
 regfit.full.summary <- summary(regfit.full)
 regfit.full.summary
 ```
 
-
 ```{r}
 str(regfit.full.summary)
 ```
-
-
-```{r}
-idx <- which.max(regfit.full.summary$rsq)
-plot(regfit.full.summary$rsq)
-points(idx, regfit.full.summary$rsq[idx], col = "red", 
-       cex = 2,pch = 20)
-```
-
-
-```{r}
-idx <- which.min(regfit.full.summary$rss)
-plot(regfit.full.summary$rss)
-points(idx, regfit.full.summary$rss[idx], col = "red", 
-       cex = 2,pch = 20)
-```
-
 
 ```{r}
 idx <- which.max(regfit.full.summary$adjr2)
@@ -459,9 +423,7 @@ points(idx, regfit.full.summary$bic[idx], col = "red",
        cex = 2,pch = 20)
 ```
 
-
 ```{r}
-plot(regfit.full, scale = "r2")
 plot(regfit.full, scale = "bic")
 plot(regfit.full, scale = "Cp")
 plot(regfit.full, scale = "adjr2")
@@ -490,13 +452,6 @@ summary(regfit.bwd)
 
 ```{r}
 par(mfrow = c(1, 2))
-plot(regfit.fwd, scale = "r2")
-plot(regfit.bwd, scale = "r2")
-```
-
-
-```{r}
-par(mfrow = c(1, 2))
 plot(regfit.fwd, scale = "bic")
 plot(regfit.bwd, scale = "bic")
 ```
@@ -515,8 +470,6 @@ plot(regfit.fwd, scale = "adjr2")
 plot(regfit.bwd, scale = "adjr2")
 ```
 
-
-
 #### Regresión Ridge
 
 ```{r}
@@ -532,9 +485,7 @@ library(glmnet)
 grid <- 10 ^ seq(10, -2, length = 100)
 ridge.mod <- glmnet(x, y, alpha = 0, lambda = grid)
 ```
-
 El factor `lambda` representa el $\lambda$ de la fórmula
-
 
 $$ \hat{\beta} = \underset{\beta}{\mathrm{argmin}} \left\{RSS + \lambda \Vert \beta \Vert_2^2\right\}.$$
 
@@ -643,7 +594,7 @@ ridge.pred <- predict(ridge.mod, s = bestlam, newx = x[test, ])
 mean((ridge.pred - y.test)^2)
 
 out <- glmnet(x, y, alpha = 0)
-predict(out, type = "coefficients", s = bestlam, exact = FALSE)[1:20, ]
+predict(out, type = "coefficients", s = bestlam, exact = FALSE)
 ```
 
 ### Regresión Lasso
@@ -685,7 +636,7 @@ mean((lasso.pred - y.test) ^ 2)
 ```{r}
 out <- glmnet(x, y, alpha = 1, lambda = grid)
 lasso.coef <-
-  predict(out, type = "coefficients", s = bestlam)[1:20,]
+  predict(out, type = "coefficients", s = bestlam)
 lasso.coef
 ```
 
@@ -700,5 +651,5 @@ lasso.coef[lasso.coef != 0]
 - Del libro [@James2013b] 
     - Capítulo 5. 2, 5, 8.
     - Capítulo 6: 5, 6, 7, 8, 10.
-  
+
 
