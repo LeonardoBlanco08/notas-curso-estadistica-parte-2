@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística"
-author: "Maikol Solís Chacón y Luis Barboza Chichilla"
-date: "Actualizado el 12 January, 2021"
+author: "Maikol Solís Chacón y Luis Barboza Chinchilla"
+date: "Actualizado el 13 January, 2021"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
