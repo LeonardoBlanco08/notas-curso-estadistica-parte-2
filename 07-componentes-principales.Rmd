@@ -1,6 +1,15 @@
 # Análisis en componentes principales
 
-Si se quiere seleccionar la mejor proyección de 2 variables de una nube de puntos $X_1,\dots, X_p$, se debe hacer $\binom{p}{2}$ gráficos de dispersión. Se debe seleccionar la que tenga menor varianza, es decir, en los siguientes gráficos, la mejor foto sería la que tenga la mayor variabilidad. 
+## Aprendizaje no-supervisado
+
+Al contrario de los métodos que se han estudiado de regresión y clasificación, en este caso no hay variable dependiente, y el conjunto de datos está compuesto de $p$ variables o características y $n$ observaciones. 
+
+El principal objetivo del aprendizaje no-supervisado no es la predicción, sino en el *análisis de datos* por sí mismo, es decir se quiere buscar patrones o relaciones interesantes dentro de la tabla de datos: por ejemplo la visualización de datos o la identificación de subgrupos en los datos. (Análisis Exploratorio de Datos)
+
+En el caso de aprendizaje no-supervisado, no es posible verificar o validar los métodos adoptados.
+
+
+Si se quiere seleccionar la mejor proyección de 2 variables de una nube de puntos $X_1,\dots, X_p$, se debe hacer $\binom{p}{2}$ gráficos de dispersión. Un criterio de búsqueda es seleccionar la que tenga mayor información, en el sentido de mayor variabilidad.
 
 Usaremos como base los libros de [@HussonExploratory2017] y [@James2013b].
 

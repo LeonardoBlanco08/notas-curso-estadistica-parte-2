@@ -1,4 +1,4 @@
-# Jacknife y Bootstrap
+# Jackknife y Bootstrap
 
 Suponga que se quiere estimar un intervalo de confianza para la media
 \(\mu\) desconocida de un conjunto de datos \(X_{1},\ldots, X_{n}\)
@@ -8,7 +8,7 @@ Primero se  conoce que
 
 \begin{equation*}
 \sqrt{n}\left( \hat{\mu} - \mu \right)
-\xrightarrow{\mathcal{L}} \mathcal{N}\left(0,\sigma^{2}\right),
+\sim \mathcal{N}\left(0,\sigma^{2}\right),
 \end{equation*}
 
 y esto nos permite escribir el intervalo de confianza como
@@ -21,17 +21,16 @@ y esto nos permite escribir el intervalo de confianza como
 donde \(z_{1-\frac{\alpha}{2}}\) es el cuantil \(1-\frac{\alpha}{2}\)
 de una normal estándar.
 
-La expresión anterior es posible ya que el supuesto es que la
-distribución de \(\hat{\theta}\) es normal.
+La expresión anterior es posible dado que la distribución de \(\hat{\mu}\) es normal.
 
 ```{remark}
-¿Qué pasaría si este supuesto es falso o al menos no conocemos la
-distribución de \(\hat{\theta}\)?
+¿Qué pasaría si no conocemos la distribución de \(\hat{\mu}\)?
   
 ¿Cómo podemos encontrar ese intervalo de confianza?
 ```
 
-```{remark}
+```{remark include=FALSE}
+NO LE ENCUENTRO SENTIDO A ESTE PÁRRAFO
 Para una muestra fija, el estimador anterior  \(\hat{\mu}\)
 solamente un valor.  No se conoce la distribución de \(\hat{\mu}\). Lo
 único que se puede estimar son valores puntuales como la media,
@@ -69,28 +68,25 @@ Tn <- var(x)
 ```
 
 A partir de estos dos valores, ¿Cuál sería un intervalo de confianza
-para la media?
+para la varianza?
 
 Note que esta pregunta es difícil ya que no tenemos ningún tipo de
-información adicional.
+información adicional para inferir la variación de la varianza $T_n$.
 
 Las dos técnicas que veremos a continuación nos permitirán extraer
-_información adicional_ de la muestra.
+_información adicional_ de la muestra para inferir propiedades distribucionales de $T_n$.
 
 ```{remark}
 Para efectos de este capítulo, llamaremos \(T_{n}=T\left(
-  X_{1},\ldots,X_{n}\right)\) al estadístico formado por la muestra de
+  X_{1},\ldots,X_{n}\right)\) al estadístico $T$ formado por la muestra de
 los \(X_{i}\)'s.
 ```
 
 
 
-## Jacknife
+## Jackknife
 
-Esta técnica fue propuesta por \cite{Quenouille1949} y consiste en la
-siguiente observación.
-
-Se puede probar que muchos de los estimadores tiene la propiedad que
+Esta técnica fue propuesta por \cite{Quenouille1949}. Primero que todo se puede probar que existen estimadores que cumplen la siguiente propiedad:
 
 \begin{equation}
 \operatorname{Sesgo}\left(T_{n}\right)=\frac{a}{n}+\frac{b}{n^{2}}+O\left(\frac{1}{n^{3}}\right)
@@ -98,7 +94,7 @@ Se puede probar que muchos de los estimadores tiene la propiedad que
 
 para algún $a$ and $b$.
 
-Por ejemplo $\sigma^{2}=\mathrm{Var}\left(X_{i}\right)$ y sea
+Por ejemplo sea $\sigma^{2}=\mathrm{Var}\left(X_{i}\right)$ y sea
 $\widehat{\sigma}_{n}^{2}=n^{-1} \sum_{i=1}^{n}\left(X_{i}-\right.$
 $\bar{X})^{2}$. Entonces,
 
@@ -116,7 +112,7 @@ por lo tanto
 Por lo tanto en este caso $a=-\sigma^{2}$ y $b=0$.
 
 Defina \(T_{(-i)}\) como el estimador \(T_{n}\) pero eliminando el
-\(i\)-ésimo término.
+\(i\)-ésimo elemento de la muestra.
 
 Es claro que en este contexto, se tiene que
 
@@ -167,9 +163,7 @@ knitr::kable(T_i[1:10])
 
 
 
-Definamos el sesgo _jackife_ como
-
-
+Definimos el estimador de sesgo _jackknife_ de $T_n$ como
 
 \begin{equation*}
 b_{jack} = (n-1) (\overline{T}_{n} - T_{n})
@@ -180,7 +174,7 @@ donde
 \overline{T}_{n} = \frac{1}{n} \sum_{i=1}^{n} T_{(-i)}
 \end{equation*}
 
-
+y el estimador corregido por sesgo es: $T_{jack}=T_n-b_{jack}$.
 ```{exercise}
 En nuestro caso tendríamos lo siguiente:
 ```
@@ -189,11 +183,10 @@ En nuestro caso tendríamos lo siguiente:
 (bjack <- (n-1)*(mean(T_i) - Tn))
 ```
 
-Es decir, que los \texttt{T\_i} generan estimadores de \texttt{T\_n}
-que contienen el mismo sesgo.
+Es decir, el sesgo aproximado (jackknife) del estimador $T_n$ es 0.
 
 
-Observe que \(b_{jack}\) tiene la siguiente propiedad
+Si se asume que $T_n$ es un estimador del parámetro $\theta$ entonce se puede comprobar que \(b_{jack}\) cumple:
 
 
 \begin{align*}
@@ -222,17 +215,15 @@ error del \(n^{-2}\).
 ```
 
 
-Podemos usar los $T\_i$ para generar muestras adicionales para
-estimar el parámetro \(\theta\).
-
-En este caso  defina el siguiente estimador:
+Podemos usar los $T_i$ para generar muestras adicionales para
+estimar el parámetro \(\theta\) a través del siguiente estimador:
 
 \[
 \widetilde{T}_{i}=n T_{n}-(n-1) T_{(-i)}.
 \]
 
 ```{remark}
-A \(\widetilde{T}_{i}\) se le llaman **pseudo-valores** y
+A \(\widetilde{T}_{i}\) se le llaman **pseudo-valor** y
 representa el aporte o peso que tiene la variable \(X_{i}\) para
 estimar \(T_{n}\).
 ```
@@ -260,8 +251,7 @@ pseudo[1:10]
 ```
 
 
-Lo importante acá es notar la similitud que tiene con los datos
-reales,
+Lo importante acá es notar la asociación o correspondencia que tiene con los datos reales,
 
 ```{r, }
 plot(x = x, y = pseudo)
@@ -270,17 +260,17 @@ plot(x = x, y = pseudo)
 
 
 Con estos pseudo-valores, es posible estimar la media y la varianza de
-\(T_{n}\) con sus respectivos estimadores:
+\(T_{n}\) con los siguientes estimadores respectivos:
 
 \[
 T_{\text {jack }}=\frac{1}{n} \sum_{i=1}^{n} \widetilde{T}_{i}
 \]
 
-donde
+y
 
 \[
 v_{jack}=\frac{\sum_{i=1}^{n}\left(\widetilde{T}_{i}-\frac{1}{n}
-\sum_{i=1}^{n} \widetilde{T}_{i}\right)^{2}}{n(n-1)}.
+\sum_{i=1}^{n} \widetilde{T}_{i}\right)^{2}}{n-1}.
 \]
 
 
@@ -288,13 +278,15 @@ v_{jack}=\frac{\sum_{i=1}^{n}\left(\widetilde{T}_{i}-\frac{1}{n}
 ```{remark}
 
 Sin embargo, se puede demostrar fácilmente que se pueden usar
-pseudovalores para construir una prueba normal de hipótesis. Dado que
+pseudovalores para construir una prueba normal de hipótesis. 
+<!---
+NO ESTOY SEGURO DE QUE LOS SEUDOVALORES SEAN INDEPENDIENTES. Dado que
 cada pseudovalor es independiente e idénticamente distribuido (iid),
 se deduce que su promedio se ajusta a una distribución normal a medida
-que el tamaño de la muestra aumenta. El promedio de los pseudovalores
-es solo \(T_ {jack}\) y el valor esperado de ese promedio, debido a la
-construcción a la imparcialidad del estimador, es el parámetro bajo
-investigación, \(\theta \). Por lo tanto, tenemos que
+que el tamaño de la muestra aumenta.
+-->
+Como los pseudovalores son idénticamente distribuidos entonces su promedio se ajusta de forma aproximada a una distribución normal a medida
+que el tamaño de la muestra aumenta. Por lo tanto, tenemos que
 \[
   \frac{\sqrt{n}\left(T_{jack}-\theta\right)}{\sqrt{v_{jack}}}
   \rightarrow N(0,1).
@@ -341,32 +333,30 @@ Tjack + z * sdjack / sqrt(n))
 ## Bootstrap
 
 
-Este método es un poco más sencillo de implementar que Jacknife y es
-igualmente de eficaz propuesto por \cite{Efron1979}.
+Este método es un poco más sencillo de implementar que Jackknife y es
+igualmente de eficaz. Este fue propuesto por Bradley Efron en \cite{Efron1979}.
 
-Primero recordemos que estamos estimando una estadístico a partir de
-una muestra de modo que \(T_{n}=g\left( X_{1},\ldots,X_{n} \right)\)
+Primero recordemos que estamos estimando la variabilidad propia de un estadístico a partir de
+una muestra. Asuma que este estadístico tiene la forma \(T_{n}=g\left( X_{1},\ldots,X_{n} \right)\)
 donde \(g\) es cualquier función (media, varianza, quantiles, etc).
 
 
-Supongamos que conocemos la distribución real de los \(X\)'s, llamada \(F(x)\). Si uno
-quisiera estimar la varianza de \(X\) basta con hacer
+Supongamos que conocemos la distribución real de los \(X\)'s, llamada \(F(x)\) y asumamos que $T_n=\bar X_n$. Si uno
+quisiera estimar la varianza de \(T_n\) basta con hacer
 
 \begin{equation*}
-\mathrm{Var}_{F}\left(T_{n}\right)
+\mathbb{V}_{F}\left(T_{n}\right):=\mathrm{Var}_{F}\left(T_{n}\right)
 = \frac{\sigma^{2}}{n}=\frac{\int x^{2}  dF(x)-\left(\int x
 dF(x)\right)^{2}}{n}
 \end{equation*}
 
-
-
 donde \(\sigma^{2} = \mathrm{Var}\left(X\right)\) y el subindice \(F\) es solo para indicar la dependencia con la distribución real.
 
-Ahora dado que no tenemos la distribución  real \(F(x)\), una opción es encontrar un estimador de esta llamado \(\hat{F}_n\).
+Ahora dado que no tenemos la distribución  real \(F(x)\), una opción es utilizar el estimador empírico \(\hat{F}_n\) como estimador plug-in en la formulación de la varianza de $T_n$.
 
-La técnica de boostrap se basa en extraer muchas muestras iid de la distribución \(\hat{F}_n\) de modo que se pueda conocer su varianza.
+De manera sencilla se puede resumir la técnica de bootstrap como una simulación iid de la distribución \(\hat{F}_n\) de modo que se pueda conocer la varianza del estadístico $T_n$.
 
-En simple pasos la técnica es
+En simples pasos la técnica es
 
 1.  Seleccione \(X_{1}^{*}, \ldots, X_{n}^{*} \sim \widehat{F}_{n}\)
 2.  Estime \(T_{n}^{*}=g\left(X_{1}^{*}, \ldots, X_{n}^{*}\right)\)
@@ -380,7 +370,7 @@ v_{\mathrm{boot}}=\frac{1}{B} \sum_{b=1}^{B}\left(T_{n, b}^{*}-\frac{1}{B} \sum_
 Por la ley de los grandes números tenemos que
 
 \begin{equation}
-v_{\mathrm{boot}} \stackrel{\mathrm{a.s.}}{\longrightarrow} \mathbb{V}_{\widehat{F}_{n}}\left(T_{n}\right), \text {\quad si } B \rightarrow \infty.
+v_{\mathrm{boot}} \stackrel{\mathrm{a.s.}}{\longrightarrow} \mathbb{V}_{\widehat{F}_{n}}\left(T_{n}\right), \quad  \text{si} \quad B\rightarrow \infty.
 \end{equation}
 
 además llamaremos,
@@ -410,6 +400,8 @@ En términos de convergencia lo que se tiene es que
 \mathrm{Var}_{F}\left(T_{n}\right) \overbrace{\approx}^{O(1 / \sqrt{n})} \mathrm{Var}_{\widehat{F}_{n}}\left(T_{n}\right) \overbrace{\approx}^{O(1 / \sqrt{B})} v_{b o o t}
 \]
 
+producto de la ley de grandes números en ambos casos.
+
 ```{remark}
 ¿Cómo extraemos una muestra de \(\hat{F}_n\)?
 ```
@@ -426,7 +418,7 @@ Así que basta cambiar el punto 1. del algoritmo mencionando anteriormente con
 
   
 ```{exercise}
-En este ejemplo podemos tomar \(B=1000\) y construir esa cantidad de veces nuestro estimador.
+En este ejemplo podemos tomar \(B=1000\) y construir esa cantidad de veces nuestro estimador de varianza:
 
 ```{r}
   B <- 1000
@@ -442,6 +434,7 @@ Tboot_b[1:10]
   
 ```{r, }
   plot(Tboot_b)
+  hist(Tboot_b)
 ```
   
   Por supuesto podemos encontrar los estadísticos usuales para esta nueva muestra
@@ -458,13 +451,18 @@ Tboot_b[1:10]
   (sdboot <- sqrt(Vboot))
 ```
 
-``` ```
+```{remark}
+Si $\hat \theta$ es un estimador de $\theta$ (bajo cualquier método) entonces podemos sustituir el paso 1 en el algoritmo de Bootstrap por lo siguiente:
+
+  1. Seleccione \(X_{1}^{*}, \ldots, X_{n}^{*} \sim F_{\hat \theta}\)
+
+A este algoritmo modificado le llamamos Bootstrap paramétrico.
+```
+
 
 ### Intervalos de confianza
 
-
-
-\subsubsection{Intervalo Normal}
+#### Intervalo Normal
 
 Este es el más sencillo y se escribe como
 
@@ -483,9 +481,7 @@ c(Tn - z * sdboot,
 Tn + z * sdboot)
 ```
 
-``` ```
-
-\subsubsection{Intervalo pivotal}
+#### Intervalo pivotal
 
 Sea  \(\theta=T(F)\) y  \(\widehat{\theta}_{n}=T\left(\widehat{F}_{n}\right)\) y defina la cantidad pivotal  \(R_{n}=\widehat{\theta}_{n}-\theta .\)
 
@@ -508,14 +504,13 @@ Se sigue que
 &=1-\frac{\alpha}{2}-\frac{\alpha}{2}=1-\alpha
 \end{align*}
 ```{remark}
-\(C_{n}^{\star}=(a, b)\)  es un intervalo de confianza al \(1-\alpha\) de confianza.
+\(C_{n}^{\star}=(a, b)\)  es un intervalo de confianza al (\(1-\alpha\))%.
 
 El problema es que este intervalo depende de \(H\) desconocido.
 
 ```
 
-
-Para resolver este problema, se puede construir una versión _bootstrap_ de \(H\) usando lo que sabemos hasta ahora.
+Para resolver este problema, se puede construir una versión _bootstrap_ de \(H\) usando lo que sabemos hasta ahora:
 
 \[
 \widehat{H}(r)=\frac{1}{B} \sum_{b=1}^{B} I\left(R_{n, b}^{*} \leq r\right)
@@ -525,7 +520,7 @@ donde \(R_{n, b}^{*}=\widehat{\theta}_{n, b}^{*}-\widehat{\theta}_{n}\).
 Sea  \(r_{\beta}^{*}\) el cuantil muestral de tamaño  \(\beta\) de  \(\left(R_{n, 1}^{*}, \ldots, R_{n, B}^{*}\right)\) y sea \(\theta_{\beta}^{*}\) el cuantil muestral de tamaño  \(\beta\) de \(\left(\theta_{n, 1}^{*}, \ldots, \theta_{n, B}^{*}\right)\).
 
 ```{remark}
-Según la notación anterior note que
+Según la notación anterior se cumple que:
 \begin{equation*}
 r_{\beta}^{*}= \theta_{\beta}^{*}-\widehat{\theta}_{n}
 \end{equation*}
@@ -533,19 +528,14 @@ r_{\beta}^{*}= \theta_{\beta}^{*}-\widehat{\theta}_{n}
 
 
 
-Con estas observaciones
-It follows that an approximate \(1-\alpha\) confidence interval is \(C_{n}=(\widehat{a}, \widehat{b})\) where
+A partir de loa estadísticos anteriores se puede construir un intervalo de confianza aproximado \(C_{n}=(\widehat{a}, \widehat{b})\) al (\(1-\alpha\))% donde: 
 
 \begin{align*}
-\widehat{a}
-&= \widehat{\theta}_{n}-\widehat{H}^{-1}\left(1-\frac{\alpha}{2}\right)
-&= \widehat{\theta}_{n}-r_{1-\alpha / 2}^{*}
-&= \widehat{\theta}_{n}-\theta_{1-\alpha / 2}^{*} + \widehat{\theta}_{n}
-&=2 \widehat{\theta}_{n}-\theta_{1-\alpha / 2}^{*} \\
+\widehat{a}&= \widehat{\theta}_{n}-\widehat{H}^{-1}\left(1-\frac{\alpha}{2}\right) = \widehat{\theta}_{n}-r_{1-\alpha / 2}^{*} = \widehat{\theta}_{n}-\theta_{1-\alpha / 2}^{*} + \widehat{\theta}_{n} =2 \widehat{\theta}_{n}-\theta_{1-\alpha / 2}^{*} \\
 \widehat{b} &=\widehat{\theta}_{n}-\widehat{H}^{-1}\left(\frac{\alpha}{2}\right)
-&=\widehat{\theta}_{n}-r_{\alpha / 2}^{*}
-&= \widehat{\theta}_{n}-\theta_{\alpha / 2}^{*} + \widehat{\theta}_{n}
-&=2 \widehat{\theta}_{n}-\theta_{\alpha / 2}^{*}
+=\widehat{\theta}_{n}-r_{\alpha / 2}^{*}
+= \widehat{\theta}_{n}-\theta_{\alpha / 2}^{*} + \widehat{\theta}_{n}
+=2 \widehat{\theta}_{n}-\theta_{\alpha / 2}^{*}
 \end{align*}
 
 ```{remark}
@@ -562,11 +552,10 @@ c(2 * Tn - quantile(Tboot_b, 1 - 0.05 / 2) ,
 2 * Tn - quantile(Tboot_b, 0.05 / 2))
 ```
 
-``` ```
 
-### Intervalo pivotal studentizado
+#### Intervalo pivotal studentizado
 
-Una mejora del intervalo anterior sería normalizar los estimadores previamente
+Una versión mejorada del intervalo pivotal sería a través de la normalización de los estimadores de $T_n$:
 
 \[
 Z_{n}=\frac{T_{n}-\theta}{\widehat{\mathrm{se}}_{\mathrm{boot}}}.
@@ -578,12 +567,12 @@ Z_{n, b}^{*}=\frac{T_{n, b}^{*}-T_{n}}{\widehat{\mathrm{se}}_{b}^{*}}
 donde  \(\widehat{\mathrm{se}}_{b}^{*}\) es un estimador del error estándar de  \(T_{n, b}^{*}\) no de \(T_{n}\).
 
 ```{remark}
-Esto requerira estimar la varianza de \(T_{n,b}^*\) para cada \(b\).
+Para calcular $Z_{n, b}^{*}$ requerimos estimar la varianza de \(T_{n,b}^*\) para cada \(b\).
 ```
 
-Con esto se puede obtener  cantidades \(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*}\) que debería ser próximos a \(Z_{n}\).
+Con esto se puede obtener  cantidades \(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*}\) que debería ser próximos a \(Z_{n}\). (Bootstrap de los estadísticos normalizados)
 
-Sea \(z_{\alpha}^{*}\) del \(\alpha\) cuantiĺ de \(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*},\) entonces  \(\mathbb{P}\left(Z_{n} \leq z_{\alpha}^{*}\right) \approx \alpha\).
+Sea \(z_{\alpha}^{*}\) el \(\alpha\)-cuantil de \(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*},\) entonces  \(\mathbb{P}\left(Z_{n} \leq z_{\alpha}^{*}\right) \approx \alpha\).
 
 Define el intervalo
 \begin{equation*}
@@ -630,7 +619,6 @@ Tn - quantile(z_star, 0.05 / 2) *   sdboot)
 ```
 
 
-``` ```
 
 
 ### Resumiendo
@@ -642,7 +630,7 @@ Resumiendo todos lo métodos de cálculo de intervalos obtenemos
 
 knitr::kable(data.frame(
 `Metodo` = c(
-"Jacknife",
+"Jackknife",
 "Bootstrap Normal",
 "Bootstrap Pivotal",
 "Bootstrap Pivotal Estudentizado"
@@ -665,7 +653,7 @@ Tn - quantile(z_star, 0.05 / 2) *   sdboot
 ## Ejercicios
 
 
-1. Repita los ejercicios anteriores para calcular intervalos de confianza para la distancia promedio y la varianza del desplazamiento de las personas. Use los métodos de Jacknife y Bootstrap (con todos sus intervalos de confianza).
+1. Repita los ejercicios anteriores para calcular intervalos de confianza para la distancia promedio y la varianza del desplazamiento de las personas. Use los métodos de Jackknife y Bootstrap (con todos sus intervalos de confianza).
 Dada que la distancia es una medida que puede ser influenciada por distancias muy cortas o muy largas, se puede calcular el logaritmo de esta variable para eliminar la escala de la distancias.
   
 2. Verifique que esta última variable se podría estimar paramétricamente con una distribución normal.
