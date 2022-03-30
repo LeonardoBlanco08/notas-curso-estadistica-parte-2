@@ -217,7 +217,7 @@ usando los siguiente métodos:
 1. El método de proyecciones. 
 2. Aplicando el criterio de mínimos cuadrados. Ecuación \@ref(eq:minimos-cuadrados).
 
-````
+```
 
 ### Laboratorio
 
@@ -389,7 +389,7 @@ $$(n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.$$
 y además se puede comprobar que $\hat \beta$ y $\hat \sigma^2$ son independientes. 
 ```{exercise}
 Encuentre la varianza para \(\hat \beta_{0}\) y \(\hat \beta_{1}\) para el caso de la regresión simple. 
-````
+```
 
 ### Prueba \(t\)
  
@@ -853,7 +853,7 @@ Este modelo se le conoce como modelo lineal con interacciones (caso de 2 covaria
 
 ```{exercise}
 Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el modelo preserva su estructura. 
-````
+```
 
 ### Laboratorio
 

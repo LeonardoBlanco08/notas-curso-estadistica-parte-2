@@ -1,3 +1,4 @@
+
 # Estimación no-paramétrica de densidades
 
 ## Histograma
@@ -45,12 +46,12 @@ f_j = \frac{n_j}{nh}
 \end{equation*}
 De esta forma si se suma las áreas definidas por el histograma da un total de 1.
 
--   Cuente la frecuencia por el tamaño de muestra $n$ y el ancho de
+- Cuente la frecuencia por el tamaño de muestra $n$ y el ancho de
     banda $h$. \begin{equation*}
     f_j = \frac{n_j}{nh}
     \end{equation*}
 
--   Dibuje el histograma.
+- Dibuje el histograma.
 
 ```{r, ejemplo-inicial-histograma, echo=FALSE}
 
@@ -66,18 +67,18 @@ theme_minimal()
 
 Formalmente el histograma es el
 
-```{=tex}
+
 \begin{equation*}
 \hat{f}_h(x) = \frac{1}{nh} \sum_{i = 1}^{n} \sum_{j} I(X_i\in B_j) I(x\in B_j),
 \end{equation*}
-```
+
 donde $I$ es la indicadora.
 
 ### Construcción probabilística
 
 Denote $m_j=jh-h/2$ el centro del segmento,
 
-```{=tex}
+
 \begin{align*}
     \mathbb{P}\left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2} \right)\right)
       & =
@@ -87,20 +88,21 @@ Denote $m_j=jh-h/2$ el centro del segmento,
 
 Otra forma de aproximarlo es:
 
-```{=tex}
+
 \begin{equation*}
     \mathbb{P} \left(X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right)  \approx   \frac{1}{n} \#
     \left\{X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right\}
 \end{equation*}
-```
+
 Acomodando un poco la expresión
 
-```{=tex}
+
 \begin{equation*}
 \hat{f}_h(m_j) =  \frac{1}{nh} \#
 \left\{X\in \left[m_j - \frac{h}{2},m_j + \frac{h}{2}\right) \right\}
 \end{equation*}
-```
+
+
 ### Propiedades estadísticas
 
 Note que el estimador de histograma $\hat f_h$ tiende a ser más suave conforme aumenta el ancho de banda $h$. 
@@ -109,16 +111,17 @@ Note que el estimador de histograma $\hat f_h$ tiende a ser más suave conforme 
 
 Suponga que  \(x_0 = 0\) y que \(x \in B_j\) es un punto fijo, entonces el estimador evaluado en $x$ es:
 
-```{=tex}
+
 \begin{equation*}
 \hat{f}_h(x) =  \frac{1}{nh} \sum_{i = 1}^{n} I(X_i \in B_j)
 \end{equation*}
-```
+
+
 ### Sesgo
 
 Para calcular el sesgo primero calculamos:
 
-```{=tex}
+
 \begin{align*}
 \mathbb{E}\left[ \hat{f}_h(x)\right]
 & =  \frac{1}{nh} \sum_{i = 1}^{n} \mathbb{E}\left[ I(X_i \in B_j)\right] \\
@@ -127,7 +130,6 @@ Para calcular el sesgo primero calculamos:
 
 donde \(I(X_i \in B_j)\) es una variable Bernoulli con valor esperado:
 
-```{=tex}
 \begin{align*}
 \mathbb{E}\left[ I(X_i \in B_j)\right] = \mathbb{P}\left(I(X_i \in
 B_j)=1\right) = \int_{(j - 1)h}^{jh} f(u)du.
@@ -144,17 +146,18 @@ y por lo tanto el sesgo de $\hat f_h(x)$ es:
 Sesgo(\hat{f}_h(x)) = \frac{1}{h} \int_{(j -
 1)h}^{jh} f(u)du - f(x)
 \end{equation*}
-```
+
 Esto se puede aproximar usando Taylor alrededor del centro
 $m_j = jh - h/2$ de $B_j$ de modo que
 $f(u) - f(x) \approx f^{\prime}(m_j)(u - x)$.
 
-```{=tex}
+
 \begin{equation*}
 Sesgo(\hat{f}_h(x)) =  \frac{1}{h} \int_{(j -
 1)h}^{jh} [f(u) - f(x)] du \approx f^\prime(m_j)(m_j - x)
 \end{equation*}
 Entonces se puede concluir que:
+
 
 - $\hat f_h(x)$ es un estimador sesgado de $f(x)$.
 - El sesgo tiende a ser cero cerca del punto medio de $B_j$.
@@ -164,22 +167,24 @@ Entonces se puede concluir que:
 
 Dado que todos los $X_i$ son i.i.d., entonces
 
-```{=tex}
+
 \begin{align*}
 \mathrm{Var}\left( \hat{f}_h(x)\right) & =
 \mathrm{Var}\left( \frac{1}{nh} \sum_{i = 1}^{n} I(X_i \in B_j)\right)                                  \\
 & = \frac{1}{n^2h^2} n\mathrm{Var}\left( I(X_i \in B_j)\right)
 \end{align*}
-```
+
+
 La variable $I$ es una bernoulli con parametro
 $\int_{(j - 1)h}^{h} f(u)du$ por lo tanto su varianza es el
 
-```{=tex}
+
 \begin{equation*}
 \mathrm{Var}\left( \hat{f}_h(x)\right)\, =
 \frac{1}{nh^2} \left(\int_{(j - 1)h}^{h} f(u)du \right)\left( 1 -\int_{(j - 1)h}^{h} f(u)du \right)
 \end{equation*}
-```
+
+
 ```{exercise}
 Usando un desarrollo de Taylor como en la parte anterior, pruebe que:
 \begin{equation*}
@@ -197,12 +202,13 @@ Consecuencias:
 
 El error cuadrático medio del histograma es el
 
-```{=tex}
+
 \begin{equation*}
 \mathrm{MSE}\left( \hat{f}_h(x)\right) =
 \mathrm{E}\left[\left(\hat{f}_h(x) - f(x)\right)^2\right] = \mathrm{Sesgo}^2\left( \hat{f}_h(x)\right) + \mathrm{Var}\left( \hat{f}_h(x)\right).
 \end{equation*}
-```
+
+
 ```{exercise}
 ¿Pueden probar la segunda igualdad de la expresión anterior?
 ```
@@ -366,7 +372,7 @@ Uno de los problemas con el \(\mathrm{MSE}\left(  \hat{f}_h(x)\right)\) es que d
 
 Al $\mathrm{MISE}$ se le llama error cuadrático medio integrado. Además,
 
-```{=tex}
+
 \begin{align*}
 \mathrm{MISE} (\hat{f}_h)
 & \approx \int_{ -\infty}^{\infty} \frac{1}{nh} f(x)dx                                                                                                                                          \\
@@ -434,25 +440,25 @@ theme_minimal()
 
 Un criterio más preciso para seleccionar el ancho de banda es a través de la minimización del MISE:
 
-```{=tex}
+
 \begin{equation*}
 \frac{\partial \mathrm{MISE}(f_{h})}{\partial h} = -\frac{1}{nh^2} + \frac{1}{6} h \Vert f^\prime\Vert_{2}^2 = 0
 \end{equation*}
 
 lo implica que
 
-```{=tex}
+
 \begin{equation*}
 h_{opt} = \left(\frac{6}{n\Vert f^\prime\Vert_{2}^2}\right) ^{1/3} = O\left( n^{-1/3} \right).
 \end{equation*}
 
 y por lo tanto
 
-```{=tex}
+
 \begin{equation*}
 \mathrm{MISE}(\hat{f}_{h}) = \frac{1}{n} \left(\frac{n\Vert f^\prime\Vert_{2}^2}{6}\right)  ^{1/3}
 \end{equation*}
-```
+
 ```{remark, name='Recuerde de Estadística I' }
 Si \(X_1, \ldots, X_n \sim f_{\theta} \) i.i.d, con \(\mathrm{Var}(X) = \sigma^2\) y media $\theta$, recuerde que el estimador \(\hat{\theta}\)  de \(\theta\) tiene la característica que
 
@@ -527,7 +533,7 @@ Sea $X_{1},\ldots,X_{n}$ variables aleatorias i.i.d. con distribución $f$ en $\
 La distribución empírica de $F$ es:
 \[
 F_{n}(x)=\frac{1}{n}\sum_{i=1}^{n}I(X_{i}\leq x).
-$$
+\]
 
 Por la ley de los grandes números tenemos que \(F_{n}(x)
 \xrightarrow{c.s} F(x)\) para todo  $x$ en $\mathbb{R}$, conforme
@@ -539,16 +545,19 @@ $n\rightarrow\infty$. Entonces, $F_{n}(x)$ es un estimador consistente de $F(x)$
 
 La respuesta es si (más o menos).
 
-Suponga que $h>0$ tenemos la aproximación $$
+Suponga que $h>0$ tenemos la aproximación 
+\[
 f(x)\approx\frac{F(x+h)-F(x-h)}{2h}.
-$$
+\]
 
 Remplazando $F$  por su estimador  $F_{n}$, defina
 \[
 \hat{f}_{n}^{R}(x)=\frac{F_{n}(x+h)-F_{n}(x-h)}{2h},
-$$ donde $\hat{f}_{n}^{R}(x)$ es el estimador de *Rosenblatt* .
+\] 
+donde $\hat{f}_{n}^{R}(x)$ es el estimador de *Rosenblatt* .
 
-Podemos rescribirlo de la forma, $$
+Podemos rescribirlo de la forma, 
+\[]
 \hat{f}_{n}^{R}(x)=\frac{1}{2nh}\sum_{i=1}^{n}I(x-h<X_{i}\leq x+h)=\frac{1}{nh}\sum_{i=1}^{n}K_{0}\left(\frac{X_{i}-x}{h}\right)
 \]
 con  $K_{0}(u)=\frac{1}{2}I(-1<u\leq1)$, lo cual es equivalente al caso del histograma.
@@ -567,7 +576,7 @@ Suponga que se tienen intervalos de longitud $2h$, es decir, intervalos de la fo
 
 El estimador de histograma se escribe como
 
-```{=tex}
+
 \begin{equation*}
 \hat{f_{h}}(x) = \dfrac{1}{2hn} \# \{ X_i \in [x-h,x+h) \}.
 \end{equation*}
@@ -586,11 +595,11 @@ con \(u = \frac{x-x_i}{h}\), entonces parte del estimador de histograma se puede
 
 Finalmente se tendría que
 
-```{=tex}
+
 \begin{equation*}
 \hat{f}_{h}\left( x \right) = \frac{1}{nh}\sum_{i=1}^{n} K\left( \frac{x-x_{i}}{h} \right)
 \end{equation*}
-```
+
 <!-- \begin{center} -->
 
 <!-- \includegraphics[width=\linewidth]{manual_figure/np-density-interval-crop.pdf} -->
@@ -657,7 +666,7 @@ theme(axis.line = element_line(size = 1))
 
 Entonces se tendría que la expresión general para un estimador por núcleos (kernel) de $f$:
 
-```{=tex}
+
 \begin{equation*}
 \hat{f}_{h}\left( x \right) = \frac{1}{nh}\sum_{i=1}^{n} K\left( \frac{x-x_{i}}{h} \right)=\frac{1}{n}\sum_{i=1}^{n} K_h(x-x_{i}) 
 \end{equation*}
@@ -666,7 +675,8 @@ donde $x_1,\ldots,x_n$ es una muestra i.i.d. de $f$,
 \begin{align*}
 K_h(\cdot)=\frac 1 h K(\cdot /h).
 \end{align*}
-y $K$ es un kernel según las 4 propiedades anteriores.  
+y $K$ es un kernel según las 4 propiedades anteriores. 
+
 ```{remark}
 ¿Qué pasaría si modificamos el ancho de banda \(h\) para un mismo kernel?
 ```
@@ -763,11 +773,11 @@ theme_minimal()
 
 Recordemos nuevamente la fórmula
 
-```{=tex}
+
 \begin{equation*}
 \hat{f}_{h}\left( x \right) = \frac{1}{nh}\sum_{i=1}^{n} K\left( \frac{x-X_{i}}{h} \right)
 \end{equation*}
-```
+
 Cada sumando de esta expresión es una función por si misma. Si la
 integramos se obtiene que
 
@@ -857,7 +867,7 @@ En el caso de la varianza:
 & =h\left\{ \Vert K\Vert_{2}^{2}f(x)+o(1)\right\} .
 \end{align*}
 
-```{=tex}
+
 \begin{align*}
 \textcolor{blue}{\mathbb{E}\left[K\left(\frac{x-X}{h}\right)\right]}
 & =\int K\left(\frac{x-s}{h}\right)f(s)ds            \\
@@ -865,19 +875,20 @@ En el caso de la varianza:
 & =h\int K\left(u\right)\left\{ f(x)+o(1)\right\} du \\
 & =h\left\{f(x)+o(1)\right\} .
 \end{align*}
-```
+
+
 Por lo tanto se obtiene que
 
-```{=tex}
+
 \begin{equation*}
 \mathrm{Var}\left(\hat{f}_{h}(x)\right) = \frac{1}{nh} \Vert K\Vert_{2}^{2}f(x) + o\left(\frac{1}{nh}\right), \text{ si } nh\to \infty.
 \end{equation*}
-```
+
 ### Sesgo
 
 Para el sesgo tenemos
 
-```{=tex}
+
 \begin{align*}
 \mathrm{Sesgo}\left(\hat{f}_{h}(x)\right)
 & = \mathbb{E}\left[\hat{f}_{h}(x)\right]-f(x)                                                  \\
@@ -885,7 +896,8 @@ Para el sesgo tenemos
 & = \frac{1}{h}\mathrm{E}\left[K\left( \frac{x-X_{1}}{h} \right)\right] - f(x)                  \\
 & = \int \frac{1}{h} K\left( \frac{x-u}{h}\right)f(u)du -f(x)                                   \\
 \end{align*}
-```
+
+
 ```{exercise}
 Usando el cambio de variable \(s=\frac{u-x}{h}\) y las propiedades del kernel pruebe que
 
@@ -946,26 +958,35 @@ Note como los cambios en el ancho de banda modifican la suavidad (sesgo) y el ap
 
 ### Error cuadrático medio y Error cuadrático medio integrado
 
-El error cuadrático medio se escribe \begin{align*}
+El error cuadrático medio se escribe 
+
+
+\begin{align*}
 \mathrm{MSE}(\hat{f}_{h}(x))
 & = \mathrm{Sesgo}\left(\hat{f}_{h}(x)\right)^{2} + \mathrm{Var}\left(\hat{f}_{h}(x)\right)                                                 \\
 & = \frac{h^{4}}{4}\left(\mu_{2}(K)f^{\prime\prime}(x)\right)^{2}+\frac{1}{nh}\Vert K\Vert_{2}^{2}f(x)+o(h^{4})+o\left(\frac{1}{nh}\right).
 \end{align*}
 
-Y el error cuadrático medio integrado se escribe como, \begin{align*}
+
+Y el error cuadrático medio integrado se escribe como, 
+
+\begin{align*}
 \mathrm{MISE}\left(\hat{f}_{h}\right) & = \int \mathrm{MSE}\left(\hat{f}_{h}(x)\right)dx                                                                                                        \\
 & = \int \mathrm{Sesgo}\left(\hat{f}_{h}(x)\right)^{2} + \mathrm{Var}\left(\hat{f}_{h}(x)\right)dx                                                        \\
 & = \frac{h^{4}}{4}\mu_{2}^{2}(K)\left\Vert f^{\prime\prime}(x)\right\Vert_{2}^{2} +\frac{1}{nh}\Vert K\Vert_{2}^{2}+o(h^{4})+o\left(\frac{1}{nh}\right).
 \end{align*}
+
 
 Al igual que en el caso del histograma, el estimador por kernels es un estimador consistente de $f$ si $h\rightarrow 0$ y $nh\rightarrow \infty$. Además el MISE depende directamente de $f''$.
 
 ### Ancho de banda óptimo
 
 Minimizando el $\mathrm{MISE}$ con respecto a $h$ obtenemos
+
 \begin{equation*}
 h_{opt}=\left(\frac{\Vert K\Vert_{2}^{2}}{\Vert f^{\prime\prime}\Vert_{2}^{2}\left(\mu_{2}(K)\right)^{2}n}\right)^{1/5}=O\left( n^{-1/5} \right).
 \end{equation*}
+
 
 ```{remark}
 De forma práctica, $h_{opt}$ no es un estimador útil de $h$ porque depende de $\Vert f^{\prime\prime}\Vert_{2}^{2}$  que es desconocido. Más adelante veremos otra forma de encontrar este estimador.
@@ -973,12 +994,13 @@ De forma práctica, $h_{opt}$ no es un estimador útil de $h$ porque depende de 
 
 Evaluando $h_{opt}$ en el $\mathrm{MISE}$ tenemos que
 
-```{=tex}
+
 \begin{equation*}
 \mathrm{MISE}(\hat{f}_{h})=\frac{5}{4}\left(\Vert K\Vert_{2}^{2}\right)^{4/5}\left(\Vert f^{\prime\prime}\Vert_{2}^{2}\mu_{2}(K)\right)^{2/5}n^{-4/5} = O\left( n^{-4/5} \right).
 \end{equation*}
 
 y por lo tanto la tasa de convergencia del MISE a 0 es más rápida que para el caso del histograma:
+
 ```{r, echo=FALSE}
 nvec <- 5:50
 
@@ -1038,19 +1060,19 @@ Este método es más efectivo si se conoce que la verdadera distribución es bas
 Asuma que $f$ es normal distribuida y se utiliza un kernel $K$ gausiano.
 Entonces se tiene que
 
-```{=tex}
+
 \begin{align*}
 \hat{h}_{rn} & =\left(\frac{\Vert K\Vert_{2}^{2}}{\Vert f^{\prime\prime}\Vert_{2}^{2}\left(\mu_{2}(K)\right)^{2}n}\right)^{1/5}=O\left( n^{-1/5} \right) \\
 & =1.06 \hat{\sigma} n^{-1/5}.
 \end{align*}
-```
+
 donde
 
-```{=tex}
+
 \begin{equation*}
 \hat{\sigma} = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} \left( x_{i}-\bar{x}^{2} \right)}
 \end{equation*}
-```
+
 ```{exercise}
 Pruebe que la ecuación anterior es verdadera. Utilice el hecho de que:
 \begin{align*}
@@ -1097,7 +1119,7 @@ Podemos sustituir la varianza empírica de la fórmula inicial y tenemos
 
 Combinando ambos estimadores, podemos obtener,
 
-```{=tex}
+
 \begin{equation*}
 \hat{h}_{rn} = 1.06 \min \left\{\frac{\widehat{\mathrm{IQR}}^{X}}{1.34}, \hat{\sigma }\right\} n^{-\frac{1}{5}}
 \end{equation*}
@@ -1162,7 +1184,7 @@ de esta forma nos aseguramos que las observaciones que se usan para calcular $\h
 Siguiendo con el término $\textcolor{red}{\int\hat{f}_{h}^{2}(x)dx}$
 note que este se puede reescribir como
 
-```{=tex}
+
 \begin{align*}
 \textcolor{red}{\int\hat{f}_{h}^{2}(x)dx}
 & =\int\left(\frac{1}{nh}\sum_{i=1}^{n}K\left( \frac{x-X_{i}}{h} \right)\right)^{2}dx                                    \\
@@ -1170,7 +1192,7 @@ note que este se puede reescribir como
 & =\frac{1}{n^{2}h}\sum_{i=1}^{n}\sum_{i=1}^{n}\int K\left(u\right)K\left(\frac{X_{i}-X_{j}}{h}-u\right)du               \\
 & =\frac{1}{n^{2}h}\sum_{i=1}^{n}\sum_{i=1}^{n}K*K\left(\frac{X_{i}-X_{j}}{h}\right).
 \end{align*}
-```
+
 donde $K*K$ es la convolución de $K$ consigo misma.
 
 Finalmente tenemos la función,
@@ -1200,35 +1222,35 @@ y luego calcular numéricamente la integral. NO LE ENCUENTRO SENTIDO A ESA AFIRM
 Usando los resultados anteriores y asumiendo que $h=cn^{-\frac{1}{5}}$
 entonces
 
-```{=tex}
+
 \begin{equation*}
 n^{\frac{2}{5}} \left\{ \hat{f}_{h}(x) -f(x)\right\}
 \xrightarrow{\mathcal{L}} \mathcal{N}\left(\underbrace{\frac{c^{2}}{2} f^{\prime\prime}
 \mu_{2}(K)}_{b_{x}}, \underbrace{\frac{1}{c}f(x) \left\Vert K \right\Vert_{2}^{2}}_{v_{x}}\right).
 \end{equation*}
-```
+
 Si $z_{1-\frac{\alpha}{2}}$ es el cuantil $1-\frac{\alpha}{2}$ de una
 distribución normal estándar, entonces
 
-```{=tex}
+
 \begin{align*}
 1-\alpha
 & \approx \mathbb{P}\left(b_{x}-z_{1-\frac{\alpha}{2}} v_{x} \leq n^{2 / 5}\left\{\widehat{f}_{h}(x)-f(x)\right\} \leq b_{x}+z_{1-\frac{\alpha}{2}} v_{x}\right) \\
 & =\mathbb{P}\left(\widehat{f}_{h}(x)-n^{-2 / 5}\left\{b_{x}+z_{1-\frac{\alpha}{2}} v_{x}\right\}\right.                                                         \\
 & \qquad\qquad \left. \leq f(x)\leq \hat{f}_{h}(x)-n^{-2 / 5}\left\{b_{x}-z_{1-\frac{\alpha}{2}} v_{x}\right\}\right)
 \end{align*}
-```
+
 Esta expresión nos dice que con una probabilidad de $1-\alpha$ se tiene
 que
 
-```{=tex}
+
 \begin{equation*}
 \begin{aligned}
 & \left[\hat{f}_{h}(x)-\frac{h^{2}}{2} f^{\prime \prime}(x) \mu_{2}(K)-z_{1-\frac{\alpha}{2}} \sqrt{\frac{f(x)\|K\|_{2}^{2}}{n h}}\right. \\
 & \left.\widehat{f}_{h}(x)-\frac{h^{2}}{2} f^{\prime \prime}(x) \mu_{2}(K)+z_{1-\frac{a}{2}} \sqrt{\frac{f(x)\|K\|_{2}^{2}}{n h}}\right]
 \end{aligned}
 \end{equation*}
-```
+
 Al igual que en los casos anteriores, este invtervalo no es útil ya que
 depende de $f(x)$ y $f^{\prime\prime} (x)$.
 
@@ -1240,11 +1262,11 @@ Si \(h\) es pequeño relativamente a \(n^{-\frac{1}{5}}\) entonces el segundo t�
 
 Podemos reemplazar \(f(x)\) por su estimador \(\hat{f}_{h}(x)\).  Entonces tendríamos una intervalo aplicable a nuestro caso:
 
-```{=tex}
+
 \begin{equation*}
 \left[\hat{f_{h}}(x)-z_{1-\frac{\alpha}{2}} \sqrt{\frac{\hat{f_{h}}(x)\|K\|_{2}^{2}}{n h}}, \hat{f}_{h}(x)+z_{1-\frac{\alpha}{2}} \sqrt{\frac{\hat{f}_{h}(x)\|\mathrm{K}\|_{2}^{2}}{n h}}\right]
 \end{equation*}
-```
+
 ```{remark}
 Este intervalo de confianza está definido para $x$ fijo y no permite hacer inferencia sobre toda la función $f$. Una forma de determinar la banda de confianza de toda la función $f$ es a través de la fórmula 3.52 en la página 62 de [@HardleNonparametric2004].
 ```
@@ -1418,12 +1440,12 @@ Usemos la regla de la normal o también conocida como Silverman.
 **Primero recuerde que en este caso se asume que** $f(x)$ sigue una
 distribución normal. En este caso, lo que se obtiene es que
 
-```{=tex}
+
 \begin{align*}
 \Vert f^{\prime \prime} \Vert_2^2 & = \sigma ^{-5} \int \{\phi^{\prime \prime}\}^2 dx              \\
 & = \sigma ^{-5} \frac{3}{8\sqrt{\pi}} \approx 0.212 \sigma^{-5}
 \end{align*}
-```
+
 donde $\phi$ es la densidad de una normal estándar.
 
 El estimador para $\sigma$ es

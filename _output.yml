@@ -5,7 +5,7 @@ bookdown::gitbook:
     toc:
       before: |
         <li><a href="./">Curso de Estadística</a></li>
-      after: 
+      after:
     download: ["pdf"]
   dev: svg
 bookdown::pdf_book:
