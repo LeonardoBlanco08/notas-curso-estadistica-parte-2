@@ -1,13 +1,13 @@
 
 # Estimación no-paramétrica de densidades
-
+ 
 ## Histograma
 
 El histograma es una de las estructuras básicas en estadística y es una herramienta descriptiva que permite visualizar la distribución de los datos sin tener conocimiento previo de los mismos. En esta sección definiremos el histograma más como un estadístico que como una herramienta de visualización de datos.
 
 ### Construcción Estadística
 
-Suponga que  \(X_1,X_2, \dots ,X_n\) es una muestra independiente que proviene de una distribución desconocida $f$. En este caso no asumiremos que $f$ tenga alguna forma particular, que permita definirla de manera paramétrica como en el curso anterior.
+Suponga que \(X_1,X_2, \dots ,X_n\) es una muestra independiente que proviene de una distribución desconocida $f$. En este caso no asumiremos que $f$ tenga alguna forma particular, que permita definirla de manera paramétrica como en el curso anterior.
 
 Construcción:
 
@@ -46,8 +46,8 @@ f_j = \frac{n_j}{nh}
 \end{equation*}
 De esta forma si se suma las áreas definidas por el histograma da un total de 1.
 
-- Cuente la frecuencia por el tamaño de muestra $n$ y el ancho de
-    banda $h$. \begin{equation*}
+- Cuente la frecuencia por el tamaño de muestra $n$ y el ancho de banda $h$. 
+\begin{equation*}
     f_j = \frac{n_j}{nh}
     \end{equation*}
 
