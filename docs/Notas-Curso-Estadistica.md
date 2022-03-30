@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística II"
 author: "Maikol Solís Chacón y Luis Barboza Chinchilla"
-date: "Actualizado el 30 March, 2022"
+date: "Actualizado el 30 marzo, 2022"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt

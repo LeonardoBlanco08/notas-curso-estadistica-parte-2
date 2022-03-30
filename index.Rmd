@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística II"
 author: "Maikol Solís Chacón y Luis Barboza Chinchilla"
-date: "Actualizado el `r format(Sys.time(), '%d %B, %Y')`"
+date: "Actualizado el `r Sys.setlocale('LC_TIME', locale='es_ES.UTF-8'); format(Sys.time(), '%d %B, %Y')`"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
