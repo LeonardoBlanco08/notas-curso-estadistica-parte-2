@@ -16,9 +16,12 @@ description: ""
 
 
 
+
 # Introducción
 
 Estas son las notas de clase del curso CA0403: Estadística Actuarial II para el primer semestre del 2022.
+
+ 
 
 <!--chapter:end:index.Rmd-->
 
@@ -181,7 +184,7 @@ $\int_{(j - 1)h}^{h} f(u)du$ por lo tanto su varianza es el
 \end{equation*}
 
 
-::: {.exercise #unnamed-chunk-3}
+::: {.exercise #unnamed-chunk-4}
 Usando un desarrollo de Taylor como en la parte anterior, pruebe que:
 \begin{equation*}
 \mathrm{Var}\left( \hat{f}_h(x)\right)\approx
@@ -205,7 +208,7 @@ El error cuadrático medio del histograma es el
 \end{equation*}
 
 
-::: {.exercise #unnamed-chunk-4}
+::: {.exercise #unnamed-chunk-5}
 ¿Pueden probar la segunda igualdad de la expresión anterior?
 :::
 
@@ -241,7 +244,7 @@ Como \(\mathrm{MSE}\left(  \hat{f}_h(x)\right) \to 0 \) (convergencia en \(\math
     (hacia $\infty$)
 
 :::
-::: {.exercise #unnamed-chunk-7}
+::: {.exercise #unnamed-chunk-8}
 Si $f\sim N(0,1)$, aproxime los componentes de sesgo, varianza y MSE, y grafíquelos para distintos valores de $h$. 
 :::
 
@@ -302,7 +305,7 @@ El MISE tiene un comportamiento asintótico similar al observado en el MSE. La f
 Un problema frecuente en los histogramas es que la mala elección del parámetro $h$ causa que estos no capturen toda la estructura de los datos. Por ejemplo, en el siguiente caso se muestra histogramas construídos a partir de 1000 números aleatorios según una $N(0,1)$, bajo 4 distintas escogencias de ancho de banda.
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-9-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-10-1} \end{center}
 
 Un criterio más preciso para seleccionar el ancho de banda es a través de la minimización del MISE:
 
@@ -337,15 +340,15 @@ Si \(X_1, \ldots, X_n \sim f_{\theta} \) i.i.d, con \(\mathrm{Var}(X) = \sigma^2
 Según la nota anterior la tasas de convergencia del histograma es más lenta que la de un estimador parámetrico considerando la misma cantidad de datos, tal y como se ilustra en el siguiente gráfico:
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-11-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
 
 
 Finalmente, podemos encontrar el valor óptimo  del ancho de banda ($h=$ 0.3375) del conjunto de datos en el ejemplo anterior.  
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-13-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
-::: {.exercise #unnamed-chunk-14}
+::: {.exercise #unnamed-chunk-15}
 Verifique que en el caso normal estándar: $h_{opt}\approx 3.5 n^{-1/3}$.
 :::
 
@@ -453,7 +456,7 @@ Por ejemplo:
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-18-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-19-1} \end{center}
 
 Entonces se tendría que la expresión general para un estimador por núcleos (kernel) de $f$:
 
@@ -475,7 +478,7 @@ y $K$ es un kernel según las 4 propiedades anteriores.
 Nuevamente controlaríamos la suavidad del estimador a como se ilustra a continuación:
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-20-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-21-1} \end{center}
 
 Inconveniente: no tenemos aún un criterio para un $h$ óptimo.
 
@@ -484,7 +487,7 @@ Inconveniente: no tenemos aún un criterio para un $h$ óptimo.
 :::
 Usando 1000 números aleatorios según una normal estándar, con un ancho de banda fijo ($h=0.3$) podemos ver que no hay diferencias muy marcadas entre los estimadores por kernel:
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-22-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-23-1} \end{center}
 
 Recordemos nuevamente la fórmula
 
@@ -507,7 +510,7 @@ Cada sumando de esta expresión es una función de la variable $x$. Si la integr
 
 En el siguiente gráfico se generan 10 puntos aleatorios según una normal estándar (rojo) y se grafica cada uno de los 10 componentes del estimador de la densidad usando kernels gaussianos (azul). El estimador resultante aparece en color negro. Note que cada uno de los 10 componentes tiene la misma área bajo la curva, la cual en este caso es 0.1. 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-23-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-24-1} \end{center}
 
 
 
@@ -577,7 +580,7 @@ Para el sesgo tenemos
 \end{align*}
 
 
-::: {.exercise #unnamed-chunk-24}
+::: {.exercise #unnamed-chunk-25}
 Usando el cambio de variable \(s=\frac{u-x}{h}\) y las propiedades del kernel pruebe que
 
 \begin{equation*}
@@ -596,7 +599,7 @@ $\int(f^{\prime\prime\prime}(x))dx<\infty$.}
 En el siguiente gráfico se ilustra el estimador no paramétrico de la distribución de tiempos entre erupciones en la muy conocida tabla de datos *faithful*. El estimador se calcula bajo dos distintas escogencias de ancho de banda. 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-26-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-27-1} \end{center}
 
 ::: {.remark}
 Note como los cambios en el ancho de banda modifican la suavidad (sesgo) y el aplanamiento de la curva (varianza).
@@ -648,7 +651,7 @@ Evaluando $h_{opt}$ en el $\mathrm{MISE}$ tenemos que
 y por lo tanto la tasa de convergencia del MISE a 0 es más rápida que para el caso del histograma:
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-29-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-30-1} \end{center}
 
 
 
@@ -687,7 +690,7 @@ donde
 \hat{\sigma} = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} \left( x_{i}-\bar{x}^{2} \right)}
 \end{equation*}
 
-::: {.exercise #unnamed-chunk-33}
+::: {.exercise #unnamed-chunk-34}
 Pruebe que la ecuación anterior es verdadera. Utilice el hecho de que:
 \begin{align*}
 \Vert f^{\prime\prime}\Vert_{2}^{2}=\sigma^{-5}\int \phi^{\prime \prime}(x)^2 dx
@@ -699,7 +702,7 @@ donde $\phi$ es la función de densidad de una $N(0,1)$.
 El principal inconveniente de \(\hat{h}_{rn}\) es su sensibilidad a los valores extremos:
 :::
 
-::: {.example #unnamed-chunk-35}
+::: {.example #unnamed-chunk-36}
 La varianza empírica de  1, 2, 3, 4, 5, es  2.5.
 
 La varianza empírica de 1, 2, 3, 4, 5, 99, es 1538.
@@ -913,7 +916,7 @@ plot(fhat_normal, type = "l")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-1} \end{center}
 
 ```r
 fhat_unif <- bkde(x, kernel = "box", bandwidth = 0.05)
@@ -922,7 +925,7 @@ plot(fhat_unif, type = "l")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-2} \end{center}
 
 ```r
 fhat_epanech <- bkde(x, kernel = "epanech", bandwidth = 0.05)
@@ -931,7 +934,7 @@ plot(fhat_epanech, type = "l")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-3} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-3} \end{center}
 
 ```r
 fhat_biweight <- bkde(x, kernel = "biweight", bandwidth = 0.05)
@@ -940,7 +943,7 @@ plot(fhat_biweight, type = "l")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-4} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-4} \end{center}
 
 ```r
 fhat_triweight <- bkde(x, kernel = "triweight", bandwidth = 0.05)
@@ -949,7 +952,7 @@ plot(fhat_triweight, type = "l")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-43-5} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-5} \end{center}
 
 ### Efecto del ancho de banda en la estimación
 
@@ -963,7 +966,7 @@ plot(fhat, type = "l")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-45-1} \end{center}
 
 ```r
 fhat <- bkde(x, kernel = "box", bandwidth = 0.5)
@@ -972,7 +975,7 @@ plot(fhat, type = "l")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-44-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-45-2} \end{center}
 
 \*\* Kernel Epanechnikov \*\*
 
@@ -984,7 +987,7 @@ plot(fhat, type = "l")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-45-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-46-1} \end{center}
 
 ```r
 fhat <- bkde(x, kernel = "epa", bandwidth = 0.5)
@@ -993,7 +996,7 @@ plot(fhat, type = "l")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-45-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-46-2} \end{center}
 
 
 ```r
@@ -1079,7 +1082,7 @@ f_hist <- hist(x, breaks = n_bins)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-48-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-49-1} \end{center}
 
 ```r
 f_epa <- as.data.frame(bkde(x, kernel = "epa", bandwidth = h))
@@ -1097,7 +1100,7 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-48-2} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-49-2} \end{center}
 
 ### Ancho de banda óptimo
 
@@ -1158,7 +1161,7 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-50-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-51-1} \end{center}
 
 
 ```r
@@ -1179,7 +1182,7 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-51-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-52-1} \end{center}
 
 Una librería más especializada es \texttt{np} (non-parametric).
 
@@ -1205,7 +1208,7 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-52-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-53-1} \end{center}
 
 ### Validación cruzada
 
@@ -1231,7 +1234,7 @@ plot(dens.np, type = "b")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-53-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-54-1} \end{center}
 
 
 ```r
@@ -1246,7 +1249,7 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-54-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-55-1} \end{center}
 
 ### Temas adicionales
 
@@ -1274,7 +1277,7 @@ plot(dens.np, type = "b", lwd = 2)
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-55-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-56-1} \end{center}
 
 
 ```r
@@ -1289,7 +1292,7 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-56-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-57-1} \end{center}
 
 **Otra forma de estimar el ancho de banda** Otra forma de estimar ancho
 de bandas óptimos es usando máxima verosimilitud. Les dejo de tarea
@@ -1314,7 +1317,7 @@ plot(dens.np, type = "b")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-57-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-58-1} \end{center}
 
 
 ```r
@@ -1329,7 +1332,7 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-58-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-59-1} \end{center}
 
 
 ```r
@@ -1349,7 +1352,7 @@ plot(dens.np, type = "b")
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-59-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-60-1} \end{center}
 
 
 ```r
@@ -1364,7 +1367,7 @@ ggplot(x_df, aes(x)) + geom_histogram(aes(y = ..density..),
 
 
 
-\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-60-1} \end{center}
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-61-1} \end{center}
 
 
 ```r
@@ -1414,7 +1417,7 @@ ggplot(data = fani) + geom_line(aes(x, y), color = "blue") +
 
 <!-- ]{}{VPlayer.swf} -->
 
-::: {.exercise #unnamed-chunk-62}
+::: {.exercise #unnamed-chunk-63}
 Implementar el intervalo confianza visto en clase para estimadores de densidades por núcleos y visualizarlo de en ggplot. 
 
 **Si se atreven: ¿Se podría hacer una versión animada de ese gráfico para visualizar el significado real de este el intervalo de confianza?**
