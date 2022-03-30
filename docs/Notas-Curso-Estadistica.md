@@ -7,9 +7,9 @@ documentclass: book
 fontsize: 12pt
 monofont: "Source Code Pro"
 colorlinks: true
-# bibliography: [bibliografia.bib]
-# biblio-style: authoryear
-# biblatexoptions: [url=false, doi=false, eprint=false, isbn=false]
+bibliography: [bibliografia.bib]
+biblio-style: authoryear
+biblatexoptions: [url=false, doi=false, eprint=false, isbn=false]
 # link-citations: yes
 description: ""
 ---
