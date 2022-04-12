@@ -2267,3 +2267,10 @@ Repita los cálculos anteriores tomando como cuantiles los de una normal con med
 
 <!--chapter:end:02-jacknife-bootstrap.Rmd-->
 
+
+\backmatter
+
+
+
+<!--chapter:end:referencias.Rmd-->
+
