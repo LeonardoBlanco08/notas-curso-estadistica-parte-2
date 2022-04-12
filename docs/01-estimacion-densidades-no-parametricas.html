@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 2 Estimación no-paramétrica de densidades | Notas Curso de Estadística II</title>
   <meta name="description" content="Capítulo 2 Estimación no-paramétrica de densidades | Notas Curso de Estadística II" />
-  <meta name="generator" content="bookdown 0.25.3 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.25.5 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 2 Estimación no-paramétrica de densidades | Notas Curso de Estadística II" />
   <meta property="og:type" content="book" />
@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="index.html"/>
-
+<link rel="next" href="02-jacknife-bootstrap.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -157,40 +157,51 @@ div.csl-indent {
 <li><a href="./">Curso de Estadística</a></li>
 
 <li class="divider"></li>
-<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción<span></span></a></li>
-<li class="chapter" data-level="2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html"><i class="fa fa-check"></i><b>2</b> Estimación no-paramétrica de densidades<span></span></a>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
+<li class="chapter" data-level="2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html"><i class="fa fa-check"></i><b>2</b> Estimación no-paramétrica de densidades</a>
 <ul>
-<li class="chapter" data-level="2.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#histograma"><i class="fa fa-check"></i><b>2.1</b> Histograma<span></span></a>
+<li class="chapter" data-level="2.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#histograma"><i class="fa fa-check"></i><b>2.1</b> Histograma</a>
 <ul>
-<li class="chapter" data-level="2.1.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#construcción-estadística"><i class="fa fa-check"></i><b>2.1.1</b> Construcción Estadística<span></span></a></li>
-<li class="chapter" data-level="2.1.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#construcción-probabilística"><i class="fa fa-check"></i><b>2.1.2</b> Construcción probabilística<span></span></a></li>
-<li class="chapter" data-level="2.1.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#propiedades-estadísticas"><i class="fa fa-check"></i><b>2.1.3</b> Propiedades estadísticas<span></span></a></li>
-<li class="chapter" data-level="2.1.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#propiedades-estadísticas-1"><i class="fa fa-check"></i><b>2.1.4</b> Propiedades estadísticas<span></span></a></li>
-<li class="chapter" data-level="2.1.5" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#sesgo"><i class="fa fa-check"></i><b>2.1.5</b> Sesgo<span></span></a></li>
-<li class="chapter" data-level="2.1.6" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#varianza"><i class="fa fa-check"></i><b>2.1.6</b> Varianza<span></span></a></li>
-<li class="chapter" data-level="2.1.7" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#error-cuadrático-medio"><i class="fa fa-check"></i><b>2.1.7</b> Error cuadrático medio<span></span></a></li>
-<li class="chapter" data-level="2.1.8" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#error-cuadrático-medio-integrado"><i class="fa fa-check"></i><b>2.1.8</b> Error cuadrático medio integrado<span></span></a></li>
-<li class="chapter" data-level="2.1.9" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo-para-el-histograma"><i class="fa fa-check"></i><b>2.1.9</b> Ancho de banda óptimo para el histograma<span></span></a></li>
+<li class="chapter" data-level="2.1.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#construcción-estadística"><i class="fa fa-check"></i><b>2.1.1</b> Construcción Estadística</a></li>
+<li class="chapter" data-level="2.1.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#construcción-probabilística"><i class="fa fa-check"></i><b>2.1.2</b> Construcción probabilística</a></li>
+<li class="chapter" data-level="2.1.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#propiedades-estadísticas"><i class="fa fa-check"></i><b>2.1.3</b> Propiedades estadísticas</a></li>
+<li class="chapter" data-level="2.1.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#propiedades-estadísticas-1"><i class="fa fa-check"></i><b>2.1.4</b> Propiedades estadísticas</a></li>
+<li class="chapter" data-level="2.1.5" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#sesgo"><i class="fa fa-check"></i><b>2.1.5</b> Sesgo</a></li>
+<li class="chapter" data-level="2.1.6" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#varianza"><i class="fa fa-check"></i><b>2.1.6</b> Varianza</a></li>
+<li class="chapter" data-level="2.1.7" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#error-cuadrático-medio"><i class="fa fa-check"></i><b>2.1.7</b> Error cuadrático medio</a></li>
+<li class="chapter" data-level="2.1.8" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#error-cuadrático-medio-integrado"><i class="fa fa-check"></i><b>2.1.8</b> Error cuadrático medio integrado</a></li>
+<li class="chapter" data-level="2.1.9" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo-para-el-histograma"><i class="fa fa-check"></i><b>2.1.9</b> Ancho de banda óptimo para el histograma</a></li>
 </ul></li>
-<li class="chapter" data-level="2.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#estimación-de-densidades-basada-en-kernels."><i class="fa fa-check"></i><b>2.2</b> Estimación de densidades basada en kernels.<span></span></a>
+<li class="chapter" data-level="2.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#estimación-de-densidades-basada-en-kernels."><i class="fa fa-check"></i><b>2.2</b> Estimación de densidades basada en kernels.</a>
 <ul>
-<li class="chapter" data-level="2.2.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#primera-construcción"><i class="fa fa-check"></i><b>2.2.1</b> Primera construcción<span></span></a></li>
-<li class="chapter" data-level="2.2.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#otra-construcción"><i class="fa fa-check"></i><b>2.2.2</b> Otra construcción<span></span></a></li>
-<li class="chapter" data-level="2.2.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#propiedades-estadísticas-2"><i class="fa fa-check"></i><b>2.2.3</b> Propiedades Estadísticas<span></span></a></li>
-<li class="chapter" data-level="2.2.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#sesgo-1"><i class="fa fa-check"></i><b>2.2.4</b> Sesgo<span></span></a></li>
-<li class="chapter" data-level="2.2.5" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#error-cuadrático-medio-y-error-cuadrático-medio-integrado"><i class="fa fa-check"></i><b>2.2.5</b> Error cuadrático medio y Error cuadrático medio integrado<span></span></a></li>
-<li class="chapter" data-level="2.2.6" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo"><i class="fa fa-check"></i><b>2.2.6</b> Ancho de banda óptimo<span></span></a></li>
-<li class="chapter" data-level="2.2.7" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#intervalos-de-confianza-para-estimadores-de-densidad-no-paramétricos"><i class="fa fa-check"></i><b>2.2.7</b> Intervalos de confianza para estimadores de densidad no paramétricos<span></span></a></li>
+<li class="chapter" data-level="2.2.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#primera-construcción"><i class="fa fa-check"></i><b>2.2.1</b> Primera construcción</a></li>
+<li class="chapter" data-level="2.2.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#otra-construcción"><i class="fa fa-check"></i><b>2.2.2</b> Otra construcción</a></li>
+<li class="chapter" data-level="2.2.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#propiedades-estadísticas-2"><i class="fa fa-check"></i><b>2.2.3</b> Propiedades Estadísticas</a></li>
+<li class="chapter" data-level="2.2.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#sesgo-1"><i class="fa fa-check"></i><b>2.2.4</b> Sesgo</a></li>
+<li class="chapter" data-level="2.2.5" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#error-cuadrático-medio-y-error-cuadrático-medio-integrado"><i class="fa fa-check"></i><b>2.2.5</b> Error cuadrático medio y Error cuadrático medio integrado</a></li>
+<li class="chapter" data-level="2.2.6" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo"><i class="fa fa-check"></i><b>2.2.6</b> Ancho de banda óptimo</a></li>
+<li class="chapter" data-level="2.2.7" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#intervalos-de-confianza-para-estimadores-de-densidad-no-paramétricos"><i class="fa fa-check"></i><b>2.2.7</b> Intervalos de confianza para estimadores de densidad no paramétricos</a></li>
 </ul></li>
-<li class="chapter" data-level="2.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#laboratorio"><i class="fa fa-check"></i><b>2.3</b> Laboratorio<span></span></a>
+<li class="chapter" data-level="2.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#laboratorio"><i class="fa fa-check"></i><b>2.3</b> Laboratorio</a>
 <ul>
-<li class="chapter" data-level="2.3.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#efecto-de-distintos-kernels-en-la-estimación"><i class="fa fa-check"></i><b>2.3.1</b> Efecto de distintos Kernels en la estimación<span></span></a></li>
-<li class="chapter" data-level="2.3.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#efecto-del-ancho-de-banda-en-la-estimación"><i class="fa fa-check"></i><b>2.3.2</b> Efecto del ancho de banda en la estimación<span></span></a></li>
-<li class="chapter" data-level="2.3.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo-1"><i class="fa fa-check"></i><b>2.3.3</b> Ancho de banda óptimo<span></span></a></li>
-<li class="chapter" data-level="2.3.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#validación-cruzada-1"><i class="fa fa-check"></i><b>2.3.4</b> Validación cruzada<span></span></a></li>
-<li class="chapter" data-level="2.3.5" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#temas-adicionales"><i class="fa fa-check"></i><b>2.3.5</b> Temas adicionales<span></span></a></li>
+<li class="chapter" data-level="2.3.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#efecto-de-distintos-kernels-en-la-estimación"><i class="fa fa-check"></i><b>2.3.1</b> Efecto de distintos Kernels en la estimación</a></li>
+<li class="chapter" data-level="2.3.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#efecto-del-ancho-de-banda-en-la-estimación"><i class="fa fa-check"></i><b>2.3.2</b> Efecto del ancho de banda en la estimación</a></li>
+<li class="chapter" data-level="2.3.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo-1"><i class="fa fa-check"></i><b>2.3.3</b> Ancho de banda óptimo</a></li>
+<li class="chapter" data-level="2.3.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#validación-cruzada-1"><i class="fa fa-check"></i><b>2.3.4</b> Validación cruzada</a></li>
+<li class="chapter" data-level="2.3.5" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#temas-adicionales"><i class="fa fa-check"></i><b>2.3.5</b> Temas adicionales</a></li>
 </ul></li>
-<li class="chapter" data-level="2.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ejercicios"><i class="fa fa-check"></i><b>2.4</b> Ejercicios<span></span></a></li>
+<li class="chapter" data-level="2.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ejercicios"><i class="fa fa-check"></i><b>2.4</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html"><i class="fa fa-check"></i><b>3</b> Jackknife y Bootstrap</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#caso-concreto"><i class="fa fa-check"></i><b>3.1</b> Caso concreto</a></li>
+<li class="chapter" data-level="3.2" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#jackknife"><i class="fa fa-check"></i><b>3.2</b> Jackknife</a></li>
+<li class="chapter" data-level="3.3" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#bootstrap"><i class="fa fa-check"></i><b>3.3</b> Bootstrap</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#intervalos-de-confianza"><i class="fa fa-check"></i><b>3.3.1</b> Intervalos de confianza</a></li>
+<li class="chapter" data-level="3.3.2" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#resumiendo"><i class="fa fa-check"></i><b>3.3.2</b> Resumiendo</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#ejercicios-1"><i class="fa fa-check"></i><b>3.4</b> Ejercicios</a></li>
 </ul></li>
 </ul>
 
@@ -352,18 +363,9 @@ Entonces se puede concluir que:</p>
 </div>
 <p>Retomando los términos anteriores se puede comprobar que:</p>
 <p><span class="math display" id="eq:MSE">\[\begin{align}
-\mathrm{MSE}\left( \hat{f}_h(x)\right) =
-\frac{1}{nh} f(x) + f^\prime
-\left\{
-\left(
-j - \frac{1}{2}
-\right) h
-\right\}^2
-\left\{
-\left(
-j - \frac{1}{2}
-\right) h - x
-\right\}^2 \\
+\mathrm{MSE}\left( \hat{f}_h(x)\right) = \frac{1}{nh} f(x) +
+f^\prime \left\{ \left( j - \frac{1}{2} \right) h \right\}^2 \left\{ \left( j -
+\frac{1}{2} \right) h - x \right\}^2 \\
 + o\left(h \right) +        o\left(\frac{1}{nh} \right)
 \tag{2.1}
 \end{align}\]</span></p>
@@ -443,7 +445,7 @@ h_{opt} = \left(\frac{6}{n\Vert f^\prime\Vert_{2}^2}\right) ^{1/3} = O\left( n^{
 </div>
 <p>Según la nota anterior la tasas de convergencia del histograma es más lenta que la de un estimador parámetrico considerando la misma cantidad de datos, tal y como se ilustra en el siguiente gráfico:</p>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-12-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<p>Finalmente, podemos encontrar el valor óptimo del ancho de banda (<span class="math inline">\(h=\)</span> 0.2335) del conjunto de datos en el ejemplo anterior.<br />
+<p>Finalmente, podemos encontrar el valor óptimo del ancho de banda (<span class="math inline">\(h=\)</span> 0.2805) del conjunto de datos en el ejemplo anterior.<br />
 <img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-14-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-15" class="exercise"><strong>Ejercicio 2.4  </strong></span>Verifique que en el caso normal estándar: <span class="math inline">\(h_{opt}\approx 3.5 n^{-1/3}\)</span>.</p>
@@ -475,7 +477,7 @@ f(x)\approx\frac{F(x+h)-F(x-h)}{2h}.
 \]</span>
 donde <span class="math inline">\(\hat{f}_{n}^{R}(x)\)</span> es el estimador de <em>Rosenblatt</em> .</p>
 <p>Podemos rescribirlo de la forma,
-<span class="math display">\[]
+<span class="math display">\[
 \hat{f}_{n}^{R}(x)=\frac{1}{2nh}\sum_{i=1}^{n}I(x-h&lt;X_{i}\leq x+h)=\frac{1}{nh}\sum_{i=1}^{n}K_{0}\left(\frac{X_{i}-x}{h}\right)
 \]</span>
 con <span class="math inline">\(K_{0}(u)=\frac{1}{2}I(-1&lt;u\leq1)\)</span>, lo cual es equivalente al caso del histograma.</p>
@@ -551,8 +553,6 @@ y <span class="math inline">\(K\)</span> es un kernel según las 4 propiedades a
 <p><span class="math display">\[\begin{equation*}
 \hat{f}_{h}\left( x \right) = \frac{1}{nh}\sum_{i=1}^{n} K\left( \frac{x-X_{i}}{h} \right)
 \end{equation*}\]</span></p>
-<p>Cada sumando de esta expresión es una función por si misma. Si la
-integramos se obtiene que</p>
 <p>Cada sumando de esta expresión es una función de la variable <span class="math inline">\(x\)</span>. Si la integramos se obtiene que</p>
 <p><span class="math display">\[\begin{equation*}
 \frac{1}{nh}\int K\left( \frac{x-X_{i}}{h} \right) dx
@@ -619,12 +619,14 @@ integramos se obtiene que</p>
 \mathrm{Sesgo}\left(\hat{f}_{h}(x)\right) = \frac{h^{2}}{2} f^{\prime\prime} \mu_{2}(K) + o(h^{2}), \text{ si } h\to 0
 \end{equation*}\]</span>
 donde <span class="math inline">\(\mu_{2}=\int s^{2}K(s)ds\)</span>.</p>
-<p></p>
+</div>
+<div class="remark">
+<p><span id="unlabeled-div-8" class="remark"><em>Nota:</em>. </span>En algunas pruebas más formales, se necesita además que <span class="math inline">\(f^{\prime\prime}\)</span> sea absolutamente continua y que <span class="math inline">\(\int(f^{\prime\prime\prime}(x))dx&lt;\infty\)</span>.}</p>
 </div>
 <p>En el siguiente gráfico se ilustra el estimador no paramétrico de la distribución de tiempos entre erupciones en la muy conocida tabla de datos <em>faithful</em>. El estimador se calcula bajo dos distintas escogencias de ancho de banda.</p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-27-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-28-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="remark">
-<p><span id="unlabeled-div-8" class="remark"><em>Nota:</em>. </span>Note como los cambios en el ancho de banda modifican la suavidad (sesgo) y el aplanamiento de la curva (varianza).</p>
+<p><span id="unlabeled-div-9" class="remark"><em>Nota:</em>. </span>Note como los cambios en el ancho de banda modifican la suavidad (sesgo) y el aplanamiento de la curva (varianza).</p>
 </div>
 </div>
 <div id="error-cuadrático-medio-y-error-cuadrático-medio-integrado" class="section level3 hasAnchor" number="2.2.5">
@@ -650,16 +652,16 @@ donde <span class="math inline">\(\mu_{2}=\int s^{2}K(s)ds\)</span>.</p>
 h_{opt}=\left(\frac{\Vert K\Vert_{2}^{2}}{\Vert f^{\prime\prime}\Vert_{2}^{2}\left(\mu_{2}(K)\right)^{2}n}\right)^{1/5}=O\left( n^{-1/5} \right).
 \end{equation*}\]</span></p>
 <div class="remark">
-<p><span id="unlabeled-div-9" class="remark"><em>Nota:</em>. </span>De forma práctica, <span class="math inline">\(h_{opt}\)</span> no es un estimador útil de <span class="math inline">\(h\)</span> porque depende de <span class="math inline">\(\Vert f^{\prime\prime}\Vert_{2}^{2}\)</span> que es desconocido. Más adelante veremos otra forma de encontrar este estimador.</p>
+<p><span id="unlabeled-div-10" class="remark"><em>Nota:</em>. </span>De forma práctica, <span class="math inline">\(h_{opt}\)</span> no es un estimador útil de <span class="math inline">\(h\)</span> porque depende de <span class="math inline">\(\Vert f^{\prime\prime}\Vert_{2}^{2}\)</span> que es desconocido. Más adelante veremos otra forma de encontrar este estimador.</p>
 </div>
 <p>Evaluando <span class="math inline">\(h_{opt}\)</span> en el <span class="math inline">\(\mathrm{MISE}\)</span> tenemos que</p>
 <p><span class="math display">\[\begin{equation*}
 \mathrm{MISE}(\hat{f}_{h})=\frac{5}{4}\left(\Vert K\Vert_{2}^{2}\right)^{4/5}\left(\Vert f^{\prime\prime}\Vert_{2}^{2}\mu_{2}(K)\right)^{2/5}n^{-4/5} = O\left( n^{-4/5} \right).
 \end{equation*}\]</span></p>
 <p>y por lo tanto la tasa de convergencia del MISE a 0 es más rápida que para el caso del histograma:</p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-30-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-31-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="remark">
-<p><span id="unlabeled-div-10" class="remark"><em>Nota:</em>. </span>Como se comentó anteriormente, el principal inconveniente del ancho de banda:
+<p><span id="unlabeled-div-11" class="remark"><em>Nota:</em>. </span>Como se comentó anteriormente, el principal inconveniente del ancho de banda:
 <span class="math display">\[\begin{equation*}
 h_{opt}=\left(\frac{\Vert K\Vert_{2}^{2}}{\Vert f^{\prime\prime}\Vert_{2}^{2}\left(\mu_{2}(K)\right)^{2}n}\right)^{1/5}=O\left( n^{-1/5} \right).
 \end{equation*}\]</span>
@@ -669,7 +671,7 @@ es que depende de <span class="math inline">\(f&#39;&#39;\)</span>.</p>
 <div id="referencia-normal" class="section level4 hasAnchor" number="2.2.6.1">
 <h4><span class="header-section-number">2.2.6.1</span> Referencia normal<a href="01-estimacion-densidades-no-parametricas.html#referencia-normal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <div class="remark">
-<p><span id="unlabeled-div-11" class="remark"><em>Nota:</em>. </span>Este método es más efectivo si se conoce que la verdadera distribución es bastante suave, unimodal y simétrica. Más adelante veremos otro método para densidades más generales.</p>
+<p><span id="unlabeled-div-12" class="remark"><em>Nota:</em>. </span>Este método es más efectivo si se conoce que la verdadera distribución es bastante suave, unimodal y simétrica. Más adelante veremos otro método para densidades más generales.</p>
 </div>
 <p>Asuma que <span class="math inline">\(f\)</span> es normal distribuida y se utiliza un kernel <span class="math inline">\(K\)</span> gausiano.
 Entonces se tiene que</p>
@@ -682,17 +684,17 @@ Entonces se tiene que</p>
 \hat{\sigma} = \sqrt{\frac{1}{n-1} \sum_{i=1}^{n} \left( x_{i}-\bar{x}^{2} \right)}
 \end{equation*}\]</span></p>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-34" class="exercise"><strong>Ejercicio 2.6  </strong></span>Pruebe que la ecuación anterior es verdadera. Utilice el hecho de que:
+<p><span id="exr:unnamed-chunk-35" class="exercise"><strong>Ejercicio 2.6  </strong></span>Pruebe que la ecuación anterior es verdadera. Utilice el hecho de que:
 <span class="math display">\[\begin{align*}
 \Vert f^{\prime\prime}\Vert_{2}^{2}=\sigma^{-5}\int \phi^{\prime \prime}(x)^2 dx
 \end{align*}\]</span>
 donde <span class="math inline">\(\phi\)</span> es la función de densidad de una <span class="math inline">\(N(0,1)\)</span>.</p>
 </div>
 <div class="remark">
-<p><span id="unlabeled-div-12" class="remark"><em>Nota:</em>. </span>El principal inconveniente de <span class="math inline">\(\hat{h}_{rn}\)</span> es su sensibilidad a los valores extremos:</p>
+<p><span id="unlabeled-div-13" class="remark"><em>Nota:</em>. </span>El principal inconveniente de <span class="math inline">\(\hat{h}_{rn}\)</span> es su sensibilidad a los valores extremos:</p>
 </div>
 <div class="example">
-<p><span id="exm:unnamed-chunk-36" class="example"><strong>Ejemplo 2.1  </strong></span>La varianza empírica de 1, 2, 3, 4, 5, es 2.5.</p>
+<p><span id="exm:unnamed-chunk-37" class="example"><strong>Ejemplo 2.1  </strong></span>La varianza empírica de 1, 2, 3, 4, 5, es 2.5.</p>
 <p>La varianza empírica de 1, 2, 3, 4, 5, 99, es 1538.</p>
 </div>
 <p>Para solucionar el problema anterior, se puede considerar una medida más robusta de variación, por ejemplo el rango intercuantil IQR:</p>
@@ -728,7 +730,7 @@ donde <span class="math inline">\(Q^{X}_{1}\)</span> y <span class="math inline"
 &amp; =\int \hat{f}_{h}^{2}(x)dx-2\int \hat{f}_{h}(x)f(x)dx+\int f^{2}(x)dx.
 \end{align*}\]</span></p>
 <div class="remark">
-<p><span id="unlabeled-div-13" class="remark"><em>Nota:</em>. </span>El MISE es el valor esperado del ISE.</p>
+<p><span id="unlabeled-div-14" class="remark"><em>Nota:</em>. </span>El MISE es el valor esperado del ISE.</p>
 </div>
 <p>Nuestro objetivo es minimizar el ISE con respecto a <span class="math inline">\(h\)</span>.</p>
 <p>Primero note que <span class="math inline">\(\int f^{2}(x)dx\)</span> NO DEPENDE de <span class="math inline">\(h\)</span>. Podemos minimizar
@@ -750,7 +752,7 @@ la expresión <span class="math display">\[\begin{equation*}
 K\left(\frac{X_{j}-X_{i}}{h}\right).
 \end{equation*}\]</span></p>
 <div class="remark">
-<p><span id="unlabeled-div-14" class="remark"><em>Nota:</em>. </span>El problema con esta expresión es que las observaciones que se usan para estimar la esperanza son las mismas que se usan para estimar <span class="math inline">\(\hat{f}_{h}(x)\)</span> (Se utilizan doble).</p>
+<p><span id="unlabeled-div-15" class="remark"><em>Nota:</em>. </span>El problema con esta expresión es que las observaciones que se usan para estimar la esperanza son las mismas que se usan para estimar <span class="math inline">\(\hat{f}_{h}(x)\)</span> (Se utilizan doble).</p>
 </div>
 <p>La solución es remover la <span class="math inline">\(i^{\text{ésima}}\)</span> observación de
 <span class="math inline">\(\hat{f}_{h}\)</span> para cada <span class="math inline">\(i\)</span>.</p>
@@ -779,7 +781,7 @@ note que este se puede reescribir como</p>
 \mathrm{CV}(h)=\frac{1}{n^{2}h}\sum_{i=1}^{n}\sum_{j=1}^{n}K*K\left(\frac{X_{i}-X_{j}}{h}\right)-\frac{2}{n(n-1)h}\sum_{i=1}^{n}\mathop{\sum_{j=1}^{n}}_{j\neq i}K\left( \frac{X_{i}-X_{j}}{h} \right).
 \]</span></p>
 <div class="remark">
-<p><span id="unlabeled-div-15" class="remark"><em>Nota:</em>. </span>Note que <span class="math inline">\(\mathrm{CV}(h)\)</span> no depende de <span class="math inline">\(f\)</span> o sus derivadas y además la función objetivo se adapta automáticamente a las características de la densidad <span class="math inline">\(f\)</span>.</p>
+<p><span id="unlabeled-div-16" class="remark"><em>Nota:</em>. </span>Note que <span class="math inline">\(\mathrm{CV}(h)\)</span> no depende de <span class="math inline">\(f\)</span> o sus derivadas y además la función objetivo se adapta automáticamente a las características de la densidad <span class="math inline">\(f\)</span>.</p>
 </div>
 </div>
 </div>
@@ -819,7 +821,7 @@ ignorado.</p>
 \left[\hat{f_{h}}(x)-z_{1-\frac{\alpha}{2}} \sqrt{\frac{\hat{f_{h}}(x)\|K\|_{2}^{2}}{n h}}, \hat{f}_{h}(x)+z_{1-\frac{\alpha}{2}} \sqrt{\frac{\hat{f}_{h}(x)\|\mathrm{K}\|_{2}^{2}}{n h}}\right]
 \end{equation*}\]</span></p>
 <div class="remark">
-<p><span id="unlabeled-div-16" class="remark"><em>Nota:</em>. </span>Este intervalo de confianza está definido para <span class="math inline">\(x\)</span> fijo y no permite hacer inferencia sobre toda la función <span class="math inline">\(f\)</span>. Una forma de determinar la banda de confianza de toda la función <span class="math inline">\(f\)</span> es a través de la fórmula 3.52 en la página 62 de <span class="citation">(Härdle et al. 2004)</span>.</p>
+<p><span id="unlabeled-div-17" class="remark"><em>Nota:</em>. </span>Este intervalo de confianza está definido para <span class="math inline">\(x\)</span> fijo y no permite hacer inferencia sobre toda la función <span class="math inline">\(f\)</span>. Una forma de determinar la banda de confianza de toda la función <span class="math inline">\(f\)</span> es a través de la fórmula 3.52 en la página 62 de <span class="citation">(Härdle et al. 2004)</span>.</p>
 </div>
 </div>
 </div>
@@ -838,36 +840,36 @@ ignorado.</p>
 <span id="cb4-2"><a href="01-estimacion-densidades-no-parametricas.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="01-estimacion-densidades-no-parametricas.html#cb4-3" aria-hidden="true" tabindex="-1"></a>fhat_normal <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;normal&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.05</span>)</span>
 <span id="cb4-4"><a href="01-estimacion-densidades-no-parametricas.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat_normal, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-44-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="01-estimacion-densidades-no-parametricas.html#cb5-1" aria-hidden="true" tabindex="-1"></a>fhat_unif <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;box&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.05</span>)</span>
 <span id="cb5-2"><a href="01-estimacion-densidades-no-parametricas.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat_unif, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-44-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-2.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="01-estimacion-densidades-no-parametricas.html#cb6-1" aria-hidden="true" tabindex="-1"></a>fhat_epanech <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;epanech&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.05</span>)</span>
 <span id="cb6-2"><a href="01-estimacion-densidades-no-parametricas.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat_epanech, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-44-3.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-3.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="01-estimacion-densidades-no-parametricas.html#cb7-1" aria-hidden="true" tabindex="-1"></a>fhat_biweight <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;biweight&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.05</span>)</span>
 <span id="cb7-2"><a href="01-estimacion-densidades-no-parametricas.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat_biweight, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-44-4.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-4.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="01-estimacion-densidades-no-parametricas.html#cb8-1" aria-hidden="true" tabindex="-1"></a>fhat_triweight <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;triweight&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.05</span>)</span>
 <span id="cb8-2"><a href="01-estimacion-densidades-no-parametricas.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat_triweight, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-44-5.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-5.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="efecto-del-ancho-de-banda-en-la-estimación" class="section level3 hasAnchor" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> Efecto del ancho de banda en la estimación<a href="01-estimacion-densidades-no-parametricas.html#efecto-del-ancho-de-banda-en-la-estimación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>** Kernel uniforme **</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="01-estimacion-densidades-no-parametricas.html#cb9-1" aria-hidden="true" tabindex="-1"></a>fhat <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;box&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.001</span>)</span>
 <span id="cb9-2"><a href="01-estimacion-densidades-no-parametricas.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-46-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="01-estimacion-densidades-no-parametricas.html#cb10-1" aria-hidden="true" tabindex="-1"></a>fhat <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;box&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.5</span>)</span>
 <span id="cb10-2"><a href="01-estimacion-densidades-no-parametricas.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-46-2.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>** Kernel Epanechnikov **</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="01-estimacion-densidades-no-parametricas.html#cb11-1" aria-hidden="true" tabindex="-1"></a>fhat <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.001</span>)</span>
 <span id="cb11-2"><a href="01-estimacion-densidades-no-parametricas.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-46-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-47-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="01-estimacion-densidades-no-parametricas.html#cb12-1" aria-hidden="true" tabindex="-1"></a>fhat <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.5</span>)</span>
 <span id="cb12-2"><a href="01-estimacion-densidades-no-parametricas.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-46-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-47-2.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="01-estimacion-densidades-no-parametricas.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tidyverse))</span>
 <span id="cb13-2"><a href="01-estimacion-densidades-no-parametricas.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span>
 <span id="cb13-3"><a href="01-estimacion-densidades-no-parametricas.html#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -901,7 +903,7 @@ ignorado.</p>
 <!-- ]{}{VPlayer.swf} -->
 <div class="remark">
 <ul>
-<li><span id="unlabeled-div-17" class="remark"><em>Nota:</em>. </span></li>
+<li><span id="unlabeled-div-18" class="remark"><em>Nota:</em>. </span></li>
 <li>Construya una variable llamada <code>u</code> que sea una secuencia de -0.15 a 0.15 con un paso de 0.01</li>
 <li>Asigne <code>x</code> a los datos <code>stockrel</code> y calcule su media y varianza.</li>
 <li>Usando la función <code>dnorm</code> construya los valores de la distribución de los datos usando la media y varianza calculada anteriormente. Asigne a esta variable <code>f\_param</code>.</li>
@@ -928,7 +930,7 @@ ignorado.</p>
 <span id="cb16-15"><a href="01-estimacion-densidades-no-parametricas.html#cb16-15" aria-hidden="true" tabindex="-1"></a>n_bins <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">diff</span>(<span class="fu">range</span>(x))<span class="sc">/</span>h)</span>
 <span id="cb16-16"><a href="01-estimacion-densidades-no-parametricas.html#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-17"><a href="01-estimacion-densidades-no-parametricas.html#cb16-17" aria-hidden="true" tabindex="-1"></a>f_hist <span class="ot">&lt;-</span> <span class="fu">hist</span>(x, <span class="at">breaks =</span> n_bins)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-49-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-50-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="01-estimacion-densidades-no-parametricas.html#cb17-1" aria-hidden="true" tabindex="-1"></a>f_epa <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="at">bandwidth =</span> h))</span>
 <span id="cb17-2"><a href="01-estimacion-densidades-no-parametricas.html#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="01-estimacion-densidades-no-parametricas.html#cb17-3" aria-hidden="true" tabindex="-1"></a>x_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x)</span>
@@ -940,7 +942,7 @@ ignorado.</p>
 <span id="cb17-9"><a href="01-estimacion-densidades-no-parametricas.html#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb17-10"><a href="01-estimacion-densidades-no-parametricas.html#cb17-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> f_epa,</span>
 <span id="cb17-11"><a href="01-estimacion-densidades-no-parametricas.html#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-49-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-50-2.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="ancho-de-banda-óptimo-1" class="section level3 hasAnchor" number="2.3.3">
 <h3><span class="header-section-number">2.3.3</span> Ancho de banda óptimo<a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -980,7 +982,7 @@ h_{normal} =  1.06 \min \left\{ s , \frac{IQR}{1.34} \right\} n^{-1/5}.
 <span id="cb19-11"><a href="01-estimacion-densidades-no-parametricas.html#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb19-12"><a href="01-estimacion-densidades-no-parametricas.html#cb19-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> f_epa,</span>
 <span id="cb19-13"><a href="01-estimacion-densidades-no-parametricas.html#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-51-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-52-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="01-estimacion-densidades-no-parametricas.html#cb20-1" aria-hidden="true" tabindex="-1"></a>h_iqr <span class="ot">&lt;-</span> <span class="fl">1.06</span> <span class="sc">*</span> <span class="fu">min</span>(s, <span class="fu">IQR</span>(x)<span class="sc">/</span><span class="fl">1.34</span>) <span class="sc">*</span> n<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>)</span>
 <span id="cb20-2"><a href="01-estimacion-densidades-no-parametricas.html#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="01-estimacion-densidades-no-parametricas.html#cb20-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> h_iqr</span>
@@ -994,7 +996,7 @@ h_{normal} =  1.06 \min \left\{ s , \frac{IQR}{1.34} \right\} n^{-1/5}.
 <span id="cb20-11"><a href="01-estimacion-densidades-no-parametricas.html#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb20-12"><a href="01-estimacion-densidades-no-parametricas.html#cb20-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> f_epa,</span>
 <span id="cb20-13"><a href="01-estimacion-densidades-no-parametricas.html#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-52-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-53-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>Una librería más especializada es (non-parametric).</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="01-estimacion-densidades-no-parametricas.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(np)</span>
 <span id="cb21-2"><a href="01-estimacion-densidades-no-parametricas.html#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1012,7 +1014,7 @@ h_{normal} =  1.06 \min \left\{ s , \frac{IQR}{1.34} \right\} n^{-1/5}.
 <span id="cb21-14"><a href="01-estimacion-densidades-no-parametricas.html#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb21-15"><a href="01-estimacion-densidades-no-parametricas.html#cb21-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dens.ksum.df,</span>
 <span id="cb21-16"><a href="01-estimacion-densidades-no-parametricas.html#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-53-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-54-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="validación-cruzada-1" class="section level3 hasAnchor" number="2.3.4">
 <h3><span class="header-section-number">2.3.4</span> Validación cruzada<a href="01-estimacion-densidades-no-parametricas.html#validación-cruzada-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1032,7 +1034,7 @@ Multistart 1 of 1 |
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="01-estimacion-densidades-no-parametricas.html#cb24-1" aria-hidden="true" tabindex="-1"></a>dens.np <span class="ot">&lt;-</span> <span class="fu">npudens</span>(h_cv_np_ls)</span>
 <span id="cb24-2"><a href="01-estimacion-densidades-no-parametricas.html#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="01-estimacion-densidades-no-parametricas.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dens.np, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-54-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-55-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="01-estimacion-densidades-no-parametricas.html#cb25-1" aria-hidden="true" tabindex="-1"></a>dens.np.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> dens.np<span class="sc">$</span>eval[, <span class="dv">1</span>], <span class="at">y =</span> dens.np<span class="sc">$</span>dens)</span>
 <span id="cb25-2"><a href="01-estimacion-densidades-no-parametricas.html#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="01-estimacion-densidades-no-parametricas.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(x_df, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..),</span>
@@ -1040,7 +1042,7 @@ Multistart 1 of 1 |
 <span id="cb25-5"><a href="01-estimacion-densidades-no-parametricas.html#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb25-6"><a href="01-estimacion-densidades-no-parametricas.html#cb25-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dens.np.df,</span>
 <span id="cb25-7"><a href="01-estimacion-densidades-no-parametricas.html#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-55-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-56-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="temas-adicionales" class="section level3 hasAnchor" number="2.3.5">
 <h3><span class="header-section-number">2.3.5</span> Temas adicionales<a href="01-estimacion-densidades-no-parametricas.html#temas-adicionales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1061,7 +1063,7 @@ Multistart 1 of 1 |
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="01-estimacion-densidades-no-parametricas.html#cb28-1" aria-hidden="true" tabindex="-1"></a>dens.np <span class="ot">&lt;-</span> <span class="fu">npudens</span>(h_cv_np_ls)</span>
 <span id="cb28-2"><a href="01-estimacion-densidades-no-parametricas.html#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="01-estimacion-densidades-no-parametricas.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dens.np, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-56-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-57-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="01-estimacion-densidades-no-parametricas.html#cb29-1" aria-hidden="true" tabindex="-1"></a>dens.np.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> dens.np<span class="sc">$</span>eval[, <span class="dv">1</span>], <span class="at">y =</span> dens.np<span class="sc">$</span>dens)</span>
 <span id="cb29-2"><a href="01-estimacion-densidades-no-parametricas.html#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="01-estimacion-densidades-no-parametricas.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(x_df, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..),</span>
@@ -1069,7 +1071,7 @@ Multistart 1 of 1 |
 <span id="cb29-5"><a href="01-estimacion-densidades-no-parametricas.html#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb29-6"><a href="01-estimacion-densidades-no-parametricas.html#cb29-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dens.np.df,</span>
 <span id="cb29-7"><a href="01-estimacion-densidades-no-parametricas.html#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-57-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-58-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Otra forma de estimar el ancho de banda</strong> Otra forma de estimar ancho
 de bandas óptimos es usando máxima verosimilitud. Les dejo de tarea
 revisar la sección 1.1 del artículo de <span class="citation">(Hall 1987)</span> para entender su
@@ -1087,7 +1089,7 @@ Multistart 1 of 1 |
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="01-estimacion-densidades-no-parametricas.html#cb32-1" aria-hidden="true" tabindex="-1"></a>dens.np <span class="ot">&lt;-</span> <span class="fu">npudens</span>(h_cv_np_ml)</span>
 <span id="cb32-2"><a href="01-estimacion-densidades-no-parametricas.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-3"><a href="01-estimacion-densidades-no-parametricas.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dens.np, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-58-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-59-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="01-estimacion-densidades-no-parametricas.html#cb33-1" aria-hidden="true" tabindex="-1"></a>dens.np.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> dens.np<span class="sc">$</span>eval[, <span class="dv">1</span>], <span class="at">y =</span> dens.np<span class="sc">$</span>dens)</span>
 <span id="cb33-2"><a href="01-estimacion-densidades-no-parametricas.html#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="01-estimacion-densidades-no-parametricas.html#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(x_df, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..),</span>
@@ -1095,7 +1097,7 @@ Multistart 1 of 1 |
 <span id="cb33-5"><a href="01-estimacion-densidades-no-parametricas.html#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb33-6"><a href="01-estimacion-densidades-no-parametricas.html#cb33-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dens.np.df,</span>
 <span id="cb33-7"><a href="01-estimacion-densidades-no-parametricas.html#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-59-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-60-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="01-estimacion-densidades-no-parametricas.html#cb34-1" aria-hidden="true" tabindex="-1"></a>h_cv_np_ml <span class="ot">&lt;-</span> <span class="fu">npudensbw</span>(<span class="at">dat =</span> x, <span class="at">bwmethod =</span> <span class="st">&quot;cv.ml&quot;</span>,</span>
 <span id="cb34-2"><a href="01-estimacion-densidades-no-parametricas.html#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">ckertype =</span> <span class="st">&quot;epanechnikov&quot;</span>, <span class="at">ckerorder =</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## 
@@ -1109,7 +1111,7 @@ Multistart 1 of 1 |
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="01-estimacion-densidades-no-parametricas.html#cb36-1" aria-hidden="true" tabindex="-1"></a>dens.np <span class="ot">&lt;-</span> <span class="fu">npudens</span>(h_cv_np_ml)</span>
 <span id="cb36-2"><a href="01-estimacion-densidades-no-parametricas.html#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="01-estimacion-densidades-no-parametricas.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dens.np, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-60-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-61-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="01-estimacion-densidades-no-parametricas.html#cb37-1" aria-hidden="true" tabindex="-1"></a>dens.np.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> dens.np<span class="sc">$</span>eval[, <span class="dv">1</span>], <span class="at">y =</span> dens.np<span class="sc">$</span>dens)</span>
 <span id="cb37-2"><a href="01-estimacion-densidades-no-parametricas.html#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="01-estimacion-densidades-no-parametricas.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(x_df, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..),</span>
@@ -1117,7 +1119,7 @@ Multistart 1 of 1 |
 <span id="cb37-5"><a href="01-estimacion-densidades-no-parametricas.html#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb37-6"><a href="01-estimacion-densidades-no-parametricas.html#cb37-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dens.np.df,</span>
 <span id="cb37-7"><a href="01-estimacion-densidades-no-parametricas.html#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-61-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-62-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="01-estimacion-densidades-no-parametricas.html#cb38-1" aria-hidden="true" tabindex="-1"></a>fani <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
 <span id="cb38-2"><a href="01-estimacion-densidades-no-parametricas.html#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-3"><a href="01-estimacion-densidades-no-parametricas.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="fu">seq</span>(<span class="fl">0.001</span>, <span class="fl">0.05</span>, <span class="at">length.out =</span> <span class="dv">40</span>)) {</span>
@@ -1149,7 +1151,7 @@ Multistart 1 of 1 |
 <!-- } -->
 <!-- ]{}{VPlayer.swf} -->
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-63" class="exercise"><strong>Ejercicio 2.7  </strong></span>Implementar el intervalo confianza visto en clase para estimadores de densidades por núcleos y visualizarlo de en ggplot.</p>
+<p><span id="exr:unnamed-chunk-64" class="exercise"><strong>Ejercicio 2.7  </strong></span>Implementar el intervalo confianza visto en clase para estimadores de densidades por núcleos y visualizarlo de en ggplot.</p>
 <p><strong>Si se atreven: ¿Se podría hacer una versión animada de ese gráfico para visualizar el significado real de este el intervalo de confianza?</strong></p>
 </div>
 </div>
@@ -1162,14 +1164,6 @@ Multistart 1 of 1 |
 <li><strong>Sección 3:</strong> 4, 8, 10, 11, 16,</li>
 </ol>
 
-<div id="refs" class="references csl-bib-body hanging-indent">
-<div class="csl-entry">
-Hall, Peter. 1987. <span>“On <span>Kullback</span>-<span>Leibler Loss</span> and <span>Density Estimation</span>.”</span> <em>The Annals of Statistics</em> 15 (4): 1491–1519. <a href="https://doi.org/10.1214/aos/1176350606">https://doi.org/10.1214/aos/1176350606</a>.
-</div>
-<div class="csl-entry">
-Härdle, Wolfgang, Axel Werwatz, Marlene Müller, and Stefan Sperlich. 2004. <em>Nonparametric and <span>Semiparametric Models</span></em>. <span>Berlin, Heidelberg</span>: <span>Springer Berlin Heidelberg</span>. <a href="https://doi.org/10.1007/978-3-642-17146-8">https://doi.org/10.1007/978-3-642-17146-8</a>.
-</div>
-</div>
 </div>
 </div>
             </section>
@@ -1177,8 +1171,8 @@ Härdle, Wolfgang, Axel Werwatz, Marlene Müller, and Stefan Sperlich. 2004. <em
           </div>
         </div>
       </div>
-<a href="index.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="02-jacknife-bootstrap.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

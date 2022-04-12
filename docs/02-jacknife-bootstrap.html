@@ -1,0 +1,1116 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 3 Jackknife y Bootstrap | Notas Curso de Estadística II</title>
+  <meta name="description" content="Capítulo 3 Jackknife y Bootstrap | Notas Curso de Estadística II" />
+  <meta name="generator" content="bookdown 0.25.5 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 3 Jackknife y Bootstrap | Notas Curso de Estadística II" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 3 Jackknife y Bootstrap | Notas Curso de Estadística II" />
+  
+  
+  
+
+<meta name="author" content="Maikol Solís Chacón y Luis Barboza Chinchilla" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="01-estimacion-densidades-no-parametricas.html"/>
+
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Curso de Estadística</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
+<li class="chapter" data-level="2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html"><i class="fa fa-check"></i><b>2</b> Estimación no-paramétrica de densidades</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#histograma"><i class="fa fa-check"></i><b>2.1</b> Histograma</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#construcción-estadística"><i class="fa fa-check"></i><b>2.1.1</b> Construcción Estadística</a></li>
+<li class="chapter" data-level="2.1.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#construcción-probabilística"><i class="fa fa-check"></i><b>2.1.2</b> Construcción probabilística</a></li>
+<li class="chapter" data-level="2.1.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#propiedades-estadísticas"><i class="fa fa-check"></i><b>2.1.3</b> Propiedades estadísticas</a></li>
+<li class="chapter" data-level="2.1.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#propiedades-estadísticas-1"><i class="fa fa-check"></i><b>2.1.4</b> Propiedades estadísticas</a></li>
+<li class="chapter" data-level="2.1.5" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#sesgo"><i class="fa fa-check"></i><b>2.1.5</b> Sesgo</a></li>
+<li class="chapter" data-level="2.1.6" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#varianza"><i class="fa fa-check"></i><b>2.1.6</b> Varianza</a></li>
+<li class="chapter" data-level="2.1.7" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#error-cuadrático-medio"><i class="fa fa-check"></i><b>2.1.7</b> Error cuadrático medio</a></li>
+<li class="chapter" data-level="2.1.8" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#error-cuadrático-medio-integrado"><i class="fa fa-check"></i><b>2.1.8</b> Error cuadrático medio integrado</a></li>
+<li class="chapter" data-level="2.1.9" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo-para-el-histograma"><i class="fa fa-check"></i><b>2.1.9</b> Ancho de banda óptimo para el histograma</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#estimación-de-densidades-basada-en-kernels."><i class="fa fa-check"></i><b>2.2</b> Estimación de densidades basada en kernels.</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#primera-construcción"><i class="fa fa-check"></i><b>2.2.1</b> Primera construcción</a></li>
+<li class="chapter" data-level="2.2.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#otra-construcción"><i class="fa fa-check"></i><b>2.2.2</b> Otra construcción</a></li>
+<li class="chapter" data-level="2.2.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#propiedades-estadísticas-2"><i class="fa fa-check"></i><b>2.2.3</b> Propiedades Estadísticas</a></li>
+<li class="chapter" data-level="2.2.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#sesgo-1"><i class="fa fa-check"></i><b>2.2.4</b> Sesgo</a></li>
+<li class="chapter" data-level="2.2.5" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#error-cuadrático-medio-y-error-cuadrático-medio-integrado"><i class="fa fa-check"></i><b>2.2.5</b> Error cuadrático medio y Error cuadrático medio integrado</a></li>
+<li class="chapter" data-level="2.2.6" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo"><i class="fa fa-check"></i><b>2.2.6</b> Ancho de banda óptimo</a></li>
+<li class="chapter" data-level="2.2.7" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#intervalos-de-confianza-para-estimadores-de-densidad-no-paramétricos"><i class="fa fa-check"></i><b>2.2.7</b> Intervalos de confianza para estimadores de densidad no paramétricos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#laboratorio"><i class="fa fa-check"></i><b>2.3</b> Laboratorio</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#efecto-de-distintos-kernels-en-la-estimación"><i class="fa fa-check"></i><b>2.3.1</b> Efecto de distintos Kernels en la estimación</a></li>
+<li class="chapter" data-level="2.3.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#efecto-del-ancho-de-banda-en-la-estimación"><i class="fa fa-check"></i><b>2.3.2</b> Efecto del ancho de banda en la estimación</a></li>
+<li class="chapter" data-level="2.3.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo-1"><i class="fa fa-check"></i><b>2.3.3</b> Ancho de banda óptimo</a></li>
+<li class="chapter" data-level="2.3.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#validación-cruzada-1"><i class="fa fa-check"></i><b>2.3.4</b> Validación cruzada</a></li>
+<li class="chapter" data-level="2.3.5" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#temas-adicionales"><i class="fa fa-check"></i><b>2.3.5</b> Temas adicionales</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ejercicios"><i class="fa fa-check"></i><b>2.4</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html"><i class="fa fa-check"></i><b>3</b> Jackknife y Bootstrap</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#caso-concreto"><i class="fa fa-check"></i><b>3.1</b> Caso concreto</a></li>
+<li class="chapter" data-level="3.2" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#jackknife"><i class="fa fa-check"></i><b>3.2</b> Jackknife</a></li>
+<li class="chapter" data-level="3.3" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#bootstrap"><i class="fa fa-check"></i><b>3.3</b> Bootstrap</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#intervalos-de-confianza"><i class="fa fa-check"></i><b>3.3.1</b> Intervalos de confianza</a></li>
+<li class="chapter" data-level="3.3.2" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#resumiendo"><i class="fa fa-check"></i><b>3.3.2</b> Resumiendo</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#ejercicios-1"><i class="fa fa-check"></i><b>3.4</b> Ejercicios</a></li>
+</ul></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notas Curso de Estadística II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="jackknife-y-bootstrap" class="section level1 hasAnchor" number="3">
+<h1><span class="header-section-number">Capítulo 3</span> Jackknife y Bootstrap<a href="02-jacknife-bootstrap.html#jackknife-y-bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<p>Suponga que se quiere estimar un intervalo de confianza para la media
+<span class="math inline">\(\mu\)</span> desconocida de un conjunto de datos <span class="math inline">\(X_{1},\ldots, X_{n}\)</span>
+que tiene distribución <span class="math inline">\(\mathcal{N}\left(\mu ,\sigma^{2}\right)\)</span>.</p>
+<p>Primero se conoce que</p>
+<p><span class="math display">\[\begin{equation*}
+\sqrt{n}\left( \hat{\mu} - \mu \right)
+\sim \mathcal{N}\left(0,\sigma^{2}\right),
+\end{equation*}\]</span></p>
+<p>y esto nos permite escribir el intervalo de confianza como</p>
+<p><span class="math display">\[\begin{equation*}
+\left[ \hat{\mu} - \hat{\sigma}z_{1-\frac{\alpha}{2}} ,
+\hat{\mu} + \hat{\sigma}z_{1-\frac{\alpha}{2}}\right]
+\end{equation*}\]</span></p>
+<p>donde <span class="math inline">\(z_{1-\frac{\alpha}{2}}\)</span> es el cuantil <span class="math inline">\(1-\frac{\alpha}{2}\)</span>
+de una normal estándar.</p>
+<p>La expresión anterior es posible dado que la distribución de <span class="math inline">\(\hat{\mu}\)</span> es normal.</p>
+<div class="remark">
+<p><span id="unlabeled-div-19" class="remark"><em>Nota:</em>. </span>¿Qué pasaría si no conocemos la distribución de <span class="math inline">\(\hat{\mu}\)</span>?</p>
+<p>¿Cómo podemos encontrar ese intervalo de confianza?</p>
+</div>
+<div id="caso-concreto" class="section level2 hasAnchor" number="3.1">
+<h2><span class="header-section-number">3.1</span> Caso concreto<a href="02-jacknife-bootstrap.html#caso-concreto" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Suponga que tenemos la siguiente tabla de datos, que representa una
+muestra de tiempos y distancias de viajes en Atlanta.</p>
+<p>Cargamos la base de la siguiente forma:</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb41-1"><a href="02-jacknife-bootstrap.html#cb41-1" aria-hidden="true" tabindex="-1"></a>CommuteAtlanta <span class="ot">&lt;-</span> <span class="fu">read.csv2</span>(<span class="st">&quot;data/CommuteAtlanta.csv&quot;</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">City</th>
+<th align="right">Age</th>
+<th align="right">Distance</th>
+<th align="right">Time</th>
+<th align="left">Sex</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Atlanta</td>
+<td align="right">19</td>
+<td align="right">10</td>
+<td align="right">15</td>
+<td align="left">M</td>
+</tr>
+<tr class="even">
+<td align="left">Atlanta</td>
+<td align="right">55</td>
+<td align="right">45</td>
+<td align="right">60</td>
+<td align="left">M</td>
+</tr>
+<tr class="odd">
+<td align="left">Atlanta</td>
+<td align="right">48</td>
+<td align="right">12</td>
+<td align="right">45</td>
+<td align="left">M</td>
+</tr>
+<tr class="even">
+<td align="left">Atlanta</td>
+<td align="right">45</td>
+<td align="right">4</td>
+<td align="right">10</td>
+<td align="left">F</td>
+</tr>
+<tr class="odd">
+<td align="left">Atlanta</td>
+<td align="right">48</td>
+<td align="right">15</td>
+<td align="right">30</td>
+<td align="left">F</td>
+</tr>
+<tr class="even">
+<td align="left">Atlanta</td>
+<td align="right">43</td>
+<td align="right">33</td>
+<td align="right">60</td>
+<td align="left">M</td>
+</tr>
+</tbody>
+</table>
+<p>Para este ejemplo tomaremos la variable que la
+llamaremos para ser más breves. En este caso note que</p>
+<div class="sourceCode" id="cb42"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb42-1"><a href="02-jacknife-bootstrap.html#cb42-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> CommuteAtlanta<span class="sc">$</span>Time</span></code></pre></div>
+<p>La media es 29.11 y su varianza 429.2483968. Para efectos de lo que sigue, asignaremos la varianza a la variable <span class="math inline">\(T_n\)</span></p>
+<div class="sourceCode" id="cb43"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb43-1"><a href="02-jacknife-bootstrap.html#cb43-1" aria-hidden="true" tabindex="-1"></a>Tn <span class="ot">&lt;-</span> <span class="fu">var</span>(x)</span></code></pre></div>
+<p>A partir de estos dos valores, ¿Cuál sería un intervalo de confianza
+para la varianza?</p>
+<p>Note que esta pregunta es difícil ya que no tenemos ningún tipo de
+información adicional para inferir la variación de la varianza <span class="math inline">\(T_n\)</span>.</p>
+<p>Las dos técnicas que veremos a continuación nos permitirán extraer
+<em>información adicional</em> de la muestra para inferir propiedades distribucionales de <span class="math inline">\(T_n\)</span>.</p>
+<div class="remark">
+<p><span id="unlabeled-div-20" class="remark"><em>Nota:</em>. </span>Para efectos de este capítulo, llamaremos <span class="math inline">\(T_{n}=T\left(  X_{1},\ldots,X_{n}\right)\)</span> al estadístico <span class="math inline">\(T\)</span> formado por la muestra de
+los <span class="math inline">\(X_{i}\)</span>’s.</p>
+</div>
+</div>
+<div id="jackknife" class="section level2 hasAnchor" number="3.2">
+<h2><span class="header-section-number">3.2</span> Jackknife<a href="02-jacknife-bootstrap.html#jackknife" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Esta técnica fue propuesta por <span class="citation">(Quenouille 1949)</span>. Primero que todo se puede probar que existen estimadores que cumplen la siguiente propiedad:</p>
+<p><span class="math display">\[\begin{equation}
+\operatorname{Sesgo}\left(T_{n}\right)=\frac{a}{n}+\frac{b}{n^{2}}+O\left(\frac{1}{n^{3}}\right)
+\end{equation}\]</span></p>
+<p>para algún <span class="math inline">\(a\)</span> and <span class="math inline">\(b\)</span>.</p>
+<p>Por ejemplo sea <span class="math inline">\(\sigma^{2}=\mathrm{Var}\left(X_{i}\right)\)</span> y sea
+<span class="math inline">\(\widehat{\sigma}_{n}^{2}=n^{-1} \sum_{i=1}^{n}\left(X_{i}-\right.\)</span>
+<span class="math inline">\(\bar{X})^{2}\)</span>. Entonces,</p>
+<p><span class="math display">\[\begin{equation*}
+\mathbb{E}\left(\widehat{\sigma}_{n}^{2}\right)=
+\frac{n-1}{n}\sigma^{2}
+\end{equation*}\]</span></p>
+<p>por lo tanto</p>
+<p><span class="math display">\[\begin{equation*}
+\mathrm{Sesgo} = -\frac{\sigma^{2}}{n}
+\end{equation*}\]</span></p>
+<p>Por lo tanto en este caso <span class="math inline">\(a=-\sigma^{2}\)</span> y <span class="math inline">\(b=0\)</span>.</p>
+<p>Defina <span class="math inline">\(T_{(-i)}\)</span> como el estimador <span class="math inline">\(T_{n}\)</span> pero eliminando el
+<span class="math inline">\(i\)</span>-ésimo elemento de la muestra.</p>
+<p>Es claro que en este contexto, se tiene que</p>
+<p><span class="math display">\[\begin{equation}
+\operatorname{Sesgo}\left(T_{(-i)}\right)=\frac{a}{n-1}+\frac{b}{(n-1)^{2}}+O\left(\frac{1}{(n-1)^{3}}\right)
+\end{equation}\]</span></p>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-70" class="exercise"><strong>Ejercicio 3.1  </strong></span>Una forma fácil de construir los <span class="math inline">\(T_{(-i)}\)</span> es primero replicando
+la matriz de datos múltiple veces usando el producto de kronecker</p>
+</div>
+<div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="02-jacknife-bootstrap.html#cb44-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
+<span id="cb44-2"><a href="02-jacknife-bootstrap.html#cb44-2" aria-hidden="true" tabindex="-1"></a>jackdf <span class="ot">&lt;-</span> <span class="fu">kronecker</span>(<span class="fu">matrix</span>(<span class="dv">1</span>, <span class="dv">1</span>, n), x)</span></code></pre></div>
+<table>
+<tbody>
+<tr class="odd">
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+</tr>
+<tr class="even">
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+</tr>
+<tr class="odd">
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">30</td>
+</tr>
+<tr class="even">
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+</tr>
+<tr class="odd">
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">25</td>
+</tr>
+<tr class="even">
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+</tr>
+</tbody>
+</table>
+<p>Y luego se elimina la diagonal</p>
+<div class="sourceCode" id="cb45"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb45-1"><a href="02-jacknife-bootstrap.html#cb45-1" aria-hidden="true" tabindex="-1"></a><span class="fu">diag</span>(jackdf) <span class="ot">&lt;-</span> <span class="cn">NA</span></span></code></pre></div>
+<table>
+<tbody>
+<tr class="odd">
+<td align="right">NA</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+</tr>
+<tr class="even">
+<td align="right">60</td>
+<td align="right">NA</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+</tr>
+<tr class="odd">
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">NA</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">NA</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">NA</td>
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">30</td>
+<td align="right">30</td>
+</tr>
+<tr class="even">
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">NA</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+<td align="right">60</td>
+</tr>
+<tr class="odd">
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">NA</td>
+<td align="right">45</td>
+<td align="right">45</td>
+<td align="right">45</td>
+</tr>
+<tr class="even">
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">10</td>
+<td align="right">NA</td>
+<td align="right">10</td>
+<td align="right">10</td>
+</tr>
+<tr class="odd">
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">25</td>
+<td align="right">NA</td>
+<td align="right">25</td>
+</tr>
+<tr class="even">
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">15</td>
+<td align="right">NA</td>
+</tr>
+</tbody>
+</table>
+<p>Cada columna contiene toda la muestra excepto el <span class="math inline">\(i\)</span>-ésimo
+elemento. Solo basta estimar la media de cada columna:</p>
+<div class="sourceCode" id="cb46"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb46-1"><a href="02-jacknife-bootstrap.html#cb46-1" aria-hidden="true" tabindex="-1"></a>T_i <span class="ot">&lt;-</span> <span class="fu">apply</span>(jackdf, <span class="dv">2</span>, var, <span class="at">na.rm =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="right">x</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="right">429.7098</td>
+</tr>
+<tr class="even">
+<td align="right">428.1905</td>
+</tr>
+<tr class="odd">
+<td align="right">429.6023</td>
+</tr>
+<tr class="even">
+<td align="right">429.3756</td>
+</tr>
+<tr class="odd">
+<td align="right">430.1087</td>
+</tr>
+<tr class="even">
+<td align="right">428.1905</td>
+</tr>
+<tr class="odd">
+<td align="right">429.6023</td>
+</tr>
+<tr class="even">
+<td align="right">429.3756</td>
+</tr>
+<tr class="odd">
+<td align="right">430.0764</td>
+</tr>
+<tr class="even">
+<td align="right">429.7098</td>
+</tr>
+</tbody>
+</table>
+<p>Definimos el estimador de sesgo <em>jackknife</em> de <span class="math inline">\(T_n\)</span> como</p>
+<p><span class="math display">\[\begin{equation*}
+b_{jack} = (n-1) (\overline{T}_{n} - T_{n})
+\end{equation*}\]</span></p>
+<p>donde
+<span class="math display">\[\begin{equation*}
+\overline{T}_{n} = \frac{1}{n} \sum_{i=1}^{n} T_{(-i)}
+\end{equation*}\]</span></p>
+<p>y el estimador corregido por sesgo es: <span class="math inline">\(T_{jack}=T_n-b_{jack}\)</span>.
+::: {.exercise #unnamed-chunk-74}
+En nuestro caso tendríamos lo siguiente:
+:::</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="02-jacknife-bootstrap.html#cb47-1" aria-hidden="true" tabindex="-1"></a>(bjack <span class="ot">&lt;-</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">mean</span>(T_i) <span class="sc">-</span> Tn))</span></code></pre></div>
+<pre><code>## [1] 0</code></pre>
+<p>Es decir, el sesgo aproximado (jackknife) del estimador <span class="math inline">\(T_n\)</span> es 0.</p>
+<p>Si se asume que <span class="math inline">\(T_n\)</span> es un estimador del parámetro <span class="math inline">\(\theta\)</span> entonce se puede comprobar que <span class="math inline">\(b_{jack}\)</span> cumple:</p>
+<p><span class="math display">\[\begin{align*}
+\mathbb{E}\left(b_{\text {jack}}\right)
+&amp;= (n-1)\left(\mathbb{E}\left[\overline{T}_{n}\right] -
+\mathbb{E}\left[T_{n}\right]\right) \\
+&amp;= (n-1)\left(\mathbb{E}\left[\overline{T}_{n}\right] - \theta +
+\theta - \mathbb{E}\left[T_{n}\right]\right) \\
+&amp; =(n-1)\left(\mathrm{Sesgo} \left(\overline{T}_{n}\right)
+-\mathrm{Sesgo}\left(T_{n}\right)\right) \\
+&amp; =(n-1)\left[\left(\frac{1}{n-1}
+-\frac{1}{n}\right)
+a+\left(\frac{1}{(n-1)^{2}}
+-\frac{1}{n^{2}}\right) b+O\left(\frac{1}{n^{3}}\right)\right] \\
+&amp; =\frac{a}{n}
++\frac{(2 n-1) b}{n^{2}(n-1)}
++O\left(\frac{1}{n^{2}}\right) \\
+&amp; =\operatorname{Sesgo}\left(T_{n}\right)
++O\left(\frac{1}{n^{2}}\right)\\
+\end{align*}\]</span></p>
+<div class="remark">
+<p><span id="unlabeled-div-21" class="remark"><em>Nota:</em>. </span>Es decir, en general, el estimador <span class="math inline">\(b_{\text{jack}}\)</span> aproxima
+correctamente <span class="math inline">\(\mathrm{Sesgo}\left( T_{n} \right)\)</span> hasta con un
+error del <span class="math inline">\(n^{-2}\)</span>.</p>
+</div>
+<p>Podemos usar los <span class="math inline">\(T_i\)</span> para generar muestras adicionales para
+estimar el parámetro <span class="math inline">\(\theta\)</span> a través del siguiente estimador:</p>
+<p><span class="math display">\[
+\widetilde{T}_{i}=n T_{n}-(n-1) T_{(-i)}.
+\]</span></p>
+<div class="remark">
+<p><span id="unlabeled-div-22" class="remark"><em>Nota:</em>. </span>A <span class="math inline">\(\widetilde{T}_{i}\)</span> se le llaman <strong>pseudo-valor</strong> y
+representa el aporte o peso que tiene la variable <span class="math inline">\(X_{i}\)</span> para
+estimar <span class="math inline">\(T_{n}\)</span>.</p>
+</div>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-78" class="exercise"><strong>Ejercicio 3.2  </strong></span>Usado un cálculo similar para el <span class="math inline">\(b_{jack}\)</span> pruebe que</p>
+<p><span class="math display">\[
+\operatorname{Sesgo}\left(T_{\text {jack}
+}\right)=-\frac{b}{n(n-1)}+O\left(\frac{1}{n^{2}}\right)=O\left(\frac{1}{n^{2}}\right).
+\]</span></p>
+<p>¿Qué conclusión se obtiene de este cálculo?</p>
+</div>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-79" class="exercise"><strong>Ejercicio 3.3  </strong></span>Los pseudo-valores se estiman de forma directa como,</p>
+</div>
+<div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="02-jacknife-bootstrap.html#cb49-1" aria-hidden="true" tabindex="-1"></a>pseudo <span class="ot">&lt;-</span> n <span class="sc">*</span> Tn <span class="sc">-</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> T_i</span>
+<span id="cb49-2"><a href="02-jacknife-bootstrap.html#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb49-3"><a href="02-jacknife-bootstrap.html#cb49-3" aria-hidden="true" tabindex="-1"></a>pseudo[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div>
+<pre><code>##  [1] 199.02972209 957.16225222 252.64417993 365.79679037  -0.06666345
+##  [6] 957.16225222 252.64417993 365.79679037  16.09799519 199.02972209</code></pre>
+<p>Lo importante acá es notar la asociación o correspondencia que tiene con los datos reales,</p>
+<div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="02-jacknife-bootstrap.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">y =</span> pseudo)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-81-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>Con estos pseudo-valores, es posible estimar la media y la varianza de
+<span class="math inline">\(T_{n}\)</span> con los siguientes estimadores respectivos:</p>
+<p><span class="math display">\[
+T_{\text {jack }}=\frac{1}{n} \sum_{i=1}^{n} \widetilde{T}_{i}
+\]</span></p>
+<p>y</p>
+<p><span class="math display">\[
+v_{jack}=\frac{\sum_{i=1}^{n}\left(\widetilde{T}_{i}-\frac{1}{n}
+\sum_{i=1}^{n} \widetilde{T}_{i}\right)^{2}}{n-1}.
+\]</span></p>
+<!-- # NO ESTOY SEGURO DE QUE LOS SEUDOVALORES SEAN INDEPENDIENTES. Dado que -->
+<!-- # cada pseudovalor es independiente e idénticamente distribuido (iid), -->
+<!-- # se deduce que su promedio se ajusta a una distribución normal a medida -->
+<!-- # que el tamaño de la muestra aumenta. -->
+<div class="remark">
+<p><span id="unlabeled-div-23" class="remark"><em>Nota:</em>. </span>Sin embargo, se puede demostrar fácilmente que se pueden usar
+pseudovalores para construir una prueba normal de hipótesis.</p>
+<p>Como los pseudovalores son idénticamente distribuidos entonces su promedio se ajusta de forma aproximada a una distribución normal a medida
+que el tamaño de la muestra aumenta. Por lo tanto, tenemos que
+<span class="math display">\[
+  \frac{\sqrt{n}\left(T_{jack}-\theta\right)}{\sqrt{v_{jack}}}
+  \rightarrow N(0,1).
+\]</span></p>
+</div>
+<div class="sourceCode" id="cb52"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb52-1"><a href="02-jacknife-bootstrap.html#cb52-1" aria-hidden="true" tabindex="-1"></a>(Tjack <span class="ot">&lt;-</span> <span class="fu">mean</span>(pseudo))</span></code></pre></div>
+<pre><code>## [1] 429.2484</code></pre>
+<div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="02-jacknife-bootstrap.html#cb54-1" aria-hidden="true" tabindex="-1"></a>(Vjack <span class="ot">&lt;-</span> <span class="fu">var</span>(pseudo, <span class="at">na.rm =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<pre><code>## [1] 2701991</code></pre>
+<div class="sourceCode" id="cb56"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb56-1"><a href="02-jacknife-bootstrap.html#cb56-1" aria-hidden="true" tabindex="-1"></a>(sdjack <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(Vjack))</span></code></pre></div>
+<pre><code>## [1] 1643.774</code></pre>
+<div class="sourceCode" id="cb58"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb58-1"><a href="02-jacknife-bootstrap.html#cb58-1" aria-hidden="true" tabindex="-1"></a>(z <span class="ot">&lt;-</span> <span class="fu">qnorm</span>(<span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>## [1] 1.959964</code></pre>
+<div class="sourceCode" id="cb60"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb60-1"><a href="02-jacknife-bootstrap.html#cb60-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(Tjack <span class="sc">-</span> z <span class="sc">*</span> sdjack<span class="sc">/</span><span class="fu">sqrt</span>(n), Tjack <span class="sc">+</span> z <span class="sc">*</span> sdjack<span class="sc">/</span><span class="fu">sqrt</span>(n))</span></code></pre></div>
+<pre><code>## [1] 285.1679 573.3289</code></pre>
+</div>
+<div id="bootstrap" class="section level2 hasAnchor" number="3.3">
+<h2><span class="header-section-number">3.3</span> Bootstrap<a href="02-jacknife-bootstrap.html#bootstrap" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este método es un poco más sencillo de implementar que Jackknife y es
+igualmente de eficaz. Este fue propuesto por Bradley Efron en <span class="citation">(Efron 1979)</span>.</p>
+<p>Primero recordemos que estamos estimando la variabilidad propia de un estadístico a partir de
+una muestra. Asuma que este estadístico tiene la forma <span class="math inline">\(T_{n}=g\left( X_{1},\ldots,X_{n} \right)\)</span>
+donde <span class="math inline">\(g\)</span> es cualquier función (media, varianza, quantiles, etc).</p>
+<p>Supongamos que conocemos la distribución real de los <span class="math inline">\(X\)</span>’s, llamada <span class="math inline">\(F(x)\)</span> y asumamos que <span class="math inline">\(T_n=\bar X_n\)</span>. Si uno
+quisiera estimar la varianza de <span class="math inline">\(T_n\)</span> basta con hacer</p>
+<p><span class="math display">\[\begin{equation*}
+\mathbb{V}_{F}\left(T_{n}\right):=\mathrm{Var}_{F}\left(T_{n}\right)
+= \frac{\sigma^{2}}{n}=\frac{\int x^{2}  dF(x)-\left(\int x
+dF(x)\right)^{2}}{n}
+\end{equation*}\]</span></p>
+<p>donde <span class="math inline">\(\sigma^{2} = \mathrm{Var}\left(X\right)\)</span> y el subindice <span class="math inline">\(F\)</span> es solo para indicar la dependencia con la distribución real.</p>
+<p>Ahora dado que no tenemos la distribución real <span class="math inline">\(F(x)\)</span>, una opción es utilizar el estimador empírico <span class="math inline">\(\hat{F}_n\)</span> como estimador plug-in en la formulación de la varianza de <span class="math inline">\(T_n\)</span>.</p>
+<p>De manera sencilla se puede resumir la técnica de bootstrap como una simulación iid de la distribución <span class="math inline">\(\hat{F}_n\)</span> de modo que se pueda conocer la varianza del estadístico <span class="math inline">\(T_n\)</span>.</p>
+<p>En simples pasos la técnica es</p>
+<ol style="list-style-type: decimal">
+<li>Seleccione <span class="math inline">\(X_{1}^{*}, \ldots, X_{n}^{*} \sim \widehat{F}_{n}\)</span></li>
+<li>Estime <span class="math inline">\(T_{n}^{*}=g\left(X_{1}^{*}, \ldots, X_{n}^{*}\right)\)</span></li>
+<li>Repita los Pasos 1 y 2, <span class="math inline">\(B\)</span> veces para obtener <span class="math inline">\(T_{n, 1}^{*}, \ldots, T_{n, B}^{*}\)</span></li>
+<li>Estime
+<span class="math display">\[
+v_{\mathrm{boot}}=\frac{1}{B} \sum_{b=1}^{B}\left(T_{n, b}^{*}-\frac{1}{B} \sum_{r=1}^{B} T_{n, r}^{*}\right)^{2}
+\]</span></li>
+</ol>
+<p>Por la ley de los grandes números tenemos que</p>
+<p><span class="math display">\[\begin{equation}
+v_{\mathrm{boot}} \stackrel{\mathrm{a.s.}}{\longrightarrow} \mathbb{V}_{\widehat{F}_{n}}\left(T_{n}\right), \quad  \text{si} \quad B\rightarrow \infty.
+\end{equation}\]</span></p>
+<p>además llamaremos,</p>
+<p><span class="math display">\[\begin{equation*}
+\widehat{\mathrm{se}}_{\mathrm{boot}}=\sqrt{v_{\mathrm{boot}}}
+\end{equation*}\]</span></p>
+<p>En pocas palabras lo que tenemos es que</p>
+<p><span class="math display">\[\begin{align*}
+\text  {Mundo Real: }
+&amp; F
+&amp; \Longrightarrow  X_{1}, \ldots, X_{n}
+&amp; \Longrightarrow
+&amp; T_{n} = g\left(X_{1}, \ldots, X_{n}\right) \\
+\text {Mundo Bootstrap: }
+&amp; \widehat{F}_{n}
+&amp; \Longrightarrow  X_{1}^{*}, \ldots, X_{n}^{*}
+&amp; \Longrightarrow
+&amp; T_{n}^{*}=g\left(X_{1}^{*}, \ldots, X_{n}^{*}\right)
+\end{align*}\]</span></p>
+<p>En términos de convergencia lo que se tiene es que
+<span class="math display">\[
+\mathrm{Var}_{F}\left(T_{n}\right) \overbrace{\approx}^{O(1 / \sqrt{n})} \mathrm{Var}_{\widehat{F}_{n}}\left(T_{n}\right) \overbrace{\approx}^{O(1 / \sqrt{B})} v_{b o o t}
+\]</span></p>
+<p>producto de la ley de grandes números en ambos casos.</p>
+<div class="remark">
+<p><span id="unlabeled-div-24" class="remark"><em>Nota:</em>. </span>¿Cómo extraemos una muestra de <span class="math inline">\(\hat{F}_n\)</span>?</p>
+</div>
+<p>Recuerden que <span class="math inline">\(\hat{F}_{n}\)</span> asigna la probabilidad de <span class="math inline">\(\frac{1}{n}\)</span> a cada valor usado para construirla.</p>
+<p>Por lo tanto, todos los puntos originales <span class="math inline">\(X_{1},\ldots,X_{n}\)</span> tienen probabilidad <span class="math inline">\(\frac{1}{n}\)</span> de ser escogidos, que resulta ser equivalente a un muestreo con remplazo <span class="math inline">\(n\)</span>-veces.</p>
+<p>Así que basta cambiar el punto 1. del algoritmo mencionando anteriormente con</p>
+<ol style="list-style-type: decimal">
+<li>Seleccione una muestra con remplazo <span class="math inline">\(X_{1}^{*}, \ldots, X_{n}^{*}\)</span> de <span class="math inline">\(X_{1},\ldots,X_{n}\)</span>.</li>
+</ol>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-89" class="exercise"><strong>Ejercicio 3.4  </strong></span>En este ejemplo podemos tomar <span class="math inline">\(B=1000\)</span> y construir esa cantidad de veces nuestro estimador de varianza:</p>
+</div>
+<div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="02-jacknife-bootstrap.html#cb62-1" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb62-2"><a href="02-jacknife-bootstrap.html#cb62-2" aria-hidden="true" tabindex="-1"></a>Tboot_b <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb62-3"><a href="02-jacknife-bootstrap.html#cb62-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-4"><a href="02-jacknife-bootstrap.html#cb62-4" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="cb62-5"><a href="02-jacknife-bootstrap.html#cb62-5" aria-hidden="true" tabindex="-1"></a>    xb <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, <span class="at">size =</span> n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb62-6"><a href="02-jacknife-bootstrap.html#cb62-6" aria-hidden="true" tabindex="-1"></a>    Tboot_b[b] <span class="ot">&lt;-</span> <span class="fu">var</span>(xb)</span>
+<span id="cb62-7"><a href="02-jacknife-bootstrap.html#cb62-7" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb62-8"><a href="02-jacknife-bootstrap.html#cb62-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb62-9"><a href="02-jacknife-bootstrap.html#cb62-9" aria-hidden="true" tabindex="-1"></a>Tboot_b[<span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>]</span></code></pre></div>
+<pre><code>##  [1] 414.1915 391.2966 310.2777 468.8409 400.5235 380.8023 496.4924 418.5968
+##  [9] 461.3902 547.3446</code></pre>
+<div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="02-jacknife-bootstrap.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Tboot_b)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-91-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="02-jacknife-bootstrap.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Tboot_b)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-91-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>Por supuesto podemos encontrar los estadísticos usuales para esta nueva muestra</p>
+<div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="02-jacknife-bootstrap.html#cb66-1" aria-hidden="true" tabindex="-1"></a>(Tboot <span class="ot">&lt;-</span> <span class="fu">mean</span>(Tboot_b))</span></code></pre></div>
+<pre><code>## [1] 428.0777</code></pre>
+<div class="sourceCode" id="cb68"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb68-1"><a href="02-jacknife-bootstrap.html#cb68-1" aria-hidden="true" tabindex="-1"></a>(Vboot <span class="ot">&lt;-</span> <span class="fu">var</span>(Tboot_b))</span></code></pre></div>
+<pre><code>## [1] 5431.092</code></pre>
+<div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="02-jacknife-bootstrap.html#cb70-1" aria-hidden="true" tabindex="-1"></a>(sdboot <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(Vboot))</span></code></pre></div>
+<pre><code>## [1] 73.69594</code></pre>
+<div class="remark">
+<p><span id="unlabeled-div-25" class="remark"><em>Nota:</em>. </span>Si <span class="math inline">\(\hat \theta\)</span> es un estimador de <span class="math inline">\(\theta\)</span> (bajo cualquier método) entonces podemos sustituir el paso 1 en el algoritmo de Bootstrap por lo siguiente:</p>
+<ol style="list-style-type: decimal">
+<li>Seleccione <span class="math inline">\(X_{1}^{*}, \ldots, X_{n}^{*} \sim F_{\hat \theta}\)</span></li>
+</ol>
+<p>A este algoritmo modificado le llamamos Bootstrap paramétrico.</p>
+</div>
+<div id="intervalos-de-confianza" class="section level3 hasAnchor" number="3.3.1">
+<h3><span class="header-section-number">3.3.1</span> Intervalos de confianza<a href="02-jacknife-bootstrap.html#intervalos-de-confianza" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="intervalo-normal" class="section level4 hasAnchor" number="3.3.1.1">
+<h4><span class="header-section-number">3.3.1.1</span> Intervalo Normal<a href="02-jacknife-bootstrap.html#intervalo-normal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Este es el más sencillo y se escribe como</p>
+<p><span class="math display">\[\begin{equation}
+T_{n} \pm z_{\alpha / 2} \widehat{\mathrm{Se}}_{\mathrm{boot}}
+\end{equation}\]</span></p>
+<div class="remark">
+<p><span id="unlabeled-div-26" class="remark"><em>Nota:</em>. </span>Este intervalo solo funciona si la distribución de <span class="math inline">\(T_{n}\)</span> es normal.</p>
+</div>
+<p>El cálculo de este intervalo es</p>
+<div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="02-jacknife-bootstrap.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(Tn <span class="sc">-</span> z <span class="sc">*</span> sdboot, Tn <span class="sc">+</span> z <span class="sc">*</span> sdboot)</span></code></pre></div>
+<pre><code>## [1] 284.8070 573.6898</code></pre>
+</div>
+<div id="intervalo-pivotal" class="section level4 hasAnchor" number="3.3.1.2">
+<h4><span class="header-section-number">3.3.1.2</span> Intervalo pivotal<a href="02-jacknife-bootstrap.html#intervalo-pivotal" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Sea <span class="math inline">\(\theta=T(F)\)</span> y <span class="math inline">\(\widehat{\theta}_{n}=T\left(\widehat{F}_{n}\right)\)</span> y defina la cantidad pivotal <span class="math inline">\(R_{n}=\widehat{\theta}_{n}-\theta .\)</span></p>
+<p>Sea <span class="math inline">\(H(r)\)</span> la función de distribución del pivote:
+<span class="math display">\[
+H(r)=\mathbb{P}_{F}\left(R_{n} \leq r\right).
+\]</span></p>
+<p>Además considere <span class="math inline">\(C_{n}^{\star}=(a, b)\)</span> donde
+<span class="math display">\[
+a=\widehat{\theta}_{n}-H^{-1}\left(1-\frac{\alpha}{2}\right) \quad \text { y } \quad b=\widehat{\theta}_{n}-H^{-1}\left(\frac{\alpha}{2}\right).
+\]</span></p>
+<p>Se sigue que
+<span class="math display">\[\begin{align*}
+\mathbb{P}(a \leq \theta \leq b)
+&amp;=\mathbb{P}\left(\widehat{\theta}_{n}-b \leq R_{n} \leq \widehat{\theta}_{n}-a\right) \\
+&amp;=H\left(\widehat{\theta}_{n}-a\right)-H\left(\widehat{\theta}_{n}-b\right) \\
+&amp;=H\left(H^{-1}\left(1-\frac{\alpha}{2}\right)\right)-H\left(H^{-1}\left(\frac{\alpha}{2}\right)\right) \\
+&amp;=1-\frac{\alpha}{2}-\frac{\alpha}{2}=1-\alpha
+\end{align*}\]</span></p>
+<div class="remark">
+<p><span id="unlabeled-div-27" class="remark"><em>Nota:</em>. </span><span class="math inline">\(C_{n}^{\star}=(a, b)\)</span> es un intervalo de confianza al (<span class="math inline">\(1-\alpha\)</span>)%.</p>
+<p>El problema es que este intervalo depende de <span class="math inline">\(H\)</span> desconocido.</p>
+</div>
+<p>Para resolver este problema, se puede construir una versión <em>bootstrap</em> de <span class="math inline">\(H\)</span> usando lo que sabemos hasta ahora:</p>
+<p><span class="math display">\[
+\widehat{H}(r)=\frac{1}{B} \sum_{b=1}^{B} I\left(R_{n, b}^{*} \leq r\right)
+\]</span>
+donde <span class="math inline">\(R_{n, b}^{*}=\widehat{\theta}_{n, b}^{*}-\widehat{\theta}_{n}\)</span>.</p>
+<p>Sea <span class="math inline">\(r_{\beta}^{*}\)</span> el cuantil muestral de tamaño <span class="math inline">\(\beta\)</span> de <span class="math inline">\(\left(R_{n, 1}^{*}, \ldots, R_{n, B}^{*}\right)\)</span> y sea <span class="math inline">\(\theta_{\beta}^{*}\)</span> el cuantil muestral de tamaño <span class="math inline">\(\beta\)</span> de <span class="math inline">\(\left(\theta_{n, 1}^{*}, \ldots, \theta_{n, B}^{*}\right)\)</span>.</p>
+<div class="remark">
+<p><span id="unlabeled-div-28" class="remark"><em>Nota:</em>. </span>Según la notación anterior se cumple que:
+<span class="math display">\[\begin{equation*}
+r_{\beta}^{*}= \theta_{\beta}^{*}-\widehat{\theta}_{n}
+\end{equation*}\]</span></p>
+</div>
+<p>A partir de loa estadísticos anteriores se puede construir un intervalo de confianza aproximado <span class="math inline">\(C_{n}=(\widehat{a}, \widehat{b})\)</span> al (<span class="math inline">\(1-\alpha\)</span>)% donde:</p>
+<p><span class="math display">\[\begin{align*}
+\widehat{a}&amp;= \widehat{\theta}_{n}-\widehat{H}^{-1}\left(1-\frac{\alpha}{2}\right) = \widehat{\theta}_{n}-r_{1-\alpha / 2}^{*} = \widehat{\theta}_{n}-\theta_{1-\alpha / 2}^{*} + \widehat{\theta}_{n} =2 \widehat{\theta}_{n}-\theta_{1-\alpha / 2}^{*} \\
+\widehat{b} &amp;=\widehat{\theta}_{n}-\widehat{H}^{-1}\left(\frac{\alpha}{2}\right)
+=\widehat{\theta}_{n}-r_{\alpha / 2}^{*}
+= \widehat{\theta}_{n}-\theta_{\alpha / 2}^{*} + \widehat{\theta}_{n}
+=2 \widehat{\theta}_{n}-\theta_{\alpha / 2}^{*}
+\end{align*}\]</span></p>
+<div class="remark">
+<p><span id="unlabeled-div-29" class="remark"><em>Nota:</em>. </span>El intervalo de confianza pivotal de tamaño <span class="math inline">\(1-\alpha\)</span> es
+<span class="math display">\[
+  C_{n}=\left(2 \widehat{\theta}_{n}-\widehat{\theta}_{((1-\alpha / 2) B)}^{*}, 2 \widehat{\theta}_{n}-\widehat{\theta}_{((\alpha / 2) B)}^{*}\right)
+  \]</span></p>
+</div>
+<p>El intervalo anterior para un nivel de 95% se estima de la siguiente forma</p>
+<div class="sourceCode" id="cb74"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb74-1"><a href="02-jacknife-bootstrap.html#cb74-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(<span class="dv">2</span> <span class="sc">*</span> Tn <span class="sc">-</span> <span class="fu">quantile</span>(Tboot_b, <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>), <span class="dv">2</span> <span class="sc">*</span> Tn <span class="sc">-</span></span>
+<span id="cb74-2"><a href="02-jacknife-bootstrap.html#cb74-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">quantile</span>(Tboot_b, <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>))</span></code></pre></div>
+<pre><code>##    97.5%     2.5% 
+## 267.5099 556.9997</code></pre>
+</div>
+<div id="intervalo-pivotal-studentizado" class="section level4 hasAnchor" number="3.3.1.3">
+<h4><span class="header-section-number">3.3.1.3</span> Intervalo pivotal studentizado<a href="02-jacknife-bootstrap.html#intervalo-pivotal-studentizado" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Una versión mejorada del intervalo pivotal sería a través de la normalización de los estimadores de <span class="math inline">\(T_n\)</span>:</p>
+<p><span class="math display">\[
+Z_{n}=\frac{T_{n}-\theta}{\widehat{\mathrm{se}}_{\mathrm{boot}}}.
+\]</span>
+Como <span class="math inline">\(\theta\)</span> es desconocido, entonces la versión a estimar es
+<span class="math display">\[
+Z_{n, b}^{*}=\frac{T_{n, b}^{*}-T_{n}}{\widehat{\mathrm{se}}_{b}^{*}}
+\]</span>
+donde <span class="math inline">\(\widehat{\mathrm{se}}_{b}^{*}\)</span> es un estimador del error estándar de <span class="math inline">\(T_{n, b}^{*}\)</span> no de <span class="math inline">\(T_{n}\)</span>.</p>
+<div class="remark">
+<p><span id="unlabeled-div-30" class="remark"><em>Nota:</em>. </span>Para calcular <span class="math inline">\(Z_{n, b}^{*}\)</span> requerimos estimar la varianza de <span class="math inline">\(T_{n,b}^*\)</span> para cada <span class="math inline">\(b\)</span>.</p>
+</div>
+<p>Con esto se puede obtener cantidades <span class="math inline">\(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*}\)</span> que debería ser próximos a <span class="math inline">\(Z_{n}\)</span>. (Bootstrap de los estadísticos normalizados)</p>
+<p>Sea <span class="math inline">\(z_{\alpha}^{*}\)</span> el <span class="math inline">\(\alpha\)</span>-cuantil de <span class="math inline">\(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*},\)</span> entonces <span class="math inline">\(\mathbb{P}\left(Z_{n} \leq z_{\alpha}^{*}\right) \approx \alpha\)</span>.</p>
+<p>Define el intervalo
+<span class="math display">\[\begin{equation*}
+C_{n}=\left(T_{n}-z_{1-\alpha / 2}^{*} \widehat{\mathrm{se}}_{\mathrm{boot}}, T_{n}-z_{\alpha / 2}^{*} \widehat{\mathrm{se}}_{\mathrm{boot}}\right)
+\end{equation*}\]</span></p>
+<p>Justificado por el siguiente cálculo:</p>
+<p><span class="math display">\[\begin{align*}
+\mathbb{P}\left(\theta \in C_{n}\right) &amp;=\mathbb{P}\left(T_{n}-z_{1-\alpha / 2}^{*} \widehat{\mathrm{Se}}_{\mathrm{boot}} \leq \theta \leq T_{n}-z_{\alpha / 2}^{*} \widehat{\mathrm{Se}}_{\mathrm{boot}}\right) \\
+&amp;=\mathbb{P}\left(z_{\alpha / 2}^{*} \leq \frac{T_{n}-\theta}{\mathrm{se}_{\mathrm{boot}}} \leq z_{1-\alpha / 2}^{*}\right) \\
+&amp;=\mathbb{P}\left(z_{\alpha / 2}^{*} \leq Z_{n} \leq z_{1-\alpha / 2}^{*}\right) \\
+&amp; \approx 1-\alpha
+\end{align*}\]</span></p>
+<p>Note que para este caso tenemos que hacer bootstrap para cada estimador bootstrap calculado.</p>
+<div class="sourceCode" id="cb76"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb76-1"><a href="02-jacknife-bootstrap.html#cb76-1" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb76-2"><a href="02-jacknife-bootstrap.html#cb76-2" aria-hidden="true" tabindex="-1"></a>Tboot_b <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb76-3"><a href="02-jacknife-bootstrap.html#cb76-3" aria-hidden="true" tabindex="-1"></a>Tboot_bm <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb76-4"><a href="02-jacknife-bootstrap.html#cb76-4" aria-hidden="true" tabindex="-1"></a>sdboot_b <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
+<span id="cb76-5"><a href="02-jacknife-bootstrap.html#cb76-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-6"><a href="02-jacknife-bootstrap.html#cb76-6" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="cb76-7"><a href="02-jacknife-bootstrap.html#cb76-7" aria-hidden="true" tabindex="-1"></a>    xb <span class="ot">&lt;-</span> <span class="fu">sample</span>(x, <span class="at">size =</span> n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb76-8"><a href="02-jacknife-bootstrap.html#cb76-8" aria-hidden="true" tabindex="-1"></a>    Tboot_b[b] <span class="ot">&lt;-</span> <span class="fu">var</span>(xb)</span>
+<span id="cb76-9"><a href="02-jacknife-bootstrap.html#cb76-9" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (m <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>B) {</span>
+<span id="cb76-10"><a href="02-jacknife-bootstrap.html#cb76-10" aria-hidden="true" tabindex="-1"></a>        xbm <span class="ot">&lt;-</span> <span class="fu">sample</span>(xb, <span class="at">size =</span> n, <span class="at">replace =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb76-11"><a href="02-jacknife-bootstrap.html#cb76-11" aria-hidden="true" tabindex="-1"></a>        Tboot_bm[m] <span class="ot">&lt;-</span> <span class="fu">var</span>(xbm)</span>
+<span id="cb76-12"><a href="02-jacknife-bootstrap.html#cb76-12" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb76-13"><a href="02-jacknife-bootstrap.html#cb76-13" aria-hidden="true" tabindex="-1"></a>    sdboot_b[b] <span class="ot">&lt;-</span> <span class="fu">sd</span>(Tboot_bm)</span>
+<span id="cb76-14"><a href="02-jacknife-bootstrap.html#cb76-14" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb76-15"><a href="02-jacknife-bootstrap.html#cb76-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-16"><a href="02-jacknife-bootstrap.html#cb76-16" aria-hidden="true" tabindex="-1"></a>z_star <span class="ot">&lt;-</span> (Tboot_b <span class="sc">-</span> Tn)<span class="sc">/</span>sdboot_b</span>
+<span id="cb76-17"><a href="02-jacknife-bootstrap.html#cb76-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb76-18"><a href="02-jacknife-bootstrap.html#cb76-18" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(z_star)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-103-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="02-jacknife-bootstrap.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(Tn <span class="sc">-</span> <span class="fu">quantile</span>(z_star, <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> sdboot, Tn <span class="sc">-</span></span>
+<span id="cb77-2"><a href="02-jacknife-bootstrap.html#cb77-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">quantile</span>(z_star, <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> sdboot)</span></code></pre></div>
+<pre><code>##    97.5%     2.5% 
+## 314.9127 710.0993</code></pre>
+</div>
+</div>
+<div id="resumiendo" class="section level3 hasAnchor" number="3.3.2">
+<h3><span class="header-section-number">3.3.2</span> Resumiendo<a href="02-jacknife-bootstrap.html#resumiendo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Resumiendo todos lo métodos de cálculo de intervalos obtenemos</p>
+<div class="sourceCode" id="cb79"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb79-1"><a href="02-jacknife-bootstrap.html#cb79-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(<span class="fu">data.frame</span>(<span class="at">Metodo =</span> <span class="fu">c</span>(<span class="st">&quot;Jackknife&quot;</span>, <span class="st">&quot;Bootstrap Normal&quot;</span>,</span>
+<span id="cb79-2"><a href="02-jacknife-bootstrap.html#cb79-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;Bootstrap Pivotal&quot;</span>, <span class="st">&quot;Bootstrap Pivotal Estudentizado&quot;</span>),</span>
+<span id="cb79-3"><a href="02-jacknife-bootstrap.html#cb79-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">Inferior =</span> <span class="fu">c</span>(Tjack <span class="sc">-</span> z <span class="sc">*</span> sdjack<span class="sc">/</span><span class="fu">sqrt</span>(n), Tn <span class="sc">-</span> z <span class="sc">*</span></span>
+<span id="cb79-4"><a href="02-jacknife-bootstrap.html#cb79-4" aria-hidden="true" tabindex="-1"></a>        sdboot, <span class="dv">2</span> <span class="sc">*</span> Tn <span class="sc">-</span> <span class="fu">quantile</span>(Tboot_b, <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>),</span>
+<span id="cb79-5"><a href="02-jacknife-bootstrap.html#cb79-5" aria-hidden="true" tabindex="-1"></a>        Tn <span class="sc">-</span> <span class="fu">quantile</span>(z_star, <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> sdboot),</span>
+<span id="cb79-6"><a href="02-jacknife-bootstrap.html#cb79-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">Superior =</span> <span class="fu">c</span>(Tjack <span class="sc">+</span> z <span class="sc">*</span> sdjack<span class="sc">/</span><span class="fu">sqrt</span>(n), Tn <span class="sc">+</span> z <span class="sc">*</span></span>
+<span id="cb79-7"><a href="02-jacknife-bootstrap.html#cb79-7" aria-hidden="true" tabindex="-1"></a>        sdboot, <span class="dv">2</span> <span class="sc">*</span> Tn <span class="sc">-</span> <span class="fu">quantile</span>(Tboot_b, <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>),</span>
+<span id="cb79-8"><a href="02-jacknife-bootstrap.html#cb79-8" aria-hidden="true" tabindex="-1"></a>        Tn <span class="sc">-</span> <span class="fu">quantile</span>(z_star, <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> sdboot)))</span></code></pre></div>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Metodo</th>
+<th align="right">Inferior</th>
+<th align="right">Superior</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Jackknife</td>
+<td align="right">285.1679</td>
+<td align="right">573.3289</td>
+</tr>
+<tr class="even">
+<td align="left">Bootstrap Normal</td>
+<td align="right">284.8070</td>
+<td align="right">573.6898</td>
+</tr>
+<tr class="odd">
+<td align="left">Bootstrap Pivotal</td>
+<td align="right">258.6387</td>
+<td align="right">555.6155</td>
+</tr>
+<tr class="even">
+<td align="left">Bootstrap Pivotal Estudentizado</td>
+<td align="right">314.9127</td>
+<td align="right">710.0993</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+<div id="ejercicios-1" class="section level2 hasAnchor" number="3.4">
+<h2><span class="header-section-number">3.4</span> Ejercicios<a href="02-jacknife-bootstrap.html#ejercicios-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ol style="list-style-type: decimal">
+<li><p>Repita los ejercicios anteriores para calcular intervalos de confianza para la distancia promedio y la varianza del desplazamiento de las personas. Use los métodos de Jackknife y Bootstrap (con todos sus intervalos de confianza).
+Dada que la distancia es una medida que puede ser influenciada por distancias muy cortas o muy largas, se puede calcular el logaritmo de esta variable para eliminar la escala de la distancias.</p></li>
+<li><p>Verifique que esta última variable se podría estimar paramétricamente con una distribución normal.
+Repita los cálculos anteriores tomando como cuantiles los de una normal con media 0 y varianza 1.</p></li>
+<li><p>Compare los intervalos calculados y comente los resultados.</p></li>
+<li><p>Del libro <span class="citation">(Wasserman 2006)</span> <strong>Sección 3:</strong> 2, 3, 7, 9, 11.</p></li>
+</ol>
+
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div class="csl-entry">
+Efron, B. 1979. <span>“Bootstrap <span>Methods</span>: <span>Another Look</span> at the <span>Jackknife</span>.”</span> <em>The Annals of Statistics</em> 7 (1): 1–26. <a href="https://doi.org/10.1214/aos/1176344552">https://doi.org/10.1214/aos/1176344552</a>.
+</div>
+<div class="csl-entry">
+Hall, Peter. 1987. <span>“On <span>Kullback</span>-<span>Leibler Loss</span> and <span>Density Estimation</span>.”</span> <em>The Annals of Statistics</em> 15 (4): 1491–1519. <a href="https://doi.org/10.1214/aos/1176350606">https://doi.org/10.1214/aos/1176350606</a>.
+</div>
+<div class="csl-entry">
+Härdle, Wolfgang, Axel Werwatz, Marlene Müller, and Stefan Sperlich. 2004. <em>Nonparametric and <span>Semiparametric Models</span></em>. <span>Berlin, Heidelberg</span>: <span>Springer Berlin Heidelberg</span>. <a href="https://doi.org/10.1007/978-3-642-17146-8">https://doi.org/10.1007/978-3-642-17146-8</a>.
+</div>
+<div class="csl-entry">
+Quenouille, M. H. 1949. <span>“Approximate <span>Tests</span> of <span>Correlation</span> in <span>Time</span>-<span>Series</span>.”</span> <em>Journal of the Royal Statistical Society: Series B (Methodological)</em> 11 (1): 68–84. <a href="https://doi.org/10.1111/j.2517-6161.1949.tb00023.x">https://doi.org/10.1111/j.2517-6161.1949.tb00023.x</a>.
+</div>
+<div class="csl-entry">
+Wasserman, Larry. 2006. <em>All of <span>Nonparametric Statistics</span></em>. <em>All of Nonparametric Statistics</em>. <span>New York, NY</span>: <span>Springer New York</span>. <a href="https://doi.org/10.1007/0-387-30623-4">https://doi.org/10.1007/0-387-30623-4</a>.
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="01-estimacion-densidades-no-parametricas.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/maikol-solis/notas-curso-estadistica/edit/master/02-jacknife-bootstrap.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/maikol-solis/notas-curso-estadistica/blob/master/02-jacknife-bootstrap.Rmd",
+"text": null
+},
+"download": ["Notas-Curso-Estadistica.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"toc_depth": 5
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>

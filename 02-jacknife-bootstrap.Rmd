@@ -30,7 +30,7 @@ La expresión anterior es posible dado que la distribución de \(\hat{\mu}\) es 
 ```
 
 ```{remark include=FALSE}
-NO LE ENCUENTRO SENTIDO A ESTE PÁRRAFO
+<!-- NO LE ENCUENTRO SENTIDO A ESTE PÁRRAFO -->
 Para una muestra fija, el estimador anterior  \(\hat{\mu}\)
 solamente un valor.  No se conoce la distribución de \(\hat{\mu}\). Lo
 único que se puede estimar son valores puntuales como la media,
@@ -86,7 +86,7 @@ los \(X_{i}\)'s.
 
 ## Jackknife
 
-Esta técnica fue propuesta por \cite{Quenouille1949}. Primero que todo se puede probar que existen estimadores que cumplen la siguiente propiedad:
+Esta técnica fue propuesta por [@Quenouille1949]. Primero que todo se puede probar que existen estimadores que cumplen la siguiente propiedad:
 
 \begin{equation}
 \operatorname{Sesgo}\left(T_{n}\right)=\frac{a}{n}+\frac{b}{n^{2}}+O\left(\frac{1}{n^{3}}\right)
@@ -275,16 +275,15 @@ v_{jack}=\frac{\sum_{i=1}^{n}\left(\widetilde{T}_{i}-\frac{1}{n}
 
 
 
+<!-- # NO ESTOY SEGURO DE QUE LOS SEUDOVALORES SEAN INDEPENDIENTES. Dado que -->
+<!-- # cada pseudovalor es independiente e idénticamente distribuido (iid), -->
+<!-- # se deduce que su promedio se ajusta a una distribución normal a medida -->
+<!-- # que el tamaño de la muestra aumenta. -->
 ```{remark}
 
 Sin embargo, se puede demostrar fácilmente que se pueden usar
-pseudovalores para construir una prueba normal de hipótesis. 
-<!---
-NO ESTOY SEGURO DE QUE LOS SEUDOVALORES SEAN INDEPENDIENTES. Dado que
-cada pseudovalor es independiente e idénticamente distribuido (iid),
-se deduce que su promedio se ajusta a una distribución normal a medida
-que el tamaño de la muestra aumenta.
--->
+pseudovalores para construir una prueba normal de hipótesis.
+
 Como los pseudovalores son idénticamente distribuidos entonces su promedio se ajusta de forma aproximada a una distribución normal a medida
 que el tamaño de la muestra aumenta. Por lo tanto, tenemos que
 \[
@@ -294,9 +293,7 @@ que el tamaño de la muestra aumenta. Por lo tanto, tenemos que
 ```
 
 
-```{exercise}
 
-```
 ```{r, }
 (Tjack <- mean(pseudo))
 ```
@@ -334,7 +331,7 @@ Tjack + z * sdjack / sqrt(n))
 
 
 Este método es un poco más sencillo de implementar que Jackknife y es
-igualmente de eficaz. Este fue propuesto por Bradley Efron en \cite{Efron1979}.
+igualmente de eficaz. Este fue propuesto por Bradley Efron en [@Efron1979].
 
 Primero recordemos que estamos estimando la variabilidad propia de un estadístico a partir de
 una muestra. Asuma que este estadístico tiene la forma \(T_{n}=g\left( X_{1},\ldots,X_{n} \right)\)
@@ -405,20 +402,21 @@ producto de la ley de grandes números en ambos casos.
 ```{remark}
 ¿Cómo extraemos una muestra de \(\hat{F}_n\)?
 ```
-  
-  
+
+
 Recuerden que \(\hat{F}_{n}\) asigna la probabilidad de \(\frac{1}{n}\) a cada valor usado para construirla.
-  
+
 Por lo tanto, todos los puntos originales \(X_{1},\ldots,X_{n}\) tienen probabilidad \(\frac{1}{n}\) de ser escogidos, que resulta ser equivalente a un muestreo con remplazo \(n\)-veces.
-  
+
 Así que basta cambiar el punto 1. del algoritmo mencionando anteriormente con
-  
+
 
 1. Seleccione una muestra con remplazo  \(X_{1}^{*}, \ldots, X_{n}^{*}\) de  \(X_{1},\ldots,X_{n}\).
 
-  
+
 ```{exercise}
 En este ejemplo podemos tomar \(B=1000\) y construir esa cantidad de veces nuestro estimador de varianza:
+```
 
 ```{r}
   B <- 1000
@@ -431,22 +429,22 @@ for(b in 1:B) {
 
 Tboot_b[1:10]
 ```
-  
+
 ```{r, }
   plot(Tboot_b)
   hist(Tboot_b)
 ```
-  
+
   Por supuesto podemos encontrar los estadísticos usuales para esta nueva muestra
 
 ```{r, }
   (Tboot <- mean(Tboot_b))
 ```
-  
+
 ```{r, }
   (Vboot <- var(Tboot_b))
 ```
-  
+
 ```{r, }
   (sdboot <- sqrt(Vboot))
 ```
@@ -474,7 +472,7 @@ T_{n} \pm z_{\alpha / 2} \widehat{\mathrm{Se}}_{\mathrm{boot}}
 Este intervalo solo funciona si la distribución de \(T_{n}\) es normal.
 ```
 
-```{exercise}
+
 El cálculo de este intervalo es
 ```{r, }
 c(Tn - z * sdboot,
@@ -503,6 +501,7 @@ Se sigue que
 &=H\left(H^{-1}\left(1-\frac{\alpha}{2}\right)\right)-H\left(H^{-1}\left(\frac{\alpha}{2}\right)\right) \\
 &=1-\frac{\alpha}{2}-\frac{\alpha}{2}=1-\alpha
 \end{align*}
+
 ```{remark}
 \(C_{n}^{\star}=(a, b)\)  es un intervalo de confianza al (\(1-\alpha\))%.
 
@@ -528,7 +527,7 @@ r_{\beta}^{*}= \theta_{\beta}^{*}-\widehat{\theta}_{n}
 
 
 
-A partir de loa estadísticos anteriores se puede construir un intervalo de confianza aproximado \(C_{n}=(\widehat{a}, \widehat{b})\) al (\(1-\alpha\))% donde: 
+A partir de loa estadísticos anteriores se puede construir un intervalo de confianza aproximado \(C_{n}=(\widehat{a}, \widehat{b})\) al (\(1-\alpha\))% donde:
 
 \begin{align*}
 \widehat{a}&= \widehat{\theta}_{n}-\widehat{H}^{-1}\left(1-\frac{\alpha}{2}\right) = \widehat{\theta}_{n}-r_{1-\alpha / 2}^{*} = \widehat{\theta}_{n}-\theta_{1-\alpha / 2}^{*} + \widehat{\theta}_{n} =2 \widehat{\theta}_{n}-\theta_{1-\alpha / 2}^{*} \\
@@ -545,7 +544,7 @@ El intervalo de confianza pivotal de tamaño \(1-\alpha\) es
   \]
 ```
 
-```{exercise}
+
 El intervalo anterior para un nivel de 95\% se estima de la siguiente forma
 ```{r, }
 c(2 * Tn - quantile(Tboot_b, 1 - 0.05 / 2) ,
@@ -589,7 +588,7 @@ Justificado por el siguiente cálculo:
 & \approx 1-\alpha
 \end{align*}
 
-```{exercise}
+
 
 Note que para este caso tenemos que hacer bootstrap para cada estimador bootstrap calculado.
 ```{r,cache=TRUE}
@@ -599,13 +598,13 @@ Tboot_bm <- NULL
 sdboot_b <- NULL
 
 for (b in 1:B) {
-xb <- sample(x, size = n, replace = TRUE)
-Tboot_b[b] <- var(xb)
-for (m in 1:B) {
-xbm <- sample(xb, size = n, replace = TRUE)
-Tboot_bm[m] <- var(xbm)
-}
-sdboot_b[b] <- sd(Tboot_bm)
+  xb <- sample(x, size = n, replace = TRUE)
+  Tboot_b[b] <- var(xb)
+  for (m in 1:B) {
+    xbm <- sample(xb, size = n, replace = TRUE)
+    Tboot_bm[m] <- var(xbm)
+  }
+  sdboot_b[b] <- sd(Tboot_bm)
 }
 
 z_star <- (Tboot_b - Tn) / sdboot_b
@@ -615,7 +614,7 @@ hist(z_star)
 
 ```{r, }
 c(Tn - quantile(z_star, 1 - 0.05 / 2) *   sdboot,
-Tn - quantile(z_star, 0.05 / 2) *   sdboot)
+  Tn - quantile(z_star, 0.05 / 2) *   sdboot)
 ```
 
 
@@ -629,24 +628,24 @@ Resumiendo todos lo métodos de cálculo de intervalos obtenemos
 ```{r, }
 
 knitr::kable(data.frame(
-`Metodo` = c(
-"Jackknife",
-"Bootstrap Normal",
-"Bootstrap Pivotal",
-"Bootstrap Pivotal Estudentizado"
-),
-Inferior = c(
-Tjack - z * sdjack / sqrt(n),
-Tn - z * sdboot,
-2 * Tn - quantile(Tboot_b, 1 - 0.05 / 2),
-Tn - quantile(z_star, 1 - 0.05 / 2) *   sdboot
-), 
-Superior = c(
-Tjack + z * sdjack / sqrt(n),
-Tn + z * sdboot,
-2 * Tn - quantile(Tboot_b, 0.05 / 2),
-Tn - quantile(z_star, 0.05 / 2) *   sdboot
-)
+  `Metodo` = c(
+    "Jackknife",
+    "Bootstrap Normal",
+    "Bootstrap Pivotal",
+    "Bootstrap Pivotal Estudentizado"
+  ),
+  Inferior = c(
+    Tjack - z * sdjack / sqrt(n),
+    Tn - z * sdboot,
+    2 * Tn - quantile(Tboot_b, 1 - 0.05 / 2),
+    Tn - quantile(z_star, 1 - 0.05 / 2) *   sdboot
+  ),
+  Superior = c(
+    Tjack + z * sdjack / sqrt(n),
+    Tn + z * sdboot,
+    2 * Tn - quantile(Tboot_b, 0.05 / 2),
+    Tn - quantile(z_star, 0.05 / 2) *   sdboot
+  )
 ))
 ```
 
@@ -655,7 +654,7 @@ Tn - quantile(z_star, 0.05 / 2) *   sdboot
 
 1. Repita los ejercicios anteriores para calcular intervalos de confianza para la distancia promedio y la varianza del desplazamiento de las personas. Use los métodos de Jackknife y Bootstrap (con todos sus intervalos de confianza).
 Dada que la distancia es una medida que puede ser influenciada por distancias muy cortas o muy largas, se puede calcular el logaritmo de esta variable para eliminar la escala de la distancias.
-  
+
 2. Verifique que esta última variable se podría estimar paramétricamente con una distribución normal.
 Repita los cálculos anteriores tomando como cuantiles los de una normal con media 0 y varianza 1.
 

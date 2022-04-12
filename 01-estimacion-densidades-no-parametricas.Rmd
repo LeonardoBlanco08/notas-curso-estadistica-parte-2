@@ -224,7 +224,8 @@ Ahora note que:
 & E\left[\left( E\left(\hat{f}_h(x)\right) - f(x)   \right) \left(E\left(\hat{f}_h(x)\right) - \hat{f}_h(x)    \right)    \right] \ = \                                      \\
 & E\left[E\left(\hat{f}_h(x)\right)^2 \right] \ - \ E\left[E\left(\hat{f}_h(x)\right)\cdot \hat{f}_h(x) \right] \ - \ E\left[f(x)\cdot E\left(\hat{f}_h(x)\right)\right] \ + \\
 & E\left[f(x)\cdot \hat{f}_h(x)\right]\ = \                                                                                                                                  \\
-& E\left(\hat{f}_h(x)\right)^2  \ - \ E\left(\hat{f}_h(x)\right)^2  \ - \ E\left(\hat{f}_h(x)\right)\cdot E\left( f(x)\right) \ + \
+& E\left(\hat{f}_h(x)\right)^2  \ - \ E\left(\hat{f}_h(x)\right)^2  \ - \ E\left(\hat{f}_h(x)\right)\cdot E\l
+eft( f(x)\right) \ + \
 E\left( f(x)\right)\cdot E\left(\hat{f}_h(x)\right) \                                                                                                                         \\
 & = 0
 \end{align*}
@@ -240,19 +241,10 @@ Entonces:
 
 Retomando los términos anteriores se puede comprobar que:
 
-\begin{align}
-\mathrm{MSE}\left( \hat{f}_h(x)\right) =
-\frac{1}{nh} f(x) + f^\prime
-\left\{
-\left(
-j - \frac{1}{2}
-\right) h
-\right\}^2
-\left\{
-\left(
-j - \frac{1}{2}
-\right) h - x
-\right\}^2 \\
+\begin{align} 
+\mathrm{MSE}\left( \hat{f}_h(x)\right) = \frac{1}{nh} f(x) +
+f^\prime \left\{ \left( j - \frac{1}{2} \right) h \right\}^2 \left\{ \left( j -
+\frac{1}{2} \right) h - x \right\}^2 \\
 + o\left(h \right) + 		o\left(\frac{1}{nh} \right)
 (\#eq:MSE)
 \end{align}
@@ -274,7 +266,7 @@ Si $f\sim N(0,1)$, aproxime los componentes de sesgo, varianza y MSE, y grafíqu
 Solución:
 
 ```{r, echo=FALSE}
-#Generate 1000 numbers with normal standard distribution
+# Generate 1000 numbers with normal standard distribution
 x <- rnorm(1000)
 n <- length(x)
 
@@ -286,7 +278,7 @@ f_x0 <- dnorm(x0)
 # norm || f’ ||_2^2 for a normal standard distribution
 norm_f_prime <- 1 / (4 * sqrt(pi))
 
-#Sequence of bins
+# Sequence of bins
 hvec <- seq(0.1, 0.7, by = 0.0005)
 Sesgo <- numeric()
 
@@ -301,54 +293,56 @@ Var_MISE <- numeric()
 MISE <- numeric()
 
 for (h in hvec) {
-breaks <- floor((min(x)) / h):ceiling((max(x)) / h)
-breaks <- breaks * h
-xhist <- hist(x, breaks = breaks, plot = FALSE)
+  breaks <- floor((min(x)) / h):ceiling((max(x)) / h)
+  breaks <- breaks * h
+  xhist <- hist(x, breaks = breaks, plot = FALSE)
 
-# Average of bins near x0
-bins_near_x0 <- xhist$breaks <= x0 + h & xhist$breaks >= x0 - h
+  # Average of bins near x0
+  bins_near_x0 <- xhist$breaks <= x0 + h & xhist$breaks >= x0 - h
 
-p <- mean(xhist$counts[bins_near_x0]) / n
+  p <- mean(xhist$counts[bins_near_x0]) / n
 
-# Expectation of \hat{f} in x0
-E_fhat_x0 <- p / h
+  # Expectation of \hat{f} in x0
+  E_fhat_x0 <- p / h
 
-#Compute of Sesgo, Var, MSE and MISE
-Sesgo <- c(Sesgo, E_fhat_x0 - f_x0)
+  # Compute of Sesgo, Var, MSE and MISE
+  Sesgo <- c(Sesgo, E_fhat_x0 - f_x0)
 
-Var <- c(Var, (p * (1 - p)) / (n * h ^ 2))
-MSE <- c(MSE, tail(Var, 1) + tail(Sesgo, 1) ^ 2)
-Var_MISE <- c(Var_MISE, 1 / (n * h))
-Sesgo_MISE <- c(Sesgo_MISE, h ^ 2 * norm_f_prime / 12)
-MISE <- c(MISE, tail(Var_MISE, 1) + tail(Sesgo_MISE, 1))
+  Var <- c(Var, (p * (1 - p)) / (n * h^2))
+  MSE <- c(MSE, tail(Var, 1) + tail(Sesgo, 1)^2)
+  Var_MISE <- c(Var_MISE, 1 / (n * h))
+  Sesgo_MISE <- c(Sesgo_MISE, h^2 * norm_f_prime / 12)
+  MISE <- c(MISE, tail(Var_MISE, 1) + tail(Sesgo_MISE, 1))
 }
 
 df_MSE <- rbind(
-data.frame(Medida = "Sesgo^2", h = hvec, Valor = Sesgo^2),
-data.frame(Medida = "Var", h = hvec, Valor = Var),
-data.frame(Medida = "MSE", h = hvec, Valor = MSE)
+  data.frame(Medida = "Sesgo^2", h = hvec, Valor = Sesgo^2),
+  data.frame(Medida = "Var", h = hvec, Valor = Var),
+  data.frame(Medida = "MSE", h = hvec, Valor = MSE)
 )
 
-df_MSE$Medida  <-  as.factor(df_MSE$Medida)
+df_MSE$Medida <- as.factor(df_MSE$Medida)
 
 df_MISE <- rbind(
-data.frame(Medida = "Sesgo_MISE^2", h = hvec, Valor = Sesgo_MISE^2),
-data.frame(Medida = "Var_MISE", h = hvec, Valor = Var_MISE),
-data.frame(Medida = "MISE", h = hvec, Valor = MISE)
+  data.frame(Medida = "Sesgo_MISE^2", h = hvec, Valor = Sesgo_MISE^2),
+  data.frame(Medida = "Var_MISE", h = hvec, Valor = Var_MISE),
+  data.frame(Medida = "MISE", h = hvec, Valor = MISE)
 )
 
-df_MISE$Medida  <-  as.factor(df_MISE$Medida)
+df_MISE$Medida <- as.factor(df_MISE$Medida)
 ```
 
 ```{r, MSE-histograma, echo=FALSE}
 ggplot(df_MSE) +
-geom_line(aes(
-x = h,
-y = Valor,
-color = Medida,
-linetype = Medida
-), size = 1) +
-theme_minimal(base_size = 16)
+  geom_line(aes(
+    x = h,
+    y = Valor,
+    color = Medida,
+    linetype = Medida
+  ),
+  size = 1
+  ) +
+  theme_minimal(base_size = 16)
 ```
 
 ### Error cuadrático medio integrado
@@ -557,7 +551,7 @@ Remplazando $F$  por su estimador  $F_{n}$, defina
 donde $\hat{f}_{n}^{R}(x)$ es el estimador de *Rosenblatt* .
 
 Podemos rescribirlo de la forma, 
-\[]
+\[
 \hat{f}_{n}^{R}(x)=\frac{1}{2nh}\sum_{i=1}^{n}I(x-h<X_{i}\leq x+h)=\frac{1}{nh}\sum_{i=1}^{n}K_{0}\left(\frac{X_{i}-x}{h}\right)
 \]
 con  $K_{0}(u)=\frac{1}{2}I(-1<u\leq1)$, lo cual es equivalente al caso del histograma.
@@ -778,9 +772,6 @@ Recordemos nuevamente la fórmula
 \hat{f}_{h}\left( x \right) = \frac{1}{nh}\sum_{i=1}^{n} K\left( \frac{x-X_{i}}{h} \right)
 \end{equation*}
 
-Cada sumando de esta expresión es una función por si misma. Si la
-integramos se obtiene que
-
 Cada sumando de esta expresión es una función de la variable $x$. Si la integramos se obtiene que
 
 \begin{equation*}
@@ -906,10 +897,10 @@ Usando el cambio de variable \(s=\frac{u-x}{h}\) y las propiedades del kernel pr
 \end{equation*}
 donde \(\mu_{2}=\int s^{2}K(s)ds\).
 
-\emph{**Nota:** En algunas pruebas más formales, se necesita
-además que  $f^{\prime\prime}$ sea absolutamente continua y que
-$\int(f^{\prime\prime\prime}(x))dx<\infty$.}
+```{remark}
+En algunas pruebas más formales, se necesita además que  $f^{\prime\prime}$ sea absolutamente continua y que $\int(f^{\prime\prime\prime}(x))dx<\infty$.}
 ```
+
 
 ```{solution include=FALSE}
 \begin{align*}
@@ -1419,19 +1410,17 @@ x_df <- data.frame(x)
 library(ggplot2)
 
 ggplot(x_df, aes(x)) +
-geom_histogram(
-aes(y = ..density..),
-binwidth = 0.02,
-col = "black",
-fill = "white"
-) +
-stat_function(
-fun = dnorm,
-args = list(mean = mu, sd = sigma),
-color = "red"
-) +
-geom_line(data = f_epa, aes(x, y), color = "blue") +
-theme_minimal(base_size = 20)
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = 0.02,
+    col = "black",
+    fill = "white"
+  ) +
+  stat_function(fun = dnorm,
+                args = list(mean = mu, sd = sigma),
+                color = "red") +
+  geom_line(data = f_epa, aes(x, y), color = "blue") +
+  theme_minimal(base_size = 20)
 ```
 
 ### Ancho de banda óptimo
@@ -1468,7 +1457,7 @@ $$
 
 ¿Por qué es $IQR / 1.34$?
 
-```{r, }
+```{r}
 s <- sd(x)
 n <- length(x)
 ```
@@ -1483,19 +1472,17 @@ f_hist <- hist(x, breaks = n_bins, plot = FALSE)
 f_epa <- as.data.frame(bkde(x, kernel = "epa", bandwidth = h))
 
 ggplot(x_df, aes(x)) +
-geom_histogram(
-aes(y = ..density..),
-binwidth = h,
-col = "black",
-fill = "white"
-) +
-stat_function(
-fun = dnorm,
-args = list(mean = mu, sd = sigma),
-color = "red"
-) +
-geom_line(data = f_epa, aes(x, y), color = "blue") +
-theme_minimal(base_size = 20)
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = h,
+    col = "black",
+    fill = "white"
+  ) +
+  stat_function(fun = dnorm,
+                args = list(mean = mu, sd = sigma),
+                color = "red") +
+  geom_line(data = f_epa, aes(x, y), color = "blue") +
+  theme_minimal(base_size = 20)
 ```
 
 ```{r, }
@@ -1508,19 +1495,17 @@ f_hist <- hist(x, breaks = n_bins, plot = FALSE)
 f_epa <- as.data.frame(bkde(x, kernel = "epa", bandwidth = h))
 
 ggplot(x_df, aes(x)) +
-geom_histogram(
-aes(y = ..density..),
-binwidth = h,
-col = "black",
-fill = "white"
-) +
-stat_function(
-fun = dnorm,
-args = list(mean = mu, sd = sigma),
-color = "red"
-) +
-geom_line(data = f_epa, aes(x, y), color = "blue") +
-theme_minimal(base_size = 20)
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = h,
+    col = "black",
+    fill = "white"
+  ) +
+  stat_function(fun = dnorm,
+                args = list(mean = mu, sd = sigma),
+                color = "red") +
+  geom_line(data = f_epa, aes(x, y), color = "blue") +
+  theme_minimal(base_size = 20)
 ```
 
 Una librería más especializada es \texttt{np} (non-parametric).
@@ -1532,28 +1517,24 @@ x.eval <- seq(-0.2, 0.2, length.out = 200)
 
 h_normal_np <- npudensbw(dat = x, bwmethod = "normal-reference")
 
-dens.ksum <- npksum(
-txdat = x,
-exdat = x.eval,
-bws = h_normal_np$bw
-)$ksum / (n * h_normal_np$bw[1])
+dens.ksum <- npksum(txdat = x,
+                    exdat = x.eval,
+                    bws = h_normal_np$bw)$ksum / (n * h_normal_np$bw[1])
 
 dens.ksum.df <- data.frame(x = x.eval, y = dens.ksum)
 
 ggplot(x_df, aes(x)) +
-geom_histogram(
-aes(y = ..density..),
-binwidth = h_normal_np$bw,
-col = "black",
-fill = "white"
-) +
-stat_function(
-fun = dnorm,
-args = list(mean = mu, sd = sigma),
-color = "red"
-) +
-geom_line(data = dens.ksum.df, aes(x, y), color = "blue") +
-theme_minimal(base_size = 20)
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = h_normal_np$bw,
+    col = "black",
+    fill = "white"
+  ) +
+  stat_function(fun = dnorm,
+                args = list(mean = mu, sd = sigma),
+                color = "red") +
+  geom_line(data = dens.ksum.df, aes(x, y), color = "blue") +
+  theme_minimal(base_size = 20)
 ```
 
 ### Validación cruzada
@@ -1564,10 +1545,10 @@ con este comando.
 
 ```{r, }
 h_cv_np_ls <- npudensbw(
-dat = x,
-bwmethod = "cv.ls",
-ckertype = "epa",
-ckerorder = 2
+  dat = x,
+  bwmethod = "cv.ls",
+  ckertype = "epa",
+  ckerorder = 2
 )
 
 dens.np <- npudens(h_cv_np_ls)
@@ -1577,25 +1558,21 @@ plot(dens.np, type = "b")
 ```
 
 ```{r, }
-dens.np.df <- data.frame(
-x = dens.np$eval[, 1],
-y = dens.np$dens
-)
+dens.np.df <- data.frame(x = dens.np$eval[, 1],
+                         y = dens.np$dens)
 
 ggplot(x_df, aes(x)) +
-geom_histogram(
-aes(y = ..density..),
-binwidth = h_cv_np_ls$bw,
-col = "black",
-fill = "white"
-) +
-stat_function(
-fun = dnorm,
-args = list(mean = mu, sd = sigma),
-color = "red"
-) +
-geom_line(data = dens.np.df, aes(x, y), color = "blue") +
-theme_minimal(base_size = 20)
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = h_cv_np_ls$bw,
+    col = "black",
+    fill = "white"
+  ) +
+  stat_function(fun = dnorm,
+                args = list(mean = mu, sd = sigma),
+                color = "red") +
+  geom_line(data = dens.np.df, aes(x, y), color = "blue") +
+  theme_minimal(base_size = 20)
 ```
 
 ### Temas adicionales
@@ -1608,10 +1585,10 @@ Esto se logra asumiendo que el Kernel es más veces diferenciable.
 
 ```{r, }
 h_cv_np_ls <- npudensbw(
-dat = x,
-bwmethod = "cv.ls",
-ckertype = "epa",
-ckerorder = 4
+  dat = x,
+  bwmethod = "cv.ls",
+  ckertype = "epa",
+  ckerorder = 4
 )
 
 dens.np <- npudens(h_cv_np_ls)
@@ -1623,19 +1600,17 @@ plot(dens.np, type = "b", lwd = 2)
 dens.np.df <- data.frame(x = dens.np$eval[, 1], y = dens.np$dens)
 
 ggplot(x_df, aes(x)) +
-geom_histogram(
-aes(y = ..density..),
-binwidth = h_cv_np_ls$bw,
-col = "black",
-fill = "white"
-) +
-stat_function(
-fun = dnorm,
-args = list(mean = mu, sd = sigma),
-color = "red"
-) +
-geom_line(data = dens.np.df, aes(x, y), color = "blue") +
-theme_minimal(base_size = 20)
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = h_cv_np_ls$bw,
+    col = "black",
+    fill = "white"
+  ) +
+  stat_function(fun = dnorm,
+                args = list(mean = mu, sd = sigma),
+                color = "red") +
+  geom_line(data = dens.np.df, aes(x, y), color = "blue") +
+  theme_minimal(base_size = 20)
 ```
 
 **Otra forma de estimar el ancho de banda** Otra forma de estimar ancho
@@ -1644,10 +1619,38 @@ revisar la sección 1.1 del artículo de [@Hall1987] para entender su
 estructura.
 
 ```{r, }
+h_cv_np_ml <- npudensbw(dat = x,
+                        bwmethod = "cv.ml",
+                        ckertype = "epanechnikov")
+
+dens.np <- npudens(h_cv_np_ml)
+
+plot(dens.np, type = "b")
+```
+
+```{r, }
+dens.np.df <- data.frame(x = dens.np$eval[, 1], y = dens.np$dens)
+
+ggplot(x_df, aes(x)) +
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = h_cv_np_ml$bw,
+    col = "black",
+    fill = "white"
+  ) +
+  stat_function(fun = dnorm,
+                args = list(mean = mu, sd = sigma),
+                color = "red") +
+  geom_line(data = dens.np.df, aes(x, y), color = "blue") +
+  theme_minimal(base_size = 20)
+```
+
+```{r, }
 h_cv_np_ml <- npudensbw(
-dat = x,
-bwmethod = "cv.ml",
-ckertype = "epanechnikov"
+  dat = x,
+  bwmethod = "cv.ml",
+  ckertype = "epanechnikov",
+  ckerorder = 4
 )
 
 dens.np <- npudens(h_cv_np_ml)
@@ -1659,79 +1662,45 @@ plot(dens.np, type = "b")
 dens.np.df <- data.frame(x = dens.np$eval[, 1], y = dens.np$dens)
 
 ggplot(x_df, aes(x)) +
-geom_histogram(
-aes(y = ..density..),
-binwidth = h_cv_np_ml$bw,
-col = "black",
-fill = "white"
-) +
-stat_function(
-fun = dnorm,
-args = list(mean = mu, sd = sigma),
-color = "red"
-) +
-geom_line(data = dens.np.df, aes(x, y), color = "blue") +
-theme_minimal(base_size = 20)
-```
-
-```{r, }
-h_cv_np_ml <- npudensbw(
-dat = x,
-bwmethod = "cv.ml",
-ckertype = "epanechnikov",
-ckerorder = 4
-)
-
-dens.np <- npudens(h_cv_np_ml)
-
-plot(dens.np, type = "b")
-```
-
-```{r, }
-dens.np.df <- data.frame(x = dens.np$eval[, 1], y = dens.np$dens)
-
-ggplot(x_df, aes(x)) +
-geom_histogram(
-aes(y = ..density..),
-binwidth = h_cv_np_ml$bw,
-col = "black",
-fill = "white"
-) +
-stat_function(
-fun = dnorm,
-args = list(mean = mu, sd = sigma),
-color = "red"
-) +
-geom_line(data = dens.np.df, aes(x, y), color = "blue") +
-theme_minimal(base_size = 20)
+  geom_histogram(
+    aes(y = ..density..),
+    binwidth = h_cv_np_ml$bw,
+    col = "black",
+    fill = "white"
+  ) +
+  stat_function(fun = dnorm,
+                args = list(mean = mu, sd = sigma),
+                color = "red") +
+  geom_line(data = dens.np.df, aes(x, y), color = "blue") +
+  theme_minimal(base_size = 20)
 ```
 
 ```{r, eval=knitr::is_html_output()}
 fani <- tibble()
 
 for (b in seq(0.001, 0.05, length.out = 40)) {
-f <-
-npudens(
-tdat = x,
-ckertype = "epanechnikov",
-bandwidth.compute = FALSE,
-bws = b
-)
-fani <-
-fani %>% bind_rows(tibble(
-xreal = sort(x),
-x = f$eval$x,
-y = f$dens,
-bw = b
-))
+  f <-
+    npudens(
+      tdat = x,
+      ckertype = "epanechnikov",
+      bandwidth.compute = FALSE,
+      bws = b
+    )
+  fani <-
+    fani %>% bind_rows(tibble(
+      xreal = sort(x),
+      x = f$eval$x,
+      y = f$dens,
+      bw = b
+    ))
 }
 
 ggplot(data = fani) +
-geom_line(aes(x, y), color = "blue") +
-labs(title = paste0("Ancho de banda = {closest_state}")) +
-theme_minimal(base_size = 20) +
-transition_states(bw) +
-view_follow() 
+  geom_line(aes(x, y), color = "blue") +
+  labs(title = paste0("Ancho de banda = {closest_state}")) +
+  theme_minimal(base_size = 20) +
+  transition_states(bw) +
+  view_follow() 
 
 # anim_save("manual_figure/bandwidth-animation-np.gif")
 ```
