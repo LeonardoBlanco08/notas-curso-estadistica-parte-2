@@ -190,7 +190,7 @@
 
 \title{Notas Curso de Estadística II}
 \author{Maikol Solís Chacón y Luis Barboza Chinchilla}
-\date{Actualizado el 12 abril, 2022}
+\date{Actualizado el 18 abril, 2022}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -1670,13 +1670,12 @@ Por ejemplo sea \(\sigma^{2}=\mathrm{Var}\left(X_{i}\right)\) y sea
 por lo tanto
 
 \begin{equation*}
-\mathrm{Sesgo} = -\frac{\sigma^{2}}{n}
+\mathrm{Sesgo}(\hat{\sigma}^2_n) = -\frac{\sigma^{2}}{n}
 \end{equation*}
 
 Por lo tanto en este caso \(a=-\sigma^{2}\) y \(b=0\).
 
-Defina \(T_{(-i)}\) como el estimador \(T_{n}\) pero eliminando el
-\(i\)-ésimo elemento de la muestra.
+Suponga que se toma \(T_{(-i)}\) como el estimador \(T_{n}\) pero eliminando el \(i\)-ésimo elemento de la muestra.
 
 Es claro que en este contexto, se tiene que
 
@@ -1684,10 +1683,10 @@ Es claro que en este contexto, se tiene que
 \operatorname{Sesgo}\left(T_{(-i)}\right)=\frac{a}{n-1}+\frac{b}{(n-1)^{2}}+O\left(\frac{1}{(n-1)^{3}}\right)
 \end{equation}
 
-\begin{exercise}
-\protect\hypertarget{exr:unnamed-chunk-70}{}\label{exr:unnamed-chunk-70}Una forma fácil de construir los \(T_{(-i)}\) es primero replicando
+\begin{example}
+\protect\hypertarget{exm:unnamed-chunk-70}{}\label{exm:unnamed-chunk-70}Una forma fácil de construir los \(T_{(-i)}\) es primero replicando
 la matriz de datos múltiple veces usando el producto de kronecker
-\end{exercise}
+\end{example}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1799,9 +1798,10 @@ donde
 \end{equation*}
 
 y el estimador corregido por sesgo es: \(T_{jack}=T_n-b_{jack}\).
-::: \{.exercise \#unnamed-chunk-74\}
-En nuestro caso tendríamos lo siguiente:
-:::
+
+\begin{example}
+\protect\hypertarget{exm:unnamed-chunk-74}{}\label{exm:unnamed-chunk-74}En nuestro caso tendríamos lo siguiente:
+\end{example}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -1866,9 +1866,9 @@ estimar \(T_{n}\).
 ¿Qué conclusión se obtiene de este cálculo?
 \end{exercise}
 
-\begin{exercise}
-\protect\hypertarget{exr:unnamed-chunk-79}{}\label{exr:unnamed-chunk-79}Los pseudo-valores se estiman de forma directa como,
-\end{exercise}
+\begin{example}
+\protect\hypertarget{exm:unnamed-chunk-79}{}\label{exm:unnamed-chunk-79}Los pseudo-valores se estiman de forma directa como,
+\end{example}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -2063,9 +2063,9 @@ Así que basta cambiar el punto 1. del algoritmo mencionando anteriormente con
   Seleccione una muestra con remplazo \(X_{1}^{*}, \ldots, X_{n}^{*}\) de \(X_{1},\ldots,X_{n}\).
 \end{enumerate}
 
-\begin{exercise}
-\protect\hypertarget{exr:unnamed-chunk-89}{}\label{exr:unnamed-chunk-89}En este ejemplo podemos tomar \(B=1000\) y construir esa cantidad de veces nuestro estimador de varianza:
-\end{exercise}
+\begin{example}
+\protect\hypertarget{exm:unnamed-chunk-89}{}\label{exm:unnamed-chunk-89}En este ejemplo podemos tomar \(B=1000\) y construir esa cantidad de veces nuestro estimador de varianza:
+\end{example}
 
 \begin{Shaded}
 \begin{Highlighting}[]

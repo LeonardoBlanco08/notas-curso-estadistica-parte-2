@@ -336,17 +336,16 @@ los <span class="math inline">\(X_{i}\)</span>’s.</p>
 \end{equation*}\]</span></p>
 <p>por lo tanto</p>
 <p><span class="math display">\[\begin{equation*}
-\mathrm{Sesgo} = -\frac{\sigma^{2}}{n}
+\mathrm{Sesgo}(\hat{\sigma}^2_n) = -\frac{\sigma^{2}}{n}
 \end{equation*}\]</span></p>
 <p>Por lo tanto en este caso <span class="math inline">\(a=-\sigma^{2}\)</span> y <span class="math inline">\(b=0\)</span>.</p>
-<p>Defina <span class="math inline">\(T_{(-i)}\)</span> como el estimador <span class="math inline">\(T_{n}\)</span> pero eliminando el
-<span class="math inline">\(i\)</span>-ésimo elemento de la muestra.</p>
+<p>Suponga que se toma <span class="math inline">\(T_{(-i)}\)</span> como el estimador <span class="math inline">\(T_{n}\)</span> pero eliminando el <span class="math inline">\(i\)</span>-ésimo elemento de la muestra.</p>
 <p>Es claro que en este contexto, se tiene que</p>
 <p><span class="math display">\[\begin{equation}
 \operatorname{Sesgo}\left(T_{(-i)}\right)=\frac{a}{n-1}+\frac{b}{(n-1)^{2}}+O\left(\frac{1}{(n-1)^{3}}\right)
 \end{equation}\]</span></p>
-<div class="exercise">
-<p><span id="exr:unnamed-chunk-70" class="exercise"><strong>Ejercicio 3.1  </strong></span>Una forma fácil de construir los <span class="math inline">\(T_{(-i)}\)</span> es primero replicando
+<div class="example">
+<p><span id="exm:unnamed-chunk-70" class="example"><strong>Ejemplo 3.1  </strong></span>Una forma fácil de construir los <span class="math inline">\(T_{(-i)}\)</span> es primero replicando
 la matriz de datos múltiple veces usando el producto de kronecker</p>
 </div>
 <div class="sourceCode" id="cb44"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb44-1"><a href="02-jacknife-bootstrap.html#cb44-1" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(x)</span>
@@ -651,10 +650,10 @@ b_{jack} = (n-1) (\overline{T}_{n} - T_{n})
 <span class="math display">\[\begin{equation*}
 \overline{T}_{n} = \frac{1}{n} \sum_{i=1}^{n} T_{(-i)}
 \end{equation*}\]</span></p>
-<p>y el estimador corregido por sesgo es: <span class="math inline">\(T_{jack}=T_n-b_{jack}\)</span>.
-::: {.exercise #unnamed-chunk-74}
-En nuestro caso tendríamos lo siguiente:
-:::</p>
+<p>y el estimador corregido por sesgo es: <span class="math inline">\(T_{jack}=T_n-b_{jack}\)</span>.</p>
+<div class="example">
+<p><span id="exm:unnamed-chunk-74" class="example"><strong>Ejemplo 3.2  </strong></span>En nuestro caso tendríamos lo siguiente:</p>
+</div>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="02-jacknife-bootstrap.html#cb47-1" aria-hidden="true" tabindex="-1"></a>(bjack <span class="ot">&lt;-</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">mean</span>(T_i) <span class="sc">-</span> Tn))</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Es decir, el sesgo aproximado (jackknife) del estimador <span class="math inline">\(T_n\)</span> es 0.</p>
@@ -693,15 +692,15 @@ representa el aporte o peso que tiene la variable <span class="math inline">\(X_
 estimar <span class="math inline">\(T_{n}\)</span>.</p>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-78" class="exercise"><strong>Ejercicio 3.2  </strong></span>Usado un cálculo similar para el <span class="math inline">\(b_{jack}\)</span> pruebe que</p>
+<p><span id="exr:unnamed-chunk-78" class="exercise"><strong>Ejercicio 3.1  </strong></span>Usado un cálculo similar para el <span class="math inline">\(b_{jack}\)</span> pruebe que</p>
 <p><span class="math display">\[
 \operatorname{Sesgo}\left(T_{\text {jack}
 }\right)=-\frac{b}{n(n-1)}+O\left(\frac{1}{n^{2}}\right)=O\left(\frac{1}{n^{2}}\right).
 \]</span></p>
 <p>¿Qué conclusión se obtiene de este cálculo?</p>
 </div>
-<div class="exercise">
-<p><span id="exr:unnamed-chunk-79" class="exercise"><strong>Ejercicio 3.3  </strong></span>Los pseudo-valores se estiman de forma directa como,</p>
+<div class="example">
+<p><span id="exm:unnamed-chunk-79" class="example"><strong>Ejemplo 3.3  </strong></span>Los pseudo-valores se estiman de forma directa como,</p>
 </div>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="02-jacknife-bootstrap.html#cb49-1" aria-hidden="true" tabindex="-1"></a>pseudo <span class="ot">&lt;-</span> n <span class="sc">*</span> Tn <span class="sc">-</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> T_i</span>
 <span id="cb49-2"><a href="02-jacknife-bootstrap.html#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -808,8 +807,8 @@ v_{\mathrm{boot}} \stackrel{\mathrm{a.s.}}{\longrightarrow} \mathbb{V}_{\widehat
 <ol style="list-style-type: decimal">
 <li>Seleccione una muestra con remplazo <span class="math inline">\(X_{1}^{*}, \ldots, X_{n}^{*}\)</span> de <span class="math inline">\(X_{1},\ldots,X_{n}\)</span>.</li>
 </ol>
-<div class="exercise">
-<p><span id="exr:unnamed-chunk-89" class="exercise"><strong>Ejercicio 3.4  </strong></span>En este ejemplo podemos tomar <span class="math inline">\(B=1000\)</span> y construir esa cantidad de veces nuestro estimador de varianza:</p>
+<div class="example">
+<p><span id="exm:unnamed-chunk-89" class="example"><strong>Ejemplo 3.4  </strong></span>En este ejemplo podemos tomar <span class="math inline">\(B=1000\)</span> y construir esa cantidad de veces nuestro estimador de varianza:</p>
 </div>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="02-jacknife-bootstrap.html#cb62-1" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
 <span id="cb62-2"><a href="02-jacknife-bootstrap.html#cb62-2" aria-hidden="true" tabindex="-1"></a>Tboot_b <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>

@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística II"
 author: "Maikol Solís Chacón y Luis Barboza Chinchilla"
-date: "Actualizado el 12 abril, 2022"
+date: "Actualizado el 18 abril, 2022"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -1542,13 +1542,13 @@ $\bar{X})^{2}$. Entonces,
 por lo tanto
 
 \begin{equation*}
-\mathrm{Sesgo} = -\frac{\sigma^{2}}{n}
+\mathrm{Sesgo}(\hat{\sigma}^2_n) = -\frac{\sigma^{2}}{n}
 \end{equation*}
 
 Por lo tanto en este caso $a=-\sigma^{2}$ y $b=0$.
 
-Defina \(T_{(-i)}\) como el estimador \(T_{n}\) pero eliminando el
-\(i\)-ésimo elemento de la muestra.
+
+Suponga que se toma  \(T_{(-i)}\) como el estimador \(T_{n}\) pero eliminando el \(i\)-ésimo elemento de la muestra.
 
 Es claro que en este contexto, se tiene que
 
@@ -1556,7 +1556,7 @@ Es claro que en este contexto, se tiene que
 \operatorname{Sesgo}\left(T_{(-i)}\right)=\frac{a}{n-1}+\frac{b}{(n-1)^{2}}+O\left(\frac{1}{(n-1)^{3}}\right)
 \end{equation}
 
-::: {.exercise #unnamed-chunk-70}
+::: {.example #unnamed-chunk-70}
 Una forma fácil de construir los \(T_{(-i)}\) es primero replicando
 la matriz de datos múltiple veces usando el producto de kronecker
 :::
@@ -1628,7 +1628,6 @@ NA & 15 & 15 & 15 & 15 & 15 & 15 & 15 & 15 & 15\\
 \hline
 \end{tabular}
 
-
 Cada columna contiene toda la muestra excepto el \(i\)-ésimo
 elemento. Solo basta estimar la media de cada columna:
 
@@ -1679,7 +1678,8 @@ donde
 \end{equation*}
 
 y el estimador corregido por sesgo es: $T_{jack}=T_n-b_{jack}$.
-::: {.exercise #unnamed-chunk-74}
+
+::: {.example #unnamed-chunk-74}
 En nuestro caso tendríamos lo siguiente:
 :::
 
@@ -1749,7 +1749,7 @@ Usado un cálculo similar para el \(b_{jack}\) pruebe que
 :::
 
 
-::: {.exercise #unnamed-chunk-79}
+::: {.example #unnamed-chunk-79}
 Los pseudo-valores se estiman de forma directa como,
 :::
 
@@ -1958,7 +1958,7 @@ Así que basta cambiar el punto 1. del algoritmo mencionando anteriormente con
 1. Seleccione una muestra con remplazo  \(X_{1}^{*}, \ldots, X_{n}^{*}\) de  \(X_{1},\ldots,X_{n}\).
 
 
-::: {.exercise #unnamed-chunk-89}
+::: {.example #unnamed-chunk-89}
 En este ejemplo podemos tomar \(B=1000\) y construir esa cantidad de veces nuestro estimador de varianza:
 :::
 
