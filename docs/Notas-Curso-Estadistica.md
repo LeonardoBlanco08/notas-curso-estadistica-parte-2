@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística II"
 author: "Maikol Solís Chacón y Luis Barboza Chinchilla"
-date: "Actualizado el 18 abril, 2022"
+date: "Actualizado el 25 abril, 2022"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -1542,13 +1542,13 @@ $\bar{X})^{2}$. Entonces,
 por lo tanto
 
 \begin{equation*}
-\mathrm{Sesgo}(\hat{\sigma}^2_n) = -\frac{\sigma^{2}}{n}
+\mathrm{Sesgo} = -\frac{\sigma^{2}}{n}
 \end{equation*}
 
 Por lo tanto en este caso $a=-\sigma^{2}$ y $b=0$.
 
-
-Suponga que se toma  \(T_{(-i)}\) como el estimador \(T_{n}\) pero eliminando el \(i\)-ésimo elemento de la muestra.
+Defina \(T_{(-i)}\) como el estimador \(T_{n}\) pero eliminando el
+\(i\)-ésimo elemento de la muestra.
 
 Es claro que en este contexto, se tiene que
 
@@ -1556,7 +1556,7 @@ Es claro que en este contexto, se tiene que
 \operatorname{Sesgo}\left(T_{(-i)}\right)=\frac{a}{n-1}+\frac{b}{(n-1)^{2}}+O\left(\frac{1}{(n-1)^{3}}\right)
 \end{equation}
 
-::: {.example #unnamed-chunk-70}
+::: {.exercise #unnamed-chunk-70}
 Una forma fácil de construir los \(T_{(-i)}\) es primero replicando
 la matriz de datos múltiple veces usando el producto de kronecker
 :::
@@ -1628,6 +1628,7 @@ NA & 15 & 15 & 15 & 15 & 15 & 15 & 15 & 15 & 15\\
 \hline
 \end{tabular}
 
+
 Cada columna contiene toda la muestra excepto el \(i\)-ésimo
 elemento. Solo basta estimar la media de cada columna:
 
@@ -1678,8 +1679,7 @@ donde
 \end{equation*}
 
 y el estimador corregido por sesgo es: $T_{jack}=T_n-b_{jack}$.
-
-::: {.example #unnamed-chunk-74}
+::: {.exercise #unnamed-chunk-74}
 En nuestro caso tendríamos lo siguiente:
 :::
 
@@ -1749,7 +1749,7 @@ Usado un cálculo similar para el \(b_{jack}\) pruebe que
 :::
 
 
-::: {.example #unnamed-chunk-79}
+::: {.exercise #unnamed-chunk-79}
 Los pseudo-valores se estiman de forma directa como,
 :::
 
@@ -1958,7 +1958,7 @@ Así que basta cambiar el punto 1. del algoritmo mencionando anteriormente con
 1. Seleccione una muestra con remplazo  \(X_{1}^{*}, \ldots, X_{n}^{*}\) de  \(X_{1},\ldots,X_{n}\).
 
 
-::: {.example #unnamed-chunk-89}
+::: {.exercise #unnamed-chunk-89}
 En este ejemplo podemos tomar \(B=1000\) y construir esa cantidad de veces nuestro estimador de varianza:
 :::
 
@@ -2266,6 +2266,2439 @@ Repita los cálculos anteriores tomando como cuantiles los de una normal con med
   
 
 <!--chapter:end:02-jacknife-bootstrap.Rmd-->
+
+
+
+# Métodos lineales de regresión
+
+**NOTA: Para los siguientes capítulos nos basaremos en los libros [@HastieElements2009] y [@James2013b].**
+
+
+## Introducción al Aprendizaje Estadístico.
+
+Supongamos que tenemos \(p\) variables de entrada que provocan una respuesta \(Y\) (variable dependiente) a través de la siguiente relación:
+
+\begin{equation}
+Y = f(X_{1},\ldots,X_{p}) + \varepsilon
+(\#eq:regresion-general)
+\end{equation}
+donde \(f\) es desconocida, las variables \(X\)'s son las variables de entrada (covariables o predictores) y \(\varepsilon\) representa un error aditivo a la relación definida por $f$.
+
+
+
+Hay dos motivos por los que estimamos \(f\):
+
+1. **Predicción:** Si se estima \(f\) con \(\hat{f}\) entonces
+\begin{equation*}
+\hat{Y} = \hat{f}(X_{1},\ldots,X_{p}). 
+\end{equation*}
+asumiendo que el valor medio del error $\epsilon$ es cero. Si tuvieramos valores nuevos de los \(X\)'s entonces podríamos estimar el valor que el corresponde a \(Y\). 
+
+En este caso obtener una estructura óptima o precisa de la función $\hat f$ no es importante, siempre y cuando sea posible obtener buenas predicciones de $Y$. Para entender mejor esta idea se puede definir:
+
+  a. **Error reducible:** Error de \(\hat{f}\) alrededor de \(f\), el cual es propio de la escogencia del modelo. 
+  a. **Error irreducible:** Error que escapa a una estimación perfecta de $f$. Puede venir de covariables no consideradas en el problema, fuentes de error que no se pueden cuantificar, etc.
+
+\begin{align*}
+\mathbb{E}\left[(\hat{Y}-Y\right)^2] 
+&=  \mathbb{E}\left[\left(  f(X_{1},\ldots,X_{p}) + \varepsilon - \hat{f}(X_{1},\ldots,X_{p}) \right)^{2}  \right] \\
+&= \underbrace{\left( f(X_{1},\ldots,X_{p})- \hat{f}(X_{1},\ldots,X_{p})  \right) ^{2} }_{\text{Reducible}}
++\underbrace{\mathrm{Var}\left(\varepsilon\right)}_{\text{irreducible}}.
+\end{align*}
+asumiendo que $f$ y $X$ son conocidas y determinísticas.
+
+2. **Inferencia:**  Entender la relación entre \(X\) y \(Y\), es decir entender cómo $Y$ cambia como función de las covariables. 
+En este caso sí nos interesa obtener un estimador preciso e interpretable de la función $f$. Las siguientes preguntas son de interés:
+- ¿Cuáles covariables están asociadas con la variable respuesta o dependiente?
+- ¿Cuál es la relación entre cada variable predictora y la respuesta?
+- ¿La relación entre covariables y variable dependiente es lineal? o ¿la relación es más compleja?
+
+### Formas de estimar $f$
+
+El proceso de estimación de $f$ a través de $\hat f$ se realiza sobre un subconjunto de los datos disponibles. A este conjunto se le llama *datos de entrenamiento*. El resto de los datos se puede utilizar para probar la capacidad predictiva del modelo seleccionado. 
+
+Existen varias clasificaciones de modelos para estimar $f$:
+
+- Modelos paramétricos vs modelos no parámetricos. Los modelos pueden tener parámetros que facilitan el proceso de estimación, pero el número de parámetros debe ser conservador para evitar situaciones de *sobreajuste*. Los modelos no-paramétricos requieren de mucha información para dar un buen ajuste, sea a través de una muestra grande o a través de manipular parámetros generales de suavidad (ancho de banda).
+- Modelos predictivos vs modelos interpretativos. Entre más flexible (complejo) sea un modelo, más dificil es su interpretación, por lo tanto más dificil es hacer inferencia. Hay modelos muy flexibles que permiten hacer muy buena predicción, pero fácilmente se puede caer en sobreajuste.
+- Modelos supervisados vs no supervisados. ¿La variable $Y$ está disponible en la muestra?
+- Modelos de regresión vs modelos de clasificación. ¿La variable $Y$ es continua o es una variable categórica?
+
+### Medidas de bondad de ajuste
+
+En el caso de regresión, la medida más utilizada es el Error Cuadrático Medio (MSE):
+\begin{align*}
+MSE=\frac 1 n \sum_{i=1}^n(y_i-\hat f(x_i))^2
+\end{align*}
+calculada sobre la base de entrenamiento del modelo para evaluar la capacidad de ajuste de $\hat f$. Para evaluar la capacidad predictiva del modelo se puede usar el mismo concepto sobre la *base de prueba*. La diferencia entre la magnitud del MSE en los dos conjuntos de datos, puede ser un indicador de sobreajuste. 
+
+Para el caso de un problema de aprendizaje estadístico hay interpretaciones de los componentes de sesgo y varianza:
+
+- *Varianza*: variación de $\hat f$ ante cambios en los datos de entrenamiento. Modelos más flexibles tienen mayor varianza.
+- *Sesgo*: error al aproximar la realidad complicada con un modelo más simple.  Modelos más flexibles tienen menor sesgo.
+
+**Estrategia de búsqueda de modelos**: conforme aumenta la flexibilidad de un modelo el sesgo disminuye, y la varianza no aumenta en el mismo ritmo. A partir de un cierto momento la disminución del sesgo no es lo suficientemente fuerte como para contrarrestar el crecimiento en varianza. 
+
+**Conclusión**: un modelo parsimonioso posiblemente garantizará un valor óptimo en MSE.
+
+## Regresión lineal
+
+El caso más sencillo es cuando se asume que la relación es lineal y se describe de la siguiente forma: 
+
+\begin{equation*}
+Y = \beta_{0} + \beta_{1}X_{1} + \cdots +  \beta_{p}X_{p} + \varepsilon.
+\end{equation*} 
+ 
+ Aquí los valores \(\beta\)'s son constantes a estimar, las variables \(X\)'s son las variables de entrada y  \(\varepsilon\) es el error irreducible cometido por hacer esta aproximación. 
+ 
+
+Las covariables en un modelo de regresión pueden ser: 
+
+1. Cuantitativas: variables continuas. 
+2. Categóricas: variables tipo factor que admiten un número de niveles. Estas variables pueden ser ordinales o nominales, dependiendo si hay un orden natural en la escala de los niveles. Para incorporarla en el modelo de regresión debemos *codificar* la variable:
+
+::: {.example #unnamed-chunk-107}
+Se tiene la variable \(G\) codificada con Casado (1), Soltero (2), Divorciado (3) y Unión Libre (4). Si queremos incorporar esta variable en una regresión podríamos usar la siguiente codificación: 
+
+\begin{equation*}
+X_{j} = \mathbf{1}_{\{G=j+1\}} 
+\end{equation*} 
+
+que resulta en la matriz 
+
+\begin{equation*}
+\begin{matrix}
+X_{1} & X_{2} & X_{3}\\
+0 & 0 & 0 \\
+1 & 0 & 0 \\
+0 & 1 & 0 \\
+0 & 0 & 1 \\
+\end{matrix}
+\end{equation*}
+
+Existen otras formas de codificar este tipo de variables, pero esta es una de las más usuales.
+
+:::
+
+
+### Forma matricial
+
+Podemos escribir el modelo de regresión en forma matricial: 
+
+\begin{equation*}
+\boldsymbol{Y} = \boldsymbol{X}\boldsymbol{\beta} + \boldsymbol{\varepsilon}
+\end{equation*}
+
+donde 
+
+\begin{multline*}
+\boldsymbol{Y} = 
+\begin{pmatrix}
+Y_{1} \\
+\vdots \\
+Y_{n}
+\end{pmatrix}_{n\times 1} 
+\quad 
+\boldsymbol{X} = 
+\begin{pmatrix}
+1 & X_{1,1} & \cdots & X_{p,1} \\
+\vdots & \vdots & \cdots & \vdots\\
+1 & X_{1,n}& \cdots & X_{p,n}
+\end{pmatrix}_{n\times (p+1)}
+\\
+\boldsymbol{\varepsilon} = 
+\begin{pmatrix}
+\varepsilon_{1} \\
+\vdots \\
+\varepsilon_{n}
+\end{pmatrix}_{n\times 1} 
+\quad 
+\boldsymbol{\beta} = 
+\begin{pmatrix}
+\beta_{0} \\
+\beta_{1} \\
+\vdots \\
+\beta_{p}
+\end{pmatrix}_{(p+1)\times 1} 
+\end{multline*}
+
+Suponemos que \(\mathbb{E}\left[\varepsilon_{i}\right] = 0\) y \(\mathrm{Var}\left(\varepsilon_{i}\right) = \sigma^{2}\).
+
+La forma de resolver este problema es  por minimos cuadrados.  Es decir, buscamos el \(\hat{\beta}\) que cumpla lo siguiente:
+
+
+\begin{align}
+\hat{\beta} &= 
+ \operatorname{argmin}_\beta (\boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta})^{\top} (\boldsymbol{Y} - \boldsymbol{X} \boldsymbol{\beta})\\
+ &=  \operatorname{argmin}_\beta \sum_{i=1}^n \left( Y_{i} -\beta_{0} - \sum_{j=1}^p X_{j,i} \beta_{j} \right)^2 
+ (\#eq:minimos-cuadrados)
+ \end{align}
+
+
+![Tomado de https://www.wikiwand.com/en/Ordinary_least_squares](manual_figures/ols.png)
+Por lo tanto buscaríamos minimizar la suma de *residuos* al cuadrado.
+
+Suponga que \(\gamma\) es un vector cualquiera en \(\mathbb{R}^{p+1}\)  y defina \(V := \{\boldsymbol{X}\boldsymbol{\gamma}, \gamma \in \mathbb{R}^{p+1}\}\), es decir el espacio lineal generado por las columnas (covariables) de $\boldsymbol{X}$. Buscamos entonces un vector $\beta$ que cumpla:
+
+\begin{align*}
+\boldsymbol{X}\boldsymbol{\beta}
+ &= \operatorname{Proy}_{V} \boldsymbol{Y}
+\end{align*}
+
+Entonces dado que $\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp V$, es decir $\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta} \perp \boldsymbol{X}\boldsymbol{\gamma}, \forall \boldsymbol{\gamma} \in \mathbb{R}^{p+1}$ entonces:
+
+\begin{align*}
+ \boldsymbol{X}\boldsymbol{\gamma} \cdot \left(\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta}\right)  &=  0 \\
+ \boldsymbol{\gamma}^{\top}\boldsymbol{X}^{\top}(\boldsymbol{Y}-\boldsymbol{X}\boldsymbol{\beta}) &=  0 \\
+ \boldsymbol{\gamma}^{\top}\boldsymbol{X}^{\top}\boldsymbol{Y} &= \boldsymbol{\gamma}^{\top} \boldsymbol{X}^{\top} \boldsymbol{X}\boldsymbol{\beta}  \\
+  \boldsymbol{X}^{\top}\boldsymbol{Y} &=  \boldsymbol{X}^{\top} \boldsymbol{X}\boldsymbol{\beta}  \\
+  \boldsymbol{\beta}  &=  (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{Y} 
+\end{align*}
+
+
+
+
+Donde se asume que \(\boldsymbol{X}^{\top} \boldsymbol{X}\) debe ser invertible. Si no es así, se puede construir su inversa generalizada pero no garantiza la unicidad de los \(\beta\)'s. Es decir, puede existir \(\hat{\beta} \neq \tilde{\beta}\) tal que \(\boldsymbol{X}\boldsymbol{\hat{\beta}} = \boldsymbol{X}\boldsymbol{\tilde{\beta}} \). A $\hat \beta$ se le llama estimador por mínimos cuadrados de $\beta$.
+
+En el caso de predicción tenemos que 
+
+\begin{align*}
+\hat{Y} &=  X\hat \beta \\
+&= \boldsymbol{X}(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{Y} \\
+&=  H \boldsymbol{Y} 
+\end{align*}
+
+Donde \(H\) es la matriz "techo" o  "hat". La matriz $H$ es la matriz de proyección de Y al espacio de las columnas de \(X\).
+
+::: {.exercise #unnamed-chunk-108}
+Suponga que tenemos la regresión simple
+
+\begin{equation*}
+Y = \beta_{0} + \beta_{1}X_{1}+\varepsilon.
+\end{equation*}
+
+
+Verifique que los estimadores de mínimos cuadrados de \(\beta_{0}\) y \(\beta_{1}\) son: 
+
+\begin{align*}
+\hat{\beta}_{1}&= \frac{\sum_{i=1}^{n}\left(X_{i}-\overline{X}\right)\left(Y_{i}-\overline{Y}\right)}{\sum_{i=1}^{n}\left(X_{i}-\overline{x}\right)^{2}} \\ 
+\hat{\beta}_{0}&= \bar{Y}-\widehat{\beta}_{1} \bar{X}
+\end{align*}
+
+usando los siguiente métodos:
+
+1. El método de proyecciones. 
+2. Aplicando el criterio de mínimos cuadrados. Ecuación \@ref(eq:minimos-cuadrados).
+
+:::
+
+### Laboratorio
+
+Usemos la base `mtcars` para los siguientes ejemplos. Toda la información de esta base se encuentra en `?mtcars`. 
+
+
+
+```r
+mtcars <- within(mtcars, {
+    vs <- factor(vs, labels = c("V-Shape", "Straight-Line"))
+    am <- factor(am, labels = c("automatic", "manual"))
+    cyl <- factor(cyl)
+    gear <- factor(gear)
+    carb <- factor(carb)
+})
+
+head(mtcars)
+```
+
+```
+##                    mpg cyl disp  hp drat    wt  qsec            vs        am
+## Mazda RX4         21.0   6  160 110 3.90 2.620 16.46       V-Shape    manual
+## Mazda RX4 Wag     21.0   6  160 110 3.90 2.875 17.02       V-Shape    manual
+## Datsun 710        22.8   4  108  93 3.85 2.320 18.61 Straight-Line    manual
+## Hornet 4 Drive    21.4   6  258 110 3.08 3.215 19.44 Straight-Line automatic
+## Hornet Sportabout 18.7   8  360 175 3.15 3.440 17.02       V-Shape automatic
+## Valiant           18.1   6  225 105 2.76 3.460 20.22 Straight-Line automatic
+##                   gear carb
+## Mazda RX4            4    4
+## Mazda RX4 Wag        4    4
+## Datsun 710           4    1
+## Hornet 4 Drive       3    1
+## Hornet Sportabout    3    2
+## Valiant              3    1
+```
+
+```r
+summary(mtcars)
+```
+
+```
+##       mpg        cyl         disp             hp             drat      
+##  Min.   :10.40   4:11   Min.   : 71.1   Min.   : 52.0   Min.   :2.760  
+##  1st Qu.:15.43   6: 7   1st Qu.:120.8   1st Qu.: 96.5   1st Qu.:3.080  
+##  Median :19.20   8:14   Median :196.3   Median :123.0   Median :3.695  
+##  Mean   :20.09          Mean   :230.7   Mean   :146.7   Mean   :3.597  
+##  3rd Qu.:22.80          3rd Qu.:326.0   3rd Qu.:180.0   3rd Qu.:3.920  
+##  Max.   :33.90          Max.   :472.0   Max.   :335.0   Max.   :4.930  
+##        wt             qsec                   vs             am     gear  
+##  Min.   :1.513   Min.   :14.50   V-Shape      :18   automatic:19   3:15  
+##  1st Qu.:2.581   1st Qu.:16.89   Straight-Line:14   manual   :13   4:12  
+##  Median :3.325   Median :17.71                                     5: 5  
+##  Mean   :3.217   Mean   :17.85                                           
+##  3rd Qu.:3.610   3rd Qu.:18.90                                           
+##  Max.   :5.424   Max.   :22.90                                           
+##  carb  
+##  1: 7  
+##  2:10  
+##  3: 3  
+##  4:10  
+##  6: 1  
+##  8: 1
+```
+
+Observemos las relaciones generales de las variables de esta base de datos 
+
+
+```r
+ggplot(mtcars) + geom_point(aes(wt, mpg)) + theme_minimal()
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-110-1} \end{center}
+
+El objetivo es tratar la eficiencia del automovil `mpg` con respecto a su peso `wt`. 
+
+
+Usaremos una regresión lineal para encontrar los coeficientes. 
+
+Primero hay que construir la matriz de diseño
+
+
+```r
+X <- mtcars$wt
+head(X)
+```
+
+```
+## [1] 2.620 2.875 2.320 3.215 3.440 3.460
+```
+
+```r
+Y <- mtcars$mpg
+head(Y)
+```
+
+```
+## [1] 21.0 21.0 22.8 21.4 18.7 18.1
+```
+
+```r
+(beta1 <- solve(t(X) %*% X) %*% t(X) %*% Y)
+```
+
+```
+##          [,1]
+## [1,] 5.291624
+```
+
+```r
+dfreg <- data.frame(x = X, yreg = X %*% beta1) %>%
+    arrange(x)
+```
+
+```r
+ggplot(data = data.frame(x = X, y = Y)) + geom_point(aes(x,
+    y)) + geom_line(data = dfreg, aes(x, yreg), color = "red") +
+    theme_minimal()
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-112-1} \end{center}
+
+en donde podemos concluir que la relación lineal no modela de manera apropiada la relación observada en los datos. Por lo tanto es necesario incluir el intercepto $\beta_0$ al modelo lineal:
+
+
+```r
+X <- cbind(1, mtcars$wt)
+head(X)
+```
+
+```
+##      [,1]  [,2]
+## [1,]    1 2.620
+## [2,]    1 2.875
+## [3,]    1 2.320
+## [4,]    1 3.215
+## [5,]    1 3.440
+## [6,]    1 3.460
+```
+
+```r
+Y <- mtcars$mpg
+head(Y)
+```
+
+```
+## [1] 21.0 21.0 22.8 21.4 18.7 18.1
+```
+
+```r
+(beta01 <- solve(t(X) %*% X) %*% t(X) %*% Y)
+```
+
+```
+##           [,1]
+## [1,] 37.285126
+## [2,] -5.344472
+```
+
+```r
+dfreg <- data.frame(x = X, yreg = X %*% beta01) %>%
+    arrange(x.2)
+```
+
+```r
+ggplot(data = data.frame(x0 = X[, 1], x1 = X[, 2],
+    y = Y)) + geom_point(aes(x1, y)) + geom_line(data = dfreg,
+    aes(x.2, yreg), color = "red") + theme_minimal()
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-114-1} \end{center}
+
+El mismo resultado se puede obtener a través del comando \verb|lm|: 
+
+
+```r
+lm(mpg ~ -1 + wt, data = mtcars)
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ -1 + wt, data = mtcars)
+## 
+## Coefficients:
+##    wt  
+## 5.292
+```
+
+```r
+lm(mpg ~ wt, data = mtcars)
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Coefficients:
+## (Intercept)           wt  
+##      37.285       -5.344
+```
+
+Suponga que queremos trabajar con la variable categorica `cyl` (Número de cilindros) como única covariable.  Lo que se debe hacer es codificar la variable categórica: 
+
+
+```r
+X <- model.matrix(mpg ~ cyl, data = mtcars)
+
+head(X)
+```
+
+```
+##                   (Intercept) cyl6 cyl8
+## Mazda RX4                   1    1    0
+## Mazda RX4 Wag               1    1    0
+## Datsun 710                  1    0    0
+## Hornet 4 Drive              1    1    0
+## Hornet Sportabout           1    0    1
+## Valiant                     1    1    0
+```
+
+```r
+(betas <- solve(t(X) %*% X) %*% t(X) %*% Y)
+```
+
+```
+##                   [,1]
+## (Intercept)  26.663636
+## cyl6         -6.920779
+## cyl8        -11.563636
+```
+
+```r
+(cylreg <- lm(mpg ~ cyl, data = mtcars))
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ cyl, data = mtcars)
+## 
+## Coefficients:
+## (Intercept)         cyl6         cyl8  
+##      26.664       -6.921      -11.564
+```
+
+```r
+(betaslm <- coefficients(cylreg))
+```
+
+```
+## (Intercept)        cyl6        cyl8 
+##   26.663636   -6.920779  -11.563636
+```
+
+
+```r
+# Efecto cyl4: cyl4 = 1, cyl6 = 0, cyl8 = 0
+
+betaslm[1]
+```
+
+```
+## (Intercept) 
+##    26.66364
+```
+
+```r
+# Efecto cyl6: cyl4 = 1, cyl6 = 1, cyl8 = 0
+
+betaslm[1] + betaslm[2]
+```
+
+```
+## (Intercept) 
+##    19.74286
+```
+
+```r
+# Efecto cyl8: cyl4 = 1, cyl6 = 0, cyl8 = 1
+
+betaslm[1] + betaslm[3]
+```
+
+```
+## (Intercept) 
+##        15.1
+```
+
+
+
+## Propiedades estadísticas 
+
+Hasta ahora se han hecho pocos supuestos acerca de la distribución de los datos. Si asumimos que las observaciones $Y_i$ son no correlacionadas y que tienen varianza constante $\sigma^2$ y además las covariables son fijas (no aleatorias), entonces:
+\begin{align*}
+E[\hat \beta]&=(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}E[\boldsymbol{Y}]=(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{X}\beta=\beta \\
+\text{Var}[\hat \beta] &= (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\text{Var}[Y] ((\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top})^{\top} \\
+& = \sigma^2 (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1}
+\end{align*}
+
+Note que \(\sigma^{2}\) puede ser estimado a través de:
+ 
+ \begin{align*}
+ \hat{\sigma}^{2} 
+ &=  \frac{1}{n-p-1} \sum_{i=1}^{n} \left( Y_{i} - \hat{Y}_{i}\right)^{2} \\
+ &= \frac{1}{n-p-1}\left\Vert Y - X\hat{\beta} \right\Vert^{2} \\
+ &=   \frac{1}{n-p-1} \left\Vert Y-\operatorname{Proy}_{V}Y \right\Vert^{2} 
+ \end{align*}
+ 
+ Otra forma de verlo es 
+ \begin{align*}
+Y-\operatorname{Proy}_{V}Y  
+&= X\beta + \varepsilon -  \operatorname{Proy}_{V}( X\beta + \varepsilon) \\
+&= X\beta - \operatorname{Proy}_{V}( \underbrace{X\beta}_{\in V}) + \varepsilon - \underbrace{\operatorname{Proy}_{V}( \varepsilon)}_{=0} \\
+&= X\beta -X\beta + \varepsilon \\
+&=  \operatorname{Proy}_{V^{\top}}( \varepsilon)
+ \end{align*}
+
+\begin{equation*}
+\hat{\sigma}^{2} 
+= \frac{1}{dim(V^{\top})}\left\Vert \operatorname{Proy}_{V^{\top}}\varepsilon\right\Vert \\
+\end{equation*}
+ 
+Cumple con la propiedad que \(\mathbb{E}\left[\hat{\sigma}^{2}\right] = \sigma^{2}\) (estimador insesgado).
+
+Para poder hacer inferencia sobre $\beta$ y $\sigma^2$ se puede asumir además que los errores son gaussianos:
+
+\begin{equation*}
+\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}I\right)
+\end{equation*} . 
+
+y de esta forma se obtiene:
+
+\begin{equation*}
+Y = X\beta + \varepsilon \sim \mathcal{N}\left(X\beta,\sigma^{2}I\right)
+\end{equation*} 
+
+Y además: 
+
+\begin{align*}
+\hat{\beta} \sim  \mathcal{N}\left(\beta,\sigma^2 (X^{\top}X)^{-1}\right) 
+\end{align*}
+
+Por otro lado se puede comprobar que: 
+$$(n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.$$
+y además se puede comprobar que $\hat \beta$ y $\hat \sigma^2$ son independientes. 
+::: {.exercise #unnamed-chunk-118}
+Encuentre la varianza para \(\hat \beta_{0}\) y \(\hat \beta_{1}\) para el caso de la regresión simple. 
+:::
+
+### Prueba \(t\)
+ 
+La significancia de los parámetros $\beta_j$ se puede verificar a través de la siguiente prueba de hipótesis:
+
+ \begin{equation*}
+ H_{0}: \beta_{j} = 0 \quad \text{ vs } \quad H_{1}:\beta_{j}\neq 0.
+ \end{equation*}
+ 
+ En donde el estadístico de prueba es: 
+ 
+ \begin{equation*}
+ z_{j} = \frac{\hat{\beta}_{j}}{\hat{\sigma} \sqrt{v_{j}}} 
+ \end{equation*}
+ 
+ donde \(v_{j}\) es el \(j\)-esimo elemento de la diagonal de \((X^{\top}X)^{-1}\).
+ 
+ Bajo \(H_{0}\):  \(z_{j} \sim t_{n-p-1}\) y se rechaza \(H_{0}\) al nivel $\alpha$ si: 
+ 
+ \begin{equation*}
+ \left\vert z_{j} \right\vert > t_{n-p-1, 1-\frac{\alpha}{2}} 
+ \end{equation*}
+ 
+### Prueba \(F\)
+
+Si uno busca medir la significancia de todos los parámetros $\beta_j$ de forma simultánea, excepto el intercepto. En este caso podemos definir la siguiente hipótesis nula:
+ \begin{equation*}
+ H_{0}: \beta_{1} = \cdots =\beta_{p} = 0 \quad 
+ \text{  vs   }\quad H_{1}: \text{ al menos un \(\beta\) no es cero}.
+ \end{equation*}
+ 
+ 
+Lo cual es equivalente a comparar el modelo  nulo \(Y=\beta_{0}+\varepsilon\) contra el modelo completo \(Y=\beta_{0}+ \beta_{1}X_{1} + \cdots + \beta_{p}X_{p} + \varepsilon\). 
+ 
+ Defina la suma total de cuadrados ($TSS$) y la suma de residuos al cuadrado ($RSS$) como: 
+ \begin{align*}
+ TSS &= \sum_{i=1}^{n} \left( Y_{i} -\overline{Y} \right)^{2} \\
+ RSS &= \sum_{i=1}^{n} \left( Y_{i} -\hat{Y_i} \right)^{2} \\
+ \end{align*}
+ 
+ Entonces el estadístico de prueba es:
+ 
+ \begin{equation*}
+ F = \frac{\frac{TSS-RSS}{p}}{\frac{RSS}{n-p-1}} \stackrel{H_0}{\sim} \frac{\chi^{2}_{p}}{\chi^{2}_{n-p-1}}.
+ \end{equation*}
+ 
+ y rechazaríamos \(H_{0}\) al nivel $\alpha$ si: 
+ 
+ \begin{equation*}
+ F > F_{p, n-p-1, 1-\alpha}.
+ \end{equation*}
+ 
+ Si por otro lado queremos probar que un conjunto de $q$ covariables son no-significativas entonces probamos (sin pérdida de generalidad):
+\begin{align*}
+H_0: \beta_{p-q+1}=\beta_{p-q+2}=\cdots=\beta_p=0
+\end{align*}
+
+a través de la comparación de un modelo completo y uno reducido:
+\begin{align*}
+Y&=\beta_{0}+ \beta_{1}X_{1} + \cdots + \beta_{p}X_{p} + \varepsilon \qquad \text{Modelo completo} \\
+Y&=\beta_{0}+ \beta_{1}X_{1} + \cdots + \beta_{p-q}X_{p-q} + \varepsilon \qquad \text{Modelo reducido}
+\end{align*}
+
+usando el estadístico de prueba:
+
+ \begin{equation*}
+ F = \frac{\frac{RSS_0-RSS}{q}}{\frac{RSS}{n-p-1}} \stackrel{H_0}{\sim} \frac{\chi^{2}_{q}}{\chi^{2}_{n-p-1}}.
+ \end{equation*}
+
+donde $RSS_0$ es la suma de residuos al cuadrado del modelo reducido. En este caso se rechazaría $H_0$ al nivel $\alpha$ si $F>F_{q, n-p-1, 1-\alpha}$. 
+ 
+###  Laboratorio
+
+
+Siguiendo con nuestro ejemplo, vamos a explorar un poco más la función `lm`. 
+
+```r
+modelo_wt <- lm(mpg ~ wt, data = mtcars)
+summary(modelo_wt)
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5432 -2.3647 -0.1252  1.4096  6.8727 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  37.2851     1.8776  19.858  < 2e-16 ***
+## wt           -5.3445     0.5591  -9.559 1.29e-10 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.046 on 30 degrees of freedom
+## Multiple R-squared:  0.7528,	Adjusted R-squared:  0.7446 
+## F-statistic: 91.38 on 1 and 30 DF,  p-value: 1.294e-10
+```
+
+```r
+modelo_wt_cyl <- lm(mpg ~ wt + cyl, data = mtcars)
+summary(modelo_wt_cyl)
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt + cyl, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.5890 -1.2357 -0.5159  1.3845  5.7915 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  33.9908     1.8878  18.006  < 2e-16 ***
+## wt           -3.2056     0.7539  -4.252 0.000213 ***
+## cyl6         -4.2556     1.3861  -3.070 0.004718 ** 
+## cyl8         -6.0709     1.6523  -3.674 0.000999 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.557 on 28 degrees of freedom
+## Multiple R-squared:  0.8374,	Adjusted R-squared:   0.82 
+## F-statistic: 48.08 on 3 and 28 DF,  p-value: 3.594e-11
+```
+
+```r
+anova(modelo_wt, modelo_wt_cyl)
+```
+
+```
+## Analysis of Variance Table
+## 
+## Model 1: mpg ~ wt
+## Model 2: mpg ~ wt + cyl
+##   Res.Df    RSS Df Sum of Sq      F   Pr(>F)   
+## 1     30 278.32                                
+## 2     28 183.06  2    95.263 7.2856 0.002835 **
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+```r
+modelo_nulo <- lm(mpg ~ 1, data = mtcars)
+summary(modelo_nulo)
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ 1, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -9.6906 -4.6656 -0.8906  2.7094 13.8094 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   20.091      1.065   18.86   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 6.027 on 31 degrees of freedom
+```
+
+```r
+anova(modelo_nulo, modelo_wt_cyl)
+```
+
+```
+## Analysis of Variance Table
+## 
+## Model 1: mpg ~ 1
+## Model 2: mpg ~ wt + cyl
+##   Res.Df     RSS Df Sum of Sq      F    Pr(>F)    
+## 1     31 1126.05                                  
+## 2     28  183.06  3    942.99 48.079 3.594e-11 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+```
+
+```r
+fit <- lm(mpg ~ ., data = mtcars)
+summary(fit)
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ ., data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.5087 -1.3584 -0.0948  0.7745  4.6251 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(>|t|)  
+## (Intercept)     23.87913   20.06582   1.190   0.2525  
+## cyl6            -2.64870    3.04089  -0.871   0.3975  
+## cyl8            -0.33616    7.15954  -0.047   0.9632  
+## disp             0.03555    0.03190   1.114   0.2827  
+## hp              -0.07051    0.03943  -1.788   0.0939 .
+## drat             1.18283    2.48348   0.476   0.6407  
+## wt              -4.52978    2.53875  -1.784   0.0946 .
+## qsec             0.36784    0.93540   0.393   0.6997  
+## vsStraight-Line  1.93085    2.87126   0.672   0.5115  
+## ammanual         1.21212    3.21355   0.377   0.7113  
+## gear4            1.11435    3.79952   0.293   0.7733  
+## gear5            2.52840    3.73636   0.677   0.5089  
+## carb2           -0.97935    2.31797  -0.423   0.6787  
+## carb3            2.99964    4.29355   0.699   0.4955  
+## carb4            1.09142    4.44962   0.245   0.8096  
+## carb6            4.47757    6.38406   0.701   0.4938  
+## carb8            7.25041    8.36057   0.867   0.3995  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.833 on 15 degrees of freedom
+## Multiple R-squared:  0.8931,	Adjusted R-squared:  0.779 
+## F-statistic:  7.83 on 16 and 15 DF,  p-value: 0.000124
+```
+
+## Medida de bondad de ajuste
+
+A través de la prueba $F$ uno puede concluir si un modelo es significativo o no bajo un cierto nivel de confianza, o bien puede comparar si un modelo reducido es más significativo que uno completo, pero no nos da herramientas para decidir si un modelo es mejor que otro.
+
+Hay varias medidas para comparar modelos (la veremos con más detalle en otro capítulo):
+
+- Error estándar residual (\(\sigma\))
+- $R^{2}$ y $R^{2}$ ajustado
+- \(C_{p}\) de Mallows
+- Akaike Information Criterion (AIC)
+- Bayesian Information Criterion (BIC)
+
+Los índices \(C_{p}\) de Mallows, AIC y BIC los veremos después. 
+
+Error estándar residual
+: Se define como 
+
+\begin{align*}
+\mathrm{RSE} 
+&=  \sqrt{\hat{\sigma^{2}}}\\
+&= \sqrt{\frac{1}{n-p-1} \sum_{i=1}^{n} \left( Y_{i} - \hat{Y}_{i}\right)^{2}} \\
+&= \sqrt{\frac{\mathrm{RSS}}{n-p-1}}
+\end{align*}
+
+Entre más pequeño mejor, pero **depende de las unidades de \(Y\)**.
+
+Estadístico \(R^{2}\) 
+: 
+\begin{equation*}
+R^{2} = \frac{\mathrm{TSS}-\mathrm{RSS}}{\mathrm{TSS}} = 1-\frac{\mathrm{RSS}}{\mathrm{TSS}}
+\end{equation*}
+
+- **RSS:** Varianza sin explicar por el modelo __completo__.
+- **TSS:** Varianza sin explicar por el modelo __nulo__.
+
+Interpretación: proporción de variabilidad en $Y$ que es explicada a través de las covariables en $X$. Ya que $TSS-RSS$ representa la variabilidad explicada a través del modelo de regresión.
+
+Limitación: puede tener un valor alto bajo un número grande de covariables, ya que $RSS$ tiende a ser bajo conforme aumenta la complejidad del modelo (sobreajuste).
+
+
+Estadístico \(R^{2}\) ajustado
+: 
+\begin{equation*}
+R^{2}_{adj} = 1-\frac{\frac{\mathrm{RSS}}{n-p-1}}{\frac{\mathrm{TSS}}{n-1}}
+\end{equation*}
+
+
+### Laboratorio
+
+
+```r
+# Número de datos
+n <- 1000
+# Número de variables
+p <- 2
+
+x1 <- rnorm(1000)
+x2 <- runif(1000)
+y <- 1 + x1 + x2 + rnorm(1000, sd = 0.5)
+
+fit <- lm(y ~ x1 + x2)
+```
+
+
+#### $R^2$
+
+```r
+(TSS <- sum((y - mean(y))^2))
+```
+
+```
+## [1] 1404.421
+```
+
+```r
+(RSS <- sum((y - fitted(fit))^2))
+```
+
+```
+## [1] 256.8679
+```
+
+```r
+1 - RSS/TSS
+```
+
+```
+## [1] 0.8171005
+```
+
+Otra forma de entender el $R^2$ es notando que 
+
+
+```r
+cor(y, fitted(fit))^2
+```
+
+```
+## [1] 0.8171005
+```
+
+
+
+#### $R^2$ ajustado
+
+```r
+(TSS_adj <- TSS/(n - 1))
+```
+
+```
+## [1] 1.405827
+```
+
+```r
+(RSS_adj <- RSS/(n - p - 1))
+```
+
+```
+## [1] 0.2576408
+```
+
+```r
+1 - RSS_adj/TSS_adj
+```
+
+```
+## [1] 0.8167336
+```
+
+
+#### `summary`
+
+```r
+summary(fit)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x1 + x2)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.73583 -0.35052  0.01175  0.33270  1.42618 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  1.05443    0.03252   32.42   <2e-16 ***
+## x1           1.02131    0.01573   64.92   <2e-16 ***
+## x2           0.91189    0.05655   16.13   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.5076 on 997 degrees of freedom
+## Multiple R-squared:  0.8171,	Adjusted R-squared:  0.8167 
+## F-statistic:  2227 on 2 and 997 DF,  p-value: < 2.2e-16
+```
+
+
+
+ 
+## Predicción 
+
+Hay dos tipos de errores que se deben considerar en regresiones lineales: 
+
+1. **Error Reducible:** Recuerde que \(\hat{Y} = X\hat{\beta} \) es el estimador de la función \(f(X)=X\beta = \beta_{0} + \beta_{1}X_{1}+\cdots+\beta_{p}X_{p}\). 
+
+Por lo tanto su error (reducible) es: 
+
+\begin{equation*}
+\left(  f(X) - \hat{Y}\right) ^{2}. 
+\end{equation*}
+
+Para un conjunto de datos \(X_{0}\), tenemos que  
+
+\begin{align*}
+ & \hat{\beta} \sim  \mathcal{N}\left(\beta, \sigma^{2}\left( (X_{0}^{\top}X_{0})^{-1} \right)\right) \\
+ \implies & \hat{Y} = X_{0}\hat{\beta} \sim \mathcal{N}\left((X_{0}\beta,\sigma^{2}X_{0}^{\top}((X_{0}^{\top}X_{0})^{-1}X_{0})) \right)
+\end{align*}
+
+Por lo tanto un **intervalo de confianza** al \(1-\alpha\) para \(X_0\beta\) es 
+
+\begin{equation*}
+X_{0}\hat \beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{X_{0}^{\top}(X_{0}^{\top}X_{0})^{-1}X_{0}}.
+\end{equation*}
+
+2. **Error irreducible:** Aún conociendo perfectamente los \(\beta\)'s, existe  el error desconocido \(\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}\right)\) del modelo 
+
+\begin{equation*}
+Y = X\beta + \varepsilon.
+\end{equation*} 
+
+Entonces la varianza total de la predicción sería 
+
+\begin{equation*}
+\sigma^{2} +  \sigma^{2}X_{0}^{\top}((X_{0}^{\top}X_{0})^{-1}X_{0}) 
+\end{equation*}
+
+
+Entonces un **intervalo de predicción** al \(1-\alpha\) debe tomar en cuenta ese error  y por lo tanto 
+
+\begin{equation*}
+X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{1+X_{0}^{\top}(X_{0}^{\top}X_{0})^{-1}X_{0}}.
+\end{equation*}
+
+
+### Laboratorio 
+
+
+```r
+lm.r <- lm(mpg ~ wt, data = mtcars)
+
+range(mtcars$wt)
+```
+
+```
+## [1] 1.513 5.424
+```
+
+```r
+(datos_nuevos <- data.frame(wt = c(2.5, 3, 3.5)))
+```
+
+```
+##    wt
+## 1 2.5
+## 2 3.0
+## 3 3.5
+```
+
+```r
+predict(object = lm.r, newdata = datos_nuevos, interval = "confidence")
+```
+
+```
+##        fit      lwr      upr
+## 1 23.92395 22.55284 25.29506
+## 2 21.25171 20.12444 22.37899
+## 3 18.57948 17.43342 19.72553
+```
+
+```r
+predict(object = lm.r, newdata = datos_nuevos, interval = "prediction")
+```
+
+```
+##        fit      lwr      upr
+## 1 23.92395 17.55411 30.29378
+## 2 21.25171 14.92987 27.57355
+## 3 18.57948 12.25426 24.90469
+```
+
+
+
+
+####  Ajuste de la regresión sin intervalos de confianza
+
+
+```r
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) 
+p <- p + geom_point(size = 2)       # Use circulos de tamaño 2
+p <- p + geom_smooth(method = lm,   # Agregar la línea de regresión 
+              se = FALSE,           # NO incluir el intervalo de confianza   
+              size = 1,
+              col = "red")          # Línea de color rojo 
+p <- p + theme_bw()                 # Tema de fondo blanco
+p <- p + theme(axis.text = element_text(size = 20),  # Aumentar el tamaño 
+               axis.title = element_text(size = 20)) # de letra en los ejes
+
+# Dibujar el gráfico
+p   
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-126-1} \end{center}
+
+```r
+# # Guardar el gráfico en un archivo pdf
+# ggsave(filename = 'linear_reg_sin_IC.pdf') # 
+```
+
+#### Ajuste de la regresión con intervalos de confianza
+
+
+```r
+p <- ggplot(mtcars, aes(x = wt, y = mpg)) 
+p <- p + geom_point(size = 2)       # Use circulos de tamaño 2
+p <- p + geom_smooth(method = lm,   # Agregar la línea de regresión 
+              se = TRUE,            # Incluir el intervalo de confianza   
+              size = 1,
+              col = "red")          # Línea de color rojo 
+p <- p + theme_bw()                 # Tema de fondo blanco
+p <- p + theme(axis.text = element_text(size = 20),  # Aumentar el tamaño 
+               axis.title = element_text(size = 20)) # de letra en los ejes
+
+# Dibujar el gráfico
+p   
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-127-1} \end{center}
+
+```r
+# # Guardar el gráfico en un archivo pdf
+# ggsave(filename = 'linear_reg_con_IC.pdf') # 
+```
+
+#### Ajuste de la regresión con intervalos de confianza y predicción
+
+
+```r
+# Agregamos a mtcars el intervalo de predicción
+# para cada dato
+mtcars.pred <- data.frame(mtcars, predict(lm.r, interval = "prediction"))
+
+p <- ggplot(mtcars.pred, aes(x = wt, y = mpg))
+# Use circulos de tamaño 2
+p <- p + geom_point(size = 2)
+# Agregue una banda de tamaño [lwr, upr] para
+# cada punto y llamela 'predicción'
+p <- p + geom_ribbon(aes(ymin = lwr, ymax = upr, fill = "predicción"),
+    alpha = 0.3)
+# Agregue el intervalo de confianza usual y llame
+# a ese intervalo 'confianza'
+p <- p + geom_smooth(method = lm, aes(fill = "confianza"),
+    size = 1, col = "red")
+# Para agregar bien las leyendas
+p <- p + scale_fill_manual("Intervalos", values = c("green",
+    "yellow"))
+p <- p + theme_bw()
+p <- p + theme(axis.text = element_text(size = 20),
+    axis.title = element_text(size = 20))
+
+# Dibujar el gráfico
+p
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-128-1} \end{center}
+
+```r
+# # Guardar el gráfico en un archivo pdf
+# ggsave(filename = 'linear_reg_con_IC_IP.pdf') #
+```
+
+
+Repitamos el mismo ejercicio anterior pero con un caso más sencillo. 
+
+
+```r
+n <- 1000
+
+X <- runif(n, 0, 10)
+Y <- 10 + sin(5 * X) + X + rnorm(1000, 0, 1)
+toyex.initial <- data.frame(X, Y) %>%
+    arrange(X)
+
+plot(toyex.initial)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-129-1} \end{center}
+
+
+
+```r
+lm.toyex.initial <- lm(Y ~ X, data = toyex.initial)
+
+summary(lm.toyex.initial)
+```
+
+```
+## 
+## Call:
+## lm(formula = Y ~ X, data = toyex.initial)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4587 -0.8232  0.0468  0.8709  3.4115 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 10.01402    0.07847  127.61   <2e-16 ***
+## X            0.98895    0.01340   73.81   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.208 on 998 degrees of freedom
+## Multiple R-squared:  0.8452,	Adjusted R-squared:  0.845 
+## F-statistic:  5448 on 1 and 998 DF,  p-value: < 2.2e-16
+```
+
+```r
+toyex.pred.initial <- data.frame(toyex.initial, predict(lm.toyex.initial,
+    interval = "prediction"))
+```
+
+Ahora, quisiera generar muchas muestras del mismo experimento
+
+
+```r
+toyex.pred <- NULL
+
+for (i in 1:10) {
+    X <- runif(n, 0, 10)
+    Y <- 10 + sin(5 * X) + X + rnorm(1000, 0, 1)
+    toyexi <- data.frame(im = i, X, Y)
+    toyexi <- toyexi %>%
+        arrange(X)
+    toyex.pred <- bind_rows(toyex.pred, data.frame(toyexi,
+        predict(lm.toyex.initial, interval = "prediction")))
+}
+
+
+for (i in 1:10) {
+    toyex.pred$fit <- fitted(lm(formula = Y ~ X, data = toyex.pred[toyex.pred$im ==
+        i, ]))
+}
+
+toyex.pred$im <- as.factor(toyex.pred$im)
+```
+
+
+
+```r
+library(gganimate)
+
+ggplot(data = toyex.pred, aes(x = X, y = Y)) + geom_point(size = 1) +
+    geom_smooth(data = toyex.initial, method = lm,
+        mapping = aes(fill = "confianza"), size = 1,
+        col = "red") + geom_ribbon(data = toyex.pred.initial,
+    mapping = aes(x = X, ymin = lwr, ymax = upr, fill = "predicción",
+        ), alpha = 0.3) + labs(title = paste0("Muestra #: {closest_state}")) +
+    scale_fill_manual("Intervalos", values = c("green",
+        "yellow")) + theme_bw() + theme(axis.text = element_text(size = 20),
+    axis.title = element_text(size = 20)) + transition_states(im)
+```
+
+## Interacciones 
+
+Suponga un modelo lineal con dos covariables:
+
+\begin{equation*}
+Y = \beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon
+\end{equation*}
+
+Aumentemos en 1 unidad \(X_{1}\) y rescribamos el modelo original 
+
+\begin{align*}
+Y &=  \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon \\
+Y &=  (\beta_{0} + \beta_{1}) + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon \\
+Y &=  \tilde{\beta_{0}} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon \\
+\end{align*}
+
+Es decir, el modelo original sigue siendo teniendo la misma estructura aunque hayamos cambiado el \(X_1\). Este fenómeno ocurre siempre bajo transformaciones lineales de las variables. 
+
+
+Ahora suponga que tenemos el siguiente modelo:
+\begin{align*}
+Y =  \beta_{0} + \beta_{1} X_{1} X_{2} +\varepsilon \\
+\end{align*}
+
+y aumentamos en 1 el \(X_1\):
+
+\begin{align*}
+Y &=  \beta_{0} + \beta_{1} (X_{1}+1) X_{2} +\varepsilon \\
+Y &=  \beta_{0} + \beta_{1}X_{2} +  \beta_{1} X_{1} X_{2} +\varepsilon \\
+\end{align*}
+
+Note que en este caso no se logra mantener el mismo tipo de estructura. Una forma de arreglar el problema es incluir las *interacciones* junto con todos sus *efectos principales*. 
+
+\begin{equation*}
+Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\varepsilon \\
+\end{equation*}
+
+Este modelo se le conoce como modelo lineal con interacciones (caso de 2 covariables). Este modelo considera la posible interacción entre las covariables $X_1$ y $X_2$ que permiten cambiar tanto el intercepto como las pendientes de los efectos principales.
+
+**Principio de jerarquía**. Con el fin de mantener la estructura del modelo lineal, siempre es necesario incluir los efectos principales cuando se determina que una interacción entre ellos es significativa.
+
+
+::: {.exercise #unnamed-chunk-133}
+Compruebe que para el caso anterior, si aumenta en una unidad \(X_{1}\), el modelo preserva su estructura. 
+:::
+
+### Laboratorio
+
+
+Generamos una base de datos nueva con solamente `wt` centrado
+
+
+```r
+# La función across y where solo funciona solo
+# para dplyr 1.0 Si tienen otra versión, pueden
+# usar mutate_if
+
+mtcars_centered <- mtcars %>%
+    mutate(across("wt", scale, scale = FALSE, center = TRUE))
+
+# Si no se tiene dplyr 1.0
+
+mtcars_centered <- mtcars %>%
+    mutate_at("wt", scale, scale = FALSE, center = TRUE)
+```
+
+
+Compare lo que ocurre con los coeficientes de la base original y la nueva base. 
+
+
+```r
+summary(lm(mpg ~ wt + disp, data = mtcars))
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt + disp, data = mtcars)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4087 -2.3243 -0.7683  1.7721  6.3484 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 34.96055    2.16454  16.151 4.91e-16 ***
+## wt          -3.35082    1.16413  -2.878  0.00743 ** 
+## disp        -0.01773    0.00919  -1.929  0.06362 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.917 on 29 degrees of freedom
+## Multiple R-squared:  0.7809,	Adjusted R-squared:  0.7658 
+## F-statistic: 51.69 on 2 and 29 DF,  p-value: 2.744e-10
+```
+
+```r
+summary(lm(mpg ~ wt + disp, data = mtcars_centered))
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt + disp, data = mtcars_centered)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.4087 -2.3243 -0.7683  1.7721  6.3484 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 24.18011    2.18221  11.081 6.12e-12 ***
+## wt          -3.35082    1.16413  -2.878  0.00743 ** 
+## disp        -0.01773    0.00919  -1.929  0.06362 .  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.917 on 29 degrees of freedom
+## Multiple R-squared:  0.7809,	Adjusted R-squared:  0.7658 
+## F-statistic: 51.69 on 2 and 29 DF,  p-value: 2.744e-10
+```
+
+
+Supongamos que formamos un modelo con solo la interacción y no incluimos los efectos directos. 
+
+
+```r
+summary(lm(mpg ~ wt * disp - wt - disp, data = mtcars))
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt * disp - wt - disp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -4.259 -2.603 -1.657  2.165  8.589 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 26.2621926  1.0418029  25.208  < 2e-16 ***
+## wt:disp     -0.0072897  0.0009721  -7.499 2.33e-08 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 3.614 on 30 degrees of freedom
+## Multiple R-squared:  0.6521,	Adjusted R-squared:  0.6405 
+## F-statistic: 56.24 on 1 and 30 DF,  p-value: 2.329e-08
+```
+
+```r
+summary(lm(mpg ~ wt * disp - wt - disp, data = mtcars_centered))
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt * disp - wt - disp, data = mtcars_centered)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -5.878 -2.775 -1.162  2.409 11.150 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 21.460008   0.859706  24.962  < 2e-16 ***
+## wt:disp     -0.013127   0.002714  -4.837 3.69e-05 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 4.592 on 30 degrees of freedom
+## Multiple R-squared:  0.4382,	Adjusted R-squared:  0.4195 
+## F-statistic:  23.4 on 1 and 30 DF,  p-value: 3.686e-05
+```
+
+
+El modelo correcto sería el siguiente:
+
+
+```r
+summary(lm(mpg ~ wt + disp + wt * disp, data = mtcars))
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt + disp + wt * disp, data = mtcars)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.267 -1.677 -0.836  1.351  5.017 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 44.081998   3.123063  14.115 2.96e-14 ***
+## wt          -6.495680   1.313383  -4.946 3.22e-05 ***
+## disp        -0.056358   0.013239  -4.257  0.00021 ***
+## wt:disp      0.011705   0.003255   3.596  0.00123 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.455 on 28 degrees of freedom
+## Multiple R-squared:  0.8501,	Adjusted R-squared:  0.8341 
+## F-statistic: 52.95 on 3 and 28 DF,  p-value: 1.158e-11
+```
+
+```r
+summary(lm(mpg ~ wt + disp + wt * disp, data = mtcars_centered))
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ wt + disp + wt * disp, data = mtcars_centered)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -3.267 -1.677 -0.836  1.351  5.017 
+## 
+## Coefficients:
+##              Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) 23.183772   1.857605  12.480 5.87e-13 ***
+## wt          -6.495680   1.313383  -4.946 3.22e-05 ***
+## disp        -0.018699   0.007741  -2.416  0.02248 *  
+## wt:disp      0.011705   0.003255   3.596  0.00123 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.455 on 28 degrees of freedom
+## Multiple R-squared:  0.8501,	Adjusted R-squared:  0.8341 
+## F-statistic: 52.95 on 3 and 28 DF,  p-value: 1.158e-11
+```
+
+
+:::{.exercise data-latex=""}
+
+Repita los comandos anteriores con la siguiente base de datos y explique los resultados. 
+
+```r
+mtcars_scaled <- mtcars %>%
+    mutate(across(c("wt", "disp"), scale, scale = TRUE,
+        center = TRUE))
+```
+
+:::
+
+
+<!-- Y aumentamos -->
+
+
+<!--  aumenta en 1 unidad   y denotamos  -->
+
+<!-- \begin{equation*} -->
+<!-- Y_{+1} = \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon -->
+<!-- \end{equation*} -->
+
+<!-- vemos que  -->
+<!-- \begin{align*} -->
+<!-- Y_{+1} -Y &=  \beta_{0} + \beta_{1} (X_{1}+1) + \beta_{2} X_{2} + \varepsilon \\ -->
+<!-- & -(\beta_{0} + \beta_{1} X_{1} + \beta_{2} X_{2} + \varepsilon) \\ -->
+<!-- &= \beta_{1}. -->
+<!-- \end{align*} -->
+
+<!-- Entonces \(\beta_{1}\) es la __razon de cambio__ discreta de aumentar 1 unidad en \(X_{1}\) con respecto a \(Y\).  -->
+
+
+<!-- En otras palabras,  -->
+
+<!-- Ahora suponga que tenemos los modelos: -->
+
+<!-- \begin{align*} -->
+<!-- Y &=  \beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon\\ -->
+<!-- Y_{+1} &=  \beta_{0} + \tilde{\beta_{1}} (X_{1}+1) X_{2}+\varepsilon \\ -->
+<!-- \end{align*} -->
+
+<!-- y hacemos el mismo cálculo que antes:  -->
+
+<!-- \begin{align*} -->
+<!-- Y_{+1} -Y &=  \beta_{0} + \tilde{\beta_{1}} (X_{1}+1) X_{2}+\varepsilon \\ -->
+<!-- & -(\beta_{0} + \tilde{\beta_{1}} X_{1} X_{2} +\varepsilon) \\ -->
+<!-- &=  \tilde{\beta_{1}} X_{2} -->
+<!-- \end{align*} -->
+
+<!-- Es decir esa razón de cambio depende  -->
+
+
+
+
+
+
+## Supuestos 
+
+El modelo lineal tiene los siguientes supuestos:
+
+Linealidad
+: En la forma lineal de la relación variable dependiente-covariables.
+
+Errores centrados
+: $\mathbb{E}(\varepsilon_i) = 0$.
+
+Homocedasticidad
+: $\text{Var}(\varepsilon_t) = \mathbb{E}(\varepsilon_t - \mathbb{E} \varepsilon_t)^2 = \mathbb{E} \varepsilon_t^2 = \sigma^2$ para todo $t$. Es decir, la varianza del modelo (**error irreducible**) no depende de las variables independientes u otro factor. 
+
+Normalidad de los residuos
+: $\varepsilon \sim N(0, \sigma^2 )$.
+
+Independencia de los errores
+: $\text{Cov}(\varepsilon_t,\varepsilon_s ) = \mathbb{E} (\varepsilon_t - \mathbb{E} \varepsilon_t) (\varepsilon_s - \mathbb{E} \varepsilon_s) = \mathbb{E} \varepsilon_t \varepsilon_s = 0$ para todo $t,s$ con $t\neq s$: si para una observación dada existe un error, este no debe depender del error de otra observación.
+
+Si este supuesto no se cumple puede provocar que los errores estándar en intervalos de confianza y predicción sean subestimados. Es decir que un intervalo del 95\% tendrá un margen de error menor y se rechazaría más fácilmente la hipotesis nula de las pruebas $t$ y $F$.
+
+Multicolinealidad 
+: Se asume que la matriz $X^TX$ es invertible, es decir $X$ es una matriz de rango completo. Para esto cada una las covariables no debe ser linealmente dependientes, es decir $X^TX$ de debe acercarse a ser a una matriz singular con determinante cercano a 0. Es decir que cada variable explica aproximadamente "un aspecto o característica" del modelo. Sin embargo puede pasar que varias variables expliquen la misma característica y el modelo se vuelve __inestable__ por decidir entre las dos variables. Por ejemplo: la temperatura en grados centigrados y farenheit. 
+
+Esto generaría que \(\mathrm{Var}\left(\beta\right)\) sea alto ya que 
+\begin{equation*}
+\text{Var}(\beta) =  \sigma^2(X^{\top}X)^{-1}
+\end{equation*}
+
+
+Más observaciones que predictores
+: En caso contrario existen formas alternativas de definir el problema de regresión. (Volveremos a esto cuando veamos selección de modelos)
+
+
+### Chequeos básicos de las hipótesis de regresión lineal 
+
+#### Linealidad, Errores con esperanza nula, Homocedasticidad
+
+Estos supuestos se puede constantar a partir de un gráfico  de residuos ya que en el caso ideal  \(e_{i} = \hat{Y}_{i}- Y_{i}  \perp \hat{Y}_{i}\). Entonces si este gráfico presenta patrones, quiere indicar que la regresión, no es lineal, que los errores no tienen esperanza nula y que la varianza no es constante. 
+
+Se pueden aplicar transformaciones para resolver estos problemas. Normalmente se usan transformaciones como raiz cuadrada o logaritmos. 
+
+
+:::{.example data-latex=""}
+
+
+**Caso ideal**
+
+```r
+x <- rnorm(1000)
+y <- x + rnorm(1000, sd = 0.5)
+
+fit <- lm(y ~ x)
+plot(x, y)
+abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-139-1} \end{center}
+
+
+
+```r
+plot(fitted(fit), residuals(fit))
+abline(h = 0, col = "red")
+```
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/grafico-residuos-lineal-1} 
+
+}
+
+\caption{Gráfico de residuos caso lineal}(\#fig:grafico-residuos-lineal)
+\end{figure}
+
+
+
+**Caso no-lineal**
+
+```r
+x <- exp(rnorm(1000))
+y <- log(x) + rnorm(1000, sd = 0.5)
+
+fit <- lm(y ~ x)
+plot(x, y)
+abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-1} \end{center}
+
+
+
+```r
+plot(fitted(fit), residuals(fit))
+abline(h = 0, col = "red")
+```
+
+\begin{figure}
+
+{\centering \includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/grafico-residuos-no-lineal-1} 
+
+}
+
+\caption{Gráfico de residuos caso no-lineal}(\#fig:grafico-residuos-no-lineal)
+\end{figure}
+
+
+**Caso no-lineal transformado**
+
+
+```r
+xt <- log(x)
+
+
+fit <- lm(y ~ xt)
+plot(xt, y)
+abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-141-1} \end{center}
+
+```r
+plot(fitted(fit), residuals(fit))
+abline(h = 0, col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-141-2} \end{center}
+:::
+
+
+#### Independencia de los errores
+
+En este caso defina $\rho(k) = \text{Cov}(\varepsilon_i,\varepsilon_{i+k} )$. Si los residuos son independientes, entonces debe ocurrir que 
+
+\begin{equation*}
+\rho(k) = \begin{cases}
+1 & k=0\\
+0 & k\neq 0.
+\end{cases}  
+\end{equation*}
+
+Se calcula la función de autocorrelación empírica y se grafica para analizar su comportamiento 
+
+**Caso ideal**
+
+```r
+x <- rnorm(1000)
+y <- 1 + x + rnorm(1000, sd = 1)
+```
+
+
+
+```r
+fit <- lm(y ~ x)
+plot(x, y)
+abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-1} \end{center}
+
+
+
+```r
+summary(fit)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -3.2665 -0.6871  0.0002  0.6670  2.9410 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  1.04643    0.03183   32.87   <2e-16 ***
+## x            0.95650    0.03287   29.10   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 1.007 on 998 degrees of freedom
+## Multiple R-squared:  0.4589,	Adjusted R-squared:  0.4584 
+## F-statistic: 846.6 on 1 and 998 DF,  p-value: < 2.2e-16
+```
+
+```r
+acf(residuals(fit))
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-144-1} \end{center}
+
+**Caso errores auto-correlacionados**
+
+
+```r
+x <- rnorm(1000)
+y <- 1 + x + diffinv(rnorm(999, sd = 1), lag = 1)
+```
+
+
+
+```r
+fit <- lm(y ~ x)
+plot(x, y)
+abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-146-1} \end{center}
+
+
+
+```r
+summary(fit)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -45.109 -13.583   3.439  11.036  26.104 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  43.4918     0.4791  90.787  < 2e-16 ***
+## x             1.5347     0.4771   3.217  0.00134 ** 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 15.15 on 998 degrees of freedom
+## Multiple R-squared:  0.01026,	Adjusted R-squared:  0.00927 
+## F-statistic: 10.35 on 1 and 998 DF,  p-value: 0.001339
+```
+
+```r
+acf(residuals(fit))
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-147-1} \end{center}
+
+
+#### Normalidad de los errores 
+
+Este hipótesis es crucial para hacer las pruebas $t$ y $F$ que vimos anteriormente. 
+
+Para revisar si se cumple solo basta hacer una `qqplot` de los residuos. 
+
+
+**Caso ideal**
+
+```r
+x <- rnorm(1000)
+y <- 1 + x + rnorm(1000, sd = 1)
+fit <- lm(y ~ x)
+```
+
+
+
+```r
+qqnorm(residuals(fit), asp = 1)
+qqline(residuals(fit), col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-149-1} \end{center}
+
+**Caso errores auto-correlacionados**
+
+
+```r
+x <- rnorm(1000)
+y <- 1 + x + diffinv(rnorm(999, sd = 1), lag = 1)
+fit <- lm(y ~ x)
+```
+
+
+
+```r
+qqnorm(residuals(fit), asp = 0)
+qqline(residuals(fit), col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-151-1} \end{center}
+
+**Caso no-lineal**
+
+
+```r
+x <- rnorm(1000)
+y <- x^2 + rnorm(1000, sd = 0.5)
+fit <- lm(y ~ x)
+```
+
+
+
+```r
+qqnorm(residuals(fit), asp = 0)
+qqline(residuals(fit), col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-153-1} \end{center}
+
+
+```r
+x <- rnorm(1000)
+y <- x^2 + rnorm(1000, sd = 0.5)
+fit <- lm(y ~ x + I(x^2))
+summary(fit)
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x + I(x^2))
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -1.84371 -0.30372 -0.01256  0.32728  1.68466 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  0.01010    0.01979   0.511   0.6098    
+## x           -0.03009    0.01587  -1.896   0.0582 .  
+## I(x^2)       0.99172    0.01196  82.906   <2e-16 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.5001 on 997 degrees of freedom
+## Multiple R-squared:  0.8734,	Adjusted R-squared:  0.8731 
+## F-statistic:  3438 on 2 and 997 DF,  p-value: < 2.2e-16
+```
+
+
+
+```r
+qqnorm(residuals(fit), asp = 0)
+qqline(residuals(fit), col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-155-1} \end{center}
+
+#### Multicolinealidad
+
+
+Hay dos formas de detectar multicolinealidad 
+
+1. Analizar la matriz de correlaciones de las variables (solamente detecta colinealidad entre pares). 
+
+2. Analizar la correlación multiple entre un predictor y el resto.
+
+
+Defina \(R^{2}_{X_{j}\vert X_{-j}}\) como el \(R^{2}\) de la regresión multiple entre \(X_{j}\) vs el resto de covariables. 
+
+Si \(R^{2}_{X_{j}\vert X_{-j}}\) es cercano a 1 entonces hay alta correlación entre \(X_j\) y el resto. 
+
+Defina el factor de inflación de la varianza como:
+
+\begin{equation*}
+ \mathrm{VIF}(\hat{\beta}_{j}) = \frac{1}{1-R^{2}_{X_{j}\vert X_{-j}}}
+\end{equation*}
+
+
+Si \(\mathrm{VIF}\) es alto 
+
+- Quitar las variables 
+- Combinar variables
+
+
+
+
+Hay muchos paquetes que tienen implementado la función `vif` (car, rms, entre otros).
+
+
+**Caso variables colineales**
+
+
+La variable `wt` está en unidades de 1000lb. La convertimos a Kilogramos. 
+
+
+```r
+mtcars_kg <- mtcars %>%
+    mutate(wt_kg = wt * 1000 * 0.4535 + rnorm(32))
+
+
+fit_kg <- lm(mpg ~ disp + wt + wt_kg, data = mtcars_kg)
+summary(fit_kg)
+```
+
+```
+## 
+## Call:
+## lm(formula = mpg ~ disp + wt + wt_kg, data = mtcars_kg)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.0609 -1.8566 -0.6442  1.1658  6.1471 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  36.263681   2.143546  16.918 3.11e-16 ***
+## disp         -0.016980   0.008712  -1.949   0.0614 .  
+## wt          455.378192 220.448899   2.066   0.0482 *  
+## wt_kg        -1.012338   0.486488  -2.081   0.0467 *  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 2.762 on 28 degrees of freedom
+## Multiple R-squared:  0.8103,	Adjusted R-squared:  0.7899 
+## F-statistic: 39.86 on 3 and 28 DF,  p-value: 3.079e-10
+```
+
+
+```r
+library(car)
+options(scipen = 1000)
+
+VIFs <- vif(fit_kg)
+
+VIFs <- as.data.frame(VIFs) %>%
+    rownames_to_column(var = "vars")
+
+ggplot(VIFs, aes(x = vars, y = VIFs, group = 1)) +
+    geom_point() + geom_line() + theme_minimal(base_size = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-157-1} \end{center}
+
+
+
+
+
+### Otros chequeos importantes 
+
+#### Puntos extremos 
+
+Estos puntos son aquellos que $Y_i$ esta lejos de $\hat{Y}_i$, es decir son puntos en donde los residuos son particularmente muy altos. 
+
+
+Se puede hacer un gráfico de los residuos vs los valores ajustados como en \@ref(fig:grafico-residuos-lineal) y \@ref(fig:grafico-residuos-no-lineal). 
+
+
+¿Qué tan grande deben ser los residuos?
+
+**Solución:** Se debe escalar los residuos adecuadamente. 
+
+Se construyen los residuos semi-studendizados 
+
+\begin{equation*}
+r_{i}^{s} = \frac{e_{i}}{\sqrt{\mathrm{Var}\left(e_{i}\right)}} 
+\end{equation*}
+
+donde $e_i=Y_i-\hat Y_i$. Como \(H=X(X^{\top}X)^{-1}X^{\top}\) es la matriz de proyección entonces sabemos que 
+
+\begin{align*}
+\hat{Y}&=  H Y \\
+e &= Y - \hat{Y}  
+\end{align*}
+
+Entonces tenemos que 
+
+\begin{align*}
+\mathrm{Var}\left(e\right) 
+&=  \mathrm{Var}\left((I-H)Y\right)\\
+&= (I-H)^{2}\mathrm{Var}\left(Y\right)\\
+&= (I-H) \sigma^{2} 
+\end{align*} 
+
+ya que $I-H$ es idempotente. Por lo tanto 
+
+\begin{equation*}
+\mathrm{Var}\left(e_{i}\right) = (1-h_{ii}) \sigma^{2}
+\end{equation*}
+
+Para cada observación se estandarizan los residuos de siguiente forma 
+
+\begin{equation*}
+r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
+\end{equation*}
+
+**Caso sin valores extremos**
+
+```r
+x <- rnorm(1000)
+y <- 1 + x + rnorm(1000, sd = 0.5)
+fit <- lm(y ~ x)
+
+X <- model.matrix(y ~ x)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+I <- diag(1, nrow = 1000)
+I_H <- I - H
+r_sdnt <- residuals(fit)/sqrt(diag(I_H) * var(y))
+plot(fitted(fit), r_sdnt)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-158-1} \end{center}
+
+```r
+fit
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Coefficients:
+## (Intercept)            x  
+##      0.9893       0.9701
+```
+
+**Caso con valores extremos**
+
+
+```r
+x <- rnorm(1000)
+y <- 1 + x + rnorm(1000, sd = 0.5)
+y[1:5] <- runif(5, 30, 40)
+fit <- lm(y ~ x)
+
+X <- model.matrix(y ~ x)
+H <- X %*% solve(t(X) %*% X) %*% t(X)
+I <- diag(1, nrow = 1000)
+I_H <- I - H
+r_sdnt <- residuals(fit)/sqrt(diag(I_H) * var(y))
+plot(fitted(fit), r_sdnt)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-159-1} \end{center}
+
+```r
+fit
+```
+
+```
+## 
+## Call:
+## lm(formula = y ~ x)
+## 
+## Coefficients:
+## (Intercept)            x  
+##      1.1505       0.9397
+```
+
+#### Puntos de apalancamiento (leverage)
+
+
+Un outlier puede ser detectado pero aún así este puede no afectar el modelo como un todo. 
+
+El $r_{i}^s$ puede ser alto por 2 razones: 
+
+1. los residuos $e_i$ son altos (un outlier)
+2. el valor $h_{ii}$ es cercano a 1. (Se tiene que $0\leq h_{ii}\leq 1$). 
+
+Los valores donde $h_{ii}\approx 1$ se les denomina de **gran apalancamiento**. 
+
+Como la matriz $H$ es de idempotente y de rango completo:
+
+\begin{equation*}
+\sum_{i=1}^{n} h_{ii} = p +1 \text{  (Los predictores más el intercepto)   }
+\end{equation*}
+
+**Regla empírica:** Si \(h_{ii}>\frac{p+1}{n}\) entonces decimos que el punto de **gran apalancamiento**.
+
+
+##### Distancia de Cook. 
+La distancia de Cook mide la influencia de las observaciones con respecto al ajuste del modelo lineal con $p$ variables. Esta se define como: 
+
+\[
+\displaystyle D_i = \frac{\sum\limits_{j=1}^n (\hat{Y}_j - \hat{Y}_{j(-i)})^2}{(p+1) \sigma^2}
+\]
+
+donde $\hat{Y}_{j(-i)}$ significa el ajuste del modelo lineal, removiendo la observación $i$-ésima. 
+
+**Caso base**
+
+```r
+set.seed(42)
+apa_df = data.frame(x = 1:10, y = 10:1 + rnorm(n = 10))
+```
+
+
+
+```r
+modelo <- lm(y ~ x, data = apa_df)
+coef(modelo)
+```
+
+```
+## (Intercept)           x 
+##  11.3801152  -0.9696033
+```
+
+
+
+```r
+plot(modelo, 5, col = c(rep("black", 10), "red"), cex = 2,
+    pch = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-162-1} \end{center}
+
+
+
+```r
+plot(hatvalues(modelo), col = c(rep("black", 10), "red"),
+    cex = 2, pch = 16)
+abline(h = 2/10, col = "blue")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-1} \end{center}
+
+
+
+```r
+plot(apa_df, col = c(rep("black", 10), "red"), cex = 2,
+    pch = 16)
+abline(a = coef(modelo)[1], b = coef(modelo)[2], col = "blue")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-164-1} \end{center}
+
+**Bajo apalancamiento, residuos grandes, influencia pequeña**
+
+
+```r
+p_1 <- c(5.4, 11)
+apa_df_1 <- rbind(apa_df, p_1)
+modelo_1 <- lm(y ~ x, data = apa_df_1)
+coef(modelo_1)
+```
+
+```
+## (Intercept)           x 
+##  11.8509232  -0.9749534
+```
+
+
+
+```r
+plot(modelo_1, 5, col = c(rep("black", 10), "red"),
+    cex = 2, pch = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-166-1} \end{center}
+
+
+
+
+
+```r
+plot(hatvalues(modelo_1), col = c(rep("black", 10),
+    "red"), cex = 2, pch = 16)
+abline(h = 2/11, col = "blue")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-167-1} \end{center}
+
+
+
+```r
+plot(apa_df_1, col = c(rep("black", 10), "red"), cex = 2,
+    pch = 16)
+abline(a = coef(modelo)[1], b = coef(modelo)[2], col = "blue")
+abline(a = coef(modelo_1)[1], b = coef(modelo_1)[2],
+    col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-168-1} \end{center}
+
+
+**Alto apalancamiento, residuo pequeño, influencia pequeña** 
+
+
+
+```r
+p_2 <- c(18, -5.7)
+apa_df_2 <- rbind(apa_df, p_2)
+modelo_2 <- lm(y ~ x, data = apa_df_2)
+coef(modelo_2)
+```
+
+```
+## (Intercept)           x 
+##  11.2888153  -0.9507397
+```
+
+
+
+```r
+plot(modelo_2, 5, col = c(rep("black", 10), "red"),
+    cex = 2, pch = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-170-1} \end{center}
+
+
+
+```r
+plot(hatvalues(modelo_2), col = c(rep("black", 10),
+    "red"), cex = 2, pch = 16)
+abline(h = 2/11, col = "blue")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-171-1} \end{center}
+
+
+
+```r
+plot(apa_df_2, col = c(rep("black", 10), "red"), cex = 2,
+    pch = 16)
+abline(a = coef(modelo)[1], b = coef(modelo)[2], col = "blue")
+abline(a = coef(modelo_2)[1], b = coef(modelo_2)[2],
+    col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-172-1} \end{center}
+
+
+**Alto apalancamiento, residuo altos, influencia grande** 
+
+```r
+p_3 <- c(14, 5.1)
+apa_df_3 <- rbind(apa_df, p_3)
+modelo_3 <- lm(y ~ x, data = apa_df_3)
+coef(modelo_3)
+```
+
+```
+## (Intercept)           x 
+##   9.6572209  -0.5892241
+```
+
+
+
+```r
+plot(modelo_3, 5, col = c(rep("black", 10), "red"),
+    cex = 2, pch = 16)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-174-1} \end{center}
+
+
+
+
+```r
+plot(hatvalues(modelo_3), col = c(rep("black", 10),
+    "red"), cex = 2, pch = 16)
+abline(h = 2/11, col = "blue")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-175-1} \end{center}
+
+
+
+```r
+plot(apa_df_3, col = c(rep("black", 10), "red"), cex = 2,
+    pch = 16)
+abline(a = coef(modelo)[1], b = coef(modelo)[2], col = "blue")
+abline(a = coef(modelo_3)[1], b = coef(modelo_3)[2],
+    col = "red")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-176-1} \end{center}
+
+```r
+`?`(stats:::plot.lm)
+```
+
+
+
+```r
+plot(modelo_3, which = 1:6)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-178-1} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-178-2} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-178-3} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-178-4} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-178-5} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-178-6} \end{center}
+
+
+
+```r
+plot(modelo, which = 1:6)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-179-1} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-179-2} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-179-3} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-179-4} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-179-5} \end{center}
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-179-6} \end{center}
+
+## Ejercicios 
+
+Del libro [@James2013b] 
+
+- Capítulo 3: 1, 3, 4, 5, 8, 9
+
+
+
+<!--chapter:end:04-metodos-lineares-regresion.Rmd-->
 
 
 \backmatter

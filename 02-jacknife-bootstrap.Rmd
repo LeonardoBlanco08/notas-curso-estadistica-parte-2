@@ -106,13 +106,13 @@ $\bar{X})^{2}$. Entonces,
 por lo tanto
 
 \begin{equation*}
-\mathrm{Sesgo}(\hat{\sigma}^2_n) = -\frac{\sigma^{2}}{n}
+\mathrm{Sesgo} = -\frac{\sigma^{2}}{n}
 \end{equation*}
 
 Por lo tanto en este caso $a=-\sigma^{2}$ y $b=0$.
 
-
-Suponga que se toma  \(T_{(-i)}\) como el estimador \(T_{n}\) pero eliminando el \(i\)-ésimo elemento de la muestra.
+Defina \(T_{(-i)}\) como el estimador \(T_{n}\) pero eliminando el
+\(i\)-ésimo elemento de la muestra.
 
 Es claro que en este contexto, se tiene que
 
@@ -120,7 +120,7 @@ Es claro que en este contexto, se tiene que
 \operatorname{Sesgo}\left(T_{(-i)}\right)=\frac{a}{n-1}+\frac{b}{(n-1)^{2}}+O\left(\frac{1}{(n-1)^{3}}\right)
 \end{equation}
 
-```{example}
+```{exercise}
 Una forma fácil de construir los \(T_{(-i)}\) es primero replicando
 la matriz de datos múltiple veces usando el producto de kronecker
 ```
@@ -148,6 +148,7 @@ diag(jackdf) <- NA
 knitr::kable(jackdf[1:10, 1:10])
 ```
 
+
 Cada columna contiene toda la muestra excepto el \(i\)-ésimo
 elemento. Solo basta estimar la media de cada columna:
 
@@ -174,12 +175,11 @@ donde
 \end{equation*}
 
 y el estimador corregido por sesgo es: $T_{jack}=T_n-b_{jack}$.
-
-```{example}
+```{exercise}
 En nuestro caso tendríamos lo siguiente:
 ```
 
-```{r}
+```{r, }
 (bjack <- (n-1)*(mean(T_i) - Tn))
 ```
 
@@ -240,7 +240,7 @@ Usado un cálculo similar para el \(b_{jack}\) pruebe que
 ```
 
 
-```{example}
+```{exercise}
 Los pseudo-valores se estiman de forma directa como,
 ```
 
@@ -414,7 +414,7 @@ Así que basta cambiar el punto 1. del algoritmo mencionando anteriormente con
 1. Seleccione una muestra con remplazo  \(X_{1}^{*}, \ldots, X_{n}^{*}\) de  \(X_{1},\ldots,X_{n}\).
 
 
-```{example}
+```{exercise}
 En este ejemplo podemos tomar \(B=1000\) y construir esa cantidad de veces nuestro estimador de varianza:
 ```
 

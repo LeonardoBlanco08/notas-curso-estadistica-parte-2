@@ -1,0 +1,1072 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Capítulo 9 Cálculo Bayesiano Computacional | Notas Curso de Estadística II</title>
+  <meta name="description" content="Capítulo 9 Cálculo Bayesiano Computacional | Notas Curso de Estadística II" />
+  <meta name="generator" content="bookdown 0.25.5 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Capítulo 9 Cálculo Bayesiano Computacional | Notas Curso de Estadística II" />
+  <meta property="og:type" content="book" />
+  
+  
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Capítulo 9 Cálculo Bayesiano Computacional | Notas Curso de Estadística II" />
+  
+  
+  
+
+<meta name="author" content="Maikol Solís Chacón y Luis Barboza Chinchilla" />
+
+
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="08-clasificacion.html"/>
+<link rel="next" href="referencias.html"/>
+<script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+<link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
+<link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/rglWebGL-binding-0.108.3/rglWebGL.js"></script>
+<link href="libs/rglwidgetClass-0.108.3/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-0.108.3/rglClass.min.js"></script>
+<script src="libs/CanvasMatrix4-0.108.3/CanvasMatrix.min.js"></script>
+
+
+<style type="text/css">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+</style>
+
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">Curso de Estadística</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Introducción</a></li>
+<li class="chapter" data-level="2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html"><i class="fa fa-check"></i><b>2</b> Estimación no-paramétrica de densidades</a>
+<ul>
+<li class="chapter" data-level="2.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#histograma"><i class="fa fa-check"></i><b>2.1</b> Histograma</a>
+<ul>
+<li class="chapter" data-level="2.1.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#construcción-estadística"><i class="fa fa-check"></i><b>2.1.1</b> Construcción Estadística</a></li>
+<li class="chapter" data-level="2.1.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#construcción-probabilística"><i class="fa fa-check"></i><b>2.1.2</b> Construcción probabilística</a></li>
+<li class="chapter" data-level="2.1.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#propiedades-estadísticas"><i class="fa fa-check"></i><b>2.1.3</b> Propiedades estadísticas</a></li>
+<li class="chapter" data-level="2.1.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#propiedades-estadísticas-1"><i class="fa fa-check"></i><b>2.1.4</b> Propiedades estadísticas</a></li>
+<li class="chapter" data-level="2.1.5" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#sesgo"><i class="fa fa-check"></i><b>2.1.5</b> Sesgo</a></li>
+<li class="chapter" data-level="2.1.6" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#varianza"><i class="fa fa-check"></i><b>2.1.6</b> Varianza</a></li>
+<li class="chapter" data-level="2.1.7" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#error-cuadrático-medio"><i class="fa fa-check"></i><b>2.1.7</b> Error cuadrático medio</a></li>
+<li class="chapter" data-level="2.1.8" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#error-cuadrático-medio-integrado"><i class="fa fa-check"></i><b>2.1.8</b> Error cuadrático medio integrado</a></li>
+<li class="chapter" data-level="2.1.9" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo-para-el-histograma"><i class="fa fa-check"></i><b>2.1.9</b> Ancho de banda óptimo para el histograma</a></li>
+</ul></li>
+<li class="chapter" data-level="2.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#estimación-de-densidades-basada-en-kernels."><i class="fa fa-check"></i><b>2.2</b> Estimación de densidades basada en kernels.</a>
+<ul>
+<li class="chapter" data-level="2.2.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#primera-construcción"><i class="fa fa-check"></i><b>2.2.1</b> Primera construcción</a></li>
+<li class="chapter" data-level="2.2.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#otra-construcción"><i class="fa fa-check"></i><b>2.2.2</b> Otra construcción</a></li>
+<li class="chapter" data-level="2.2.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#propiedades-estadísticas-2"><i class="fa fa-check"></i><b>2.2.3</b> Propiedades Estadísticas</a></li>
+<li class="chapter" data-level="2.2.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#sesgo-1"><i class="fa fa-check"></i><b>2.2.4</b> Sesgo</a></li>
+<li class="chapter" data-level="2.2.5" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#error-cuadrático-medio-y-error-cuadrático-medio-integrado"><i class="fa fa-check"></i><b>2.2.5</b> Error cuadrático medio y Error cuadrático medio integrado</a></li>
+<li class="chapter" data-level="2.2.6" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo"><i class="fa fa-check"></i><b>2.2.6</b> Ancho de banda óptimo</a></li>
+<li class="chapter" data-level="2.2.7" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#intervalos-de-confianza-para-estimadores-de-densidad-no-paramétricos"><i class="fa fa-check"></i><b>2.2.7</b> Intervalos de confianza para estimadores de densidad no paramétricos</a></li>
+</ul></li>
+<li class="chapter" data-level="2.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#laboratorio"><i class="fa fa-check"></i><b>2.3</b> Laboratorio</a>
+<ul>
+<li class="chapter" data-level="2.3.1" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#efecto-de-distintos-kernels-en-la-estimación"><i class="fa fa-check"></i><b>2.3.1</b> Efecto de distintos Kernels en la estimación</a></li>
+<li class="chapter" data-level="2.3.2" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#efecto-del-ancho-de-banda-en-la-estimación"><i class="fa fa-check"></i><b>2.3.2</b> Efecto del ancho de banda en la estimación</a></li>
+<li class="chapter" data-level="2.3.3" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo-1"><i class="fa fa-check"></i><b>2.3.3</b> Ancho de banda óptimo</a></li>
+<li class="chapter" data-level="2.3.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#validación-cruzada-1"><i class="fa fa-check"></i><b>2.3.4</b> Validación cruzada</a></li>
+<li class="chapter" data-level="2.3.5" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#temas-adicionales"><i class="fa fa-check"></i><b>2.3.5</b> Temas adicionales</a></li>
+</ul></li>
+<li class="chapter" data-level="2.4" data-path="01-estimacion-densidades-no-parametricas.html"><a href="01-estimacion-densidades-no-parametricas.html#ejercicios"><i class="fa fa-check"></i><b>2.4</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="3" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html"><i class="fa fa-check"></i><b>3</b> Jackknife y Bootstrap</a>
+<ul>
+<li class="chapter" data-level="3.1" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#caso-concreto"><i class="fa fa-check"></i><b>3.1</b> Caso concreto</a></li>
+<li class="chapter" data-level="3.2" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#jackknife"><i class="fa fa-check"></i><b>3.2</b> Jackknife</a></li>
+<li class="chapter" data-level="3.3" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#bootstrap"><i class="fa fa-check"></i><b>3.3</b> Bootstrap</a>
+<ul>
+<li class="chapter" data-level="3.3.1" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#intervalos-de-confianza"><i class="fa fa-check"></i><b>3.3.1</b> Intervalos de confianza</a></li>
+<li class="chapter" data-level="3.3.2" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#resumiendo"><i class="fa fa-check"></i><b>3.3.2</b> Resumiendo</a></li>
+</ul></li>
+<li class="chapter" data-level="3.4" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#ejercicios-1"><i class="fa fa-check"></i><b>3.4</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html"><i class="fa fa-check"></i><b>4</b> Estimación de densidades con Bayes</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#introducción-a-la-estimación-bayesiana"><i class="fa fa-check"></i><b>4.1</b> Introducción a la estimación Bayesiana</a>
+<ul>
+<li class="chapter" data-level="4.1.1" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#preliminares"><i class="fa fa-check"></i><b>4.1.1</b> Preliminares</a></li>
+<li class="chapter" data-level="4.1.2" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#ejemplo-sencillo"><i class="fa fa-check"></i><b>4.1.2</b> Ejemplo sencillo</a></li>
+<li class="chapter" data-level="4.1.3" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#datos-reales"><i class="fa fa-check"></i><b>4.1.3</b> Datos reales</a></li>
+</ul></li>
+<li class="chapter" data-level="4.2" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#previa-de-histograma"><i class="fa fa-check"></i><b>4.2</b> Previa de histograma</a></li>
+<li class="chapter" data-level="4.3" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#métodos-monte-carlo"><i class="fa fa-check"></i><b>4.3</b> Métodos Monte Carlo</a></li>
+<li class="chapter" data-level="4.4" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#una-moneda"><i class="fa fa-check"></i><b>4.4</b> Una moneda</a>
+<ul>
+<li class="chapter" data-level="4.4.1" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#ejemplo-del-viajero"><i class="fa fa-check"></i><b>4.4.1</b> Ejemplo del viajero</a></li>
+<li class="chapter" data-level="4.4.2" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#cadenas-de-markov"><i class="fa fa-check"></i><b>4.4.2</b> Cadenas de Markov</a></li>
+<li class="chapter" data-level="4.4.3" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#el-algoritmo-de-metropolis-hasting"><i class="fa fa-check"></i><b>4.4.3</b> El algoritmo de Metropolis-Hasting</a></li>
+<li class="chapter" data-level="4.4.4" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#por-qué-el-algoritmo-de-metropolis-hasting-funciona"><i class="fa fa-check"></i><b>4.4.4</b> ¿Por qué el algoritmo de Metropolis Hasting funciona?</a></li>
+<li class="chapter" data-level="4.4.5" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#extensión-al-caso-del-viajero"><i class="fa fa-check"></i><b>4.4.5</b> Extensión al caso del viajero</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#dos-monedas"><i class="fa fa-check"></i><b>4.5</b> Dos monedas</a>
+<ul>
+<li class="chapter" data-level="4.5.1" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#muestreo-de-gibbs"><i class="fa fa-check"></i><b>4.5.1</b> Muestreo de Gibbs</a></li>
+</ul></li>
+<li class="chapter" data-level="4.6" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#uso-de-jags"><i class="fa fa-check"></i><b>4.6</b> Uso de JAGS</a></li>
+<li class="chapter" data-level="4.7" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#uso-de-stan"><i class="fa fa-check"></i><b>4.7</b> Uso de STAN</a></li>
+<li class="chapter" data-level="4.8" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#ejercicios-2"><i class="fa fa-check"></i><b>4.8</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html"><i class="fa fa-check"></i><b>5</b> Métodos lineales de regresión</a>
+<ul>
+<li class="chapter" data-level="5.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#introducción-al-aprendizaje-estadístico."><i class="fa fa-check"></i><b>5.1</b> Introducción al Aprendizaje Estadístico.</a>
+<ul>
+<li class="chapter" data-level="5.1.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#formas-de-estimar-f"><i class="fa fa-check"></i><b>5.1.1</b> Formas de estimar <span class="math inline">\(f\)</span></a></li>
+<li class="chapter" data-level="5.1.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#medidas-de-bondad-de-ajuste"><i class="fa fa-check"></i><b>5.1.2</b> Medidas de bondad de ajuste</a></li>
+</ul></li>
+<li class="chapter" data-level="5.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#regresión-lineal"><i class="fa fa-check"></i><b>5.2</b> Regresión lineal</a>
+<ul>
+<li class="chapter" data-level="5.2.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#forma-matricial"><i class="fa fa-check"></i><b>5.2.1</b> Forma matricial</a></li>
+<li class="chapter" data-level="5.2.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-1"><i class="fa fa-check"></i><b>5.2.2</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.3" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#propiedades-estadísticas-3"><i class="fa fa-check"></i><b>5.3</b> Propiedades estadísticas</a>
+<ul>
+<li class="chapter" data-level="5.3.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#prueba-t"><i class="fa fa-check"></i><b>5.3.1</b> Prueba <span class="math inline">\(t\)</span></a></li>
+<li class="chapter" data-level="5.3.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#prueba-f"><i class="fa fa-check"></i><b>5.3.2</b> Prueba <span class="math inline">\(F\)</span></a></li>
+<li class="chapter" data-level="5.3.3" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-2"><i class="fa fa-check"></i><b>5.3.3</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.4" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#medida-de-bondad-de-ajuste"><i class="fa fa-check"></i><b>5.4</b> Medida de bondad de ajuste</a>
+<ul>
+<li class="chapter" data-level="5.4.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-3"><i class="fa fa-check"></i><b>5.4.1</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#predicción"><i class="fa fa-check"></i><b>5.5</b> Predicción</a>
+<ul>
+<li class="chapter" data-level="5.5.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-4"><i class="fa fa-check"></i><b>5.5.1</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.6" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#interacciones"><i class="fa fa-check"></i><b>5.6</b> Interacciones</a>
+<ul>
+<li class="chapter" data-level="5.6.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-5"><i class="fa fa-check"></i><b>5.6.1</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="5.7" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#supuestos"><i class="fa fa-check"></i><b>5.7</b> Supuestos</a>
+<ul>
+<li class="chapter" data-level="5.7.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#chequeos-básicos-de-las-hipótesis-de-regresión-lineal"><i class="fa fa-check"></i><b>5.7.1</b> Chequeos básicos de las hipótesis de regresión lineal</a></li>
+<li class="chapter" data-level="5.7.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#otros-chequeos-importantes"><i class="fa fa-check"></i><b>5.7.2</b> Otros chequeos importantes</a></li>
+</ul></li>
+<li class="chapter" data-level="5.8" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#ejercicios-3"><i class="fa fa-check"></i><b>5.8</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html"><i class="fa fa-check"></i><b>6</b> Regresión Logística</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#preliminares-1"><i class="fa fa-check"></i><b>6.1</b> Preliminares</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#oportunidad-relativa-odds-ratio"><i class="fa fa-check"></i><b>6.1.1</b> Oportunidad relativa (Odds Ratio)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#máxima-verosimilitud"><i class="fa fa-check"></i><b>6.2</b> Máxima verosimilitud</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#resultados-adicionales"><i class="fa fa-check"></i><b>6.2.1</b> Resultados adicionales</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#diágnosticos-del-modelo"><i class="fa fa-check"></i><b>6.3</b> Diágnosticos del modelo</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#supuesto-de-linealidad"><i class="fa fa-check"></i><b>6.3.1</b> Supuesto de linealidad</a></li>
+<li class="chapter" data-level="6.3.2" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#valores-de-gran-influencia"><i class="fa fa-check"></i><b>6.3.2</b> Valores de gran influencia</a></li>
+<li class="chapter" data-level="6.3.3" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#multicolinealidad-1"><i class="fa fa-check"></i><b>6.3.3</b> Multicolinealidad</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#predicción-y-poder-de-clasificación"><i class="fa fa-check"></i><b>6.4</b> Predicción y poder de clasificación</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#curva-roc"><i class="fa fa-check"></i><b>6.4.1</b> Curva ROC</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#ejercicios-4"><i class="fa fa-check"></i><b>6.5</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html"><i class="fa fa-check"></i><b>7</b> Métodos de selección de variables y regularización.</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#estimación-del-error-de-prueba"><i class="fa fa-check"></i><b>7.1</b> Estimación del error de prueba</a>
+<ul>
+<li class="chapter" data-level="7.1.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#técnica-de-conjunto-de-validación"><i class="fa fa-check"></i><b>7.1.1</b> Técnica de conjunto de validación</a></li>
+<li class="chapter" data-level="7.1.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-leave-one-out-loocv"><i class="fa fa-check"></i><b>7.1.2</b> Validación cruzada “Leave-One-Out” (LOOCV)</a></li>
+<li class="chapter" data-level="7.1.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-k-veces"><i class="fa fa-check"></i><b>7.1.3</b> Validación cruzada <span class="math inline">\(k-\)</span>veces</a></li>
+<li class="chapter" data-level="7.1.4" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-para-clasificación"><i class="fa fa-check"></i><b>7.1.4</b> Validación cruzada para clasificación</a></li>
+<li class="chapter" data-level="7.1.5" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#otras-medidas-de-error-de-prueba"><i class="fa fa-check"></i><b>7.1.5</b> Otras medidas de error de prueba</a></li>
+</ul></li>
+<li class="chapter" data-level="7.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-variables"><i class="fa fa-check"></i><b>7.2</b> Selección de variables</a>
+<ul>
+<li class="chapter" data-level="7.2.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-del-mejor-subconjunto."><i class="fa fa-check"></i><b>7.2.1</b> Selección del mejor subconjunto.</a></li>
+<li class="chapter" data-level="7.2.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-modelos-hacia-adelante-forward-stepwise-selection"><i class="fa fa-check"></i><b>7.2.2</b> Selección de modelos hacia adelante (<strong>Forward Stepwise Selection</strong>)</a></li>
+<li class="chapter" data-level="7.2.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-modelos-hacia-atrás-backward-stepwise-selection"><i class="fa fa-check"></i><b>7.2.3</b> Selección de modelos hacia atrás (<strong>Backward Stepwise Selection</strong>)</a></li>
+</ul></li>
+<li class="chapter" data-level="7.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#métodos-de-regularización"><i class="fa fa-check"></i><b>7.3</b> Métodos de regularización</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-ridge"><i class="fa fa-check"></i><b>7.3.1</b> Regresión Ridge</a></li>
+<li class="chapter" data-level="7.3.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-lasso"><i class="fa fa-check"></i><b>7.3.2</b> Regresión Lasso</a></li>
+<li class="chapter" data-level="7.3.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#explicación-gráfica"><i class="fa fa-check"></i><b>7.3.3</b> Explicación gráfica</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#laboratorio-6"><i class="fa fa-check"></i><b>7.4</b> Laboratorio</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#cross-validation"><i class="fa fa-check"></i><b>7.4.1</b> Cross-Validation</a></li>
+<li class="chapter" data-level="7.4.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-lasso-1"><i class="fa fa-check"></i><b>7.4.2</b> Regresión Lasso</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#ejercicios-5"><i class="fa fa-check"></i><b>7.5</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="08-clasificacion.html"><a href="08-clasificacion.html"><i class="fa fa-check"></i><b>8</b> Análisis en componentes principales</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#aprendizaje-no-supervisado"><i class="fa fa-check"></i><b>8.1</b> Aprendizaje no-supervisado</a></li>
+<li class="chapter" data-level="8.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#representación-gráfica"><i class="fa fa-check"></i><b>8.2</b> Representación gráfica</a></li>
+<li class="chapter" data-level="8.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#primer-componente-principal"><i class="fa fa-check"></i><b>8.3</b> Primer componente principal</a></li>
+<li class="chapter" data-level="8.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#segunda-componente-principal"><i class="fa fa-check"></i><b>8.4</b> Segunda componente principal</a></li>
+<li class="chapter" data-level="8.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#circulo-de-correlaciones"><i class="fa fa-check"></i><b>8.5</b> Circulo de correlaciones</a></li>
+<li class="chapter" data-level="8.6" data-path="08-clasificacion.html"><a href="08-clasificacion.html#volvamos-a-nuestro-ejemplo"><i class="fa fa-check"></i><b>8.6</b> Volvamos a nuestro ejemplo</a></li>
+<li class="chapter" data-level="8.7" data-path="08-clasificacion.html"><a href="08-clasificacion.html#cuántos-componentes-usar"><i class="fa fa-check"></i><b>8.7</b> ¿Cuántos componentes usar?</a></li>
+<li class="chapter" data-level="8.8" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>8.8</b> Laboratorio</a>
+<ul>
+<li class="chapter" data-level="8.8.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>8.8.1</b> Clasificador logístico</a></li>
+<li class="chapter" data-level="8.8.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal"><i class="fa fa-check"></i><b>8.8.2</b> Análisis Discriminante Lineal</a></li>
+<li class="chapter" data-level="8.8.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático"><i class="fa fa-check"></i><b>8.8.3</b> Análisis Discriminante Cuadrático</a></li>
+<li class="chapter" data-level="8.8.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>8.8.4</b> K vecinos más cercanos</a></li>
+</ul></li>
+<li class="chapter" data-level="8.9" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-6"><i class="fa fa-check"></i><b>8.9</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html"><i class="fa fa-check"></i><b>9</b> Cálculo Bayesiano Computacional</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#repaso-de-estadística-bayesiana"><i class="fa fa-check"></i><b>9.1</b> Repaso de Estadística Bayesiana</a>
+<ul>
+<li class="chapter" data-level="9.1.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#modelo-de-un-parámetro"><i class="fa fa-check"></i><b>9.1.1</b> Modelo de un parámetro</a></li>
+<li class="chapter" data-level="9.1.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#modelo-de-más-de-un-parámetro"><i class="fa fa-check"></i><b>9.1.2</b> Modelo de más de un parámetro</a></li>
+</ul></li>
+<li class="chapter" data-level="9.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#motivación-cálculo-de-integrales"><i class="fa fa-check"></i><b>9.2</b> Motivación: Cálculo de Integrales</a></li>
+<li class="chapter" data-level="9.3" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejemplo-base-modelo-beta-binomial."><i class="fa fa-check"></i><b>9.3</b> Ejemplo base: modelo beta-binomial.</a></li>
+<li class="chapter" data-level="9.4" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#aproximación-de-laplace"><i class="fa fa-check"></i><b>9.4</b> Aproximación de Laplace</a></li>
+<li class="chapter" data-level="9.5" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#simulación"><i class="fa fa-check"></i><b>9.5</b> Simulación</a>
+<ul>
+<li class="chapter" data-level="9.5.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#simulación-monte-carlo"><i class="fa fa-check"></i><b>9.5.1</b> Simulación Monte Carlo</a></li>
+<li class="chapter" data-level="9.5.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#muestreo-por-rechazo"><i class="fa fa-check"></i><b>9.5.2</b> Muestreo por rechazo</a></li>
+</ul></li>
+<li class="chapter" data-level="9.6" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#muestreo-por-importancia"><i class="fa fa-check"></i><b>9.6</b> Muestreo por importancia</a></li>
+<li class="chapter" data-level="9.7" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#remuestreo-por-importancia"><i class="fa fa-check"></i><b>9.7</b> Remuestreo por importancia</a></li>
+<li class="chapter" data-level="9.8" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#algoritmo-de-metropolis-hastings"><i class="fa fa-check"></i><b>9.8</b> Algoritmo de Metropolis-Hastings</a></li>
+<li class="chapter" data-level="9.9" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#algoritmo-de-gibbs"><i class="fa fa-check"></i><b>9.9</b> Algoritmo de Gibbs</a>
+<ul>
+<li class="chapter" data-level="9.9.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#diagnósticos-de-convergencia-de-mcmc"><i class="fa fa-check"></i><b>9.9.1</b> Diagnósticos de convergencia de MCMC</a></li>
+</ul></li>
+<li class="chapter" data-level="9.10" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejemplos"><i class="fa fa-check"></i><b>9.10</b> Ejemplos</a>
+<ul>
+<li class="chapter" data-level="9.10.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#datos-agrupados-bajo-una-población-normal"><i class="fa fa-check"></i><b>9.10.1</b> Datos agrupados bajo una población normal</a></li>
+</ul></li>
+<li class="chapter" data-level="9.11" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejercicios-7"><i class="fa fa-check"></i><b>9.11</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">Notas Curso de Estadística II</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="cálculo-bayesiano-computacional" class="section level1 hasAnchor" number="9">
+<h1><span class="header-section-number">Capítulo 9</span> Cálculo Bayesiano Computacional<a href="09-calculo-bayes.html#cálculo-bayesiano-computacional" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="repaso-de-estadística-bayesiana" class="section level2 hasAnchor" number="9.1">
+<h2><span class="header-section-number">9.1</span> Repaso de Estadística Bayesiana<a href="09-calculo-bayes.html#repaso-de-estadística-bayesiana" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="modelo-de-un-parámetro" class="section level3 hasAnchor" number="9.1.1">
+<h3><span class="header-section-number">9.1.1</span> Modelo de un parámetro<a href="09-calculo-bayes.html#modelo-de-un-parámetro" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Vamos a considerar el ejemplo en la sección 3.3 del <span class="citation">(Albert et al. 2009)</span>. En este caso se quiere estimar la tasa de éxito en transplantes de corazón en un hospital de EEUU. Suponga que en ese hospital hay <span class="math inline">\(n\)</span> transplantes y <span class="math inline">\(y\)</span> es el número de muertes en el transcurso de 30 días del transplante. Si se sabe el número esperado de muertes <span class="math inline">\(e\)</span> a través de un modelo auxiliar, entonces un modelo sencillo para <span class="math inline">\(y\)</span> es asumir que:
+<span class="math display">\[y\sim \text{Poisson}(e\lambda)\]</span>
+donde <span class="math inline">\(\lambda\)</span> es la tasa de mortalidad por unidad de exposición y tiempo.</p>
+<p>Posible solución: estimar <span class="math inline">\(\hat \lambda=y/e\)</span>, pero el estimador es malo si hay pocas muertes observadas <span class="math inline">\(y\)</span>.</p>
+<p>Solución bayesiana: Considere una previa conjugada (gamma) para <span class="math inline">\(\lambda\)</span>:
+<span class="math display">\[p(\lambda)\propto \lambda^{\alpha-1}\exp(-\beta \lambda)\]</span>
+además, suponga que se cuenta con información externa de un grupo pequeño de hospitales con condiciones similares a la del hospital de interés, es decir se cuenta con muertes <span class="math inline">\(z_j\)</span> y exposición <span class="math inline">\(o_j\)</span> para diez hospitales (<span class="math inline">\(j=1,\ldots,10\)</span>). Asuma que:
+<span class="math display">\[z_j\sim \text{Poisson}(o_j\lambda)\]</span>
+asignamos una previa no-informativa a <span class="math inline">\(p(\lambda)\propto \lambda^{-1}\)</span> y se obtiene un previa propuesta para <span class="math inline">\(\lambda\)</span>:
+<span class="math display">\[p(\lambda)\propto \lambda^{\sum_{j=1}^{10}z_j-1}\exp{\left(-\lambda\sum_{j=1}^{10} o_j\right)}\]</span>y
+Suponga que <span class="math inline">\(\alpha:=\sum z_j=16\)</span> y <span class="math inline">\(\beta:=\sum o_j=15174\)</span>. Si para el hospital de interés <span class="math inline">\(y_{obs}\)</span> es el número observado de muertes y <span class="math inline">\(e\)</span> es la exposición entonces la distribución posterior de <span class="math inline">\(\lambda\)</span> es:
+<span class="math display">\[g(\lambda|y_{obs})\sim \Gamma(\alpha+y_{obs},\beta+e)\]</span>
+y la densidad predictiva de <span class="math inline">\(y\)</span> es (Ejercicio):
+<span class="math display">\[f(y)=\frac{f(y|\lambda)p(\lambda)}{g(\lambda|y_{obs})}\]</span></p>
+<p>donde <span class="math inline">\(f(y|\lambda)\sim \text{Poisson}(e\lambda)\)</span> (verosimilitud). Supongamos dos posibles hospitales:</p>
+<ul>
+<li>Hospital A: Se observa una muerte con 66 personas expuestas. Cálculo de la densidad posterior y densidad predictiva con <span class="math inline">\(\lambda = \alpha/\beta\)</span>:</li>
+</ul>
+<div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="09-calculo-bayes.html#cb619-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="dv">16</span></span>
+<span id="cb619-2"><a href="09-calculo-bayes.html#cb619-2" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="dv">15174</span></span>
+<span id="cb619-3"><a href="09-calculo-bayes.html#cb619-3" aria-hidden="true" tabindex="-1"></a>yobs <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb619-4"><a href="09-calculo-bayes.html#cb619-4" aria-hidden="true" tabindex="-1"></a>ex <span class="ot">&lt;-</span> <span class="dv">66</span></span>
+<span id="cb619-5"><a href="09-calculo-bayes.html#cb619-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb619-6"><a href="09-calculo-bayes.html#cb619-6" aria-hidden="true" tabindex="-1"></a>lam <span class="ot">&lt;-</span> alpha<span class="sc">/</span>beta</span>
+<span id="cb619-7"><a href="09-calculo-bayes.html#cb619-7" aria-hidden="true" tabindex="-1"></a>fy <span class="ot">&lt;-</span> <span class="fu">dpois</span>(y, lam <span class="sc">*</span> ex) <span class="sc">*</span> <span class="fu">dgamma</span>(lam, <span class="at">shape =</span> alpha,</span>
+<span id="cb619-8"><a href="09-calculo-bayes.html#cb619-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">rate =</span> beta)<span class="sc">/</span><span class="fu">dgamma</span>(lam, <span class="at">shape =</span> alpha <span class="sc">+</span> y, <span class="at">rate =</span> beta <span class="sc">+</span></span>
+<span id="cb619-9"><a href="09-calculo-bayes.html#cb619-9" aria-hidden="true" tabindex="-1"></a>    ex)</span>
+<span id="cb619-10"><a href="09-calculo-bayes.html#cb619-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb619-11"><a href="09-calculo-bayes.html#cb619-11" aria-hidden="true" tabindex="-1"></a>dpred <span class="ot">&lt;-</span> <span class="fu">tibble</span>(y, fy)</span>
+<span id="cb619-12"><a href="09-calculo-bayes.html#cb619-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dpred) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> y, <span class="at">y =</span> fy)) <span class="sc">+</span></span>
+<span id="cb619-13"><a href="09-calculo-bayes.html#cb619-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> yobs, <span class="at">col =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-350-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>por lo tanto una muerte no es un valor inusual en el comportamiento de muertes bajo transplantes. La comparación de las densidades posterior y previa de lambda:</p>
+<div class="sourceCode" id="cb620"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb620-1"><a href="09-calculo-bayes.html#cb620-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb620-2"><a href="09-calculo-bayes.html#cb620-2" aria-hidden="true" tabindex="-1"></a>lambda_prev <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> alpha, <span class="at">rate =</span> beta)</span>
+<span id="cb620-3"><a href="09-calculo-bayes.html#cb620-3" aria-hidden="true" tabindex="-1"></a>lambda_post <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> alpha <span class="sc">+</span> y, <span class="at">rate =</span> beta <span class="sc">+</span></span>
+<span id="cb620-4"><a href="09-calculo-bayes.html#cb620-4" aria-hidden="true" tabindex="-1"></a>    ex)</span>
+<span id="cb620-5"><a href="09-calculo-bayes.html#cb620-5" aria-hidden="true" tabindex="-1"></a>datoslambda <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Previa =</span> lambda_prev, <span class="at">Posterior =</span> lambda_post) <span class="sc">%&gt;%</span></span>
+<span id="cb620-6"><a href="09-calculo-bayes.html#cb620-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>())</span>
+<span id="cb620-7"><a href="09-calculo-bayes.html#cb620-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> datoslambda) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> value,</span>
+<span id="cb620-8"><a href="09-calculo-bayes.html#cb620-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-351-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Hospital B: 4 muertes en 1767 expuestos. Mismos cálculos:</li>
+</ul>
+<div class="sourceCode" id="cb621"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb621-1"><a href="09-calculo-bayes.html#cb621-1" aria-hidden="true" tabindex="-1"></a>alpha <span class="ot">&lt;-</span> <span class="dv">16</span></span>
+<span id="cb621-2"><a href="09-calculo-bayes.html#cb621-2" aria-hidden="true" tabindex="-1"></a>beta <span class="ot">&lt;-</span> <span class="dv">15174</span></span>
+<span id="cb621-3"><a href="09-calculo-bayes.html#cb621-3" aria-hidden="true" tabindex="-1"></a>yobs <span class="ot">&lt;-</span> <span class="dv">4</span></span>
+<span id="cb621-4"><a href="09-calculo-bayes.html#cb621-4" aria-hidden="true" tabindex="-1"></a>ex <span class="ot">&lt;-</span> <span class="dv">1767</span></span>
+<span id="cb621-5"><a href="09-calculo-bayes.html#cb621-5" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">0</span><span class="sc">:</span><span class="dv">10</span></span>
+<span id="cb621-6"><a href="09-calculo-bayes.html#cb621-6" aria-hidden="true" tabindex="-1"></a>lam <span class="ot">&lt;-</span> alpha<span class="sc">/</span>beta</span>
+<span id="cb621-7"><a href="09-calculo-bayes.html#cb621-7" aria-hidden="true" tabindex="-1"></a>fy <span class="ot">&lt;-</span> <span class="fu">dpois</span>(y, lam <span class="sc">*</span> ex) <span class="sc">*</span> <span class="fu">dgamma</span>(lam, <span class="at">shape =</span> alpha,</span>
+<span id="cb621-8"><a href="09-calculo-bayes.html#cb621-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">rate =</span> beta)<span class="sc">/</span><span class="fu">dgamma</span>(lam, <span class="at">shape =</span> alpha <span class="sc">+</span> y, <span class="at">rate =</span> beta <span class="sc">+</span></span>
+<span id="cb621-9"><a href="09-calculo-bayes.html#cb621-9" aria-hidden="true" tabindex="-1"></a>    ex)</span>
+<span id="cb621-10"><a href="09-calculo-bayes.html#cb621-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb621-11"><a href="09-calculo-bayes.html#cb621-11" aria-hidden="true" tabindex="-1"></a>dpred <span class="ot">&lt;-</span> <span class="fu">tibble</span>(y, fy)</span>
+<span id="cb621-12"><a href="09-calculo-bayes.html#cb621-12" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(dpred) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> y, <span class="at">y =</span> fy)) <span class="sc">+</span></span>
+<span id="cb621-13"><a href="09-calculo-bayes.html#cb621-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_vline</span>(<span class="at">xintercept =</span> yobs, <span class="at">col =</span> <span class="dv">2</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-352-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb622"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb622-1"><a href="09-calculo-bayes.html#cb622-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb622-2"><a href="09-calculo-bayes.html#cb622-2" aria-hidden="true" tabindex="-1"></a>lambda_prev <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> alpha, <span class="at">rate =</span> beta)</span>
+<span id="cb622-3"><a href="09-calculo-bayes.html#cb622-3" aria-hidden="true" tabindex="-1"></a>lambda_post <span class="ot">&lt;-</span> <span class="fu">rgamma</span>(<span class="dv">1000</span>, <span class="at">shape =</span> alpha <span class="sc">+</span> y, <span class="at">rate =</span> beta <span class="sc">+</span></span>
+<span id="cb622-4"><a href="09-calculo-bayes.html#cb622-4" aria-hidden="true" tabindex="-1"></a>    ex)</span>
+<span id="cb622-5"><a href="09-calculo-bayes.html#cb622-5" aria-hidden="true" tabindex="-1"></a>datoslambda <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">Previa =</span> lambda_prev, <span class="at">Posterior =</span> lambda_post) <span class="sc">%&gt;%</span></span>
+<span id="cb622-6"><a href="09-calculo-bayes.html#cb622-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">cols =</span> <span class="fu">everything</span>())</span>
+<span id="cb622-7"><a href="09-calculo-bayes.html#cb622-7" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> datoslambda) <span class="sc">+</span> <span class="fu">geom_density</span>(<span class="at">mapping =</span> <span class="fu">aes</span>(<span class="at">x =</span> value,</span>
+<span id="cb622-8"><a href="09-calculo-bayes.html#cb622-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">color =</span> name)) <span class="sc">+</span> <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">theme</span>(<span class="at">legend.title =</span> <span class="fu">element_blank</span>())</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-353-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+<div id="modelo-de-más-de-un-parámetro" class="section level3 hasAnchor" number="9.1.2">
+<h3><span class="header-section-number">9.1.2</span> Modelo de más de un parámetro<a href="09-calculo-bayes.html#modelo-de-más-de-un-parámetro" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Se usará el ejemplo de la sección 4.2 del <span class="citation">(Albert et al. 2009)</span> para ilustrar la inferencia bayesiana conjugada en el caso de más un parámetro. Suponga que se tiene datos del tiempo en completar la maratón de Nueva York para 20 atletas entre 20 y 29 años y asumimos que la muestra proviene de una <span class="math inline">\(N(\mu,\sigma^2)\)</span>. Si asumimos la previa no informativa:</p>
+<p><span class="math display">\[g(\mu,\sigma^2) \propto 1/\sigma^2\]</span></p>
+<p>entonces la distribución posterior de <span class="math inline">\((\mu,\sigma^2)\)</span> es:
+<span class="math display">\[g(\mu,\sigma^2|y)\propto \frac{1}{(\sigma^2)^{n/2+1}}\exp{\left(-\frac{1}{2\sigma^2}\left(S+n(\mu-\bar y)^2\right)\right)}\]</span></p>
+<p>donde <span class="math inline">\(n\)</span> es el tamaño de muestra, <span class="math inline">\(\bar y\)</span> es la media empírica y <span class="math inline">\(S=\sum_{i=1}^n(y_i-\bar y)^2\)</span>. Recuerden que la distribución posterior conjunta satisface:</p>
+<ul>
+<li>La distribución posterior de <span class="math inline">\(\mu\)</span> condicional en <span class="math inline">\(\sigma^2\)</span> se distribuye como <span class="math inline">\(N(\bar y,\sigma/\sqrt{n})\)</span>.</li>
+<li>La distribución posterior marginal de <span class="math inline">\(\sigma^2\)</span> se distribuye según <span class="math inline">\(S\chi_{n-1}^{-2}\)</span> (<span class="math inline">\(S\)</span> veces una chi-cuadrada inversa con <span class="math inline">\(n-1\)</span> grados de libertad).</li>
+</ul>
+<p>Cargamos los datos de los 20 atletas:</p>
+<div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="09-calculo-bayes.html#cb623-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(LearnBayes)</span>
+<span id="cb623-2"><a href="09-calculo-bayes.html#cb623-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(marathontimes)</span></code></pre></div>
+<pre><code>##   time
+## 1  182
+## 2  201
+## 3  221
+## 4  234
+## 5  237
+## 6  251</code></pre>
+<p>y graficamos un diagrama de contorno de la distribución posterior de <span class="math inline">\(\mu,\sigma^2\)</span>:</p>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="09-calculo-bayes.html#cb625-1" aria-hidden="true" tabindex="-1"></a><span class="fu">attach</span>(marathontimes)</span>
+<span id="cb625-2"><a href="09-calculo-bayes.html#cb625-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mycontour</span>(normchi2post, <span class="fu">c</span>(<span class="dv">220</span>, <span class="dv">330</span>, <span class="dv">500</span>, <span class="dv">9000</span>), time,</span>
+<span id="cb625-3"><a href="09-calculo-bayes.html#cb625-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;media&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;varianza&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-355-1.svg" width="70%" style="display: block; margin: auto;" />
+y les agregamos una muestra aleatoria de tamaño 1000 de la distribución posterior conjunta, generada a través de las distribuciones marginales:</p>
+<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="09-calculo-bayes.html#cb626-1" aria-hidden="true" tabindex="-1"></a>S <span class="ot">&lt;-</span> <span class="fu">sum</span>((time <span class="sc">-</span> <span class="fu">mean</span>(time))<span class="sc">^</span><span class="dv">2</span>)</span>
+<span id="cb626-2"><a href="09-calculo-bayes.html#cb626-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="fu">length</span>(time)</span>
+<span id="cb626-3"><a href="09-calculo-bayes.html#cb626-3" aria-hidden="true" tabindex="-1"></a>sigma2 <span class="ot">&lt;-</span> S<span class="sc">/</span><span class="fu">rchisq</span>(<span class="dv">1000</span>, n <span class="sc">-</span> <span class="dv">1</span>)</span>
+<span id="cb626-4"><a href="09-calculo-bayes.html#cb626-4" aria-hidden="true" tabindex="-1"></a>mu <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">mean =</span> <span class="fu">mean</span>(time), <span class="at">sd =</span> <span class="fu">sqrt</span>(sigma2)<span class="sc">/</span><span class="fu">sqrt</span>(n))</span>
+<span id="cb626-5"><a href="09-calculo-bayes.html#cb626-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mycontour</span>(normchi2post, <span class="fu">c</span>(<span class="dv">220</span>, <span class="dv">330</span>, <span class="dv">500</span>, <span class="dv">9000</span>), time,</span>
+<span id="cb626-6"><a href="09-calculo-bayes.html#cb626-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;media&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;varianza&quot;</span>)</span>
+<span id="cb626-7"><a href="09-calculo-bayes.html#cb626-7" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(mu, sigma2)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-356-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>Si estamos interesados en hacer inferencia de <span class="math inline">\(\mu\)</span>, podemos calcular un intervalo de credibilidad al 95%, usando la muestra marginal:</p>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="09-calculo-bayes.html#cb627-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(mu, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<pre><code>##     2.5%    97.5% 
+## 254.9617 300.8669</code></pre>
+<p>y también inferencia sobre <span class="math inline">\(\sigma\)</span>:</p>
+<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="09-calculo-bayes.html#cb629-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(<span class="fu">sqrt</span>(sigma2), <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<pre><code>##     2.5%    97.5% 
+## 37.66930 72.69096</code></pre>
+<p>o aún sobre otros parámetros, por ejemplo el coeficiente de variación (<span class="math inline">\(CV=\sigma/\mu\)</span>):</p>
+<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="09-calculo-bayes.html#cb631-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(<span class="fu">sqrt</span>(sigma2)<span class="sc">/</span>mu, <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<pre><code>##      2.5%     97.5% 
+## 0.1357104 0.2634229</code></pre>
+</div>
+</div>
+<div id="motivación-cálculo-de-integrales" class="section level2 hasAnchor" number="9.2">
+<h2><span class="header-section-number">9.2</span> Motivación: Cálculo de Integrales<a href="09-calculo-bayes.html#motivación-cálculo-de-integrales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Recuerden que según el teorema de Bayes, si observamos datos <span class="math inline">\(y\)</span> a partir de una verosimilitud <span class="math inline">\(f(y|\theta)\)</span> y se le asigna al parámetro <span class="math inline">\(\theta\)</span> una previa <span class="math inline">\(g(\theta)\)</span>, entonces:</p>
+<p><span class="math display">\[g(\theta|y)\propto g(\theta)f(y|\theta)\]</span></p>
+<p>Problema: tratar de manejar la distribución posterior de <span class="math inline">\(\theta\)</span> desde un punto de vista computacional con el fin de hacer inferencia.</p>
+<p>Los procesos de inferencia requieren el cálculo o aproximación de integrales, por ejemplo:</p>
+<ul>
+<li>Valor esperado de una función de <span class="math inline">\(\theta\)</span>:</li>
+</ul>
+<p><span class="math display">\[E(h(\theta)|y)=\frac{\int h(\theta)g(\theta)f(y|\theta) d\theta}{\int g(\theta)f(y|\theta) d\theta}\]</span></p>
+<ul>
+<li>Probabilidad posterior de que <span class="math inline">\(h(\theta) \in A\)</span>:</li>
+</ul>
+<p><span class="math display">\[P(h(\theta) \in A|y)=\frac{\int_{h(\theta) \in A} g(\theta)f(y|\theta) d\theta}{\int g(\theta)f(y|\theta) d\theta}\]</span>
+- Densidades marginales. Si <span class="math inline">\(\theta=(\theta_1,\theta_2)\)</span>:</p>
+<p><span class="math display">\[g(\theta_1|y)\propto \int g(\theta_1,\theta_2|y)d\theta_2\]</span></p>
+</div>
+<div id="ejemplo-base-modelo-beta-binomial." class="section level2 hasAnchor" number="9.3">
+<h2><span class="header-section-number">9.3</span> Ejemplo base: modelo beta-binomial.<a href="09-calculo-bayes.html#ejemplo-base-modelo-beta-binomial." class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>En este ejemplo se estimará las tasas de muerte por cáncer gástrico en una población de hombres entre 45 y 64 años. Para ello se tiene datos de muertes <span class="math inline">\(y_j\)</span> y exposición <span class="math inline">\(n_j\)</span> para 20 ciudades en Missouri:</p>
+<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="09-calculo-bayes.html#cb633-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;cancermortality&quot;</span>)</span>
+<span id="cb633-2"><a href="09-calculo-bayes.html#cb633-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(cancermortality)</span></code></pre></div>
+<pre><code>##   y    n
+## 1 0 1083
+## 2 0  855
+## 3 2 3461
+## 4 0  657
+## 5 1 1208
+## 6 1 1025</code></pre>
+<p>Un primer intento de modelación podría considerar <span class="math inline">\(y_j\sim \text{Binomial}(p,n_j)\)</span> pero en este caso se puede comprobar que el modelo binomial no logra captar la variabilidad de las muertes totalmente. Otro intento de modelación que no tiene ese problema es un modelo beta-binomial con media <span class="math inline">\(\eta\)</span> y precisión <span class="math inline">\(K\)</span>:
+<span class="math display">\[f(y_j|\eta,K)={n_j \choose y_j}\frac{B(K\eta+y_j,K(1-\eta)+n_j-y_j)}{B(K\eta,K(1-\eta))}\]</span>
+con previa no informativa:
+<span class="math display">\[g(\eta,K)\propto \frac{1}{\eta(1-\eta)}\frac{1}{(1+K)^2}\]</span>
+entonces la densidad posterior de los parámetros sería:
+<span class="math display">\[g(\eta,K|\text{datos})\propto \frac{1}{\eta(1-\eta)}\frac{1}{(1+K)^2} \prod_{j=1}^{20}\frac{B(K\eta+y_j,K(1-\eta)+n_j-y_j)}{B(K\eta,K(1-\eta))}\]</span>
+donde <span class="math inline">\(0&lt;\eta&lt;1\)</span>, <span class="math inline">\(K&gt;0\)</span> y <span class="math inline">\(B(\cdot,\cdot)\)</span> es la función beta. La función <em>betabinexch0</em> contiene la implementación de la log-densidad posterior de <span class="math inline">\(\eta,K\)</span>:</p>
+<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="09-calculo-bayes.html#cb635-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mycontour</span>(betabinexch0, <span class="fu">c</span>(<span class="fl">0.0001</span>, <span class="fl">0.003</span>, <span class="dv">1</span>, <span class="dv">20000</span>),</span>
+<span id="cb635-2"><a href="09-calculo-bayes.html#cb635-2" aria-hidden="true" tabindex="-1"></a>    cancermortality, <span class="at">xlab =</span> <span class="st">&quot;eta&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;K&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-361-1.svg" width="70%" style="display: block; margin: auto;" />
+y note la gran asimetría en el comportamiento de la densidad conjunta, especialmente en la dirección de la variable <span class="math inline">\(K\)</span>. Por el dominio de las variables <span class="math inline">\(K\)</span> y <span class="math inline">\(\eta\)</span>, entonces se transforman según:
+<span class="math display">\[\theta_1=\text{logit}(\eta)=\log\left(\frac{\eta}{1-\eta}\right),\quad  \theta_2=\log(K)\]</span>
+y usando el teorema de cambio de variable en densidades:
+<span class="math display">\[g_1(\theta_1,\theta_2|\text{datos})=g\left(\frac{e^{\theta_1}}{1+e^{\theta_2}},e^{\theta_2}\right)\frac{e^{\theta_1+\theta_2}}{(1+e^{\theta_2})^2}\]</span>
+<span class="math inline">\(g_1\)</span> está implementada en la función <em>betabinexch</em> y el gráfico de contorno es más manejable ahora desde el punto de vista computacional:</p>
+<div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="09-calculo-bayes.html#cb636-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mycontour</span>(betabinexch, <span class="fu">c</span>(<span class="sc">-</span><span class="dv">8</span>, <span class="sc">-</span><span class="fl">4.5</span>, <span class="dv">3</span>, <span class="fl">16.5</span>), cancermortality,</span>
+<span id="cb636-2"><a href="09-calculo-bayes.html#cb636-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;logit eta&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;log K&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-362-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>Definitivamente esta es una distribución posterior a la que no se le puede aplicar las técnicas usuales para hacer inferencia (caso no conjugado). Se va a considerar dos formas de realizar inferencia:</p>
+<ul>
+<li>Aproximación de Laplace.</li>
+<li>Simulación Monte Carlo.</li>
+</ul>
+</div>
+<div id="aproximación-de-laplace" class="section level2 hasAnchor" number="9.4">
+<h2><span class="header-section-number">9.4</span> Aproximación de Laplace<a href="09-calculo-bayes.html#aproximación-de-laplace" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Considere el logaritmo de la densidad posterior proporcional:
+<span class="math display">\[h(\theta,y)=\log(g(\theta)f(y|\theta))\]</span>
+Suponga que <span class="math inline">\(\hat \theta\)</span> es la moda de <span class="math inline">\(\theta\)</span>. Un desarrollo de Taylor alrededor de <span class="math inline">\(\hat \theta\)</span> para <span class="math inline">\(h(\theta)\)</span> da la siguiente aproximación:
+<span class="math display">\[h(\theta)\approx h(\hat \theta)+\frac 1 2(\theta-\hat \theta)^Th&#39;&#39;(\hat \theta)(\theta-\hat \theta)\]</span>
+Por lo tanto podemos aproximar el comportamiento en distribución de <span class="math inline">\(\theta\)</span> como:
+<span class="math display">\[\theta \sim N(\hat \theta,V)\]</span>
+donde <span class="math inline">\(V=(-h&#39;&#39;(\hat \theta))^{-1}\)</span>. Con el fin de encontrar la moda <span class="math inline">\(\hat \theta\)</span> se puede usar algún algoritmo para encontrar máximos en funciones de varias variables, por ejemplo el método de Newton o el de Nelder-Mead (default en <em>optim</em>). La función <em>laplace</em> tiene el método de optimización implementado tomando como argumentos la log-densidad posterior, un valor inicial de los parámetros y el conjunto de datos.</p>
+<p>Por ejemplo, en el caso anterior:</p>
+<div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="09-calculo-bayes.html#cb637-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">laplace</span>(betabinexch, <span class="fu">c</span>(<span class="sc">-</span><span class="dv">7</span>, <span class="dv">6</span>), cancermortality)</span>
+<span id="cb637-2"><a href="09-calculo-bayes.html#cb637-2" aria-hidden="true" tabindex="-1"></a>fit</span></code></pre></div>
+<pre><code>## $mode
+## [1] -6.819793  7.576111
+## 
+## $var
+##             [,1]       [,2]
+## [1,]  0.07896568 -0.1485087
+## [2,] -0.14850874  1.3483208
+## 
+## $int
+## [1] -570.7743
+## 
+## $converge
+## [1] TRUE</code></pre>
+<p>donde el punto (-7,6) se puede inferir a través del gráfico de contorno anterior. Por lo tanto podemos aproximar la densidad posterior conjunta de <span class="math inline">\((\text{logit}(\eta),\log K)\)</span> se puede aproximar como una normal multivariada con media <em>fit$mode</em> y varianza <em>fit.var</em>. Un gráfico de contorno de la aproximación es:</p>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="09-calculo-bayes.html#cb639-1" aria-hidden="true" tabindex="-1"></a>npar <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">m =</span> fit<span class="sc">$</span>mode, <span class="at">v =</span> fit<span class="sc">$</span>var)</span>
+<span id="cb639-2"><a href="09-calculo-bayes.html#cb639-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mycontour</span>(lbinorm, <span class="fu">c</span>(<span class="sc">-</span><span class="dv">8</span>, <span class="sc">-</span><span class="fl">4.5</span>, <span class="dv">3</span>, <span class="fl">16.5</span>), npar, <span class="at">xlab =</span> <span class="st">&quot;logit eta&quot;</span>,</span>
+<span id="cb639-3"><a href="09-calculo-bayes.html#cb639-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">ylab =</span> <span class="st">&quot;log K&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-364-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>También podemos hacer inferencia de los parámetros:</p>
+<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="09-calculo-bayes.html#cb640-1" aria-hidden="true" tabindex="-1"></a>se <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(fit<span class="sc">$</span>var))</span>
+<span id="cb640-2"><a href="09-calculo-bayes.html#cb640-2" aria-hidden="true" tabindex="-1"></a>lb <span class="ot">&lt;-</span> fit<span class="sc">$</span>mode <span class="sc">-</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se</span>
+<span id="cb640-3"><a href="09-calculo-bayes.html#cb640-3" aria-hidden="true" tabindex="-1"></a>ub <span class="ot">&lt;-</span> fit<span class="sc">$</span>mode <span class="sc">+</span> <span class="fu">qnorm</span>(<span class="fl">0.975</span>) <span class="sc">*</span> se</span>
+<span id="cb640-4"><a href="09-calculo-bayes.html#cb640-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb640-5"><a href="09-calculo-bayes.html#cb640-5" aria-hidden="true" tabindex="-1"></a>etainv <span class="ot">&lt;-</span> <span class="fu">c</span>(lb[<span class="dv">1</span>], ub[<span class="dv">1</span>])</span>
+<span id="cb640-6"><a href="09-calculo-bayes.html#cb640-6" aria-hidden="true" tabindex="-1"></a>Kinv <span class="ot">&lt;-</span> <span class="fu">c</span>(lb[<span class="dv">2</span>], ub[<span class="dv">2</span>])</span>
+<span id="cb640-7"><a href="09-calculo-bayes.html#cb640-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb640-8"><a href="09-calculo-bayes.html#cb640-8" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(etainv)<span class="sc">/</span>(<span class="dv">1</span> <span class="sc">+</span> <span class="fu">exp</span>(etainv))</span></code></pre></div>
+<pre><code>## [1] 0.0006291199 0.0018904899</code></pre>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="09-calculo-bayes.html#cb642-1" aria-hidden="true" tabindex="-1"></a><span class="fu">exp</span>(Kinv)</span></code></pre></div>
+<pre><code>## [1]   200.3879 18995.6680</code></pre>
+<p>son intervalos de predicción al 95% para <span class="math inline">\(\eta\)</span> y <span class="math inline">\(K\)</span> respectivamente.</p>
+</div>
+<div id="simulación" class="section level2 hasAnchor" number="9.5">
+<h2><span class="header-section-number">9.5</span> Simulación<a href="09-calculo-bayes.html#simulación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="simulación-monte-carlo" class="section level3 hasAnchor" number="9.5.1">
+<h3><span class="header-section-number">9.5.1</span> Simulación Monte Carlo<a href="09-calculo-bayes.html#simulación-monte-carlo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suponga que <span class="math inline">\(g(\theta|y)\)</span> es la densidad posterior de <span class="math inline">\(\theta\)</span> y queremos estimar una característica de <span class="math inline">\(\theta\)</span>, a través de la función <span class="math inline">\(h(\theta)\)</span>. La media posterior de <span class="math inline">\(h(\theta)\)</span> es:
+<span class="math display">\[E(h(\theta)|y)=\int h(\theta)g(\theta|y)d\theta\]</span>
+y suponga que podemos simular una muestra independiente <span class="math inline">\(\theta^1,\ldots,\theta^m\)</span> de <span class="math inline">\(g(\theta|y)\)</span>. El estimador Monte Carlo del valor esperado es:
+<span class="math display">\[\bar h =\frac 1 m\sum_{j=1}^mh(\theta^j) \]</span>
+con su error estándar:
+<span class="math display">\[se_{\bar h}=\sqrt{\frac{1}{m(m-1)}\sum_{j=1}^m\left(h(\theta^j)-\bar h\right)^2}\]</span>
+En el caso en que no es posible obtener muestras de la densidad posterior, entonces se pueden definir algoritmos que aproximan la generación de muestras.</p>
+</div>
+<div id="muestreo-por-rechazo" class="section level3 hasAnchor" number="9.5.2">
+<h3><span class="header-section-number">9.5.2</span> Muestreo por rechazo<a href="09-calculo-bayes.html#muestreo-por-rechazo" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suponga que queremos obtener una muestra de <span class="math inline">\(g(\theta|y)\)</span> donde la constante de normalización no es conocida. Suponga que conocemos una densidad <span class="math inline">\(p(\theta)\)</span> que satisface:</p>
+<ul>
+<li>Fácil de obtener muestras.</li>
+<li><span class="math inline">\(p\)</span> aproxima <span class="math inline">\(g\)</span> en términos de localización y escala.</li>
+<li>Para todo <span class="math inline">\(\theta\)</span>: <span class="math inline">\(g(\theta|y)\leq cp(\theta)\)</span>, para una constante <span class="math inline">\(c\)</span>.</li>
+</ul>
+<p>Algoritmo:</p>
+<ol style="list-style-type: decimal">
+<li>Simule una realización independiente de <span class="math inline">\(\theta \sim p\)</span> y <span class="math inline">\(U\sim Unif(0,1)\)</span>.</li>
+<li>Si <span class="math inline">\(U\leq g(\theta|y)/(cp(\theta))\)</span> entonces acepte <span class="math inline">\(\theta\)</span>, caso contrario rechace la muestra propuesta.</li>
+<li>Continue 1 y 2 hasta que se haya generado un número deseado de muestras.</li>
+</ol>
+<p>Nota: un algoritmo eficiente tiene una tasa de aceptación de muestras alta.</p>
+<p>En el ejemplo anterior, seleccionamos <span class="math inline">\(p(\theta)\)</span> una distribución <span class="math inline">\(t\)</span> multivariada con parámetro de locación igual a la media aproximada del método de Laplace, matriz de escala igual a 2 veces la matriz de varianza aproximada según Laplace y 4 grados de libertad. De esta forma nos aseguramos que <span class="math inline">\(g(\theta|y)/p(\theta)\)</span> está acotado superiormente.</p>
+<p>Con el fin de encontrar <span class="math inline">\(c\)</span>, maximizamos la diferencia de logaritmos entre <span class="math inline">\(g(\theta|y)\)</span> y la propuesta <span class="math inline">\(p(\theta)\)</span>, usando la función <em>laplace</em>:</p>
+<div class="sourceCode" id="cb644"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb644-1"><a href="09-calculo-bayes.html#cb644-1" aria-hidden="true" tabindex="-1"></a>betabinT <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, datapar) {</span>
+<span id="cb644-2"><a href="09-calculo-bayes.html#cb644-2" aria-hidden="true" tabindex="-1"></a>    data <span class="ot">&lt;-</span> datapar<span class="sc">$</span>data</span>
+<span id="cb644-3"><a href="09-calculo-bayes.html#cb644-3" aria-hidden="true" tabindex="-1"></a>    tpar <span class="ot">&lt;-</span> datapar<span class="sc">$</span>par</span>
+<span id="cb644-4"><a href="09-calculo-bayes.html#cb644-4" aria-hidden="true" tabindex="-1"></a>    d <span class="ot">&lt;-</span> <span class="fu">betabinexch</span>(theta, data) <span class="sc">-</span> <span class="fu">dmt</span>(theta, <span class="at">mean =</span> <span class="fu">c</span>(tpar<span class="sc">$</span>m),</span>
+<span id="cb644-5"><a href="09-calculo-bayes.html#cb644-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">S =</span> tpar<span class="sc">$</span>var, <span class="at">df =</span> tpar<span class="sc">$</span>df, <span class="at">log =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb644-6"><a href="09-calculo-bayes.html#cb644-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(d)</span>
+<span id="cb644-7"><a href="09-calculo-bayes.html#cb644-7" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>definimos parámetros:</p>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="09-calculo-bayes.html#cb645-1" aria-hidden="true" tabindex="-1"></a>tpar <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">m =</span> fit<span class="sc">$</span>mode, <span class="at">var =</span> <span class="dv">2</span> <span class="sc">*</span> fit<span class="sc">$</span>var, <span class="at">df =</span> <span class="dv">4</span>)</span>
+<span id="cb645-2"><a href="09-calculo-bayes.html#cb645-2" aria-hidden="true" tabindex="-1"></a>datapar <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">data =</span> cancermortality, <span class="at">par =</span> tpar)</span></code></pre></div>
+<p>y resolvemos:</p>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="09-calculo-bayes.html#cb646-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="sc">-</span><span class="fl">6.9</span>, <span class="fl">12.4</span>)</span>
+<span id="cb646-2"><a href="09-calculo-bayes.html#cb646-2" aria-hidden="true" tabindex="-1"></a>fit1 <span class="ot">&lt;-</span> <span class="fu">laplace</span>(betabinT, start, datapar)</span>
+<span id="cb646-3"><a href="09-calculo-bayes.html#cb646-3" aria-hidden="true" tabindex="-1"></a>fit1<span class="sc">$</span>mode</span></code></pre></div>
+<pre><code>## [1] -6.888963 12.421993</code></pre>
+<p>y el valor máximo de las diferencias de logaritmos es:</p>
+<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="09-calculo-bayes.html#cb648-1" aria-hidden="true" tabindex="-1"></a>dmax <span class="ot">&lt;-</span> <span class="fu">betabinT</span>(fit1<span class="sc">$</span>mode, datapar)</span>
+<span id="cb648-2"><a href="09-calculo-bayes.html#cb648-2" aria-hidden="true" tabindex="-1"></a>dmax</span></code></pre></div>
+<pre><code>## [1] -569.2829</code></pre>
+<p>el algoritmo sería:</p>
+<div class="sourceCode" id="cb650"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb650-1"><a href="09-calculo-bayes.html#cb650-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb650-2"><a href="09-calculo-bayes.html#cb650-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb650-3"><a href="09-calculo-bayes.html#cb650-3" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">rmt</span>(n, <span class="at">mean =</span> <span class="fu">c</span>(tpar<span class="sc">$</span>m), <span class="at">S =</span> tpar<span class="sc">$</span>var, <span class="at">df =</span> tpar<span class="sc">$</span>df)</span>
+<span id="cb650-4"><a href="09-calculo-bayes.html#cb650-4" aria-hidden="true" tabindex="-1"></a>lf <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>, <span class="sc">~</span><span class="fu">betabinexch</span>(theta[., ], cancermortality))</span>
+<span id="cb650-5"><a href="09-calculo-bayes.html#cb650-5" aria-hidden="true" tabindex="-1"></a>lg <span class="ot">&lt;-</span> <span class="fu">dmt</span>(theta, <span class="at">mean =</span> <span class="fu">c</span>(tpar<span class="sc">$</span>m), <span class="at">S =</span> tpar<span class="sc">$</span>var, <span class="at">df =</span> tpar<span class="sc">$</span>df,</span>
+<span id="cb650-6"><a href="09-calculo-bayes.html#cb650-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">log =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb650-7"><a href="09-calculo-bayes.html#cb650-7" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">=</span> <span class="fu">exp</span>(lf <span class="sc">-</span> lg <span class="sc">-</span> dmax)</span>
+<span id="cb650-8"><a href="09-calculo-bayes.html#cb650-8" aria-hidden="true" tabindex="-1"></a>thetaRS <span class="ot">&lt;-</span> theta[<span class="fu">runif</span>(n) <span class="sc">&lt;</span> prob, ]</span></code></pre></div>
+<p>la tasa de aceptación es:</p>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="09-calculo-bayes.html#cb651-1" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(thetaRS)[<span class="dv">1</span>]<span class="sc">/</span><span class="dv">10000</span></span></code></pre></div>
+<pre><code>## [1] 0.2447</code></pre>
+<p>y dibujamos el gráfico de contorno con la muestra obtenida:</p>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="09-calculo-bayes.html#cb653-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mycontour</span>(betabinexch, <span class="fu">c</span>(<span class="sc">-</span><span class="dv">8</span>, <span class="sc">-</span><span class="fl">4.5</span>, <span class="dv">3</span>, <span class="fl">16.5</span>), cancermortality,</span>
+<span id="cb653-2"><a href="09-calculo-bayes.html#cb653-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;logit eta&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;log K&quot;</span>)</span>
+<span id="cb653-3"><a href="09-calculo-bayes.html#cb653-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(thetaRS[, <span class="dv">1</span>], thetaRS[, <span class="dv">2</span>])</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-372-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+</div>
+</div>
+<div id="muestreo-por-importancia" class="section level2 hasAnchor" number="9.6">
+<h2><span class="header-section-number">9.6</span> Muestreo por importancia<a href="09-calculo-bayes.html#muestreo-por-importancia" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Suponga que queremos calcular el siguiente valor esperado posterior:
+<span class="math display">\[E(h(\theta)|y)=\frac{\int h(\theta)g(\theta)f(y|\theta)d\theta}{\int g(\theta)f(y|\theta)d\theta}\]</span></p>
+<p>en el caso en donde no se puede obtener una muestra directa de la distribución posterior y usar Monte Carlo por ejemplo. Usemos la densidad propuesta <span class="math inline">\(p(\theta)\)</span> que aproxima la posterior:</p>
+<p><span class="math display">\[\begin{align*}
+E(h(\theta)|y)&amp;=\frac{\int h(\theta)\frac{g(\theta)f(y|\theta)}{p(\theta)}p(\theta)d\theta}{\int \frac{g(\theta)f(y|\theta)}{p(\theta)}p(\theta)d\theta}\\
+&amp;=\frac{\int h(\theta)w(\theta)p(\theta)d\theta}{\int w(\theta)p(\theta)d\theta}
+\end{align*}\]</span></p>
+<p>donde <span class="math inline">\(w(\theta)=\frac{g(\theta)f(y|\theta)}{p(\theta)}\)</span>. Si <span class="math inline">\(\theta^1,\ldots,\theta^{m}\sim p(\theta)\)</span> entonces el estimador de muestreo por importancia de la media posterior es:
+<span class="math display">\[\bar h_{IS}=\frac{\sum_{j=1}^mh(\theta^j)w(\theta^j)}{\sum_{j=1}^mw(\theta^j)}\]</span>
+con error estándar:
+<span class="math display">\[se_{\bar h_{IS}}=\frac{\sqrt{\sum_{j=1}^m((h(\theta^j)-\bar h_{IS})w(\theta^j))^2}}{\sum_{j=1}^mw(\theta^j)}\]</span>
+Nota: al igual que en el método anterior, la escogencia de <span class="math inline">\(p(\theta)\)</span> se basa en su facilidad de muestreo y en la acotación por arriba de los pesos <span class="math inline">\(w(\theta)\)</span>.</p>
+<p>Ahora implementamos el algoritmo en el ejemplo (buena parte es una repetición del anterior), usando como propuesta la misma distribución t multivariada. Además graficamos un histograma de los pesos para comprobar que están acotados (en este caso por 1).</p>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="09-calculo-bayes.html#cb654-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb654-2"><a href="09-calculo-bayes.html#cb654-2" aria-hidden="true" tabindex="-1"></a>n <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb654-3"><a href="09-calculo-bayes.html#cb654-3" aria-hidden="true" tabindex="-1"></a>theta <span class="ot">&lt;-</span> <span class="fu">rmt</span>(n, <span class="at">mean =</span> <span class="fu">c</span>(tpar<span class="sc">$</span>m), <span class="at">S =</span> tpar<span class="sc">$</span>var, <span class="at">df =</span> tpar<span class="sc">$</span>df)</span>
+<span id="cb654-4"><a href="09-calculo-bayes.html#cb654-4" aria-hidden="true" tabindex="-1"></a>lf <span class="ot">&lt;-</span> <span class="fu">map_dbl</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">10000</span>, <span class="sc">~</span><span class="fu">betabinexch</span>(theta[., ], cancermortality))</span>
+<span id="cb654-5"><a href="09-calculo-bayes.html#cb654-5" aria-hidden="true" tabindex="-1"></a>lp <span class="ot">&lt;-</span> <span class="fu">dmt</span>(theta, <span class="at">mean =</span> <span class="fu">c</span>(tpar<span class="sc">$</span>m), <span class="at">S =</span> tpar<span class="sc">$</span>var, <span class="at">df =</span> tpar<span class="sc">$</span>df,</span>
+<span id="cb654-6"><a href="09-calculo-bayes.html#cb654-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">log =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb654-7"><a href="09-calculo-bayes.html#cb654-7" aria-hidden="true" tabindex="-1"></a>md <span class="ot">&lt;-</span> <span class="fu">max</span>(lf <span class="sc">-</span> lp)</span>
+<span id="cb654-8"><a href="09-calculo-bayes.html#cb654-8" aria-hidden="true" tabindex="-1"></a>wt <span class="ot">&lt;-</span> <span class="fu">exp</span>(lf <span class="sc">-</span> lp <span class="sc">-</span> md)</span>
+<span id="cb654-9"><a href="09-calculo-bayes.html#cb654-9" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(wt)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-373-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>y calculamos el valor esperado de <span class="math inline">\(\log K\)</span> usando los pesos obtenidos del paso anterior:</p>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="09-calculo-bayes.html#cb655-1" aria-hidden="true" tabindex="-1"></a>est <span class="ot">&lt;-</span> <span class="fu">sum</span>(wt <span class="sc">*</span> theta[, <span class="dv">2</span>])<span class="sc">/</span><span class="fu">sum</span>(wt)</span>
+<span id="cb655-2"><a href="09-calculo-bayes.html#cb655-2" aria-hidden="true" tabindex="-1"></a>SEest <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">sum</span>((theta[, <span class="dv">2</span>] <span class="sc">-</span> est)<span class="sc">^</span><span class="dv">2</span> <span class="sc">*</span> wt<span class="sc">^</span><span class="dv">2</span>))<span class="sc">/</span><span class="fu">sum</span>(wt)</span>
+<span id="cb655-3"><a href="09-calculo-bayes.html#cb655-3" aria-hidden="true" tabindex="-1"></a><span class="fu">show</span>(<span class="fu">c</span>(est, SEest))</span></code></pre></div>
+<pre><code>## [1] 7.92445868 0.01905786</code></pre>
+</div>
+<div id="remuestreo-por-importancia" class="section level2 hasAnchor" number="9.7">
+<h2><span class="header-section-number">9.7</span> Remuestreo por importancia<a href="09-calculo-bayes.html#remuestreo-por-importancia" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Al igual que en el caso anterior simulamos <span class="math inline">\(\theta^1,\ldots,\theta^m\sim p(\theta)\)</span> y calculamos los pesos <span class="math inline">\(\{w(\theta^j)=g(\theta^j|y)/p(\theta^j)\}\)</span>. Los pesos se convierten a probabilidades según:
+<span class="math display">\[p^j=\frac{w(\theta^j)}{\sum_{k=1}^mw(\theta^k)}\]</span>
+Tomamos una nueva muestra <span class="math inline">\(\theta^{*1},\ldots,\theta^{*m}\sim \{p^k\}\)</span> es decir se obtiene una nueva muestra con reemplazo a partir de la muestra original <span class="math inline">\(\theta^1,\ldots,\theta^m\)</span> con pesos <span class="math inline">\(\{p^k\}\)</span> (muestra bootstrap ponderada). A este método se le llama remuestreo por importancia.</p>
+<p>Siguiendo con el ejemplo:</p>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="09-calculo-bayes.html#cb657-1" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> wt<span class="sc">/</span><span class="fu">sum</span>(wt)</span>
+<span id="cb657-2"><a href="09-calculo-bayes.html#cb657-2" aria-hidden="true" tabindex="-1"></a>indices <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span>n, <span class="at">size =</span> n, <span class="at">prob =</span> probs, <span class="at">replace =</span> T)</span>
+<span id="cb657-3"><a href="09-calculo-bayes.html#cb657-3" aria-hidden="true" tabindex="-1"></a>thetaSIR <span class="ot">&lt;-</span> theta[indices, ]</span></code></pre></div>
+<p>y los intervalos de predicción al 95% para <span class="math inline">\(\text{logit}(\eta)\)</span> y <span class="math inline">\(log K\)</span> son:</p>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="09-calculo-bayes.html#cb658-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(thetaSIR[, <span class="dv">1</span>], <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<pre><code>##      2.5%     97.5% 
+## -7.342559 -6.155018</code></pre>
+<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="09-calculo-bayes.html#cb660-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(thetaSIR[, <span class="dv">2</span>], <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>))</span></code></pre></div>
+<pre><code>##      2.5%     97.5% 
+##  5.587915 11.190022</code></pre>
+</div>
+<div id="algoritmo-de-metropolis-hastings" class="section level2 hasAnchor" number="9.8">
+<h2><span class="header-section-number">9.8</span> Algoritmo de Metropolis-Hastings<a href="09-calculo-bayes.html#algoritmo-de-metropolis-hastings" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Muestreo por cadenas de Markov-Monte Carlo (MCMC): algoritmos que definen una cadena de Markov irreducible y aperiódica cuya densidad estacionaria es la densidad posterior de interés.</p>
+<p>Simplificamos la notación de la densidad posterior <span class="math inline">\(g(\theta|y)\)</span> usando <span class="math inline">\(g(\theta)\)</span>. Seleccionamos un valor inicial del algoritmo <span class="math inline">\(\theta^0\)</span> y procedemos con el</p>
+<p>Algoritmo</p>
+<ul>
+<li>Simule un candidato <span class="math inline">\(\theta^*\sim p(\theta^*|\theta^{t-1})\)</span> (densidad propuesta).</li>
+<li>Calcule:
+<span class="math display">\[R=\frac{g(\theta^*)p(\theta^{t-1}|\theta^*)}{g(\theta^{t-1})p(\theta^*|\theta^{t-1})}\]</span></li>
+<li>Calcule la probabilidad de aceptación <span class="math inline">\(P=\min \{R,1\}\)</span>.</li>
+<li>Acepte la propuesta <span class="math inline">\(\theta^{t}=\theta^*\)</span> con probabilidad P, en caso contrario <span class="math inline">\(\theta^t=\theta^{t-1}\)</span>.</li>
+</ul>
+<p>Nota: bajo ciertas condiciones de regularidad sobre la probabilidad propuesta:
+<span class="math display">\[\theta^n \stackrel{d}{\longrightarrow} M\sim g(\theta)\]</span>
+cuando <span class="math inline">\(n\rightarrow \infty\)</span>.</p>
+<p>Escogencias de la densidad propuesta:
+- Metropolis-Hastings independiente:
+<span class="math display">\[p(\theta^*|\theta^{t-1})=p(\theta^*)\]</span>
+- Metropolis-Hastings con caminata aleatoria:
+<span class="math display">\[p(\theta^*|\theta^{t-1})=h(\theta^*-\theta^{t-1})\]</span>
+donde <span class="math inline">\(h\)</span> es una función simétrica alrededor del origen. En este caso es fácil verificar que:
+<span class="math display">\[R=\frac{g(\theta^*)}{g(\theta^{t-1})}\]</span>
+Nota: las implementaciones de Metropolis-Hastings dentro del paquete LearnBayes tienen las siguientes particularidades:</p>
+<ul>
+<li><p>La función <em>indepmetrop</em> contiene una propuesta que es normal multivariada con media <span class="math inline">\(\mu\)</span> y varianza <span class="math inline">\(V\)</span> (modelo independiente). Los parámetros de la propuesta se debe escoger de manera que <span class="math inline">\(g/p\)</span> se acotado, especialmente en las colas.</p></li>
+<li><p>La función <em>rwmetrop</em> contiene una propuesta de la siguiente forma:
+<span class="math display">\[\theta^*=\theta^{t-1}+\sigma Z\]</span>
+donde <span class="math inline">\(Z\)</span> es una normal multivariada con media 0 y matriz de varianza <span class="math inline">\(V\)</span>. Además <span class="math inline">\(\sigma\)</span> es un parámetro de escala positivo.</p></li>
+</ul>
+</div>
+<div id="algoritmo-de-gibbs" class="section level2 hasAnchor" number="9.9">
+<h2><span class="header-section-number">9.9</span> Algoritmo de Gibbs<a href="09-calculo-bayes.html#algoritmo-de-gibbs" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Suponga que el parámetro de interés es <span class="math inline">\(\theta=(\theta_1,\ldots,\theta_p)\)</span> y que podemos obtener muestras de manera secuencial a partir de las siguientes distribuciones condicionales (dado un valor inicial <span class="math inline">\(\theta^0\)</span> y <span class="math inline">\(t=1,\ldots,n\)</span>):</p>
+<p><span class="math display">\[\begin{align*}
+\theta_1^t&amp;\sim [\theta_1|\theta_2^{t-1},\ldots,\theta_p^{t-1},\text{datos}]\\
+\theta_2^t&amp;\sim [\theta_2|\theta_1^t,\theta_3^{t-1},\ldots,\theta_p^{t-1},\text{datos}]\\
+\vdots &amp; \qquad \vdots\\
+\theta_p^t&amp;\sim [\theta_p|\theta_1^t,\ldots,\theta_{p-1}^t,\text{datos}]
+\end{align*}\]</span></p>
+<p>Bajo condiciones bastante generales se puede comprobar que <span class="math inline">\(\theta^t\)</span> converge a una muestra de la distribución conjunta posterior de <span class="math inline">\(\theta\)</span>.</p>
+<p>Nota: cuando en alguna de las condicionales anteriores no se puede obtener muestras de manera directa, entonces se puede sustituir el muestreo por un paso del algoritmo de Metropolis-Hastings. Así está implementado en la función <em>gibbs</em> del paquete LearnBayes.</p>
+<div id="diagnósticos-de-convergencia-de-mcmc" class="section level3 hasAnchor" number="9.9.1">
+<h3><span class="header-section-number">9.9.1</span> Diagnósticos de convergencia de MCMC<a href="09-calculo-bayes.html#diagnósticos-de-convergencia-de-mcmc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<ul>
+<li>Tasa de aceptación.</li>
+<li>Gráficos de traza (traceplots): gráfico de <span class="math inline">\((t,\theta^t)\)</span>. Por la naturaleza secuencial de los algoritmos de MH y Gibbs, los primeros valores de la cadena no representan normalmente una muestra confiable de la distribución posterior, por lo que generalmente se desecha un porcentaje inicial de la muestra (periodo de quema o burn-in period).</li>
+<li>Por construcción, uno esperaría que el nivel de autocorrelación de las cadenas sea bajo. Al igual que en el análisis de residuos de regresión, uno puede construir un ACF de las cadenas y esperar autocorrelación baja y convergente a 0.</li>
+</ul>
+</div>
+</div>
+<div id="ejemplos" class="section level2 hasAnchor" number="9.10">
+<h2><span class="header-section-number">9.10</span> Ejemplos<a href="09-calculo-bayes.html#ejemplos" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="datos-agrupados-bajo-una-población-normal" class="section level3 hasAnchor" number="9.10.1">
+<h3><span class="header-section-number">9.10.1</span> Datos agrupados bajo una población normal<a href="09-calculo-bayes.html#datos-agrupados-bajo-una-población-normal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suponga que observamos los siguientes datos agrupados:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Altura (pulgadas)</th>
+<th>Frecuencia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Menos de 66</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td>Entre 66 y 68</td>
+<td>30</td>
+</tr>
+<tr class="odd">
+<td>Entre 68 y 70</td>
+<td>49</td>
+</tr>
+<tr class="even">
+<td>Entre 70 y 72</td>
+<td>70</td>
+</tr>
+<tr class="odd">
+<td>Entre 72 y 74</td>
+<td>33</td>
+</tr>
+<tr class="even">
+<td>Más de 74</td>
+<td>15</td>
+</tr>
+</tbody>
+</table>
+<p>Si asumimos que las alturas son normales con media <span class="math inline">\(\mu\)</span> y desviación estándar <span class="math inline">\(\sigma\)</span>, podemos asumir una verosimilitud multinomial para los datos agrupados:
+<span class="math display">\[\begin{align*}
+L(\mu,\sigma)&amp;\propto \Phi(66,\mu,\sigma)^{14}(\Phi(68,\mu,\sigma)-\Phi(66,\mu,\sigma))^{30} \\
+&amp;\times  (\Phi(70,\mu,\sigma)-\Phi(68,\mu,\sigma))^{49} (\Phi(72,\mu,\sigma)-\Phi(70,\mu,\sigma))^{70}\\
+&amp;\times  (\Phi(74,\mu,\sigma)-\Phi(72,\mu,\sigma))^{33} (1-\Phi(74,\mu,\sigma))^{15}
+\end{align*}\]</span></p>
+<p>y asumimos una previa no informativa para <span class="math inline">\((\mu,\sigma)\sim \frac 1 \sigma\)</span>. Como <span class="math inline">\(\sigma&gt;0\)</span> entonces usamos la transformación <span class="math inline">\(\lambda=\log (\sigma)\)</span>.</p>
+<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="09-calculo-bayes.html#cb662-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">int.lo =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fu">seq</span>(<span class="dv">66</span>, <span class="dv">74</span>, <span class="at">by =</span> <span class="dv">2</span>)), <span class="at">int.hi =</span> <span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">66</span>,</span>
+<span id="cb662-2"><a href="09-calculo-bayes.html#cb662-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">74</span>, <span class="at">by =</span> <span class="dv">2</span>), <span class="cn">Inf</span>), <span class="at">f =</span> <span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">30</span>, <span class="dv">49</span>, <span class="dv">70</span>, <span class="dv">33</span>, <span class="dv">15</span>))</span></code></pre></div>
+<p>es una estructura de los datos agrupados. La log-densidad posterior de los datos sería:</p>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="09-calculo-bayes.html#cb663-1" aria-hidden="true" tabindex="-1"></a>groupeddatapost <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, data) {</span>
+<span id="cb663-2"><a href="09-calculo-bayes.html#cb663-2" aria-hidden="true" tabindex="-1"></a>    dj <span class="ot">&lt;-</span> <span class="cf">function</span>(f, int.lo, int.hi, mu, sigma) f <span class="sc">*</span></span>
+<span id="cb663-3"><a href="09-calculo-bayes.html#cb663-3" aria-hidden="true" tabindex="-1"></a>        <span class="fu">log</span>(<span class="fu">pnorm</span>(int.hi, mu, sigma) <span class="sc">-</span> <span class="fu">pnorm</span>(int.lo,</span>
+<span id="cb663-4"><a href="09-calculo-bayes.html#cb663-4" aria-hidden="true" tabindex="-1"></a>            mu, sigma))</span>
+<span id="cb663-5"><a href="09-calculo-bayes.html#cb663-5" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> theta[<span class="dv">1</span>]</span>
+<span id="cb663-6"><a href="09-calculo-bayes.html#cb663-6" aria-hidden="true" tabindex="-1"></a>    sigma <span class="ot">&lt;-</span> <span class="fu">exp</span>(theta[<span class="dv">2</span>])</span>
+<span id="cb663-7"><a href="09-calculo-bayes.html#cb663-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">dj</span>(data<span class="sc">$</span>f, data<span class="sc">$</span>int.lo, data<span class="sc">$</span>int.hi, mu, sigma))</span>
+<span id="cb663-8"><a href="09-calculo-bayes.html#cb663-8" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Usamos el método de Laplace para encontrar una aproximación de los parámetros de la previa bajo Metropolis-Hastings:</p>
+<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="09-calculo-bayes.html#cb664-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">70</span>, <span class="dv">1</span>)</span>
+<span id="cb664-2"><a href="09-calculo-bayes.html#cb664-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">laplace</span>(groupeddatapost, start, d)</span>
+<span id="cb664-3"><a href="09-calculo-bayes.html#cb664-3" aria-hidden="true" tabindex="-1"></a>fit</span></code></pre></div>
+<pre><code>## $mode
+## [1] 70.169880  0.973644
+## 
+## $var
+##               [,1]          [,2]
+## [1,] 0.03534713484 0.00003520776
+## [2,] 0.00003520776 0.00314647024
+## 
+## $int
+## [1] -350.6305
+## 
+## $converge
+## [1] TRUE</code></pre>
+<p>la escogencia del valor inicial se basa en los datos artificiales en la página 126 del <span class="citation">(Albert et al. 2009)</span>. De esta forma definimos los parámetros de la propuesta como:</p>
+<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="09-calculo-bayes.html#cb666-1" aria-hidden="true" tabindex="-1"></a>proposal <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">var =</span> fit<span class="sc">$</span>var, <span class="at">scale =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>y ajustamos la versión bajo caminata aleatoria de un Metropolis-Hastings (MH):</p>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="09-calculo-bayes.html#cb667-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">rwmetrop</span>(groupeddatapost, proposal, start,</span>
+<span id="cb667-2"><a href="09-calculo-bayes.html#cb667-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">10000</span>, d)</span></code></pre></div>
+<p>con una tasa de aceptación:</p>
+<div class="sourceCode" id="cb668"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb668-1"><a href="09-calculo-bayes.html#cb668-1" aria-hidden="true" tabindex="-1"></a>fit2<span class="sc">$</span>accept</span></code></pre></div>
+<pre><code>## [1] 0.2956</code></pre>
+<p>Algunas estadísticas de la distribución posterior de <span class="math inline">\(\mu\)</span> y <span class="math inline">\(\log \sigma\)</span>:</p>
+<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="09-calculo-bayes.html#cb670-1" aria-hidden="true" tabindex="-1"></a>post.means <span class="ot">&lt;-</span> <span class="fu">apply</span>(fit2<span class="sc">$</span>par, <span class="dv">2</span>, mean)</span>
+<span id="cb670-2"><a href="09-calculo-bayes.html#cb670-2" aria-hidden="true" tabindex="-1"></a>post.sds <span class="ot">&lt;-</span> <span class="fu">apply</span>(fit2<span class="sc">$</span>par, <span class="dv">2</span>, sd)</span>
+<span id="cb670-3"><a href="09-calculo-bayes.html#cb670-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(post.means, post.sds)</span></code></pre></div>
+<pre><code>##      post.means   post.sds
+## [1,] 70.1596677 0.19072746
+## [2,]  0.9799831 0.05389768</code></pre>
+<p>esto se puede comparar con los estimadores de la aproximación de Laplace:</p>
+<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="09-calculo-bayes.html#cb672-1" aria-hidden="true" tabindex="-1"></a>modal.sds <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(fit<span class="sc">$</span>var))</span>
+<span id="cb672-2"><a href="09-calculo-bayes.html#cb672-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">c</span>(fit<span class="sc">$</span>mode), modal.sds)</span></code></pre></div>
+<pre><code>##                 modal.sds
+## [1,] 70.169880 0.18800834
+## [2,]  0.973644 0.05609341</code></pre>
+<p>También podemos graficar la densidad posterior junto con la muestra generada por el MH, usando una muestra de burn-in de 5000:</p>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="09-calculo-bayes.html#cb674-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mycontour</span>(groupeddatapost, <span class="fu">c</span>(<span class="dv">69</span>, <span class="dv">71</span>, <span class="fl">0.6</span>, <span class="fl">1.3</span>), d,</span>
+<span id="cb674-2"><a href="09-calculo-bayes.html#cb674-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;mu&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;log sigma&quot;</span>)</span>
+<span id="cb674-3"><a href="09-calculo-bayes.html#cb674-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(fit2<span class="sc">$</span>par[<span class="dv">5001</span><span class="sc">:</span><span class="dv">10000</span>, <span class="dv">1</span>], fit2<span class="sc">$</span>par[<span class="dv">5001</span><span class="sc">:</span><span class="dv">10000</span>,</span>
+<span id="cb674-4"><a href="09-calculo-bayes.html#cb674-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>])</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-385-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>Los traceplots del MCMC los graficamos a través del paquete <em>coda</em> junto con el paquete <em>bayesplot</em>:</p>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="09-calculo-bayes.html#cb675-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coda)</span>
+<span id="cb675-2"><a href="09-calculo-bayes.html#cb675-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span>
+<span id="cb675-3"><a href="09-calculo-bayes.html#cb675-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(fit2<span class="sc">$</span>par)[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;mu&quot;</span>, <span class="st">&quot;log sigma&quot;</span>)</span>
+<span id="cb675-4"><a href="09-calculo-bayes.html#cb675-4" aria-hidden="true" tabindex="-1"></a>obj_mcmc <span class="ot">&lt;-</span> <span class="fu">mcmc</span>(fit2<span class="sc">$</span>par[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5000</span>), ])</span>
+<span id="cb675-5"><a href="09-calculo-bayes.html#cb675-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(obj_mcmc)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-386-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>Los gráficos de autocorrelación empíricos se pueden generar con:</p>
+<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="09-calculo-bayes.html#cb676-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_acf</span>(obj_mcmc)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-387-1.svg" width="70%" style="display: block; margin: auto;" />
+y funciones de densidad estimadas con intervalos de predicción al 95% para algunos de los parámetros:</p>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="09-calculo-bayes.html#cb677-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(obj_mcmc, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;mu&quot;</span>), <span class="at">prob =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-388-1.svg" width="70%" style="display: block; margin: auto;" />
+### Datos con outliers</p>
+<p>Suponga <span class="math inline">\(y_1,\ldots,y_n\sim \text{Cauchy}(\mu,\sigma)\)</span>:
+<span class="math display">\[f(y|\mu,\sigma)=\frac{1}{\pi\sigma(1+z^2)}\]</span>
+donde <span class="math inline">\(z=\frac{y-\mu}{\sigma}\)</span>. Con una previa no informativa <span class="math inline">\(g(\mu,\sigma)\propto 1/\sigma\)</span> y transformando <span class="math inline">\(\lambda = \log \sigma\)</span> se puede comprobar que la log-densidad posterior es:
+<span class="math display">\[\log g(\mu,\lambda|\text{datos}) = \sum_{i=1}^n\left[-\lambda-\log\left(1+\exp(-2\lambda)(y_i-\mu)^2\right)\right]\]</span></p>
+<p>y la implementación de la log-posterior usando la distribución t de Student como generador de la distribución Cauchy:</p>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="09-calculo-bayes.html#cb678-1" aria-hidden="true" tabindex="-1"></a>cauchyerrorpost <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, data) {</span>
+<span id="cb678-2"><a href="09-calculo-bayes.html#cb678-2" aria-hidden="true" tabindex="-1"></a>    logf <span class="ot">&lt;-</span> <span class="cf">function</span>(data, theta) <span class="fu">log</span>(<span class="fu">dt</span>((data <span class="sc">-</span> theta[<span class="dv">1</span>])<span class="sc">/</span><span class="fu">exp</span>(theta[<span class="dv">2</span>]),</span>
+<span id="cb678-3"><a href="09-calculo-bayes.html#cb678-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">df =</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fu">exp</span>(theta[<span class="dv">2</span>]))</span>
+<span id="cb678-4"><a href="09-calculo-bayes.html#cb678-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">sum</span>(<span class="fu">logf</span>(data, theta)))</span>
+<span id="cb678-5"><a href="09-calculo-bayes.html#cb678-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Los datos provienen de la base <em>darwin</em> con 15 diferencias entre alturas de plantas según Fisher (1960). La media y log-desviación estándar empíricos de los datos son:</p>
+<div class="sourceCode" id="cb679"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb679-1"><a href="09-calculo-bayes.html#cb679-1" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(darwin)</span>
+<span id="cb679-2"><a href="09-calculo-bayes.html#cb679-2" aria-hidden="true" tabindex="-1"></a>data_darwin <span class="ot">&lt;-</span> darwin<span class="sc">$</span>difference</span>
+<span id="cb679-3"><a href="09-calculo-bayes.html#cb679-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(data_darwin)</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode" id="cb681"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb681-1"><a href="09-calculo-bayes.html#cb681-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="fu">sd</span>(data_darwin))</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<p>y usamos estos valores como valores iniciales dentro de la aproximación de Laplace:</p>
+<div class="sourceCode" id="cb683"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb683-1"><a href="09-calculo-bayes.html#cb683-1" aria-hidden="true" tabindex="-1"></a>fitlaplace <span class="ot">&lt;-</span> <span class="fu">laplace</span>(cauchyerrorpost, <span class="fu">c</span>(<span class="fl">21.6</span>, <span class="fl">3.6</span>),</span>
+<span id="cb683-2"><a href="09-calculo-bayes.html#cb683-2" aria-hidden="true" tabindex="-1"></a>    data_darwin)</span></code></pre></div>
+<pre><code>## Error in solve.default(fit$hessian): Lapack routine dgesv: system is exactly singular: U[1,1] = 0</code></pre>
+<div class="sourceCode" id="cb685"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb685-1"><a href="09-calculo-bayes.html#cb685-1" aria-hidden="true" tabindex="-1"></a>fitlaplace</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;fitlaplace&#39; not found</code></pre>
+<p>y usamos lo anterior como insumo para generar tres escenarios de MCMC:</p>
+<ul>
+<li>Metropolis-Hastings con caminata aleatoria:</li>
+</ul>
+<div class="sourceCode" id="cb687"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb687-1"><a href="09-calculo-bayes.html#cb687-1" aria-hidden="true" tabindex="-1"></a>proposal <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">var =</span> fitlaplace<span class="sc">$</span>var, <span class="at">scale =</span> <span class="fl">2.5</span>)</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;fitlaplace&#39; not found</code></pre>
+<div class="sourceCode" id="cb689"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb689-1"><a href="09-calculo-bayes.html#cb689-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">3</span>)</span>
+<span id="cb689-2"><a href="09-calculo-bayes.html#cb689-2" aria-hidden="true" tabindex="-1"></a>E1 <span class="ot">&lt;-</span> <span class="fu">rwmetrop</span>(cauchyerrorpost, proposal, start, <span class="dv">50000</span>,</span>
+<span id="cb689-3"><a href="09-calculo-bayes.html#cb689-3" aria-hidden="true" tabindex="-1"></a>    data_darwin)</span>
+<span id="cb689-4"><a href="09-calculo-bayes.html#cb689-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mycontour</span>(cauchyerrorpost, <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">60</span>, <span class="dv">1</span>, <span class="fl">4.5</span>), data_darwin,</span>
+<span id="cb689-5"><a href="09-calculo-bayes.html#cb689-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;mu&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;log sigma&quot;</span>)</span>
+<span id="cb689-6"><a href="09-calculo-bayes.html#cb689-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(E1<span class="sc">$</span>par[, <span class="dv">1</span>], E1<span class="sc">$</span>par[, <span class="dv">2</span>])</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-392-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Metropolis-Hastings independiente:</li>
+</ul>
+<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="09-calculo-bayes.html#cb690-1" aria-hidden="true" tabindex="-1"></a>proposal2 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">var =</span> fitlaplace<span class="sc">$</span>var, <span class="at">mu =</span> <span class="fu">t</span>(fitlaplace<span class="sc">$</span>mode))</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;fitlaplace&#39; not found</code></pre>
+<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="09-calculo-bayes.html#cb692-1" aria-hidden="true" tabindex="-1"></a>E2 <span class="ot">&lt;-</span> <span class="fu">indepmetrop</span>(cauchyerrorpost, proposal2, start,</span>
+<span id="cb692-2"><a href="09-calculo-bayes.html#cb692-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">50000</span>, data_darwin)</span></code></pre></div>
+<pre><code>## Error in matrix(proposal$mu): object &#39;proposal2&#39; not found</code></pre>
+<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="09-calculo-bayes.html#cb694-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mycontour</span>(cauchyerrorpost, <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">60</span>, <span class="dv">1</span>, <span class="fl">4.5</span>), data_darwin,</span>
+<span id="cb694-2"><a href="09-calculo-bayes.html#cb694-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;mu&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;log sigma&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-393-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb695"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb695-1"><a href="09-calculo-bayes.html#cb695-1" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(E2<span class="sc">$</span>par[, <span class="dv">1</span>], E2<span class="sc">$</span>par[, <span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## Error in points(E2$par[, 1], E2$par[, 2]): object &#39;E2&#39; not found</code></pre>
+<ul>
+<li>Muestreo de Gibbs:</li>
+</ul>
+<div class="sourceCode" id="cb697"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb697-1"><a href="09-calculo-bayes.html#cb697-1" aria-hidden="true" tabindex="-1"></a>E3 <span class="ot">&lt;-</span> <span class="fu">gibbs</span>(cauchyerrorpost, start, <span class="dv">50000</span>, <span class="fu">c</span>(<span class="dv">12</span>, <span class="fl">0.75</span>),</span>
+<span id="cb697-2"><a href="09-calculo-bayes.html#cb697-2" aria-hidden="true" tabindex="-1"></a>    data_darwin)</span>
+<span id="cb697-3"><a href="09-calculo-bayes.html#cb697-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mycontour</span>(cauchyerrorpost, <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">60</span>, <span class="dv">1</span>, <span class="fl">4.5</span>), data_darwin,</span>
+<span id="cb697-4"><a href="09-calculo-bayes.html#cb697-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;mu&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;log sigma&quot;</span>)</span>
+<span id="cb697-5"><a href="09-calculo-bayes.html#cb697-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(E3<span class="sc">$</span>par[, <span class="dv">1</span>], E3<span class="sc">$</span>par[, <span class="dv">2</span>])</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-394-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p>Comparemos el estimador bayesiano e intervalos de predicción al 95% para la media <span class="math inline">\(\mu\)</span>:</p>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="09-calculo-bayes.html#cb698-1" aria-hidden="true" tabindex="-1"></a>Resultados <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="fu">mean</span>(E1<span class="sc">$</span>par[, <span class="dv">1</span>]),</span>
+<span id="cb698-2"><a href="09-calculo-bayes.html#cb698-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">quantile</span>(E1<span class="sc">$</span>par[, <span class="dv">1</span>], <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)),</span>
+<span id="cb698-3"><a href="09-calculo-bayes.html#cb698-3" aria-hidden="true" tabindex="-1"></a>    E1<span class="sc">$</span>accept), <span class="fu">c</span>(<span class="fu">mean</span>(E2<span class="sc">$</span>par[, <span class="dv">1</span>]), <span class="fu">quantile</span>(E2<span class="sc">$</span>par[,</span>
+<span id="cb698-4"><a href="09-calculo-bayes.html#cb698-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>], <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)), E2<span class="sc">$</span>accept), <span class="fu">c</span>(<span class="fu">mean</span>(E3<span class="sc">$</span>par[,</span>
+<span id="cb698-5"><a href="09-calculo-bayes.html#cb698-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>]), <span class="fu">quantile</span>(E3<span class="sc">$</span>par[, <span class="dv">1</span>], <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)),</span>
+<span id="cb698-6"><a href="09-calculo-bayes.html#cb698-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>)))</span></code></pre></div>
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;mean&#39;: object &#39;E2&#39; not found</code></pre>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="09-calculo-bayes.html#cb700-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Resultados) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Media&quot;</span>, <span class="st">&quot;Q1&quot;</span>, <span class="st">&quot;Q3&quot;</span>, <span class="st">&quot;Accept&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in colnames(Resultados) &lt;- c(&quot;Media&quot;, &quot;Q1&quot;, &quot;Q3&quot;, &quot;Accept&quot;): object &#39;Resultados&#39; not found</code></pre>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb702-1"><a href="09-calculo-bayes.html#cb702-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(Resultados) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;MH-RW&quot;</span>, <span class="st">&quot;MH-Indep&quot;</span>, <span class="st">&quot;Gibbs&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in rownames(Resultados) &lt;- c(&quot;MH-RW&quot;, &quot;MH-Indep&quot;, &quot;Gibbs&quot;): object &#39;Resultados&#39; not found</code></pre>
+<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="09-calculo-bayes.html#cb704-1" aria-hidden="true" tabindex="-1"></a>Resultados <span class="ot">&lt;-</span> Resultados <span class="sc">%&gt;%</span></span>
+<span id="cb704-2"><a href="09-calculo-bayes.html#cb704-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Ancho =</span> Q3 <span class="sc">-</span> Q1)</span></code></pre></div>
+<pre><code>## Error in mutate(., Ancho = Q3 - Q1): object &#39;Resultados&#39; not found</code></pre>
+<div class="sourceCode" id="cb706"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb706-1"><a href="09-calculo-bayes.html#cb706-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(knitr)</span>
+<span id="cb706-2"><a href="09-calculo-bayes.html#cb706-2" aria-hidden="true" tabindex="-1"></a><span class="fu">kable</span>(Resultados)</span></code></pre></div>
+<pre><code>## Error in kable(Resultados): object &#39;Resultados&#39; not found</code></pre>
+<p>En el caso del algoritmo de Gibbs, cada uno de los pasos tiene una tasa de aceptación de MH en este caso:</p>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="09-calculo-bayes.html#cb708-1" aria-hidden="true" tabindex="-1"></a>E3<span class="sc">$</span>accept</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    1</code></pre>
+<p>También podemos incluir histogramas para las muestras posteriores de ambos parámetros. Para el MH independiente (burn-in=5000):</p>
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="09-calculo-bayes.html#cb710-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">&quot;green&quot;</span>)</span>
+<span id="cb710-2"><a href="09-calculo-bayes.html#cb710-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(E2<span class="sc">$</span>par)[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;mu&quot;</span>, <span class="st">&quot;log sigma&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in dimnames(E2$par)[[2]] &lt;- c(&quot;mu&quot;, &quot;log sigma&quot;): object &#39;E2&#39; not found</code></pre>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="09-calculo-bayes.html#cb712-1" aria-hidden="true" tabindex="-1"></a>obj_mcmc2 <span class="ot">&lt;-</span> <span class="fu">mcmc</span>(E2<span class="sc">$</span>par[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5000</span>), ])</span></code></pre></div>
+<pre><code>## Error in mcmc(E2$par[-c(1:5000), ]): object &#39;E2&#39; not found</code></pre>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="09-calculo-bayes.html#cb714-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_hist</span>(obj_mcmc2, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;mu&quot;</span>, <span class="st">&quot;log sigma&quot;</span>))</span></code></pre></div>
+<pre><code>## Error in posterior::is_draws(x): object &#39;obj_mcmc2&#39; not found</code></pre>
+<p>y los gráficos de autocorrelación respectivos:</p>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="09-calculo-bayes.html#cb716-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_acf_bar</span>(obj_mcmc2, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;mu&quot;</span>, <span class="st">&quot;log sigma&quot;</span>))</span></code></pre></div>
+<pre><code>## Error in posterior::is_draws(x): object &#39;obj_mcmc2&#39; not found</code></pre>
+</div>
+</div>
+<div id="ejercicios-7" class="section level2 hasAnchor" number="9.11">
+<h2><span class="header-section-number">9.11</span> Ejercicios<a href="09-calculo-bayes.html#ejercicios-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<ul>
+<li>Del libro <span class="citation">(Albert et al. 2009)</span>
+<ul>
+<li>Capítulo 5: 1, 2, 4, 5.</li>
+<li>Capítulo 6: 3, 5, 6, 10.</li>
+</ul></li>
+</ul>
+
+</div>
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="08-clasificacion.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="referencias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": "https://github.com/maikol-solis/notas-curso-estadistica/edit/master/09-calculo-bayes.Rmd",
+"text": "Edit"
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": "https://github.com/maikol-solis/notas-curso-estadistica/blob/master/09-calculo-bayes.Rmd",
+"text": null
+},
+"download": ["Notas-Curso-Estadistica.pdf"],
+"search": {
+"engine": "fuse",
+"options": null
+},
+"toc": {
+"collapse": "subsection"
+},
+"toc_depth": 5
+});
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+</body>
+
+</html>
