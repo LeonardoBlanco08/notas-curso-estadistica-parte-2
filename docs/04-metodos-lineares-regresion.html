@@ -490,7 +490,7 @@ Y = \beta_{0} + \beta_{1}X_{1}+\varepsilon.
 <p>Observemos las relaciones generales de las variables de esta base de datos</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="04-metodos-lineares-regresion.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(wt, mpg)) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-110-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<p>El objetivo es tratar la eficiencia del automovil <code>mpg</code> con respecto a su peso <code>wt</code>.</p>
+<p>El objetivo es tratar la eficiencia del automóvil <code>mpg</code> con respecto a su peso <code>wt</code>.</p>
 <p>Usaremos una regresión lineal para encontrar los coeficientes.</p>
 <p>Primero hay que construir la matriz de diseño</p>
 <div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="04-metodos-lineares-regresion.html#cb85-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> mtcars<span class="sc">$</span>wt</span>
@@ -594,10 +594,12 @@ Y = \beta_{0} + \beta_{1}X_{1}+\varepsilon.
 </div>
 <div id="propiedades-estadísticas-3" class="section level2 hasAnchor" number="4.3">
 <h2><span class="header-section-number">4.3</span> Propiedades estadísticas<a href="04-metodos-lineares-regresion.html#propiedades-estadísticas-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Hasta ahora se han hecho pocos supuestos acerca de la distribución de los datos. Si asumimos que las observaciones <span class="math inline">\(Y_i\)</span> son no correlacionadas y que tienen varianza constante <span class="math inline">\(\sigma^2\)</span> y además las covariables son fijas (no aleatorias), entonces:
-<span class="math display">\[\begin{align*}
-E[\hat \beta]&amp;=(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}E[\boldsymbol{Y}]=(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{X}\beta=\beta \\
-\text{Var}[\hat \beta] &amp;= (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\text{Var}[Y] ((\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top})^{\top} \\
+<p>Hasta ahora se han hecho pocos supuestos acerca de la distribución de los datos. Si asumimos que las observaciones <span class="math inline">\(Y_i\)</span> son no correlacionadas y que tienen varianza constante <span class="math inline">\(\sigma^2\)</span> y además las covariables son fijas (no aleatorias), entonces:</p>
+<p><span class="math display">\[\begin{align*}
+E[\hat \beta]&amp;=(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}E[\boldsymbol{Y}] \\
+&amp;=(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{X}\beta\\
+&amp;=\beta \\
+\text{Var}[\hat \beta] &amp;= (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\text{Var}[\boldsymbol{Y}] ((\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top})^{\top} \\
 &amp; = \sigma^2 (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1}
 \end{align*}\]</span></p>
 <p>Note que <span class="math inline">\(\sigma^{2}\)</span> puede ser estimado a través de:</p>
@@ -617,13 +619,13 @@ Y-\operatorname{Proy}_{V}Y
 \end{align*}\]</span></p>
 <p><span class="math display">\[\begin{equation*}
 \hat{\sigma}^{2}
-= \frac{1}{dim(V^{\top})}\left\Vert \operatorname{Proy}_{V^{\top}}\varepsilon\right\Vert \\
+= \frac{1}{\operatorname{dim}(V^{\top})}\left\Vert \operatorname{Proy}_{V^{\top}}\varepsilon\right\Vert \\
 \end{equation*}\]</span></p>
 <p>Cumple con la propiedad que <span class="math inline">\(\mathbb{E}\left[\hat{\sigma}^{2}\right] = \sigma^{2}\)</span> (estimador insesgado).</p>
 <p>Para poder hacer inferencia sobre <span class="math inline">\(\beta\)</span> y <span class="math inline">\(\sigma^2\)</span> se puede asumir además que los errores son gaussianos:</p>
 <p><span class="math display">\[\begin{equation*}
-\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}I\right)
-\end{equation*}\]</span> .</p>
+\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}I\right).
+\end{equation*}\]</span></p>
 <p>y de esta forma se obtiene:</p>
 <p><span class="math display">\[\begin{equation*}
 Y = X\beta + \varepsilon \sim \mathcal{N}\left(X\beta,\sigma^{2}I\right)
@@ -634,10 +636,10 @@ Y = X\beta + \varepsilon \sim \mathcal{N}\left(X\beta,\sigma^{2}I\right)
 \end{align*}\]</span></p>
 <p>Por otro lado se puede comprobar que:
 <span class="math display">\[(n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.\]</span>
-y además se puede comprobar que <span class="math inline">\(\hat \beta\)</span> y <span class="math inline">\(\hat \sigma^2\)</span> son independientes.
-::: {.exercise #unnamed-chunk-118}
-Encuentre la varianza para <span class="math inline">\(\hat \beta_{0}\)</span> y <span class="math inline">\(\hat \beta_{1}\)</span> para el caso de la regresión simple.
-:::</p>
+y además se puede comprobar que <span class="math inline">\(\hat \beta\)</span> y <span class="math inline">\(\hat \sigma^2\)</span> son independientes.</p>
+<div class="exercise">
+<p><span id="exr:unnamed-chunk-118" class="exercise"><strong>Ejercicio 4.2  </strong></span>Encuentre la varianza para <span class="math inline">\(\hat \beta_{0}\)</span> y <span class="math inline">\(\hat \beta_{1}\)</span> para el caso de la regresión simple.</p>
+</div>
 <div id="prueba-t" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> Prueba <span class="math inline">\(t\)</span><a href="04-metodos-lineares-regresion.html#prueba-t" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La significancia de los parámetros <span class="math inline">\(\beta_j\)</span> se puede verificar a través de la siguiente prueba de hipótesis:</p>
@@ -1129,7 +1131,7 @@ Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\var
 <p>Este modelo se le conoce como modelo lineal con interacciones (caso de 2 covariables). Este modelo considera la posible interacción entre las covariables <span class="math inline">\(X_1\)</span> y <span class="math inline">\(X_2\)</span> que permiten cambiar tanto el intercepto como las pendientes de los efectos principales.</p>
 <p><strong>Principio de jerarquía</strong>. Con el fin de mantener la estructura del modelo lineal, siempre es necesario incluir los efectos principales cuando se determina que una interacción entre ellos es significativa.</p>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-133" class="exercise"><strong>Ejercicio 4.2  </strong></span>Compruebe que para el caso anterior, si aumenta en una unidad <span class="math inline">\(X_{1}\)</span>, el modelo preserva su estructura.</p>
+<p><span id="exr:unnamed-chunk-133" class="exercise"><strong>Ejercicio 4.3  </strong></span>Compruebe que para el caso anterior, si aumenta en una unidad <span class="math inline">\(X_{1}\)</span>, el modelo preserva su estructura.</p>
 </div>
 <div id="laboratorio-5" class="section level3 hasAnchor" number="4.6.1">
 <h3><span class="header-section-number">4.6.1</span> Laboratorio<a href="04-metodos-lineares-regresion.html#laboratorio-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1269,7 +1271,7 @@ Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\var
 ## Multiple R-squared:  0.8501, Adjusted R-squared:  0.8341 
 ## F-statistic: 52.95 on 3 and 28 DF,  p-value: 1.158e-11</code></pre>
 <div class="exercise">
-<p><span id="exr:unlabeled-div-31" class="exercise"><strong>Ejercicio 4.3  </strong></span>Repita los comandos anteriores con la siguiente base de datos y explique los resultados.</p>
+<p><span id="exr:unlabeled-div-31" class="exercise"><strong>Ejercicio 4.4  </strong></span>Repita los comandos anteriores con la siguiente base de datos y explique los resultados.</p>
 <div class="sourceCode" id="cb181"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb181-1"><a href="04-metodos-lineares-regresion.html#cb181-1" aria-hidden="true" tabindex="-1"></a>mtcars_scaled <span class="ot">&lt;-</span> mtcars <span class="sc">%&gt;%</span></span>
 <span id="cb181-2"><a href="04-metodos-lineares-regresion.html#cb181-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="st">&quot;wt&quot;</span>, <span class="st">&quot;disp&quot;</span>), scale, <span class="at">scale =</span> <span class="cn">TRUE</span>,</span>
 <span id="cb181-3"><a href="04-metodos-lineares-regresion.html#cb181-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">center =</span> <span class="cn">TRUE</span>))</span></code></pre></div>

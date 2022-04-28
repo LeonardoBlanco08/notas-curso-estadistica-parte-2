@@ -1,14 +1,14 @@
 [0] Config.pm:307> INFO - This is Biber 2.17
-[0] Config.pm:310> INFO - Logfile is 'Notas-Curso-Estadistica.blg'
-[100] biber-darwin:340> INFO - === Mon Apr 25, 2022, 09:05:48
-[123] Biber.pm:418> INFO - Reading 'Notas-Curso-Estadistica.bcf'
-[241] Biber.pm:972> INFO - Found 7 citekeys in bib section 0
-[260] Biber.pm:4383> INFO - Processing section 0
-[276] Biber.pm:4574> INFO - Looking for bibtex file 'bibliografia.bib' for section 0
-[280] bibtex.pm:1713> INFO - LaTeX decoding ...
-[317] bibtex.pm:1518> INFO - Found BibTeX data source 'bibliografia.bib'
-[424] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'normalization = NFD' with 'normalization = prenormalized'
-[438] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'variable = shifted' with 'variable = non-ignorable'
-[438] Biber.pm:4203> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'es-ES'
-[447] bbl.pm:654> INFO - Writing 'Notas-Curso-Estadistica.bbl' with encoding 'UTF-8'
-[452] bbl.pm:757> INFO - Output to Notas-Curso-Estadistica.bbl
+[18] Config.pm:310> INFO - Logfile is 'Notas-Curso-Estadistica.blg'
+[109] biber-darwin:340> INFO - === Thu Apr 28, 2022, 09:59:53
+[126] Biber.pm:418> INFO - Reading 'Notas-Curso-Estadistica.bcf'
+[231] Biber.pm:972> INFO - Found 7 citekeys in bib section 0
+[246] Biber.pm:4383> INFO - Processing section 0
+[257] Biber.pm:4574> INFO - Looking for bibtex file 'bibliografia.bib' for section 0
+[260] bibtex.pm:1713> INFO - LaTeX decoding ...
+[290] bibtex.pm:1518> INFO - Found BibTeX data source 'bibliografia.bib'
+[402] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'normalization = NFD' with 'normalization = prenormalized'
+[402] UCollate.pm:68> INFO - Overriding locale 'es-ES' defaults 'variable = shifted' with 'variable = non-ignorable'
+[402] Biber.pm:4203> INFO - Sorting list 'nyt/global//global/global' of type 'entry' with template 'nyt' and locale 'es-ES'
+[411] bbl.pm:654> INFO - Writing 'Notas-Curso-Estadistica.bbl' with encoding 'UTF-8'
+[418] bbl.pm:757> INFO - Output to Notas-Curso-Estadistica.bbl

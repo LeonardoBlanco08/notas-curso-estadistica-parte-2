@@ -254,19 +254,16 @@ donde
 \overline{T}_{n} = \frac{1}{n} \sum_{i=1}^{n} T_{(-i)}
 \end{equation*}
 
-y el estimador corregido por sesgo es: $T_{jack}=T_n-b_{jack}$.
-::: {.exercise #unnamed-chunk-9}
-En nuestro caso tendríamos lo siguiente:
-:::
+y el estimador corregido por sesgo es: $T_{jack}=T_n-b_{jack}$. 
 
+```{remark}
+En nuestro caso tendríamos lo siguiente:
+```
 
 ```r
 (bjack <- (n-1)*(mean(T_i) - Tn))
 ```
 
-```
-## [1] 0
-```
 
 Es decir, el sesgo aproximado (jackknife) del estimador $T_n$ es 0.
 
@@ -722,7 +719,7 @@ que el tamaño de la muestra aumenta. Por lo tanto, tenemos que
 <!-- ``` -->
 
 
-
+ 
 
 <!-- ### Resumiendo -->
 

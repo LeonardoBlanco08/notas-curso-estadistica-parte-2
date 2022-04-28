@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística II"
 author: "Maikol Solís Chacón y Luis Barboza Chinchilla"
-date: "Actualizado el 25 abril, 2022"
+date: "Actualizado el 28 abril, 2022"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -2268,7 +2268,7 @@ Repita los cálculos anteriores tomando como cuantiles los de una normal con med
 <!--chapter:end:02-jacknife-bootstrap.Rmd-->
 
 
-
+ 
 # Métodos lineales de regresión
 
 **NOTA: Para los siguientes capítulos nos basaremos en los libros [@HastieElements2009] y [@James2013b].**
@@ -2555,6 +2555,8 @@ summary(mtcars)
 ##  8: 1
 ```
 
+
+
 Observemos las relaciones generales de las variables de esta base de datos 
 
 
@@ -2566,7 +2568,7 @@ ggplot(mtcars) + geom_point(aes(wt, mpg)) + theme_minimal()
 
 \begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-110-1} \end{center}
 
-El objetivo es tratar la eficiencia del automovil `mpg` con respecto a su peso `wt`. 
+El objetivo es tratar la eficiencia del automóvil `mpg` con respecto a su peso `wt`. 
 
 
 Usaremos una regresión lineal para encontrar los coeficientes. 
@@ -2791,9 +2793,12 @@ betaslm[1] + betaslm[3]
 ## Propiedades estadísticas 
 
 Hasta ahora se han hecho pocos supuestos acerca de la distribución de los datos. Si asumimos que las observaciones $Y_i$ son no correlacionadas y que tienen varianza constante $\sigma^2$ y además las covariables son fijas (no aleatorias), entonces:
+
 \begin{align*}
-E[\hat \beta]&=(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}E[\boldsymbol{Y}]=(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{X}\beta=\beta \\
-\text{Var}[\hat \beta] &= (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\text{Var}[Y] ((\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top})^{\top} \\
+E[\hat \beta]&=(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}E[\boldsymbol{Y}] \\ 
+&=(\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\boldsymbol{X}\beta\\
+&=\beta \\
+\text{Var}[\hat \beta] &= (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top}\text{Var}[\boldsymbol{Y}] ((\boldsymbol{X}^{\top} \boldsymbol{X})^{-1} \boldsymbol{X}^{\top})^{\top} \\
 & = \sigma^2 (\boldsymbol{X}^{\top} \boldsymbol{X})^{-1}
 \end{align*}
 
@@ -2817,7 +2822,7 @@ Y-\operatorname{Proy}_{V}Y
 
 \begin{equation*}
 \hat{\sigma}^{2} 
-= \frac{1}{dim(V^{\top})}\left\Vert \operatorname{Proy}_{V^{\top}}\varepsilon\right\Vert \\
+= \frac{1}{\operatorname{dim}(V^{\top})}\left\Vert \operatorname{Proy}_{V^{\top}}\varepsilon\right\Vert \\
 \end{equation*}
  
 Cumple con la propiedad que \(\mathbb{E}\left[\hat{\sigma}^{2}\right] = \sigma^{2}\) (estimador insesgado).
@@ -2825,8 +2830,8 @@ Cumple con la propiedad que \(\mathbb{E}\left[\hat{\sigma}^{2}\right] = \sigma^{
 Para poder hacer inferencia sobre $\beta$ y $\sigma^2$ se puede asumir además que los errores son gaussianos:
 
 \begin{equation*}
-\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}I\right)
-\end{equation*} . 
+\varepsilon\sim \mathcal{N}\left(0,\sigma^{2}I\right).
+\end{equation*} 
 
 y de esta forma se obtiene:
 
@@ -2843,6 +2848,7 @@ Y además:
 Por otro lado se puede comprobar que: 
 $$(n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.$$
 y además se puede comprobar que $\hat \beta$ y $\hat \sigma^2$ son independientes. 
+
 ::: {.exercise #unnamed-chunk-118}
 Encuentre la varianza para \(\hat \beta_{0}\) y \(\hat \beta_{1}\) para el caso de la regresión simple. 
 :::
@@ -4629,7 +4635,7 @@ abline(a = coef(modelo_3)[1], b = coef(modelo_3)[2],
 ```r
 `?`(stats:::plot.lm)
 ```
-
+ 
 
 
 ```r
