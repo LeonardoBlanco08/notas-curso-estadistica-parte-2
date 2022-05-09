@@ -267,6 +267,7 @@ head(Y)
 
 dfreg <- data.frame(x = X, yreg = X %*% beta1) %>% arrange(x)
 ```
+
 ```{r}
 ggplot(data = data.frame(x = X, y = Y)) +
   geom_point(aes(x, y)) +
@@ -539,7 +540,7 @@ Estadístico \(R^{2}\) ajustado
 R^{2}_{adj} = 1-\frac{\frac{\mathrm{RSS}}{n-p-1}}{\frac{\mathrm{TSS}}{n-1}}
 \end{equation*}
 
-
+ 
 ### Laboratorio
 
 ```{r}
@@ -1386,7 +1387,7 @@ plot(modelo,
      cex = 2,
      pch = 16)
 ```
-
+ 
 
 ```{r}
 plot(
@@ -1526,7 +1527,7 @@ plot(hatvalues(modelo_3),
      pch = 16)
 abline(h = 2 / 11, col = "blue")
 ```
-
+ 
 
 ```{r}
 plot(apa_df_3,

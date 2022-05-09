@@ -416,6 +416,7 @@ rownames(matriz_confusion)<- c("N", "P")
 
 matriz_confusion
 ```
+
 ```{r}
 (TN <- matriz_confusion["N", "N"])
 (TP <- matriz_confusion["P", "P"])

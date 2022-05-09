@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 6 Regresión Logística | Notas Curso de Estadística II</title>
-  <meta name="description" content="Capítulo 6 Regresión Logística | Notas Curso de Estadística II" />
-  <meta name="generator" content="bookdown 0.25.5 and GitBook 2.6.7" />
+  <title>Capítulo 5 Regresión Logística | Notas Curso de Estadística II</title>
+  <meta name="description" content="Capítulo 5 Regresión Logística | Notas Curso de Estadística II" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 6 Regresión Logística | Notas Curso de Estadística II" />
+  <meta property="og:title" content="Capítulo 5 Regresión Logística | Notas Curso de Estadística II" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 6 Regresión Logística | Notas Curso de Estadística II" />
+  <meta name="twitter:title" content="Capítulo 5 Regresión Logística | Notas Curso de Estadística II" />
   
   
   
@@ -30,7 +30,7 @@
   
   
 <link rel="prev" href="04-metodos-lineares-regresion.html"/>
-<link rel="next" href="06-seleccion-de-variables.html"/>
+<link rel="next" href="referencias.html"/>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
@@ -51,11 +51,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/rglWebGL-binding-0.108.3/rglWebGL.js"></script>
-<link href="libs/rglwidgetClass-0.108.3/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-0.108.3/rglClass.min.js"></script>
-<script src="libs/CanvasMatrix4-0.108.3/CanvasMatrix.min.js"></script>
 
 
 <style type="text/css">
@@ -208,165 +203,64 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#ejercicios-1"><i class="fa fa-check"></i><b>3.4</b> Ejercicios</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html"><i class="fa fa-check"></i><b>4</b> Estimación de densidades con Bayes</a>
+<li class="chapter" data-level="4" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html"><i class="fa fa-check"></i><b>4</b> Métodos lineales de regresión</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#introducción-a-la-estimación-bayesiana"><i class="fa fa-check"></i><b>4.1</b> Introducción a la estimación Bayesiana</a>
+<li class="chapter" data-level="4.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#introducción-al-aprendizaje-estadístico."><i class="fa fa-check"></i><b>4.1</b> Introducción al Aprendizaje Estadístico.</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#preliminares"><i class="fa fa-check"></i><b>4.1.1</b> Preliminares</a></li>
-<li class="chapter" data-level="4.1.2" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#ejemplo-sencillo"><i class="fa fa-check"></i><b>4.1.2</b> Ejemplo sencillo</a></li>
-<li class="chapter" data-level="4.1.3" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#datos-reales"><i class="fa fa-check"></i><b>4.1.3</b> Datos reales</a></li>
+<li class="chapter" data-level="4.1.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#formas-de-estimar-f"><i class="fa fa-check"></i><b>4.1.1</b> Formas de estimar <span class="math inline">\(f\)</span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#medidas-de-bondad-de-ajuste"><i class="fa fa-check"></i><b>4.1.2</b> Medidas de bondad de ajuste</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#previa-de-histograma"><i class="fa fa-check"></i><b>4.2</b> Previa de histograma</a></li>
-<li class="chapter" data-level="4.3" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#métodos-monte-carlo"><i class="fa fa-check"></i><b>4.3</b> Métodos Monte Carlo</a></li>
-<li class="chapter" data-level="4.4" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#una-moneda"><i class="fa fa-check"></i><b>4.4</b> Una moneda</a>
+<li class="chapter" data-level="4.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#regresión-lineal"><i class="fa fa-check"></i><b>4.2</b> Regresión lineal</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#ejemplo-del-viajero"><i class="fa fa-check"></i><b>4.4.1</b> Ejemplo del viajero</a></li>
-<li class="chapter" data-level="4.4.2" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#cadenas-de-markov"><i class="fa fa-check"></i><b>4.4.2</b> Cadenas de Markov</a></li>
-<li class="chapter" data-level="4.4.3" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#el-algoritmo-de-metropolis-hasting"><i class="fa fa-check"></i><b>4.4.3</b> El algoritmo de Metropolis-Hasting</a></li>
-<li class="chapter" data-level="4.4.4" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#por-qué-el-algoritmo-de-metropolis-hasting-funciona"><i class="fa fa-check"></i><b>4.4.4</b> ¿Por qué el algoritmo de Metropolis Hasting funciona?</a></li>
-<li class="chapter" data-level="4.4.5" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#extensión-al-caso-del-viajero"><i class="fa fa-check"></i><b>4.4.5</b> Extensión al caso del viajero</a></li>
+<li class="chapter" data-level="4.2.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#forma-matricial"><i class="fa fa-check"></i><b>4.2.1</b> Forma matricial</a></li>
+<li class="chapter" data-level="4.2.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-1"><i class="fa fa-check"></i><b>4.2.2</b> Laboratorio</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#dos-monedas"><i class="fa fa-check"></i><b>4.5</b> Dos monedas</a>
+<li class="chapter" data-level="4.3" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#propiedades-estadísticas-3"><i class="fa fa-check"></i><b>4.3</b> Propiedades estadísticas</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#muestreo-de-gibbs"><i class="fa fa-check"></i><b>4.5.1</b> Muestreo de Gibbs</a></li>
+<li class="chapter" data-level="4.3.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#prueba-t"><i class="fa fa-check"></i><b>4.3.1</b> Prueba <span class="math inline">\(t\)</span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#prueba-f"><i class="fa fa-check"></i><b>4.3.2</b> Prueba <span class="math inline">\(F\)</span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-2"><i class="fa fa-check"></i><b>4.3.3</b> Laboratorio</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#uso-de-jags"><i class="fa fa-check"></i><b>4.6</b> Uso de JAGS</a></li>
-<li class="chapter" data-level="4.7" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#uso-de-stan"><i class="fa fa-check"></i><b>4.7</b> Uso de STAN</a></li>
-<li class="chapter" data-level="4.8" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#ejercicios-2"><i class="fa fa-check"></i><b>4.8</b> Ejercicios</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html"><i class="fa fa-check"></i><b>5</b> Métodos lineales de regresión</a>
+<li class="chapter" data-level="4.4" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#medida-de-bondad-de-ajuste"><i class="fa fa-check"></i><b>4.4</b> Medida de bondad de ajuste</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#introducción-al-aprendizaje-estadístico."><i class="fa fa-check"></i><b>5.1</b> Introducción al Aprendizaje Estadístico.</a>
-<ul>
-<li class="chapter" data-level="5.1.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#formas-de-estimar-f"><i class="fa fa-check"></i><b>5.1.1</b> Formas de estimar <span class="math inline">\(f\)</span></a></li>
-<li class="chapter" data-level="5.1.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#medidas-de-bondad-de-ajuste"><i class="fa fa-check"></i><b>5.1.2</b> Medidas de bondad de ajuste</a></li>
+<li class="chapter" data-level="4.4.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-3"><i class="fa fa-check"></i><b>4.4.1</b> Laboratorio</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#regresión-lineal"><i class="fa fa-check"></i><b>5.2</b> Regresión lineal</a>
+<li class="chapter" data-level="4.5" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#predicción"><i class="fa fa-check"></i><b>4.5</b> Predicción</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#forma-matricial"><i class="fa fa-check"></i><b>5.2.1</b> Forma matricial</a></li>
-<li class="chapter" data-level="5.2.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-1"><i class="fa fa-check"></i><b>5.2.2</b> Laboratorio</a></li>
+<li class="chapter" data-level="4.5.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-4"><i class="fa fa-check"></i><b>4.5.1</b> Laboratorio</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#propiedades-estadísticas-3"><i class="fa fa-check"></i><b>5.3</b> Propiedades estadísticas</a>
+<li class="chapter" data-level="4.6" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#interacciones"><i class="fa fa-check"></i><b>4.6</b> Interacciones</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#prueba-t"><i class="fa fa-check"></i><b>5.3.1</b> Prueba <span class="math inline">\(t\)</span></a></li>
-<li class="chapter" data-level="5.3.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#prueba-f"><i class="fa fa-check"></i><b>5.3.2</b> Prueba <span class="math inline">\(F\)</span></a></li>
-<li class="chapter" data-level="5.3.3" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-2"><i class="fa fa-check"></i><b>5.3.3</b> Laboratorio</a></li>
+<li class="chapter" data-level="4.6.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-5"><i class="fa fa-check"></i><b>4.6.1</b> Laboratorio</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#medida-de-bondad-de-ajuste"><i class="fa fa-check"></i><b>5.4</b> Medida de bondad de ajuste</a>
+<li class="chapter" data-level="4.7" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#supuestos"><i class="fa fa-check"></i><b>4.7</b> Supuestos</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-3"><i class="fa fa-check"></i><b>5.4.1</b> Laboratorio</a></li>
+<li class="chapter" data-level="4.7.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#chequeos-básicos-de-las-hipótesis-de-regresión-lineal"><i class="fa fa-check"></i><b>4.7.1</b> Chequeos básicos de las hipótesis de regresión lineal</a></li>
+<li class="chapter" data-level="4.7.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#otros-chequeos-importantes"><i class="fa fa-check"></i><b>4.7.2</b> Otros chequeos importantes</a></li>
 </ul></li>
-<li class="chapter" data-level="5.5" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#predicción"><i class="fa fa-check"></i><b>5.5</b> Predicción</a>
+<li class="chapter" data-level="4.8" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#ejercicios-2"><i class="fa fa-check"></i><b>4.8</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html"><i class="fa fa-check"></i><b>5</b> Regresión Logística</a>
 <ul>
-<li class="chapter" data-level="5.5.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-4"><i class="fa fa-check"></i><b>5.5.1</b> Laboratorio</a></li>
-</ul></li>
-<li class="chapter" data-level="5.6" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#interacciones"><i class="fa fa-check"></i><b>5.6</b> Interacciones</a>
+<li class="chapter" data-level="5.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#preliminares"><i class="fa fa-check"></i><b>5.1</b> Preliminares</a>
 <ul>
-<li class="chapter" data-level="5.6.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-5"><i class="fa fa-check"></i><b>5.6.1</b> Laboratorio</a></li>
+<li class="chapter" data-level="5.1.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#oportunidad-relativa-odds-ratio"><i class="fa fa-check"></i><b>5.1.1</b> Oportunidad relativa (Odds Ratio)</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#supuestos"><i class="fa fa-check"></i><b>5.7</b> Supuestos</a>
+<li class="chapter" data-level="5.2" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#máxima-verosimilitud"><i class="fa fa-check"></i><b>5.2</b> Máxima verosimilitud</a>
 <ul>
-<li class="chapter" data-level="5.7.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#chequeos-básicos-de-las-hipótesis-de-regresión-lineal"><i class="fa fa-check"></i><b>5.7.1</b> Chequeos básicos de las hipótesis de regresión lineal</a></li>
-<li class="chapter" data-level="5.7.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#otros-chequeos-importantes"><i class="fa fa-check"></i><b>5.7.2</b> Otros chequeos importantes</a></li>
+<li class="chapter" data-level="5.2.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#resultados-adicionales"><i class="fa fa-check"></i><b>5.2.1</b> Resultados adicionales</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#ejercicios-3"><i class="fa fa-check"></i><b>5.8</b> Ejercicios</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html"><i class="fa fa-check"></i><b>6</b> Regresión Logística</a>
+<li class="chapter" data-level="5.3" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#diágnosticos-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Diágnosticos del modelo</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#preliminares-1"><i class="fa fa-check"></i><b>6.1</b> Preliminares</a>
-<ul>
-<li class="chapter" data-level="6.1.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#oportunidad-relativa-odds-ratio"><i class="fa fa-check"></i><b>6.1.1</b> Oportunidad relativa (Odds Ratio)</a></li>
+<li class="chapter" data-level="5.3.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#supuesto-de-linealidad"><i class="fa fa-check"></i><b>5.3.1</b> Supuesto de linealidad</a></li>
+<li class="chapter" data-level="5.3.2" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#valores-de-gran-influencia"><i class="fa fa-check"></i><b>5.3.2</b> Valores de gran influencia</a></li>
+<li class="chapter" data-level="5.3.3" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#multicolinealidad-1"><i class="fa fa-check"></i><b>5.3.3</b> Multicolinealidad</a></li>
 </ul></li>
-<li class="chapter" data-level="6.2" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#máxima-verosimilitud"><i class="fa fa-check"></i><b>6.2</b> Máxima verosimilitud</a>
+<li class="chapter" data-level="5.4" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#predicción-y-poder-de-clasificación"><i class="fa fa-check"></i><b>5.4</b> Predicción y poder de clasificación</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#resultados-adicionales"><i class="fa fa-check"></i><b>6.2.1</b> Resultados adicionales</a></li>
+<li class="chapter" data-level="5.4.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#curva-roc"><i class="fa fa-check"></i><b>5.4.1</b> Curva ROC</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#diágnosticos-del-modelo"><i class="fa fa-check"></i><b>6.3</b> Diágnosticos del modelo</a>
-<ul>
-<li class="chapter" data-level="6.3.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#supuesto-de-linealidad"><i class="fa fa-check"></i><b>6.3.1</b> Supuesto de linealidad</a></li>
-<li class="chapter" data-level="6.3.2" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#valores-de-gran-influencia"><i class="fa fa-check"></i><b>6.3.2</b> Valores de gran influencia</a></li>
-<li class="chapter" data-level="6.3.3" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#multicolinealidad-1"><i class="fa fa-check"></i><b>6.3.3</b> Multicolinealidad</a></li>
-</ul></li>
-<li class="chapter" data-level="6.4" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#predicción-y-poder-de-clasificación"><i class="fa fa-check"></i><b>6.4</b> Predicción y poder de clasificación</a>
-<ul>
-<li class="chapter" data-level="6.4.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#curva-roc"><i class="fa fa-check"></i><b>6.4.1</b> Curva ROC</a></li>
-</ul></li>
-<li class="chapter" data-level="6.5" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#ejercicios-4"><i class="fa fa-check"></i><b>6.5</b> Ejercicios</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html"><i class="fa fa-check"></i><b>7</b> Métodos de selección de variables y regularización.</a>
-<ul>
-<li class="chapter" data-level="7.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#estimación-del-error-de-prueba"><i class="fa fa-check"></i><b>7.1</b> Estimación del error de prueba</a>
-<ul>
-<li class="chapter" data-level="7.1.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#técnica-de-conjunto-de-validación"><i class="fa fa-check"></i><b>7.1.1</b> Técnica de conjunto de validación</a></li>
-<li class="chapter" data-level="7.1.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-leave-one-out-loocv"><i class="fa fa-check"></i><b>7.1.2</b> Validación cruzada “Leave-One-Out” (LOOCV)</a></li>
-<li class="chapter" data-level="7.1.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-k-veces"><i class="fa fa-check"></i><b>7.1.3</b> Validación cruzada <span class="math inline">\(k-\)</span>veces</a></li>
-<li class="chapter" data-level="7.1.4" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-para-clasificación"><i class="fa fa-check"></i><b>7.1.4</b> Validación cruzada para clasificación</a></li>
-<li class="chapter" data-level="7.1.5" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#otras-medidas-de-error-de-prueba"><i class="fa fa-check"></i><b>7.1.5</b> Otras medidas de error de prueba</a></li>
-</ul></li>
-<li class="chapter" data-level="7.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-variables"><i class="fa fa-check"></i><b>7.2</b> Selección de variables</a>
-<ul>
-<li class="chapter" data-level="7.2.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-del-mejor-subconjunto."><i class="fa fa-check"></i><b>7.2.1</b> Selección del mejor subconjunto.</a></li>
-<li class="chapter" data-level="7.2.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-modelos-hacia-adelante-forward-stepwise-selection"><i class="fa fa-check"></i><b>7.2.2</b> Selección de modelos hacia adelante (<strong>Forward Stepwise Selection</strong>)</a></li>
-<li class="chapter" data-level="7.2.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-modelos-hacia-atrás-backward-stepwise-selection"><i class="fa fa-check"></i><b>7.2.3</b> Selección de modelos hacia atrás (<strong>Backward Stepwise Selection</strong>)</a></li>
-</ul></li>
-<li class="chapter" data-level="7.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#métodos-de-regularización"><i class="fa fa-check"></i><b>7.3</b> Métodos de regularización</a>
-<ul>
-<li class="chapter" data-level="7.3.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-ridge"><i class="fa fa-check"></i><b>7.3.1</b> Regresión Ridge</a></li>
-<li class="chapter" data-level="7.3.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-lasso"><i class="fa fa-check"></i><b>7.3.2</b> Regresión Lasso</a></li>
-<li class="chapter" data-level="7.3.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#explicación-gráfica"><i class="fa fa-check"></i><b>7.3.3</b> Explicación gráfica</a></li>
-</ul></li>
-<li class="chapter" data-level="7.4" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#laboratorio-6"><i class="fa fa-check"></i><b>7.4</b> Laboratorio</a>
-<ul>
-<li class="chapter" data-level="7.4.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#cross-validation"><i class="fa fa-check"></i><b>7.4.1</b> Cross-Validation</a></li>
-<li class="chapter" data-level="7.4.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-lasso-1"><i class="fa fa-check"></i><b>7.4.2</b> Regresión Lasso</a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#ejercicios-5"><i class="fa fa-check"></i><b>7.5</b> Ejercicios</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="08-clasificacion.html"><a href="08-clasificacion.html"><i class="fa fa-check"></i><b>8</b> Análisis en componentes principales</a>
-<ul>
-<li class="chapter" data-level="8.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#aprendizaje-no-supervisado"><i class="fa fa-check"></i><b>8.1</b> Aprendizaje no-supervisado</a></li>
-<li class="chapter" data-level="8.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#representación-gráfica"><i class="fa fa-check"></i><b>8.2</b> Representación gráfica</a></li>
-<li class="chapter" data-level="8.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#primer-componente-principal"><i class="fa fa-check"></i><b>8.3</b> Primer componente principal</a></li>
-<li class="chapter" data-level="8.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#segunda-componente-principal"><i class="fa fa-check"></i><b>8.4</b> Segunda componente principal</a></li>
-<li class="chapter" data-level="8.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#circulo-de-correlaciones"><i class="fa fa-check"></i><b>8.5</b> Circulo de correlaciones</a></li>
-<li class="chapter" data-level="8.6" data-path="08-clasificacion.html"><a href="08-clasificacion.html#volvamos-a-nuestro-ejemplo"><i class="fa fa-check"></i><b>8.6</b> Volvamos a nuestro ejemplo</a></li>
-<li class="chapter" data-level="8.7" data-path="08-clasificacion.html"><a href="08-clasificacion.html#cuántos-componentes-usar"><i class="fa fa-check"></i><b>8.7</b> ¿Cuántos componentes usar?</a></li>
-<li class="chapter" data-level="8.8" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>8.8</b> Laboratorio</a>
-<ul>
-<li class="chapter" data-level="8.8.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>8.8.1</b> Clasificador logístico</a></li>
-<li class="chapter" data-level="8.8.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal"><i class="fa fa-check"></i><b>8.8.2</b> Análisis Discriminante Lineal</a></li>
-<li class="chapter" data-level="8.8.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático"><i class="fa fa-check"></i><b>8.8.3</b> Análisis Discriminante Cuadrático</a></li>
-<li class="chapter" data-level="8.8.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>8.8.4</b> K vecinos más cercanos</a></li>
-</ul></li>
-<li class="chapter" data-level="8.9" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-6"><i class="fa fa-check"></i><b>8.9</b> Ejercicios</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html"><i class="fa fa-check"></i><b>9</b> Cálculo Bayesiano Computacional</a>
-<ul>
-<li class="chapter" data-level="9.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#repaso-de-estadística-bayesiana"><i class="fa fa-check"></i><b>9.1</b> Repaso de Estadística Bayesiana</a>
-<ul>
-<li class="chapter" data-level="9.1.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#modelo-de-un-parámetro"><i class="fa fa-check"></i><b>9.1.1</b> Modelo de un parámetro</a></li>
-<li class="chapter" data-level="9.1.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#modelo-de-más-de-un-parámetro"><i class="fa fa-check"></i><b>9.1.2</b> Modelo de más de un parámetro</a></li>
-</ul></li>
-<li class="chapter" data-level="9.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#motivación-cálculo-de-integrales"><i class="fa fa-check"></i><b>9.2</b> Motivación: Cálculo de Integrales</a></li>
-<li class="chapter" data-level="9.3" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejemplo-base-modelo-beta-binomial."><i class="fa fa-check"></i><b>9.3</b> Ejemplo base: modelo beta-binomial.</a></li>
-<li class="chapter" data-level="9.4" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#aproximación-de-laplace"><i class="fa fa-check"></i><b>9.4</b> Aproximación de Laplace</a></li>
-<li class="chapter" data-level="9.5" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#simulación"><i class="fa fa-check"></i><b>9.5</b> Simulación</a>
-<ul>
-<li class="chapter" data-level="9.5.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#simulación-monte-carlo"><i class="fa fa-check"></i><b>9.5.1</b> Simulación Monte Carlo</a></li>
-<li class="chapter" data-level="9.5.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#muestreo-por-rechazo"><i class="fa fa-check"></i><b>9.5.2</b> Muestreo por rechazo</a></li>
-</ul></li>
-<li class="chapter" data-level="9.6" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#muestreo-por-importancia"><i class="fa fa-check"></i><b>9.6</b> Muestreo por importancia</a></li>
-<li class="chapter" data-level="9.7" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#remuestreo-por-importancia"><i class="fa fa-check"></i><b>9.7</b> Remuestreo por importancia</a></li>
-<li class="chapter" data-level="9.8" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#algoritmo-de-metropolis-hastings"><i class="fa fa-check"></i><b>9.8</b> Algoritmo de Metropolis-Hastings</a></li>
-<li class="chapter" data-level="9.9" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#algoritmo-de-gibbs"><i class="fa fa-check"></i><b>9.9</b> Algoritmo de Gibbs</a>
-<ul>
-<li class="chapter" data-level="9.9.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#diagnósticos-de-convergencia-de-mcmc"><i class="fa fa-check"></i><b>9.9.1</b> Diagnósticos de convergencia de MCMC</a></li>
-</ul></li>
-<li class="chapter" data-level="9.10" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejemplos"><i class="fa fa-check"></i><b>9.10</b> Ejemplos</a>
-<ul>
-<li class="chapter" data-level="9.10.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#datos-agrupados-bajo-una-población-normal"><i class="fa fa-check"></i><b>9.10.1</b> Datos agrupados bajo una población normal</a></li>
-</ul></li>
-<li class="chapter" data-level="9.11" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejercicios-7"><i class="fa fa-check"></i><b>9.11</b> Ejercicios</a></li>
+<li class="chapter" data-level="5.5" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#ejercicios-3"><i class="fa fa-check"></i><b>5.5</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
 </ul>
@@ -386,10 +280,10 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="regresión-logística" class="section level1 hasAnchor" number="6">
-<h1><span class="header-section-number">Capítulo 6</span> Regresión Logística<a href="05-regresion-logistica.html#regresión-logística" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="preliminares-1" class="section level2 hasAnchor" number="6.1">
-<h2><span class="header-section-number">6.1</span> Preliminares<a href="05-regresion-logistica.html#preliminares-1" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="regresión-logística" class="section level1 hasAnchor" number="5">
+<h1><span class="header-section-number">Capítulo 5</span> Regresión Logística<a href="05-regresion-logistica.html#regresión-logística" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="preliminares" class="section level2 hasAnchor" number="5.1">
+<h2><span class="header-section-number">5.1</span> Preliminares<a href="05-regresion-logistica.html#preliminares" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Asuma que la variable dependiente <span class="math inline">\(Y\)</span> solo contiene valores 0 o 1 y queremos hacer la regresión:</p>
 <p><span class="math display">\[\begin{equation*}
 Y = \beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \varepsilon.
@@ -403,8 +297,8 @@ Y = \beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p} + \varepsilon.
 <p><span class="math display">\[\begin{equation*}
 g(X) = \frac{1}{1+e^{-(\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p})}}
 \end{equation*}\]</span></p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="05-regresion-logistica.html#cb349-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/titanic.csv&quot;</span>)</span>
-<span id="cb349-2"><a href="05-regresion-logistica.html#cb349-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(titanic)</span></code></pre></div>
+<div class="sourceCode" id="cb240"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb240-1"><a href="05-regresion-logistica.html#cb240-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/titanic.csv&quot;</span>)</span>
+<span id="cb240-2"><a href="05-regresion-logistica.html#cb240-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(titanic)</span></code></pre></div>
 <pre><code>##   PassengerId       Survived          Pclass          Name          
 ##  Min.   :  1.0   Min.   :0.0000   Min.   :1.000   Length:891        
 ##  1st Qu.:223.5   1st Qu.:0.0000   1st Qu.:2.000   Class :character  
@@ -429,23 +323,23 @@ g(X) = \frac{1}{1+e^{-(\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p})}}
 ##                     3rd Qu.: 31.00                                        
 ##                     Max.   :512.33                                        
 ## </code></pre>
-<div class="sourceCode" id="cb351"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb351-1"><a href="05-regresion-logistica.html#cb351-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
-<span id="cb351-2"><a href="05-regresion-logistica.html#cb351-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Survived, Fare, Age) <span class="sc">%&gt;%</span></span>
-<span id="cb351-3"><a href="05-regresion-logistica.html#cb351-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>()</span>
-<span id="cb351-4"><a href="05-regresion-logistica.html#cb351-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb351-5"><a href="05-regresion-logistica.html#cb351-5" aria-hidden="true" tabindex="-1"></a>fit_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> titanic)</span></code></pre></div>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="05-regresion-logistica.html#cb352-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggiraphExtra)</span>
-<span id="cb352-2"><a href="05-regresion-logistica.html#cb352-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggPredict</span>(fit_lm) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-245-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="05-regresion-logistica.html#cb242-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
+<span id="cb242-2"><a href="05-regresion-logistica.html#cb242-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Survived, Fare, Age) <span class="sc">%&gt;%</span></span>
+<span id="cb242-3"><a href="05-regresion-logistica.html#cb242-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>()</span>
+<span id="cb242-4"><a href="05-regresion-logistica.html#cb242-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb242-5"><a href="05-regresion-logistica.html#cb242-5" aria-hidden="true" tabindex="-1"></a>fit_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> titanic)</span></code></pre></div>
+<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="05-regresion-logistica.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggiraphExtra)</span>
+<span id="cb243-2"><a href="05-regresion-logistica.html#cb243-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggPredict</span>(fit_lm) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-183-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p>En lugar de esto, definamos el siguiente modelo</p>
 <p><span class="math display">\[\begin{equation*}
 Y \sim Bernoulli (g_{\beta}(\boldsymbol{X}))
 \end{equation*}\]</span></p>
 <p>con <span class="math inline">\(g_{\beta}(\boldsymbol{X}) = \mathbb{P}\left(Y=1 \vert \boldsymbol{X}\right)\)</span>.</p>
 <p>En <code>R</code> usaremos la función <code>glm</code></p>
-<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="05-regresion-logistica.html#cb353-1" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> titanic,</span>
-<span id="cb353-2"><a href="05-regresion-logistica.html#cb353-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
-<span id="cb353-3"><a href="05-regresion-logistica.html#cb353-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_glm)</span></code></pre></div>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="05-regresion-logistica.html#cb244-1" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> titanic,</span>
+<span id="cb244-2"><a href="05-regresion-logistica.html#cb244-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb244-3"><a href="05-regresion-logistica.html#cb244-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_glm)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Survived ~ Fare + Age, family = &quot;binomial&quot;, data = titanic)
@@ -469,11 +363,11 @@ Y \sim Bernoulli (g_{\beta}(\boldsymbol{X}))
 ## AIC: 897.34
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode" id="cb355"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb355-1"><a href="05-regresion-logistica.html#cb355-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggPredict</span>(fit_glm) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-247-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="05-regresion-logistica.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggPredict</span>(fit_glm) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-185-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <p><strong>Nota:</strong> Existen otros tipos de regresión y estas se definen a través del parámetro <code>family</code>. En este curso solo nos enfocaremos en el parámetro <code>family="binomial"</code>.</p>
-<div id="oportunidad-relativa-odds-ratio" class="section level3 hasAnchor" number="6.1.1">
-<h3><span class="header-section-number">6.1.1</span> Oportunidad relativa (Odds Ratio)<a href="05-regresion-logistica.html#oportunidad-relativa-odds-ratio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="oportunidad-relativa-odds-ratio" class="section level3 hasAnchor" number="5.1.1">
+<h3><span class="header-section-number">5.1.1</span> Oportunidad relativa (Odds Ratio)<a href="05-regresion-logistica.html#oportunidad-relativa-odds-ratio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Defina la oportunidad relativa:</p>
 <p><span class="math display">\[\begin{equation*}
 O(X) = \frac{g(X)}{1-g(X)} = e^{\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p}} \in [0,1].
@@ -483,8 +377,8 @@ O(X) = \frac{g(X)}{1-g(X)} = e^{\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} 
 <p>Entonces la oportunidad relativa de pagar la tarjeta es <span class="math inline">\(O(X) = \frac{0.8}{0.2} = \frac{4}{1}\)</span>, lo que se interpreta como que es 4 veces más probable de pagar que no pagar.</p>
 </div>
 </div>
-<div id="máxima-verosimilitud" class="section level2 hasAnchor" number="6.2">
-<h2><span class="header-section-number">6.2</span> Máxima verosimilitud<a href="05-regresion-logistica.html#máxima-verosimilitud" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="máxima-verosimilitud" class="section level2 hasAnchor" number="5.2">
+<h2><span class="header-section-number">5.2</span> Máxima verosimilitud<a href="05-regresion-logistica.html#máxima-verosimilitud" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Los valores de <span class="math inline">\(\beta\)</span> se pueden encontrar por máxima verosimilitud.</p>
 <p>Defina <span class="math inline">\(p_{\beta}(\boldsymbol{X}) = \mathbb{P}\left(Y=1\vert \boldsymbol{X}\right)\)</span>.</p>
 <p>La verosimilitud es (donde asumimos sin pérdida de generalidad que <span class="math inline">\(p(\boldsymbol{X}):=p_{\beta}(\boldsymbol{X})\)</span>):</p>
@@ -506,7 +400,7 @@ L\left(\beta\right)=\prod_{i=1}^{n} p\left(\boldsymbol{X}_{i}\right)^{Y_{i}}\lef
 \end{align*}\]</span></p>
 <p><strong>Solución:</strong> Algoritmo de Netwon-Raphson.</p>
 <div class="exercise">
-<p><span id="exr:unlabeled-div-34" class="exercise"><strong>Ejercicio 6.1  </strong></span>Muestre que</p>
+<p><span id="exr:unlabeled-div-33" class="exercise"><strong>Ejercicio 5.1  </strong></span>Muestre que</p>
 <p><span class="math display">\[\begin{equation*}
 \frac{\partial^{2} \ell}{\partial \beta^{2}} = -\boldsymbol{X}W\boldsymbol{X}
 \end{equation*}\]</span></p>
@@ -517,7 +411,7 @@ L\left(\beta\right)=\prod_{i=1}^{n} p\left(\boldsymbol{X}_{i}\right)^{Y_{i}}\lef
 \beta^{(t)} = \beta ^{(t-1)} - \left(  \frac{\partial^{2} \ell}{\partial \beta^{2}}\right)^{-1} \frac{\partial \ell}{\partial \beta}  \Bigg\vert_{\beta ^{(t-1)}}
 \end{equation*}\]</span></p>
 <div class="exercise">
-<p><span id="exr:unlabeled-div-35" class="exercise"><strong>Ejercicio 6.2  </strong></span>Muestre que</p>
+<p><span id="exr:unlabeled-div-34" class="exercise"><strong>Ejercicio 5.2  </strong></span>Muestre que</p>
 <p><span class="math display">\[\begin{equation*}
 \beta^{(t)} = \left( X^{\top}W_\beta X \right)^{-1}X^{\top}Z_{\beta},
 \end{equation*}\]</span></p>
@@ -529,8 +423,8 @@ L\left(\beta\right)=\prod_{i=1}^{n} p\left(\boldsymbol{X}_{i}\right)^{Y_{i}}\lef
 <!-- \begin{equation*} -->
 <!-- \beta ^{t} = \operatorname{argmin}_{\beta} (Z-X\beta)^{\top}W(Z-X\beta). -->
 <!-- \end{equation*} -->
-<div id="resultados-adicionales" class="section level3 hasAnchor" number="6.2.1">
-<h3><span class="header-section-number">6.2.1</span> Resultados adicionales<a href="05-regresion-logistica.html#resultados-adicionales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="resultados-adicionales" class="section level3 hasAnchor" number="5.2.1">
+<h3><span class="header-section-number">5.2.1</span> Resultados adicionales<a href="05-regresion-logistica.html#resultados-adicionales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>La suma al cuadrado de los residuos estandarizados se convierte en el estadístico de pearson:</p>
 <p><span class="math display">\[\begin{align*}
 \chi^{2}=\sum_{i=1}^{n} \frac{\left(Y_{i}-\hat{p}(X_{i})\right)^{2}}{\hat{p}(X_{i})}
@@ -550,15 +444,15 @@ D_c -D_r \stackrel{H_0}{\sim} =\chi^{2}_{df_{c}-df_r}.
 </ul>
 </div>
 </div>
-<div id="diágnosticos-del-modelo" class="section level2 hasAnchor" number="6.3">
-<h2><span class="header-section-number">6.3</span> Diágnosticos del modelo<a href="05-regresion-logistica.html#diágnosticos-del-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="diágnosticos-del-modelo" class="section level2 hasAnchor" number="5.3">
+<h2><span class="header-section-number">5.3</span> Diágnosticos del modelo<a href="05-regresion-logistica.html#diágnosticos-del-modelo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p><strong>Advertencia</strong>: La función <code>glm</code> no tiene un equivalente de <code>plot</code> como en los modelos lineales. De esta forma, si se aplica <code>plot</code> a un objeto <code>glm</code> solo generará los mismos chequeos que el capítulo anterior. Sin embargo estos podrían estar equivocados si no se leen con cuidado.</p>
-<div id="supuesto-de-linealidad" class="section level3 hasAnchor" number="6.3.1">
-<h3><span class="header-section-number">6.3.1</span> Supuesto de linealidad<a href="05-regresion-logistica.html#supuesto-de-linealidad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="supuesto-de-linealidad" class="section level3 hasAnchor" number="5.3.1">
+<h3><span class="header-section-number">5.3.1</span> Supuesto de linealidad<a href="05-regresion-logistica.html#supuesto-de-linealidad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Este supuesto debe ser chequeado con la función logit de las respuestas.</p>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="05-regresion-logistica.html#cb356-1" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> titanic,</span>
-<span id="cb356-2"><a href="05-regresion-logistica.html#cb356-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
-<span id="cb356-3"><a href="05-regresion-logistica.html#cb356-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_glm)</span></code></pre></div>
+<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="05-regresion-logistica.html#cb247-1" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> titanic,</span>
+<span id="cb247-2"><a href="05-regresion-logistica.html#cb247-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb247-3"><a href="05-regresion-logistica.html#cb247-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_glm)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Survived ~ Fare + Age, family = &quot;binomial&quot;, data = titanic)
@@ -582,53 +476,53 @@ D_c -D_r \stackrel{H_0}{\sim} =\chi^{2}_{df_{c}-df_r}.
 ## AIC: 897.34
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="05-regresion-logistica.html#cb358-1" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_glm, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb358-2"><a href="05-regresion-logistica.html#cb358-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb358-3"><a href="05-regresion-logistica.html#cb358-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
-<span id="cb358-4"><a href="05-regresion-logistica.html#cb358-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Fare, Age) <span class="sc">%&gt;%</span></span>
-<span id="cb358-5"><a href="05-regresion-logistica.html#cb358-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">logit =</span> <span class="fu">qlogis</span>(probs)) <span class="sc">%&gt;%</span></span>
-<span id="cb358-6"><a href="05-regresion-logistica.html#cb358-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;predictores&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;valores.predictores&quot;</span>,</span>
-<span id="cb358-7"><a href="05-regresion-logistica.html#cb358-7" aria-hidden="true" tabindex="-1"></a>        <span class="sc">-</span>logit)</span>
-<span id="cb358-8"><a href="05-regresion-logistica.html#cb358-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb358-9"><a href="05-regresion-logistica.html#cb358-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb358-10"><a href="05-regresion-logistica.html#cb358-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(valores.predictores, logit)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>,</span>
-<span id="cb358-11"><a href="05-regresion-logistica.html#cb358-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="sc">+</span></span>
-<span id="cb358-12"><a href="05-regresion-logistica.html#cb358-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>predictores, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-249-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="05-regresion-logistica.html#cb249-1" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_glm, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb249-2"><a href="05-regresion-logistica.html#cb249-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb249-3"><a href="05-regresion-logistica.html#cb249-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
+<span id="cb249-4"><a href="05-regresion-logistica.html#cb249-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Fare, Age) <span class="sc">%&gt;%</span></span>
+<span id="cb249-5"><a href="05-regresion-logistica.html#cb249-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">logit =</span> <span class="fu">qlogis</span>(probs)) <span class="sc">%&gt;%</span></span>
+<span id="cb249-6"><a href="05-regresion-logistica.html#cb249-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;predictores&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;valores.predictores&quot;</span>,</span>
+<span id="cb249-7"><a href="05-regresion-logistica.html#cb249-7" aria-hidden="true" tabindex="-1"></a>        <span class="sc">-</span>logit)</span>
+<span id="cb249-8"><a href="05-regresion-logistica.html#cb249-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb249-9"><a href="05-regresion-logistica.html#cb249-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb249-10"><a href="05-regresion-logistica.html#cb249-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(valores.predictores, logit)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>,</span>
+<span id="cb249-11"><a href="05-regresion-logistica.html#cb249-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="sc">+</span></span>
+<span id="cb249-12"><a href="05-regresion-logistica.html#cb249-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>predictores, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-187-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="valores-de-gran-influencia" class="section level3 hasAnchor" number="6.3.2">
-<h3><span class="header-section-number">6.3.2</span> Valores de gran influencia<a href="05-regresion-logistica.html#valores-de-gran-influencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="05-regresion-logistica.html#cb359-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb359-2"><a href="05-regresion-logistica.html#cb359-2" aria-hidden="true" tabindex="-1"></a>fit_data <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">augment</span>(fit_glm) <span class="sc">%&gt;%</span></span>
-<span id="cb359-3"><a href="05-regresion-logistica.html#cb359-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">indice =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())</span>
-<span id="cb359-4"><a href="05-regresion-logistica.html#cb359-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb359-5"><a href="05-regresion-logistica.html#cb359-5" aria-hidden="true" tabindex="-1"></a>fit_data <span class="sc">%&gt;%</span></span>
-<span id="cb359-6"><a href="05-regresion-logistica.html#cb359-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">top_n</span>(<span class="dv">3</span>, .cooksd)</span></code></pre></div>
+<div id="valores-de-gran-influencia" class="section level3 hasAnchor" number="5.3.2">
+<h3><span class="header-section-number">5.3.2</span> Valores de gran influencia<a href="05-regresion-logistica.html#valores-de-gran-influencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="05-regresion-logistica.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb250-2"><a href="05-regresion-logistica.html#cb250-2" aria-hidden="true" tabindex="-1"></a>fit_data <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">augment</span>(fit_glm) <span class="sc">%&gt;%</span></span>
+<span id="cb250-3"><a href="05-regresion-logistica.html#cb250-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">indice =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())</span>
+<span id="cb250-4"><a href="05-regresion-logistica.html#cb250-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb250-5"><a href="05-regresion-logistica.html#cb250-5" aria-hidden="true" tabindex="-1"></a>fit_data <span class="sc">%&gt;%</span></span>
+<span id="cb250-6"><a href="05-regresion-logistica.html#cb250-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">top_n</span>(<span class="dv">3</span>, .cooksd)</span></code></pre></div>
 <pre><code>## # A tibble: 3 × 10
 ##   Survived  Fare   Age .fitted .resid .std.resid    .hat .sigma .cooksd indice
 ##      &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;int&gt;
 ## 1        0  263     19    3.79  -2.76      -2.77 0.00862   1.12   0.129     24
 ## 2        0  248.    24    3.43  -2.63      -2.65 0.0103    1.12   0.109     94
 ## 3        0  263     64    3.00  -2.47      -2.49 0.0171    1.12   0.118    352</code></pre>
-<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="05-regresion-logistica.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fit_data, <span class="fu">aes</span>(indice, .std.resid)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(Survived)),</span>
-<span id="cb361-2"><a href="05-regresion-logistica.html#cb361-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-252-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="05-regresion-logistica.html#cb362-1" aria-hidden="true" tabindex="-1"></a>fit_data <span class="sc">%&gt;%</span></span>
-<span id="cb362-2"><a href="05-regresion-logistica.html#cb362-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">abs</span>(.std.resid) <span class="sc">&gt;</span> <span class="dv">3</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="05-regresion-logistica.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fit_data, <span class="fu">aes</span>(indice, .std.resid)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(Survived)),</span>
+<span id="cb252-2"><a href="05-regresion-logistica.html#cb252-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-190-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="05-regresion-logistica.html#cb253-1" aria-hidden="true" tabindex="-1"></a>fit_data <span class="sc">%&gt;%</span></span>
+<span id="cb253-2"><a href="05-regresion-logistica.html#cb253-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">abs</span>(.std.resid) <span class="sc">&gt;</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 0 × 10
 ## # … with 10 variables: Survived &lt;int&gt;, Fare &lt;dbl&gt;, Age &lt;dbl&gt;, .fitted &lt;dbl&gt;,
 ## #   .resid &lt;dbl&gt;, .std.resid &lt;dbl&gt;, .hat &lt;dbl&gt;, .sigma &lt;dbl&gt;, .cooksd &lt;dbl&gt;,
 ## #   indice &lt;int&gt;</code></pre>
 </div>
-<div id="multicolinealidad-1" class="section level3 hasAnchor" number="6.3.3">
-<h3><span class="header-section-number">6.3.3</span> Multicolinealidad<a href="05-regresion-logistica.html#multicolinealidad-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="05-regresion-logistica.html#cb364-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(fit_glm)</span></code></pre></div>
+<div id="multicolinealidad-1" class="section level3 hasAnchor" number="5.3.3">
+<h3><span class="header-section-number">5.3.3</span> Multicolinealidad<a href="05-regresion-logistica.html#multicolinealidad-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="05-regresion-logistica.html#cb255-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(fit_glm)</span></code></pre></div>
 <pre><code>##     Fare      Age 
 ## 1.033878 1.033878</code></pre>
 </div>
 </div>
-<div id="predicción-y-poder-de-clasificación" class="section level2 hasAnchor" number="6.4">
-<h2><span class="header-section-number">6.4</span> Predicción y poder de clasificación<a href="05-regresion-logistica.html#predicción-y-poder-de-clasificación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="predicción-y-poder-de-clasificación" class="section level2 hasAnchor" number="5.4">
+<h2><span class="header-section-number">5.4</span> Predicción y poder de clasificación<a href="05-regresion-logistica.html#predicción-y-poder-de-clasificación" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>La capacidad predictiva de un modelo de clasificación como el de regresión logística se debe medir conforme a la naturaleza de la variable dependiente. Primero recordemos que el modelo predictivo en este caso estaría definido por:</p>
 <p><span class="math display">\[\begin{equation*}
 \hat{p}(X)=\frac{1}{1+e^{-(\hat{\beta}_{0}+\hat{\beta}_{1} X_{1}+\cdots+\hat{\beta}_{p} X_{p})}}
@@ -683,15 +577,15 @@ D_c -D_r \stackrel{H_0}{\sim} =\chi^{2}_{df_{c}-df_r}.
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="05-regresion-logistica.html#cb366-1" aria-hidden="true" tabindex="-1"></a>predict_numeric <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_glm, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb366-2"><a href="05-regresion-logistica.html#cb366-2" aria-hidden="true" tabindex="-1"></a>predict_01 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(predict_numeric <span class="sc">&gt;=</span> <span class="fl">0.5</span>)</span>
-<span id="cb366-3"><a href="05-regresion-logistica.html#cb366-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb366-4"><a href="05-regresion-logistica.html#cb366-4" aria-hidden="true" tabindex="-1"></a>matriz_confusion <span class="ot">&lt;-</span> <span class="fu">table</span>(titanic<span class="sc">$</span>Survived, predict_01)</span>
-<span id="cb366-5"><a href="05-regresion-logistica.html#cb366-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb366-6"><a href="05-regresion-logistica.html#cb366-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
-<span id="cb366-7"><a href="05-regresion-logistica.html#cb366-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
-<span id="cb366-8"><a href="05-regresion-logistica.html#cb366-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb366-9"><a href="05-regresion-logistica.html#cb366-9" aria-hidden="true" tabindex="-1"></a>matriz_confusion</span></code></pre></div>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="05-regresion-logistica.html#cb257-1" aria-hidden="true" tabindex="-1"></a>predict_numeric <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_glm, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb257-2"><a href="05-regresion-logistica.html#cb257-2" aria-hidden="true" tabindex="-1"></a>predict_01 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(predict_numeric <span class="sc">&gt;=</span> <span class="fl">0.5</span>)</span>
+<span id="cb257-3"><a href="05-regresion-logistica.html#cb257-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb257-4"><a href="05-regresion-logistica.html#cb257-4" aria-hidden="true" tabindex="-1"></a>matriz_confusion <span class="ot">&lt;-</span> <span class="fu">table</span>(titanic<span class="sc">$</span>Survived, predict_01)</span>
+<span id="cb257-5"><a href="05-regresion-logistica.html#cb257-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb257-6"><a href="05-regresion-logistica.html#cb257-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
+<span id="cb257-7"><a href="05-regresion-logistica.html#cb257-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
+<span id="cb257-8"><a href="05-regresion-logistica.html#cb257-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb257-9"><a href="05-regresion-logistica.html#cb257-9" aria-hidden="true" tabindex="-1"></a>matriz_confusion</span></code></pre></div>
 <pre><code>##    predict_01
 ##       N   P
 ##   N 380  44
@@ -774,107 +668,107 @@ Es la tasa de elementos identificados correctamente como 0 que realmente estaban
 <li><strong>Precisión</strong> es importante si se quiere estar más seguro de los <strong>verdaderos positivos</strong>. Por ejemplo detectar <strong>spam</strong> en correos electrónicos.</li>
 <li><strong>Especificidad</strong> es importante si lo que se quiere es cubrir todos los <strong>verdaderos negativos</strong>, es decir, que no se quieren falsas alarmas. Por ejemplo se hacen pruebas de detección de drogas y si es positivo va a la cárcel. Los <strong>falsos positivos</strong> son intolerables.</li>
 </ul>
-<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="05-regresion-logistica.html#cb368-1" aria-hidden="true" tabindex="-1"></a>(TN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="05-regresion-logistica.html#cb259-1" aria-hidden="true" tabindex="-1"></a>(TN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
 <pre><code>## [1] 380</code></pre>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="05-regresion-logistica.html#cb370-1" aria-hidden="true" tabindex="-1"></a>(TP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="05-regresion-logistica.html#cb261-1" aria-hidden="true" tabindex="-1"></a>(TP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
 <pre><code>## [1] 89</code></pre>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="05-regresion-logistica.html#cb372-1" aria-hidden="true" tabindex="-1"></a>(FP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="05-regresion-logistica.html#cb263-1" aria-hidden="true" tabindex="-1"></a>(FP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
 <pre><code>## [1] 44</code></pre>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="05-regresion-logistica.html#cb374-1" aria-hidden="true" tabindex="-1"></a>(FN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="05-regresion-logistica.html#cb265-1" aria-hidden="true" tabindex="-1"></a>(FN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
 <pre><code>## [1] 201</code></pre>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="05-regresion-logistica.html#cb376-1" aria-hidden="true" tabindex="-1"></a>(exactitud <span class="ot">&lt;-</span> (TP <span class="sc">+</span> TN)<span class="sc">/</span>(TP <span class="sc">+</span> TN <span class="sc">+</span> FP <span class="sc">+</span> FN))</span></code></pre></div>
+<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="05-regresion-logistica.html#cb267-1" aria-hidden="true" tabindex="-1"></a>(exactitud <span class="ot">&lt;-</span> (TP <span class="sc">+</span> TN)<span class="sc">/</span>(TP <span class="sc">+</span> TN <span class="sc">+</span> FP <span class="sc">+</span> FN))</span></code></pre></div>
 <pre><code>## [1] 0.6568627</code></pre>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="05-regresion-logistica.html#cb378-1" aria-hidden="true" tabindex="-1"></a>(precision <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FP))</span></code></pre></div>
+<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="05-regresion-logistica.html#cb269-1" aria-hidden="true" tabindex="-1"></a>(precision <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FP))</span></code></pre></div>
 <pre><code>## [1] 0.6691729</code></pre>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="05-regresion-logistica.html#cb380-1" aria-hidden="true" tabindex="-1"></a>(sensibilidad <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FN))</span></code></pre></div>
+<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="05-regresion-logistica.html#cb271-1" aria-hidden="true" tabindex="-1"></a>(sensibilidad <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FN))</span></code></pre></div>
 <pre><code>## [1] 0.3068966</code></pre>
-<div class="sourceCode" id="cb382"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb382-1"><a href="05-regresion-logistica.html#cb382-1" aria-hidden="true" tabindex="-1"></a>(F_score <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (precision <span class="sc">*</span> sensibilidad)<span class="sc">/</span>(precision <span class="sc">+</span></span>
-<span id="cb382-2"><a href="05-regresion-logistica.html#cb382-2" aria-hidden="true" tabindex="-1"></a>    sensibilidad))</span></code></pre></div>
+<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="05-regresion-logistica.html#cb273-1" aria-hidden="true" tabindex="-1"></a>(F_score <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (precision <span class="sc">*</span> sensibilidad)<span class="sc">/</span>(precision <span class="sc">+</span></span>
+<span id="cb273-2"><a href="05-regresion-logistica.html#cb273-2" aria-hidden="true" tabindex="-1"></a>    sensibilidad))</span></code></pre></div>
 <pre><code>## [1] 0.4208038</code></pre>
-<div class="sourceCode" id="cb384"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb384-1"><a href="05-regresion-logistica.html#cb384-1" aria-hidden="true" tabindex="-1"></a>(especificidad <span class="ot">&lt;-</span> TN<span class="sc">/</span>(TN <span class="sc">+</span> FP))</span></code></pre></div>
+<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="05-regresion-logistica.html#cb275-1" aria-hidden="true" tabindex="-1"></a>(especificidad <span class="ot">&lt;-</span> TN<span class="sc">/</span>(TN <span class="sc">+</span> FP))</span></code></pre></div>
 <pre><code>## [1] 0.8962264</code></pre>
-<div id="curva-roc" class="section level3 hasAnchor" number="6.4.1">
-<h3><span class="header-section-number">6.4.1</span> Curva ROC<a href="05-regresion-logistica.html#curva-roc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="curva-roc" class="section level3 hasAnchor" number="5.4.1">
+<h3><span class="header-section-number">5.4.1</span> Curva ROC<a href="05-regresion-logistica.html#curva-roc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Un excelente clasificador debería detectar correctamente los <strong>verdaderos positivos (TP)</strong> e ignorar los <strong>falsos positivos (FP)</strong>. Puesto de otra forma, si el clasificador es malo, los <strong>verdaderos positivos</strong> serían indistingibles de los <strong>falsos positivos</strong>.</p>
 <p>La curva ROC (Receiver Operation Curve) grafica la Tasa Falsos Positivos vs Sensibilidad del modelo. Y el estadístico AUC mide el área bajo la curva ROC.</p>
-<div class="sourceCode" id="cb386"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb386-1"><a href="05-regresion-logistica.html#cb386-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ROCR)</span>
-<span id="cb386-2"><a href="05-regresion-logistica.html#cb386-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb386-3"><a href="05-regresion-logistica.html#cb386-3" aria-hidden="true" tabindex="-1"></a>logist.pred.ROCR <span class="ot">&lt;-</span> <span class="fu">prediction</span>(predict_numeric, titanic<span class="sc">$</span>Survived)</span>
-<span id="cb386-4"><a href="05-regresion-logistica.html#cb386-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb386-5"><a href="05-regresion-logistica.html#cb386-5" aria-hidden="true" tabindex="-1"></a>logist.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="st">&quot;tpr&quot;</span>,</span>
-<span id="cb386-6"><a href="05-regresion-logistica.html#cb386-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;fpr&quot;</span>)</span>
-<span id="cb386-7"><a href="05-regresion-logistica.html#cb386-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb386-8"><a href="05-regresion-logistica.html#cb386-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(logist.perf)</span>
-<span id="cb386-9"><a href="05-regresion-logistica.html#cb386-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-257-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="05-regresion-logistica.html#cb387-1" aria-hidden="true" tabindex="-1"></a>auc <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="at">measure =</span> <span class="st">&quot;auc&quot;</span>)</span>
-<span id="cb387-2"><a href="05-regresion-logistica.html#cb387-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb387-3"><a href="05-regresion-logistica.html#cb387-3" aria-hidden="true" tabindex="-1"></a>auc<span class="sc">@</span>y.values</span></code></pre></div>
+<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="05-regresion-logistica.html#cb277-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ROCR)</span>
+<span id="cb277-2"><a href="05-regresion-logistica.html#cb277-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb277-3"><a href="05-regresion-logistica.html#cb277-3" aria-hidden="true" tabindex="-1"></a>logist.pred.ROCR <span class="ot">&lt;-</span> <span class="fu">prediction</span>(predict_numeric, titanic<span class="sc">$</span>Survived)</span>
+<span id="cb277-4"><a href="05-regresion-logistica.html#cb277-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb277-5"><a href="05-regresion-logistica.html#cb277-5" aria-hidden="true" tabindex="-1"></a>logist.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="st">&quot;tpr&quot;</span>,</span>
+<span id="cb277-6"><a href="05-regresion-logistica.html#cb277-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;fpr&quot;</span>)</span>
+<span id="cb277-7"><a href="05-regresion-logistica.html#cb277-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb277-8"><a href="05-regresion-logistica.html#cb277-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(logist.perf)</span>
+<span id="cb277-9"><a href="05-regresion-logistica.html#cb277-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-195-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="05-regresion-logistica.html#cb278-1" aria-hidden="true" tabindex="-1"></a>auc <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="at">measure =</span> <span class="st">&quot;auc&quot;</span>)</span>
+<span id="cb278-2"><a href="05-regresion-logistica.html#cb278-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb278-3"><a href="05-regresion-logistica.html#cb278-3" aria-hidden="true" tabindex="-1"></a>auc<span class="sc">@</span>y.values</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 0.7063313</code></pre>
 <p><strong>Nota:</strong></p>
 <p>Hasta este momento estamos verificando el poder de clasificación del modelo con los mismos datos que usamos para ajustarlo. Es decir, le estamos diciendo al modelo que compruebe la veracidad de la clasificación que ya se hizo previamente.</p>
 <p>Esto es incorrecto, ya que el modelo ya sabe “las respuestas” y no estamos midiendo su poder de clasificación sino más bien su capacidad predictiva dentro del conjunto de entrenamiento.</p>
 <p>Para resolver esto, debemos tomar otra muestra de prueba (<strong>training</strong>) que nos diga si el ajuste que hicimos es correcto.</p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="05-regresion-logistica.html#cb389-1" aria-hidden="true" tabindex="-1"></a>titanic<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(titanic)</span>
-<span id="cb389-2"><a href="05-regresion-logistica.html#cb389-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb389-3"><a href="05-regresion-logistica.html#cb389-3" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
-<span id="cb389-4"><a href="05-regresion-logistica.html#cb389-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sample_frac</span>(<span class="fl">0.75</span>)</span>
-<span id="cb389-5"><a href="05-regresion-logistica.html#cb389-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb389-6"><a href="05-regresion-logistica.html#cb389-6" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
-<span id="cb389-7"><a href="05-regresion-logistica.html#cb389-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(train, <span class="at">by =</span> <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="05-regresion-logistica.html#cb390-1" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> train,</span>
-<span id="cb390-2"><a href="05-regresion-logistica.html#cb390-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="05-regresion-logistica.html#cb391-1" aria-hidden="true" tabindex="-1"></a>predict_numeric <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_glm, <span class="at">newdata =</span> test,</span>
-<span id="cb391-2"><a href="05-regresion-logistica.html#cb391-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb391-3"><a href="05-regresion-logistica.html#cb391-3" aria-hidden="true" tabindex="-1"></a>predict_01 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(predict_numeric <span class="sc">&gt;=</span> <span class="fl">0.5</span>)</span>
-<span id="cb391-4"><a href="05-regresion-logistica.html#cb391-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb391-5"><a href="05-regresion-logistica.html#cb391-5" aria-hidden="true" tabindex="-1"></a>matriz_confusion <span class="ot">&lt;-</span> <span class="fu">table</span>(test<span class="sc">$</span>Survived, predict_01)</span>
-<span id="cb391-6"><a href="05-regresion-logistica.html#cb391-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb391-7"><a href="05-regresion-logistica.html#cb391-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
-<span id="cb391-8"><a href="05-regresion-logistica.html#cb391-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
-<span id="cb391-9"><a href="05-regresion-logistica.html#cb391-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb391-10"><a href="05-regresion-logistica.html#cb391-10" aria-hidden="true" tabindex="-1"></a>matriz_confusion</span></code></pre></div>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="05-regresion-logistica.html#cb280-1" aria-hidden="true" tabindex="-1"></a>titanic<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(titanic)</span>
+<span id="cb280-2"><a href="05-regresion-logistica.html#cb280-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb280-3"><a href="05-regresion-logistica.html#cb280-3" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
+<span id="cb280-4"><a href="05-regresion-logistica.html#cb280-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sample_frac</span>(<span class="fl">0.75</span>)</span>
+<span id="cb280-5"><a href="05-regresion-logistica.html#cb280-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb280-6"><a href="05-regresion-logistica.html#cb280-6" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
+<span id="cb280-7"><a href="05-regresion-logistica.html#cb280-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(train, <span class="at">by =</span> <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="05-regresion-logistica.html#cb281-1" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> train,</span>
+<span id="cb281-2"><a href="05-regresion-logistica.html#cb281-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="05-regresion-logistica.html#cb282-1" aria-hidden="true" tabindex="-1"></a>predict_numeric <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_glm, <span class="at">newdata =</span> test,</span>
+<span id="cb282-2"><a href="05-regresion-logistica.html#cb282-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb282-3"><a href="05-regresion-logistica.html#cb282-3" aria-hidden="true" tabindex="-1"></a>predict_01 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(predict_numeric <span class="sc">&gt;=</span> <span class="fl">0.5</span>)</span>
+<span id="cb282-4"><a href="05-regresion-logistica.html#cb282-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-5"><a href="05-regresion-logistica.html#cb282-5" aria-hidden="true" tabindex="-1"></a>matriz_confusion <span class="ot">&lt;-</span> <span class="fu">table</span>(test<span class="sc">$</span>Survived, predict_01)</span>
+<span id="cb282-6"><a href="05-regresion-logistica.html#cb282-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-7"><a href="05-regresion-logistica.html#cb282-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
+<span id="cb282-8"><a href="05-regresion-logistica.html#cb282-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
+<span id="cb282-9"><a href="05-regresion-logistica.html#cb282-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb282-10"><a href="05-regresion-logistica.html#cb282-10" aria-hidden="true" tabindex="-1"></a>matriz_confusion</span></code></pre></div>
 <pre><code>##    predict_01
 ##      N  P
 ##   N 93  9
 ##   P 57 19</code></pre>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="05-regresion-logistica.html#cb393-1" aria-hidden="true" tabindex="-1"></a>(TN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="05-regresion-logistica.html#cb284-1" aria-hidden="true" tabindex="-1"></a>(TN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
 <pre><code>## [1] 93</code></pre>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="05-regresion-logistica.html#cb395-1" aria-hidden="true" tabindex="-1"></a>(TP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="05-regresion-logistica.html#cb286-1" aria-hidden="true" tabindex="-1"></a>(TP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
 <pre><code>## [1] 19</code></pre>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="05-regresion-logistica.html#cb397-1" aria-hidden="true" tabindex="-1"></a>(FP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="05-regresion-logistica.html#cb288-1" aria-hidden="true" tabindex="-1"></a>(FP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
 <pre><code>## [1] 9</code></pre>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="05-regresion-logistica.html#cb399-1" aria-hidden="true" tabindex="-1"></a>(FN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="05-regresion-logistica.html#cb290-1" aria-hidden="true" tabindex="-1"></a>(FN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
 <pre><code>## [1] 57</code></pre>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="05-regresion-logistica.html#cb401-1" aria-hidden="true" tabindex="-1"></a>(exactitud <span class="ot">&lt;-</span> (TP <span class="sc">+</span> TN)<span class="sc">/</span>(TP <span class="sc">+</span> TN <span class="sc">+</span> FP <span class="sc">+</span> FN))</span></code></pre></div>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="05-regresion-logistica.html#cb292-1" aria-hidden="true" tabindex="-1"></a>(exactitud <span class="ot">&lt;-</span> (TP <span class="sc">+</span> TN)<span class="sc">/</span>(TP <span class="sc">+</span> TN <span class="sc">+</span> FP <span class="sc">+</span> FN))</span></code></pre></div>
 <pre><code>## [1] 0.6292135</code></pre>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="05-regresion-logistica.html#cb403-1" aria-hidden="true" tabindex="-1"></a>(precision <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FP))</span></code></pre></div>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="05-regresion-logistica.html#cb294-1" aria-hidden="true" tabindex="-1"></a>(precision <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FP))</span></code></pre></div>
 <pre><code>## [1] 0.6785714</code></pre>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="05-regresion-logistica.html#cb405-1" aria-hidden="true" tabindex="-1"></a>(sensibilidad <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FN))</span></code></pre></div>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="05-regresion-logistica.html#cb296-1" aria-hidden="true" tabindex="-1"></a>(sensibilidad <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FN))</span></code></pre></div>
 <pre><code>## [1] 0.25</code></pre>
-<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="05-regresion-logistica.html#cb407-1" aria-hidden="true" tabindex="-1"></a>(F_score <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (precision <span class="sc">*</span> sensibilidad)<span class="sc">/</span>(precision <span class="sc">+</span></span>
-<span id="cb407-2"><a href="05-regresion-logistica.html#cb407-2" aria-hidden="true" tabindex="-1"></a>    sensibilidad))</span></code></pre></div>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="05-regresion-logistica.html#cb298-1" aria-hidden="true" tabindex="-1"></a>(F_score <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (precision <span class="sc">*</span> sensibilidad)<span class="sc">/</span>(precision <span class="sc">+</span></span>
+<span id="cb298-2"><a href="05-regresion-logistica.html#cb298-2" aria-hidden="true" tabindex="-1"></a>    sensibilidad))</span></code></pre></div>
 <pre><code>## [1] 0.3653846</code></pre>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="05-regresion-logistica.html#cb409-1" aria-hidden="true" tabindex="-1"></a>(especificidad <span class="ot">&lt;-</span> TN<span class="sc">/</span>(TN <span class="sc">+</span> FP))</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="05-regresion-logistica.html#cb300-1" aria-hidden="true" tabindex="-1"></a>(especificidad <span class="ot">&lt;-</span> TN<span class="sc">/</span>(TN <span class="sc">+</span> FP))</span></code></pre></div>
 <pre><code>## [1] 0.9117647</code></pre>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="05-regresion-logistica.html#cb411-1" aria-hidden="true" tabindex="-1"></a>logist.pred.ROCR <span class="ot">&lt;-</span> <span class="fu">prediction</span>(predict_numeric, test<span class="sc">$</span>Survived)</span>
-<span id="cb411-2"><a href="05-regresion-logistica.html#cb411-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb411-3"><a href="05-regresion-logistica.html#cb411-3" aria-hidden="true" tabindex="-1"></a>logist.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="st">&quot;tpr&quot;</span>,</span>
-<span id="cb411-4"><a href="05-regresion-logistica.html#cb411-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;fpr&quot;</span>)</span>
-<span id="cb411-5"><a href="05-regresion-logistica.html#cb411-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb411-6"><a href="05-regresion-logistica.html#cb411-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(logist.perf)</span>
-<span id="cb411-7"><a href="05-regresion-logistica.html#cb411-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-262-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="05-regresion-logistica.html#cb412-1" aria-hidden="true" tabindex="-1"></a>auc <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="at">measure =</span> <span class="st">&quot;auc&quot;</span>)</span>
-<span id="cb412-2"><a href="05-regresion-logistica.html#cb412-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb412-3"><a href="05-regresion-logistica.html#cb412-3" aria-hidden="true" tabindex="-1"></a>auc<span class="sc">@</span>y.values</span></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="05-regresion-logistica.html#cb302-1" aria-hidden="true" tabindex="-1"></a>logist.pred.ROCR <span class="ot">&lt;-</span> <span class="fu">prediction</span>(predict_numeric, test<span class="sc">$</span>Survived)</span>
+<span id="cb302-2"><a href="05-regresion-logistica.html#cb302-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb302-3"><a href="05-regresion-logistica.html#cb302-3" aria-hidden="true" tabindex="-1"></a>logist.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="st">&quot;tpr&quot;</span>,</span>
+<span id="cb302-4"><a href="05-regresion-logistica.html#cb302-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;fpr&quot;</span>)</span>
+<span id="cb302-5"><a href="05-regresion-logistica.html#cb302-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb302-6"><a href="05-regresion-logistica.html#cb302-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(logist.perf)</span>
+<span id="cb302-7"><a href="05-regresion-logistica.html#cb302-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-200-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="05-regresion-logistica.html#cb303-1" aria-hidden="true" tabindex="-1"></a>auc <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="at">measure =</span> <span class="st">&quot;auc&quot;</span>)</span>
+<span id="cb303-2"><a href="05-regresion-logistica.html#cb303-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb303-3"><a href="05-regresion-logistica.html#cb303-3" aria-hidden="true" tabindex="-1"></a>auc<span class="sc">@</span>y.values</span></code></pre></div>
 <pre><code>## [[1]]
 ## [1] 0.7138803</code></pre>
 </div>
 </div>
-<div id="ejercicios-4" class="section level2 hasAnchor" number="6.5">
-<h2><span class="header-section-number">6.5</span> Ejercicios<a href="05-regresion-logistica.html#ejercicios-4" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ejercicios-3" class="section level2 hasAnchor" number="5.5">
+<h2><span class="header-section-number">5.5</span> Ejercicios<a href="05-regresion-logistica.html#ejercicios-3" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Del libro <span class="citation">(James et al. 2013)</span>:
 <ul>
@@ -890,7 +784,7 @@ Es la tasa de elementos identificados correctamente como 0 que realmente estaban
         </div>
       </div>
 <a href="04-metodos-lineares-regresion.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="06-seleccion-de-variables.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="referencias.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
