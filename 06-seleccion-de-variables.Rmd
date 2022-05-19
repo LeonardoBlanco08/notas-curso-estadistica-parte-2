@@ -95,17 +95,57 @@ $$R^2 \text{ ajustado}= 1-\dfrac{\dfrac{RSS}{n-p-1}}{\dfrac{TSS}{n-1}}$$
 
 #### $C_p$ de Mallows
 
-$$ C_p = \dfrac{1}{n}\left[RSS+2p\hat\sigma^2\right]$$
+Este estadístico se define como 
+
+
+$$ C_p = \dfrac{RSS}{\hat\sigma^2} + 2p-n $$
+
 
 donde $p$ es el número de predictores y $\hat\sigma^2$ es el estimador de la varianza de los errores $\epsilon$. Si $\hat\sigma^2$ es insesgado de $\sigma^2$, entonces $C_p$ es un estimador insesgado del $MSE$ de prueba. 
 
-Definición alternativa:
+Para regresión ordinaria sabemos que \(\hat{\boldsymbol{\beta}}_{p}=\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1} \mathbf{X}_{p}^{\prime} \mathbf{Y}\). Nuestro caso ideal sería hacer el MSE lo más pequeño posible entre todos los posibles modleos,
+\begin{equation*}
+\mathrm{E}\left[\hat{\boldsymbol{\beta}}_{p}-\boldsymbol{\beta}\right]^{2}.
+\end{equation*}
 
-$$ C_p' = \dfrac{RSS}{\hat\sigma^2} + 2p-n \implies C_p = \dfrac1n\hat\sigma^2[C_p'+n] \propto C_p'$$
+Con esto en mente, calculemos el RSS del modelo,
+
+\begin{equation*}
+\begin{aligned}
+\operatorname{RSS}(p) &=\sum_{n=1}^{N}\left(y_{n}-\mathbf{x}_{n} \hat{\boldsymbol{\beta}}_{p}\right)^{2} \\
+&=\left(\mathbf{Y}-\mathbf{X}_{p} \hat{\boldsymbol{\beta}}_{p}\right)^{\prime}\left(\mathbf{Y}-\mathbf{X}_{p} \hat{\boldsymbol{\beta}}_{p}\right) \\
+&=\mathbf{Y}^{\prime}\left(\mathbf{I}_{N}-\mathbf{X}_{p}\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1} \mathbf{X}_{p}^{\prime}\right) \mathbf{Y}
+\end{aligned}
+\end{equation*}
+
+
+Usando este resultado para matrices 
+
+\begin{equation*}
+\mathrm{E}\left[\mathbf{Y}^{\prime} \mathbf{A Y}\right]=\mathrm{E}\left[\mathbf{Y}^{\prime}\right] \mathbf{A E}[\mathbf{Y}]+\operatorname{tr}[\mathbf{\Sigma} \mathbf{A}]
+\end{equation*}
+
+y donde \(\boldsymbol{\Sigma}\) es la matriz de covarianza de \(\mathbf{Y}\), encontramos que 
+
+\begin{equation*}
+\begin{aligned}
+\mathrm{E}[\operatorname{RSS}(p)] &=\mathrm{E}\left[\mathbf{Y}^{\prime}\left(\mathbf{I}_{N}-\mathbf{X}_{p}\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1} \mathbf{X}_{p}^{\prime}\right) \mathbf{Y}\right] \\
+&=\mathrm{E}\left[\hat{\boldsymbol{\beta}}_{p}-\boldsymbol{\beta}\right]^{2}+\operatorname{tr}\left[\mathbf{I}_{N}-\mathbf{X}_{p}\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1} \mathbf{X}_{p}^{\prime}\right] \sigma^{2} \\
+&=\mathrm{E}\left[\hat{\boldsymbol{\beta}}_{p}-\boldsymbol{\beta}\right]^{2}+\sigma^{2}\left(N-\operatorname{tr}\left[\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1}\right]\right) \\
+&=\mathrm{E}\left[\hat{\boldsymbol{\beta}}_{p}-\boldsymbol{\beta}\right]^{2}+\sigma^{2}(N-p)
+\end{aligned}
+\end{equation*}
+
+Note que si el  modelo verddero  tiene   \(p\) parametros, entocnes \(\mathrm{E}\left[\mathrm{C}_{p}\right]=p\). Esto muestra por qué, si un modelo  es correcto, \(\mathrm{C}_{p}\) tenderá a estar cerca de \(p\)
+
+
+Un problema con el criterio \(\mathrm{C}_{p}\) es que tenemos que encontrar una estimación apropiada de \(\sigma^{2}\) para usar con todos los valores de \(p\).
 
 #### Estimador de máxima verosimilitud (MLE)
 
-Supongamos para el conjunto de datos disponible una medida de ajuste del modelo $2\ln L(\hat{\beta} | x)$. Así si el valor es grande, entonces los parámetros \(\beta\)s serían los correctos. El problema con está medida es que no penaliza el ingreso de nuevas variables al modelo. 
+Supongamos para el conjunto de datos disponible una medida de ajuste del modelo $-\ln L(\hat{\beta} | x)=\ell(\beta)$. Así si el valor es grande, entonces los parámetros \(\beta\)s serían los correctos. Si se define \(\overline{\ell}(\beta)=\mathbb{E}(\ell(\beta\mid X))\) como la log verosimilitud poblacional. 
+
+El problema con está medida es que no penaliza el ingreso de nuevas variables al modelo. 
 
 
 #### Akaike Information Criterion (AIC).
@@ -114,34 +154,93 @@ Supongamos para el conjunto de datos disponible una medida de ajuste del modelo 
 El AIC se define de la siguiente manera:
 
 \[
-AIC = -2\log(L(\hat{\beta} \vert X)) + 2p 
+AIC = -2\ell(\hat{\beta}) + 2p 
 \]
 
-La idea del AIC es ajustar el riesgo empírico 
+_Explicación breve_: La idea del AIC es ajustar el riesgo empírico \(\hat{R}_n =  -\ell(\hat{\beta})\) con respecto al riesgo verdadero \(R(\hat{\beta}) = \mathbb{E}(-n\overline{\ell}(\hat{\beta}))\). Se puede probar que asintóticamente 
 
-Esta medida es derivada asintóticamente de $-2n\mathbb{E}[\log(L(\hat{\beta} \vert X))]$ cuando $n\to \infty$. En el caso gaussiano, el AIC se puede escribir como:
-
-\begin{align*}
-AIC = \frac{1}{n\hat \sigma^2}(RSS+2p\hat \sigma^2)
-\end{align*}
+\begin{equation*}
+\mathbb{E}\left(\widehat{R}_{n}\left(\hat{\beta}_{n}\right)\right)-R\left(\widehat{\beta}_{n}\right)=-n \mathbb{E}\left(\left(\widehat{\beta}_{n}-\beta^{*}\right)^{T} I\left(\beta^{*}\right)\left(\widehat{\beta}_{n}-\beta^{*}\right)\right)
+\end{equation*}
 
 
-* $BIC$ (Bayesian Information Criterion).
+
+Por el curso de estadísitica I se puede probar que 
+\begin{equation*}
+\sqrt{n}\left(\hat{\beta}_{n}-\beta^{*}\right) \approx N\left(0, I^{-1}\left(\beta^{*}\right)\right)
+\end{equation*}
+
+Por lo tanto, 
+
+\begin{equation*}
+n\left(\widehat{\beta}_{n}-\beta^{*}\right)^{T} I\left(\beta^{*}\right)\left(\widehat{\beta}_{n}-\beta^{*}\right) \approx \chi_{d}^{2}
+\end{equation*}
+
+lo cual implica que 
+\begin{equation*}
+n \mathbb{E}\left(\left(\widehat{\beta}_{n}-\beta^{*}\right)^{T} I\left(\beta^{*}\right)\left(\widehat{\beta}_{n}-\beta^{*}\right)\right)=d
+\end{equation*}
+
+
+Entonces para asegurarnos de que el estimador sea insesgado asintóticamente, debemos redefinir nuestro riesgo empírico timador sumándole un término \(p\)
+
+
+\[\widehat{R}_{n}\left(\widehat{\beta}_{n}\right)+d=-\ell_{n}+d\]
+
+
+
+* Bayesian Information Criterion (BIC)
+
+
+Este criterior se parece al AIC pero modificado con un \(\log(n)\),
 
 \[
-BIC = -2\log(L(\hat{\beta} \vert X)) + \log(n)p. 
+BIC = -2\ell(\hat{\beta}) + \log(n)p. 
 \]
 
-Representa asintóticamente hablando, el negativo del logaritmo de la distribución posterior. En el caso gaussiano:
+
+
+Para cada modelo \(m\) Escriba la regla de Bayes definida en el curso anterior 
+
+\begin{equation*}
+\pi\left(m \mid X_{1}, \cdots, X_{n}\right)=\frac{\pi\left(m, X_{1}, \cdots, X_{n}\right)}{L\left(X_{1}, \cdots, X_{n}\right)} \propto L\left(X_{1}, \cdots, X_{n} \mid m\right) \pi(m)
+\end{equation*}
+
+
+Se puede demostrar que 
+
+\begin{equation*}
+L\left(X_{1}, \cdots, X_{n} \mid \theta, m\right) \approx e^{\ell_{n}-n\left(\theta-\theta^{*}\right)^{T} I\left(\theta^{*}\right)\left(\theta-\theta^{*}\right)}
+\end{equation*}
+
+
+Asumiento que la variable respuesta \(Y\) es gaussiana, se puede simplificar la log-verosimilitud como 
+
+
+\begin{equation*}
+\log p\left(X_{1}, \cdots, X_{n} \mid m\right) \approx \ell_{n}-\frac{d}{2} \log n+\frac{d}{2} \log (2 \pi)+\log \operatorname{det}\left(I\left(\theta^{*}\right)\right)+\log \pi\left(\hat{\theta}_{n} \mid m\right)
+\end{equation*}
+
+
+Las únicas dos cantidades que incrementan con \(n\) son las dos primeras. Se multiplica por -2 para tener  el BIC. 
+
+
+En el caso de datos gaussiano se tendría lo siguiente:
 
 \begin{align*}
 BIC = \frac{1}{n}(RSS+2\log (n)p\hat \sigma^2).
 \end{align*}
 
-**Validación cruzada LOOCV es asintóticamente equivalente al AIC para modelos de regresión lineal múltiple [@StoneAsymptotic1977]** 
+
+#### Notas adicionales 
+
+- Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@Hastie2009a] o en el artículo [@CavanaughAkaike2019].
+- La validación cruzada LOOCV es asintóticamente equivalente al AIC para modelos de regresión lineal múltiple [@StoneAsymptotic1977]. 
+- El AIC ajusta el modo que el riesgo o verosimilitud empírica o real sean insesgadas. Es decir, bajo la observación de nuevos datos, el error que se cometería debería ser cercano a 0. 
+- Aunque el BIC se parece al AIC, el razonamiento es algo diferente. En la construcción de BIC estamos seleccionando el modelo con mayor evidencia según los datos. Cuando los datos se generan de hecho a partir de uno de los modelos en la colección de modelos que estamos eligiendo, el posterior se concentrará en este modelo correcto.  
+- Una forma de interpretar ambos criterios es que AIC elige el mejor modelo predictivo, mientras que BIC intenta seleccionar el modelo verdadero si existe en el conjunto de modelos.
 
 
-Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@Hastie2009a] o en el artículo [@CavanaughAkaike2019].
 
 
 ## Selección de variables
@@ -150,6 +249,8 @@ Cuando se construye un modelo de regresión (lineal o logística) existe la posi
 
 En este capítulo veremos cómo construir modelos más simples y cómo hacer comparaciones entre ellos. 
 
+  
+  
   
 ### Selección del mejor subconjunto.
 
