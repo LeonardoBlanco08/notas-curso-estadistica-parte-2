@@ -498,7 +498,7 @@ D_c -D_r \stackrel{H_0}{\sim} =\chi^{2}_{df_{c}-df_r}.
 <span id="cb250-4"><a href="05-regresion-logistica.html#cb250-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb250-5"><a href="05-regresion-logistica.html#cb250-5" aria-hidden="true" tabindex="-1"></a>fit_data <span class="sc">%&gt;%</span></span>
 <span id="cb250-6"><a href="05-regresion-logistica.html#cb250-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">top_n</span>(<span class="dv">3</span>, .cooksd)</span></code></pre></div>
-<pre><code>## # A tibble: 3 × 10
+<pre><code>## # A tibble: 3 x 10
 ##   Survived  Fare   Age .fitted .resid .std.resid    .hat .sigma .cooksd indice
 ##      &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;int&gt;
 ## 1        0  263     19    3.79  -2.76      -2.77 0.00862   1.12   0.129     24
@@ -509,8 +509,8 @@ D_c -D_r \stackrel{H_0}{\sim} =\chi^{2}_{df_{c}-df_r}.
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-190-1.svg" width="70%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="05-regresion-logistica.html#cb253-1" aria-hidden="true" tabindex="-1"></a>fit_data <span class="sc">%&gt;%</span></span>
 <span id="cb253-2"><a href="05-regresion-logistica.html#cb253-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">abs</span>(.std.resid) <span class="sc">&gt;</span> <span class="dv">3</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 0 × 10
-## # … with 10 variables: Survived &lt;int&gt;, Fare &lt;dbl&gt;, Age &lt;dbl&gt;, .fitted &lt;dbl&gt;,
+<pre><code>## # A tibble: 0 x 10
+## # ... with 10 variables: Survived &lt;int&gt;, Fare &lt;dbl&gt;, Age &lt;dbl&gt;, .fitted &lt;dbl&gt;,
 ## #   .resid &lt;dbl&gt;, .std.resid &lt;dbl&gt;, .hat &lt;dbl&gt;, .sigma &lt;dbl&gt;, .cooksd &lt;dbl&gt;,
 ## #   indice &lt;int&gt;</code></pre>
 </div>
@@ -533,43 +533,33 @@ D_c -D_r \stackrel{H_0}{\sim} =\chi^{2}_{df_{c}-df_r}.
 <p>Entonces tenemos realmente 4 opciones</p>
 <table>
 <colgroup>
-<col width="19%" />
-<col width="12%" />
-<col width="29%" />
-<col width="29%" />
-<col width="8%" />
+<col width="18%" />
+<col width="37%" />
+<col width="36%" />
+<col width="6%" />
 </colgroup>
+<thead>
+<tr class="header">
+<th align="center"></th>
+<th align="center"><strong>Modelo = 0</strong></th>
+<th align="center"><strong>Modelo = 1</strong></th>
+<th align="center"></th>
+</tr>
+</thead>
 <tbody>
 <tr class="odd">
-<td align="center"></td>
-<td align="center"></td>
-<td align="center"><strong>Clase</strong></td>
-<td align="center"><strong>Predicción</strong></td>
-<td align="center"></td>
-</tr>
-<tr class="even">
-<td align="center"></td>
-<td align="center"></td>
-<td align="center">0</td>
-<td align="center">1</td>
-<td align="center"></td>
-</tr>
-<tr class="odd">
-<td align="center"><strong>Clase</strong></td>
-<td align="center">0</td>
+<td align="center"><strong>Real = 0</strong></td>
 <td align="center">Verdaderos Negativos. (TN)</td>
 <td align="center">Falsos Positivos (FP)</td>
 <td align="center"><span class="math inline">\(N\)</span></td>
 </tr>
 <tr class="even">
-<td align="center"><strong>Real</strong></td>
-<td align="center">1</td>
+<td align="center"><strong>Real = 1</strong></td>
 <td align="center">Falsos Negativos (FN)</td>
 <td align="center">Verdaderos Positivos (TP)</td>
 <td align="center"><span class="math inline">\(P\)</span></td>
 </tr>
 <tr class="odd">
-<td align="center"></td>
 <td align="center">Total</td>
 <td align="center"><span class="math inline">\(N^{*}\)</span></td>
 <td align="center"><span class="math inline">\(P^{*}\)</span></td>
@@ -629,24 +619,24 @@ Es la tasa de elementos identificados correctamente como 0 que realmente estaban
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Tasa Falsos Positivos</td>
-<td align="left"><span class="math inline">\(FP/N\)</span></td>
-<td align="left">Error Tipo I, 1-Especificidad</td>
+<td align="left">Sensibilidad</td>
+<td align="left"><span class="math inline">\(TP/P\)</span></td>
+<td align="left">1 - Error tipo II, Poder, Exhaustividad, Exhaustividad.</td>
 </tr>
 <tr class="even">
-<td align="left">Tasa Verdaderos Positivos</td>
-<td align="left"><span class="math inline">\(TP/P\)</span></td>
-<td align="left">1-Error Tipo II, Poder, Sensibilidad, Exhaustividad (Recall)</td>
+<td align="left">Especificidad</td>
+<td align="left"><span class="math inline">\(TN/N\)</span></td>
+<td align="left">1- Error tipo I.</td>
 </tr>
 <tr class="odd">
 <td align="left">Valor de Predicción Positivos</td>
 <td align="left"><span class="math inline">\(TP/P^{*}\)</span></td>
-<td align="left">Precisión, 1 - Proporción de Falsos Descubrimientos</td>
+<td align="left">Positive predicted values (PPV), Precisión.</td>
 </tr>
 <tr class="even">
 <td align="left">Valor de Predicción Negativos</td>
 <td align="left"><span class="math inline">\(TN/N^{*}\)</span></td>
-<td align="left"></td>
+<td align="left">Negative predicted values (NPV)</td>
 </tr>
 <tr class="odd">
 <td align="left">F-Score</td>
@@ -657,16 +647,19 @@ Es la tasa de elementos identificados correctamente como 0 que realmente estaban
 </table>
 <p><strong>Nota:</strong></p>
 <ul>
-<li>Exactitud es un buen indicador cuando los datos son simétricos (igual número de FP y FN).</li>
-<li>F-Scores es un mejor indicador cuando los datos son asimétricos</li>
-<li>La precisión nos permite describir la capacidad del modelo de predecir verdaderos positivos.</li>
+<li>La sensibilidad y especificidad son buenos indicadores cuando los datos son simétricos (igual número de FP y FN).</li>
+<li>El F-Score ayuda cuando los datos son asimétricos. El valor mayor de este valor es 1 indicado una precisión y exhaustividad perfectas.</li>
 <li>La sensibilidad nos permite describir la capacidad de categorizar los verdaderos positivos de forma correcta.</li>
+<li>En cambio, la especificidad lo hace para los verdaderos negativos.</li>
+<li>La precisión o PPV nos permite describir la capacidad del modelo de predecir verdaderos positivos.</li>
+<li>El NPV predice la capacidad del modelo de predecir los verdaderos negativos.</li>
 </ul>
-<p>En un modelo se debe escoger entre sensibilidad y precisión de acuerdo a ciertas ideas:</p>
+<p>En un modelo se debe entender que significa cada uno de estos valores para entender los resultados.</p>
 <ul>
-<li><strong>Sensibilidad</strong> es importante si la ocurrencia de <strong>falsos negativos</strong> es inaceptable. Por ejemplo en el caso de pruebas clínicas. Posiblemente obtener falsos positivos en este caso es aceptable.</li>
-<li><strong>Precisión</strong> es importante si se quiere estar más seguro de los <strong>verdaderos positivos</strong>. Por ejemplo detectar <strong>spam</strong> en correos electrónicos.</li>
-<li><strong>Especificidad</strong> es importante si lo que se quiere es cubrir todos los <strong>verdaderos negativos</strong>, es decir, que no se quieren falsas alarmas. Por ejemplo se hacen pruebas de detección de drogas y si es positivo va a la cárcel. Los <strong>falsos positivos</strong> son intolerables.</li>
+<li><strong>Sensibilidad</strong> es importante si la ocurrencia de <strong>falsos negativos</strong> es inaceptable. Supongamos que alguien tiene VIH y el examen le da negativo. En este caso es inaceptable el resultado, por lo que la prueba debe tener un alto valor de sensibilidad.</li>
+<li><strong>Especificidad</strong> es importante para si la ocurrencia de <strong>falsos positivos</strong> es inaceptable. Es decir, supongamos que una persona tiene un tumor benigno y un examen lo clasifica como maligno. La persona sana, se declara enferma y debe pasar por un proceso de quimioterapia. La alta especificidad baja la probabildiad que esto ocurra.</li>
+<li><strong>PPV</strong> es importante si se quiere estar más seguro de los <strong>verdaderos positivos</strong>. Por ejemplo detectar <strong>spam</strong> en correos electrónicos.</li>
+<li><strong>NPV</strong> es impotante si se desea predecir correctamente los <strong>verdaderos negativos</strong>. Por ejemplo, se está tratando una población con una droga experimental y se quiere saber cuál será la proporción de personas que se curaran de la enfermedad.</li>
 </ul>
 <div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="05-regresion-logistica.html#cb259-1" aria-hidden="true" tabindex="-1"></a>(TN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
 <pre><code>## [1] 380</code></pre>
@@ -752,6 +745,7 @@ Es la tasa de elementos identificados correctamente como 0 que realmente estaban
 <pre><code>## [1] 0.3653846</code></pre>
 <div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="05-regresion-logistica.html#cb300-1" aria-hidden="true" tabindex="-1"></a>(especificidad <span class="ot">&lt;-</span> TN<span class="sc">/</span>(TN <span class="sc">+</span> FP))</span></code></pre></div>
 <pre><code>## [1] 0.9117647</code></pre>
+<p>Por defecto, la probabilidad para crear la matrix de confusión es 0.5. Si empezamos a variar esa probabilidad en el rango de 0 a 1, obtenemos la curva ROC.</p>
 <div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="05-regresion-logistica.html#cb302-1" aria-hidden="true" tabindex="-1"></a>logist.pred.ROCR <span class="ot">&lt;-</span> <span class="fu">prediction</span>(predict_numeric, test<span class="sc">$</span>Survived)</span>
 <span id="cb302-2"><a href="05-regresion-logistica.html#cb302-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb302-3"><a href="05-regresion-logistica.html#cb302-3" aria-hidden="true" tabindex="-1"></a>logist.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="st">&quot;tpr&quot;</span>,</span>

@@ -87,11 +87,13 @@ donde \(Err_i = I_{Y_i \neq \hat{Y}_{i}}\) y \(CV_{k}\) se define de manera aná
 
 ### Otras medidas de error de prueba
 
-* $R^2$ ajustado. Recuerde que $R^2 = 1 - \dfrac{RSS}{TSS}$. Como $RSS$ decrece si se le agrega más variables, entonces $R^2 \nearrow 1$. Recuerden que $RSS = \sum(y_i-\hat{y}_i)^2$ y $TSS = \sum(y_i-\bar{y}_i)^2$. En este caso definimos:
+#### $R^2$ ajustado
+
+Recuerde que $R^2 = 1 - \dfrac{RSS}{TSS}$. Como $RSS$ decrece si se le agrega más variables, entonces $R^2 \nearrow 1$. Recuerden que $RSS = \sum(y_i-\hat{y}_i)^2$ y $TSS = \sum(y_i-\bar{y}_i)^2$. En este caso definimos:
 
 $$R^2 \text{ ajustado}= 1-\dfrac{\dfrac{RSS}{n-p-1}}{\dfrac{TSS}{n-1}}$$
 
-* $C_p$ de Mallows:
+#### $C_p$ de Mallows
 
 $$ C_p = \dfrac{1}{n}\left[RSS+2p\hat\sigma^2\right]$$
 
@@ -101,15 +103,21 @@ Definición alternativa:
 
 $$ C_p' = \dfrac{RSS}{\hat\sigma^2} + 2p-n \implies C_p = \dfrac1n\hat\sigma^2[C_p'+n] \propto C_p'$$
 
-* $MLE$: $2\ln L(\hat{\beta} | x)$.
+#### Estimador de máxima verosimilitud (MLE)
+
+Supongamos para el conjunto de datos disponible una medida de ajuste del modelo $2\ln L(\hat{\beta} | x)$. Así si el valor es grande, entonces los parámetros \(\beta\)s serían los correctos. El problema con está medida es que no penaliza el ingreso de nuevas variables al modelo. 
 
 
-* $AIC$ (Akaike Information Criterion).
+#### Akaike Information Criterion (AIC).
 
+
+El AIC se define de la siguiente manera:
 
 \[
 AIC = -2\log(L(\hat{\beta} \vert X)) + 2p 
 \]
+
+La idea del AIC es ajustar el riesgo empírico 
 
 Esta medida es derivada asintóticamente de $-2n\mathbb{E}[\log(L(\hat{\beta} \vert X))]$ cuando $n\to \infty$. En el caso gaussiano, el AIC se puede escribir como:
 

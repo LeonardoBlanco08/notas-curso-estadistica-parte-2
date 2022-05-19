@@ -272,13 +272,11 @@ Obviamente nuestro modelo puede equivocarse y darnos una respuesta errónea. Por
 Entonces tenemos realmente 4 opciones 
 
 
-|           |       |                 |                 |     |
-|:---------:|:-----:|:---------------:|:---------------:|:---:|
-|           |       | **Clase**       | **Predicción**  |     |
-|           |       | 0               | 1               |     |
-| **Clase** | 0     | Verdaderos Negativos. (TN)  | Falsos Positivos (FP) | $N$ |
-| **Real**  | 1     | Falsos Negativos (FN) | Verdaderos Positivos (TP)  | $P$ |
-|           | Total | \(N^{*}\)       | \(P^{*}\)       |     |
+|              | **Modelo \= 0**             | **Modelo \= 1**            |     |
+|:------------:|:--------------------------:|:-------------------------:|:---:|
+| **Real \= 0** | Verdaderos Negativos. (TN) | Falsos Positivos (FP)     | $N$ |
+| **Real \= 1** | Falsos Negativos (FN)      | Verdaderos Positivos (TP) | $P$ |
+| Total        | \(N^{*}\)                  | \(P^{*}\)                 |     |
 
 
 
@@ -318,26 +316,31 @@ Entonces esto nos da las siguientes posibilidades.
 
 | Tipo                          | Cálculo                                               | Sinónimos                                                      |
 |:------------------------------|:------------------------------------------------------|:---------------------------------------------------------------|
-| Tasa Falsos Positivos         | $FP/N$                                                | Error Tipo I, 1-Especificidad                                  |
-| Tasa Verdaderos Positivos     | \(TP/P\)                                              | 1-Error Tipo II, Poder, Sensibilidad,   Exhaustividad (Recall) |
-| Valor de Predicción Positivos | $TP/P^{*}$                                            | Precisión, 1 - Proporción de Falsos Descubrimientos            |
-| Valor de Predicción Negativos | $TN/N^{*}$                                            |                                                                |
+| Sensibilidad                  | $TP/P$                                                | 1 - Error tipo II, Poder, Exhaustividad, Exhaustividad.                                                               |
+| Especificidad                 | $TN/N$                                                |  1- Error tipo I.                                                               |
+| Valor de Predicción Positivos | $TP/P^{*}$                                            | Positive predicted values (PPV), Precisión.                                |
+| Valor de Predicción Negativos | $TN/N^{*}$                                            | Negative predicted values (NPV)                                |
 | F-Score                       | $\frac{2(TP/P^{*} \times TP/P )}{(TP/P^{*} + TP/P )}$ |                                                                |
 
 
 
 **Nota:**
 
-- Exactitud es un buen indicador cuando los datos son simétricos (igual número de FP y FN). 
-- F-Scores es un mejor indicador cuando los datos son asimétricos
-- La precisión nos permite describir la capacidad del modelo de predecir verdaderos positivos. 
-- La sensibilidad nos permite describir la capacidad de categorizar los verdaderos positivos de forma correcta. 
+- La sensibilidad y especificidad son buenos indicadores cuando los datos son simétricos (igual número de FP y FN). 
+- El F-Score ayuda cuando los datos son asimétricos. El valor mayor de este valor es 1 indicado una precisión y exhaustividad perfectas. 
+- La sensibilidad nos permite describir la capacidad de categorizar los verdaderos positivos de forma correcta.
+- En cambio, la especificidad lo hace para los verdaderos negativos. 
+- La precisión o PPV nos permite describir la capacidad del modelo de predecir verdaderos positivos. 
+- El NPV predice la capacidad del modelo de predecir los verdaderos negativos. 
 
-En un modelo se debe escoger entre sensibilidad y precisión de acuerdo a ciertas ideas:
 
-- **Sensibilidad** es importante si la ocurrencia de **falsos negativos** es inaceptable. Por ejemplo en el caso de pruebas clínicas. Posiblemente obtener falsos positivos en este caso es aceptable. 
-- **Precisión** es importante si se quiere estar más seguro de los **verdaderos positivos**. Por ejemplo detectar __spam__ en correos electrónicos. 
-- **Especificidad** es importante si lo que se quiere es cubrir todos los **verdaderos negativos**, es decir, que no se quieren falsas alarmas. Por ejemplo se hacen pruebas de detección de drogas y si es positivo va a la cárcel. Los **falsos positivos** son intolerables. 
+En un modelo se debe entender que significa cada uno de estos valores para entender los resultados. 
+
+- **Sensibilidad** es importante si la ocurrencia de **falsos negativos** es inaceptable. Supongamos que alguien tiene VIH y el examen le da negativo. En este caso es inaceptable el resultado, por lo que la prueba debe tener un alto valor de sensibilidad. 
+- **Especificidad** es importante para si la ocurrencia de **falsos positivos** es inaceptable. Es decir, supongamos que una persona tiene un tumor benigno y un examen lo clasifica como maligno. La persona sana, se declara enferma y debe pasar por un proceso de quimioterapia. La alta especificidad baja la probabildiad que esto ocurra.
+- **PPV** es importante si se quiere estar más seguro de los **verdaderos positivos**. Por ejemplo detectar __spam__ en correos electrónicos. 
+- **NPV** es impotante si se desea predecir correctamente los **verdaderos negativos**. Por ejemplo, se está tratando una población con una droga experimental y se quiere saber cuál será la proporción de personas que se curaran de la enfermedad.  
+
 
 ```{r}
 
@@ -434,6 +437,8 @@ matriz_confusion
 (especificidad <-  TN / (TN + FP))
 ```
 
+
+Por defecto, la probabilidad para crear la matrix de confusión es 0.5. Si empezamos a variar esa probabilidad en el rango de 0 a 1, obtenemos la curva ROC. 
 
 
 ```{r}

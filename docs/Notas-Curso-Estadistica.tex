@@ -190,7 +190,7 @@
 
 \title{Notas Curso de Estadística II}
 \author{Maikol Solís Chacón y Luis Barboza Chinchilla}
-\date{Actualizado el 09 mayo, 2022}
+\date{Actualizado el 19 mayo, 2022}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -3340,9 +3340,9 @@ R^{2}_{adj} = 1-\frac{\frac{\mathrm{RSS}}{n-p-1}}{\frac{\mathrm{TSS}}{n-1}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Número de datos}
+\CommentTok{\# N\textless{}U+00FA\textgreater{}mero de datos}
 \NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{1000}
-\CommentTok{\# Número de variables}
+\CommentTok{\# N\textless{}U+00FA\textgreater{}mero de variables}
 \NormalTok{p }\OtherTok{\textless{}{-}} \DecValTok{2}
 
 \NormalTok{x1 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
@@ -3634,16 +3634,16 @@ X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{1+X_{0}^{\top}(X_{0}^{\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# Agregamos a mtcars el intervalo de predicción}
-\CommentTok{\# para cada dato}
+\CommentTok{\# Agregamos a mtcars el intervalo de}
+\CommentTok{\# predicci\textless{}U+00F3\textgreater{}n para cada dato}
 \NormalTok{mtcars.pred }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(mtcars, }\FunctionTok{predict}\NormalTok{(lm.r, }\AttributeTok{interval =} \StringTok{"prediction"}\NormalTok{))}
 
 \NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(mtcars.pred, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ wt, }\AttributeTok{y =}\NormalTok{ mpg))}
-\CommentTok{\# Use circulos de tamaño 2}
+\CommentTok{\# Use circulos de tama\textless{}U+00F1\textgreater{}o 2}
 \NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ p }\SpecialCharTok{+} \FunctionTok{geom\_point}\NormalTok{(}\AttributeTok{size =} \DecValTok{2}\NormalTok{)}
-\CommentTok{\# Agregue una banda de tamaño [lwr, upr] para}
-\CommentTok{\# cada punto y llamela \textquotesingle{}predicción\textquotesingle{}}
-\NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ p }\SpecialCharTok{+} \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ lwr, }\AttributeTok{ymax =}\NormalTok{ upr, }\AttributeTok{fill =} \StringTok{"predicción"}\NormalTok{),}
+\CommentTok{\# Agregue una banda de tama\textless{}U+00F1\textgreater{}o [lwr, upr]}
+\CommentTok{\# para cada punto y llamela \textquotesingle{}predicci\textless{}U+00F3\textgreater{}n\textquotesingle{}}
+\NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ p }\SpecialCharTok{+} \FunctionTok{geom\_ribbon}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{ymin =}\NormalTok{ lwr, }\AttributeTok{ymax =}\NormalTok{ upr, }\AttributeTok{fill =} \StringTok{"predicci\textless{}U+00F3\textgreater{}n"}\NormalTok{),}
     \AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{)}
 \CommentTok{\# Agregue el intervalo de confianza usual y llame}
 \CommentTok{\# a ese intervalo \textquotesingle{}confianza\textquotesingle{}}
@@ -3656,7 +3656,7 @@ X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{1+X_{0}^{\top}(X_{0}^{\
 \NormalTok{p }\OtherTok{\textless{}{-}}\NormalTok{ p }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{20}\NormalTok{),}
     \AttributeTok{axis.title =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{20}\NormalTok{))}
 
-\CommentTok{\# Dibujar el gráfico}
+\CommentTok{\# Dibujar el gr\textless{}U+00E1\textgreater{}fico}
 \NormalTok{p}
 \end{Highlighting}
 \end{Shaded}
@@ -3665,7 +3665,7 @@ X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{1+X_{0}^{\top}(X_{0}^{\
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# \# Guardar el gráfico en un archivo pdf}
+\CommentTok{\# \# Guardar el gr\textless{}U+00E1\textgreater{}fico en un archivo pdf}
 \CommentTok{\# ggsave(filename = \textquotesingle{}linear\_reg\_con\_IC\_IP.pdf\textquotesingle{}) \#}
 \end{Highlighting}
 \end{Shaded}
@@ -3757,7 +3757,7 @@ Ahora, quisiera generar muchas muestras del mismo experimento
     \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{data =}\NormalTok{ toyex.initial, }\AttributeTok{method =}\NormalTok{ lm,}
         \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{fill =} \StringTok{"confianza"}\NormalTok{), }\AttributeTok{size =} \DecValTok{1}\NormalTok{,}
         \AttributeTok{col =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{geom\_ribbon}\NormalTok{(}\AttributeTok{data =}\NormalTok{ toyex.pred.initial,}
-    \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ X, }\AttributeTok{ymin =}\NormalTok{ lwr, }\AttributeTok{ymax =}\NormalTok{ upr, }\AttributeTok{fill =} \StringTok{"predicción"}\NormalTok{,}
+    \AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ X, }\AttributeTok{ymin =}\NormalTok{ lwr, }\AttributeTok{ymax =}\NormalTok{ upr, }\AttributeTok{fill =} \StringTok{"predicci\textless{}U+00F3\textgreater{}n"}\NormalTok{,}
 \NormalTok{        ), }\AttributeTok{alpha =} \FloatTok{0.3}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \FunctionTok{paste0}\NormalTok{(}\StringTok{"Muestra \#: \{closest\_state\}"}\NormalTok{)) }\SpecialCharTok{+}
     \FunctionTok{scale\_fill\_manual}\NormalTok{(}\StringTok{"Intervalos"}\NormalTok{, }\AttributeTok{values =} \FunctionTok{c}\NormalTok{(}\StringTok{"green"}\NormalTok{,}
         \StringTok{"yellow"}\NormalTok{)) }\SpecialCharTok{+} \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{axis.text =} \FunctionTok{element\_text}\NormalTok{(}\AttributeTok{size =} \DecValTok{20}\NormalTok{),}
@@ -3817,9 +3817,9 @@ Generamos una base de datos nueva con solamente \texttt{wt} centrado
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\CommentTok{\# La función across y where solo funciona solo}
-\CommentTok{\# para dplyr 1.0 Si tienen otra versión, pueden}
-\CommentTok{\# usar mutate\_if}
+\CommentTok{\# La funci\textless{}U+00F3\textgreater{}n across y where solo funciona}
+\CommentTok{\# solo para dplyr 1.0 Si tienen otra}
+\CommentTok{\# versi\textless{}U+00F3\textgreater{}n, pueden usar mutate\_if}
 
 \NormalTok{mtcars\_centered }\OtherTok{\textless{}{-}}\NormalTok{ mtcars }\SpecialCharTok{\%\textgreater{}\%}
     \FunctionTok{mutate}\NormalTok{(}\FunctionTok{across}\NormalTok{(}\StringTok{"wt"}\NormalTok{, scale, }\AttributeTok{scale =} \ConstantTok{FALSE}\NormalTok{, }\AttributeTok{center =} \ConstantTok{TRUE}\NormalTok{))}
@@ -5250,18 +5250,23 @@ Obviamente nuestro modelo puede equivocarse y darnos una respuesta errónea. Por
 Entonces tenemos realmente 4 opciones
 
 \begin{longtable}[]{@{}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1930}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.1228}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2982}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.2982}}
-  >{\centering\arraybackslash}p{(\columnwidth - 8\tabcolsep) * \real{0.0877}}@{}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.1892}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3784}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.3649}}
+  >{\centering\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.0676}}@{}}
 \toprule()
+\begin{minipage}[b]{\linewidth}\centering
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{Modelo = 0}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\textbf{Modelo = 1}
+\end{minipage} & \begin{minipage}[b]{\linewidth}\centering
+\end{minipage} \\
+\midrule()
 \endhead
-& & \textbf{Clase} & \textbf{Predicción} & \\
-& & 0 & 1 & \\
-\textbf{Clase} & 0 & Verdaderos Negativos. (TN) & Falsos Positivos (FP) & \(N\) \\
-\textbf{Real} & 1 & Falsos Negativos (FN) & Verdaderos Positivos (TP) & \(P\) \\
-& Total & \(N^{*}\) & \(P^{*}\) & \\
+\textbf{Real = 0} & Verdaderos Negativos. (TN) & Falsos Positivos (FP) & \(N\) \\
+\textbf{Real = 1} & Falsos Negativos (FN) & Verdaderos Positivos (TP) & \(P\) \\
+Total & \(N^{*}\) & \(P^{*}\) & \\
 \bottomrule()
 \end{longtable}
 
@@ -5318,10 +5323,10 @@ Sinónimos
 \end{minipage} \\
 \midrule()
 \endhead
-Tasa Falsos Positivos & \(FP/N\) & Error Tipo I, 1-Especificidad \\
-Tasa Verdaderos Positivos & \(TP/P\) & 1-Error Tipo II, Poder, Sensibilidad, Exhaustividad (Recall) \\
-Valor de Predicción Positivos & \(TP/P^{*}\) & Precisión, 1 - Proporción de Falsos Descubrimientos \\
-Valor de Predicción Negativos & \(TN/N^{*}\) & \\
+Sensibilidad & \(TP/P\) & 1 - Error tipo II, Poder, Exhaustividad, Exhaustividad. \\
+Especificidad & \(TN/N\) & 1- Error tipo I. \\
+Valor de Predicción Positivos & \(TP/P^{*}\) & Positive predicted values (PPV), Precisión. \\
+Valor de Predicción Negativos & \(TN/N^{*}\) & Negative predicted values (NPV) \\
 F-Score & \(\frac{2(TP/P^{*} \times TP/P )}{(TP/P^{*} + TP/P )}\) & \\
 \bottomrule()
 \end{longtable}
@@ -5331,25 +5336,31 @@ F-Score & \(\frac{2(TP/P^{*} \times TP/P )}{(TP/P^{*} + TP/P )}\) & \\
 \begin{itemize}
 \tightlist
 \item
-  Exactitud es un buen indicador cuando los datos son simétricos (igual número de FP y FN).
+  La sensibilidad y especificidad son buenos indicadores cuando los datos son simétricos (igual número de FP y FN).
 \item
-  F-Scores es un mejor indicador cuando los datos son asimétricos
-\item
-  La precisión nos permite describir la capacidad del modelo de predecir verdaderos positivos.
+  El F-Score ayuda cuando los datos son asimétricos. El valor mayor de este valor es 1 indicado una precisión y exhaustividad perfectas.
 \item
   La sensibilidad nos permite describir la capacidad de categorizar los verdaderos positivos de forma correcta.
+\item
+  En cambio, la especificidad lo hace para los verdaderos negativos.
+\item
+  La precisión o PPV nos permite describir la capacidad del modelo de predecir verdaderos positivos.
+\item
+  El NPV predice la capacidad del modelo de predecir los verdaderos negativos.
 \end{itemize}
 
-En un modelo se debe escoger entre sensibilidad y precisión de acuerdo a ciertas ideas:
+En un modelo se debe entender que significa cada uno de estos valores para entender los resultados.
 
 \begin{itemize}
 \tightlist
 \item
-  \textbf{Sensibilidad} es importante si la ocurrencia de \textbf{falsos negativos} es inaceptable. Por ejemplo en el caso de pruebas clínicas. Posiblemente obtener falsos positivos en este caso es aceptable.
+  \textbf{Sensibilidad} es importante si la ocurrencia de \textbf{falsos negativos} es inaceptable. Supongamos que alguien tiene VIH y el examen le da negativo. En este caso es inaceptable el resultado, por lo que la prueba debe tener un alto valor de sensibilidad.
 \item
-  \textbf{Precisión} es importante si se quiere estar más seguro de los \textbf{verdaderos positivos}. Por ejemplo detectar \textbf{spam} en correos electrónicos.
+  \textbf{Especificidad} es importante para si la ocurrencia de \textbf{falsos positivos} es inaceptable. Es decir, supongamos que una persona tiene un tumor benigno y un examen lo clasifica como maligno. La persona sana, se declara enferma y debe pasar por un proceso de quimioterapia. La alta especificidad baja la probabildiad que esto ocurra.
 \item
-  \textbf{Especificidad} es importante si lo que se quiere es cubrir todos los \textbf{verdaderos negativos}, es decir, que no se quieren falsas alarmas. Por ejemplo se hacen pruebas de detección de drogas y si es positivo va a la cárcel. Los \textbf{falsos positivos} son intolerables.
+  \textbf{PPV} es importante si se quiere estar más seguro de los \textbf{verdaderos positivos}. Por ejemplo detectar \textbf{spam} en correos electrónicos.
+\item
+  \textbf{NPV} es impotante si se desea predecir correctamente los \textbf{verdaderos negativos}. Por ejemplo, se está tratando una población con una droga experimental y se quiere saber cuál será la proporción de personas que se curaran de la enfermedad.
 \end{itemize}
 
 \begin{Shaded}
@@ -5618,6 +5629,8 @@ Para resolver esto, debemos tomar otra muestra de prueba (\textbf{training}) que
 \begin{verbatim}
 ## [1] 0.9117647
 \end{verbatim}
+
+Por defecto, la probabilidad para crear la matrix de confusión es 0.5. Si empezamos a variar esa probabilidad en el rango de 0 a 1, obtenemos la curva ROC.
 
 \begin{Shaded}
 \begin{Highlighting}[]

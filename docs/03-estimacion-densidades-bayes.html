@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 4 Estimación de densidades con Bayes | Notas Curso de Estadística II</title>
   <meta name="description" content="Capítulo 4 Estimación de densidades con Bayes | Notas Curso de Estadística II" />
-  <meta name="generator" content="bookdown 0.25.5 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 4 Estimación de densidades con Bayes | Notas Curso de Estadística II" />
   <meta property="og:type" content="book" />
@@ -51,11 +51,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/rglWebGL-binding-0.108.3/rglWebGL.js"></script>
-<link href="libs/rglwidgetClass-0.108.3/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-0.108.3/rglClass.min.js"></script>
-<script src="libs/CanvasMatrix4-0.108.3/CanvasMatrix.min.js"></script>
 
 
 <style type="text/css">
@@ -819,7 +814,7 @@ cuestiones de practicidad se tomará <span class="math inline">\(\theta_0 = 0.1\
 <div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="03-estimacion-densidades-bayes.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Carga de datos observados</span></span>
 <span id="cb117-2"><a href="03-estimacion-densidades-bayes.html#cb117-2" aria-hidden="true" tabindex="-1"></a>datos_observados <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">6</span>), <span class="fu">rep</span>(<span class="dv">1</span>, <span class="dv">14</span>))</span>
 <span id="cb117-3"><a href="03-estimacion-densidades-bayes.html#cb117-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb117-4"><a href="03-estimacion-densidades-bayes.html#cb117-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Función de verosimilitud Binomial</span></span>
+<span id="cb117-4"><a href="03-estimacion-densidades-bayes.html#cb117-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Funci&lt;U+00F3&gt;n de verosimilitud Binomial</span></span>
 <span id="cb117-5"><a href="03-estimacion-densidades-bayes.html#cb117-5" aria-hidden="true" tabindex="-1"></a>verosimilitud <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, data) {</span>
 <span id="cb117-6"><a href="03-estimacion-densidades-bayes.html#cb117-6" aria-hidden="true" tabindex="-1"></a>    z <span class="ot">&lt;-</span> <span class="fu">sum</span>(data)</span>
 <span id="cb117-7"><a href="03-estimacion-densidades-bayes.html#cb117-7" aria-hidden="true" tabindex="-1"></a>    N <span class="ot">&lt;-</span> <span class="fu">length</span>(data)</span>
@@ -1177,7 +1172,7 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 <span id="cb147-3"><a href="03-estimacion-densidades-bayes.html#cb147-3" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(bernoulli)</span></code></pre></div>
 <pre><code>## Rows: 50
 ## Columns: 1
-## $ y &lt;int&gt; 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0,…</code></pre>
+## $ y &lt;int&gt; 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0,~</code></pre>
 <div class="sourceCode" id="cb149"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb149-1"><a href="03-estimacion-densidades-bayes.html#cb149-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bernoulli<span class="sc">$</span>y)</span></code></pre></div>
 <pre><code>## [1] 0.3</code></pre>
 <div class="sourceCode" id="cb151"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb151-1"><a href="03-estimacion-densidades-bayes.html#cb151-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(bernoulli<span class="sc">$</span>y)</span></code></pre></div>
@@ -1212,7 +1207,7 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## Initializing model</code></pre>
 <p>Veamos el resultado</p>
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="03-estimacion-densidades-bayes.html#cb157-1" aria-hidden="true" tabindex="-1"></a>bern_jags</span></code></pre></div>
-<pre><code>## Inference for Bugs model at &quot;/var/folders/4d/qj4qr8zx1n36td0hlt0p7x_h0000gn/T//RtmpDrL8t8/modelfcaf6f231983.txt&quot;, fit using jags,
+<pre><code>## Inference for Bugs model at &quot;/var/folders/4d/qj4qr8zx1n36td0hlt0p7x_h0000gn/T//RtmpzzsaUt/model8a4c4d19f0a2.txt&quot;, fit using jags,
 ##  3 chains, each with 2000 iterations (first 1000 discarded)
 ##  n.sims = 3000 iterations saved
 ##          mu.vect sd.vect   2.5%    25%    50%    75%  97.5%  Rhat n.eff
@@ -1226,7 +1221,7 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## pD = 0.9 and DIC = 63.0
 ## DIC is an estimate of expected predictive error (lower deviance is better).</code></pre>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="03-estimacion-densidades-bayes.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">posterior</span>(bern_jags))</span></code></pre></div>
-<pre><code>## Error in verosimilitud(theta, data): argument &quot;data&quot; is missing, with no default</code></pre>
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;head&#39;: argument &quot;data&quot; is missing, with no default</code></pre>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="03-estimacion-densidades-bayes.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_dhistogram</span>(<span class="sc">~</span>theta, <span class="at">data =</span> <span class="fu">posterior</span>(bern_jags),</span>
 <span id="cb161-2"><a href="03-estimacion-densidades-bayes.html#cb161-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">50</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb161-3"><a href="03-estimacion-densidades-bayes.html#cb161-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_dens</span>(<span class="sc">~</span>theta, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">%&gt;%</span></span>
@@ -1332,7 +1327,7 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 <span id="cb170-5"><a href="03-estimacion-densidades-bayes.html#cb170-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(subject) <span class="sc">%&gt;%</span></span>
 <span id="cb170-6"><a href="03-estimacion-densidades-bayes.html#cb170-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">prop_0 =</span> <span class="fu">sum</span>(<span class="dv">1</span> <span class="sc">-</span> hit)<span class="sc">/</span><span class="fu">n</span>(), <span class="at">prop_1 =</span> <span class="fu">sum</span>(hit)<span class="sc">/</span><span class="fu">n</span>(),</span>
 <span id="cb170-7"><a href="03-estimacion-densidades-bayes.html#cb170-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">attemps =</span> <span class="fu">n</span>())</span></code></pre></div>
-<pre><code>## # A tibble: 2 × 4
+<pre><code>## # A tibble: 2 x 4
 ##   subject  prop_0 prop_1 attemps
 ##   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;   &lt;int&gt;
 ## 1 Reginald  0.25   0.75        8
@@ -1405,8 +1400,8 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 <pre><code>## 
 ## SAMPLING FOR MODEL &#39;4584de91ce47196187979d2da8a67926&#39; NOW (CHAIN 1).
 ## Chain 1: 
-## Chain 1: Gradient evaluation took 2.8e-05 seconds
-## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.28 seconds.
+## Chain 1: Gradient evaluation took 2.3e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.23 seconds.
 ## Chain 1: Adjust your expectations accordingly!
 ## Chain 1: 
 ## Chain 1: 
@@ -1423,15 +1418,15 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## Chain 1: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 1: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 1: 
-## Chain 1:  Elapsed Time: 0.023566 seconds (Warm-up)
-## Chain 1:                0.024175 seconds (Sampling)
-## Chain 1:                0.047741 seconds (Total)
+## Chain 1:  Elapsed Time: 0.028353 seconds (Warm-up)
+## Chain 1:                0.0353 seconds (Sampling)
+## Chain 1:                0.063653 seconds (Total)
 ## Chain 1: 
 ## 
 ## SAMPLING FOR MODEL &#39;4584de91ce47196187979d2da8a67926&#39; NOW (CHAIN 2).
 ## Chain 2: 
-## Chain 2: Gradient evaluation took 6e-06 seconds
-## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
+## Chain 2: Gradient evaluation took 8e-06 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.08 seconds.
 ## Chain 2: Adjust your expectations accordingly!
 ## Chain 2: 
 ## Chain 2: 
@@ -1448,15 +1443,15 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## Chain 2: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 2: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 2: 
-## Chain 2:  Elapsed Time: 0.022513 seconds (Warm-up)
-## Chain 2:                0.027953 seconds (Sampling)
-## Chain 2:                0.050466 seconds (Total)
+## Chain 2:  Elapsed Time: 0.035783 seconds (Warm-up)
+## Chain 2:                0.044111 seconds (Sampling)
+## Chain 2:                0.079894 seconds (Total)
 ## Chain 2: 
 ## 
 ## SAMPLING FOR MODEL &#39;4584de91ce47196187979d2da8a67926&#39; NOW (CHAIN 3).
 ## Chain 3: 
-## Chain 3: Gradient evaluation took 6e-06 seconds
-## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
+## Chain 3: Gradient evaluation took 1e-05 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.1 seconds.
 ## Chain 3: Adjust your expectations accordingly!
 ## Chain 3: 
 ## Chain 3: 
@@ -1473,15 +1468,15 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## Chain 3: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 3: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 3: 
-## Chain 3:  Elapsed Time: 0.022689 seconds (Warm-up)
-## Chain 3:                0.022797 seconds (Sampling)
-## Chain 3:                0.045486 seconds (Total)
+## Chain 3:  Elapsed Time: 0.040828 seconds (Warm-up)
+## Chain 3:                0.034064 seconds (Sampling)
+## Chain 3:                0.074892 seconds (Total)
 ## Chain 3: 
 ## 
 ## SAMPLING FOR MODEL &#39;4584de91ce47196187979d2da8a67926&#39; NOW (CHAIN 4).
 ## Chain 4: 
-## Chain 4: Gradient evaluation took 6e-06 seconds
-## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
+## Chain 4: Gradient evaluation took 8e-06 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.08 seconds.
 ## Chain 4: Adjust your expectations accordingly!
 ## Chain 4: 
 ## Chain 4: 
@@ -1498,9 +1493,9 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## Chain 4: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 4: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 4: 
-## Chain 4:  Elapsed Time: 0.024488 seconds (Warm-up)
-## Chain 4:                0.023977 seconds (Sampling)
-## Chain 4:                0.048465 seconds (Total)
+## Chain 4:  Elapsed Time: 0.028987 seconds (Warm-up)
+## Chain 4:                0.027037 seconds (Sampling)
+## Chain 4:                0.056024 seconds (Total)
 ## Chain 4:</code></pre>
 <div class="sourceCode" id="cb182"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb182-1"><a href="03-estimacion-densidades-bayes.html#cb182-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fit, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span></code></pre></div>
 <pre><code>## Inference for Stan model: 4584de91ce47196187979d2da8a67926.
@@ -1511,7 +1506,7 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## theta   0.31    0.00 0.06   0.23   0.39  3848    1
 ## lp__  -32.61    0.01 0.74 -33.51 -32.11  4641    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Mon Apr 25 08:27:27 2022.
+## Samples were drawn using NUTS(diag_e) at Thu May 19 08:22:22 2022.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>

@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística II"
 author: "Maikol Solís Chacón y Luis Barboza Chinchilla"
-date: "Actualizado el 09 mayo, 2022"
+date: "Actualizado el 19 mayo, 2022"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -3130,9 +3130,9 @@ R^{2}_{adj} = 1-\frac{\frac{\mathrm{RSS}}{n-p-1}}{\frac{\mathrm{TSS}}{n-1}}
 
 
 ```r
-# Número de datos
+# N<U+00FA>mero de datos
 n <- 1000
-# Número de variables
+# N<U+00FA>mero de variables
 p <- 2
 
 x1 <- rnorm(1000)
@@ -3392,16 +3392,16 @@ p
 
 
 ```r
-# Agregamos a mtcars el intervalo de predicción
-# para cada dato
+# Agregamos a mtcars el intervalo de
+# predicci<U+00F3>n para cada dato
 mtcars.pred <- data.frame(mtcars, predict(lm.r, interval = "prediction"))
 
 p <- ggplot(mtcars.pred, aes(x = wt, y = mpg))
-# Use circulos de tamaño 2
+# Use circulos de tama<U+00F1>o 2
 p <- p + geom_point(size = 2)
-# Agregue una banda de tamaño [lwr, upr] para
-# cada punto y llamela 'predicción'
-p <- p + geom_ribbon(aes(ymin = lwr, ymax = upr, fill = "predicción"),
+# Agregue una banda de tama<U+00F1>o [lwr, upr]
+# para cada punto y llamela 'predicci<U+00F3>n'
+p <- p + geom_ribbon(aes(ymin = lwr, ymax = upr, fill = "predicci<U+00F3>n"),
     alpha = 0.3)
 # Agregue el intervalo de confianza usual y llame
 # a ese intervalo 'confianza'
@@ -3414,7 +3414,7 @@ p <- p + theme_bw()
 p <- p + theme(axis.text = element_text(size = 20),
     axis.title = element_text(size = 20))
 
-# Dibujar el gráfico
+# Dibujar el gr<U+00E1>fico
 p
 ```
 
@@ -3423,7 +3423,7 @@ p
 \begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-128-1} \end{center}
 
 ```r
-# # Guardar el gráfico en un archivo pdf
+# # Guardar el gr<U+00E1>fico en un archivo pdf
 # ggsave(filename = 'linear_reg_con_IC_IP.pdf') #
 ```
 
@@ -3514,7 +3514,7 @@ ggplot(data = toyex.pred, aes(x = X, y = Y)) + geom_point(size = 1) +
     geom_smooth(data = toyex.initial, method = lm,
         mapping = aes(fill = "confianza"), size = 1,
         col = "red") + geom_ribbon(data = toyex.pred.initial,
-    mapping = aes(x = X, ymin = lwr, ymax = upr, fill = "predicción",
+    mapping = aes(x = X, ymin = lwr, ymax = upr, fill = "predicci<U+00F3>n",
         ), alpha = 0.3) + labs(title = paste0("Muestra #: {closest_state}")) +
     scale_fill_manual("Intervalos", values = c("green",
         "yellow")) + theme_bw() + theme(axis.text = element_text(size = 20),
@@ -3574,9 +3574,9 @@ Generamos una base de datos nueva con solamente `wt` centrado
 
 
 ```r
-# La función across y where solo funciona solo
-# para dplyr 1.0 Si tienen otra versión, pueden
-# usar mutate_if
+# La funci<U+00F3>n across y where solo funciona
+# solo para dplyr 1.0 Si tienen otra
+# versi<U+00F3>n, pueden usar mutate_if
 
 mtcars_centered <- mtcars %>%
     mutate(across("wt", scale, scale = FALSE, center = TRUE))
@@ -5100,13 +5100,11 @@ Obviamente nuestro modelo puede equivocarse y darnos una respuesta errónea. Por
 Entonces tenemos realmente 4 opciones 
 
 
-|           |       |                 |                 |     |
-|:---------:|:-----:|:---------------:|:---------------:|:---:|
-|           |       | **Clase**       | **Predicción**  |     |
-|           |       | 0               | 1               |     |
-| **Clase** | 0     | Verdaderos Negativos. (TN)  | Falsos Positivos (FP) | $N$ |
-| **Real**  | 1     | Falsos Negativos (FN) | Verdaderos Positivos (TP)  | $P$ |
-|           | Total | \(N^{*}\)       | \(P^{*}\)       |     |
+|              | **Modelo \= 0**             | **Modelo \= 1**            |     |
+|:------------:|:--------------------------:|:-------------------------:|:---:|
+| **Real \= 0** | Verdaderos Negativos. (TN) | Falsos Positivos (FP)     | $N$ |
+| **Real \= 1** | Falsos Negativos (FN)      | Verdaderos Positivos (TP) | $P$ |
+| Total        | \(N^{*}\)                  | \(P^{*}\)                 |     |
 
 
 
@@ -5154,26 +5152,31 @@ Entonces esto nos da las siguientes posibilidades.
 
 | Tipo                          | Cálculo                                               | Sinónimos                                                      |
 |:------------------------------|:------------------------------------------------------|:---------------------------------------------------------------|
-| Tasa Falsos Positivos         | $FP/N$                                                | Error Tipo I, 1-Especificidad                                  |
-| Tasa Verdaderos Positivos     | \(TP/P\)                                              | 1-Error Tipo II, Poder, Sensibilidad,   Exhaustividad (Recall) |
-| Valor de Predicción Positivos | $TP/P^{*}$                                            | Precisión, 1 - Proporción de Falsos Descubrimientos            |
-| Valor de Predicción Negativos | $TN/N^{*}$                                            |                                                                |
+| Sensibilidad                  | $TP/P$                                                | 1 - Error tipo II, Poder, Exhaustividad, Exhaustividad.                                                               |
+| Especificidad                 | $TN/N$                                                |  1- Error tipo I.                                                               |
+| Valor de Predicción Positivos | $TP/P^{*}$                                            | Positive predicted values (PPV), Precisión.                                |
+| Valor de Predicción Negativos | $TN/N^{*}$                                            | Negative predicted values (NPV)                                |
 | F-Score                       | $\frac{2(TP/P^{*} \times TP/P )}{(TP/P^{*} + TP/P )}$ |                                                                |
 
 
 
 **Nota:**
 
-- Exactitud es un buen indicador cuando los datos son simétricos (igual número de FP y FN). 
-- F-Scores es un mejor indicador cuando los datos son asimétricos
-- La precisión nos permite describir la capacidad del modelo de predecir verdaderos positivos. 
-- La sensibilidad nos permite describir la capacidad de categorizar los verdaderos positivos de forma correcta. 
+- La sensibilidad y especificidad son buenos indicadores cuando los datos son simétricos (igual número de FP y FN). 
+- El F-Score ayuda cuando los datos son asimétricos. El valor mayor de este valor es 1 indicado una precisión y exhaustividad perfectas. 
+- La sensibilidad nos permite describir la capacidad de categorizar los verdaderos positivos de forma correcta.
+- En cambio, la especificidad lo hace para los verdaderos negativos. 
+- La precisión o PPV nos permite describir la capacidad del modelo de predecir verdaderos positivos. 
+- El NPV predice la capacidad del modelo de predecir los verdaderos negativos. 
 
-En un modelo se debe escoger entre sensibilidad y precisión de acuerdo a ciertas ideas:
 
-- **Sensibilidad** es importante si la ocurrencia de **falsos negativos** es inaceptable. Por ejemplo en el caso de pruebas clínicas. Posiblemente obtener falsos positivos en este caso es aceptable. 
-- **Precisión** es importante si se quiere estar más seguro de los **verdaderos positivos**. Por ejemplo detectar __spam__ en correos electrónicos. 
-- **Especificidad** es importante si lo que se quiere es cubrir todos los **verdaderos negativos**, es decir, que no se quieren falsas alarmas. Por ejemplo se hacen pruebas de detección de drogas y si es positivo va a la cárcel. Los **falsos positivos** son intolerables. 
+En un modelo se debe entender que significa cada uno de estos valores para entender los resultados. 
+
+- **Sensibilidad** es importante si la ocurrencia de **falsos negativos** es inaceptable. Supongamos que alguien tiene VIH y el examen le da negativo. En este caso es inaceptable el resultado, por lo que la prueba debe tener un alto valor de sensibilidad. 
+- **Especificidad** es importante para si la ocurrencia de **falsos positivos** es inaceptable. Es decir, supongamos que una persona tiene un tumor benigno y un examen lo clasifica como maligno. La persona sana, se declara enferma y debe pasar por un proceso de quimioterapia. La alta especificidad baja la probabildiad que esto ocurra.
+- **PPV** es importante si se quiere estar más seguro de los **verdaderos positivos**. Por ejemplo detectar __spam__ en correos electrónicos. 
+- **NPV** es impotante si se desea predecir correctamente los **verdaderos negativos**. Por ejemplo, se está tratando una población con una droga experimental y se quiere saber cuál será la proporción de personas que se curaran de la enfermedad.  
+
 
 
 ```r
@@ -5405,6 +5408,8 @@ matriz_confusion
 ## [1] 0.9117647
 ```
 
+
+Por defecto, la probabilidad para crear la matrix de confusión es 0.5. Si empezamos a variar esa probabilidad en el rango de 0 a 1, obtenemos la curva ROC. 
 
 
 
