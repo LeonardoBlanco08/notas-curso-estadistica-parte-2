@@ -73,7 +73,7 @@ ggPredict(fit_glm) +
 Defina la oportunidad relativa:
 
 \begin{equation*}
-O(X) = \frac{g(X)}{1-g(X)} = e^{\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p}} \in [0,1].
+O(X) = \frac{g(X)}{1-g(X)} = e^{\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p}}.
 \end{equation*}
 
 como la razón de la probabilidad de obtener un 1 con respecto a la de obtener un 0. 
