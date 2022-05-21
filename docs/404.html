@@ -51,6 +51,11 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/rglWebGL-binding-0.108.3/rglWebGL.js"></script>
+<link href="libs/rglwidgetClass-0.108.3/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-0.108.3/rglClass.min.js"></script>
+<script src="libs/CanvasMatrix4-0.108.3/CanvasMatrix.min.js"></script>
 
 
 <style type="text/css">
@@ -291,7 +296,64 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="6.5" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#ejercicios-4"><i class="fa fa-check"></i><b>6.5</b> Ejercicios</a></li>
 </ul></li>
-<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
+<li class="chapter" data-level="7" data-path="08-clasificacion.html"><a href="08-clasificacion.html"><i class="fa fa-check"></i><b>7</b> Otros Clasificadores</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-bayesiano"><i class="fa fa-check"></i><b>7.1</b> Clasificador Bayesiano</a></li>
+<li class="chapter" data-level="7.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#método-de-k-vecinos-más-cercanos-knn"><i class="fa fa-check"></i><b>7.2</b> Método de k vecinos más cercanos (KNN)</a></li>
+<li class="chapter" data-level="7.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante"><i class="fa fa-check"></i><b>7.3</b> Análisis Discriminante</a>
+<ul>
+<li class="chapter" data-level="7.3.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal"><i class="fa fa-check"></i><b>7.3.1</b> Análisis discriminante lineal</a></li>
+<li class="chapter" data-level="7.3.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático"><i class="fa fa-check"></i><b>7.3.2</b> Análisis discriminante cuadrático</a></li>
+</ul></li>
+<li class="chapter" data-level="7.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>7.4</b> Laboratorio</a>
+<ul>
+<li class="chapter" data-level="7.4.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>7.4.1</b> Clasificador logístico</a></li>
+<li class="chapter" data-level="7.4.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal-1"><i class="fa fa-check"></i><b>7.4.2</b> Análisis Discriminante Lineal</a></li>
+<li class="chapter" data-level="7.4.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático-1"><i class="fa fa-check"></i><b>7.4.3</b> Análisis Discriminante Cuadrático</a></li>
+<li class="chapter" data-level="7.4.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>7.4.4</b> K vecinos más cercanos</a></li>
+</ul></li>
+<li class="chapter" data-level="7.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-5"><i class="fa fa-check"></i><b>7.5</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html"><i class="fa fa-check"></i><b>8</b> Cálculo Bayesiano Computacional</a>
+<ul>
+<li class="chapter" data-level="8.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#repaso-de-estadística-bayesiana"><i class="fa fa-check"></i><b>8.1</b> Repaso de Estadística Bayesiana</a>
+<ul>
+<li class="chapter" data-level="8.1.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#modelo-de-un-parámetro"><i class="fa fa-check"></i><b>8.1.1</b> Modelo de un parámetro</a></li>
+<li class="chapter" data-level="8.1.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#modelo-de-más-de-un-parámetro"><i class="fa fa-check"></i><b>8.1.2</b> Modelo de más de un parámetro</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#motivación-cálculo-de-integrales"><i class="fa fa-check"></i><b>8.2</b> Motivación: Cálculo de Integrales</a></li>
+<li class="chapter" data-level="8.3" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejemplo-base-modelo-beta-binomial."><i class="fa fa-check"></i><b>8.3</b> Ejemplo base: modelo beta-binomial.</a></li>
+<li class="chapter" data-level="8.4" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#aproximación-de-laplace"><i class="fa fa-check"></i><b>8.4</b> Aproximación de Laplace</a></li>
+<li class="chapter" data-level="8.5" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#simulación"><i class="fa fa-check"></i><b>8.5</b> Simulación</a>
+<ul>
+<li class="chapter" data-level="8.5.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#simulación-monte-carlo"><i class="fa fa-check"></i><b>8.5.1</b> Simulación Monte Carlo</a></li>
+<li class="chapter" data-level="8.5.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#muestreo-por-rechazo"><i class="fa fa-check"></i><b>8.5.2</b> Muestreo por rechazo</a></li>
+</ul></li>
+<li class="chapter" data-level="8.6" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#muestreo-por-importancia"><i class="fa fa-check"></i><b>8.6</b> Muestreo por importancia</a></li>
+<li class="chapter" data-level="8.7" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#remuestreo-por-importancia"><i class="fa fa-check"></i><b>8.7</b> Remuestreo por importancia</a></li>
+<li class="chapter" data-level="8.8" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#algoritmo-de-metropolis-hastings"><i class="fa fa-check"></i><b>8.8</b> Algoritmo de Metropolis-Hastings</a></li>
+<li class="chapter" data-level="8.9" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#algoritmo-de-gibbs"><i class="fa fa-check"></i><b>8.9</b> Algoritmo de Gibbs</a>
+<ul>
+<li class="chapter" data-level="8.9.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#diagnósticos-de-convergencia-de-mcmc"><i class="fa fa-check"></i><b>8.9.1</b> Diagnósticos de convergencia de MCMC</a></li>
+</ul></li>
+<li class="chapter" data-level="8.10" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejemplos"><i class="fa fa-check"></i><b>8.10</b> Ejemplos</a>
+<ul>
+<li class="chapter" data-level="8.10.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#datos-agrupados-bajo-una-población-normal"><i class="fa fa-check"></i><b>8.10.1</b> Datos agrupados bajo una población normal</a></li>
+</ul></li>
+<li class="chapter" data-level="8.11" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejercicios-6"><i class="fa fa-check"></i><b>8.11</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html"><i class="fa fa-check"></i><b>9</b> Análisis en componentes principales</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#aprendizaje-no-supervisado"><i class="fa fa-check"></i><b>9.1</b> Aprendizaje no-supervisado</a></li>
+<li class="chapter" data-level="9.2" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#representación-gráfica"><i class="fa fa-check"></i><b>9.2</b> Representación gráfica</a></li>
+<li class="chapter" data-level="9.3" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#primer-componente-principal"><i class="fa fa-check"></i><b>9.3</b> Primer componente principal</a></li>
+<li class="chapter" data-level="9.4" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#segunda-componente-principal"><i class="fa fa-check"></i><b>9.4</b> Segunda componente principal</a></li>
+<li class="chapter" data-level="9.5" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#circulo-de-correlaciones"><i class="fa fa-check"></i><b>9.5</b> Circulo de correlaciones</a></li>
+<li class="chapter" data-level="9.6" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#volvamos-a-nuestro-ejemplo"><i class="fa fa-check"></i><b>9.6</b> Volvamos a nuestro ejemplo</a></li>
+<li class="chapter" data-level="9.7" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#cuántos-componentes-usar"><i class="fa fa-check"></i><b>9.7</b> ¿Cuántos componentes usar?</a></li>
+<li class="chapter" data-level="9.8" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#laboratorio-8"><i class="fa fa-check"></i><b>9.8</b> Laboratorio</a></li>
+<li class="chapter" data-level="9.9" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#ejercicios-7"><i class="fa fa-check"></i><b>9.9</b> Ejercicios</a></li>
+</ul></li>
 </ul>
 
       </nav>

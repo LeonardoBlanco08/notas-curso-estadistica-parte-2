@@ -7332,7 +7332,2264 @@ En este caso, se están encontrando los valores de \(\beta\) tal que
   \end{itemize}
 \end{itemize}
 
-\backmatter
+\hypertarget{otros-clasificadores}{%
+\chapter{Otros Clasificadores}\label{otros-clasificadores}}
+
+\hypertarget{clasificador-bayesiano}{%
+\section{Clasificador Bayesiano}\label{clasificador-bayesiano}}
+
+Bajo el modelo de aprendizaje estadístico, suponga que se quiere estimar \(f\) usando el conjunto de entrenamiento \(\{(x_1,y_1),\ldots,(x_n,y_n)\}\) donde \(y_1,\ldots,y_n\) es categórica. Para evaluar la precisión del clasificador \(\hat f\) podemos usar la tasa de error:
+
+\[\frac 1 n \sum_{i=1}^nI(y_i\neq \hat y_i)\]
+
+donde \(\hat y_i\) es el nivel predecido de la variable categórica para el individuo \(i\)-ésimo. La tasa de error mide la proporción de observaciones mal clasificadas por \(\hat f\) dentro del conjunto de entrenamiento. El mismo concepto se puede aplicar en el conjunto de prueba, es decir si \(Z_0\) es el conjunto de índices de datos de prueba con tamaño \(m\):
+
+\begin{align}
+\frac 1 m \sum_{i \in Z_0}I(y_i\neq \hat y_i)
+\label{eq:cerror}
+\end{align}
+
+Decimos que un clasificador es bueno cuando el error de prueba en \eqref{eq:cerror} es el más pequeño.
+
+Es posible demostrar que el error de prueba se minimiza cuando \(\hat f\) asigna a cada observación el nivel con la probabilidad más alta dados los predictores, es decir se asigna la clase \(j\) a la observación \(x_0\) en donde
+\[P(Y=j|X=x_0)\]
+
+es máximo. A este clasificador se le llama \emph{clasificador bayesiano}. En el caso en que el número de niveles o categorías de la variable dependiente es 2 (\(j=1,2\)), entonces se selecciona el nivel \(j\)-ésimo si:
+\[P(Y=j|X=x_0)>0.5\]
+
+Al conjunto \(\{x_0: P(Y=j|X=x_0)=0.5\}\) se le llama frontera de decisión de Bayes.
+
+La \emph{tasa bayesiana de error} del clasificador para un conjunto de datos fijos es:
+\(1-\max_j P(Y=j|X=x_0)\). En general la tasa de error bayesiana sería:
+\[1-E\left[\max_j P(Y=j|X)\right]\]
+
+Para el caso de clasificación la tasa de error bayesiana es equivalente al error irreducible.
+
+Inconveniente: en datos reales no conocemos \(P(Y=j|X=x_0)\).
+
+\hypertarget{muxe9todo-de-k-vecinos-muxe1s-cercanos-knn}{%
+\section{Método de k vecinos más cercanos (KNN)}\label{muxe9todo-de-k-vecinos-muxe1s-cercanos-knn}}
+
+Este método aproxima la probabilidad condicional del clasificador bayesiano. Dado un entero \(K\) y una observación de prueba \(x_0\), el clasificador primero identifica el conjunto de observaciones que son más cercanas a \(x_0\): \(\mathcal N_0\). Entonces:
+\[P(Y=j|X=x_0) := \frac{1}{K}\sum_{i \in \mathcal N_0}I(y_i=j)\]
+y siguiendo la regla de bayes se selecciona la categoría con probabilidad condicional máxima.
+
+\begin{figure}
+\centering
+\includegraphics{manual_figures/KNN.png}
+\caption{Clasificación según K vecinos más cercanos (Wikimedia Commons)}
+\end{figure}
+
+\hypertarget{anuxe1lisis-discriminante}{%
+\section{Análisis Discriminante}\label{anuxe1lisis-discriminante}}
+
+Recuerden que en el caso del modelo logístico, se tiene que:
+\[P(Y=1|X=x)=\frac{e^{\beta_0+\beta_1X_1+\cdots+\beta_pX_p}}{1+e^{\beta_0+\beta_1X_1+\cdots+\beta_pX_p}}\]
+donde \(X_1,\ldots,X_p\) son los predictores. Para el modelo logístico tenemos los siguientes inconvenientes:
+
+\begin{itemize}
+\item
+  Cuando las clases están muy separadas, los parámetros del modelo logístico tienden a ser muy inestables.
+\item
+  Cuando la distribución de los predictores es aproximadamente normal en cada una de las clases, entonces el modelo discriminante lineal es más estable que el logístico.
+\item
+  El modelo logístico aplica solamente en el caso de 2 clases.
+\end{itemize}
+
+Suponga que se quiere clasificar una observación en \(K\geq 2\) clases. Sea \(\pi_k\) la probabilidad previa de que la observación provenga de la clase \(k\)-ésima. Sea
+\[f_k(x)=P(X=x|Y=k)\]
+por el teorema de Bayes:
+\[P_k(x):=P(Y=k|X=x)=\frac{\pi_kf_k(x)}{\sum_{l=1}^K \pi_lf_l(x)}\]
+
+Estimación de los componentes:
+
+\begin{itemize}
+\tightlist
+\item
+  \(\pi_k\): proporción de observaciones en el conjunto de entrenamiento que pertenecen a la clase \(k\)-ésima.
+\item
+  \(f_k(x)\): supuesto paramétrico que define el tipo de análisis discriminante.
+\end{itemize}
+
+\hypertarget{anuxe1lisis-discriminante-lineal}{%
+\subsection{Análisis discriminante lineal}\label{anuxe1lisis-discriminante-lineal}}
+
+\hypertarget{caso-p1}{%
+\subsubsection{Caso p=1}\label{caso-p1}}
+
+Asuma que
+\[f_k(x)=\frac{1}{\sqrt{2\pi}\sigma_k}\exp\left(-\frac{1}{2\sigma_k^2}(x-\mu_k)^2\right)\]
+donde \(\mu_k\) y \(\sigma_k\) son la media y desviación estándar para cada clase en la variable dependiente. Asumiendo que \(\sigma^2=\sigma_1^2=\cdots=\sigma_K^2\) se puede comprobar que el clasificador bayesiano asigna la clase \(k\) si
+
+\begin{align}
+\delta_k(x)=x\frac{\mu_k}{\sigma^2}-\frac{\mu_k^2}{2\sigma^2}+\log(\pi_k)
+\label{eq:LDA}
+\end{align}
+
+es el máximo entre los valores correspondientes a cada clase. A esta función se le llama \emph{función discriminante}.
+
+El método de análisis discriminante lineal (LDA) asume que:
+\begin{align*}
+\hat \mu_k&=\frac{1}{n_k}\sum_{i:y_i=k}x_i\\
+\hat \sigma^2&=\frac{1}{n-K}\sum_{k=1}^K\sum_{i:y_i=k}(x_i-\hat \mu_k)^2\\
+\hat \pi_k &=\frac{n_k}{n}
+\end{align*}
+
+como estimadores plug-in en \eqref{eq:LDA}.
+
+\hypertarget{caso-p1-1}{%
+\subsubsection{Caso p\textgreater1}\label{caso-p1-1}}
+
+Generalizando la sección anterior, podemos asumir que \(X=(X_1,\ldots,X_p)\) proviene de una distribución Gaussiana multivariada. Es decir, asuma que las observaciones en la clase \(k\) tienen distribución \(N(\mu_k,\Sigma)\) donde \(\mu_k\): vector de medias para la clase \(k\) y \(\Sigma\) es la matriz de varianza-covarianza para todas las \(K\) clases.
+
+La función discriminante en este caso sería:
+\[\delta_k(x)=x^T\Sigma^{-1} \mu_k-\frac 1 2\mu_k^T \Sigma^{-1}\mu_k+\log \pi_k\]
+El método LDA sustituye los parámetros en la fórmula anterior con estimadores empíricos, tal y como se hizo para \(p=1\). La escogencia de la clase estimada sigue el mismo criterio.
+
+\begin{figure}
+\centering
+\includegraphics{manual_figures/LDA.png}
+\caption{Simulación de Análisis Discriminante Lineal \autocite{James2013b}}
+\end{figure}
+
+\hypertarget{anuxe1lisis-discriminante-cuadruxe1tico}{%
+\subsection{Análisis discriminante cuadrático}\label{anuxe1lisis-discriminante-cuadruxe1tico}}
+
+Bajo los supuestos del LDA, asuma que \(\Sigma_k\) es la matriz de covarianza para la clase \(k\). En este caso las funciones discriminantes tendrían la forma:
+\[\delta_k(x)=-\frac 1 2 (x-\mu_k)^T\Sigma_k^{-1}(x-\mu_k)-\frac 1 2 \log |\Sigma_k|+\log \pi_k\]
+Al uso de las funciones anteriores como herramientas de clasificación se le llama Análisis Discriminante Cuadrático (QDA).
+
+Relación LDA vs QDA:
+
+\begin{itemize}
+\tightlist
+\item
+  LDA es menos flexible que QDA, por la diferencia en el número de parámetros. Por lo tanto LDA tiene menos varianza que QDA.
+\item
+  Si el supuesto de varianzas constantes en LDA no es adecuado, entonces el sesgo es alto.
+\item
+  QDA es más adecuado que LDA cuando el número de observaciones es relativamente alto, debido a que el supuesto de varianzas constantes es más difícil de alcanzar.
+\end{itemize}
+
+Comparación de métodos:
+
+\begin{itemize}
+\tightlist
+\item
+  LDA y regresión logística producen fronteras de decisión lineales.
+\item
+  LDA asume más sobre el comportamiento de los datos, con respecto a la regresión logística.
+\item
+  KNN es no paramétrico, por lo tanto produce fronteras de decisión más flexibles que LDA o QDA. El grado de suavidad del clasificador (en términos de sus fronteras) depende del parámetro \(K\).
+\item
+  QDA ofrece fronteras de decisión más flexibles que LDA o logística.
+\item
+  KNN no tiene la misma capacidad de interpretabilidad que la regresión logística.
+\item
+  Como KNN depende de la distancia entre observaciones, entonces la escala de las covariables importa.
+\end{itemize}
+
+\hypertarget{laboratorio-7}{%
+\section{Laboratorio}\label{laboratorio-7}}
+
+Datos sociodemográficos y de productos de aseguramiento de 5822 clientes. La variable dependiente es si cada cliente adquirió un seguro de remolques (\url{https://liacs.leidenuniv.nl/~puttenpwhvander/library/cc2000/data.html}).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(ISLR)}
+\FunctionTok{data}\NormalTok{(Caravan)}
+\FunctionTok{dim}\NormalTok{(Caravan)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 5822   86
+\end{verbatim}
+
+Vamos a usar las herramientas en el paquete \emph{tidymodels} para efectuar una comparación entre los métodos de clasificación que hemos visto en clase. El objetivo es clasificar a los clientes entre compradores/no compradores del seguro (variable dependiente: Purchase, covariables: el resto)
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidymodels)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in library(tidymodels): there is no package called 'tidymodels'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(tidyverse)}
+\end{Highlighting}
+\end{Shaded}
+
+El primer paso es construir una separación de conjunto de entrenamiento y de conjunto de prueba:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1234}\NormalTok{)}
+\NormalTok{Caravan.split }\OtherTok{\textless{}{-}} \FunctionTok{initial\_split}\NormalTok{(Caravan, }\AttributeTok{prop =} \FloatTok{0.8}\NormalTok{,}
+    \AttributeTok{strata =}\NormalTok{ Purchase)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in initial_split(Caravan, prop = 0.8, strata = Purchase): could not find function "initial_split"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Caravan.training }\OtherTok{\textless{}{-}}\NormalTok{ Caravan.split }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{training}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in training(.): could not find function "training"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Caravan.testing }\OtherTok{\textless{}{-}}\NormalTok{ Caravan.split }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{testing}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in testing(.): could not find function "testing"
+\end{verbatim}
+
+Como vamos a usar el método KNN, lo conveniente es estandarizar todas las covariables:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Caravan.recipe }\OtherTok{\textless{}{-}} \FunctionTok{recipe}\NormalTok{(Purchase }\SpecialCharTok{\textasciitilde{}}\NormalTok{ ., }\AttributeTok{data =}\NormalTok{ Caravan.training) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{step\_normalize}\NormalTok{(}\FunctionTok{all\_predictors}\NormalTok{(), }\SpecialCharTok{{-}}\FunctionTok{all\_outcomes}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in step_normalize(., all_predictors(), -all_outcomes()): could not find function "step_normalize"
+\end{verbatim}
+
+y aplicamos la receta sobre el conjunto de prueba para verificar que la receta funciona bien:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Caravan.recipe }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{prep}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{bake}\NormalTok{(}\AttributeTok{new\_data =}\NormalTok{ Caravan.testing)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in bake(., new_data = Caravan.testing): could not find function "bake"
+\end{verbatim}
+
+\hypertarget{clasificador-loguxedstico}{%
+\subsection{Clasificador logístico}\label{clasificador-loguxedstico}}
+
+Vamos a ajustar un modelo logístico a los datos. Primero especificamos el modelo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_logistico }\OtherTok{\textless{}{-}} \FunctionTok{logistic\_reg}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{set\_engine}\NormalTok{(}\StringTok{"glm"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{set\_mode}\NormalTok{(}\StringTok{"classification"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in set_mode(., "classification"): could not find function "set_mode"
+\end{verbatim}
+
+y después definimos un objeto tipo \emph{workflow} para unir el tratamiento de datos (recipe) con el modelo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{logistico\_wf }\OtherTok{\textless{}{-}} \FunctionTok{workflow}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{add\_model}\NormalTok{(modelo\_logistico) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{add\_recipe}\NormalTok{(Caravan.recipe)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in add_recipe(., Caravan.recipe): could not find function "add_recipe"
+\end{verbatim}
+
+y ajustamos el modelo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{logistico\_ajuste }\OtherTok{\textless{}{-}}\NormalTok{ logistico\_wf }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{fit}\NormalTok{(}\AttributeTok{data =}\NormalTok{ Caravan.training)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in fit(., data = Caravan.training): could not find function "fit"
+\end{verbatim}
+
+Obtenemos predicciones en el conjunto de prueba:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predicciones\_probs }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(logistico\_ajuste, }\AttributeTok{new\_data =}\NormalTok{ Caravan.testing,}
+    \AttributeTok{type =} \StringTok{"prob"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in predict(logistico_ajuste, new_data = Caravan.testing, type = "prob"): object 'logistico_ajuste' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{predicciones\_categ }\OtherTok{\textless{}{-}} \FunctionTok{predict}\NormalTok{(logistico\_ajuste, }\AttributeTok{new\_data =}\NormalTok{ Caravan.testing)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in predict(logistico_ajuste, new_data = Caravan.testing): object 'logistico_ajuste' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(predicciones\_probs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': object 'predicciones_probs' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(predicciones\_categ)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': object 'predicciones_categ' not found
+\end{verbatim}
+
+Unimos todos los resultados en un solo arreglo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{resultados\_logistico }\OtherTok{\textless{}{-}}\NormalTok{ Caravan.testing }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select}\NormalTok{(Purchase) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{bind\_cols}\NormalTok{(predicciones\_categ) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{bind\_cols}\NormalTok{(predicciones\_probs)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in select(., Purchase): object 'Caravan.testing' not found
+\end{verbatim}
+
+y podemos calcular la matriz de confusión:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{conf\_mat}\NormalTok{(resultados\_logistico, }\AttributeTok{truth =}\NormalTok{ Purchase, }\AttributeTok{estimate =}\NormalTok{ .pred\_class)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in conf_mat(resultados_logistico, truth = Purchase, estimate = .pred_class): could not find function "conf_mat"
+\end{verbatim}
+
+curva ROC:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{roc\_curve}\NormalTok{(resultados\_logistico, }\AttributeTok{truth =}\NormalTok{ Purchase, }\AttributeTok{estimate =}\NormalTok{ .pred\_No) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{autoplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in roc_curve(resultados_logistico, truth = Purchase, estimate = .pred_No): could not find function "roc_curve"
+\end{verbatim}
+
+y finalmente el área bajo la curva ROC:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{roc\_auc}\NormalTok{(resultados\_logistico, }\AttributeTok{truth =}\NormalTok{ Purchase, }\AttributeTok{estimate =}\NormalTok{ .pred\_No)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in roc_auc(resultados_logistico, truth = Purchase, estimate = .pred_No): could not find function "roc_auc"
+\end{verbatim}
+
+Existe otra alternativa de ajuste con el comando \emph{last\_fit} que automatiza el proceso:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{last\_fit\_logistica }\OtherTok{\textless{}{-}}\NormalTok{ logistico\_wf }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{last\_fit}\NormalTok{(}\AttributeTok{split =}\NormalTok{ Caravan.split)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in last_fit(., split = Caravan.split): could not find function "last_fit"
+\end{verbatim}
+
+Obtenemos métricas:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{last\_fit\_logistica }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{collect\_metrics}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in collect_metrics(.): could not find function "collect_metrics"
+\end{verbatim}
+
+y predicciones:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(last\_fit\_logistica }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{collect\_predictions}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': could not find function "collect_predictions"
+\end{verbatim}
+
+\hypertarget{anuxe1lisis-discriminante-lineal-1}{%
+\subsection{Análisis Discriminante Lineal}\label{anuxe1lisis-discriminante-lineal-1}}
+
+Usando el mismo procedimiento de datos anterior, definimos el modelo LDA:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(discrim)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in library(discrim): there is no package called 'discrim'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_lda }\OtherTok{\textless{}{-}} \FunctionTok{discrim\_linear}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{set\_engine}\NormalTok{(}\StringTok{"MASS"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{set\_mode}\NormalTok{(}\StringTok{"classification"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in set_mode(., "classification"): could not find function "set_mode"
+\end{verbatim}
+
+flujo de trabajo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lda\_wf }\OtherTok{\textless{}{-}} \FunctionTok{workflow}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{add\_model}\NormalTok{(modelo\_lda) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{add\_recipe}\NormalTok{(Caravan.recipe)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in add_recipe(., Caravan.recipe): could not find function "add_recipe"
+\end{verbatim}
+
+ajuste del modelo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{last\_fit\_lda }\OtherTok{\textless{}{-}}\NormalTok{ lda\_wf }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{last\_fit}\NormalTok{(}\AttributeTok{split =}\NormalTok{ Caravan.split)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in last_fit(., split = Caravan.split): could not find function "last_fit"
+\end{verbatim}
+
+Métricas de LDA:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{last\_fit\_lda }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{collect\_metrics}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in collect_metrics(.): could not find function "collect_metrics"
+\end{verbatim}
+
+curva ROC:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lda\_predicciones }\OtherTok{\textless{}{-}}\NormalTok{ last\_fit\_lda }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{collect\_predictions}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in collect_predictions(.): could not find function "collect_predictions"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lda\_predicciones }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{roc\_curve}\NormalTok{(}\AttributeTok{truth =}\NormalTok{ Purchase, }\AttributeTok{estimate =}\NormalTok{ .pred\_No) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{autoplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in roc_curve(., truth = Purchase, estimate = .pred_No): could not find function "roc_curve"
+\end{verbatim}
+
+y matriz de confusión:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{lda\_predicciones }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{conf\_mat}\NormalTok{(}\AttributeTok{truth =}\NormalTok{ Purchase, }\AttributeTok{estimate =}\NormalTok{ .pred\_class)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in conf_mat(., truth = Purchase, estimate = .pred_class): could not find function "conf_mat"
+\end{verbatim}
+
+\hypertarget{anuxe1lisis-discriminante-cuadruxe1tico-1}{%
+\subsection{Análisis Discriminante Cuadrático}\label{anuxe1lisis-discriminante-cuadruxe1tico-1}}
+
+En este caso usaremos otro generador (\emph{klaR}).
+
+Nota: El argumento \emph{frac\_common\_cov=1} permite hacer LDA en lugar de QDA.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_qda }\OtherTok{\textless{}{-}} \FunctionTok{discrim\_regularized}\NormalTok{(}\AttributeTok{frac\_common\_cov =} \DecValTok{0}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{set\_engine}\NormalTok{(}\StringTok{"klaR"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{set\_mode}\NormalTok{(}\StringTok{"classification"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in set_mode(., "classification"): could not find function "set_mode"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(klaR)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in library(klaR): there is no package called 'klaR'
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{qda\_wf }\OtherTok{\textless{}{-}} \FunctionTok{workflow}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{add\_model}\NormalTok{(modelo\_qda) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{add\_recipe}\NormalTok{(Caravan.recipe)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in add_recipe(., Caravan.recipe): could not find function "add_recipe"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{last\_fit\_qda }\OtherTok{\textless{}{-}}\NormalTok{ qda\_wf }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{last\_fit}\NormalTok{(}\AttributeTok{split =}\NormalTok{ Caravan.split)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in last_fit(., split = Caravan.split): could not find function "last_fit"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{last\_fit\_qda }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{collect\_metrics}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in collect_metrics(.): could not find function "collect_metrics"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{qda\_predicciones }\OtherTok{\textless{}{-}}\NormalTok{ last\_fit\_qda }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{collect\_predictions}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in collect_predictions(.): could not find function "collect_predictions"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{qda\_predicciones }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{roc\_curve}\NormalTok{(}\AttributeTok{truth =}\NormalTok{ Purchase, }\AttributeTok{estimate =}\NormalTok{ .pred\_No) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{autoplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in roc_curve(., truth = Purchase, estimate = .pred_No): could not find function "roc_curve"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{qda\_predicciones }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{conf\_mat}\NormalTok{(}\AttributeTok{truth =}\NormalTok{ Purchase, }\AttributeTok{estimate =}\NormalTok{ .pred\_class)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in conf_mat(., truth = Purchase, estimate = .pred_class): could not find function "conf_mat"
+\end{verbatim}
+
+\hypertarget{k-vecinos-muxe1s-cercanos}{%
+\subsection{K vecinos más cercanos}\label{k-vecinos-muxe1s-cercanos}}
+
+En el caso del KNN se va a seleccionar el número de vecinos a través de validación cruzada, usando como métrica el AUC. Primero definimos los conjuntos bajo el k-fold:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{178}\NormalTok{)}
+
+\NormalTok{Caravan.folds }\OtherTok{\textless{}{-}} \FunctionTok{vfold\_cv}\NormalTok{(Caravan.training, }\AttributeTok{v =} \DecValTok{5}\NormalTok{,}
+    \AttributeTok{strata =}\NormalTok{ Purchase)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in vfold_cv(Caravan.training, v = 5, strata = Purchase): could not find function "vfold_cv"
+\end{verbatim}
+
+y definimos el modelo KNN y el flujo de trabajo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modelo\_knn }\OtherTok{\textless{}{-}} \FunctionTok{nearest\_neighbor}\NormalTok{(}\AttributeTok{neighbors =} \FunctionTok{tune}\NormalTok{()) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{set\_engine}\NormalTok{(}\StringTok{"kknn"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{set\_mode}\NormalTok{(}\StringTok{"classification"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in set_mode(., "classification"): could not find function "set_mode"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knn\_wf }\OtherTok{\textless{}{-}} \FunctionTok{workflow}\NormalTok{() }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{add\_model}\NormalTok{(modelo\_knn) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{add\_recipe}\NormalTok{(Caravan.recipe)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in add_recipe(., Caravan.recipe): could not find function "add_recipe"
+\end{verbatim}
+
+Definimos una grilla de posibles valores de \# de vecinos que usaremos en el k-fold:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{k\_grid }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{neighbors =} \FunctionTok{c}\NormalTok{(}\DecValTok{50}\NormalTok{, }\DecValTok{75}\NormalTok{, }\DecValTok{100}\NormalTok{, }\DecValTok{125}\NormalTok{, }\DecValTok{150}\NormalTok{,}
+    \DecValTok{175}\NormalTok{, }\DecValTok{200}\NormalTok{, }\DecValTok{225}\NormalTok{))}
+
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{178}\NormalTok{)}
+\NormalTok{knn\_tuning }\OtherTok{\textless{}{-}}\NormalTok{ knn\_wf }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{tune\_grid}\NormalTok{(}\AttributeTok{resamples =}\NormalTok{ Caravan.folds, }\AttributeTok{grid =}\NormalTok{ k\_grid)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in tune_grid(., resamples = Caravan.folds, grid = k_grid): could not find function "tune_grid"
+\end{verbatim}
+
+y se selecciona el modelo con el mejor AUC:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knn\_tuning }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{show\_best}\NormalTok{(}\StringTok{"roc\_auc"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in show_best(., "roc_auc"): could not find function "show_best"
+\end{verbatim}
+
+mejor modelo y actualización del flujo de trabajo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{mejor\_knn }\OtherTok{\textless{}{-}}\NormalTok{ knn\_tuning }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{select\_best}\NormalTok{(}\AttributeTok{metric =} \StringTok{"roc\_auc"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in select_best(., metric = "roc_auc"): could not find function "select_best"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{final\_knn\_wf }\OtherTok{\textless{}{-}}\NormalTok{ knn\_wf }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{finalize\_workflow}\NormalTok{(mejor\_knn)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in finalize_workflow(., mejor_knn): could not find function "finalize_workflow"
+\end{verbatim}
+
+Ahora ajustamos el modelo y analizamos su rendimiento con los conjuntos de entrenamiento y prueba iniciales:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{last\_fit\_knn }\OtherTok{\textless{}{-}}\NormalTok{ final\_knn\_wf }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{last\_fit}\NormalTok{(}\AttributeTok{split =}\NormalTok{ Caravan.split)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in last_fit(., split = Caravan.split): could not find function "last_fit"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{last\_fit\_knn }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{collect\_metrics}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in collect_metrics(.): could not find function "collect_metrics"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knn\_predicciones }\OtherTok{\textless{}{-}}\NormalTok{ last\_fit\_knn }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{collect\_predictions}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in collect_predictions(.): could not find function "collect_predictions"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knn\_predicciones }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{roc\_curve}\NormalTok{(}\AttributeTok{truth =}\NormalTok{ Purchase, }\AttributeTok{estimate =}\NormalTok{ .pred\_No) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{autoplot}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in roc_curve(., truth = Purchase, estimate = .pred_No): could not find function "roc_curve"
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knn\_predicciones }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{conf\_mat}\NormalTok{(}\AttributeTok{truth =}\NormalTok{ Purchase, }\AttributeTok{estimate =}\NormalTok{ .pred\_class)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in conf_mat(., truth = Purchase, estimate = .pred_class): could not find function "conf_mat"
+\end{verbatim}
+
+\hypertarget{ejercicios-5}{%
+\section{Ejercicios}\label{ejercicios-5}}
+
+\begin{itemize}
+\tightlist
+\item
+  Del libro \autocite{James2013b}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Capítulo 4: 10, 11, 13.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{cuxe1lculo-bayesiano-computacional}{%
+\chapter{Cálculo Bayesiano Computacional}\label{cuxe1lculo-bayesiano-computacional}}
+
+\hypertarget{repaso-de-estaduxedstica-bayesiana}{%
+\section{Repaso de Estadística Bayesiana}\label{repaso-de-estaduxedstica-bayesiana}}
+
+\hypertarget{modelo-de-un-paruxe1metro}{%
+\subsection{Modelo de un parámetro}\label{modelo-de-un-paruxe1metro}}
+
+Vamos a considerar el ejemplo en la sección 3.3 del \autocite{Albert2009}. En este caso se quiere estimar la tasa de éxito en transplantes de corazón en un hospital de EEUU. Suponga que en ese hospital hay \(n\) transplantes y \(y\) es el número de muertes en el transcurso de 30 días del transplante. Si se sabe el número esperado de muertes \(e\) a través de un modelo auxiliar, entonces un modelo sencillo para \(y\) es asumir que:
+\[y\sim \text{Poisson}(e\lambda)\]
+donde \(\lambda\) es la tasa de mortalidad por unidad de exposición y tiempo.
+
+Posible solución: estimar \(\hat \lambda=y/e\), pero el estimador es malo si hay pocas muertes observadas \(y\).
+
+Solución bayesiana: Considere una previa conjugada (gamma) para \(\lambda\):
+\[p(\lambda)\propto \lambda^{\alpha-1}\exp(-\beta \lambda)\]
+además, suponga que se cuenta con información externa de un grupo pequeño de hospitales con condiciones similares a la del hospital de interés, es decir se cuenta con muertes \(z_j\) y exposición \(o_j\) para diez hospitales (\(j=1,\ldots,10\)). Asuma que:
+\[z_j\sim \text{Poisson}(o_j\lambda)\]
+asignamos una previa no-informativa a \(p(\lambda)\propto \lambda^{-1}\) y se obtiene un previa propuesta para \(\lambda\):
+\[p(\lambda)\propto \lambda^{\sum_{j=1}^{10}z_j-1}\exp{\left(-\lambda\sum_{j=1}^{10} o_j\right)}\]y
+Suponga que \(\alpha:=\sum z_j=16\) y \(\beta:=\sum o_j=15174\). Si para el hospital de interés \(y_{obs}\) es el número observado de muertes y \(e\) es la exposición entonces la distribución posterior de \(\lambda\) es:
+\[g(\lambda|y_{obs})\sim \Gamma(\alpha+y_{obs},\beta+e)\]
+y la densidad predictiva de \(y\) es (Ejercicio):
+\[f(y)=\frac{f(y|\lambda)p(\lambda)}{g(\lambda|y_{obs})}\]
+
+donde \(f(y|\lambda)\sim \text{Poisson}(e\lambda)\) (verosimilitud). Supongamos dos posibles hospitales:
+
+\begin{itemize}
+\tightlist
+\item
+  Hospital A: Se observa una muerte con 66 personas expuestas. Cálculo de la densidad posterior y densidad predictiva con \(\lambda = \alpha/\beta\):
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alpha }\OtherTok{\textless{}{-}} \DecValTok{16}
+\NormalTok{beta }\OtherTok{\textless{}{-}} \DecValTok{15174}
+\NormalTok{yobs }\OtherTok{\textless{}{-}} \DecValTok{1}
+\NormalTok{ex }\OtherTok{\textless{}{-}} \DecValTok{66}
+\NormalTok{y }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\DecValTok{10}
+\NormalTok{lam }\OtherTok{\textless{}{-}}\NormalTok{ alpha}\SpecialCharTok{/}\NormalTok{beta}
+\NormalTok{fy }\OtherTok{\textless{}{-}} \FunctionTok{dpois}\NormalTok{(y, lam }\SpecialCharTok{*}\NormalTok{ ex) }\SpecialCharTok{*} \FunctionTok{dgamma}\NormalTok{(lam, }\AttributeTok{shape =}\NormalTok{ alpha,}
+    \AttributeTok{rate =}\NormalTok{ beta)}\SpecialCharTok{/}\FunctionTok{dgamma}\NormalTok{(lam, }\AttributeTok{shape =}\NormalTok{ alpha }\SpecialCharTok{+}\NormalTok{ y, }\AttributeTok{rate =}\NormalTok{ beta }\SpecialCharTok{+}
+\NormalTok{    ex)}
+
+\NormalTok{dpred }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(y, fy)}
+\FunctionTok{ggplot}\NormalTok{(dpred) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ y, }\AttributeTok{y =}\NormalTok{ fy)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ yobs, }\AttributeTok{col =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-273-1} \end{center}
+
+por lo tanto una muerte no es un valor inusual en el comportamiento de muertes bajo transplantes. La comparación de las densidades posterior y previa de lambda:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{lambda\_prev }\OtherTok{\textless{}{-}} \FunctionTok{rgamma}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\AttributeTok{shape =}\NormalTok{ alpha, }\AttributeTok{rate =}\NormalTok{ beta)}
+\NormalTok{lambda\_post }\OtherTok{\textless{}{-}} \FunctionTok{rgamma}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\AttributeTok{shape =}\NormalTok{ alpha }\SpecialCharTok{+}\NormalTok{ y, }\AttributeTok{rate =}\NormalTok{ beta }\SpecialCharTok{+}
+\NormalTok{    ex)}
+\NormalTok{datoslambda }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{Previa =}\NormalTok{ lambda\_prev, }\AttributeTok{Posterior =}\NormalTok{ lambda\_post) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{everything}\NormalTok{())}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ datoslambda) }\SpecialCharTok{+} \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ value,}
+    \AttributeTok{color =}\NormalTok{ name)) }\SpecialCharTok{+} \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-274-1} \end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Hospital B: 4 muertes en 1767 expuestos. Mismos cálculos:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{alpha }\OtherTok{\textless{}{-}} \DecValTok{16}
+\NormalTok{beta }\OtherTok{\textless{}{-}} \DecValTok{15174}
+\NormalTok{yobs }\OtherTok{\textless{}{-}} \DecValTok{4}
+\NormalTok{ex }\OtherTok{\textless{}{-}} \DecValTok{1767}
+\NormalTok{y }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\DecValTok{10}
+\NormalTok{lam }\OtherTok{\textless{}{-}}\NormalTok{ alpha}\SpecialCharTok{/}\NormalTok{beta}
+\NormalTok{fy }\OtherTok{\textless{}{-}} \FunctionTok{dpois}\NormalTok{(y, lam }\SpecialCharTok{*}\NormalTok{ ex) }\SpecialCharTok{*} \FunctionTok{dgamma}\NormalTok{(lam, }\AttributeTok{shape =}\NormalTok{ alpha,}
+    \AttributeTok{rate =}\NormalTok{ beta)}\SpecialCharTok{/}\FunctionTok{dgamma}\NormalTok{(lam, }\AttributeTok{shape =}\NormalTok{ alpha }\SpecialCharTok{+}\NormalTok{ y, }\AttributeTok{rate =}\NormalTok{ beta }\SpecialCharTok{+}
+\NormalTok{    ex)}
+
+\NormalTok{dpred }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(y, fy)}
+\FunctionTok{ggplot}\NormalTok{(dpred) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ y, }\AttributeTok{y =}\NormalTok{ fy)) }\SpecialCharTok{+}
+    \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ yobs, }\AttributeTok{col =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{theme\_bw}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-275-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{lambda\_prev }\OtherTok{\textless{}{-}} \FunctionTok{rgamma}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\AttributeTok{shape =}\NormalTok{ alpha, }\AttributeTok{rate =}\NormalTok{ beta)}
+\NormalTok{lambda\_post }\OtherTok{\textless{}{-}} \FunctionTok{rgamma}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\AttributeTok{shape =}\NormalTok{ alpha }\SpecialCharTok{+}\NormalTok{ y, }\AttributeTok{rate =}\NormalTok{ beta }\SpecialCharTok{+}
+\NormalTok{    ex)}
+\NormalTok{datoslambda }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(}\AttributeTok{Previa =}\NormalTok{ lambda\_prev, }\AttributeTok{Posterior =}\NormalTok{ lambda\_post) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{pivot\_longer}\NormalTok{(}\AttributeTok{cols =} \FunctionTok{everything}\NormalTok{())}
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ datoslambda) }\SpecialCharTok{+} \FunctionTok{geom\_density}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ value,}
+    \AttributeTok{color =}\NormalTok{ name)) }\SpecialCharTok{+} \FunctionTok{theme\_bw}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.title =} \FunctionTok{element\_blank}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-276-1} \end{center}
+
+\hypertarget{modelo-de-muxe1s-de-un-paruxe1metro}{%
+\subsection{Modelo de más de un parámetro}\label{modelo-de-muxe1s-de-un-paruxe1metro}}
+
+Se usará el ejemplo de la sección 4.2 del \autocite{Albert2009} para ilustrar la inferencia bayesiana conjugada en el caso de más un parámetro. Suponga que se tiene datos del tiempo en completar la maratón de Nueva York para 20 atletas entre 20 y 29 años y asumimos que la muestra proviene de una \(N(\mu,\sigma^2)\). Si asumimos la previa no informativa:
+
+\[g(\mu,\sigma^2) \propto 1/\sigma^2\]
+
+entonces la distribución posterior de \((\mu,\sigma^2)\) es:
+\[g(\mu,\sigma^2|y)\propto \frac{1}{(\sigma^2)^{n/2+1}}\exp{\left(-\frac{1}{2\sigma^2}\left(S+n(\mu-\bar y)^2\right)\right)}\]
+
+donde \(n\) es el tamaño de muestra, \(\bar y\) es la media empírica y \(S=\sum_{i=1}^n(y_i-\bar y)^2\). Recuerden que la distribución posterior conjunta satisface:
+
+\begin{itemize}
+\tightlist
+\item
+  La distribución posterior de \(\mu\) condicional en \(\sigma^2\) se distribuye como \(N(\bar y,\sigma/\sqrt{n})\).
+\item
+  La distribución posterior marginal de \(\sigma^2\) se distribuye según \(S\chi_{n-1}^{-2}\) (\(S\) veces una chi-cuadrada inversa con \(n-1\) grados de libertad).
+\end{itemize}
+
+Cargamos los datos de los 20 atletas:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(LearnBayes)}
+\FunctionTok{head}\NormalTok{(marathontimes)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   time
+## 1  182
+## 2  201
+## 3  221
+## 4  234
+## 5  237
+## 6  251
+\end{verbatim}
+
+y graficamos un diagrama de contorno de la distribución posterior de \(\mu,\sigma^2\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{attach}\NormalTok{(marathontimes)}
+\FunctionTok{mycontour}\NormalTok{(normchi2post, }\FunctionTok{c}\NormalTok{(}\DecValTok{220}\NormalTok{, }\DecValTok{330}\NormalTok{, }\DecValTok{500}\NormalTok{, }\DecValTok{9000}\NormalTok{), time,}
+    \AttributeTok{xlab =} \StringTok{"media"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"varianza"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-278-1} \end{center}
+
+y les agregamos una muestra aleatoria de tamaño 1000 de la distribución posterior conjunta, generada a través de las distribuciones marginales:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{S }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{((time }\SpecialCharTok{{-}} \FunctionTok{mean}\NormalTok{(time))}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(time)}
+\NormalTok{sigma2 }\OtherTok{\textless{}{-}}\NormalTok{ S}\SpecialCharTok{/}\FunctionTok{rchisq}\NormalTok{(}\DecValTok{1000}\NormalTok{, n }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)}
+\NormalTok{mu }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\AttributeTok{mean =} \FunctionTok{mean}\NormalTok{(time), }\AttributeTok{sd =} \FunctionTok{sqrt}\NormalTok{(sigma2)}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(n))}
+\FunctionTok{mycontour}\NormalTok{(normchi2post, }\FunctionTok{c}\NormalTok{(}\DecValTok{220}\NormalTok{, }\DecValTok{330}\NormalTok{, }\DecValTok{500}\NormalTok{, }\DecValTok{9000}\NormalTok{), time,}
+    \AttributeTok{xlab =} \StringTok{"media"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"varianza"}\NormalTok{)}
+\FunctionTok{points}\NormalTok{(mu, sigma2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-279-1} \end{center}
+
+Si estamos interesados en hacer inferencia de \(\mu\), podemos calcular un intervalo de credibilidad al 95\%, usando la muestra marginal:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{quantile}\NormalTok{(mu, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     2.5%    97.5% 
+## 254.9617 300.8669
+\end{verbatim}
+
+y también inferencia sobre \(\sigma\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{quantile}\NormalTok{(}\FunctionTok{sqrt}\NormalTok{(sigma2), }\FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##     2.5%    97.5% 
+## 37.66930 72.69096
+\end{verbatim}
+
+o aún sobre otros parámetros, por ejemplo el coeficiente de variación (\(CV=\sigma/\mu\)):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{quantile}\NormalTok{(}\FunctionTok{sqrt}\NormalTok{(sigma2)}\SpecialCharTok{/}\NormalTok{mu, }\FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      2.5%     97.5% 
+## 0.1357104 0.2634229
+\end{verbatim}
+
+\hypertarget{motivaciuxf3n-cuxe1lculo-de-integrales}{%
+\section{Motivación: Cálculo de Integrales}\label{motivaciuxf3n-cuxe1lculo-de-integrales}}
+
+Recuerden que según el teorema de Bayes, si observamos datos \(y\) a partir de una verosimilitud \(f(y|\theta)\) y se le asigna al parámetro \(\theta\) una previa \(g(\theta)\), entonces:
+
+\[g(\theta|y)\propto g(\theta)f(y|\theta)\]
+
+Problema: tratar de manejar la distribución posterior de \(\theta\) desde un punto de vista computacional con el fin de hacer inferencia.
+
+Los procesos de inferencia requieren el cálculo o aproximación de integrales, por ejemplo:
+
+\begin{itemize}
+\tightlist
+\item
+  Valor esperado de una función de \(\theta\):
+\end{itemize}
+
+\[E(h(\theta)|y)=\frac{\int h(\theta)g(\theta)f(y|\theta) d\theta}{\int g(\theta)f(y|\theta) d\theta}\]
+
+\begin{itemize}
+\tightlist
+\item
+  Probabilidad posterior de que \(h(\theta) \in A\):
+\end{itemize}
+
+\[P(h(\theta) \in A|y)=\frac{\int_{h(\theta) \in A} g(\theta)f(y|\theta) d\theta}{\int g(\theta)f(y|\theta) d\theta}\]
+- Densidades marginales. Si \(\theta=(\theta_1,\theta_2)\):
+
+\[g(\theta_1|y)\propto \int g(\theta_1,\theta_2|y)d\theta_2\]
+
+\hypertarget{ejemplo-base-modelo-beta-binomial.}{%
+\section{Ejemplo base: modelo beta-binomial.}\label{ejemplo-base-modelo-beta-binomial.}}
+
+En este ejemplo se estimará las tasas de muerte por cáncer gástrico en una población de hombres entre 45 y 64 años. Para ello se tiene datos de muertes \(y_j\) y exposición \(n_j\) para 20 ciudades en Missouri:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data}\NormalTok{(}\StringTok{"cancermortality"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(cancermortality)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##   y    n
+## 1 0 1083
+## 2 0  855
+## 3 2 3461
+## 4 0  657
+## 5 1 1208
+## 6 1 1025
+\end{verbatim}
+
+Un primer intento de modelación podría considerar \(y_j\sim \text{Binomial}(p,n_j)\) pero en este caso se puede comprobar que el modelo binomial no logra captar la variabilidad de las muertes totalmente. Otro intento de modelación que no tiene ese problema es un modelo beta-binomial con media \(\eta\) y precisión \(K\):
+\[f(y_j|\eta,K)={n_j \choose y_j}\frac{B(K\eta+y_j,K(1-\eta)+n_j-y_j)}{B(K\eta,K(1-\eta))}\]
+con previa no informativa:
+\[g(\eta,K)\propto \frac{1}{\eta(1-\eta)}\frac{1}{(1+K)^2}\]
+entonces la densidad posterior de los parámetros sería:
+\[g(\eta,K|\text{datos})\propto \frac{1}{\eta(1-\eta)}\frac{1}{(1+K)^2} \prod_{j=1}^{20}\frac{B(K\eta+y_j,K(1-\eta)+n_j-y_j)}{B(K\eta,K(1-\eta))}\]
+donde \(0<\eta<1\), \(K>0\) y \(B(\cdot,\cdot)\) es la función beta. La función \emph{betabinexch0} contiene la implementación de la log-densidad posterior de \(\eta,K\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mycontour}\NormalTok{(betabinexch0, }\FunctionTok{c}\NormalTok{(}\FloatTok{1e{-}04}\NormalTok{, }\FloatTok{0.003}\NormalTok{, }\DecValTok{1}\NormalTok{, }\DecValTok{20000}\NormalTok{),}
+\NormalTok{    cancermortality, }\AttributeTok{xlab =} \StringTok{"eta"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"K"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-284-1} \end{center}
+
+y note la gran asimetría en el comportamiento de la densidad conjunta, especialmente en la dirección de la variable \(K\). Por el dominio de las variables \(K\) y \(\eta\), entonces se transforman según:
+\[\theta_1=\text{logit}(\eta)=\log\left(\frac{\eta}{1-\eta}\right),\quad  \theta_2=\log(K)\]
+y usando el teorema de cambio de variable en densidades:
+\[g_1(\theta_1,\theta_2|\text{datos})=g\left(\frac{e^{\theta_1}}{1+e^{\theta_2}},e^{\theta_2}\right)\frac{e^{\theta_1+\theta_2}}{(1+e^{\theta_2})^2}\]
+\(g_1\) está implementada en la función \emph{betabinexch} y el gráfico de contorno es más manejable ahora desde el punto de vista computacional:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mycontour}\NormalTok{(betabinexch, }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{, }\SpecialCharTok{{-}}\FloatTok{4.5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\FloatTok{16.5}\NormalTok{), cancermortality,}
+    \AttributeTok{xlab =} \StringTok{"logit eta"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log K"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-285-1} \end{center}
+
+Definitivamente esta es una distribución posterior a la que no se le puede aplicar las técnicas usuales para hacer inferencia (caso no conjugado). Se va a considerar dos formas de realizar inferencia:
+
+\begin{itemize}
+\tightlist
+\item
+  Aproximación de Laplace.
+\item
+  Simulación Monte Carlo.
+\end{itemize}
+
+\hypertarget{aproximaciuxf3n-de-laplace}{%
+\section{Aproximación de Laplace}\label{aproximaciuxf3n-de-laplace}}
+
+Considere el logaritmo de la densidad posterior proporcional:
+\[h(\theta,y)=\log(g(\theta)f(y|\theta))\]
+Suponga que \(\hat \theta\) es la moda de \(\theta\). Un desarrollo de Taylor alrededor de \(\hat \theta\) para \(h(\theta)\) da la siguiente aproximación:
+\[h(\theta)\approx h(\hat \theta)+\frac 1 2(\theta-\hat \theta)^Th''(\hat \theta)(\theta-\hat \theta)\]
+Por lo tanto podemos aproximar el comportamiento en distribución de \(\theta\) como:
+\[\theta \sim N(\hat \theta,V)\]
+donde \(V=(-h''(\hat \theta))^{-1}\). Con el fin de encontrar la moda \(\hat \theta\) se puede usar algún algoritmo para encontrar máximos en funciones de varias variables, por ejemplo el método de Newton o el de Nelder-Mead (default en \emph{optim}). La función \emph{laplace} tiene el método de optimización implementado tomando como argumentos la log-densidad posterior, un valor inicial de los parámetros y el conjunto de datos.
+
+Por ejemplo, en el caso anterior:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{laplace}\NormalTok{(betabinexch, }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{7}\NormalTok{, }\DecValTok{6}\NormalTok{), cancermortality)}
+\NormalTok{fit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $mode
+## [1] -6.819793  7.576111
+## 
+## $var
+##             [,1]       [,2]
+## [1,]  0.07896568 -0.1485087
+## [2,] -0.14850874  1.3483208
+## 
+## $int
+## [1] -570.7743
+## 
+## $converge
+## [1] TRUE
+\end{verbatim}
+
+donde el punto (-7,6) se puede inferir a través del gráfico de contorno anterior. Por lo tanto podemos aproximar la densidad posterior conjunta de \((\text{logit}(\eta),\log K)\) se puede aproximar como una normal multivariada con media \emph{fit\$mode} y varianza \emph{fit.var}. Un gráfico de contorno de la aproximación es:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{npar }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{m =}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{mode, }\AttributeTok{v =}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{var)}
+\FunctionTok{mycontour}\NormalTok{(lbinorm, }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{, }\SpecialCharTok{{-}}\FloatTok{4.5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\FloatTok{16.5}\NormalTok{), npar, }\AttributeTok{xlab =} \StringTok{"logit eta"}\NormalTok{,}
+    \AttributeTok{ylab =} \StringTok{"log K"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-287-1} \end{center}
+
+También podemos hacer inferencia de los parámetros:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{se }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(fit}\SpecialCharTok{$}\NormalTok{var))}
+\NormalTok{lb }\OtherTok{\textless{}{-}}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{mode }\SpecialCharTok{{-}} \FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ se}
+\NormalTok{ub }\OtherTok{\textless{}{-}}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{mode }\SpecialCharTok{+} \FunctionTok{qnorm}\NormalTok{(}\FloatTok{0.975}\NormalTok{) }\SpecialCharTok{*}\NormalTok{ se}
+
+\NormalTok{etainv }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(lb[}\DecValTok{1}\NormalTok{], ub[}\DecValTok{1}\NormalTok{])}
+\NormalTok{Kinv }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(lb[}\DecValTok{2}\NormalTok{], ub[}\DecValTok{2}\NormalTok{])}
+
+\FunctionTok{exp}\NormalTok{(etainv)}\SpecialCharTok{/}\NormalTok{(}\DecValTok{1} \SpecialCharTok{+} \FunctionTok{exp}\NormalTok{(etainv))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.0006291199 0.0018904899
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{exp}\NormalTok{(Kinv)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1]   200.3879 18995.6680
+\end{verbatim}
+
+son intervalos de predicción al 95\% para \(\eta\) y \(K\) respectivamente.
+
+\hypertarget{simulaciuxf3n}{%
+\section{Simulación}\label{simulaciuxf3n}}
+
+\hypertarget{simulaciuxf3n-monte-carlo}{%
+\subsection{Simulación Monte Carlo}\label{simulaciuxf3n-monte-carlo}}
+
+Suponga que \(g(\theta|y)\) es la densidad posterior de \(\theta\) y queremos estimar una característica de \(\theta\), a través de la función \(h(\theta)\). La media posterior de \(h(\theta)\) es:
+\[E(h(\theta)|y)=\int h(\theta)g(\theta|y)d\theta\]
+y suponga que podemos simular una muestra independiente \(\theta^1,\ldots,\theta^m\) de \(g(\theta|y)\). El estimador Monte Carlo del valor esperado es:
+\[\bar h =\frac 1 m\sum_{j=1}^mh(\theta^j) \]
+con su error estándar:
+\[se_{\bar h}=\sqrt{\frac{1}{m(m-1)}\sum_{j=1}^m\left(h(\theta^j)-\bar h\right)^2}\]
+En el caso en que no es posible obtener muestras de la densidad posterior, entonces se pueden definir algoritmos que aproximan la generación de muestras.
+
+\hypertarget{muestreo-por-rechazo}{%
+\subsection{Muestreo por rechazo}\label{muestreo-por-rechazo}}
+
+Suponga que queremos obtener una muestra de \(g(\theta|y)\) donde la constante de normalización no es conocida. Suponga que conocemos una densidad \(p(\theta)\) que satisface:
+
+\begin{itemize}
+\tightlist
+\item
+  Fácil de obtener muestras.
+\item
+  \(p\) aproxima \(g\) en términos de localización y escala.
+\item
+  Para todo \(\theta\): \(g(\theta|y)\leq cp(\theta)\), para una constante \(c\).
+\end{itemize}
+
+Algoritmo:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Simule una realización independiente de \(\theta \sim p\) y \(U\sim Unif(0,1)\).
+\item
+  Si \(U\leq g(\theta|y)/(cp(\theta))\) entonces acepte \(\theta\), caso contrario rechace la muestra propuesta.
+\item
+  Continue 1 y 2 hasta que se haya generado un número deseado de muestras.
+\end{enumerate}
+
+Nota: un algoritmo eficiente tiene una tasa de aceptación de muestras alta.
+
+En el ejemplo anterior, seleccionamos \(p(\theta)\) una distribución \(t\) multivariada con parámetro de locación igual a la media aproximada del método de Laplace, matriz de escala igual a 2 veces la matriz de varianza aproximada según Laplace y 4 grados de libertad. De esta forma nos aseguramos que \(g(\theta|y)/p(\theta)\) está acotado superiormente.
+
+Con el fin de encontrar \(c\), maximizamos la diferencia de logaritmos entre \(g(\theta|y)\) y la propuesta \(p(\theta)\), usando la función \emph{laplace}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{betabinT }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta, datapar) \{}
+\NormalTok{    data }\OtherTok{\textless{}{-}}\NormalTok{ datapar}\SpecialCharTok{$}\NormalTok{data}
+\NormalTok{    tpar }\OtherTok{\textless{}{-}}\NormalTok{ datapar}\SpecialCharTok{$}\NormalTok{par}
+\NormalTok{    d }\OtherTok{\textless{}{-}} \FunctionTok{betabinexch}\NormalTok{(theta, data) }\SpecialCharTok{{-}} \FunctionTok{dmt}\NormalTok{(theta, }\AttributeTok{mean =} \FunctionTok{c}\NormalTok{(tpar}\SpecialCharTok{$}\NormalTok{m),}
+        \AttributeTok{S =}\NormalTok{ tpar}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{df =}\NormalTok{ tpar}\SpecialCharTok{$}\NormalTok{df, }\AttributeTok{log =} \ConstantTok{TRUE}\NormalTok{)}
+    \FunctionTok{return}\NormalTok{(d)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+definimos parámetros:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tpar }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{m =}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{mode, }\AttributeTok{var =} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{df =} \DecValTok{4}\NormalTok{)}
+\NormalTok{datapar }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{data =}\NormalTok{ cancermortality, }\AttributeTok{par =}\NormalTok{ tpar)}
+\end{Highlighting}
+\end{Shaded}
+
+y resolvemos:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{start }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{6.9}\NormalTok{, }\FloatTok{12.4}\NormalTok{)}
+\NormalTok{fit1 }\OtherTok{\textless{}{-}} \FunctionTok{laplace}\NormalTok{(betabinT, start, datapar)}
+\NormalTok{fit1}\SpecialCharTok{$}\NormalTok{mode}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -6.888963 12.421993
+\end{verbatim}
+
+y el valor máximo de las diferencias de logaritmos es:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{dmax }\OtherTok{\textless{}{-}} \FunctionTok{betabinT}\NormalTok{(fit1}\SpecialCharTok{$}\NormalTok{mode, datapar)}
+\NormalTok{dmax}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] -569.2829
+\end{verbatim}
+
+el algoritmo sería:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{theta }\OtherTok{\textless{}{-}} \FunctionTok{rmt}\NormalTok{(n, }\AttributeTok{mean =} \FunctionTok{c}\NormalTok{(tpar}\SpecialCharTok{$}\NormalTok{m), }\AttributeTok{S =}\NormalTok{ tpar}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{df =}\NormalTok{ tpar}\SpecialCharTok{$}\NormalTok{df)}
+\NormalTok{lf }\OtherTok{\textless{}{-}} \FunctionTok{map\_dbl}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10000}\NormalTok{, }\SpecialCharTok{\textasciitilde{}}\FunctionTok{betabinexch}\NormalTok{(theta[., ], cancermortality))}
+\NormalTok{lg }\OtherTok{\textless{}{-}} \FunctionTok{dmt}\NormalTok{(theta, }\AttributeTok{mean =} \FunctionTok{c}\NormalTok{(tpar}\SpecialCharTok{$}\NormalTok{m), }\AttributeTok{S =}\NormalTok{ tpar}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{df =}\NormalTok{ tpar}\SpecialCharTok{$}\NormalTok{df,}
+    \AttributeTok{log =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{prob }\OtherTok{=} \FunctionTok{exp}\NormalTok{(lf }\SpecialCharTok{{-}}\NormalTok{ lg }\SpecialCharTok{{-}}\NormalTok{ dmax)}
+\NormalTok{thetaRS }\OtherTok{\textless{}{-}}\NormalTok{ theta[}\FunctionTok{runif}\NormalTok{(n) }\SpecialCharTok{\textless{}}\NormalTok{ prob, ]}
+\end{Highlighting}
+\end{Shaded}
+
+la tasa de aceptación es:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{dim}\NormalTok{(thetaRS)[}\DecValTok{1}\NormalTok{]}\SpecialCharTok{/}\DecValTok{10000}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2447
+\end{verbatim}
+
+y dibujamos el gráfico de contorno con la muestra obtenida:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mycontour}\NormalTok{(betabinexch, }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{, }\SpecialCharTok{{-}}\FloatTok{4.5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\FloatTok{16.5}\NormalTok{), cancermortality,}
+    \AttributeTok{xlab =} \StringTok{"logit eta"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log K"}\NormalTok{)}
+\FunctionTok{points}\NormalTok{(thetaRS[, }\DecValTok{1}\NormalTok{], thetaRS[, }\DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-295-1} \end{center}
+
+\hypertarget{muestreo-por-importancia}{%
+\section{Muestreo por importancia}\label{muestreo-por-importancia}}
+
+Suponga que queremos calcular el siguiente valor esperado posterior:
+\[E(h(\theta)|y)=\frac{\int h(\theta)g(\theta)f(y|\theta)d\theta}{\int g(\theta)f(y|\theta)d\theta}\]
+
+en el caso en donde no se puede obtener una muestra directa de la distribución posterior y usar Monte Carlo por ejemplo. Usemos la densidad propuesta \(p(\theta)\) que aproxima la posterior:
+
+\begin{align*}
+E(h(\theta)|y)&=\frac{\int h(\theta)\frac{g(\theta)f(y|\theta)}{p(\theta)}p(\theta)d\theta}{\int \frac{g(\theta)f(y|\theta)}{p(\theta)}p(\theta)d\theta}\\
+&=\frac{\int h(\theta)w(\theta)p(\theta)d\theta}{\int w(\theta)p(\theta)d\theta}
+\end{align*}
+
+donde \(w(\theta)=\frac{g(\theta)f(y|\theta)}{p(\theta)}\). Si \(\theta^1,\ldots,\theta^{m}\sim p(\theta)\) entonces el estimador de muestreo por importancia de la media posterior es:
+\[\bar h_{IS}=\frac{\sum_{j=1}^mh(\theta^j)w(\theta^j)}{\sum_{j=1}^mw(\theta^j)}\]
+con error estándar:
+\[se_{\bar h_{IS}}=\frac{\sqrt{\sum_{j=1}^m((h(\theta^j)-\bar h_{IS})w(\theta^j))^2}}{\sum_{j=1}^mw(\theta^j)}\]
+Nota: al igual que en el método anterior, la escogencia de \(p(\theta)\) se basa en su facilidad de muestreo y en la acotación por arriba de los pesos \(w(\theta)\).
+
+Ahora implementamos el algoritmo en el ejemplo (buena parte es una repetición del anterior), usando como propuesta la misma distribución t multivariada. Además graficamos un histograma de los pesos para comprobar que están acotados (en este caso por 1).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+\NormalTok{n }\OtherTok{\textless{}{-}} \DecValTok{10000}
+\NormalTok{theta }\OtherTok{\textless{}{-}} \FunctionTok{rmt}\NormalTok{(n, }\AttributeTok{mean =} \FunctionTok{c}\NormalTok{(tpar}\SpecialCharTok{$}\NormalTok{m), }\AttributeTok{S =}\NormalTok{ tpar}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{df =}\NormalTok{ tpar}\SpecialCharTok{$}\NormalTok{df)}
+\NormalTok{lf }\OtherTok{\textless{}{-}} \FunctionTok{map\_dbl}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{10000}\NormalTok{, }\SpecialCharTok{\textasciitilde{}}\FunctionTok{betabinexch}\NormalTok{(theta[., ], cancermortality))}
+\NormalTok{lp }\OtherTok{\textless{}{-}} \FunctionTok{dmt}\NormalTok{(theta, }\AttributeTok{mean =} \FunctionTok{c}\NormalTok{(tpar}\SpecialCharTok{$}\NormalTok{m), }\AttributeTok{S =}\NormalTok{ tpar}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{df =}\NormalTok{ tpar}\SpecialCharTok{$}\NormalTok{df,}
+    \AttributeTok{log =} \ConstantTok{TRUE}\NormalTok{)}
+\NormalTok{md }\OtherTok{\textless{}{-}} \FunctionTok{max}\NormalTok{(lf }\SpecialCharTok{{-}}\NormalTok{ lp)}
+\NormalTok{wt }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(lf }\SpecialCharTok{{-}}\NormalTok{ lp }\SpecialCharTok{{-}}\NormalTok{ md)}
+\FunctionTok{hist}\NormalTok{(wt)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-296-1} \end{center}
+
+y calculamos el valor esperado de \(\log K\) usando los pesos obtenidos del paso anterior:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{est }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(wt }\SpecialCharTok{*}\NormalTok{ theta[, }\DecValTok{2}\NormalTok{])}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(wt)}
+\NormalTok{SEest }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{sum}\NormalTok{((theta[, }\DecValTok{2}\NormalTok{] }\SpecialCharTok{{-}}\NormalTok{ est)}\SpecialCharTok{\^{}}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ wt}\SpecialCharTok{\^{}}\DecValTok{2}\NormalTok{))}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(wt)}
+\FunctionTok{show}\NormalTok{(}\FunctionTok{c}\NormalTok{(est, SEest))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 7.92445868 0.01905786
+\end{verbatim}
+
+\hypertarget{remuestreo-por-importancia}{%
+\section{Remuestreo por importancia}\label{remuestreo-por-importancia}}
+
+Al igual que en el caso anterior simulamos \(\theta^1,\ldots,\theta^m\sim p(\theta)\) y calculamos los pesos \(\{w(\theta^j)=g(\theta^j|y)/p(\theta^j)\}\). Los pesos se convierten a probabilidades según:
+\[p^j=\frac{w(\theta^j)}{\sum_{k=1}^mw(\theta^k)}\]
+Tomamos una nueva muestra \(\theta^{*1},\ldots,\theta^{*m}\sim \{p^k\}\) es decir se obtiene una nueva muestra con reemplazo a partir de la muestra original \(\theta^1,\ldots,\theta^m\) con pesos \(\{p^k\}\) (muestra bootstrap ponderada). A este método se le llama remuestreo por importancia.
+
+Siguiendo con el ejemplo:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{probs }\OtherTok{\textless{}{-}}\NormalTok{ wt}\SpecialCharTok{/}\FunctionTok{sum}\NormalTok{(wt)}
+\NormalTok{indices }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\NormalTok{n, }\AttributeTok{size =}\NormalTok{ n, }\AttributeTok{prob =}\NormalTok{ probs, }\AttributeTok{replace =}\NormalTok{ T)}
+\NormalTok{thetaSIR }\OtherTok{\textless{}{-}}\NormalTok{ theta[indices, ]}
+\end{Highlighting}
+\end{Shaded}
+
+y los intervalos de predicción al 95\% para \(\text{logit}(\eta)\) y \(log K\) son:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{quantile}\NormalTok{(thetaSIR[, }\DecValTok{1}\NormalTok{], }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      2.5%     97.5% 
+## -7.342559 -6.155018
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{quantile}\NormalTok{(thetaSIR[, }\DecValTok{2}\NormalTok{], }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      2.5%     97.5% 
+##  5.587915 11.190022
+\end{verbatim}
+
+\hypertarget{algoritmo-de-metropolis-hastings}{%
+\section{Algoritmo de Metropolis-Hastings}\label{algoritmo-de-metropolis-hastings}}
+
+Muestreo por cadenas de Markov-Monte Carlo (MCMC): algoritmos que definen una cadena de Markov irreducible y aperiódica cuya densidad estacionaria es la densidad posterior de interés.
+
+Simplificamos la notación de la densidad posterior \(g(\theta|y)\) usando \(g(\theta)\). Seleccionamos un valor inicial del algoritmo \(\theta^0\) y procedemos con el
+
+Algoritmo
+
+\begin{itemize}
+\tightlist
+\item
+  Simule un candidato \(\theta^*\sim p(\theta^*|\theta^{t-1})\) (densidad propuesta).
+\item
+  Calcule:
+  \[R=\frac{g(\theta^*)p(\theta^{t-1}|\theta^*)}{g(\theta^{t-1})p(\theta^*|\theta^{t-1})}\]
+\item
+  Calcule la probabilidad de aceptación \(P=\min \{R,1\}\).
+\item
+  Acepte la propuesta \(\theta^{t}=\theta^*\) con probabilidad P, en caso contrario \(\theta^t=\theta^{t-1}\).
+\end{itemize}
+
+Nota: bajo ciertas condiciones de regularidad sobre la probabilidad propuesta:
+\[\theta^n \stackrel{d}{\longrightarrow} M\sim g(\theta)\]
+cuando \(n\rightarrow \infty\).
+
+Escogencias de la densidad propuesta:
+- Metropolis-Hastings independiente:
+\[p(\theta^*|\theta^{t-1})=p(\theta^*)\]
+- Metropolis-Hastings con caminata aleatoria:
+\[p(\theta^*|\theta^{t-1})=h(\theta^*-\theta^{t-1})\]
+donde \(h\) es una función simétrica alrededor del origen. En este caso es fácil verificar que:
+\[R=\frac{g(\theta^*)}{g(\theta^{t-1})}\]
+Nota: las implementaciones de Metropolis-Hastings dentro del paquete LearnBayes tienen las siguientes particularidades:
+
+\begin{itemize}
+\item
+  La función \emph{indepmetrop} contiene una propuesta que es normal multivariada con media \(\mu\) y varianza \(V\) (modelo independiente). Los parámetros de la propuesta se debe escoger de manera que \(g/p\) se acotado, especialmente en las colas.
+\item
+  La función \emph{rwmetrop} contiene una propuesta de la siguiente forma:
+  \[\theta^*=\theta^{t-1}+\sigma Z\]
+  donde \(Z\) es una normal multivariada con media 0 y matriz de varianza \(V\). Además \(\sigma\) es un parámetro de escala positivo.
+\end{itemize}
+
+\hypertarget{algoritmo-de-gibbs}{%
+\section{Algoritmo de Gibbs}\label{algoritmo-de-gibbs}}
+
+Suponga que el parámetro de interés es \(\theta=(\theta_1,\ldots,\theta_p)\) y que podemos obtener muestras de manera secuencial a partir de las siguientes distribuciones condicionales (dado un valor inicial \(\theta^0\) y \(t=1,\ldots,n\)):
+
+\begin{align*}
+\theta_1^t&\sim [\theta_1|\theta_2^{t-1},\ldots,\theta_p^{t-1},\text{datos}]\\
+\theta_2^t&\sim [\theta_2|\theta_1^t,\theta_3^{t-1},\ldots,\theta_p^{t-1},\text{datos}]\\
+\vdots & \qquad \vdots\\
+\theta_p^t&\sim [\theta_p|\theta_1^t,\ldots,\theta_{p-1}^t,\text{datos}]
+\end{align*}
+
+Bajo condiciones bastante generales se puede comprobar que \(\theta^t\) converge a una muestra de la distribución conjunta posterior de \(\theta\).
+
+Nota: cuando en alguna de las condicionales anteriores no se puede obtener muestras de manera directa, entonces se puede sustituir el muestreo por un paso del algoritmo de Metropolis-Hastings. Así está implementado en la función \emph{gibbs} del paquete LearnBayes.
+
+\hypertarget{diagnuxf3sticos-de-convergencia-de-mcmc}{%
+\subsection{Diagnósticos de convergencia de MCMC}\label{diagnuxf3sticos-de-convergencia-de-mcmc}}
+
+\begin{itemize}
+\tightlist
+\item
+  Tasa de aceptación.
+\item
+  Gráficos de traza (traceplots): gráfico de \((t,\theta^t)\). Por la naturaleza secuencial de los algoritmos de MH y Gibbs, los primeros valores de la cadena no representan normalmente una muestra confiable de la distribución posterior, por lo que generalmente se desecha un porcentaje inicial de la muestra (periodo de quema o burn-in period).
+\item
+  Por construcción, uno esperaría que el nivel de autocorrelación de las cadenas sea bajo. Al igual que en el análisis de residuos de regresión, uno puede construir un ACF de las cadenas y esperar autocorrelación baja y convergente a 0.
+\end{itemize}
+
+\hypertarget{ejemplos}{%
+\section{Ejemplos}\label{ejemplos}}
+
+\hypertarget{datos-agrupados-bajo-una-poblaciuxf3n-normal}{%
+\subsection{Datos agrupados bajo una población normal}\label{datos-agrupados-bajo-una-poblaciuxf3n-normal}}
+
+Suponga que observamos los siguientes datos agrupados:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule()
+Altura (pulgadas) & Frecuencia \\
+\midrule()
+\endhead
+Menos de 66 & 14 \\
+Entre 66 y 68 & 30 \\
+Entre 68 y 70 & 49 \\
+Entre 70 y 72 & 70 \\
+Entre 72 y 74 & 33 \\
+Más de 74 & 15 \\
+\bottomrule()
+\end{longtable}
+
+Si asumimos que las alturas son normales con media \(\mu\) y desviación estándar \(\sigma\), podemos asumir una verosimilitud multinomial para los datos agrupados:
+\begin{align*}
+L(\mu,\sigma)&\propto \Phi(66,\mu,\sigma)^{14}(\Phi(68,\mu,\sigma)-\Phi(66,\mu,\sigma))^{30} \\
+&\times  (\Phi(70,\mu,\sigma)-\Phi(68,\mu,\sigma))^{49} (\Phi(72,\mu,\sigma)-\Phi(70,\mu,\sigma))^{70}\\
+&\times  (\Phi(74,\mu,\sigma)-\Phi(72,\mu,\sigma))^{33} (1-\Phi(74,\mu,\sigma))^{15}
+\end{align*}
+
+y asumimos una previa no informativa para \((\mu,\sigma)\sim \frac 1 \sigma\). Como \(\sigma>0\) entonces usamos la transformación \(\lambda=\log (\sigma)\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{int.lo =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\FunctionTok{seq}\NormalTok{(}\DecValTok{66}\NormalTok{, }\DecValTok{74}\NormalTok{, }\AttributeTok{by =} \DecValTok{2}\NormalTok{)), }\AttributeTok{int.hi =} \FunctionTok{c}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\DecValTok{66}\NormalTok{,}
+    \DecValTok{74}\NormalTok{, }\AttributeTok{by =} \DecValTok{2}\NormalTok{), }\ConstantTok{Inf}\NormalTok{), }\AttributeTok{f =} \FunctionTok{c}\NormalTok{(}\DecValTok{14}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{49}\NormalTok{, }\DecValTok{70}\NormalTok{, }\DecValTok{33}\NormalTok{, }\DecValTok{15}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+es una estructura de los datos agrupados. La log-densidad posterior de los datos sería:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{groupeddatapost }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta, data) \{}
+\NormalTok{    dj }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(f, int.lo, int.hi, mu, sigma) f }\SpecialCharTok{*}
+        \FunctionTok{log}\NormalTok{(}\FunctionTok{pnorm}\NormalTok{(int.hi, mu, sigma) }\SpecialCharTok{{-}} \FunctionTok{pnorm}\NormalTok{(int.lo,}
+\NormalTok{            mu, sigma))}
+\NormalTok{    mu }\OtherTok{\textless{}{-}}\NormalTok{ theta[}\DecValTok{1}\NormalTok{]}
+\NormalTok{    sigma }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(theta[}\DecValTok{2}\NormalTok{])}
+    \FunctionTok{sum}\NormalTok{(}\FunctionTok{dj}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{f, data}\SpecialCharTok{$}\NormalTok{int.lo, data}\SpecialCharTok{$}\NormalTok{int.hi, mu, sigma))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Usamos el método de Laplace para encontrar una aproximación de los parámetros de la previa bajo Metropolis-Hastings:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{start }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{70}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{laplace}\NormalTok{(groupeddatapost, start, d)}
+\NormalTok{fit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $mode
+## [1] 70.169880  0.973644
+## 
+## $var
+##              [,1]         [,2]
+## [1,] 3.534713e-02 3.520776e-05
+## [2,] 3.520776e-05 3.146470e-03
+## 
+## $int
+## [1] -350.6305
+## 
+## $converge
+## [1] TRUE
+\end{verbatim}
+
+la escogencia del valor inicial se basa en los datos artificiales en la página 126 del \autocite{Albert2009}. De esta forma definimos los parámetros de la propuesta como:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{proposal }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{var =}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{scale =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+y ajustamos la versión bajo caminata aleatoria de un Metropolis-Hastings (MH):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit2 }\OtherTok{\textless{}{-}} \FunctionTok{rwmetrop}\NormalTok{(groupeddatapost, proposal, start,}
+    \DecValTok{10000}\NormalTok{, d)}
+\end{Highlighting}
+\end{Shaded}
+
+con una tasa de aceptación:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit2}\SpecialCharTok{$}\NormalTok{accept}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.2956
+\end{verbatim}
+
+Algunas estadísticas de la distribución posterior de \(\mu\) y \(\log \sigma\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{post.means }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par, }\DecValTok{2}\NormalTok{, mean)}
+\NormalTok{post.sds }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par, }\DecValTok{2}\NormalTok{, sd)}
+\FunctionTok{cbind}\NormalTok{(post.means, post.sds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      post.means   post.sds
+## [1,] 70.1596677 0.19072746
+## [2,]  0.9799831 0.05389768
+\end{verbatim}
+
+esto se puede comparar con los estimadores de la aproximación de Laplace:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modal.sds }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(fit}\SpecialCharTok{$}\NormalTok{var))}
+\FunctionTok{cbind}\NormalTok{(}\FunctionTok{c}\NormalTok{(fit}\SpecialCharTok{$}\NormalTok{mode), modal.sds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 modal.sds
+## [1,] 70.169880 0.18800834
+## [2,]  0.973644 0.05609341
+\end{verbatim}
+
+También podemos graficar la densidad posterior junto con la muestra generada por el MH, usando una muestra de burn-in de 5000:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mycontour}\NormalTok{(groupeddatapost, }\FunctionTok{c}\NormalTok{(}\DecValTok{69}\NormalTok{, }\DecValTok{71}\NormalTok{, }\FloatTok{0.6}\NormalTok{, }\FloatTok{1.3}\NormalTok{), d,}
+    \AttributeTok{xlab =} \StringTok{"mu"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log sigma"}\NormalTok{)}
+\FunctionTok{points}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{5001}\SpecialCharTok{:}\DecValTok{10000}\NormalTok{, }\DecValTok{1}\NormalTok{], fit2}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{5001}\SpecialCharTok{:}\DecValTok{10000}\NormalTok{,}
+    \DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-308-1} \end{center}
+
+Los traceplots del MCMC los graficamos a través del paquete \emph{coda} junto con el paquete \emph{bayesplot}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(coda)}
+\FunctionTok{library}\NormalTok{(bayesplot)}
+\FunctionTok{dimnames}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par)[[}\DecValTok{2}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{, }\StringTok{"log sigma"}\NormalTok{)}
+\NormalTok{obj\_mcmc }\OtherTok{\textless{}{-}} \FunctionTok{mcmc}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5000}\NormalTok{), ])}
+\FunctionTok{mcmc\_trace}\NormalTok{(obj\_mcmc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-309-1} \end{center}
+
+Los gráficos de autocorrelación empíricos se pueden generar con:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mcmc\_acf}\NormalTok{(obj\_mcmc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-310-1} \end{center}
+
+y funciones de densidad estimadas con intervalos de predicción al 95\% para algunos de los parámetros:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mcmc\_areas}\NormalTok{(obj\_mcmc, }\AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{), }\AttributeTok{prob =} \FloatTok{0.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-311-1} \end{center}
+
+\hypertarget{datos-con-outliers}{%
+\subsection{Datos con outliers}\label{datos-con-outliers}}
+
+Suponga \(y_1,\ldots,y_n\sim \text{Cauchy}(\mu,\sigma)\):
+\[f(y|\mu,\sigma)=\frac{1}{\pi\sigma(1+z^2)}\]
+donde \(z=\frac{y-\mu}{\sigma}\). Con una previa no informativa \(g(\mu,\sigma)\propto 1/\sigma\) y transformando \(\lambda = \log \sigma\) se puede comprobar que la log-densidad posterior es:
+\[\log g(\mu,\lambda|\text{datos}) = \sum_{i=1}^n\left[-\lambda-\log\left(1+\exp(-2\lambda)(y_i-\mu)^2\right)\right]\]
+
+y la implementación de la log-posterior usando la distribución t de Student como generador de la distribución Cauchy:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cauchyerrorpost }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta, data) \{}
+\NormalTok{    logf }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data, theta) }\FunctionTok{log}\NormalTok{(}\FunctionTok{dt}\NormalTok{((data }\SpecialCharTok{{-}}\NormalTok{ theta[}\DecValTok{1}\NormalTok{])}\SpecialCharTok{/}\FunctionTok{exp}\NormalTok{(theta[}\DecValTok{2}\NormalTok{]),}
+        \AttributeTok{df =} \DecValTok{1}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{exp}\NormalTok{(theta[}\DecValTok{2}\NormalTok{]))}
+    \FunctionTok{return}\NormalTok{(}\FunctionTok{sum}\NormalTok{(}\FunctionTok{logf}\NormalTok{(data, theta)))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Los datos provienen de la base \emph{darwin} con 15 diferencias entre alturas de plantas según Fisher (1960). La media y log-desviación estándar empíricos de los datos son:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{data}\NormalTok{(darwin)}
+\NormalTok{data\_darwin }\OtherTok{\textless{}{-}}\NormalTok{ darwin}\SpecialCharTok{$}\NormalTok{difference}
+\FunctionTok{mean}\NormalTok{(data\_darwin)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{log}\NormalTok{(}\FunctionTok{sd}\NormalTok{(data\_darwin))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NA
+\end{verbatim}
+
+y usamos estos valores como valores iniciales dentro de la aproximación de Laplace:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitlaplace }\OtherTok{\textless{}{-}} \FunctionTok{laplace}\NormalTok{(cauchyerrorpost, }\FunctionTok{c}\NormalTok{(}\FloatTok{21.6}\NormalTok{, }\FloatTok{3.6}\NormalTok{),}
+\NormalTok{    data\_darwin)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in solve.default(fit$hessian): Lapack routine dgesv: system is exactly singular: U[1,1] = 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitlaplace}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
+\end{verbatim}
+
+y usamos lo anterior como insumo para generar tres escenarios de MCMC:
+
+\begin{itemize}
+\tightlist
+\item
+  Metropolis-Hastings con caminata aleatoria:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{proposal }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{var =}\NormalTok{ fitlaplace}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{scale =} \FloatTok{2.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{start }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\NormalTok{E1 }\OtherTok{\textless{}{-}} \FunctionTok{rwmetrop}\NormalTok{(cauchyerrorpost, proposal, start, }\DecValTok{50000}\NormalTok{,}
+\NormalTok{    data\_darwin)}
+\FunctionTok{mycontour}\NormalTok{(cauchyerrorpost, }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{4.5}\NormalTok{), data\_darwin,}
+    \AttributeTok{xlab =} \StringTok{"mu"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log sigma"}\NormalTok{)}
+\FunctionTok{points}\NormalTok{(E1}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], E1}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-315-1} \end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Metropolis-Hastings independiente:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{proposal2 }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{var =}\NormalTok{ fitlaplace}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{mu =} \FunctionTok{t}\NormalTok{(fitlaplace}\SpecialCharTok{$}\NormalTok{mode))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{E2 }\OtherTok{\textless{}{-}} \FunctionTok{indepmetrop}\NormalTok{(cauchyerrorpost, proposal2, start,}
+    \DecValTok{50000}\NormalTok{, data\_darwin)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in matrix(proposal$mu): object 'proposal2' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mycontour}\NormalTok{(cauchyerrorpost, }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{4.5}\NormalTok{), data\_darwin,}
+    \AttributeTok{xlab =} \StringTok{"mu"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log sigma"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-316-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{points}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], E2}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in points(E2$par[, 1], E2$par[, 2]): object 'E2' not found
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Muestreo de Gibbs:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{E3 }\OtherTok{\textless{}{-}} \FunctionTok{gibbs}\NormalTok{(cauchyerrorpost, start, }\DecValTok{50000}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\DecValTok{12}\NormalTok{, }\FloatTok{0.75}\NormalTok{),}
+\NormalTok{    data\_darwin)}
+\FunctionTok{mycontour}\NormalTok{(cauchyerrorpost, }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{4.5}\NormalTok{), data\_darwin,}
+    \AttributeTok{xlab =} \StringTok{"mu"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log sigma"}\NormalTok{)}
+\FunctionTok{points}\NormalTok{(E3}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], E3}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-317-1} \end{center}
+
+Comparemos el estimador bayesiano e intervalos de predicción al 95\% para la media \(\mu\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Resultados }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{rbind}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(E1}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{]),}
+    \FunctionTok{quantile}\NormalTok{(E1}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{)),}
+\NormalTok{    E1}\SpecialCharTok{$}\NormalTok{accept), }\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{]), }\FunctionTok{quantile}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par[,}
+    \DecValTok{1}\NormalTok{], }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{)), E2}\SpecialCharTok{$}\NormalTok{accept), }\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(E3}\SpecialCharTok{$}\NormalTok{par[,}
+    \DecValTok{1}\NormalTok{]), }\FunctionTok{quantile}\NormalTok{(E3}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{)),}
+    \ConstantTok{NA}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'mean': object 'E2' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(Resultados) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Media"}\NormalTok{, }\StringTok{"Q1"}\NormalTok{, }\StringTok{"Q3"}\NormalTok{, }\StringTok{"Accept"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in colnames(Resultados) <- c("Media", "Q1", "Q3", "Accept"): object 'Resultados' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rownames}\NormalTok{(Resultados) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"MH{-}RW"}\NormalTok{, }\StringTok{"MH{-}Indep"}\NormalTok{, }\StringTok{"Gibbs"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in rownames(Resultados) <- c("MH-RW", "MH-Indep", "Gibbs"): object 'Resultados' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Resultados }\OtherTok{\textless{}{-}}\NormalTok{ Resultados }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Ancho =}\NormalTok{ Q3 }\SpecialCharTok{{-}}\NormalTok{ Q1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in mutate(., Ancho = Q3 - Q1): object 'Resultados' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(knitr)}
+\FunctionTok{kable}\NormalTok{(Resultados)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in kable(Resultados): object 'Resultados' not found
+\end{verbatim}
+
+En el caso del algoritmo de Gibbs, cada uno de los pasos tiene una tasa de aceptación de MH en este caso:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{E3}\SpecialCharTok{$}\NormalTok{accept}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    1    1
+\end{verbatim}
+
+También podemos incluir histogramas para las muestras posteriores de ambos parámetros. Para el MH independiente (burn-in=5000):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{color\_scheme\_set}\NormalTok{(}\StringTok{"green"}\NormalTok{)}
+\FunctionTok{dimnames}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par)[[}\DecValTok{2}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{, }\StringTok{"log sigma"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in dimnames(E2$par)[[2]] <- c("mu", "log sigma"): object 'E2' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{obj\_mcmc2 }\OtherTok{\textless{}{-}} \FunctionTok{mcmc}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5000}\NormalTok{), ])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in mcmc(E2$par[-c(1:5000), ]): object 'E2' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mcmc\_hist}\NormalTok{(obj\_mcmc2, }\AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{, }\StringTok{"log sigma"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in posterior::is_draws(x): object 'obj_mcmc2' not found
+\end{verbatim}
+
+y los gráficos de autocorrelación respectivos:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mcmc\_acf\_bar}\NormalTok{(obj\_mcmc2, }\AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{, }\StringTok{"log sigma"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in posterior::is_draws(x): object 'obj_mcmc2' not found
+\end{verbatim}
+
+\hypertarget{ejercicios-6}{%
+\section{Ejercicios}\label{ejercicios-6}}
+
+\begin{itemize}
+\tightlist
+\item
+  Del libro \autocite{Albert2009}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Capítulo 5: 1, 2, 4, 5.
+  \item
+    Capítulo 6: 3, 5, 6, 10.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{anuxe1lisis-en-componentes-principales}{%
+\chapter{Análisis en componentes principales}\label{anuxe1lisis-en-componentes-principales}}
+
+\hypertarget{aprendizaje-no-supervisado}{%
+\section{Aprendizaje no-supervisado}\label{aprendizaje-no-supervisado}}
+
+Al contrario de los métodos que se han estudiado de regresión y clasificación, en este caso no hay variable dependiente, y el conjunto de datos está compuesto de \(p\) variables o características y \(n\) observaciones.
+
+El principal objetivo del aprendizaje no-supervisado no es la predicción, sino en el \emph{análisis de datos} por sí mismo, es decir se quiere buscar patrones o relaciones interesantes dentro de la tabla de datos: por ejemplo la visualización de datos o la identificación de subgrupos en los datos. (Análisis Exploratorio de Datos)
+
+En el caso de aprendizaje no-supervisado, no es posible verificar o validar los métodos adoptados.
+
+Si se quiere seleccionar la mejor proyección de 2 variables de una nube de puntos \(X_1,\dots, X_p\), se debe hacer \(\binom{p}{2}\) gráficos de dispersión. Un criterio de búsqueda es seleccionar la que tenga mayor información, en el sentido de mayor variabilidad.
+
+Usaremos como base los libros de \autocite{HussonExploratory2017} y \autocite{James2013b}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rgl)}
+\FunctionTok{library}\NormalTok{(car)}
+\NormalTok{knitr}\SpecialCharTok{::}\NormalTok{knit\_hooks}\SpecialCharTok{$}\FunctionTok{set}\NormalTok{(}\AttributeTok{webgl =}\NormalTok{ hook\_webgl, }\AttributeTok{rgl =}\NormalTok{ hook\_rgl)}
+\NormalTok{knitr}\SpecialCharTok{::}\NormalTok{opts\_chunk}\SpecialCharTok{$}\FunctionTok{set}\NormalTok{(}\AttributeTok{fig.pos =} \StringTok{"!h"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{x1 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{x2 }\OtherTok{\textless{}{-}} \FunctionTok{cos}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\NormalTok{x3 }\OtherTok{\textless{}{-}}\NormalTok{ x1 }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{GGally}\SpecialCharTok{::}\FunctionTok{ggpairs}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(x1, x2, x3))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-325-1} \end{center}
+
+../../../../../../../../private/var/folders/4d/qj4qr8zx1n36td0hlt0p7x\_h0000gn/T/RtmpTBMEcr/file33da58f0ef8d.png
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot3d}\NormalTok{(x1, x3, x2, }\AttributeTok{point.col =} \StringTok{"black"}\NormalTok{)}
+
+\FunctionTok{plot3d}\NormalTok{(}\FunctionTok{scale}\NormalTok{(x1), }\FunctionTok{scale}\NormalTok{(x2), }\FunctionTok{scale}\NormalTok{(x3), }\AttributeTok{point.col =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-327-1} \end{center}
+
+El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones eliminando la mayor cantidad de ruido posible.
+
+\hypertarget{representaciuxf3n-gruxe1fica}{%
+\section{Representación gráfica}\label{representaciuxf3n-gruxe1fica}}
+
+\begin{figure}
+\centering
+\includegraphics{manual_figures/pca.png}
+\caption{Tomado de \href{https://shapeofdata.wordpress.com/2013/04/09/principle-component-analysis/}{The shape of data}}
+\end{figure}
+
+\hypertarget{primer-componente-principal}{%
+\section{Primer componente principal}\label{primer-componente-principal}}
+
+\[ Z_1 := \phi_{11}x_1 +  \phi_{21}x_2 + \dots + \phi_{p1}x_p;\quad \text{con } \sum_{j=1}^{p}\phi_{j1} = 1\]
+tal que \(Z_1\) tenga la varianza máxima.
+
+Al vector \(\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})\) se le llama \emph{pasos o cargas}.
+
+\(X = (X_1,\dots,X_p)_{n\times p}\) es la \emph{matriz de diseño} donde cada columna tiene media 0. Se resuelve el problema
+\[\hat{\phi}_1=\underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace \]
+La restricción de minimización se puede rescribir como \(\Vert\phi_1\Vert_2^2= \sum_{j=1}^p \phi_{j1}^2 = 1\)
+
+Los \(Z_{11},\dots, Z_{n1}\) son los scores del primer componente principal.
+
+\(\phi_1\) es la dirección en el espacio característico en \(\mathbb{R}^p\) en donde los datos tengan la máxima varianza.
+
+Esta última expresión se podría rescribir de forma matricial como
+
+\[
+\hat{\phi}_1 = \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{ \phi_1^\top X^\top X \phi_1 \right\}
+\]
+
+donde \(\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})\)
+
+dadas las condiciones, esta expresión se podría simplificar un poco más en
+
+\[
+\hat{\phi}_1 = \underset{\phi_1}{\mathrm{argmax}} \left\{\frac{\phi_1^\top X^\top X \phi_1 }{\phi_1^\top \phi_1}\right\}
+\]
+
+Dado que la expresión anterio es un coeficiente de Rayleigh, se puede probar que \(\hat{\phi}_{1}\) corresponde al primer vector propio de la matriz \(X^\top X = \mathrm{Cov}(X)\) si las columnas de \(X\) son centradas.
+
+\hypertarget{segunda-componente-principal}{%
+\section{Segunda componente principal}\label{segunda-componente-principal}}
+
+\[ Z_{2}:= \phi_{12}x_1 + \phi_{22}x_2+\dots+\phi_{p2}x_p\]
+\[\underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j2} X_{ij} \right)^2 \right\rbrace\]
+Se tiene, además, que \(\forall i\), \(Z_{i2}\perp Z_1\), entonces
+\[ Z_{i2}\perp Z_1 \implies \phi_{2} \perp \phi_{1}\]
+
+Esto se logra primero construyendo una matriz nueva de diseño, restando a la matrix \(X\) original, el primer componente principal.
+
+\[
+\tilde{X}_2 = X - X\phi_1\phi_1^\top
+\]
+
+Luego a esa matriz, se le aplica el procedimiento anterior
+
+\[
+\hat{\phi}_2 = \underset{\phi_2}{\mathrm{argmax}} \left\{\frac{\phi_2^\top X^\top X \phi_2 }{\phi_2^\top \phi_2}\right\}
+\]
+
+Y nuevamente se puede probar que el componente principal corresponde al segundo vector propio de
+\(X^\top X = \mathrm{Cov}(X)\)
+
+De la misma forma se construye \(\phi_3,\phi_4,\dots, \phi_p\).
+
+Notas:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Escalas}: la varianza de las variables depende de las unidades. El problema es que los pesos \(\phi_i\) son distintos dependiendo de las escalas. La solución es estandarizar las variables: \(\dfrac{X_i-\mu_i}{\hat\sigma_i}\).
+\item
+  \textbf{Unicidad}: los componentes principales son únicos, módulo cambio de signo.
+  \textbackslash end\{itemize\}
+\end{itemize}
+
+\hypertarget{circulo-de-correlaciones}{%
+\section{Circulo de correlaciones}\label{circulo-de-correlaciones}}
+
+Se puede construir la correlación de cada variable con respecto a cada componente principal
+
+\[
+cos(\theta_{i,j^\prime}) = \mathrm{Corr}(X_i, \mathrm{PC}_{j^\prime})
+\]
+
+El ángulo \(\theta_{i,j^\prime}\) significa la lejanía o cercanía de cierta variable con respecto a cada componente principal.
+
+Además, basados en el el círculo identidad \(\cos^2(\theta)+\sin^2(\theta)=1\), el valor de \(cos^2(\theta_{i,j^\prime})\) representa la ``intensidad'' con la cual la variable \(X_i\) es representada por el componente principal \(\mathrm{PC}_{i^\prime}\).
+
+\hypertarget{volvamos-a-nuestro-ejemplo}{%
+\section{Volvamos a nuestro ejemplo}\label{volvamos-a-nuestro-ejemplo}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(}\StringTok{"factoextra"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(}\StringTok{"FactoMineR"}\NormalTok{)}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{PCA}\NormalTok{(}\FunctionTok{scale}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(x1, x2, x3)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p}\SpecialCharTok{$}\NormalTok{var}\SpecialCharTok{$}\NormalTok{cor}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          Dim.1       Dim.2       Dim.3
+## x1  0.92280569 0.037753401 -0.38341145
+## x2 -0.03690606 0.999225664  0.01363871
+## x3  0.92346176 0.002207375  0.38368413
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p}\SpecialCharTok{$}\NormalTok{var}\SpecialCharTok{$}\NormalTok{cos2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          Dim.1        Dim.2        Dim.3
+## x1 0.851570337 1.425319e-03 0.1470043434
+## x2 0.001362057 9.984519e-01 0.0001860145
+## x3 0.852781615 4.872503e-06 0.1472135129
+\end{verbatim}
+
+\hypertarget{cuuxe1ntos-componentes-usar}{%
+\section{¿Cuántos componentes usar?}\label{cuuxe1ntos-componentes-usar}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{fviz\_screeplot}\NormalTok{(p, }\AttributeTok{addlabels =}\NormalTok{ F, }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{50}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Variables"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"Porcentaje de varianza de Z explicada"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Diagrama"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-330-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qplot}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, p}\SpecialCharTok{$}\NormalTok{eig[, }\DecValTok{3}\NormalTok{], }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Cantidad de componentes"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ylab}\NormalTok{(}\StringTok{"Varianza acumulada"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{80}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-331-1} \end{center}
+
+\hypertarget{laboratorio-8}{%
+\section{Laboratorio}\label{laboratorio-8}}
+
+Vamos a usar los datos \texttt{decathlon} de \texttt{FactomineR} que representa los resultados de varios atletas en pruebas de decathlon en el 2004.
+
+El objetivo es encontrar si hay patrones entre ciudad y tipos de crimen.
+
+Exploración de datos
+Ejecute una exploración de datos
+
+\begin{verbatim}
+##       100m         Long.jump       Shot.put       High.jump          400m      
+##  Min.   :10.44   Min.   :6.61   Min.   :12.68   Min.   :1.850   Min.   :46.81  
+##  1st Qu.:10.85   1st Qu.:7.03   1st Qu.:13.88   1st Qu.:1.920   1st Qu.:48.93  
+##  Median :10.98   Median :7.30   Median :14.57   Median :1.950   Median :49.40  
+##  Mean   :11.00   Mean   :7.26   Mean   :14.48   Mean   :1.977   Mean   :49.62  
+##  3rd Qu.:11.14   3rd Qu.:7.48   3rd Qu.:14.97   3rd Qu.:2.040   3rd Qu.:50.30  
+##  Max.   :11.64   Max.   :7.96   Max.   :16.36   Max.   :2.150   Max.   :53.20  
+##   110m.hurdle        Discus        Pole.vault       Javeline    
+##  Min.   :13.97   Min.   :37.92   Min.   :4.200   Min.   :50.31  
+##  1st Qu.:14.21   1st Qu.:41.90   1st Qu.:4.500   1st Qu.:55.27  
+##  Median :14.48   Median :44.41   Median :4.800   Median :58.36  
+##  Mean   :14.61   Mean   :44.33   Mean   :4.762   Mean   :58.32  
+##  3rd Qu.:14.98   3rd Qu.:46.07   3rd Qu.:4.920   3rd Qu.:60.89  
+##  Max.   :15.67   Max.   :51.65   Max.   :5.400   Max.   :70.52  
+##      1500m            Rank           Points       Competition
+##  Min.   :262.1   Min.   : 1.00   Min.   :7313   Decastar:13  
+##  1st Qu.:271.0   1st Qu.: 6.00   1st Qu.:7802   OlympicG:28  
+##  Median :278.1   Median :11.00   Median :8021                
+##  Mean   :279.0   Mean   :12.12   Mean   :8005                
+##  3rd Qu.:285.1   3rd Qu.:18.00   3rd Qu.:8122                
+##  Max.   :317.0   Max.   :28.00   Max.   :8893
+\end{verbatim}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-334-1} \end{center}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-336-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(acp.decathlon}\SpecialCharTok{$}\NormalTok{ind}\SpecialCharTok{$}\NormalTok{coord[, }\DecValTok{1}\NormalTok{], acp.decathlon}\SpecialCharTok{$}\NormalTok{ind}\SpecialCharTok{$}\NormalTok{coord[,}
+    \DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-337-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(acp.decathlon}\SpecialCharTok{$}\NormalTok{ind}\SpecialCharTok{$}\NormalTok{coord[, }\DecValTok{3}\NormalTok{], acp.decathlon}\SpecialCharTok{$}\NormalTok{ind}\SpecialCharTok{$}\NormalTok{coord[,}
+    \DecValTok{4}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-337-2} \end{center}
+
+```
+
+\hypertarget{ejercicios-7}{%
+\section{Ejercicios}\label{ejercicios-7}}
+
+\begin{itemize}
+\tightlist
+\item
+  Del libro \autocite{James2013b}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Capítulo 10: 6, 8
+    `
+  \end{itemize}
+\end{itemize}
 
 \printbibliography
 

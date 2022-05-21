@@ -6961,9 +6961,1972 @@ lasso.coef[lasso.coef != 0]
 <!--chapter:end:06-seleccion-de-variables.Rmd-->
 
 
-\backmatter
+# Otros Clasificadores
+
+## Clasificador Bayesiano
+
+Bajo el modelo de aprendizaje estadístico, suponga que se quiere estimar $f$ usando el conjunto de entrenamiento $\{(x_1,y_1),\ldots,(x_n,y_n)\}$ donde $y_1,\ldots,y_n$ es categórica. Para evaluar la precisión del clasificador $\hat f$ podemos usar la tasa de error:
+
+$$\frac 1 n \sum_{i=1}^nI(y_i\neq \hat y_i)$$
+
+donde $\hat y_i$ es el nivel predecido de la variable categórica para el individuo $i$-ésimo. La tasa de error mide la proporción de observaciones mal clasificadas por $\hat f$ dentro del conjunto de entrenamiento. El mismo concepto se puede aplicar en el conjunto de prueba, es decir si $Z_0$ es el conjunto de índices de datos de prueba con tamaño $m$:
+
+\begin{align}
+\frac 1 m \sum_{i \in Z_0}I(y_i\neq \hat y_i)
+(\#eq:cerror)
+\end{align}
+
+Decimos que un clasificador es bueno cuando el error de prueba en \@ref(eq:cerror) es el más pequeño.
+
+Es posible demostrar que el error de prueba se minimiza cuando $\hat f$ asigna a cada observación el nivel con la probabilidad más alta dados los predictores, es decir se asigna la clase $j$ a la observación $x_0$ en donde 
+$$P(Y=j|X=x_0)$$
+
+es máximo. A este clasificador se le llama *clasificador bayesiano*. En el caso en que el número de niveles o categorías de la variable dependiente es 2 ($j=1,2$), entonces se selecciona el nivel $j$-ésimo si:
+$$P(Y=j|X=x_0)>0.5$$
+
+Al conjunto $\{x_0: P(Y=j|X=x_0)=0.5\}$ se le llama frontera de decisión de Bayes. 
+
+La *tasa bayesiana de error* del clasificador para un conjunto de datos fijos es:
+$1-\max_j P(Y=j|X=x_0)$. En general la tasa de error bayesiana sería:
+$$1-E\left[\max_j P(Y=j|X)\right]$$
+
+Para el caso de clasificación la tasa de error bayesiana es equivalente al error irreducible.
+
+Inconveniente: en datos reales no conocemos $P(Y=j|X=x_0)$.
+
+## Método de k vecinos más cercanos (KNN)
+
+Este método aproxima la probabilidad condicional del clasificador bayesiano. Dado un entero $K$ y una observación de prueba $x_0$, el clasificador primero identifica el conjunto de observaciones que son más cercanas a $x_0$: $\mathcal N_0$. Entonces:
+$$P(Y=j|X=x_0) := \frac{1}{K}\sum_{i \in \mathcal N_0}I(y_i=j)$$
+y siguiendo la regla de bayes se selecciona la categoría con probabilidad condicional máxima.
+
+![Clasificación según K vecinos más cercanos (Wikimedia Commons)](manual_figures/KNN.png)
+
+## Análisis Discriminante
+
+Recuerden que en el caso del modelo logístico, se tiene que:
+$$P(Y=1|X=x)=\frac{e^{\beta_0+\beta_1X_1+\cdots+\beta_pX_p}}{1+e^{\beta_0+\beta_1X_1+\cdots+\beta_pX_p}}$$
+donde $X_1,\ldots,X_p$ son los predictores. Para el modelo logístico tenemos los siguientes inconvenientes:
+
+- Cuando las clases están muy separadas, los parámetros del modelo logístico tienden a ser muy inestables.
+
+- Cuando la distribución de los predictores es aproximadamente normal en cada una de las clases, entonces el modelo discriminante lineal es más estable que el logístico.
+
+- El modelo logístico aplica solamente en el caso de 2 clases.
+
+Suponga que se quiere clasificar una observación en $K\geq 2$ clases. Sea $\pi_k$ la probabilidad previa de que la observación provenga de la clase $k$-ésima. Sea 
+$$f_k(x)=P(X=x|Y=k)$$
+por el teorema de Bayes:
+$$P_k(x):=P(Y=k|X=x)=\frac{\pi_kf_k(x)}{\sum_{l=1}^K \pi_lf_l(x)}$$
+
+Estimación de los componentes:
+
+- $\pi_k$: proporción de observaciones en el conjunto de entrenamiento que pertenecen a la clase $k$-ésima.
+- $f_k(x)$: supuesto paramétrico que define el tipo de análisis discriminante.
+
+### Análisis discriminante lineal
+
+#### Caso p=1
+
+Asuma que 
+$$f_k(x)=\frac{1}{\sqrt{2\pi}\sigma_k}\exp\left(-\frac{1}{2\sigma_k^2}(x-\mu_k)^2\right)$$
+donde $\mu_k$ y $\sigma_k$ son la media y desviación estándar para cada clase en la variable dependiente. Asumiendo que $\sigma^2=\sigma_1^2=\cdots=\sigma_K^2$ se puede comprobar que el clasificador bayesiano asigna la clase $k$ si
+
+\begin{align}
+\delta_k(x)=x\frac{\mu_k}{\sigma^2}-\frac{\mu_k^2}{2\sigma^2}+\log(\pi_k)
+(\#eq:LDA)
+\end{align}
+
+es el máximo entre los valores correspondientes a cada clase. A esta función se le llama *función discriminante*.
+
+El método de análisis discriminante lineal (LDA) asume que:
+\begin{align*}
+\hat \mu_k&=\frac{1}{n_k}\sum_{i:y_i=k}x_i\\
+\hat \sigma^2&=\frac{1}{n-K}\sum_{k=1}^K\sum_{i:y_i=k}(x_i-\hat \mu_k)^2\\
+\hat \pi_k &=\frac{n_k}{n}
+\end{align*}
+
+como estimadores plug-in en \@ref(eq:LDA).
+
+#### Caso p>1
+
+Generalizando la sección anterior, podemos asumir que $X=(X_1,\ldots,X_p)$ proviene de una distribución Gaussiana multivariada. Es decir, asuma que las observaciones en la clase $k$ tienen distribución $N(\mu_k,\Sigma)$ donde $\mu_k$: vector de medias para la clase $k$ y $\Sigma$ es la matriz de varianza-covarianza para todas las $K$ clases. 
+
+La función discriminante en este caso sería:
+$$\delta_k(x)=x^T\Sigma^{-1} \mu_k-\frac 1 2\mu_k^T \Sigma^{-1}\mu_k+\log \pi_k$$
+El método LDA sustituye los parámetros en la fórmula anterior con estimadores empíricos, tal y como se hizo para $p=1$. La escogencia de la clase estimada sigue el mismo criterio.
+
+![Simulación de Análisis Discriminante Lineal [@James2013b]](manual_figures/LDA.png)
+
+### Análisis discriminante cuadrático
+
+Bajo los supuestos del LDA, asuma que $\Sigma_k$ es la matriz de covarianza para la clase $k$. En este caso las funciones discriminantes tendrían la forma:
+$$\delta_k(x)=-\frac 1 2 (x-\mu_k)^T\Sigma_k^{-1}(x-\mu_k)-\frac 1 2 \log |\Sigma_k|+\log \pi_k$$
+Al uso de las funciones anteriores como herramientas de clasificación se le llama Análisis Discriminante Cuadrático (QDA). 
+
+Relación LDA vs QDA:
+
+- LDA es menos flexible que QDA, por la diferencia en el número de parámetros. Por lo tanto LDA tiene menos varianza que QDA.
+- Si el supuesto de varianzas constantes en LDA no es adecuado, entonces el sesgo es alto.
+- QDA es más adecuado que LDA cuando el número de observaciones es relativamente alto, debido a que el supuesto de varianzas constantes es más difícil de alcanzar.
+
+Comparación de métodos:
+
+- LDA y regresión logística producen fronteras de decisión lineales. 
+- LDA asume más sobre el comportamiento de los datos, con respecto a la regresión logística.
+- KNN es no paramétrico, por lo tanto produce fronteras de decisión más flexibles que LDA o QDA. El grado de suavidad del clasificador (en términos de sus fronteras) depende del parámetro $K$.
+- QDA ofrece fronteras de decisión más flexibles que LDA o logística.
+- KNN no tiene la misma capacidad de interpretabilidad que la regresión logística.
+- Como KNN depende de la distancia entre observaciones, entonces la escala de las covariables importa.
+
+## Laboratorio
+
+Datos sociodemográficos y de productos de aseguramiento de 5822 clientes. La variable dependiente es si cada cliente adquirió un seguro de remolques (https://liacs.leidenuniv.nl/~puttenpwhvander/library/cc2000/data.html). 
+
+
+```r
+library(ISLR)
+data(Caravan)
+dim(Caravan)
+```
+
+```
+## [1] 5822   86
+```
+
+Vamos a usar las herramientas en el paquete *tidymodels* para efectuar una comparación entre los métodos de clasificación que hemos visto en clase. El objetivo es clasificar a los clientes entre compradores/no compradores del seguro (variable dependiente: Purchase, covariables: el resto)
+
+
+```r
+library(tidymodels)
+```
+
+```
+## Error in library(tidymodels): there is no package called 'tidymodels'
+```
+
+```r
+library(tidyverse)
+```
+
+
+El primer paso es construir una separación de conjunto de entrenamiento y de conjunto de prueba:
+
+```r
+set.seed(1234)
+Caravan.split <- initial_split(Caravan, prop = 0.8,
+    strata = Purchase)
+```
+
+```
+## Error in initial_split(Caravan, prop = 0.8, strata = Purchase): could not find function "initial_split"
+```
+
+```r
+Caravan.training <- Caravan.split %>%
+    training()
+```
+
+```
+## Error in training(.): could not find function "training"
+```
+
+```r
+Caravan.testing <- Caravan.split %>%
+    testing()
+```
+
+```
+## Error in testing(.): could not find function "testing"
+```
+
+Como vamos a usar el método KNN, lo conveniente es estandarizar todas las covariables:
+
+
+```r
+Caravan.recipe <- recipe(Purchase ~ ., data = Caravan.training) %>%
+    step_normalize(all_predictors(), -all_outcomes())
+```
+
+```
+## Error in step_normalize(., all_predictors(), -all_outcomes()): could not find function "step_normalize"
+```
+y aplicamos la receta sobre el conjunto de prueba para verificar que la receta funciona bien:
+
+
+```r
+Caravan.recipe %>%
+    prep() %>%
+    bake(new_data = Caravan.testing)
+```
+
+```
+## Error in bake(., new_data = Caravan.testing): could not find function "bake"
+```
+
+### Clasificador logístico
+
+Vamos a ajustar un modelo logístico a los datos. Primero especificamos el modelo:
+
+
+```r
+modelo_logistico <- logistic_reg() %>%
+    set_engine("glm") %>%
+    set_mode("classification")
+```
+
+```
+## Error in set_mode(., "classification"): could not find function "set_mode"
+```
+
+y después definimos un objeto tipo *workflow* para unir el tratamiento de datos (recipe) con el modelo:
+
+
+```r
+logistico_wf <- workflow() %>%
+    add_model(modelo_logistico) %>%
+    add_recipe(Caravan.recipe)
+```
+
+```
+## Error in add_recipe(., Caravan.recipe): could not find function "add_recipe"
+```
+
+y ajustamos el modelo:
+
+```r
+logistico_ajuste <- logistico_wf %>%
+    fit(data = Caravan.training)
+```
+
+```
+## Error in fit(., data = Caravan.training): could not find function "fit"
+```
+
+Obtenemos predicciones en el conjunto de prueba:
+
+```r
+predicciones_probs <- predict(logistico_ajuste, new_data = Caravan.testing,
+    type = "prob")
+```
+
+```
+## Error in predict(logistico_ajuste, new_data = Caravan.testing, type = "prob"): object 'logistico_ajuste' not found
+```
+
+```r
+predicciones_categ <- predict(logistico_ajuste, new_data = Caravan.testing)
+```
+
+```
+## Error in predict(logistico_ajuste, new_data = Caravan.testing): object 'logistico_ajuste' not found
+```
+
+```r
+head(predicciones_probs)
+```
+
+```
+## Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': object 'predicciones_probs' not found
+```
+
+```r
+head(predicciones_categ)
+```
+
+```
+## Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': object 'predicciones_categ' not found
+```
+
+Unimos todos los resultados en un solo arreglo:
+
+
+```r
+resultados_logistico <- Caravan.testing %>%
+    select(Purchase) %>%
+    bind_cols(predicciones_categ) %>%
+    bind_cols(predicciones_probs)
+```
+
+```
+## Error in select(., Purchase): object 'Caravan.testing' not found
+```
+
+y podemos calcular la matriz de confusión:
+
+
+```r
+conf_mat(resultados_logistico, truth = Purchase, estimate = .pred_class)
+```
+
+```
+## Error in conf_mat(resultados_logistico, truth = Purchase, estimate = .pred_class): could not find function "conf_mat"
+```
+
+curva ROC:
+
+
+```r
+roc_curve(resultados_logistico, truth = Purchase, estimate = .pred_No) %>%
+    autoplot()
+```
+
+```
+## Error in roc_curve(resultados_logistico, truth = Purchase, estimate = .pred_No): could not find function "roc_curve"
+```
+y finalmente el área bajo la curva ROC:
+
+
+```r
+roc_auc(resultados_logistico, truth = Purchase, estimate = .pred_No)
+```
+
+```
+## Error in roc_auc(resultados_logistico, truth = Purchase, estimate = .pred_No): could not find function "roc_auc"
+```
+
+Existe otra alternativa de ajuste con el comando *last_fit* que automatiza el proceso:
+
+```r
+last_fit_logistica <- logistico_wf %>%
+    last_fit(split = Caravan.split)
+```
+
+```
+## Error in last_fit(., split = Caravan.split): could not find function "last_fit"
+```
+
+Obtenemos métricas:
+
+
+```r
+last_fit_logistica %>%
+    collect_metrics()
+```
+
+```
+## Error in collect_metrics(.): could not find function "collect_metrics"
+```
+
+y predicciones:
+
+
+```r
+head(last_fit_logistica %>%
+    collect_predictions())
+```
+
+```
+## Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': could not find function "collect_predictions"
+```
+
+### Análisis Discriminante Lineal
+
+Usando el mismo procedimiento de datos anterior, definimos el modelo LDA:
+
+
+```r
+library(discrim)
+```
+
+```
+## Error in library(discrim): there is no package called 'discrim'
+```
+
+```r
+modelo_lda <- discrim_linear() %>%
+    set_engine("MASS") %>%
+    set_mode("classification")
+```
+
+```
+## Error in set_mode(., "classification"): could not find function "set_mode"
+```
+
+flujo de trabajo:
+
+```r
+lda_wf <- workflow() %>%
+    add_model(modelo_lda) %>%
+    add_recipe(Caravan.recipe)
+```
+
+```
+## Error in add_recipe(., Caravan.recipe): could not find function "add_recipe"
+```
+
+ajuste del modelo:
+
+```r
+last_fit_lda <- lda_wf %>%
+    last_fit(split = Caravan.split)
+```
+
+```
+## Error in last_fit(., split = Caravan.split): could not find function "last_fit"
+```
+
+Métricas de LDA:
+
+```r
+last_fit_lda %>%
+    collect_metrics()
+```
+
+```
+## Error in collect_metrics(.): could not find function "collect_metrics"
+```
+
+curva ROC:
+
+
+```r
+lda_predicciones <- last_fit_lda %>%
+    collect_predictions()
+```
+
+```
+## Error in collect_predictions(.): could not find function "collect_predictions"
+```
+
+```r
+lda_predicciones %>%
+    roc_curve(truth = Purchase, estimate = .pred_No) %>%
+    autoplot()
+```
+
+```
+## Error in roc_curve(., truth = Purchase, estimate = .pred_No): could not find function "roc_curve"
+```
+
+y matriz de confusión:
+
+```r
+lda_predicciones %>%
+    conf_mat(truth = Purchase, estimate = .pred_class)
+```
+
+```
+## Error in conf_mat(., truth = Purchase, estimate = .pred_class): could not find function "conf_mat"
+```
+
+### Análisis Discriminante Cuadrático
+
+En este caso usaremos otro generador (*klaR*). 
+
+Nota: El argumento *frac_common_cov=1* permite hacer LDA en lugar de QDA.
+
+
+```r
+modelo_qda <- discrim_regularized(frac_common_cov = 0) %>%
+    set_engine("klaR") %>%
+    set_mode("classification")
+```
+
+```
+## Error in set_mode(., "classification"): could not find function "set_mode"
+```
+
+
+```r
+library(klaR)
+```
+
+```
+## Error in library(klaR): there is no package called 'klaR'
+```
+
+```r
+qda_wf <- workflow() %>%
+    add_model(modelo_qda) %>%
+    add_recipe(Caravan.recipe)
+```
+
+```
+## Error in add_recipe(., Caravan.recipe): could not find function "add_recipe"
+```
+
+```r
+last_fit_qda <- qda_wf %>%
+    last_fit(split = Caravan.split)
+```
+
+```
+## Error in last_fit(., split = Caravan.split): could not find function "last_fit"
+```
+
+
+```r
+last_fit_qda %>%
+    collect_metrics()
+```
+
+```
+## Error in collect_metrics(.): could not find function "collect_metrics"
+```
+
+```r
+qda_predicciones <- last_fit_qda %>%
+    collect_predictions()
+```
+
+```
+## Error in collect_predictions(.): could not find function "collect_predictions"
+```
+
+```r
+qda_predicciones %>%
+    roc_curve(truth = Purchase, estimate = .pred_No) %>%
+    autoplot()
+```
+
+```
+## Error in roc_curve(., truth = Purchase, estimate = .pred_No): could not find function "roc_curve"
+```
+
+```r
+qda_predicciones %>%
+    conf_mat(truth = Purchase, estimate = .pred_class)
+```
+
+```
+## Error in conf_mat(., truth = Purchase, estimate = .pred_class): could not find function "conf_mat"
+```
+
+### K vecinos más cercanos
+
+En el caso del KNN se va a seleccionar el número de vecinos a través de validación cruzada, usando como métrica el AUC. Primero definimos los conjuntos bajo el k-fold:
+
+
+```r
+set.seed(178)
+
+Caravan.folds <- vfold_cv(Caravan.training, v = 5,
+    strata = Purchase)
+```
+
+```
+## Error in vfold_cv(Caravan.training, v = 5, strata = Purchase): could not find function "vfold_cv"
+```
+
+y definimos el modelo KNN y el flujo de trabajo:
+
+
+```r
+modelo_knn <- nearest_neighbor(neighbors = tune()) %>%
+    set_engine("kknn") %>%
+    set_mode("classification")
+```
+
+```
+## Error in set_mode(., "classification"): could not find function "set_mode"
+```
+
+```r
+knn_wf <- workflow() %>%
+    add_model(modelo_knn) %>%
+    add_recipe(Caravan.recipe)
+```
+
+```
+## Error in add_recipe(., Caravan.recipe): could not find function "add_recipe"
+```
+
+Definimos una grilla de posibles valores de # de vecinos que usaremos en el k-fold:
+
+
+```r
+k_grid <- tibble(neighbors = c(50, 75, 100, 125, 150,
+    175, 200, 225))
+
+set.seed(178)
+knn_tuning <- knn_wf %>%
+    tune_grid(resamples = Caravan.folds, grid = k_grid)
+```
+
+```
+## Error in tune_grid(., resamples = Caravan.folds, grid = k_grid): could not find function "tune_grid"
+```
+
+y se selecciona el modelo con el mejor AUC:
+
+```r
+knn_tuning %>%
+    show_best("roc_auc")
+```
+
+```
+## Error in show_best(., "roc_auc"): could not find function "show_best"
+```
+
+mejor modelo y actualización del flujo de trabajo:
+
+
+```r
+mejor_knn <- knn_tuning %>%
+    select_best(metric = "roc_auc")
+```
+
+```
+## Error in select_best(., metric = "roc_auc"): could not find function "select_best"
+```
+
+```r
+final_knn_wf <- knn_wf %>%
+    finalize_workflow(mejor_knn)
+```
+
+```
+## Error in finalize_workflow(., mejor_knn): could not find function "finalize_workflow"
+```
+
+Ahora ajustamos el modelo y analizamos su rendimiento con los conjuntos de entrenamiento y prueba iniciales:
+
+
+```r
+last_fit_knn <- final_knn_wf %>%
+    last_fit(split = Caravan.split)
+```
+
+```
+## Error in last_fit(., split = Caravan.split): could not find function "last_fit"
+```
+
+```r
+last_fit_knn %>%
+    collect_metrics()
+```
+
+```
+## Error in collect_metrics(.): could not find function "collect_metrics"
+```
+
+```r
+knn_predicciones <- last_fit_knn %>%
+    collect_predictions()
+```
+
+```
+## Error in collect_predictions(.): could not find function "collect_predictions"
+```
+
+```r
+knn_predicciones %>%
+    roc_curve(truth = Purchase, estimate = .pred_No) %>%
+    autoplot()
+```
+
+```
+## Error in roc_curve(., truth = Purchase, estimate = .pred_No): could not find function "roc_curve"
+```
+
+```r
+knn_predicciones %>%
+    conf_mat(truth = Purchase, estimate = .pred_class)
+```
+
+```
+## Error in conf_mat(., truth = Purchase, estimate = .pred_class): could not find function "conf_mat"
+```
+
+## Ejercicios 
+
+- Del libro [@James2013b] 
+    - Capítulo 4:  10, 11, 13.
+
+<!--chapter:end:08-clasificacion.Rmd-->
+
+
+# Cálculo Bayesiano Computacional
+
+## Repaso de Estadística Bayesiana
+
+### Modelo de un parámetro
+
+Vamos a considerar el ejemplo en la sección 3.3 del [@Albert2009]. En este caso se quiere estimar la tasa de éxito en transplantes de corazón en un hospital de EEUU. Suponga que en ese hospital hay $n$ transplantes y $y$ es el número de muertes en el transcurso de 30 días del transplante. Si se sabe el número esperado de muertes $e$ a través de un modelo auxiliar, entonces un modelo sencillo para $y$ es asumir que:
+$$y\sim \text{Poisson}(e\lambda)$$
+donde $\lambda$ es la tasa de mortalidad por unidad de exposición y tiempo.
+
+Posible solución: estimar $\hat \lambda=y/e$, pero el estimador es malo si hay pocas muertes observadas $y$.
+
+Solución bayesiana: Considere una previa conjugada (gamma) para $\lambda$:
+$$p(\lambda)\propto \lambda^{\alpha-1}\exp(-\beta \lambda)$$
+además, suponga que se cuenta con información externa de un grupo pequeño de hospitales con condiciones similares a la del hospital de interés, es decir se cuenta con muertes $z_j$ y exposición $o_j$ para diez hospitales ($j=1,\ldots,10$). Asuma que:
+$$z_j\sim \text{Poisson}(o_j\lambda)$$
+asignamos una previa no-informativa a $p(\lambda)\propto \lambda^{-1}$ y se obtiene un previa propuesta para $\lambda$:
+$$p(\lambda)\propto \lambda^{\sum_{j=1}^{10}z_j-1}\exp{\left(-\lambda\sum_{j=1}^{10} o_j\right)}$$y
+Suponga que $\alpha:=\sum z_j=16$ y $\beta:=\sum o_j=15174$. Si para el hospital de interés $y_{obs}$ es el número observado de muertes y $e$ es la exposición entonces la distribución posterior de $\lambda$ es:
+$$g(\lambda|y_{obs})\sim \Gamma(\alpha+y_{obs},\beta+e)$$
+y la densidad predictiva de $y$ es (Ejercicio):
+$$f(y)=\frac{f(y|\lambda)p(\lambda)}{g(\lambda|y_{obs})}$$
+
+donde $f(y|\lambda)\sim \text{Poisson}(e\lambda)$ (verosimilitud). Supongamos dos posibles hospitales:
+
+- Hospital A: Se observa una muerte con 66 personas expuestas. Cálculo de la densidad posterior y densidad predictiva con $\lambda = \alpha/\beta$:
+
+
+```r
+alpha <- 16
+beta <- 15174
+yobs <- 1
+ex <- 66
+y <- 0:10
+lam <- alpha/beta
+fy <- dpois(y, lam * ex) * dgamma(lam, shape = alpha,
+    rate = beta)/dgamma(lam, shape = alpha + y, rate = beta +
+    ex)
+
+dpred <- tibble(y, fy)
+ggplot(dpred) + geom_line(mapping = aes(x = y, y = fy)) +
+    geom_vline(xintercept = yobs, col = 2) + theme_bw()
+```
 
 
 
-<!--chapter:end:referencias.Rmd-->
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-273-1} \end{center}
+
+por lo tanto una muerte no es un valor inusual en el comportamiento de muertes bajo transplantes. La comparación de las densidades posterior y previa de lambda:
+
+
+```r
+set.seed(1)
+lambda_prev <- rgamma(1000, shape = alpha, rate = beta)
+lambda_post <- rgamma(1000, shape = alpha + y, rate = beta +
+    ex)
+datoslambda <- tibble(Previa = lambda_prev, Posterior = lambda_post) %>%
+    pivot_longer(cols = everything())
+ggplot(data = datoslambda) + geom_density(mapping = aes(x = value,
+    color = name)) + theme_bw() + theme(legend.title = element_blank())
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-274-1} \end{center}
+
+- Hospital B: 4 muertes en 1767 expuestos. Mismos cálculos:
+
+
+```r
+alpha <- 16
+beta <- 15174
+yobs <- 4
+ex <- 1767
+y <- 0:10
+lam <- alpha/beta
+fy <- dpois(y, lam * ex) * dgamma(lam, shape = alpha,
+    rate = beta)/dgamma(lam, shape = alpha + y, rate = beta +
+    ex)
+
+dpred <- tibble(y, fy)
+ggplot(dpred) + geom_line(mapping = aes(x = y, y = fy)) +
+    geom_vline(xintercept = yobs, col = 2) + theme_bw()
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-275-1} \end{center}
+
+
+```r
+set.seed(1)
+lambda_prev <- rgamma(1000, shape = alpha, rate = beta)
+lambda_post <- rgamma(1000, shape = alpha + y, rate = beta +
+    ex)
+datoslambda <- tibble(Previa = lambda_prev, Posterior = lambda_post) %>%
+    pivot_longer(cols = everything())
+ggplot(data = datoslambda) + geom_density(mapping = aes(x = value,
+    color = name)) + theme_bw() + theme(legend.title = element_blank())
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-276-1} \end{center}
+
+### Modelo de más de un parámetro
+
+Se usará el ejemplo de la sección 4.2 del [@Albert2009] para ilustrar la inferencia bayesiana conjugada en el caso de más un parámetro. Suponga que se tiene datos del tiempo en completar la maratón de Nueva York para 20 atletas entre 20 y 29 años y asumimos que la muestra proviene de una $N(\mu,\sigma^2)$. Si asumimos la previa no informativa:
+
+$$g(\mu,\sigma^2) \propto 1/\sigma^2$$
+
+entonces la distribución posterior de $(\mu,\sigma^2)$ es:
+$$g(\mu,\sigma^2|y)\propto \frac{1}{(\sigma^2)^{n/2+1}}\exp{\left(-\frac{1}{2\sigma^2}\left(S+n(\mu-\bar y)^2\right)\right)}$$
+
+donde $n$ es el tamaño de muestra, $\bar y$ es la media empírica y $S=\sum_{i=1}^n(y_i-\bar y)^2$. Recuerden que la distribución posterior conjunta satisface:
+
+- La distribución posterior de $\mu$ condicional en $\sigma^2$ se distribuye como $N(\bar y,\sigma/\sqrt{n})$.
+- La distribución posterior marginal de $\sigma^2$ se distribuye según $S\chi_{n-1}^{-2}$ ($S$ veces una chi-cuadrada inversa con $n-1$ grados de libertad).
+
+Cargamos los datos de los 20 atletas:
+
+```r
+library(LearnBayes)
+head(marathontimes)
+```
+
+```
+##   time
+## 1  182
+## 2  201
+## 3  221
+## 4  234
+## 5  237
+## 6  251
+```
+
+y graficamos un diagrama de contorno de la distribución posterior de $\mu,\sigma^2$:
+
+
+```r
+attach(marathontimes)
+mycontour(normchi2post, c(220, 330, 500, 9000), time,
+    xlab = "media", ylab = "varianza")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-278-1} \end{center}
+y les agregamos una muestra aleatoria de tamaño 1000 de la distribución posterior conjunta, generada a través de las distribuciones marginales:
+
+
+```r
+S <- sum((time - mean(time))^2)
+n <- length(time)
+sigma2 <- S/rchisq(1000, n - 1)
+mu <- rnorm(1000, mean = mean(time), sd = sqrt(sigma2)/sqrt(n))
+mycontour(normchi2post, c(220, 330, 500, 9000), time,
+    xlab = "media", ylab = "varianza")
+points(mu, sigma2)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-279-1} \end{center}
+
+Si estamos interesados en hacer inferencia de $\mu$, podemos calcular un intervalo de credibilidad al 95%, usando la muestra marginal:
+
+
+```r
+quantile(mu, c(0.025, 0.975))
+```
+
+```
+##     2.5%    97.5% 
+## 254.9617 300.8669
+```
+
+y también inferencia sobre $\sigma$:
+
+```r
+quantile(sqrt(sigma2), c(0.025, 0.975))
+```
+
+```
+##     2.5%    97.5% 
+## 37.66930 72.69096
+```
+
+o aún sobre otros parámetros, por ejemplo el coeficiente de variación ($CV=\sigma/\mu$):
+
+```r
+quantile(sqrt(sigma2)/mu, c(0.025, 0.975))
+```
+
+```
+##      2.5%     97.5% 
+## 0.1357104 0.2634229
+```
+
+
+
+## Motivación: Cálculo de Integrales
+
+
+Recuerden que según el teorema de Bayes, si observamos datos $y$ a partir de una verosimilitud $f(y|\theta)$ y se le asigna al parámetro $\theta$ una previa $g(\theta)$, entonces:
+
+$$g(\theta|y)\propto g(\theta)f(y|\theta)$$
+
+Problema: tratar de manejar la distribución posterior de $\theta$ desde un punto de vista computacional con el fin de hacer inferencia.
+
+Los procesos de inferencia requieren el cálculo o aproximación de integrales, por ejemplo:
+
+- Valor esperado de una función de $\theta$:
+
+$$E(h(\theta)|y)=\frac{\int h(\theta)g(\theta)f(y|\theta) d\theta}{\int g(\theta)f(y|\theta) d\theta}$$
+
+- Probabilidad posterior de que $h(\theta) \in A$:
+
+$$P(h(\theta) \in A|y)=\frac{\int_{h(\theta) \in A} g(\theta)f(y|\theta) d\theta}{\int g(\theta)f(y|\theta) d\theta}$$
+- Densidades marginales. Si $\theta=(\theta_1,\theta_2)$:
+
+$$g(\theta_1|y)\propto \int g(\theta_1,\theta_2|y)d\theta_2$$
+
+
+## Ejemplo base: modelo beta-binomial.
+
+En este ejemplo se estimará las tasas de muerte por cáncer gástrico en una población de hombres entre 45 y 64 años. Para ello se tiene datos de muertes $y_j$ y exposición $n_j$ para 20 ciudades en Missouri:
+
+
+```r
+data("cancermortality")
+head(cancermortality)
+```
+
+```
+##   y    n
+## 1 0 1083
+## 2 0  855
+## 3 2 3461
+## 4 0  657
+## 5 1 1208
+## 6 1 1025
+```
+
+Un primer intento de modelación podría considerar $y_j\sim \text{Binomial}(p,n_j)$ pero en este caso se puede comprobar que el modelo binomial no logra captar la variabilidad de las muertes totalmente. Otro intento de modelación que no tiene ese problema es un modelo beta-binomial con media $\eta$ y precisión $K$:
+$$f(y_j|\eta,K)={n_j \choose y_j}\frac{B(K\eta+y_j,K(1-\eta)+n_j-y_j)}{B(K\eta,K(1-\eta))}$$
+con previa no informativa:
+$$g(\eta,K)\propto \frac{1}{\eta(1-\eta)}\frac{1}{(1+K)^2}$$
+entonces la densidad posterior de los parámetros sería:
+$$g(\eta,K|\text{datos})\propto \frac{1}{\eta(1-\eta)}\frac{1}{(1+K)^2} \prod_{j=1}^{20}\frac{B(K\eta+y_j,K(1-\eta)+n_j-y_j)}{B(K\eta,K(1-\eta))}$$
+donde $0<\eta<1$, $K>0$ y $B(\cdot,\cdot)$ es la función beta. La función *betabinexch0* contiene la implementación de la log-densidad posterior de $\eta,K$:
+
+
+```r
+mycontour(betabinexch0, c(1e-04, 0.003, 1, 20000),
+    cancermortality, xlab = "eta", ylab = "K")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-284-1} \end{center}
+y note la gran asimetría en el comportamiento de la densidad conjunta, especialmente en la dirección de la variable $K$. Por el dominio de las variables $K$ y $\eta$, entonces se transforman según:
+$$\theta_1=\text{logit}(\eta)=\log\left(\frac{\eta}{1-\eta}\right),\quad  \theta_2=\log(K)$$
+y usando el teorema de cambio de variable en densidades:
+$$g_1(\theta_1,\theta_2|\text{datos})=g\left(\frac{e^{\theta_1}}{1+e^{\theta_2}},e^{\theta_2}\right)\frac{e^{\theta_1+\theta_2}}{(1+e^{\theta_2})^2}$$
+$g_1$ está implementada en la función *betabinexch* y el gráfico de contorno es más manejable ahora desde el punto de vista computacional:
+
+```r
+mycontour(betabinexch, c(-8, -4.5, 3, 16.5), cancermortality,
+    xlab = "logit eta", ylab = "log K")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-285-1} \end{center}
+
+Definitivamente esta es una distribución posterior a la que no se le puede aplicar las técnicas usuales para hacer inferencia (caso no conjugado). Se va a considerar dos formas de realizar inferencia:
+
+- Aproximación de Laplace.
+- Simulación Monte Carlo.
+
+## Aproximación de Laplace
+
+Considere el logaritmo de la densidad posterior proporcional:
+$$h(\theta,y)=\log(g(\theta)f(y|\theta))$$
+Suponga que $\hat \theta$ es la moda de $\theta$. Un desarrollo de Taylor alrededor de $\hat \theta$ para $h(\theta)$ da la siguiente aproximación:
+$$h(\theta)\approx h(\hat \theta)+\frac 1 2(\theta-\hat \theta)^Th''(\hat \theta)(\theta-\hat \theta)$$
+Por lo tanto podemos aproximar el comportamiento en distribución de $\theta$ como:
+$$\theta \sim N(\hat \theta,V)$$
+donde $V=(-h''(\hat \theta))^{-1}$. Con el fin de encontrar la moda $\hat \theta$ se puede usar algún algoritmo para encontrar máximos en funciones de varias variables, por ejemplo el método de Newton o el de Nelder-Mead (default en *optim*). La función *laplace* tiene el método de optimización implementado tomando como argumentos la log-densidad posterior, un valor inicial de los parámetros y el conjunto de datos.
+
+Por ejemplo, en el caso anterior:
+
+```r
+fit <- laplace(betabinexch, c(-7, 6), cancermortality)
+fit
+```
+
+```
+## $mode
+## [1] -6.819793  7.576111
+## 
+## $var
+##             [,1]       [,2]
+## [1,]  0.07896568 -0.1485087
+## [2,] -0.14850874  1.3483208
+## 
+## $int
+## [1] -570.7743
+## 
+## $converge
+## [1] TRUE
+```
+
+donde el punto (-7,6) se puede inferir a través del gráfico de contorno anterior. Por lo tanto podemos aproximar la densidad posterior conjunta de $(\text{logit}(\eta),\log K)$ se puede aproximar como una normal multivariada con media *fit$mode* y varianza *fit.var*. Un gráfico de contorno de la aproximación es:
+
+
+```r
+npar <- list(m = fit$mode, v = fit$var)
+mycontour(lbinorm, c(-8, -4.5, 3, 16.5), npar, xlab = "logit eta",
+    ylab = "log K")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-287-1} \end{center}
+
+También podemos hacer inferencia de los parámetros:
+
+
+```r
+se <- sqrt(diag(fit$var))
+lb <- fit$mode - qnorm(0.975) * se
+ub <- fit$mode + qnorm(0.975) * se
+
+etainv <- c(lb[1], ub[1])
+Kinv <- c(lb[2], ub[2])
+
+exp(etainv)/(1 + exp(etainv))
+```
+
+```
+## [1] 0.0006291199 0.0018904899
+```
+
+```r
+exp(Kinv)
+```
+
+```
+## [1]   200.3879 18995.6680
+```
+
+son intervalos de predicción al 95% para $\eta$ y $K$ respectivamente.
+
+## Simulación
+
+### Simulación Monte Carlo
+
+Suponga que $g(\theta|y)$ es la densidad posterior de $\theta$ y queremos estimar una característica de $\theta$, a través de la función $h(\theta)$. La media posterior de $h(\theta)$ es:
+$$E(h(\theta)|y)=\int h(\theta)g(\theta|y)d\theta$$
+y suponga que podemos simular una muestra independiente $\theta^1,\ldots,\theta^m$ de $g(\theta|y)$. El estimador Monte Carlo del valor esperado es:
+$$\bar h =\frac 1 m\sum_{j=1}^mh(\theta^j) $$
+con su error estándar:
+$$se_{\bar h}=\sqrt{\frac{1}{m(m-1)}\sum_{j=1}^m\left(h(\theta^j)-\bar h\right)^2}$$
+En el caso en que no es posible obtener muestras de la densidad posterior, entonces se pueden definir algoritmos que aproximan la generación de muestras.
+
+### Muestreo por rechazo
+
+Suponga que queremos obtener una muestra de $g(\theta|y)$ donde la constante de normalización no es conocida. Suponga que conocemos una densidad $p(\theta)$ que satisface:
+
+- Fácil de obtener muestras.
+- $p$ aproxima $g$ en términos de localización y escala.
+- Para todo $\theta$: $g(\theta|y)\leq cp(\theta)$, para una constante $c$.
+
+Algoritmo:
+
+1. Simule una realización independiente de $\theta \sim p$ y $U\sim Unif(0,1)$.
+2. Si $U\leq g(\theta|y)/(cp(\theta))$ entonces acepte $\theta$, caso contrario rechace la muestra propuesta.
+3. Continue 1 y 2 hasta que se haya generado un número deseado de muestras.
+
+Nota: un algoritmo eficiente tiene una tasa de aceptación de muestras alta.
+
+En el ejemplo anterior, seleccionamos $p(\theta)$ una distribución $t$ multivariada con parámetro de locación igual a la media aproximada del método de Laplace, matriz de escala igual a 2 veces la matriz de varianza aproximada según Laplace y 4 grados de libertad. De esta forma nos aseguramos que $g(\theta|y)/p(\theta)$ está acotado superiormente.
+
+Con el fin de encontrar $c$, maximizamos la diferencia de logaritmos entre $g(\theta|y)$ y la propuesta $p(\theta)$, usando la función *laplace*:
+
+
+```r
+betabinT <- function(theta, datapar) {
+    data <- datapar$data
+    tpar <- datapar$par
+    d <- betabinexch(theta, data) - dmt(theta, mean = c(tpar$m),
+        S = tpar$var, df = tpar$df, log = TRUE)
+    return(d)
+}
+```
+
+definimos parámetros:
+
+```r
+tpar <- list(m = fit$mode, var = 2 * fit$var, df = 4)
+datapar <- list(data = cancermortality, par = tpar)
+```
+
+y resolvemos:
+
+```r
+start <- c(-6.9, 12.4)
+fit1 <- laplace(betabinT, start, datapar)
+fit1$mode
+```
+
+```
+## [1] -6.888963 12.421993
+```
+y el valor máximo de las diferencias de logaritmos es:
+
+```r
+dmax <- betabinT(fit1$mode, datapar)
+dmax
+```
+
+```
+## [1] -569.2829
+```
+
+el algoritmo sería:
+
+```r
+set.seed(1)
+n <- 10000
+theta <- rmt(n, mean = c(tpar$m), S = tpar$var, df = tpar$df)
+lf <- map_dbl(1:10000, ~betabinexch(theta[., ], cancermortality))
+lg <- dmt(theta, mean = c(tpar$m), S = tpar$var, df = tpar$df,
+    log = TRUE)
+prob = exp(lf - lg - dmax)
+thetaRS <- theta[runif(n) < prob, ]
+```
+
+la tasa de aceptación es:
+
+```r
+dim(thetaRS)[1]/10000
+```
+
+```
+## [1] 0.2447
+```
+
+y dibujamos el gráfico de contorno con la muestra obtenida:
+
+```r
+mycontour(betabinexch, c(-8, -4.5, 3, 16.5), cancermortality,
+    xlab = "logit eta", ylab = "log K")
+points(thetaRS[, 1], thetaRS[, 2])
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-295-1} \end{center}
+
+## Muestreo por importancia
+
+Suponga que queremos calcular el siguiente valor esperado posterior:
+$$E(h(\theta)|y)=\frac{\int h(\theta)g(\theta)f(y|\theta)d\theta}{\int g(\theta)f(y|\theta)d\theta}$$
+
+en el caso en donde no se puede obtener una muestra directa de la distribución posterior y usar Monte Carlo por ejemplo. Usemos la densidad propuesta $p(\theta)$ que aproxima la posterior:
+
+\begin{align*}
+E(h(\theta)|y)&=\frac{\int h(\theta)\frac{g(\theta)f(y|\theta)}{p(\theta)}p(\theta)d\theta}{\int \frac{g(\theta)f(y|\theta)}{p(\theta)}p(\theta)d\theta}\\
+&=\frac{\int h(\theta)w(\theta)p(\theta)d\theta}{\int w(\theta)p(\theta)d\theta}
+\end{align*}
+
+donde $w(\theta)=\frac{g(\theta)f(y|\theta)}{p(\theta)}$. Si $\theta^1,\ldots,\theta^{m}\sim p(\theta)$ entonces el estimador de muestreo por importancia de la media posterior es:
+$$\bar h_{IS}=\frac{\sum_{j=1}^mh(\theta^j)w(\theta^j)}{\sum_{j=1}^mw(\theta^j)}$$
+con error estándar:
+$$se_{\bar h_{IS}}=\frac{\sqrt{\sum_{j=1}^m((h(\theta^j)-\bar h_{IS})w(\theta^j))^2}}{\sum_{j=1}^mw(\theta^j)}$$
+Nota: al igual que en el método anterior, la escogencia de $p(\theta)$ se basa en su facilidad de muestreo y en la acotación por arriba de los pesos $w(\theta)$.
+
+Ahora implementamos el algoritmo en el ejemplo (buena parte es una repetición del anterior), usando como propuesta la misma distribución t multivariada. Además graficamos un histograma de los pesos para comprobar que están acotados (en este caso por 1).
+
+
+```r
+set.seed(1)
+n <- 10000
+theta <- rmt(n, mean = c(tpar$m), S = tpar$var, df = tpar$df)
+lf <- map_dbl(1:10000, ~betabinexch(theta[., ], cancermortality))
+lp <- dmt(theta, mean = c(tpar$m), S = tpar$var, df = tpar$df,
+    log = TRUE)
+md <- max(lf - lp)
+wt <- exp(lf - lp - md)
+hist(wt)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-296-1} \end{center}
+
+y calculamos el valor esperado de $\log K$ usando los pesos obtenidos del paso anterior:
+
+```r
+est <- sum(wt * theta[, 2])/sum(wt)
+SEest <- sqrt(sum((theta[, 2] - est)^2 * wt^2))/sum(wt)
+show(c(est, SEest))
+```
+
+```
+## [1] 7.92445868 0.01905786
+```
+
+## Remuestreo por importancia
+
+Al igual que en el caso anterior simulamos $\theta^1,\ldots,\theta^m\sim p(\theta)$ y calculamos los pesos $\{w(\theta^j)=g(\theta^j|y)/p(\theta^j)\}$. Los pesos se convierten a probabilidades según:
+$$p^j=\frac{w(\theta^j)}{\sum_{k=1}^mw(\theta^k)}$$
+Tomamos una nueva muestra $\theta^{*1},\ldots,\theta^{*m}\sim \{p^k\}$ es decir se obtiene una nueva muestra con reemplazo a partir de la muestra original $\theta^1,\ldots,\theta^m$ con pesos $\{p^k\}$ (muestra bootstrap ponderada). A este método se le llama remuestreo por importancia.
+
+Siguiendo con el ejemplo:
+
+```r
+probs <- wt/sum(wt)
+indices <- sample(1:n, size = n, prob = probs, replace = T)
+thetaSIR <- theta[indices, ]
+```
+
+y los intervalos de predicción al 95% para $\text{logit}(\eta)$ y $log K$ son:
+
+```r
+quantile(thetaSIR[, 1], probs = c(0.025, 0.975))
+```
+
+```
+##      2.5%     97.5% 
+## -7.342559 -6.155018
+```
+
+```r
+quantile(thetaSIR[, 2], probs = c(0.025, 0.975))
+```
+
+```
+##      2.5%     97.5% 
+##  5.587915 11.190022
+```
+
+## Algoritmo de Metropolis-Hastings
+
+Muestreo por cadenas de Markov-Monte Carlo (MCMC): algoritmos que definen una cadena de Markov irreducible y aperiódica cuya densidad estacionaria es la densidad posterior de interés.
+
+Simplificamos la notación de la densidad posterior $g(\theta|y)$ usando $g(\theta)$. Seleccionamos un valor inicial del algoritmo $\theta^0$ y procedemos con el
+
+Algoritmo
+
+- Simule un candidato $\theta^*\sim p(\theta^*|\theta^{t-1})$ (densidad propuesta).
+- Calcule:
+$$R=\frac{g(\theta^*)p(\theta^{t-1}|\theta^*)}{g(\theta^{t-1})p(\theta^*|\theta^{t-1})}$$
+- Calcule la probabilidad de aceptación $P=\min \{R,1\}$.
+- Acepte la propuesta $\theta^{t}=\theta^*$ con probabilidad P, en caso contrario $\theta^t=\theta^{t-1}$.
+
+Nota: bajo ciertas condiciones de regularidad sobre la probabilidad propuesta:
+$$\theta^n \stackrel{d}{\longrightarrow} M\sim g(\theta)$$
+cuando $n\rightarrow \infty$.
+
+Escogencias de la densidad propuesta:
+- Metropolis-Hastings independiente: 
+$$p(\theta^*|\theta^{t-1})=p(\theta^*)$$
+- Metropolis-Hastings con caminata aleatoria: 
+$$p(\theta^*|\theta^{t-1})=h(\theta^*-\theta^{t-1})$$
+donde $h$ es una función simétrica alrededor del origen. En este caso es fácil verificar que:
+$$R=\frac{g(\theta^*)}{g(\theta^{t-1})}$$
+Nota: las implementaciones de Metropolis-Hastings dentro del paquete LearnBayes tienen las siguientes particularidades:
+
+- La función *indepmetrop* contiene una propuesta que es normal multivariada con media $\mu$ y varianza $V$ (modelo independiente). Los parámetros de la propuesta se debe escoger de manera que $g/p$ se acotado, especialmente en las colas.
+
+- La función *rwmetrop* contiene una propuesta de la siguiente forma:
+$$\theta^*=\theta^{t-1}+\sigma Z$$
+donde $Z$ es una normal multivariada con media 0 y matriz de varianza $V$. Además $\sigma$ es un parámetro de escala positivo.
+
+## Algoritmo de Gibbs
+
+Suponga que el parámetro de interés es $\theta=(\theta_1,\ldots,\theta_p)$ y que podemos obtener muestras de manera secuencial a partir de las siguientes distribuciones condicionales (dado un valor inicial $\theta^0$ y $t=1,\ldots,n$):
+
+\begin{align*}
+\theta_1^t&\sim [\theta_1|\theta_2^{t-1},\ldots,\theta_p^{t-1},\text{datos}]\\
+\theta_2^t&\sim [\theta_2|\theta_1^t,\theta_3^{t-1},\ldots,\theta_p^{t-1},\text{datos}]\\
+\vdots & \qquad \vdots\\
+\theta_p^t&\sim [\theta_p|\theta_1^t,\ldots,\theta_{p-1}^t,\text{datos}]
+\end{align*}
+
+Bajo condiciones bastante generales se puede comprobar que $\theta^t$ converge a una muestra de la distribución conjunta posterior de $\theta$.
+
+Nota: cuando en alguna de las condicionales anteriores no se puede obtener muestras de manera directa, entonces se puede sustituir el muestreo por un paso del algoritmo de Metropolis-Hastings. Así está implementado en la función *gibbs* del paquete LearnBayes.
+
+### Diagnósticos de convergencia de MCMC
+
+- Tasa de aceptación.
+- Gráficos de traza (traceplots): gráfico de $(t,\theta^t)$. Por la naturaleza secuencial de los algoritmos de MH y Gibbs, los primeros valores de la cadena no representan normalmente una muestra confiable de la distribución posterior, por lo que generalmente se desecha un porcentaje inicial de la muestra (periodo de quema o burn-in period). 
+- Por construcción, uno esperaría que el nivel de autocorrelación de las cadenas sea bajo. Al igual que en el análisis de residuos de regresión, uno puede construir un ACF de las cadenas y esperar autocorrelación baja y convergente a 0.
+
+## Ejemplos
+
+### Datos agrupados bajo una población normal
+
+Suponga que observamos los siguientes datos agrupados:
+
+|Altura (pulgadas)|Frecuencia|
+|------|----------|
+|Menos de 66| 14|
+|Entre 66 y 68 |30|
+|Entre 68 y 70 |49|
+|Entre 70 y 72 |70|
+|Entre 72 y 74 |33|
+|Más de 74|15|
+
+Si asumimos que las alturas son normales con media $\mu$ y desviación estándar $\sigma$, podemos asumir una verosimilitud multinomial para los datos agrupados:
+\begin{align*}
+L(\mu,\sigma)&\propto \Phi(66,\mu,\sigma)^{14}(\Phi(68,\mu,\sigma)-\Phi(66,\mu,\sigma))^{30} \\
+&\times  (\Phi(70,\mu,\sigma)-\Phi(68,\mu,\sigma))^{49} (\Phi(72,\mu,\sigma)-\Phi(70,\mu,\sigma))^{70}\\
+&\times  (\Phi(74,\mu,\sigma)-\Phi(72,\mu,\sigma))^{33} (1-\Phi(74,\mu,\sigma))^{15}
+\end{align*}
+
+y asumimos una previa no informativa para $(\mu,\sigma)\sim \frac 1 \sigma$. Como $\sigma>0$ entonces usamos la transformación $\lambda=\log (\sigma)$.
+
+
+```r
+d <- list(int.lo = c(-Inf, seq(66, 74, by = 2)), int.hi = c(seq(66,
+    74, by = 2), Inf), f = c(14, 30, 49, 70, 33, 15))
+```
+es una estructura de los datos agrupados. La log-densidad posterior de los datos sería:
+
+```r
+groupeddatapost <- function(theta, data) {
+    dj <- function(f, int.lo, int.hi, mu, sigma) f *
+        log(pnorm(int.hi, mu, sigma) - pnorm(int.lo,
+            mu, sigma))
+    mu <- theta[1]
+    sigma <- exp(theta[2])
+    sum(dj(data$f, data$int.lo, data$int.hi, mu, sigma))
+}
+```
+
+Usamos el método de Laplace para encontrar una aproximación de los parámetros de la previa bajo Metropolis-Hastings:
+
+```r
+start <- c(70, 1)
+fit <- laplace(groupeddatapost, start, d)
+fit
+```
+
+```
+## $mode
+## [1] 70.169880  0.973644
+## 
+## $var
+##              [,1]         [,2]
+## [1,] 3.534713e-02 3.520776e-05
+## [2,] 3.520776e-05 3.146470e-03
+## 
+## $int
+## [1] -350.6305
+## 
+## $converge
+## [1] TRUE
+```
+
+la escogencia del valor inicial se basa en los datos artificiales en la página 126 del [@Albert2009]. De esta forma definimos los parámetros de la propuesta como:
+
+```r
+proposal <- list(var = fit$var, scale = 2)
+```
+
+y ajustamos la versión bajo caminata aleatoria de un Metropolis-Hastings (MH):
+
+```r
+fit2 <- rwmetrop(groupeddatapost, proposal, start,
+    10000, d)
+```
+
+con una tasa de aceptación:
+
+```r
+fit2$accept
+```
+
+```
+## [1] 0.2956
+```
+
+Algunas estadísticas de la distribución posterior de $\mu$ y $\log \sigma$:
+
+```r
+post.means <- apply(fit2$par, 2, mean)
+post.sds <- apply(fit2$par, 2, sd)
+cbind(post.means, post.sds)
+```
+
+```
+##      post.means   post.sds
+## [1,] 70.1596677 0.19072746
+## [2,]  0.9799831 0.05389768
+```
+
+esto se puede comparar con los estimadores de la aproximación de Laplace:
+
+```r
+modal.sds <- sqrt(diag(fit$var))
+cbind(c(fit$mode), modal.sds)
+```
+
+```
+##                 modal.sds
+## [1,] 70.169880 0.18800834
+## [2,]  0.973644 0.05609341
+```
+
+También podemos graficar la densidad posterior junto con la muestra generada por el MH, usando una muestra de burn-in de 5000:
+
+```r
+mycontour(groupeddatapost, c(69, 71, 0.6, 1.3), d,
+    xlab = "mu", ylab = "log sigma")
+points(fit2$par[5001:10000, 1], fit2$par[5001:10000,
+    2])
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-308-1} \end{center}
+
+Los traceplots del MCMC los graficamos a través del paquete *coda* junto con el paquete *bayesplot*:
+
+```r
+library(coda)
+library(bayesplot)
+dimnames(fit2$par)[[2]] <- c("mu", "log sigma")
+obj_mcmc <- mcmc(fit2$par[-c(1:5000), ])
+mcmc_trace(obj_mcmc)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-309-1} \end{center}
+
+Los gráficos de autocorrelación empíricos se pueden generar con:
+
+```r
+mcmc_acf(obj_mcmc)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-310-1} \end{center}
+y funciones de densidad estimadas con intervalos de predicción al 95% para algunos de los parámetros:
+
+```r
+mcmc_areas(obj_mcmc, pars = c("mu"), prob = 0.95)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-311-1} \end{center}
+### Datos con outliers
+
+Suponga $y_1,\ldots,y_n\sim \text{Cauchy}(\mu,\sigma)$:
+$$f(y|\mu,\sigma)=\frac{1}{\pi\sigma(1+z^2)}$$
+donde $z=\frac{y-\mu}{\sigma}$. Con una previa no informativa $g(\mu,\sigma)\propto 1/\sigma$ y transformando $\lambda = \log \sigma$ se puede comprobar que la log-densidad posterior es:
+$$\log g(\mu,\lambda|\text{datos}) = \sum_{i=1}^n\left[-\lambda-\log\left(1+\exp(-2\lambda)(y_i-\mu)^2\right)\right]$$
+
+y la implementación de la log-posterior usando la distribución t de Student como generador de la distribución Cauchy:
+
+```r
+cauchyerrorpost <- function(theta, data) {
+    logf <- function(data, theta) log(dt((data - theta[1])/exp(theta[2]),
+        df = 1)/exp(theta[2]))
+    return(sum(logf(data, theta)))
+}
+```
+
+Los datos provienen de la base *darwin* con 15 diferencias entre alturas de plantas según Fisher (1960). La media y log-desviación estándar empíricos de los datos son:
+
+```r
+data(darwin)
+data_darwin <- darwin$difference
+mean(data_darwin)
+```
+
+```
+## [1] NA
+```
+
+```r
+log(sd(data_darwin))
+```
+
+```
+## [1] NA
+```
+
+y usamos estos valores como valores iniciales dentro de la aproximación de Laplace:
+
+```r
+fitlaplace <- laplace(cauchyerrorpost, c(21.6, 3.6),
+    data_darwin)
+```
+
+```
+## Error in solve.default(fit$hessian): Lapack routine dgesv: system is exactly singular: U[1,1] = 0
+```
+
+```r
+fitlaplace
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
+```
+
+y usamos lo anterior como insumo para generar tres escenarios de MCMC:
+
+- Metropolis-Hastings con caminata aleatoria:
+
+```r
+proposal <- list(var = fitlaplace$var, scale = 2.5)
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
+```
+
+```r
+start <- c(20, 3)
+E1 <- rwmetrop(cauchyerrorpost, proposal, start, 50000,
+    data_darwin)
+mycontour(cauchyerrorpost, c(-10, 60, 1, 4.5), data_darwin,
+    xlab = "mu", ylab = "log sigma")
+points(E1$par[, 1], E1$par[, 2])
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-315-1} \end{center}
+
+- Metropolis-Hastings independiente:
+
+```r
+proposal2 <- list(var = fitlaplace$var, mu = t(fitlaplace$mode))
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
+```
+
+```r
+E2 <- indepmetrop(cauchyerrorpost, proposal2, start,
+    50000, data_darwin)
+```
+
+```
+## Error in matrix(proposal$mu): object 'proposal2' not found
+```
+
+```r
+mycontour(cauchyerrorpost, c(-10, 60, 1, 4.5), data_darwin,
+    xlab = "mu", ylab = "log sigma")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-316-1} \end{center}
+
+```r
+points(E2$par[, 1], E2$par[, 2])
+```
+
+```
+## Error in points(E2$par[, 1], E2$par[, 2]): object 'E2' not found
+```
+
+- Muestreo de Gibbs:
+
+```r
+E3 <- gibbs(cauchyerrorpost, start, 50000, c(12, 0.75),
+    data_darwin)
+mycontour(cauchyerrorpost, c(-10, 60, 1, 4.5), data_darwin,
+    xlab = "mu", ylab = "log sigma")
+points(E3$par[, 1], E3$par[, 2])
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-317-1} \end{center}
+
+Comparemos el estimador bayesiano e intervalos de predicción al 95% para la media $\mu$:
+
+```r
+Resultados <- data.frame(rbind(c(mean(E1$par[, 1]),
+    quantile(E1$par[, 1], probs = c(0.025, 0.975)),
+    E1$accept), c(mean(E2$par[, 1]), quantile(E2$par[,
+    1], probs = c(0.025, 0.975)), E2$accept), c(mean(E3$par[,
+    1]), quantile(E3$par[, 1], probs = c(0.025, 0.975)),
+    NA)))
+```
+
+```
+## Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'mean': object 'E2' not found
+```
+
+```r
+colnames(Resultados) <- c("Media", "Q1", "Q3", "Accept")
+```
+
+```
+## Error in colnames(Resultados) <- c("Media", "Q1", "Q3", "Accept"): object 'Resultados' not found
+```
+
+```r
+rownames(Resultados) <- c("MH-RW", "MH-Indep", "Gibbs")
+```
+
+```
+## Error in rownames(Resultados) <- c("MH-RW", "MH-Indep", "Gibbs"): object 'Resultados' not found
+```
+
+```r
+Resultados <- Resultados %>%
+    mutate(Ancho = Q3 - Q1)
+```
+
+```
+## Error in mutate(., Ancho = Q3 - Q1): object 'Resultados' not found
+```
+
+```r
+library(knitr)
+kable(Resultados)
+```
+
+```
+## Error in kable(Resultados): object 'Resultados' not found
+```
+En el caso del algoritmo de Gibbs, cada uno de los pasos tiene una tasa de aceptación de MH en este caso:
+
+```r
+E3$accept
+```
+
+```
+##      [,1] [,2]
+## [1,]    1    1
+```
+
+También podemos incluir histogramas para las muestras posteriores de ambos parámetros. Para el MH independiente (burn-in=5000):
+
+```r
+color_scheme_set("green")
+dimnames(E2$par)[[2]] <- c("mu", "log sigma")
+```
+
+```
+## Error in dimnames(E2$par)[[2]] <- c("mu", "log sigma"): object 'E2' not found
+```
+
+```r
+obj_mcmc2 <- mcmc(E2$par[-c(1:5000), ])
+```
+
+```
+## Error in mcmc(E2$par[-c(1:5000), ]): object 'E2' not found
+```
+
+```r
+mcmc_hist(obj_mcmc2, pars = c("mu", "log sigma"))
+```
+
+```
+## Error in posterior::is_draws(x): object 'obj_mcmc2' not found
+```
+
+y los gráficos de autocorrelación respectivos:
+
+```r
+mcmc_acf_bar(obj_mcmc2, pars = c("mu", "log sigma"))
+```
+
+```
+## Error in posterior::is_draws(x): object 'obj_mcmc2' not found
+```
+## Ejercicios 
+
+- Del libro [@Albert2009]
+    - Capítulo 5:  1, 2, 4, 5.
+    - Capítulo 6: 3, 5, 6, 10.
+
+<!--chapter:end:09-calculo-bayes.Rmd-->
+
+
+# Análisis en componentes principales
+
+## Aprendizaje no-supervisado
+
+Al contrario de los métodos que se han estudiado de regresión y clasificación, en este caso no hay variable dependiente, y el conjunto de datos está compuesto de $p$ variables o características y $n$ observaciones. 
+
+El principal objetivo del aprendizaje no-supervisado no es la predicción, sino en el *análisis de datos* por sí mismo, es decir se quiere buscar patrones o relaciones interesantes dentro de la tabla de datos: por ejemplo la visualización de datos o la identificación de subgrupos en los datos. (Análisis Exploratorio de Datos)
+
+En el caso de aprendizaje no-supervisado, no es posible verificar o validar los métodos adoptados.
+
+
+Si se quiere seleccionar la mejor proyección de 2 variables de una nube de puntos $X_1,\dots, X_p$, se debe hacer $\binom{p}{2}$ gráficos de dispersión. Un criterio de búsqueda es seleccionar la que tenga mayor información, en el sentido de mayor variabilidad.
+
+Usaremos como base los libros de [@HussonExploratory2017] y [@James2013b].
+
+
+```r
+library(rgl)
+library(car)
+knitr::knit_hooks$set(webgl = hook_webgl, rgl = hook_rgl)
+knitr::opts_chunk$set(fig.pos = "!h")
+```
+
+
+```r
+set.seed(123)
+x1 <- rnorm(1000, 0, 2)
+x2 <- cos(rnorm(1000, 0, 2))
+x3 <- x1 + rnorm(1000, 0, 2)
+```
+
+
+```r
+GGally::ggpairs(data.frame(x1, x2, x3))
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-325-1} \end{center}
+
+
+../../../../../../../../private/var/folders/4d/qj4qr8zx1n36td0hlt0p7x_h0000gn/T/RtmpTBMEcr/file33da58f0ef8d.png
+
+
+```r
+plot3d(x1, x3, x2, point.col = "black")
+
+plot3d(scale(x1), scale(x2), scale(x3), point.col = "black")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-327-1} \end{center}
+
+
+
+
+<!-- ```{r, echo=FALSE} -->
+<!-- library(ggplot2) -->
+
+<!-- qplot(1:300, rnorm(300, sd = 0.1) + 5, ylim = c(0, 10)) + theme_minimal() + xlab("") + ylab("") -->
+<!-- qplot(1:300, (3 * 1:300 + 100 * cos(1:300 / (2 * pi)) + 200 * rnorm(300, sd = -->
+<!--                                                                       0.1)) / 100) + theme_minimal() + xlab("") + ylab("") -->
+<!-- ``` -->
+
+El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones eliminando la mayor cantidad de ruido posible. 
+
+## Representación gráfica
+
+![Tomado de [The shape of data](https://shapeofdata.wordpress.com/2013/04/09/principle-component-analysis/)](manual_figures/pca.png)
+
+## Primer componente principal
+
+
+
+
+
+$$ Z_1 := \phi_{11}x_1 +  \phi_{21}x_2 + \dots + \phi_{p1}x_p;\quad \text{con } \sum_{j=1}^{p}\phi_{j1} = 1$$
+tal que $Z_1$ tenga la varianza máxima.
+
+Al vector $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$ se le llama *pasos o cargas*. 
+
+$X = (X_1,\dots,X_p)_{n\times p}$ es la *matriz de diseño* donde cada columna tiene media 0. Se resuelve el problema
+$$\hat{\phi}_1=\underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace $$
+La restricción de minimización se puede rescribir como $\Vert\phi_1\Vert_2^2= \sum_{j=1}^p \phi_{j1}^2 = 1$
+
+Los $Z_{11},\dots, Z_{n1}$ son los scores del primer componente principal.
+
+$\phi_1$ es la dirección en el espacio característico en $\mathbb{R}^p$ en donde los datos tengan la máxima varianza.
+
+
+Esta última expresión se podría rescribir de forma matricial como 
+
+\[
+\hat{\phi}_1 = \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{ \phi_1^\top X^\top X \phi_1 \right\}
+\]
+
+donde $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$
+
+
+dadas las condiciones, esta expresión se podría simplificar un poco más en 
+
+\[
+\hat{\phi}_1 = \underset{\phi_1}{\mathrm{argmax}} \left\{\frac{\phi_1^\top X^\top X \phi_1 }{\phi_1^\top \phi_1}\right\}
+\]
+
+Dado que la expresión anterio es un coeficiente de Rayleigh, se puede probar  que \(\hat{\phi}_{1}\) corresponde al primer vector propio de la matriz $X^\top X = \mathrm{Cov}(X)$ si las columnas de $X$ son centradas.
+
+## Segunda componente principal
+
+
+
+$$ Z_{2}:= \phi_{12}x_1 + \phi_{22}x_2+\dots+\phi_{p2}x_p$$
+ $$\underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j2} X_{ij} \right)^2 \right\rbrace$$
+ Se tiene, además, que $\forall i$, $Z_{i2}\perp Z_1$, entonces 
+ $$ Z_{i2}\perp Z_1 \implies \phi_{2} \perp \phi_{1}$$
+
+Esto se logra primero construyendo una matriz nueva de diseño, restando a la matrix $X$ original, el primer componente principal. 
+
+\[
+\tilde{X}_2 = X - X\phi_1\phi_1^\top
+\]
+
+Luego a esa matriz, se le aplica el procedimiento anterior 
+
+\[
+\hat{\phi}_2 = \underset{\phi_2}{\mathrm{argmax}} \left\{\frac{\phi_2^\top X^\top X \phi_2 }{\phi_2^\top \phi_2}\right\}
+\]
+
+Y nuevamente se puede probar que el componente principal corresponde al segundo vector propio de 
+$X^\top X = \mathrm{Cov}(X)$
+
+
+De la misma forma se construye $\phi_3,\phi_4,\dots, \phi_p$.
+
+Notas: 
+
+- **Escalas**: la varianza de las variables depende de las unidades. El problema es que los pesos $\phi_i$ son distintos dependiendo de las escalas. La solución es estandarizar las variables: $\dfrac{X_i-\mu_i}{\hat\sigma_i}$.
+- **Unicidad**: los componentes principales son únicos, módulo cambio de signo.
+\end{itemize}
+
+
+## Circulo de correlaciones 
+
+Se puede construir la correlación de cada variable con respecto a cada componente principal 
+
+\[
+cos(\theta_{i,j^\prime}) = \mathrm{Corr}(X_i, \mathrm{PC}_{j^\prime})
+\]
+
+El ángulo $\theta_{i,j^\prime}$ significa la lejanía o cercanía de cierta variable con respecto a cada componente principal. 
+
+Además, basados en el el círculo identidad $\cos^2(\theta)+\sin^2(\theta)=1$, el valor de $cos^2(\theta_{i,j^\prime})$ representa la "intensidad" con la cual la variable $X_i$ es representada por el componente principal $\mathrm{PC}_{i^\prime}$.
+
+## Volvamos a nuestro ejemplo 
+
+
+```r
+library("factoextra")
+library("FactoMineR")
+p <- PCA(scale(cbind(x1, x2, x3)))
+```
+
+
+```r
+p$var$cor
+```
+
+```
+##          Dim.1       Dim.2       Dim.3
+## x1  0.92280569 0.037753401 -0.38341145
+## x2 -0.03690606 0.999225664  0.01363871
+## x3  0.92346176 0.002207375  0.38368413
+```
+
+```r
+p$var$cos2
+```
+
+```
+##          Dim.1        Dim.2        Dim.3
+## x1 0.851570337 1.425319e-03 0.1470043434
+## x2 0.001362057 9.984519e-01 0.0001860145
+## x3 0.852781615 4.872503e-06 0.1472135129
+```
+
+
+
+
+
+## ¿Cuántos componentes usar?
+
+
+```r
+fviz_screeplot(p, addlabels = F, ylim = c(0, 50)) +
+    xlab("Variables") + ylab("Porcentaje de varianza de Z explicada") +
+    labs(title = "Diagrama")
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-330-1} \end{center}
+
+```r
+qplot(1:3, p$eig[, 3], geom = "point") + xlab("Cantidad de componentes") +
+    ylab("Varianza acumulada") + geom_line() + theme_minimal() +
+    geom_hline(yintercept = 80, color = "red") + scale_x_continuous(breaks = 1:10)
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-331-1} \end{center}
+
+
+
+
+
+
+## Laboratorio
+
+Vamos a usar los datos `decathlon` de `FactomineR` que representa los resultados de varios atletas en pruebas de decathlon en el 2004. 
+
+El objetivo es encontrar si hay patrones entre ciudad y tipos de crimen.
+
+Exploración de datos
+Ejecute una exploración de datos
+
+
+
+```
+##       100m         Long.jump       Shot.put       High.jump          400m      
+##  Min.   :10.44   Min.   :6.61   Min.   :12.68   Min.   :1.850   Min.   :46.81  
+##  1st Qu.:10.85   1st Qu.:7.03   1st Qu.:13.88   1st Qu.:1.920   1st Qu.:48.93  
+##  Median :10.98   Median :7.30   Median :14.57   Median :1.950   Median :49.40  
+##  Mean   :11.00   Mean   :7.26   Mean   :14.48   Mean   :1.977   Mean   :49.62  
+##  3rd Qu.:11.14   3rd Qu.:7.48   3rd Qu.:14.97   3rd Qu.:2.040   3rd Qu.:50.30  
+##  Max.   :11.64   Max.   :7.96   Max.   :16.36   Max.   :2.150   Max.   :53.20  
+##   110m.hurdle        Discus        Pole.vault       Javeline    
+##  Min.   :13.97   Min.   :37.92   Min.   :4.200   Min.   :50.31  
+##  1st Qu.:14.21   1st Qu.:41.90   1st Qu.:4.500   1st Qu.:55.27  
+##  Median :14.48   Median :44.41   Median :4.800   Median :58.36  
+##  Mean   :14.61   Mean   :44.33   Mean   :4.762   Mean   :58.32  
+##  3rd Qu.:14.98   3rd Qu.:46.07   3rd Qu.:4.920   3rd Qu.:60.89  
+##  Max.   :15.67   Max.   :51.65   Max.   :5.400   Max.   :70.52  
+##      1500m            Rank           Points       Competition
+##  Min.   :262.1   Min.   : 1.00   Min.   :7313   Decastar:13  
+##  1st Qu.:271.0   1st Qu.: 6.00   1st Qu.:7802   OlympicG:28  
+##  Median :278.1   Median :11.00   Median :8021                
+##  Mean   :279.0   Mean   :12.12   Mean   :8005                
+##  3rd Qu.:285.1   3rd Qu.:18.00   3rd Qu.:8122                
+##  Max.   :317.0   Max.   :28.00   Max.   :8893
+```
+
+
+
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-334-1} \end{center}
+
+
+
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-336-1} \end{center}
+
+
+
+```r
+plot(acp.decathlon$ind$coord[, 1], acp.decathlon$ind$coord[,
+    2])
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-337-1} \end{center}
+
+```r
+plot(acp.decathlon$ind$coord[, 3], acp.decathlon$ind$coord[,
+    4])
+```
+
+
+
+\begin{center}\includegraphics[width=0.7\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-337-2} \end{center}
+
+```
+
+## Ejercicios 
+
+- Del libro [@James2013b] 
+    - Capítulo 10:  6, 8
+`
+
+
+<!--chapter:end:07-componentes-principales.Rmd-->
 

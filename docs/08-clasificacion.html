@@ -4,18 +4,18 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Capítulo 8 Análisis en componentes principales | Notas Curso de Estadística II</title>
-  <meta name="description" content="Capítulo 8 Análisis en componentes principales | Notas Curso de Estadística II" />
+  <title>Capítulo 7 Otros Clasificadores | Notas Curso de Estadística II</title>
+  <meta name="description" content="Capítulo 7 Otros Clasificadores | Notas Curso de Estadística II" />
   <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Capítulo 8 Análisis en componentes principales | Notas Curso de Estadística II" />
+  <meta property="og:title" content="Capítulo 7 Otros Clasificadores | Notas Curso de Estadística II" />
   <meta property="og:type" content="book" />
   
   
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Capítulo 8 Análisis en componentes principales | Notas Curso de Estadística II" />
+  <meta name="twitter:title" content="Capítulo 7 Otros Clasificadores | Notas Curso de Estadística II" />
   
   
   
@@ -51,6 +51,11 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/rglWebGL-binding-0.108.3/rglWebGL.js"></script>
+<link href="libs/rglwidgetClass-0.108.3/rgl.css" rel="stylesheet" />
+<script src="libs/rglwidgetClass-0.108.3/rglClass.min.js"></script>
+<script src="libs/CanvasMatrix4-0.108.3/CanvasMatrix.min.js"></script>
 
 
 <style type="text/css">
@@ -203,167 +208,152 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="3.4" data-path="02-jacknife-bootstrap.html"><a href="02-jacknife-bootstrap.html#ejercicios-1"><i class="fa fa-check"></i><b>3.4</b> Ejercicios</a></li>
 </ul></li>
-<li class="chapter" data-level="4" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html"><i class="fa fa-check"></i><b>4</b> Estimación de densidades con Bayes</a>
+<li class="chapter" data-level="4" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html"><i class="fa fa-check"></i><b>4</b> Métodos lineales de regresión</a>
 <ul>
-<li class="chapter" data-level="4.1" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#introducción-a-la-estimación-bayesiana"><i class="fa fa-check"></i><b>4.1</b> Introducción a la estimación Bayesiana</a>
+<li class="chapter" data-level="4.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#introducción-al-aprendizaje-estadístico."><i class="fa fa-check"></i><b>4.1</b> Introducción al Aprendizaje Estadístico.</a>
 <ul>
-<li class="chapter" data-level="4.1.1" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#preliminares"><i class="fa fa-check"></i><b>4.1.1</b> Preliminares</a></li>
-<li class="chapter" data-level="4.1.2" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#ejemplo-sencillo"><i class="fa fa-check"></i><b>4.1.2</b> Ejemplo sencillo</a></li>
-<li class="chapter" data-level="4.1.3" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#datos-reales"><i class="fa fa-check"></i><b>4.1.3</b> Datos reales</a></li>
+<li class="chapter" data-level="4.1.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#formas-de-estimar-f"><i class="fa fa-check"></i><b>4.1.1</b> Formas de estimar <span class="math inline">\(f\)</span></a></li>
+<li class="chapter" data-level="4.1.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#medidas-de-bondad-de-ajuste"><i class="fa fa-check"></i><b>4.1.2</b> Medidas de bondad de ajuste</a></li>
 </ul></li>
-<li class="chapter" data-level="4.2" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#previa-de-histograma"><i class="fa fa-check"></i><b>4.2</b> Previa de histograma</a></li>
-<li class="chapter" data-level="4.3" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#métodos-monte-carlo"><i class="fa fa-check"></i><b>4.3</b> Métodos Monte Carlo</a></li>
-<li class="chapter" data-level="4.4" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#una-moneda"><i class="fa fa-check"></i><b>4.4</b> Una moneda</a>
+<li class="chapter" data-level="4.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#regresión-lineal"><i class="fa fa-check"></i><b>4.2</b> Regresión lineal</a>
 <ul>
-<li class="chapter" data-level="4.4.1" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#ejemplo-del-viajero"><i class="fa fa-check"></i><b>4.4.1</b> Ejemplo del viajero</a></li>
-<li class="chapter" data-level="4.4.2" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#cadenas-de-markov"><i class="fa fa-check"></i><b>4.4.2</b> Cadenas de Markov</a></li>
-<li class="chapter" data-level="4.4.3" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#el-algoritmo-de-metropolis-hasting"><i class="fa fa-check"></i><b>4.4.3</b> El algoritmo de Metropolis-Hasting</a></li>
-<li class="chapter" data-level="4.4.4" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#por-qué-el-algoritmo-de-metropolis-hasting-funciona"><i class="fa fa-check"></i><b>4.4.4</b> ¿Por qué el algoritmo de Metropolis Hasting funciona?</a></li>
-<li class="chapter" data-level="4.4.5" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#extensión-al-caso-del-viajero"><i class="fa fa-check"></i><b>4.4.5</b> Extensión al caso del viajero</a></li>
+<li class="chapter" data-level="4.2.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#forma-matricial"><i class="fa fa-check"></i><b>4.2.1</b> Forma matricial</a></li>
+<li class="chapter" data-level="4.2.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-1"><i class="fa fa-check"></i><b>4.2.2</b> Laboratorio</a></li>
 </ul></li>
-<li class="chapter" data-level="4.5" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#dos-monedas"><i class="fa fa-check"></i><b>4.5</b> Dos monedas</a>
+<li class="chapter" data-level="4.3" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#propiedades-estadísticas-3"><i class="fa fa-check"></i><b>4.3</b> Propiedades estadísticas</a>
 <ul>
-<li class="chapter" data-level="4.5.1" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#muestreo-de-gibbs"><i class="fa fa-check"></i><b>4.5.1</b> Muestreo de Gibbs</a></li>
+<li class="chapter" data-level="4.3.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#prueba-t"><i class="fa fa-check"></i><b>4.3.1</b> Prueba <span class="math inline">\(t\)</span></a></li>
+<li class="chapter" data-level="4.3.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#prueba-f"><i class="fa fa-check"></i><b>4.3.2</b> Prueba <span class="math inline">\(F\)</span></a></li>
+<li class="chapter" data-level="4.3.3" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-2"><i class="fa fa-check"></i><b>4.3.3</b> Laboratorio</a></li>
 </ul></li>
-<li class="chapter" data-level="4.6" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#uso-de-jags"><i class="fa fa-check"></i><b>4.6</b> Uso de JAGS</a></li>
-<li class="chapter" data-level="4.7" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#uso-de-stan"><i class="fa fa-check"></i><b>4.7</b> Uso de STAN</a></li>
-<li class="chapter" data-level="4.8" data-path="03-estimacion-densidades-bayes.html"><a href="03-estimacion-densidades-bayes.html#ejercicios-2"><i class="fa fa-check"></i><b>4.8</b> Ejercicios</a></li>
-</ul></li>
-<li class="chapter" data-level="5" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html"><i class="fa fa-check"></i><b>5</b> Métodos lineales de regresión</a>
+<li class="chapter" data-level="4.4" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#medida-de-bondad-de-ajuste"><i class="fa fa-check"></i><b>4.4</b> Medida de bondad de ajuste</a>
 <ul>
-<li class="chapter" data-level="5.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#introducción-al-aprendizaje-estadístico."><i class="fa fa-check"></i><b>5.1</b> Introducción al Aprendizaje Estadístico.</a>
+<li class="chapter" data-level="4.4.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-3"><i class="fa fa-check"></i><b>4.4.1</b> Laboratorio</a></li>
+</ul></li>
+<li class="chapter" data-level="4.5" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#predicción"><i class="fa fa-check"></i><b>4.5</b> Predicción</a>
 <ul>
-<li class="chapter" data-level="5.1.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#formas-de-estimar-f"><i class="fa fa-check"></i><b>5.1.1</b> Formas de estimar <span class="math inline">\(f\)</span></a></li>
-<li class="chapter" data-level="5.1.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#medidas-de-bondad-de-ajuste"><i class="fa fa-check"></i><b>5.1.2</b> Medidas de bondad de ajuste</a></li>
+<li class="chapter" data-level="4.5.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-4"><i class="fa fa-check"></i><b>4.5.1</b> Laboratorio</a></li>
 </ul></li>
-<li class="chapter" data-level="5.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#regresión-lineal"><i class="fa fa-check"></i><b>5.2</b> Regresión lineal</a>
+<li class="chapter" data-level="4.6" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#interacciones"><i class="fa fa-check"></i><b>4.6</b> Interacciones</a>
 <ul>
-<li class="chapter" data-level="5.2.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#forma-matricial"><i class="fa fa-check"></i><b>5.2.1</b> Forma matricial</a></li>
-<li class="chapter" data-level="5.2.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-1"><i class="fa fa-check"></i><b>5.2.2</b> Laboratorio</a></li>
+<li class="chapter" data-level="4.6.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-5"><i class="fa fa-check"></i><b>4.6.1</b> Laboratorio</a></li>
 </ul></li>
-<li class="chapter" data-level="5.3" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#propiedades-estadísticas-3"><i class="fa fa-check"></i><b>5.3</b> Propiedades estadísticas</a>
+<li class="chapter" data-level="4.7" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#supuestos"><i class="fa fa-check"></i><b>4.7</b> Supuestos</a>
 <ul>
-<li class="chapter" data-level="5.3.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#prueba-t"><i class="fa fa-check"></i><b>5.3.1</b> Prueba <span class="math inline">\(t\)</span></a></li>
-<li class="chapter" data-level="5.3.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#prueba-f"><i class="fa fa-check"></i><b>5.3.2</b> Prueba <span class="math inline">\(F\)</span></a></li>
-<li class="chapter" data-level="5.3.3" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-2"><i class="fa fa-check"></i><b>5.3.3</b> Laboratorio</a></li>
+<li class="chapter" data-level="4.7.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#chequeos-básicos-de-las-hipótesis-de-regresión-lineal"><i class="fa fa-check"></i><b>4.7.1</b> Chequeos básicos de las hipótesis de regresión lineal</a></li>
+<li class="chapter" data-level="4.7.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#otros-chequeos-importantes"><i class="fa fa-check"></i><b>4.7.2</b> Otros chequeos importantes</a></li>
 </ul></li>
-<li class="chapter" data-level="5.4" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#medida-de-bondad-de-ajuste"><i class="fa fa-check"></i><b>5.4</b> Medida de bondad de ajuste</a>
+<li class="chapter" data-level="4.8" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#ejercicios-2"><i class="fa fa-check"></i><b>4.8</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html"><i class="fa fa-check"></i><b>5</b> Regresión Logística</a>
 <ul>
-<li class="chapter" data-level="5.4.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-3"><i class="fa fa-check"></i><b>5.4.1</b> Laboratorio</a></li>
-</ul></li>
-<li class="chapter" data-level="5.5" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#predicción"><i class="fa fa-check"></i><b>5.5</b> Predicción</a>
+<li class="chapter" data-level="5.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#preliminares"><i class="fa fa-check"></i><b>5.1</b> Preliminares</a>
 <ul>
-<li class="chapter" data-level="5.5.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-4"><i class="fa fa-check"></i><b>5.5.1</b> Laboratorio</a></li>
+<li class="chapter" data-level="5.1.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#oportunidad-relativa-odds-ratio"><i class="fa fa-check"></i><b>5.1.1</b> Oportunidad relativa (Odds Ratio)</a></li>
 </ul></li>
-<li class="chapter" data-level="5.6" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#interacciones"><i class="fa fa-check"></i><b>5.6</b> Interacciones</a>
+<li class="chapter" data-level="5.2" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#máxima-verosimilitud"><i class="fa fa-check"></i><b>5.2</b> Máxima verosimilitud</a>
 <ul>
-<li class="chapter" data-level="5.6.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#laboratorio-5"><i class="fa fa-check"></i><b>5.6.1</b> Laboratorio</a></li>
+<li class="chapter" data-level="5.2.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#resultados-adicionales"><i class="fa fa-check"></i><b>5.2.1</b> Resultados adicionales</a></li>
 </ul></li>
-<li class="chapter" data-level="5.7" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#supuestos"><i class="fa fa-check"></i><b>5.7</b> Supuestos</a>
+<li class="chapter" data-level="5.3" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#diágnosticos-del-modelo"><i class="fa fa-check"></i><b>5.3</b> Diágnosticos del modelo</a>
 <ul>
-<li class="chapter" data-level="5.7.1" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#chequeos-básicos-de-las-hipótesis-de-regresión-lineal"><i class="fa fa-check"></i><b>5.7.1</b> Chequeos básicos de las hipótesis de regresión lineal</a></li>
-<li class="chapter" data-level="5.7.2" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#otros-chequeos-importantes"><i class="fa fa-check"></i><b>5.7.2</b> Otros chequeos importantes</a></li>
+<li class="chapter" data-level="5.3.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#supuesto-de-linealidad"><i class="fa fa-check"></i><b>5.3.1</b> Supuesto de linealidad</a></li>
+<li class="chapter" data-level="5.3.2" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#valores-de-gran-influencia"><i class="fa fa-check"></i><b>5.3.2</b> Valores de gran influencia</a></li>
+<li class="chapter" data-level="5.3.3" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#multicolinealidad-1"><i class="fa fa-check"></i><b>5.3.3</b> Multicolinealidad</a></li>
 </ul></li>
-<li class="chapter" data-level="5.8" data-path="04-metodos-lineares-regresion.html"><a href="04-metodos-lineares-regresion.html#ejercicios-3"><i class="fa fa-check"></i><b>5.8</b> Ejercicios</a></li>
-</ul></li>
-<li class="chapter" data-level="6" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html"><i class="fa fa-check"></i><b>6</b> Regresión Logística</a>
+<li class="chapter" data-level="5.4" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#predicción-y-poder-de-clasificación"><i class="fa fa-check"></i><b>5.4</b> Predicción y poder de clasificación</a>
 <ul>
-<li class="chapter" data-level="6.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#preliminares-1"><i class="fa fa-check"></i><b>6.1</b> Preliminares</a>
+<li class="chapter" data-level="5.4.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#curva-roc"><i class="fa fa-check"></i><b>5.4.1</b> Curva ROC</a></li>
+</ul></li>
+<li class="chapter" data-level="5.5" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#ejercicios-3"><i class="fa fa-check"></i><b>5.5</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html"><i class="fa fa-check"></i><b>6</b> Métodos de selección de variables y regularización.</a>
 <ul>
-<li class="chapter" data-level="6.1.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#oportunidad-relativa-odds-ratio"><i class="fa fa-check"></i><b>6.1.1</b> Oportunidad relativa (Odds Ratio)</a></li>
-</ul></li>
-<li class="chapter" data-level="6.2" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#máxima-verosimilitud"><i class="fa fa-check"></i><b>6.2</b> Máxima verosimilitud</a>
+<li class="chapter" data-level="6.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#estimación-del-error-de-prueba"><i class="fa fa-check"></i><b>6.1</b> Estimación del error de prueba</a>
 <ul>
-<li class="chapter" data-level="6.2.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#resultados-adicionales"><i class="fa fa-check"></i><b>6.2.1</b> Resultados adicionales</a></li>
+<li class="chapter" data-level="6.1.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#técnica-de-conjunto-de-validación"><i class="fa fa-check"></i><b>6.1.1</b> Técnica de conjunto de validación</a></li>
+<li class="chapter" data-level="6.1.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-leave-one-out-loocv"><i class="fa fa-check"></i><b>6.1.2</b> Validación cruzada “Leave-One-Out” (LOOCV)</a></li>
+<li class="chapter" data-level="6.1.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-k-veces"><i class="fa fa-check"></i><b>6.1.3</b> Validación cruzada <span class="math inline">\(k-\)</span>veces</a></li>
+<li class="chapter" data-level="6.1.4" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-para-clasificación"><i class="fa fa-check"></i><b>6.1.4</b> Validación cruzada para clasificación</a></li>
+<li class="chapter" data-level="6.1.5" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#otras-medidas-de-error-de-prueba"><i class="fa fa-check"></i><b>6.1.5</b> Otras medidas de error de prueba</a></li>
 </ul></li>
-<li class="chapter" data-level="6.3" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#diágnosticos-del-modelo"><i class="fa fa-check"></i><b>6.3</b> Diágnosticos del modelo</a>
+<li class="chapter" data-level="6.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-variables"><i class="fa fa-check"></i><b>6.2</b> Selección de variables</a>
 <ul>
-<li class="chapter" data-level="6.3.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#supuesto-de-linealidad"><i class="fa fa-check"></i><b>6.3.1</b> Supuesto de linealidad</a></li>
-<li class="chapter" data-level="6.3.2" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#valores-de-gran-influencia"><i class="fa fa-check"></i><b>6.3.2</b> Valores de gran influencia</a></li>
-<li class="chapter" data-level="6.3.3" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#multicolinealidad-1"><i class="fa fa-check"></i><b>6.3.3</b> Multicolinealidad</a></li>
+<li class="chapter" data-level="6.2.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-del-mejor-subconjunto."><i class="fa fa-check"></i><b>6.2.1</b> Selección del mejor subconjunto.</a></li>
+<li class="chapter" data-level="6.2.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-modelos-hacia-adelante-forward-stepwise-selection"><i class="fa fa-check"></i><b>6.2.2</b> Selección de modelos hacia adelante (<strong>Forward Stepwise Selection</strong>)</a></li>
+<li class="chapter" data-level="6.2.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-modelos-hacia-atrás-backward-stepwise-selection"><i class="fa fa-check"></i><b>6.2.3</b> Selección de modelos hacia atrás (<strong>Backward Stepwise Selection</strong>)</a></li>
 </ul></li>
-<li class="chapter" data-level="6.4" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#predicción-y-poder-de-clasificación"><i class="fa fa-check"></i><b>6.4</b> Predicción y poder de clasificación</a>
+<li class="chapter" data-level="6.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#métodos-de-regularización"><i class="fa fa-check"></i><b>6.3</b> Métodos de regularización</a>
 <ul>
-<li class="chapter" data-level="6.4.1" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#curva-roc"><i class="fa fa-check"></i><b>6.4.1</b> Curva ROC</a></li>
+<li class="chapter" data-level="6.3.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-ridge"><i class="fa fa-check"></i><b>6.3.1</b> Regresión Ridge</a></li>
+<li class="chapter" data-level="6.3.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-lasso"><i class="fa fa-check"></i><b>6.3.2</b> Regresión Lasso</a></li>
+<li class="chapter" data-level="6.3.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#explicación-gráfica"><i class="fa fa-check"></i><b>6.3.3</b> Explicación gráfica</a></li>
 </ul></li>
-<li class="chapter" data-level="6.5" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#ejercicios-4"><i class="fa fa-check"></i><b>6.5</b> Ejercicios</a></li>
-</ul></li>
-<li class="chapter" data-level="7" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html"><i class="fa fa-check"></i><b>7</b> Métodos de selección de variables y regularización.</a>
+<li class="chapter" data-level="6.4" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#laboratorio-6"><i class="fa fa-check"></i><b>6.4</b> Laboratorio</a>
 <ul>
-<li class="chapter" data-level="7.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#estimación-del-error-de-prueba"><i class="fa fa-check"></i><b>7.1</b> Estimación del error de prueba</a>
+<li class="chapter" data-level="6.4.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#cross-validation"><i class="fa fa-check"></i><b>6.4.1</b> Cross-Validation</a></li>
+<li class="chapter" data-level="6.4.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-lasso-1"><i class="fa fa-check"></i><b>6.4.2</b> Regresión Lasso</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#ejercicios-4"><i class="fa fa-check"></i><b>6.5</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="08-clasificacion.html"><a href="08-clasificacion.html"><i class="fa fa-check"></i><b>7</b> Otros Clasificadores</a>
 <ul>
-<li class="chapter" data-level="7.1.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#técnica-de-conjunto-de-validación"><i class="fa fa-check"></i><b>7.1.1</b> Técnica de conjunto de validación</a></li>
-<li class="chapter" data-level="7.1.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-leave-one-out-loocv"><i class="fa fa-check"></i><b>7.1.2</b> Validación cruzada “Leave-One-Out” (LOOCV)</a></li>
-<li class="chapter" data-level="7.1.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-k-veces"><i class="fa fa-check"></i><b>7.1.3</b> Validación cruzada <span class="math inline">\(k-\)</span>veces</a></li>
-<li class="chapter" data-level="7.1.4" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-para-clasificación"><i class="fa fa-check"></i><b>7.1.4</b> Validación cruzada para clasificación</a></li>
-<li class="chapter" data-level="7.1.5" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#otras-medidas-de-error-de-prueba"><i class="fa fa-check"></i><b>7.1.5</b> Otras medidas de error de prueba</a></li>
-</ul></li>
-<li class="chapter" data-level="7.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-variables"><i class="fa fa-check"></i><b>7.2</b> Selección de variables</a>
+<li class="chapter" data-level="7.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-bayesiano"><i class="fa fa-check"></i><b>7.1</b> Clasificador Bayesiano</a></li>
+<li class="chapter" data-level="7.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#método-de-k-vecinos-más-cercanos-knn"><i class="fa fa-check"></i><b>7.2</b> Método de k vecinos más cercanos (KNN)</a></li>
+<li class="chapter" data-level="7.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante"><i class="fa fa-check"></i><b>7.3</b> Análisis Discriminante</a>
 <ul>
-<li class="chapter" data-level="7.2.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-del-mejor-subconjunto."><i class="fa fa-check"></i><b>7.2.1</b> Selección del mejor subconjunto.</a></li>
-<li class="chapter" data-level="7.2.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-modelos-hacia-adelante-forward-stepwise-selection"><i class="fa fa-check"></i><b>7.2.2</b> Selección de modelos hacia adelante (<strong>Forward Stepwise Selection</strong>)</a></li>
-<li class="chapter" data-level="7.2.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-modelos-hacia-atrás-backward-stepwise-selection"><i class="fa fa-check"></i><b>7.2.3</b> Selección de modelos hacia atrás (<strong>Backward Stepwise Selection</strong>)</a></li>
+<li class="chapter" data-level="7.3.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal"><i class="fa fa-check"></i><b>7.3.1</b> Análisis discriminante lineal</a></li>
+<li class="chapter" data-level="7.3.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático"><i class="fa fa-check"></i><b>7.3.2</b> Análisis discriminante cuadrático</a></li>
 </ul></li>
-<li class="chapter" data-level="7.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#métodos-de-regularización"><i class="fa fa-check"></i><b>7.3</b> Métodos de regularización</a>
+<li class="chapter" data-level="7.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>7.4</b> Laboratorio</a>
 <ul>
-<li class="chapter" data-level="7.3.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-ridge"><i class="fa fa-check"></i><b>7.3.1</b> Regresión Ridge</a></li>
-<li class="chapter" data-level="7.3.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-lasso"><i class="fa fa-check"></i><b>7.3.2</b> Regresión Lasso</a></li>
-<li class="chapter" data-level="7.3.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#explicación-gráfica"><i class="fa fa-check"></i><b>7.3.3</b> Explicación gráfica</a></li>
+<li class="chapter" data-level="7.4.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>7.4.1</b> Clasificador logístico</a></li>
+<li class="chapter" data-level="7.4.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal-1"><i class="fa fa-check"></i><b>7.4.2</b> Análisis Discriminante Lineal</a></li>
+<li class="chapter" data-level="7.4.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático-1"><i class="fa fa-check"></i><b>7.4.3</b> Análisis Discriminante Cuadrático</a></li>
+<li class="chapter" data-level="7.4.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>7.4.4</b> K vecinos más cercanos</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#laboratorio-6"><i class="fa fa-check"></i><b>7.4</b> Laboratorio</a>
+<li class="chapter" data-level="7.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-5"><i class="fa fa-check"></i><b>7.5</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html"><i class="fa fa-check"></i><b>8</b> Cálculo Bayesiano Computacional</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#cross-validation"><i class="fa fa-check"></i><b>7.4.1</b> Cross-Validation</a></li>
-<li class="chapter" data-level="7.4.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-lasso-1"><i class="fa fa-check"></i><b>7.4.2</b> Regresión Lasso</a></li>
-</ul></li>
-<li class="chapter" data-level="7.5" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#ejercicios-5"><i class="fa fa-check"></i><b>7.5</b> Ejercicios</a></li>
-</ul></li>
-<li class="chapter" data-level="8" data-path="08-clasificacion.html"><a href="08-clasificacion.html"><i class="fa fa-check"></i><b>8</b> Análisis en componentes principales</a>
+<li class="chapter" data-level="8.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#repaso-de-estadística-bayesiana"><i class="fa fa-check"></i><b>8.1</b> Repaso de Estadística Bayesiana</a>
 <ul>
-<li class="chapter" data-level="8.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#aprendizaje-no-supervisado"><i class="fa fa-check"></i><b>8.1</b> Aprendizaje no-supervisado</a></li>
-<li class="chapter" data-level="8.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#representación-gráfica"><i class="fa fa-check"></i><b>8.2</b> Representación gráfica</a></li>
-<li class="chapter" data-level="8.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#primer-componente-principal"><i class="fa fa-check"></i><b>8.3</b> Primer componente principal</a></li>
-<li class="chapter" data-level="8.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#segunda-componente-principal"><i class="fa fa-check"></i><b>8.4</b> Segunda componente principal</a></li>
-<li class="chapter" data-level="8.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#circulo-de-correlaciones"><i class="fa fa-check"></i><b>8.5</b> Circulo de correlaciones</a></li>
-<li class="chapter" data-level="8.6" data-path="08-clasificacion.html"><a href="08-clasificacion.html#volvamos-a-nuestro-ejemplo"><i class="fa fa-check"></i><b>8.6</b> Volvamos a nuestro ejemplo</a></li>
-<li class="chapter" data-level="8.7" data-path="08-clasificacion.html"><a href="08-clasificacion.html#cuántos-componentes-usar"><i class="fa fa-check"></i><b>8.7</b> ¿Cuántos componentes usar?</a></li>
-<li class="chapter" data-level="8.8" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>8.8</b> Laboratorio</a>
+<li class="chapter" data-level="8.1.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#modelo-de-un-parámetro"><i class="fa fa-check"></i><b>8.1.1</b> Modelo de un parámetro</a></li>
+<li class="chapter" data-level="8.1.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#modelo-de-más-de-un-parámetro"><i class="fa fa-check"></i><b>8.1.2</b> Modelo de más de un parámetro</a></li>
+</ul></li>
+<li class="chapter" data-level="8.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#motivación-cálculo-de-integrales"><i class="fa fa-check"></i><b>8.2</b> Motivación: Cálculo de Integrales</a></li>
+<li class="chapter" data-level="8.3" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejemplo-base-modelo-beta-binomial."><i class="fa fa-check"></i><b>8.3</b> Ejemplo base: modelo beta-binomial.</a></li>
+<li class="chapter" data-level="8.4" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#aproximación-de-laplace"><i class="fa fa-check"></i><b>8.4</b> Aproximación de Laplace</a></li>
+<li class="chapter" data-level="8.5" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#simulación"><i class="fa fa-check"></i><b>8.5</b> Simulación</a>
 <ul>
-<li class="chapter" data-level="8.8.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>8.8.1</b> Clasificador logístico</a></li>
-<li class="chapter" data-level="8.8.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal"><i class="fa fa-check"></i><b>8.8.2</b> Análisis Discriminante Lineal</a></li>
-<li class="chapter" data-level="8.8.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático"><i class="fa fa-check"></i><b>8.8.3</b> Análisis Discriminante Cuadrático</a></li>
-<li class="chapter" data-level="8.8.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>8.8.4</b> K vecinos más cercanos</a></li>
+<li class="chapter" data-level="8.5.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#simulación-monte-carlo"><i class="fa fa-check"></i><b>8.5.1</b> Simulación Monte Carlo</a></li>
+<li class="chapter" data-level="8.5.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#muestreo-por-rechazo"><i class="fa fa-check"></i><b>8.5.2</b> Muestreo por rechazo</a></li>
 </ul></li>
-<li class="chapter" data-level="8.9" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-6"><i class="fa fa-check"></i><b>8.9</b> Ejercicios</a></li>
-</ul></li>
-<li class="chapter" data-level="9" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html"><i class="fa fa-check"></i><b>9</b> Cálculo Bayesiano Computacional</a>
+<li class="chapter" data-level="8.6" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#muestreo-por-importancia"><i class="fa fa-check"></i><b>8.6</b> Muestreo por importancia</a></li>
+<li class="chapter" data-level="8.7" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#remuestreo-por-importancia"><i class="fa fa-check"></i><b>8.7</b> Remuestreo por importancia</a></li>
+<li class="chapter" data-level="8.8" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#algoritmo-de-metropolis-hastings"><i class="fa fa-check"></i><b>8.8</b> Algoritmo de Metropolis-Hastings</a></li>
+<li class="chapter" data-level="8.9" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#algoritmo-de-gibbs"><i class="fa fa-check"></i><b>8.9</b> Algoritmo de Gibbs</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#repaso-de-estadística-bayesiana"><i class="fa fa-check"></i><b>9.1</b> Repaso de Estadística Bayesiana</a>
+<li class="chapter" data-level="8.9.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#diagnósticos-de-convergencia-de-mcmc"><i class="fa fa-check"></i><b>8.9.1</b> Diagnósticos de convergencia de MCMC</a></li>
+</ul></li>
+<li class="chapter" data-level="8.10" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejemplos"><i class="fa fa-check"></i><b>8.10</b> Ejemplos</a>
 <ul>
-<li class="chapter" data-level="9.1.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#modelo-de-un-parámetro"><i class="fa fa-check"></i><b>9.1.1</b> Modelo de un parámetro</a></li>
-<li class="chapter" data-level="9.1.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#modelo-de-más-de-un-parámetro"><i class="fa fa-check"></i><b>9.1.2</b> Modelo de más de un parámetro</a></li>
+<li class="chapter" data-level="8.10.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#datos-agrupados-bajo-una-población-normal"><i class="fa fa-check"></i><b>8.10.1</b> Datos agrupados bajo una población normal</a></li>
 </ul></li>
-<li class="chapter" data-level="9.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#motivación-cálculo-de-integrales"><i class="fa fa-check"></i><b>9.2</b> Motivación: Cálculo de Integrales</a></li>
-<li class="chapter" data-level="9.3" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejemplo-base-modelo-beta-binomial."><i class="fa fa-check"></i><b>9.3</b> Ejemplo base: modelo beta-binomial.</a></li>
-<li class="chapter" data-level="9.4" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#aproximación-de-laplace"><i class="fa fa-check"></i><b>9.4</b> Aproximación de Laplace</a></li>
-<li class="chapter" data-level="9.5" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#simulación"><i class="fa fa-check"></i><b>9.5</b> Simulación</a>
+<li class="chapter" data-level="8.11" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejercicios-6"><i class="fa fa-check"></i><b>8.11</b> Ejercicios</a></li>
+</ul></li>
+<li class="chapter" data-level="9" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html"><i class="fa fa-check"></i><b>9</b> Análisis en componentes principales</a>
 <ul>
-<li class="chapter" data-level="9.5.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#simulación-monte-carlo"><i class="fa fa-check"></i><b>9.5.1</b> Simulación Monte Carlo</a></li>
-<li class="chapter" data-level="9.5.2" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#muestreo-por-rechazo"><i class="fa fa-check"></i><b>9.5.2</b> Muestreo por rechazo</a></li>
+<li class="chapter" data-level="9.1" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#aprendizaje-no-supervisado"><i class="fa fa-check"></i><b>9.1</b> Aprendizaje no-supervisado</a></li>
+<li class="chapter" data-level="9.2" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#representación-gráfica"><i class="fa fa-check"></i><b>9.2</b> Representación gráfica</a></li>
+<li class="chapter" data-level="9.3" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#primer-componente-principal"><i class="fa fa-check"></i><b>9.3</b> Primer componente principal</a></li>
+<li class="chapter" data-level="9.4" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#segunda-componente-principal"><i class="fa fa-check"></i><b>9.4</b> Segunda componente principal</a></li>
+<li class="chapter" data-level="9.5" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#circulo-de-correlaciones"><i class="fa fa-check"></i><b>9.5</b> Circulo de correlaciones</a></li>
+<li class="chapter" data-level="9.6" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#volvamos-a-nuestro-ejemplo"><i class="fa fa-check"></i><b>9.6</b> Volvamos a nuestro ejemplo</a></li>
+<li class="chapter" data-level="9.7" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#cuántos-componentes-usar"><i class="fa fa-check"></i><b>9.7</b> ¿Cuántos componentes usar?</a></li>
+<li class="chapter" data-level="9.8" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#laboratorio-8"><i class="fa fa-check"></i><b>9.8</b> Laboratorio</a></li>
+<li class="chapter" data-level="9.9" data-path="07-componentes-principales.html"><a href="07-componentes-principales.html#ejercicios-7"><i class="fa fa-check"></i><b>9.9</b> Ejercicios</a></li>
 </ul></li>
-<li class="chapter" data-level="9.6" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#muestreo-por-importancia"><i class="fa fa-check"></i><b>9.6</b> Muestreo por importancia</a></li>
-<li class="chapter" data-level="9.7" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#remuestreo-por-importancia"><i class="fa fa-check"></i><b>9.7</b> Remuestreo por importancia</a></li>
-<li class="chapter" data-level="9.8" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#algoritmo-de-metropolis-hastings"><i class="fa fa-check"></i><b>9.8</b> Algoritmo de Metropolis-Hastings</a></li>
-<li class="chapter" data-level="9.9" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#algoritmo-de-gibbs"><i class="fa fa-check"></i><b>9.9</b> Algoritmo de Gibbs</a>
-<ul>
-<li class="chapter" data-level="9.9.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#diagnósticos-de-convergencia-de-mcmc"><i class="fa fa-check"></i><b>9.9.1</b> Diagnósticos de convergencia de MCMC</a></li>
-</ul></li>
-<li class="chapter" data-level="9.10" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejemplos"><i class="fa fa-check"></i><b>9.10</b> Ejemplos</a>
-<ul>
-<li class="chapter" data-level="9.10.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#datos-agrupados-bajo-una-población-normal"><i class="fa fa-check"></i><b>9.10.1</b> Datos agrupados bajo una población normal</a></li>
-</ul></li>
-<li class="chapter" data-level="9.11" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejercicios-7"><i class="fa fa-check"></i><b>9.11</b> Ejercicios</a></li>
-</ul></li>
-<li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
 </ul>
 
       </nav>
@@ -381,500 +371,321 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="análisis-en-componentes-principales" class="section level1 hasAnchor" number="8">
-<h1><span class="header-section-number">Capítulo 8</span> Análisis en componentes principales<a href="08-clasificacion.html#análisis-en-componentes-principales" class="anchor-section" aria-label="Anchor link to header"></a></h1>
-<div id="aprendizaje-no-supervisado" class="section level2 hasAnchor" number="8.1">
-<h2><span class="header-section-number">8.1</span> Aprendizaje no-supervisado<a href="08-clasificacion.html#aprendizaje-no-supervisado" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Al contrario de los métodos que se han estudiado de regresión y clasificación, en este caso no hay variable dependiente, y el conjunto de datos está compuesto de <span class="math inline">\(p\)</span> variables o características y <span class="math inline">\(n\)</span> observaciones.</p>
-<p>El principal objetivo del aprendizaje no-supervisado no es la predicción, sino en el <em>análisis de datos</em> por sí mismo, es decir se quiere buscar patrones o relaciones interesantes dentro de la tabla de datos: por ejemplo la visualización de datos o la identificación de subgrupos en los datos. (Análisis Exploratorio de Datos)</p>
-<p>En el caso de aprendizaje no-supervisado, no es posible verificar o validar los métodos adoptados.</p>
-<p>Si se quiere seleccionar la mejor proyección de 2 variables de una nube de puntos <span class="math inline">\(X_1,\dots, X_p\)</span>, se debe hacer <span class="math inline">\(\binom{p}{2}\)</span> gráficos de dispersión. Un criterio de búsqueda es seleccionar la que tenga mayor información, en el sentido de mayor variabilidad.</p>
-<p>Usaremos como base los libros de <span class="citation">(Husson, Le, and Pagès 2017)</span> y <span class="citation">(James et al. 2013)</span>.</p>
-<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="08-clasificacion.html#cb506-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rgl)</span>
-<span id="cb506-2"><a href="08-clasificacion.html#cb506-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
-<span id="cb506-3"><a href="08-clasificacion.html#cb506-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>knit_hooks<span class="sc">$</span><span class="fu">set</span>(<span class="at">webgl =</span> hook_webgl, <span class="at">rgl =</span> hook_rgl)</span>
-<span id="cb506-4"><a href="08-clasificacion.html#cb506-4" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">fig.pos =</span> <span class="st">&quot;!h&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="08-clasificacion.html#cb507-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">123</span>)</span>
-<span id="cb507-2"><a href="08-clasificacion.html#cb507-2" aria-hidden="true" tabindex="-1"></a>x1 <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span>
-<span id="cb507-3"><a href="08-clasificacion.html#cb507-3" aria-hidden="true" tabindex="-1"></a>x2 <span class="ot">&lt;-</span> <span class="fu">cos</span>(<span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>))</span>
-<span id="cb507-4"><a href="08-clasificacion.html#cb507-4" aria-hidden="true" tabindex="-1"></a>x3 <span class="ot">&lt;-</span> x1 <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="dv">0</span>, <span class="dv">2</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb508"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb508-1"><a href="08-clasificacion.html#cb508-1" aria-hidden="true" tabindex="-1"></a>GGally<span class="sc">::</span><span class="fu">ggpairs</span>(<span class="fu">data.frame</span>(x1, x2, x3))</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-304-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb509"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb509-1"><a href="08-clasificacion.html#cb509-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot3d</span>(x1, x2, x3, <span class="at">point.col =</span> <span class="st">&quot;black&quot;</span>)</span>
-<span id="cb509-2"><a href="08-clasificacion.html#cb509-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb509-3"><a href="08-clasificacion.html#cb509-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot3d</span>(<span class="fu">scale</span>(x1), <span class="fu">scale</span>(x2), <span class="fu">scale</span>(x3), <span class="at">point.col =</span> <span class="st">&quot;black&quot;</span>)</span></code></pre></div>
-<!-- ```{r, echo=FALSE} -->
-<!-- library(ggplot2) -->
-<!-- qplot(1:300, rnorm(300, sd = 0.1) + 5, ylim = c(0, 10)) + theme_minimal() + xlab("") + ylab("") -->
-<!-- qplot(1:300, (3 * 1:300 + 100 * cos(1:300 / (2 * pi)) + 200 * rnorm(300, sd = -->
-<!--                                                                       0.1)) / 100) + theme_minimal() + xlab("") + ylab("") -->
-<!-- ``` -->
-<p>El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones eliminando la mayor cantidad de ruido posible.</p>
-</div>
-<div id="representación-gráfica" class="section level2 hasAnchor" number="8.2">
-<h2><span class="header-section-number">8.2</span> Representación gráfica<a href="08-clasificacion.html#representación-gráfica" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="figure">
-<img src="manual_figures/pca.png" alt="" />
-<p class="caption">Tomado de <a href="https://shapeofdata.wordpress.com/2013/04/09/principle-component-analysis/">The shape of data</a></p>
-</div>
-</div>
-<div id="primer-componente-principal" class="section level2 hasAnchor" number="8.3">
-<h2><span class="header-section-number">8.3</span> Primer componente principal<a href="08-clasificacion.html#primer-componente-principal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><span class="math display">\[ Z_1 := \phi_{11}x_1 +  \phi_{21}x_2 + \dots + \phi_{p1}x_p;\quad \text{con } \sum_{j=1}^{p}\phi_{j1} = 1\]</span>
-tal que <span class="math inline">\(Z_1\)</span> tenga la varianza máxima.</p>
-<p>Al vector <span class="math inline">\(\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})\)</span> se le llama <em>pasos o cargas</em>.</p>
-<p><span class="math inline">\(X = (X_1,\dots,X_p)_{n\times p}\)</span> es la <em>matriz de diseño</em> donde cada columna tiene media 0. Se resuelve el problema
-<span class="math display">\[\hat{\phi}_1=\underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace \]</span>
-La restricción de minimización se puede rescribir como <span class="math inline">\(\Vert\phi_1\Vert_2^2= \sum_{j=1}^p \phi_{j1}^2 = 1\)</span></p>
-<p>Los <span class="math inline">\(Z_{11},\dots, Z_{n1}\)</span> son los scores del primer componente principal.</p>
-<p><span class="math inline">\(\phi_1\)</span> es la dirección en el espacio característico en <span class="math inline">\(\mathbb{R}^p\)</span> en donde los datos tengan la máxima varianza.</p>
-<p>Esta última expresión se podría rescribir de forma matricial como</p>
-<p><span class="math display">\[
-\hat{\phi}_1 = \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{ \phi_1^\top X^\top X \phi_1 \right\}
-\]</span></p>
-<p>donde <span class="math inline">\(\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})\)</span></p>
-<p>dadas las condiciones, esta expresión se podría simplificar un poco más en</p>
-<p><span class="math display">\[
-\hat{\phi}_1 = \underset{\phi_1}{\mathrm{argmax}} \left\{\frac{\phi_1^\top X^\top X \phi_1 }{\phi_1^\top \phi_1}\right\}
-\]</span></p>
-<p>Dado que la expresión anterio es un coeficiente de Rayleigh, se puede probar que <span class="math inline">\(\hat{\phi}_{1}\)</span> corresponde al primer vector propio de la matriz <span class="math inline">\(X^\top X = \mathrm{Cov}(X)\)</span> si las columnas de <span class="math inline">\(X\)</span> son centradas.</p>
-</div>
-<div id="segunda-componente-principal" class="section level2 hasAnchor" number="8.4">
-<h2><span class="header-section-number">8.4</span> Segunda componente principal<a href="08-clasificacion.html#segunda-componente-principal" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p><span class="math display">\[ Z_{2}:= \phi_{12}x_1 + \phi_{22}x_2+\dots+\phi_{p2}x_p\]</span>
-<span class="math display">\[\underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j2} X_{ij} \right)^2 \right\rbrace\]</span>
-Se tiene, además, que <span class="math inline">\(\forall i\)</span>, <span class="math inline">\(Z_{i2}\perp Z_1\)</span>, entonces
-<span class="math display">\[ Z_{i2}\perp Z_1 \implies \phi_{2} \perp \phi_{1}\]</span></p>
-<p>Esto se logra primero construyendo una matriz nueva de diseño, restando a la matrix <span class="math inline">\(X\)</span> original, el primer componente principal.</p>
-<p><span class="math display">\[
-\tilde{X}_2 = X - X\phi_1\phi_1^\top
-\]</span></p>
-<p>Luego a esa matriz, se le aplica el procedimiento anterior</p>
-<p><span class="math display">\[
-\hat{\phi}_2 = \underset{\phi_2}{\mathrm{argmax}} \left\{\frac{\phi_2^\top X^\top X \phi_2 }{\phi_2^\top \phi_2}\right\}
-\]</span></p>
-<p>Y nuevamente se puede probar que el componente principal corresponde al segundo vector propio de
-<span class="math inline">\(X^\top X = \mathrm{Cov}(X)\)</span></p>
-<p>De la misma forma se construye <span class="math inline">\(\phi_3,\phi_4,\dots, \phi_p\)</span>.</p>
-<p>Notas:</p>
-<ul>
-<li><strong>Escalas</strong>: la varianza de las variables depende de las unidades. El problema es que los pesos <span class="math inline">\(\phi_i\)</span> son distintos dependiendo de las escalas. La solución es estandarizar las variables: <span class="math inline">\(\dfrac{X_i-\mu_i}{\hat\sigma_i}\)</span>.</li>
-<li><strong>Unicidad</strong>: los componentes principales son únicos, módulo cambio de signo.
-\end{itemize}</li>
-</ul>
-</div>
-<div id="circulo-de-correlaciones" class="section level2 hasAnchor" number="8.5">
-<h2><span class="header-section-number">8.5</span> Circulo de correlaciones<a href="08-clasificacion.html#circulo-de-correlaciones" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Se puede construir la correlación de cada variable con respecto a cada componente principal</p>
-<p><span class="math display">\[
-cos(\theta_{i,j^\prime}) = \mathrm{Corr}(X_i, \mathrm{PC}_{j^\prime})
-\]</span></p>
-<p>El ángulo <span class="math inline">\(\theta_{i,j^\prime}\)</span> significa la lejanía o cercanía de cierta variable con respecto a cada componente principal.</p>
-<p>Además, basados en el el círculo identidad <span class="math inline">\(\cos^2(\theta)+\sin^2(\theta)=1\)</span>, el valor de <span class="math inline">\(cos^2(\theta_{i,j^\prime})\)</span> representa la “intensidad” con la cual la variable <span class="math inline">\(X_i\)</span> es representada por el componente principal <span class="math inline">\(\mathrm{PC}_{i^\prime}\)</span>.</p>
-</div>
-<div id="volvamos-a-nuestro-ejemplo" class="section level2 hasAnchor" number="8.6">
-<h2><span class="header-section-number">8.6</span> Volvamos a nuestro ejemplo<a href="08-clasificacion.html#volvamos-a-nuestro-ejemplo" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb510"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb510-1"><a href="08-clasificacion.html#cb510-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;factoextra&quot;</span>)</span>
-<span id="cb510-2"><a href="08-clasificacion.html#cb510-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(<span class="st">&quot;FactoMineR&quot;</span>)</span>
-<span id="cb510-3"><a href="08-clasificacion.html#cb510-3" aria-hidden="true" tabindex="-1"></a>p <span class="ot">&lt;-</span> <span class="fu">PCA</span>(<span class="fu">scale</span>(<span class="fu">cbind</span>(x1, x2, x3)))</span></code></pre></div>
-<div class="sourceCode" id="cb511"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb511-1"><a href="08-clasificacion.html#cb511-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>var<span class="sc">$</span>cor</span></code></pre></div>
-<pre><code>##          Dim.1       Dim.2       Dim.3
-## x1  0.92280569 0.037753401 -0.38341145
-## x2 -0.03690606 0.999225664  0.01363871
-## x3  0.92346176 0.002207375  0.38368413</code></pre>
-<div class="sourceCode" id="cb513"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb513-1"><a href="08-clasificacion.html#cb513-1" aria-hidden="true" tabindex="-1"></a>p<span class="sc">$</span>var<span class="sc">$</span>cos2</span></code></pre></div>
-<pre><code>##          Dim.1        Dim.2        Dim.3
-## x1 0.851570337 1.425319e-03 0.1470043434
-## x2 0.001362057 9.984519e-01 0.0001860145
-## x3 0.852781615 4.872503e-06 0.1472135129</code></pre>
-</div>
-<div id="cuántos-componentes-usar" class="section level2 hasAnchor" number="8.7">
-<h2><span class="header-section-number">8.7</span> ¿Cuántos componentes usar?<a href="08-clasificacion.html#cuántos-componentes-usar" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<div class="sourceCode" id="cb515"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb515-1"><a href="08-clasificacion.html#cb515-1" aria-hidden="true" tabindex="-1"></a><span class="fu">fviz_screeplot</span>(p, <span class="at">addlabels =</span> F, <span class="at">ylim =</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">50</span>)) <span class="sc">+</span></span>
-<span id="cb515-2"><a href="08-clasificacion.html#cb515-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">xlab</span>(<span class="st">&quot;Variables&quot;</span>) <span class="sc">+</span> <span class="fu">ylab</span>(<span class="st">&quot;Porcentaje de varianza de Z explicada&quot;</span>) <span class="sc">+</span></span>
-<span id="cb515-3"><a href="08-clasificacion.html#cb515-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Diagrama&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-309-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb516"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb516-1"><a href="08-clasificacion.html#cb516-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qplot</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>, p<span class="sc">$</span>eig[, <span class="dv">3</span>], <span class="at">geom =</span> <span class="st">&quot;point&quot;</span>) <span class="sc">+</span> <span class="fu">xlab</span>(<span class="st">&quot;Cantidad de componentes&quot;</span>) <span class="sc">+</span></span>
-<span id="cb516-2"><a href="08-clasificacion.html#cb516-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">ylab</span>(<span class="st">&quot;Varianza acumulada&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb516-3"><a href="08-clasificacion.html#cb516-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="dv">80</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">scale_x_continuous</span>(<span class="at">breaks =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-310-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-</div>
-<div id="laboratorio-7" class="section level2 hasAnchor" number="8.8">
-<h2><span class="header-section-number">8.8</span> Laboratorio<a href="08-clasificacion.html#laboratorio-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Vamos a usar los datos <code>decathlon</code> de <code>FactomineR</code> que representa los resultados de varios atletas en pruebas de decathlon en el 2004.</p>
-<p>El objetivo es encontrar si hay patrones entre ciudad y tipos de crimen.</p>
-<p>Exploración de datos
-Ejecute una exploración de datos</p>
-<pre><code>##       100m         Long.jump       Shot.put       High.jump          400m      
-##  Min.   :10.44   Min.   :6.61   Min.   :12.68   Min.   :1.850   Min.   :46.81  
-##  1st Qu.:10.85   1st Qu.:7.03   1st Qu.:13.88   1st Qu.:1.920   1st Qu.:48.93  
-##  Median :10.98   Median :7.30   Median :14.57   Median :1.950   Median :49.40  
-##  Mean   :11.00   Mean   :7.26   Mean   :14.48   Mean   :1.977   Mean   :49.62  
-##  3rd Qu.:11.14   3rd Qu.:7.48   3rd Qu.:14.97   3rd Qu.:2.040   3rd Qu.:50.30  
-##  Max.   :11.64   Max.   :7.96   Max.   :16.36   Max.   :2.150   Max.   :53.20  
-##   110m.hurdle        Discus        Pole.vault       Javeline    
-##  Min.   :13.97   Min.   :37.92   Min.   :4.200   Min.   :50.31  
-##  1st Qu.:14.21   1st Qu.:41.90   1st Qu.:4.500   1st Qu.:55.27  
-##  Median :14.48   Median :44.41   Median :4.800   Median :58.36  
-##  Mean   :14.61   Mean   :44.33   Mean   :4.762   Mean   :58.32  
-##  3rd Qu.:14.98   3rd Qu.:46.07   3rd Qu.:4.920   3rd Qu.:60.89  
-##  Max.   :15.67   Max.   :51.65   Max.   :5.400   Max.   :70.52  
-##      1500m            Rank           Points       Competition
-##  Min.   :262.1   Min.   : 1.00   Min.   :7313   Decastar:13  
-##  1st Qu.:271.0   1st Qu.: 6.00   1st Qu.:7802   OlympicG:28  
-##  Median :278.1   Median :11.00   Median :8021                
-##  Mean   :279.0   Mean   :12.12   Mean   :8005                
-##  3rd Qu.:285.1   3rd Qu.:18.00   3rd Qu.:8122                
-##  Max.   :317.0   Max.   :28.00   Max.   :8893</code></pre>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-313-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-315-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb518"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb518-1"><a href="08-clasificacion.html#cb518-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(acp.decathlon<span class="sc">$</span>ind<span class="sc">$</span>coord[, <span class="dv">1</span>], acp.decathlon<span class="sc">$</span>ind<span class="sc">$</span>coord[,</span>
-<span id="cb518-2"><a href="08-clasificacion.html#cb518-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>])</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-316-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb519"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb519-1"><a href="08-clasificacion.html#cb519-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(acp.decathlon<span class="sc">$</span>ind<span class="sc">$</span>coord[, <span class="dv">3</span>], acp.decathlon<span class="sc">$</span>ind<span class="sc">$</span>coord[,</span>
-<span id="cb519-2"><a href="08-clasificacion.html#cb519-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">4</span>])</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-316-2.svg" width="70%" style="display: block; margin: auto;" /></p>
-<pre><code>
-## Ejercicios 
-
-- Del libro [@James2013b] 
-    - Capítulo 10:  6, 8
-`
-
-
-&lt;!--chapter:end:07-componentes-principales.Rmd--&gt;
-
-
-# Otros Clasificadores
-
-## Clasificador Bayesiano
-
-Bajo el modelo de aprendizaje estadístico, suponga que se quiere estimar $f$ usando el conjunto de entrenamiento $\{(x_1,y_1),\ldots,(x_n,y_n)\}$ donde $y_1,\ldots,y_n$ es categórica. Para evaluar la precisión del clasificador $\hat f$ podemos usar la tasa de error:
-
-$$\frac 1 n \sum_{i=1}^nI(y_i\neq \hat y_i)$$
-
-donde $\hat y_i$ es el nivel predecido de la variable categórica para el individuo $i$-ésimo. La tasa de error mide la proporción de observaciones mal clasificadas por $\hat f$ dentro del conjunto de entrenamiento. El mismo concepto se puede aplicar en el conjunto de prueba, es decir si $Z_0$ es el conjunto de índices de datos de prueba con tamaño $m$:
-
-\begin{align}
+<div id="otros-clasificadores" class="section level1 hasAnchor" number="7">
+<h1><span class="header-section-number">Capítulo 7</span> Otros Clasificadores<a href="08-clasificacion.html#otros-clasificadores" class="anchor-section" aria-label="Anchor link to header"></a></h1>
+<div id="clasificador-bayesiano" class="section level2 hasAnchor" number="7.1">
+<h2><span class="header-section-number">7.1</span> Clasificador Bayesiano<a href="08-clasificacion.html#clasificador-bayesiano" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Bajo el modelo de aprendizaje estadístico, suponga que se quiere estimar <span class="math inline">\(f\)</span> usando el conjunto de entrenamiento <span class="math inline">\(\{(x_1,y_1),\ldots,(x_n,y_n)\}\)</span> donde <span class="math inline">\(y_1,\ldots,y_n\)</span> es categórica. Para evaluar la precisión del clasificador <span class="math inline">\(\hat f\)</span> podemos usar la tasa de error:</p>
+<p><span class="math display">\[\frac 1 n \sum_{i=1}^nI(y_i\neq \hat y_i)\]</span></p>
+<p>donde <span class="math inline">\(\hat y_i\)</span> es el nivel predecido de la variable categórica para el individuo <span class="math inline">\(i\)</span>-ésimo. La tasa de error mide la proporción de observaciones mal clasificadas por <span class="math inline">\(\hat f\)</span> dentro del conjunto de entrenamiento. El mismo concepto se puede aplicar en el conjunto de prueba, es decir si <span class="math inline">\(Z_0\)</span> es el conjunto de índices de datos de prueba con tamaño <span class="math inline">\(m\)</span>:</p>
+<p><span class="math display" id="eq:cerror">\[\begin{align}
 \frac 1 m \sum_{i \in Z_0}I(y_i\neq \hat y_i)
-(\#eq:cerror)
-\end{align}
-
-Decimos que un clasificador es bueno cuando el error de prueba en \@ref(eq:cerror) es el más pequeño.
-
-Es posible demostrar que el error de prueba se minimiza cuando $\hat f$ asigna a cada observación el nivel con la probabilidad más alta dados los predictores, es decir se asigna la clase $j$ a la observación $x_0$ en donde 
-$$P(Y=j|X=x_0)$$
-
-es máximo. A este clasificador se le llama *clasificador bayesiano*. En el caso en que el número de niveles o categorías de la variable dependiente es 2 ($j=1,2$), entonces se selecciona el nivel $j$-ésimo si:
-$$P(Y=j|X=x_0)&gt;0.5$$
-
-Al conjunto $\{x_0: P(Y=j|X=x_0)=0.5\}$ se le llama frontera de decisión de Bayes. 
-
-La *tasa bayesiana de error* del clasificador para un conjunto de datos fijos es:
-$1-\max_j P(Y=j|X=x_0)$. En general la tasa de error bayesiana sería:
-$$1-E\left[\max_j P(Y=j|X)\right]$$
-
-Para el caso de clasificación la tasa de error bayesiana es equivalente al error irreducible.
-
-Inconveniente: en datos reales no conocemos $P(Y=j|X=x_0)$.
-
-## Método de k vecinos más cercanos (KNN)
-
-Este método aproxima la probabilidad condicional del clasificador bayesiano. Dado un entero $K$ y una observación de prueba $x_0$, el clasificador primero identifica el conjunto de observaciones que son más cercanas a $x_0$: $\mathcal N_0$. Entonces:
-$$P(Y=j|X=x_0) := \frac{1}{K}\sum_{i \in \mathcal N_0}I(y_i=j)$$
-y siguiendo la regla de bayes se selecciona la categoría con probabilidad condicional máxima.
-
-![Clasificación según K vecinos más cercanos (Wikimedia Commons)](manual_figures/KNN.png)
-
-## Análisis Discriminante
-
-Recuerden que en el caso del modelo logístico, se tiene que:
-$$P(Y=1|X=x)=\frac{e^{\beta_0+\beta_1X_1+\cdots+\beta_pX_p}}{1+e^{\beta_0+\beta_1X_1+\cdots+\beta_pX_p}}$$
-donde $X_1,\ldots,X_p$ son los predictores. Para el modelo logístico tenemos los siguientes inconvenientes:
-
-- Cuando las clases están muy separadas, los parámetros del modelo logístico tienden a ser muy inestables.
-
-- Cuando la distribución de los predictores es aproximadamente normal en cada una de las clases, entonces el modelo discriminante lineal es más estable que el logístico.
-
-- El modelo logístico aplica solamente en el caso de 2 clases.
-
-Suponga que se quiere clasificar una observación en $K\geq 2$ clases. Sea $\pi_k$ la probabilidad previa de que la observación provenga de la clase $k$-ésima. Sea 
-$$f_k(x)=P(X=x|Y=k)$$
+\tag{7.1}
+\end{align}\]</span></p>
+<p>Decimos que un clasificador es bueno cuando el error de prueba en <a href="08-clasificacion.html#eq:cerror">(7.1)</a> es el más pequeño.</p>
+<p>Es posible demostrar que el error de prueba se minimiza cuando <span class="math inline">\(\hat f\)</span> asigna a cada observación el nivel con la probabilidad más alta dados los predictores, es decir se asigna la clase <span class="math inline">\(j\)</span> a la observación <span class="math inline">\(x_0\)</span> en donde
+<span class="math display">\[P(Y=j|X=x_0)\]</span></p>
+<p>es máximo. A este clasificador se le llama <em>clasificador bayesiano</em>. En el caso en que el número de niveles o categorías de la variable dependiente es 2 (<span class="math inline">\(j=1,2\)</span>), entonces se selecciona el nivel <span class="math inline">\(j\)</span>-ésimo si:
+<span class="math display">\[P(Y=j|X=x_0)&gt;0.5\]</span></p>
+<p>Al conjunto <span class="math inline">\(\{x_0: P(Y=j|X=x_0)=0.5\}\)</span> se le llama frontera de decisión de Bayes.</p>
+<p>La <em>tasa bayesiana de error</em> del clasificador para un conjunto de datos fijos es:
+<span class="math inline">\(1-\max_j P(Y=j|X=x_0)\)</span>. En general la tasa de error bayesiana sería:
+<span class="math display">\[1-E\left[\max_j P(Y=j|X)\right]\]</span></p>
+<p>Para el caso de clasificación la tasa de error bayesiana es equivalente al error irreducible.</p>
+<p>Inconveniente: en datos reales no conocemos <span class="math inline">\(P(Y=j|X=x_0)\)</span>.</p>
+</div>
+<div id="método-de-k-vecinos-más-cercanos-knn" class="section level2 hasAnchor" number="7.2">
+<h2><span class="header-section-number">7.2</span> Método de k vecinos más cercanos (KNN)<a href="08-clasificacion.html#método-de-k-vecinos-más-cercanos-knn" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Este método aproxima la probabilidad condicional del clasificador bayesiano. Dado un entero <span class="math inline">\(K\)</span> y una observación de prueba <span class="math inline">\(x_0\)</span>, el clasificador primero identifica el conjunto de observaciones que son más cercanas a <span class="math inline">\(x_0\)</span>: <span class="math inline">\(\mathcal N_0\)</span>. Entonces:
+<span class="math display">\[P(Y=j|X=x_0) := \frac{1}{K}\sum_{i \in \mathcal N_0}I(y_i=j)\]</span>
+y siguiendo la regla de bayes se selecciona la categoría con probabilidad condicional máxima.</p>
+<div class="figure">
+<img src="manual_figures/KNN.png" alt="" />
+<p class="caption">Clasificación según K vecinos más cercanos (Wikimedia Commons)</p>
+</div>
+</div>
+<div id="análisis-discriminante" class="section level2 hasAnchor" number="7.3">
+<h2><span class="header-section-number">7.3</span> Análisis Discriminante<a href="08-clasificacion.html#análisis-discriminante" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Recuerden que en el caso del modelo logístico, se tiene que:
+<span class="math display">\[P(Y=1|X=x)=\frac{e^{\beta_0+\beta_1X_1+\cdots+\beta_pX_p}}{1+e^{\beta_0+\beta_1X_1+\cdots+\beta_pX_p}}\]</span>
+donde <span class="math inline">\(X_1,\ldots,X_p\)</span> son los predictores. Para el modelo logístico tenemos los siguientes inconvenientes:</p>
+<ul>
+<li><p>Cuando las clases están muy separadas, los parámetros del modelo logístico tienden a ser muy inestables.</p></li>
+<li><p>Cuando la distribución de los predictores es aproximadamente normal en cada una de las clases, entonces el modelo discriminante lineal es más estable que el logístico.</p></li>
+<li><p>El modelo logístico aplica solamente en el caso de 2 clases.</p></li>
+</ul>
+<p>Suponga que se quiere clasificar una observación en <span class="math inline">\(K\geq 2\)</span> clases. Sea <span class="math inline">\(\pi_k\)</span> la probabilidad previa de que la observación provenga de la clase <span class="math inline">\(k\)</span>-ésima. Sea
+<span class="math display">\[f_k(x)=P(X=x|Y=k)\]</span>
 por el teorema de Bayes:
-$$P_k(x):=P(Y=k|X=x)=\frac{\pi_kf_k(x)}{\sum_{l=1}^K \pi_lf_l(x)}$$
-
-Estimación de los componentes:
-
-- $\pi_k$: proporción de observaciones en el conjunto de entrenamiento que pertenecen a la clase $k$-ésima.
-- $f_k(x)$: supuesto paramétrico que define el tipo de análisis discriminante.
-
-### Análisis discriminante lineal
-
-#### Caso p=1
-
-Asuma que 
-$$f_k(x)=\frac{1}{\sqrt{2\pi}\sigma_k}\exp\left(-\frac{1}{2\sigma_k^2}(x-\mu_k)^2\right)$$
-donde $\mu_k$ y $\sigma_k$ son la media y desviación estándar para cada clase en la variable dependiente. Asumiendo que $\sigma^2=\sigma_1^2=\cdots=\sigma_K^2$ se puede comprobar que el clasificador bayesiano asigna la clase $k$ si
-
-\begin{align}
+<span class="math display">\[P_k(x):=P(Y=k|X=x)=\frac{\pi_kf_k(x)}{\sum_{l=1}^K \pi_lf_l(x)}\]</span></p>
+<p>Estimación de los componentes:</p>
+<ul>
+<li><span class="math inline">\(\pi_k\)</span>: proporción de observaciones en el conjunto de entrenamiento que pertenecen a la clase <span class="math inline">\(k\)</span>-ésima.</li>
+<li><span class="math inline">\(f_k(x)\)</span>: supuesto paramétrico que define el tipo de análisis discriminante.</li>
+</ul>
+<div id="análisis-discriminante-lineal" class="section level3 hasAnchor" number="7.3.1">
+<h3><span class="header-section-number">7.3.1</span> Análisis discriminante lineal<a href="08-clasificacion.html#análisis-discriminante-lineal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="caso-p1" class="section level4 hasAnchor" number="7.3.1.1">
+<h4><span class="header-section-number">7.3.1.1</span> Caso p=1<a href="08-clasificacion.html#caso-p1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Asuma que
+<span class="math display">\[f_k(x)=\frac{1}{\sqrt{2\pi}\sigma_k}\exp\left(-\frac{1}{2\sigma_k^2}(x-\mu_k)^2\right)\]</span>
+donde <span class="math inline">\(\mu_k\)</span> y <span class="math inline">\(\sigma_k\)</span> son la media y desviación estándar para cada clase en la variable dependiente. Asumiendo que <span class="math inline">\(\sigma^2=\sigma_1^2=\cdots=\sigma_K^2\)</span> se puede comprobar que el clasificador bayesiano asigna la clase <span class="math inline">\(k\)</span> si</p>
+<p><span class="math display" id="eq:LDA">\[\begin{align}
 \delta_k(x)=x\frac{\mu_k}{\sigma^2}-\frac{\mu_k^2}{2\sigma^2}+\log(\pi_k)
-(\#eq:LDA)
-\end{align}
-
-es el máximo entre los valores correspondientes a cada clase. A esta función se le llama *función discriminante*.
-
-El método de análisis discriminante lineal (LDA) asume que:
-\begin{align*}
+\tag{7.2}
+\end{align}\]</span></p>
+<p>es el máximo entre los valores correspondientes a cada clase. A esta función se le llama <em>función discriminante</em>.</p>
+<p>El método de análisis discriminante lineal (LDA) asume que:
+<span class="math display">\[\begin{align*}
 \hat \mu_k&amp;=\frac{1}{n_k}\sum_{i:y_i=k}x_i\\
 \hat \sigma^2&amp;=\frac{1}{n-K}\sum_{k=1}^K\sum_{i:y_i=k}(x_i-\hat \mu_k)^2\\
 \hat \pi_k &amp;=\frac{n_k}{n}
-\end{align*}
-
-como estimadores plug-in en \@ref(eq:LDA).
-
-#### Caso p&gt;1
-
-Generalizando la sección anterior, podemos asumir que $X=(X_1,\ldots,X_p)$ proviene de una distribución Gaussiana multivariada. Es decir, asuma que las observaciones en la clase $k$ tienen distribución $N(\mu_k,\Sigma)$ donde $\mu_k$: vector de medias para la clase $k$ y $\Sigma$ es la matriz de varianza-covarianza para todas las $K$ clases. 
-
-La función discriminante en este caso sería:
-$$\delta_k(x)=x^T\Sigma^{-1} \mu_k-\frac 1 2\mu_k^T \Sigma^{-1}\mu_k+\log \pi_k$$
-El método LDA sustituye los parámetros en la fórmula anterior con estimadores empíricos, tal y como se hizo para $p=1$. La escogencia de la clase estimada sigue el mismo criterio.
-
-![Simulación de Análisis Discriminante Lineal [@James2013b]](manual_figures/LDA.png)
-
-### Análisis discriminante cuadrático
-
-Bajo los supuestos del LDA, asuma que $\Sigma_k$ es la matriz de covarianza para la clase $k$. En este caso las funciones discriminantes tendrían la forma:
-$$\delta_k(x)=-\frac 1 2 (x-\mu_k)^T\Sigma_k^{-1}(x-\mu_k)-\frac 1 2 \log |\Sigma_k|+\log \pi_k$$
-Al uso de las funciones anteriores como herramientas de clasificación se le llama Análisis Discriminante Cuadrático (QDA). 
-
-Relación LDA vs QDA:
-
-- LDA es menos flexible que QDA, por la diferencia en el número de parámetros. Por lo tanto LDA tiene menos varianza que QDA.
-- Si el supuesto de varianzas constantes en LDA no es adecuado, entonces el sesgo es alto.
-- QDA es más adecuado que LDA cuando el número de observaciones es relativamente alto, debido a que el supuesto de varianzas constantes es más difícil de alcanzar.
-
-Comparación de métodos:
-
-- LDA y regresión logística producen fronteras de decisión lineales. 
-- LDA asume más sobre el comportamiento de los datos, con respecto a la regresión logística.
-- KNN es no paramétrico, por lo tanto produce fronteras de decisión más flexibles que LDA o QDA. El grado de suavidad del clasificador (en términos de sus fronteras) depende del parámetro $K$.
-- QDA ofrece fronteras de decisión más flexibles que LDA o logística.
-- KNN no tiene la misma capacidad de interpretabilidad que la regresión logística.
-- Como KNN depende de la distancia entre observaciones, entonces la escala de las covariables importa.
-
-## Laboratorio
-
-Datos sociodemográficos y de productos de aseguramiento de 5822 clientes. La variable dependiente es si cada cliente adquirió un seguro de remolques (https://liacs.leidenuniv.nl/~puttenpwhvander/library/cc2000/data.html). 
-
-
-```r
-library(ISLR)
-data(Caravan)
-dim(Caravan)</code></pre>
+\end{align*}\]</span></p>
+<p>como estimadores plug-in en <a href="08-clasificacion.html#eq:LDA">(7.2)</a>.</p>
+</div>
+<div id="caso-p1-1" class="section level4 hasAnchor" number="7.3.1.2">
+<h4><span class="header-section-number">7.3.1.2</span> Caso p&gt;1<a href="08-clasificacion.html#caso-p1-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Generalizando la sección anterior, podemos asumir que <span class="math inline">\(X=(X_1,\ldots,X_p)\)</span> proviene de una distribución Gaussiana multivariada. Es decir, asuma que las observaciones en la clase <span class="math inline">\(k\)</span> tienen distribución <span class="math inline">\(N(\mu_k,\Sigma)\)</span> donde <span class="math inline">\(\mu_k\)</span>: vector de medias para la clase <span class="math inline">\(k\)</span> y <span class="math inline">\(\Sigma\)</span> es la matriz de varianza-covarianza para todas las <span class="math inline">\(K\)</span> clases.</p>
+<p>La función discriminante en este caso sería:
+<span class="math display">\[\delta_k(x)=x^T\Sigma^{-1} \mu_k-\frac 1 2\mu_k^T \Sigma^{-1}\mu_k+\log \pi_k\]</span>
+El método LDA sustituye los parámetros en la fórmula anterior con estimadores empíricos, tal y como se hizo para <span class="math inline">\(p=1\)</span>. La escogencia de la clase estimada sigue el mismo criterio.</p>
+<div class="figure">
+<img src="manual_figures/LDA.png" alt="" />
+<p class="caption">Simulación de Análisis Discriminante Lineal <span class="citation">(James et al. 2013)</span></p>
+</div>
+</div>
+</div>
+<div id="análisis-discriminante-cuadrático" class="section level3 hasAnchor" number="7.3.2">
+<h3><span class="header-section-number">7.3.2</span> Análisis discriminante cuadrático<a href="08-clasificacion.html#análisis-discriminante-cuadrático" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Bajo los supuestos del LDA, asuma que <span class="math inline">\(\Sigma_k\)</span> es la matriz de covarianza para la clase <span class="math inline">\(k\)</span>. En este caso las funciones discriminantes tendrían la forma:
+<span class="math display">\[\delta_k(x)=-\frac 1 2 (x-\mu_k)^T\Sigma_k^{-1}(x-\mu_k)-\frac 1 2 \log |\Sigma_k|+\log \pi_k\]</span>
+Al uso de las funciones anteriores como herramientas de clasificación se le llama Análisis Discriminante Cuadrático (QDA).</p>
+<p>Relación LDA vs QDA:</p>
+<ul>
+<li>LDA es menos flexible que QDA, por la diferencia en el número de parámetros. Por lo tanto LDA tiene menos varianza que QDA.</li>
+<li>Si el supuesto de varianzas constantes en LDA no es adecuado, entonces el sesgo es alto.</li>
+<li>QDA es más adecuado que LDA cuando el número de observaciones es relativamente alto, debido a que el supuesto de varianzas constantes es más difícil de alcanzar.</li>
+</ul>
+<p>Comparación de métodos:</p>
+<ul>
+<li>LDA y regresión logística producen fronteras de decisión lineales.</li>
+<li>LDA asume más sobre el comportamiento de los datos, con respecto a la regresión logística.</li>
+<li>KNN es no paramétrico, por lo tanto produce fronteras de decisión más flexibles que LDA o QDA. El grado de suavidad del clasificador (en términos de sus fronteras) depende del parámetro <span class="math inline">\(K\)</span>.</li>
+<li>QDA ofrece fronteras de decisión más flexibles que LDA o logística.</li>
+<li>KNN no tiene la misma capacidad de interpretabilidad que la regresión logística.</li>
+<li>Como KNN depende de la distancia entre observaciones, entonces la escala de las covariables importa.</li>
+</ul>
+</div>
+</div>
+<div id="laboratorio-7" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Laboratorio<a href="08-clasificacion.html#laboratorio-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Datos sociodemográficos y de productos de aseguramiento de 5822 clientes. La variable dependiente es si cada cliente adquirió un seguro de remolques (<a href="https://liacs.leidenuniv.nl/~puttenpwhvander/library/cc2000/data.html" class="uri">https://liacs.leidenuniv.nl/~puttenpwhvander/library/cc2000/data.html</a>).</p>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="08-clasificacion.html#cb398-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
+<span id="cb398-2"><a href="08-clasificacion.html#cb398-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Caravan)</span>
+<span id="cb398-3"><a href="08-clasificacion.html#cb398-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(Caravan)</span></code></pre></div>
 <pre><code>## [1] 5822   86</code></pre>
 <p>Vamos a usar las herramientas en el paquete <em>tidymodels</em> para efectuar una comparación entre los métodos de clasificación que hemos visto en clase. El objetivo es clasificar a los clientes entre compradores/no compradores del seguro (variable dependiente: Purchase, covariables: el resto)</p>
-<div class="sourceCode" id="cb522"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb522-1"><a href="08-clasificacion.html#cb522-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span></code></pre></div>
+<div class="sourceCode" id="cb400"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb400-1"><a href="08-clasificacion.html#cb400-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span></code></pre></div>
 <pre><code>## Error in library(tidymodels): there is no package called &#39;tidymodels&#39;</code></pre>
-<div class="sourceCode" id="cb524"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb524-1"><a href="08-clasificacion.html#cb524-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb402"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb402-1"><a href="08-clasificacion.html#cb402-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>El primer paso es construir una separación de conjunto de entrenamiento y de conjunto de prueba:</p>
-<div class="sourceCode" id="cb525"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb525-1"><a href="08-clasificacion.html#cb525-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb525-2"><a href="08-clasificacion.html#cb525-2" aria-hidden="true" tabindex="-1"></a>Caravan.split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(Caravan, <span class="at">prop =</span> <span class="fl">0.8</span>,</span>
-<span id="cb525-3"><a href="08-clasificacion.html#cb525-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">strata =</span> Purchase)</span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="08-clasificacion.html#cb403-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb403-2"><a href="08-clasificacion.html#cb403-2" aria-hidden="true" tabindex="-1"></a>Caravan.split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(Caravan, <span class="at">prop =</span> <span class="fl">0.8</span>,</span>
+<span id="cb403-3"><a href="08-clasificacion.html#cb403-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">strata =</span> Purchase)</span></code></pre></div>
 <pre><code>## Error in initial_split(Caravan, prop = 0.8, strata = Purchase): could not find function &quot;initial_split&quot;</code></pre>
-<div class="sourceCode" id="cb527"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb527-1"><a href="08-clasificacion.html#cb527-1" aria-hidden="true" tabindex="-1"></a>Caravan.training <span class="ot">&lt;-</span> Caravan.split <span class="sc">%&gt;%</span></span>
-<span id="cb527-2"><a href="08-clasificacion.html#cb527-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">training</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="08-clasificacion.html#cb405-1" aria-hidden="true" tabindex="-1"></a>Caravan.training <span class="ot">&lt;-</span> Caravan.split <span class="sc">%&gt;%</span></span>
+<span id="cb405-2"><a href="08-clasificacion.html#cb405-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">training</span>()</span></code></pre></div>
 <pre><code>## Error in training(.): could not find function &quot;training&quot;</code></pre>
-<div class="sourceCode" id="cb529"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb529-1"><a href="08-clasificacion.html#cb529-1" aria-hidden="true" tabindex="-1"></a>Caravan.testing <span class="ot">&lt;-</span> Caravan.split <span class="sc">%&gt;%</span></span>
-<span id="cb529-2"><a href="08-clasificacion.html#cb529-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">testing</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="08-clasificacion.html#cb407-1" aria-hidden="true" tabindex="-1"></a>Caravan.testing <span class="ot">&lt;-</span> Caravan.split <span class="sc">%&gt;%</span></span>
+<span id="cb407-2"><a href="08-clasificacion.html#cb407-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">testing</span>()</span></code></pre></div>
 <pre><code>## Error in testing(.): could not find function &quot;testing&quot;</code></pre>
 <p>Como vamos a usar el método KNN, lo conveniente es estandarizar todas las covariables:</p>
-<div class="sourceCode" id="cb531"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb531-1"><a href="08-clasificacion.html#cb531-1" aria-hidden="true" tabindex="-1"></a>Caravan.recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Purchase <span class="sc">~</span> ., <span class="at">data =</span> Caravan.training) <span class="sc">%&gt;%</span></span>
-<span id="cb531-2"><a href="08-clasificacion.html#cb531-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">step_normalize</span>(<span class="fu">all_predictors</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="08-clasificacion.html#cb409-1" aria-hidden="true" tabindex="-1"></a>Caravan.recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Purchase <span class="sc">~</span> ., <span class="at">data =</span> Caravan.training) <span class="sc">%&gt;%</span></span>
+<span id="cb409-2"><a href="08-clasificacion.html#cb409-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">step_normalize</span>(<span class="fu">all_predictors</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>())</span></code></pre></div>
 <pre><code>## Error in step_normalize(., all_predictors(), -all_outcomes()): could not find function &quot;step_normalize&quot;</code></pre>
 <p>y aplicamos la receta sobre el conjunto de prueba para verificar que la receta funciona bien:</p>
-<div class="sourceCode" id="cb533"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb533-1"><a href="08-clasificacion.html#cb533-1" aria-hidden="true" tabindex="-1"></a>Caravan.recipe <span class="sc">%&gt;%</span></span>
-<span id="cb533-2"><a href="08-clasificacion.html#cb533-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">prep</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb533-3"><a href="08-clasificacion.html#cb533-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bake</span>(<span class="at">new_data =</span> Caravan.testing)</span></code></pre></div>
+<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="08-clasificacion.html#cb411-1" aria-hidden="true" tabindex="-1"></a>Caravan.recipe <span class="sc">%&gt;%</span></span>
+<span id="cb411-2"><a href="08-clasificacion.html#cb411-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">prep</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb411-3"><a href="08-clasificacion.html#cb411-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bake</span>(<span class="at">new_data =</span> Caravan.testing)</span></code></pre></div>
 <pre><code>## Error in bake(., new_data = Caravan.testing): could not find function &quot;bake&quot;</code></pre>
-<div id="clasificador-logístico" class="section level3 hasAnchor" number="8.8.1">
-<h3><span class="header-section-number">8.8.1</span> Clasificador logístico<a href="08-clasificacion.html#clasificador-logístico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="clasificador-logístico" class="section level3 hasAnchor" number="7.4.1">
+<h3><span class="header-section-number">7.4.1</span> Clasificador logístico<a href="08-clasificacion.html#clasificador-logístico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Vamos a ajustar un modelo logístico a los datos. Primero especificamos el modelo:</p>
-<div class="sourceCode" id="cb535"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb535-1"><a href="08-clasificacion.html#cb535-1" aria-hidden="true" tabindex="-1"></a>modelo_logistico <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb535-2"><a href="08-clasificacion.html#cb535-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;glm&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb535-3"><a href="08-clasificacion.html#cb535-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="08-clasificacion.html#cb413-1" aria-hidden="true" tabindex="-1"></a>modelo_logistico <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb413-2"><a href="08-clasificacion.html#cb413-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;glm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb413-3"><a href="08-clasificacion.html#cb413-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
 <pre><code>## Error in set_mode(., &quot;classification&quot;): could not find function &quot;set_mode&quot;</code></pre>
 <p>y después definimos un objeto tipo <em>workflow</em> para unir el tratamiento de datos (recipe) con el modelo:</p>
-<div class="sourceCode" id="cb537"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb537-1"><a href="08-clasificacion.html#cb537-1" aria-hidden="true" tabindex="-1"></a>logistico_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb537-2"><a href="08-clasificacion.html#cb537-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_logistico) <span class="sc">%&gt;%</span></span>
-<span id="cb537-3"><a href="08-clasificacion.html#cb537-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span></code></pre></div>
+<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="08-clasificacion.html#cb415-1" aria-hidden="true" tabindex="-1"></a>logistico_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb415-2"><a href="08-clasificacion.html#cb415-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_logistico) <span class="sc">%&gt;%</span></span>
+<span id="cb415-3"><a href="08-clasificacion.html#cb415-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span></code></pre></div>
 <pre><code>## Error in add_recipe(., Caravan.recipe): could not find function &quot;add_recipe&quot;</code></pre>
 <p>y ajustamos el modelo:</p>
-<div class="sourceCode" id="cb539"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb539-1"><a href="08-clasificacion.html#cb539-1" aria-hidden="true" tabindex="-1"></a>logistico_ajuste <span class="ot">&lt;-</span> logistico_wf <span class="sc">%&gt;%</span></span>
-<span id="cb539-2"><a href="08-clasificacion.html#cb539-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(<span class="at">data =</span> Caravan.training)</span></code></pre></div>
+<div class="sourceCode" id="cb417"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb417-1"><a href="08-clasificacion.html#cb417-1" aria-hidden="true" tabindex="-1"></a>logistico_ajuste <span class="ot">&lt;-</span> logistico_wf <span class="sc">%&gt;%</span></span>
+<span id="cb417-2"><a href="08-clasificacion.html#cb417-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(<span class="at">data =</span> Caravan.training)</span></code></pre></div>
 <pre><code>## Error in fit(., data = Caravan.training): could not find function &quot;fit&quot;</code></pre>
 <p>Obtenemos predicciones en el conjunto de prueba:</p>
-<div class="sourceCode" id="cb541"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb541-1"><a href="08-clasificacion.html#cb541-1" aria-hidden="true" tabindex="-1"></a>predicciones_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistico_ajuste, <span class="at">new_data =</span> Caravan.testing,</span>
-<span id="cb541-2"><a href="08-clasificacion.html#cb541-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;prob&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="08-clasificacion.html#cb419-1" aria-hidden="true" tabindex="-1"></a>predicciones_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistico_ajuste, <span class="at">new_data =</span> Caravan.testing,</span>
+<span id="cb419-2"><a href="08-clasificacion.html#cb419-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;prob&quot;</span>)</span></code></pre></div>
 <pre><code>## Error in predict(logistico_ajuste, new_data = Caravan.testing, type = &quot;prob&quot;): object &#39;logistico_ajuste&#39; not found</code></pre>
-<div class="sourceCode" id="cb543"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb543-1"><a href="08-clasificacion.html#cb543-1" aria-hidden="true" tabindex="-1"></a>predicciones_categ <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistico_ajuste, <span class="at">new_data =</span> Caravan.testing)</span></code></pre></div>
+<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="08-clasificacion.html#cb421-1" aria-hidden="true" tabindex="-1"></a>predicciones_categ <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistico_ajuste, <span class="at">new_data =</span> Caravan.testing)</span></code></pre></div>
 <pre><code>## Error in predict(logistico_ajuste, new_data = Caravan.testing): object &#39;logistico_ajuste&#39; not found</code></pre>
-<div class="sourceCode" id="cb545"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb545-1"><a href="08-clasificacion.html#cb545-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predicciones_probs)</span></code></pre></div>
+<div class="sourceCode" id="cb423"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb423-1"><a href="08-clasificacion.html#cb423-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predicciones_probs)</span></code></pre></div>
 <pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;head&#39;: object &#39;predicciones_probs&#39; not found</code></pre>
-<div class="sourceCode" id="cb547"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb547-1"><a href="08-clasificacion.html#cb547-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predicciones_categ)</span></code></pre></div>
+<div class="sourceCode" id="cb425"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb425-1"><a href="08-clasificacion.html#cb425-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predicciones_categ)</span></code></pre></div>
 <pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;head&#39;: object &#39;predicciones_categ&#39; not found</code></pre>
 <p>Unimos todos los resultados en un solo arreglo:</p>
-<div class="sourceCode" id="cb549"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb549-1"><a href="08-clasificacion.html#cb549-1" aria-hidden="true" tabindex="-1"></a>resultados_logistico <span class="ot">&lt;-</span> Caravan.testing <span class="sc">%&gt;%</span></span>
-<span id="cb549-2"><a href="08-clasificacion.html#cb549-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Purchase) <span class="sc">%&gt;%</span></span>
-<span id="cb549-3"><a href="08-clasificacion.html#cb549-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(predicciones_categ) <span class="sc">%&gt;%</span></span>
-<span id="cb549-4"><a href="08-clasificacion.html#cb549-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(predicciones_probs)</span></code></pre></div>
+<div class="sourceCode" id="cb427"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb427-1"><a href="08-clasificacion.html#cb427-1" aria-hidden="true" tabindex="-1"></a>resultados_logistico <span class="ot">&lt;-</span> Caravan.testing <span class="sc">%&gt;%</span></span>
+<span id="cb427-2"><a href="08-clasificacion.html#cb427-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Purchase) <span class="sc">%&gt;%</span></span>
+<span id="cb427-3"><a href="08-clasificacion.html#cb427-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(predicciones_categ) <span class="sc">%&gt;%</span></span>
+<span id="cb427-4"><a href="08-clasificacion.html#cb427-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(predicciones_probs)</span></code></pre></div>
 <pre><code>## Error in select(., Purchase): object &#39;Caravan.testing&#39; not found</code></pre>
 <p>y podemos calcular la matriz de confusión:</p>
-<div class="sourceCode" id="cb551"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb551-1"><a href="08-clasificacion.html#cb551-1" aria-hidden="true" tabindex="-1"></a><span class="fu">conf_mat</span>(resultados_logistico, <span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
+<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="08-clasificacion.html#cb429-1" aria-hidden="true" tabindex="-1"></a><span class="fu">conf_mat</span>(resultados_logistico, <span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
 <pre><code>## Error in conf_mat(resultados_logistico, truth = Purchase, estimate = .pred_class): could not find function &quot;conf_mat&quot;</code></pre>
 <p>curva ROC:</p>
-<div class="sourceCode" id="cb553"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb553-1"><a href="08-clasificacion.html#cb553-1" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_curve</span>(resultados_logistico, <span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
-<span id="cb553-2"><a href="08-clasificacion.html#cb553-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="08-clasificacion.html#cb431-1" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_curve</span>(resultados_logistico, <span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
+<span id="cb431-2"><a href="08-clasificacion.html#cb431-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
 <pre><code>## Error in roc_curve(resultados_logistico, truth = Purchase, estimate = .pred_No): could not find function &quot;roc_curve&quot;</code></pre>
 <p>y finalmente el área bajo la curva ROC:</p>
-<div class="sourceCode" id="cb555"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb555-1"><a href="08-clasificacion.html#cb555-1" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_auc</span>(resultados_logistico, <span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No)</span></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="08-clasificacion.html#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_auc</span>(resultados_logistico, <span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No)</span></code></pre></div>
 <pre><code>## Error in roc_auc(resultados_logistico, truth = Purchase, estimate = .pred_No): could not find function &quot;roc_auc&quot;</code></pre>
 <p>Existe otra alternativa de ajuste con el comando <em>last_fit</em> que automatiza el proceso:</p>
-<div class="sourceCode" id="cb557"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb557-1"><a href="08-clasificacion.html#cb557-1" aria-hidden="true" tabindex="-1"></a>last_fit_logistica <span class="ot">&lt;-</span> logistico_wf <span class="sc">%&gt;%</span></span>
-<span id="cb557-2"><a href="08-clasificacion.html#cb557-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="08-clasificacion.html#cb435-1" aria-hidden="true" tabindex="-1"></a>last_fit_logistica <span class="ot">&lt;-</span> logistico_wf <span class="sc">%&gt;%</span></span>
+<span id="cb435-2"><a href="08-clasificacion.html#cb435-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
 <pre><code>## Error in last_fit(., split = Caravan.split): could not find function &quot;last_fit&quot;</code></pre>
 <p>Obtenemos métricas:</p>
-<div class="sourceCode" id="cb559"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb559-1"><a href="08-clasificacion.html#cb559-1" aria-hidden="true" tabindex="-1"></a>last_fit_logistica <span class="sc">%&gt;%</span></span>
-<span id="cb559-2"><a href="08-clasificacion.html#cb559-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="08-clasificacion.html#cb437-1" aria-hidden="true" tabindex="-1"></a>last_fit_logistica <span class="sc">%&gt;%</span></span>
+<span id="cb437-2"><a href="08-clasificacion.html#cb437-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
 <pre><code>## Error in collect_metrics(.): could not find function &quot;collect_metrics&quot;</code></pre>
 <p>y predicciones:</p>
-<div class="sourceCode" id="cb561"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb561-1"><a href="08-clasificacion.html#cb561-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(last_fit_logistica <span class="sc">%&gt;%</span></span>
-<span id="cb561-2"><a href="08-clasificacion.html#cb561-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb439"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb439-1"><a href="08-clasificacion.html#cb439-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(last_fit_logistica <span class="sc">%&gt;%</span></span>
+<span id="cb439-2"><a href="08-clasificacion.html#cb439-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>())</span></code></pre></div>
 <pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;head&#39;: could not find function &quot;collect_predictions&quot;</code></pre>
 </div>
-<div id="análisis-discriminante-lineal" class="section level3 hasAnchor" number="8.8.2">
-<h3><span class="header-section-number">8.8.2</span> Análisis Discriminante Lineal<a href="08-clasificacion.html#análisis-discriminante-lineal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="análisis-discriminante-lineal-1" class="section level3 hasAnchor" number="7.4.2">
+<h3><span class="header-section-number">7.4.2</span> Análisis Discriminante Lineal<a href="08-clasificacion.html#análisis-discriminante-lineal-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Usando el mismo procedimiento de datos anterior, definimos el modelo LDA:</p>
-<div class="sourceCode" id="cb563"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb563-1"><a href="08-clasificacion.html#cb563-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(discrim)</span></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="08-clasificacion.html#cb441-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(discrim)</span></code></pre></div>
 <pre><code>## Error in library(discrim): there is no package called &#39;discrim&#39;</code></pre>
-<div class="sourceCode" id="cb565"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb565-1"><a href="08-clasificacion.html#cb565-1" aria-hidden="true" tabindex="-1"></a>modelo_lda <span class="ot">&lt;-</span> <span class="fu">discrim_linear</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb565-2"><a href="08-clasificacion.html#cb565-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;MASS&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb565-3"><a href="08-clasificacion.html#cb565-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="08-clasificacion.html#cb443-1" aria-hidden="true" tabindex="-1"></a>modelo_lda <span class="ot">&lt;-</span> <span class="fu">discrim_linear</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb443-2"><a href="08-clasificacion.html#cb443-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;MASS&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb443-3"><a href="08-clasificacion.html#cb443-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
 <pre><code>## Error in set_mode(., &quot;classification&quot;): could not find function &quot;set_mode&quot;</code></pre>
 <p>flujo de trabajo:</p>
-<div class="sourceCode" id="cb567"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb567-1"><a href="08-clasificacion.html#cb567-1" aria-hidden="true" tabindex="-1"></a>lda_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb567-2"><a href="08-clasificacion.html#cb567-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_lda) <span class="sc">%&gt;%</span></span>
-<span id="cb567-3"><a href="08-clasificacion.html#cb567-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="08-clasificacion.html#cb445-1" aria-hidden="true" tabindex="-1"></a>lda_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb445-2"><a href="08-clasificacion.html#cb445-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_lda) <span class="sc">%&gt;%</span></span>
+<span id="cb445-3"><a href="08-clasificacion.html#cb445-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span></code></pre></div>
 <pre><code>## Error in add_recipe(., Caravan.recipe): could not find function &quot;add_recipe&quot;</code></pre>
 <p>ajuste del modelo:</p>
-<div class="sourceCode" id="cb569"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb569-1"><a href="08-clasificacion.html#cb569-1" aria-hidden="true" tabindex="-1"></a>last_fit_lda <span class="ot">&lt;-</span> lda_wf <span class="sc">%&gt;%</span></span>
-<span id="cb569-2"><a href="08-clasificacion.html#cb569-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="08-clasificacion.html#cb447-1" aria-hidden="true" tabindex="-1"></a>last_fit_lda <span class="ot">&lt;-</span> lda_wf <span class="sc">%&gt;%</span></span>
+<span id="cb447-2"><a href="08-clasificacion.html#cb447-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
 <pre><code>## Error in last_fit(., split = Caravan.split): could not find function &quot;last_fit&quot;</code></pre>
 <p>Métricas de LDA:</p>
-<div class="sourceCode" id="cb571"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb571-1"><a href="08-clasificacion.html#cb571-1" aria-hidden="true" tabindex="-1"></a>last_fit_lda <span class="sc">%&gt;%</span></span>
-<span id="cb571-2"><a href="08-clasificacion.html#cb571-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="08-clasificacion.html#cb449-1" aria-hidden="true" tabindex="-1"></a>last_fit_lda <span class="sc">%&gt;%</span></span>
+<span id="cb449-2"><a href="08-clasificacion.html#cb449-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
 <pre><code>## Error in collect_metrics(.): could not find function &quot;collect_metrics&quot;</code></pre>
 <p>curva ROC:</p>
-<div class="sourceCode" id="cb573"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb573-1"><a href="08-clasificacion.html#cb573-1" aria-hidden="true" tabindex="-1"></a>lda_predicciones <span class="ot">&lt;-</span> last_fit_lda <span class="sc">%&gt;%</span></span>
-<span id="cb573-2"><a href="08-clasificacion.html#cb573-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="08-clasificacion.html#cb451-1" aria-hidden="true" tabindex="-1"></a>lda_predicciones <span class="ot">&lt;-</span> last_fit_lda <span class="sc">%&gt;%</span></span>
+<span id="cb451-2"><a href="08-clasificacion.html#cb451-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span></code></pre></div>
 <pre><code>## Error in collect_predictions(.): could not find function &quot;collect_predictions&quot;</code></pre>
-<div class="sourceCode" id="cb575"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb575-1"><a href="08-clasificacion.html#cb575-1" aria-hidden="true" tabindex="-1"></a>lda_predicciones <span class="sc">%&gt;%</span></span>
-<span id="cb575-2"><a href="08-clasificacion.html#cb575-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
-<span id="cb575-3"><a href="08-clasificacion.html#cb575-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="08-clasificacion.html#cb453-1" aria-hidden="true" tabindex="-1"></a>lda_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb453-2"><a href="08-clasificacion.html#cb453-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
+<span id="cb453-3"><a href="08-clasificacion.html#cb453-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
 <pre><code>## Error in roc_curve(., truth = Purchase, estimate = .pred_No): could not find function &quot;roc_curve&quot;</code></pre>
 <p>y matriz de confusión:</p>
-<div class="sourceCode" id="cb577"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb577-1"><a href="08-clasificacion.html#cb577-1" aria-hidden="true" tabindex="-1"></a>lda_predicciones <span class="sc">%&gt;%</span></span>
-<span id="cb577-2"><a href="08-clasificacion.html#cb577-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="08-clasificacion.html#cb455-1" aria-hidden="true" tabindex="-1"></a>lda_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb455-2"><a href="08-clasificacion.html#cb455-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
 <pre><code>## Error in conf_mat(., truth = Purchase, estimate = .pred_class): could not find function &quot;conf_mat&quot;</code></pre>
 </div>
-<div id="análisis-discriminante-cuadrático" class="section level3 hasAnchor" number="8.8.3">
-<h3><span class="header-section-number">8.8.3</span> Análisis Discriminante Cuadrático<a href="08-clasificacion.html#análisis-discriminante-cuadrático" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="análisis-discriminante-cuadrático-1" class="section level3 hasAnchor" number="7.4.3">
+<h3><span class="header-section-number">7.4.3</span> Análisis Discriminante Cuadrático<a href="08-clasificacion.html#análisis-discriminante-cuadrático-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En este caso usaremos otro generador (<em>klaR</em>).</p>
 <p>Nota: El argumento <em>frac_common_cov=1</em> permite hacer LDA en lugar de QDA.</p>
-<div class="sourceCode" id="cb579"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb579-1"><a href="08-clasificacion.html#cb579-1" aria-hidden="true" tabindex="-1"></a>modelo_qda <span class="ot">&lt;-</span> <span class="fu">discrim_regularized</span>(<span class="at">frac_common_cov =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb579-2"><a href="08-clasificacion.html#cb579-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;klaR&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb579-3"><a href="08-clasificacion.html#cb579-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="08-clasificacion.html#cb457-1" aria-hidden="true" tabindex="-1"></a>modelo_qda <span class="ot">&lt;-</span> <span class="fu">discrim_regularized</span>(<span class="at">frac_common_cov =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb457-2"><a href="08-clasificacion.html#cb457-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;klaR&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb457-3"><a href="08-clasificacion.html#cb457-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
 <pre><code>## Error in set_mode(., &quot;classification&quot;): could not find function &quot;set_mode&quot;</code></pre>
-<div class="sourceCode" id="cb581"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb581-1"><a href="08-clasificacion.html#cb581-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(klaR)</span></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="08-clasificacion.html#cb459-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(klaR)</span></code></pre></div>
 <pre><code>## Error in library(klaR): there is no package called &#39;klaR&#39;</code></pre>
-<div class="sourceCode" id="cb583"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb583-1"><a href="08-clasificacion.html#cb583-1" aria-hidden="true" tabindex="-1"></a>qda_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb583-2"><a href="08-clasificacion.html#cb583-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_qda) <span class="sc">%&gt;%</span></span>
-<span id="cb583-3"><a href="08-clasificacion.html#cb583-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span></code></pre></div>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="08-clasificacion.html#cb461-1" aria-hidden="true" tabindex="-1"></a>qda_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb461-2"><a href="08-clasificacion.html#cb461-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_qda) <span class="sc">%&gt;%</span></span>
+<span id="cb461-3"><a href="08-clasificacion.html#cb461-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span></code></pre></div>
 <pre><code>## Error in add_recipe(., Caravan.recipe): could not find function &quot;add_recipe&quot;</code></pre>
-<div class="sourceCode" id="cb585"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb585-1"><a href="08-clasificacion.html#cb585-1" aria-hidden="true" tabindex="-1"></a>last_fit_qda <span class="ot">&lt;-</span> qda_wf <span class="sc">%&gt;%</span></span>
-<span id="cb585-2"><a href="08-clasificacion.html#cb585-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
+<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="08-clasificacion.html#cb463-1" aria-hidden="true" tabindex="-1"></a>last_fit_qda <span class="ot">&lt;-</span> qda_wf <span class="sc">%&gt;%</span></span>
+<span id="cb463-2"><a href="08-clasificacion.html#cb463-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
 <pre><code>## Error in last_fit(., split = Caravan.split): could not find function &quot;last_fit&quot;</code></pre>
-<div class="sourceCode" id="cb587"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb587-1"><a href="08-clasificacion.html#cb587-1" aria-hidden="true" tabindex="-1"></a>last_fit_qda <span class="sc">%&gt;%</span></span>
-<span id="cb587-2"><a href="08-clasificacion.html#cb587-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="08-clasificacion.html#cb465-1" aria-hidden="true" tabindex="-1"></a>last_fit_qda <span class="sc">%&gt;%</span></span>
+<span id="cb465-2"><a href="08-clasificacion.html#cb465-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
 <pre><code>## Error in collect_metrics(.): could not find function &quot;collect_metrics&quot;</code></pre>
-<div class="sourceCode" id="cb589"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb589-1"><a href="08-clasificacion.html#cb589-1" aria-hidden="true" tabindex="-1"></a>qda_predicciones <span class="ot">&lt;-</span> last_fit_qda <span class="sc">%&gt;%</span></span>
-<span id="cb589-2"><a href="08-clasificacion.html#cb589-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="08-clasificacion.html#cb467-1" aria-hidden="true" tabindex="-1"></a>qda_predicciones <span class="ot">&lt;-</span> last_fit_qda <span class="sc">%&gt;%</span></span>
+<span id="cb467-2"><a href="08-clasificacion.html#cb467-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span></code></pre></div>
 <pre><code>## Error in collect_predictions(.): could not find function &quot;collect_predictions&quot;</code></pre>
-<div class="sourceCode" id="cb591"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb591-1"><a href="08-clasificacion.html#cb591-1" aria-hidden="true" tabindex="-1"></a>qda_predicciones <span class="sc">%&gt;%</span></span>
-<span id="cb591-2"><a href="08-clasificacion.html#cb591-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
-<span id="cb591-3"><a href="08-clasificacion.html#cb591-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="08-clasificacion.html#cb469-1" aria-hidden="true" tabindex="-1"></a>qda_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb469-2"><a href="08-clasificacion.html#cb469-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
+<span id="cb469-3"><a href="08-clasificacion.html#cb469-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
 <pre><code>## Error in roc_curve(., truth = Purchase, estimate = .pred_No): could not find function &quot;roc_curve&quot;</code></pre>
-<div class="sourceCode" id="cb593"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb593-1"><a href="08-clasificacion.html#cb593-1" aria-hidden="true" tabindex="-1"></a>qda_predicciones <span class="sc">%&gt;%</span></span>
-<span id="cb593-2"><a href="08-clasificacion.html#cb593-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
+<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="08-clasificacion.html#cb471-1" aria-hidden="true" tabindex="-1"></a>qda_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb471-2"><a href="08-clasificacion.html#cb471-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
 <pre><code>## Error in conf_mat(., truth = Purchase, estimate = .pred_class): could not find function &quot;conf_mat&quot;</code></pre>
 </div>
-<div id="k-vecinos-más-cercanos" class="section level3 hasAnchor" number="8.8.4">
-<h3><span class="header-section-number">8.8.4</span> K vecinos más cercanos<a href="08-clasificacion.html#k-vecinos-más-cercanos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="k-vecinos-más-cercanos" class="section level3 hasAnchor" number="7.4.4">
+<h3><span class="header-section-number">7.4.4</span> K vecinos más cercanos<a href="08-clasificacion.html#k-vecinos-más-cercanos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En el caso del KNN se va a seleccionar el número de vecinos a través de validación cruzada, usando como métrica el AUC. Primero definimos los conjuntos bajo el k-fold:</p>
-<div class="sourceCode" id="cb595"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb595-1"><a href="08-clasificacion.html#cb595-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">178</span>)</span>
-<span id="cb595-2"><a href="08-clasificacion.html#cb595-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb595-3"><a href="08-clasificacion.html#cb595-3" aria-hidden="true" tabindex="-1"></a>Caravan.folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(Caravan.training, <span class="at">v =</span> <span class="dv">5</span>,</span>
-<span id="cb595-4"><a href="08-clasificacion.html#cb595-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">strata =</span> Purchase)</span></code></pre></div>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="08-clasificacion.html#cb473-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">178</span>)</span>
+<span id="cb473-2"><a href="08-clasificacion.html#cb473-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb473-3"><a href="08-clasificacion.html#cb473-3" aria-hidden="true" tabindex="-1"></a>Caravan.folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(Caravan.training, <span class="at">v =</span> <span class="dv">5</span>,</span>
+<span id="cb473-4"><a href="08-clasificacion.html#cb473-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">strata =</span> Purchase)</span></code></pre></div>
 <pre><code>## Error in vfold_cv(Caravan.training, v = 5, strata = Purchase): could not find function &quot;vfold_cv&quot;</code></pre>
 <p>y definimos el modelo KNN y el flujo de trabajo:</p>
-<div class="sourceCode" id="cb597"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb597-1"><a href="08-clasificacion.html#cb597-1" aria-hidden="true" tabindex="-1"></a>modelo_knn <span class="ot">&lt;-</span> <span class="fu">nearest_neighbor</span>(<span class="at">neighbors =</span> <span class="fu">tune</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb597-2"><a href="08-clasificacion.html#cb597-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;kknn&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb597-3"><a href="08-clasificacion.html#cb597-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="08-clasificacion.html#cb475-1" aria-hidden="true" tabindex="-1"></a>modelo_knn <span class="ot">&lt;-</span> <span class="fu">nearest_neighbor</span>(<span class="at">neighbors =</span> <span class="fu">tune</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb475-2"><a href="08-clasificacion.html#cb475-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;kknn&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb475-3"><a href="08-clasificacion.html#cb475-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
 <pre><code>## Error in set_mode(., &quot;classification&quot;): could not find function &quot;set_mode&quot;</code></pre>
-<div class="sourceCode" id="cb599"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb599-1"><a href="08-clasificacion.html#cb599-1" aria-hidden="true" tabindex="-1"></a>knn_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb599-2"><a href="08-clasificacion.html#cb599-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_knn) <span class="sc">%&gt;%</span></span>
-<span id="cb599-3"><a href="08-clasificacion.html#cb599-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span></code></pre></div>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="08-clasificacion.html#cb477-1" aria-hidden="true" tabindex="-1"></a>knn_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb477-2"><a href="08-clasificacion.html#cb477-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_knn) <span class="sc">%&gt;%</span></span>
+<span id="cb477-3"><a href="08-clasificacion.html#cb477-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span></code></pre></div>
 <pre><code>## Error in add_recipe(., Caravan.recipe): could not find function &quot;add_recipe&quot;</code></pre>
 <p>Definimos una grilla de posibles valores de # de vecinos que usaremos en el k-fold:</p>
-<div class="sourceCode" id="cb601"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb601-1"><a href="08-clasificacion.html#cb601-1" aria-hidden="true" tabindex="-1"></a>k_grid <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">neighbors =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">100</span>, <span class="dv">125</span>, <span class="dv">150</span>,</span>
-<span id="cb601-2"><a href="08-clasificacion.html#cb601-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">175</span>, <span class="dv">200</span>, <span class="dv">225</span>))</span>
-<span id="cb601-3"><a href="08-clasificacion.html#cb601-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb601-4"><a href="08-clasificacion.html#cb601-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">178</span>)</span>
-<span id="cb601-5"><a href="08-clasificacion.html#cb601-5" aria-hidden="true" tabindex="-1"></a>knn_tuning <span class="ot">&lt;-</span> knn_wf <span class="sc">%&gt;%</span></span>
-<span id="cb601-6"><a href="08-clasificacion.html#cb601-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tune_grid</span>(<span class="at">resamples =</span> Caravan.folds, <span class="at">grid =</span> k_grid)</span></code></pre></div>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="08-clasificacion.html#cb479-1" aria-hidden="true" tabindex="-1"></a>k_grid <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">neighbors =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">100</span>, <span class="dv">125</span>, <span class="dv">150</span>,</span>
+<span id="cb479-2"><a href="08-clasificacion.html#cb479-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">175</span>, <span class="dv">200</span>, <span class="dv">225</span>))</span>
+<span id="cb479-3"><a href="08-clasificacion.html#cb479-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb479-4"><a href="08-clasificacion.html#cb479-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">178</span>)</span>
+<span id="cb479-5"><a href="08-clasificacion.html#cb479-5" aria-hidden="true" tabindex="-1"></a>knn_tuning <span class="ot">&lt;-</span> knn_wf <span class="sc">%&gt;%</span></span>
+<span id="cb479-6"><a href="08-clasificacion.html#cb479-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tune_grid</span>(<span class="at">resamples =</span> Caravan.folds, <span class="at">grid =</span> k_grid)</span></code></pre></div>
 <pre><code>## Error in tune_grid(., resamples = Caravan.folds, grid = k_grid): could not find function &quot;tune_grid&quot;</code></pre>
 <p>y se selecciona el modelo con el mejor AUC:</p>
-<div class="sourceCode" id="cb603"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb603-1"><a href="08-clasificacion.html#cb603-1" aria-hidden="true" tabindex="-1"></a>knn_tuning <span class="sc">%&gt;%</span></span>
-<span id="cb603-2"><a href="08-clasificacion.html#cb603-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">show_best</span>(<span class="st">&quot;roc_auc&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="08-clasificacion.html#cb481-1" aria-hidden="true" tabindex="-1"></a>knn_tuning <span class="sc">%&gt;%</span></span>
+<span id="cb481-2"><a href="08-clasificacion.html#cb481-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">show_best</span>(<span class="st">&quot;roc_auc&quot;</span>)</span></code></pre></div>
 <pre><code>## Error in show_best(., &quot;roc_auc&quot;): could not find function &quot;show_best&quot;</code></pre>
 <p>mejor modelo y actualización del flujo de trabajo:</p>
-<div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="08-clasificacion.html#cb605-1" aria-hidden="true" tabindex="-1"></a>mejor_knn <span class="ot">&lt;-</span> knn_tuning <span class="sc">%&gt;%</span></span>
-<span id="cb605-2"><a href="08-clasificacion.html#cb605-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select_best</span>(<span class="at">metric =</span> <span class="st">&quot;roc_auc&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb483"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb483-1"><a href="08-clasificacion.html#cb483-1" aria-hidden="true" tabindex="-1"></a>mejor_knn <span class="ot">&lt;-</span> knn_tuning <span class="sc">%&gt;%</span></span>
+<span id="cb483-2"><a href="08-clasificacion.html#cb483-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select_best</span>(<span class="at">metric =</span> <span class="st">&quot;roc_auc&quot;</span>)</span></code></pre></div>
 <pre><code>## Error in select_best(., metric = &quot;roc_auc&quot;): could not find function &quot;select_best&quot;</code></pre>
-<div class="sourceCode" id="cb607"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb607-1"><a href="08-clasificacion.html#cb607-1" aria-hidden="true" tabindex="-1"></a>final_knn_wf <span class="ot">&lt;-</span> knn_wf <span class="sc">%&gt;%</span></span>
-<span id="cb607-2"><a href="08-clasificacion.html#cb607-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">finalize_workflow</span>(mejor_knn)</span></code></pre></div>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="08-clasificacion.html#cb485-1" aria-hidden="true" tabindex="-1"></a>final_knn_wf <span class="ot">&lt;-</span> knn_wf <span class="sc">%&gt;%</span></span>
+<span id="cb485-2"><a href="08-clasificacion.html#cb485-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">finalize_workflow</span>(mejor_knn)</span></code></pre></div>
 <pre><code>## Error in finalize_workflow(., mejor_knn): could not find function &quot;finalize_workflow&quot;</code></pre>
 <p>Ahora ajustamos el modelo y analizamos su rendimiento con los conjuntos de entrenamiento y prueba iniciales:</p>
-<div class="sourceCode" id="cb609"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb609-1"><a href="08-clasificacion.html#cb609-1" aria-hidden="true" tabindex="-1"></a>last_fit_knn <span class="ot">&lt;-</span> final_knn_wf <span class="sc">%&gt;%</span></span>
-<span id="cb609-2"><a href="08-clasificacion.html#cb609-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="08-clasificacion.html#cb487-1" aria-hidden="true" tabindex="-1"></a>last_fit_knn <span class="ot">&lt;-</span> final_knn_wf <span class="sc">%&gt;%</span></span>
+<span id="cb487-2"><a href="08-clasificacion.html#cb487-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
 <pre><code>## Error in last_fit(., split = Caravan.split): could not find function &quot;last_fit&quot;</code></pre>
-<div class="sourceCode" id="cb611"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb611-1"><a href="08-clasificacion.html#cb611-1" aria-hidden="true" tabindex="-1"></a>last_fit_knn <span class="sc">%&gt;%</span></span>
-<span id="cb611-2"><a href="08-clasificacion.html#cb611-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="08-clasificacion.html#cb489-1" aria-hidden="true" tabindex="-1"></a>last_fit_knn <span class="sc">%&gt;%</span></span>
+<span id="cb489-2"><a href="08-clasificacion.html#cb489-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
 <pre><code>## Error in collect_metrics(.): could not find function &quot;collect_metrics&quot;</code></pre>
-<div class="sourceCode" id="cb613"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb613-1"><a href="08-clasificacion.html#cb613-1" aria-hidden="true" tabindex="-1"></a>knn_predicciones <span class="ot">&lt;-</span> last_fit_knn <span class="sc">%&gt;%</span></span>
-<span id="cb613-2"><a href="08-clasificacion.html#cb613-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb491"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb491-1"><a href="08-clasificacion.html#cb491-1" aria-hidden="true" tabindex="-1"></a>knn_predicciones <span class="ot">&lt;-</span> last_fit_knn <span class="sc">%&gt;%</span></span>
+<span id="cb491-2"><a href="08-clasificacion.html#cb491-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span></code></pre></div>
 <pre><code>## Error in collect_predictions(.): could not find function &quot;collect_predictions&quot;</code></pre>
-<div class="sourceCode" id="cb615"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb615-1"><a href="08-clasificacion.html#cb615-1" aria-hidden="true" tabindex="-1"></a>knn_predicciones <span class="sc">%&gt;%</span></span>
-<span id="cb615-2"><a href="08-clasificacion.html#cb615-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
-<span id="cb615-3"><a href="08-clasificacion.html#cb615-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="08-clasificacion.html#cb493-1" aria-hidden="true" tabindex="-1"></a>knn_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb493-2"><a href="08-clasificacion.html#cb493-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
+<span id="cb493-3"><a href="08-clasificacion.html#cb493-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
 <pre><code>## Error in roc_curve(., truth = Purchase, estimate = .pred_No): could not find function &quot;roc_curve&quot;</code></pre>
-<div class="sourceCode" id="cb617"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb617-1"><a href="08-clasificacion.html#cb617-1" aria-hidden="true" tabindex="-1"></a>knn_predicciones <span class="sc">%&gt;%</span></span>
-<span id="cb617-2"><a href="08-clasificacion.html#cb617-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="08-clasificacion.html#cb495-1" aria-hidden="true" tabindex="-1"></a>knn_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb495-2"><a href="08-clasificacion.html#cb495-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
 <pre><code>## Error in conf_mat(., truth = Purchase, estimate = .pred_class): could not find function &quot;conf_mat&quot;</code></pre>
 </div>
 </div>
-<div id="ejercicios-6" class="section level2 hasAnchor" number="8.9">
-<h2><span class="header-section-number">8.9</span> Ejercicios<a href="08-clasificacion.html#ejercicios-6" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ejercicios-5" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> Ejercicios<a href="08-clasificacion.html#ejercicios-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Del libro <span class="citation">(James et al. 2013)</span>
 <ul>
