@@ -87,13 +87,10 @@
 <path style="stroke:none;" d="M -8.609375 -1.59375 L -1.28125 -4.0625 L -8.609375 -6.515625 L -8.609375 -7.8125 L 0 -4.671875 L 0 -3.4375 L -8.609375 -0.3125 Z M -8.609375 -1.59375 "/>
 </symbol>
 </g>
-<clipPath id="clip1">
-  <path d="M 71 62 L 401.757812 62 L 401.757812 192 L 71 192 Z M 71 62 "/>
-</clipPath>
 </defs>
-<g id="surface826">
+<g id="surface59">
 <rect x="0" y="0" width="432" height="266" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
-<path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 71.734375 63.984375 L 151.066406 182.5 L 230.398438 180.4375 L 309.734375 178.3125 L 389.066406 187.613281 "/>
+<path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 71.734375 63.984375 L 151.066406 182.5 L 230.398438 180.4375 L 309.734375 178.3125 L 389.066406 187.613281 "/>
 <path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 71.734375 192.558594 L 389.066406 192.558594 "/>
 <path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 71.734375 192.558594 L 71.734375 199.761719 "/>
 <path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 151.066406 192.558594 L 151.066406 199.761719 "/>
@@ -169,9 +166,6 @@
   <use xlink:href="#glyph1-14" x="12.960938" y="108.796875"/>
   <use xlink:href="#glyph1-15" x="12.960938" y="99.462891"/>
   <use xlink:href="#glyph1-16" x="12.960938" y="90.796875"/>
-</g>
-<g clip-path="url(#clip1)" clip-rule="nonzero">
-<path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,100%);stroke-opacity:1;stroke-miterlimit:10;" d="M 71.734375 63.019531 L 151.066406 182.003906 L 230.398438 180.128906 L 309.734375 181.390625 L 389.066406 187.644531 L 468.398438 190.835938 L 547.734375 185.535156 L 627.066406 184.917969 L 706.398438 191.492188 L 785.734375 141.90625 "/>
 </g>
 </g>
 </svg>

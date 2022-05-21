@@ -262,6 +262,35 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#ejercicios-3"><i class="fa fa-check"></i><b>5.5</b> Ejercicios</a></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html"><i class="fa fa-check"></i><b>6</b> Métodos de selección de variables y regularización.</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#estimación-del-error-de-prueba"><i class="fa fa-check"></i><b>6.1</b> Estimación del error de prueba</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#técnica-de-conjunto-de-validación"><i class="fa fa-check"></i><b>6.1.1</b> Técnica de conjunto de validación</a></li>
+<li class="chapter" data-level="6.1.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-leave-one-out-loocv"><i class="fa fa-check"></i><b>6.1.2</b> Validación cruzada “Leave-One-Out” (LOOCV)</a></li>
+<li class="chapter" data-level="6.1.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-k-veces"><i class="fa fa-check"></i><b>6.1.3</b> Validación cruzada <span class="math inline">\(k-\)</span>veces</a></li>
+<li class="chapter" data-level="6.1.4" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-para-clasificación"><i class="fa fa-check"></i><b>6.1.4</b> Validación cruzada para clasificación</a></li>
+<li class="chapter" data-level="6.1.5" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#otras-medidas-de-error-de-prueba"><i class="fa fa-check"></i><b>6.1.5</b> Otras medidas de error de prueba</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-variables"><i class="fa fa-check"></i><b>6.2</b> Selección de variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-del-mejor-subconjunto."><i class="fa fa-check"></i><b>6.2.1</b> Selección del mejor subconjunto.</a></li>
+<li class="chapter" data-level="6.2.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-modelos-hacia-adelante-forward-stepwise-selection"><i class="fa fa-check"></i><b>6.2.2</b> Selección de modelos hacia adelante (<strong>Forward Stepwise Selection</strong>)</a></li>
+<li class="chapter" data-level="6.2.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-modelos-hacia-atrás-backward-stepwise-selection"><i class="fa fa-check"></i><b>6.2.3</b> Selección de modelos hacia atrás (<strong>Backward Stepwise Selection</strong>)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#métodos-de-regularización"><i class="fa fa-check"></i><b>6.3</b> Métodos de regularización</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-ridge"><i class="fa fa-check"></i><b>6.3.1</b> Regresión Ridge</a></li>
+<li class="chapter" data-level="6.3.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-lasso"><i class="fa fa-check"></i><b>6.3.2</b> Regresión Lasso</a></li>
+<li class="chapter" data-level="6.3.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#explicación-gráfica"><i class="fa fa-check"></i><b>6.3.3</b> Explicación gráfica</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#laboratorio-6"><i class="fa fa-check"></i><b>6.4</b> Laboratorio</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#cross-validation"><i class="fa fa-check"></i><b>6.4.1</b> Cross-Validation</a></li>
+<li class="chapter" data-level="6.4.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-lasso-1"><i class="fa fa-check"></i><b>6.4.2</b> Regresión Lasso</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#ejercicios-4"><i class="fa fa-check"></i><b>6.5</b> Ejercicios</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
 </ul>
 
@@ -1385,9 +1414,9 @@ En caso contrario existen formas alternativas de definir el problema de regresi�
 <div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="04-metodos-lineares-regresion.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(fit), <span class="fu">residuals</span>(fit))</span>
 <span id="cb183-2"><a href="04-metodos-lineares-regresion.html#cb183-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grafico-residuos-lineal"></span>
-<img src="Notas-Curso-Estadistica_files/figure-html/grafico-residuos-lineal-1.svg" alt="Gráfico de residuos caso lineal" width="70%" />
+<img src="Notas-Curso-Estadistica_files/figure-html/grafico-residuos-lineal-1.svg" alt="Gr&lt;U+00E1&gt;fico de residuos caso lineal" width="70%" />
 <p class="caption">
-Figura 4.1: Gráfico de residuos caso lineal
+Figura 4.1: Gr&lt;U+00E1&gt;fico de residuos caso lineal
 </p>
 </div>
 <p><strong>Caso no-lineal</strong></p>
@@ -1401,9 +1430,9 @@ Figura 4.1: Gráfico de residuos caso lineal
 <div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="04-metodos-lineares-regresion.html#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(fit), <span class="fu">residuals</span>(fit))</span>
 <span id="cb185-2"><a href="04-metodos-lineares-regresion.html#cb185-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grafico-residuos-no-lineal"></span>
-<img src="Notas-Curso-Estadistica_files/figure-html/grafico-residuos-no-lineal-1.svg" alt="Gráfico de residuos caso no-lineal" width="70%" />
+<img src="Notas-Curso-Estadistica_files/figure-html/grafico-residuos-no-lineal-1.svg" alt="Gr&lt;U+00E1&gt;fico de residuos caso no-lineal" width="70%" />
 <p class="caption">
-Figura 4.2: Gráfico de residuos caso no-lineal
+Figura 4.2: Gr&lt;U+00E1&gt;fico de residuos caso no-lineal
 </p>
 </div>
 <p><strong>Caso no-lineal transformado</strong></p>

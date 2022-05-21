@@ -262,6 +262,35 @@ div.csl-indent {
 </ul></li>
 <li class="chapter" data-level="5.5" data-path="05-regresion-logistica.html"><a href="05-regresion-logistica.html#ejercicios-3"><i class="fa fa-check"></i><b>5.5</b> Ejercicios</a></li>
 </ul></li>
+<li class="chapter" data-level="6" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html"><i class="fa fa-check"></i><b>6</b> Métodos de selección de variables y regularización.</a>
+<ul>
+<li class="chapter" data-level="6.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#estimación-del-error-de-prueba"><i class="fa fa-check"></i><b>6.1</b> Estimación del error de prueba</a>
+<ul>
+<li class="chapter" data-level="6.1.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#técnica-de-conjunto-de-validación"><i class="fa fa-check"></i><b>6.1.1</b> Técnica de conjunto de validación</a></li>
+<li class="chapter" data-level="6.1.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-leave-one-out-loocv"><i class="fa fa-check"></i><b>6.1.2</b> Validación cruzada “Leave-One-Out” (LOOCV)</a></li>
+<li class="chapter" data-level="6.1.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-k-veces"><i class="fa fa-check"></i><b>6.1.3</b> Validación cruzada <span class="math inline">\(k-\)</span>veces</a></li>
+<li class="chapter" data-level="6.1.4" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#validación-cruzada-para-clasificación"><i class="fa fa-check"></i><b>6.1.4</b> Validación cruzada para clasificación</a></li>
+<li class="chapter" data-level="6.1.5" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#otras-medidas-de-error-de-prueba"><i class="fa fa-check"></i><b>6.1.5</b> Otras medidas de error de prueba</a></li>
+</ul></li>
+<li class="chapter" data-level="6.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-variables"><i class="fa fa-check"></i><b>6.2</b> Selección de variables</a>
+<ul>
+<li class="chapter" data-level="6.2.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-del-mejor-subconjunto."><i class="fa fa-check"></i><b>6.2.1</b> Selección del mejor subconjunto.</a></li>
+<li class="chapter" data-level="6.2.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-modelos-hacia-adelante-forward-stepwise-selection"><i class="fa fa-check"></i><b>6.2.2</b> Selección de modelos hacia adelante (<strong>Forward Stepwise Selection</strong>)</a></li>
+<li class="chapter" data-level="6.2.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#selección-de-modelos-hacia-atrás-backward-stepwise-selection"><i class="fa fa-check"></i><b>6.2.3</b> Selección de modelos hacia atrás (<strong>Backward Stepwise Selection</strong>)</a></li>
+</ul></li>
+<li class="chapter" data-level="6.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#métodos-de-regularización"><i class="fa fa-check"></i><b>6.3</b> Métodos de regularización</a>
+<ul>
+<li class="chapter" data-level="6.3.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-ridge"><i class="fa fa-check"></i><b>6.3.1</b> Regresión Ridge</a></li>
+<li class="chapter" data-level="6.3.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-lasso"><i class="fa fa-check"></i><b>6.3.2</b> Regresión Lasso</a></li>
+<li class="chapter" data-level="6.3.3" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#explicación-gráfica"><i class="fa fa-check"></i><b>6.3.3</b> Explicación gráfica</a></li>
+</ul></li>
+<li class="chapter" data-level="6.4" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#laboratorio-6"><i class="fa fa-check"></i><b>6.4</b> Laboratorio</a>
+<ul>
+<li class="chapter" data-level="6.4.1" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#cross-validation"><i class="fa fa-check"></i><b>6.4.1</b> Cross-Validation</a></li>
+<li class="chapter" data-level="6.4.2" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#regresión-lasso-1"><i class="fa fa-check"></i><b>6.4.2</b> Regresión Lasso</a></li>
+</ul></li>
+<li class="chapter" data-level="6.5" data-path="06-seleccion-de-variables.html"><a href="06-seleccion-de-variables.html#ejercicios-4"><i class="fa fa-check"></i><b>6.5</b> Ejercicios</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="referencias.html"><a href="referencias.html"><i class="fa fa-check"></i>Referencias</a></li>
 </ul>
 
@@ -299,7 +328,7 @@ que tiene distribución <span class="math inline">\(\mathcal{N}\left(\mu ,\sigma
 de una normal estándar.</p>
 <p>La expresión anterior es posible dado que la distribución de <span class="math inline">\(\hat{\mu}\)</span> es normal.</p>
 <div class="remark">
-<p><span id="unlabeled-div-19" class="remark"><em>Nota:</em>. </span>¿Qué pasaría si no conocemos la distribución de <span class="math inline">\(\hat{\mu}\)</span>?</p>
+<p><span id="unlabeled-div-19" class="remark"><em>Nota</em>. </span>¿Qué pasaría si no conocemos la distribución de <span class="math inline">\(\hat{\mu}\)</span>?</p>
 <p>¿Cómo podemos encontrar ese intervalo de confianza?</p>
 </div>
 <div id="caso-concreto" class="section level2 hasAnchor" number="3.1">
@@ -375,7 +404,7 @@ información adicional para inferir la variación de la varianza <span class="ma
 <p>Las dos técnicas que veremos a continuación nos permitirán extraer
 <em>información adicional</em> de la muestra para inferir propiedades distribucionales de <span class="math inline">\(T_n\)</span>.</p>
 <div class="remark">
-<p><span id="unlabeled-div-20" class="remark"><em>Nota:</em>. </span>Para efectos de este capítulo, llamaremos <span class="math inline">\(T_{n}=T\left(  X_{1},\ldots,X_{n}\right)\)</span> al estadístico <span class="math inline">\(T\)</span> formado por la muestra de
+<p><span id="unlabeled-div-20" class="remark"><em>Nota</em>. </span>Para efectos de este capítulo, llamaremos <span class="math inline">\(T_{n}=T\left(  X_{1},\ldots,X_{n}\right)\)</span> al estadístico <span class="math inline">\(T\)</span> formado por la muestra de
 los <span class="math inline">\(X_{i}\)</span>’s.</p>
 </div>
 </div>
@@ -737,7 +766,7 @@ a+\left(\frac{1}{(n-1)^{2}}
 +O\left(\frac{1}{n^{2}}\right)\\
 \end{align*}\]</span></p>
 <div class="remark">
-<p><span id="unlabeled-div-21" class="remark"><em>Nota:</em>. </span>Es decir, en general, el estimador <span class="math inline">\(b_{\text{jack}}\)</span> aproxima
+<p><span id="unlabeled-div-21" class="remark"><em>Nota</em>. </span>Es decir, en general, el estimador <span class="math inline">\(b_{\text{jack}}\)</span> aproxima
 correctamente <span class="math inline">\(\mathrm{Sesgo}\left( T_{n} \right)\)</span> hasta con un
 error del <span class="math inline">\(n^{-2}\)</span>.</p>
 </div>
@@ -747,7 +776,7 @@ estimar el parámetro <span class="math inline">\(\theta\)</span> a través del 
 \widetilde{T}_{i}=n T_{n}-(n-1) T_{(-i)}.
 \]</span></p>
 <div class="remark">
-<p><span id="unlabeled-div-22" class="remark"><em>Nota:</em>. </span>A <span class="math inline">\(\widetilde{T}_{i}\)</span> se le llaman <strong>pseudo-valor</strong> y
+<p><span id="unlabeled-div-22" class="remark"><em>Nota</em>. </span>A <span class="math inline">\(\widetilde{T}_{i}\)</span> se le llaman <strong>pseudo-valor</strong> y
 representa el aporte o peso que tiene la variable <span class="math inline">\(X_{i}\)</span> para
 estimar <span class="math inline">\(T_{n}\)</span>.</p>
 </div>
@@ -785,7 +814,7 @@ v_{jack}=\frac{\sum_{i=1}^{n}\left(\widetilde{T}_{i}-\frac{1}{n}
 <!-- # se deduce que su promedio se ajusta a una distribución normal a medida -->
 <!-- # que el tamaño de la muestra aumenta. -->
 <div class="remark">
-<p><span id="unlabeled-div-23" class="remark"><em>Nota:</em>. </span>Sin embargo, se puede demostrar fácilmente que se pueden usar
+<p><span id="unlabeled-div-23" class="remark"><em>Nota</em>. </span>Sin embargo, se puede demostrar fácilmente que se pueden usar
 pseudovalores para construir una prueba normal de hipótesis.</p>
 <p>Como los pseudovalores son idénticamente distribuidos entonces su promedio se ajusta de forma aproximada a una distribución normal a medida
 que el tamaño de la muestra aumenta. Por lo tanto, tenemos que
@@ -859,7 +888,7 @@ v_{\mathrm{boot}} \stackrel{\mathrm{a.s.}}{\longrightarrow} \mathbb{V}_{\widehat
 \]</span></p>
 <p>producto de la ley de grandes números en ambos casos.</p>
 <div class="remark">
-<p><span id="unlabeled-div-24" class="remark"><em>Nota:</em>. </span>¿Cómo extraemos una muestra de <span class="math inline">\(\hat{F}_n\)</span>?</p>
+<p><span id="unlabeled-div-24" class="remark"><em>Nota</em>. </span>¿Cómo extraemos una muestra de <span class="math inline">\(\hat{F}_n\)</span>?</p>
 </div>
 <p>Recuerden que <span class="math inline">\(\hat{F}_{n}\)</span> asigna la probabilidad de <span class="math inline">\(\frac{1}{n}\)</span> a cada valor usado para construirla.</p>
 <p>Por lo tanto, todos los puntos originales <span class="math inline">\(X_{1},\ldots,X_{n}\)</span> tienen probabilidad <span class="math inline">\(\frac{1}{n}\)</span> de ser escogidos, que resulta ser equivalente a un muestreo con remplazo <span class="math inline">\(n\)</span>-veces.</p>
@@ -893,7 +922,7 @@ v_{\mathrm{boot}} \stackrel{\mathrm{a.s.}}{\longrightarrow} \mathbb{V}_{\widehat
 <div class="sourceCode" id="cb70"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb70-1"><a href="02-jacknife-bootstrap.html#cb70-1" aria-hidden="true" tabindex="-1"></a>(sdboot <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(Vboot))</span></code></pre></div>
 <pre><code>## [1] 73.69594</code></pre>
 <div class="remark">
-<p><span id="unlabeled-div-25" class="remark"><em>Nota:</em>. </span>Si <span class="math inline">\(\hat \theta\)</span> es un estimador de <span class="math inline">\(\theta\)</span> (bajo cualquier método) entonces podemos sustituir el paso 1 en el algoritmo de Bootstrap por lo siguiente:</p>
+<p><span id="unlabeled-div-25" class="remark"><em>Nota</em>. </span>Si <span class="math inline">\(\hat \theta\)</span> es un estimador de <span class="math inline">\(\theta\)</span> (bajo cualquier método) entonces podemos sustituir el paso 1 en el algoritmo de Bootstrap por lo siguiente:</p>
 <ol style="list-style-type: decimal">
 <li>Seleccione <span class="math inline">\(X_{1}^{*}, \ldots, X_{n}^{*} \sim F_{\hat \theta}\)</span></li>
 </ol>
@@ -908,7 +937,7 @@ v_{\mathrm{boot}} \stackrel{\mathrm{a.s.}}{\longrightarrow} \mathbb{V}_{\widehat
 T_{n} \pm z_{\alpha / 2} \widehat{\mathrm{Se}}_{\mathrm{boot}}
 \end{equation}\]</span></p>
 <div class="remark">
-<p><span id="unlabeled-div-26" class="remark"><em>Nota:</em>. </span>Este intervalo solo funciona si la distribución de <span class="math inline">\(T_{n}\)</span> es normal.</p>
+<p><span id="unlabeled-div-26" class="remark"><em>Nota</em>. </span>Este intervalo solo funciona si la distribución de <span class="math inline">\(T_{n}\)</span> es normal.</p>
 </div>
 <p>El cálculo de este intervalo es</p>
 <div class="sourceCode" id="cb72"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb72-1"><a href="02-jacknife-bootstrap.html#cb72-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(Tn <span class="sc">-</span> z <span class="sc">*</span> sdboot, Tn <span class="sc">+</span> z <span class="sc">*</span> sdboot)</span></code></pre></div>
@@ -934,7 +963,7 @@ a=\widehat{\theta}_{n}-H^{-1}\left(1-\frac{\alpha}{2}\right) \quad \text { y } \
 &amp;=1-\frac{\alpha}{2}-\frac{\alpha}{2}=1-\alpha
 \end{align*}\]</span></p>
 <div class="remark">
-<p><span id="unlabeled-div-27" class="remark"><em>Nota:</em>. </span><span class="math inline">\(C_{n}^{\star}=(a, b)\)</span> es un intervalo de confianza al (<span class="math inline">\(1-\alpha\)</span>)%.</p>
+<p><span id="unlabeled-div-27" class="remark"><em>Nota</em>. </span><span class="math inline">\(C_{n}^{\star}=(a, b)\)</span> es un intervalo de confianza al (<span class="math inline">\(1-\alpha\)</span>)%.</p>
 <p>El problema es que este intervalo depende de <span class="math inline">\(H\)</span> desconocido.</p>
 </div>
 <p>Para resolver este problema, se puede construir una versión <em>bootstrap</em> de <span class="math inline">\(H\)</span> usando lo que sabemos hasta ahora:</p>
@@ -944,7 +973,7 @@ a=\widehat{\theta}_{n}-H^{-1}\left(1-\frac{\alpha}{2}\right) \quad \text { y } \
 donde <span class="math inline">\(R_{n, b}^{*}=\widehat{\theta}_{n, b}^{*}-\widehat{\theta}_{n}\)</span>.</p>
 <p>Sea <span class="math inline">\(r_{\beta}^{*}\)</span> el cuantil muestral de tamaño <span class="math inline">\(\beta\)</span> de <span class="math inline">\(\left(R_{n, 1}^{*}, \ldots, R_{n, B}^{*}\right)\)</span> y sea <span class="math inline">\(\theta_{\beta}^{*}\)</span> el cuantil muestral de tamaño <span class="math inline">\(\beta\)</span> de <span class="math inline">\(\left(\theta_{n, 1}^{*}, \ldots, \theta_{n, B}^{*}\right)\)</span>.</p>
 <div class="remark">
-<p><span id="unlabeled-div-28" class="remark"><em>Nota:</em>. </span>Según la notación anterior se cumple que:
+<p><span id="unlabeled-div-28" class="remark"><em>Nota</em>. </span>Según la notación anterior se cumple que:
 <span class="math display">\[\begin{equation*}
 r_{\beta}^{*}= \theta_{\beta}^{*}-\widehat{\theta}_{n}
 \end{equation*}\]</span></p>
@@ -958,7 +987,7 @@ r_{\beta}^{*}= \theta_{\beta}^{*}-\widehat{\theta}_{n}
 =2 \widehat{\theta}_{n}-\theta_{\alpha / 2}^{*}
 \end{align*}\]</span></p>
 <div class="remark">
-<p><span id="unlabeled-div-29" class="remark"><em>Nota:</em>. </span>El intervalo de confianza pivotal de tamaño <span class="math inline">\(1-\alpha\)</span> es
+<p><span id="unlabeled-div-29" class="remark"><em>Nota</em>. </span>El intervalo de confianza pivotal de tamaño <span class="math inline">\(1-\alpha\)</span> es
 <span class="math display">\[
   C_{n}=\left(2 \widehat{\theta}_{n}-\widehat{\theta}_{((1-\alpha / 2) B)}^{*}, 2 \widehat{\theta}_{n}-\widehat{\theta}_{((\alpha / 2) B)}^{*}\right)
   \]</span></p>
@@ -981,7 +1010,7 @@ Z_{n, b}^{*}=\frac{T_{n, b}^{*}-T_{n}}{\widehat{\mathrm{se}}_{b}^{*}}
 \]</span>
 donde <span class="math inline">\(\widehat{\mathrm{se}}_{b}^{*}\)</span> es un estimador del error estándar de <span class="math inline">\(T_{n, b}^{*}\)</span> no de <span class="math inline">\(T_{n}\)</span>.</p>
 <div class="remark">
-<p><span id="unlabeled-div-30" class="remark"><em>Nota:</em>. </span>Para calcular <span class="math inline">\(Z_{n, b}^{*}\)</span> requerimos estimar la varianza de <span class="math inline">\(T_{n,b}^*\)</span> para cada <span class="math inline">\(b\)</span>.</p>
+<p><span id="unlabeled-div-30" class="remark"><em>Nota</em>. </span>Para calcular <span class="math inline">\(Z_{n, b}^{*}\)</span> requerimos estimar la varianza de <span class="math inline">\(T_{n,b}^*\)</span> para cada <span class="math inline">\(b\)</span>.</p>
 </div>
 <p>Con esto se puede obtener cantidades <span class="math inline">\(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*}\)</span> que debería ser próximos a <span class="math inline">\(Z_{n}\)</span>. (Bootstrap de los estadísticos normalizados)</p>
 <p>Sea <span class="math inline">\(z_{\alpha}^{*}\)</span> el <span class="math inline">\(\alpha\)</span>-cuantil de <span class="math inline">\(Z_{n, 1}^{*}, \ldots, Z_{n, B}^{*},\)</span> entonces <span class="math inline">\(\mathbb{P}\left(Z_{n} \leq z_{\alpha}^{*}\right) \approx \alpha\)</span>.</p>

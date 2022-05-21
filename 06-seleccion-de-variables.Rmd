@@ -1,3 +1,11 @@
+```{r}
+options(tinytex.verbose = TRUE)
+```
+
+
+
+
+
 # Métodos de selección de variables y regularización.
 
 ## Estimación del error de prueba
@@ -189,7 +197,7 @@ Entonces para asegurarnos de que el estimador sea insesgado asintóticamente, de
 
 
 
-* Bayesian Information Criterion (BIC)
+#### Bayesian Information Criterion (BIC)
 
 
 Este criterior se parece al AIC pero modificado con un \(\log(n)\),
