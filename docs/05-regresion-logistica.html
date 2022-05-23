@@ -421,7 +421,7 @@ g(X) = \frac{1}{1+e^{-(\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p})}}
 <span id="cb242-5"><a href="05-regresion-logistica.html#cb242-5" aria-hidden="true" tabindex="-1"></a>fit_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> titanic)</span></code></pre></div>
 <div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="05-regresion-logistica.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggiraphExtra)</span>
 <span id="cb243-2"><a href="05-regresion-logistica.html#cb243-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggPredict</span>(fit_lm) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-183-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-183-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>En lugar de esto, definamos el siguiente modelo</p>
 <p><span class="math display">\[\begin{equation*}
 Y \sim Bernoulli (g_{\beta}(\boldsymbol{X}))
@@ -455,7 +455,7 @@ Y \sim Bernoulli (g_{\beta}(\boldsymbol{X}))
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
 <div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="05-regresion-logistica.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggPredict</span>(fit_glm) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-185-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-185-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p><strong>Nota:</strong> Existen otros tipos de regresión y estas se definen a través del parámetro <code>family</code>. En este curso solo nos enfocaremos en el parámetro <code>family="binomial"</code>.</p>
 <div id="oportunidad-relativa-odds-ratio" class="section level3 hasAnchor" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> Oportunidad relativa (Odds Ratio)<a href="05-regresion-logistica.html#oportunidad-relativa-odds-ratio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -579,7 +579,7 @@ D_c -D_r \stackrel{H_0}{\sim} =\chi^{2}_{df_{c}-df_r}.
 <span id="cb249-10"><a href="05-regresion-logistica.html#cb249-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(valores.predictores, logit)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>,</span>
 <span id="cb249-11"><a href="05-regresion-logistica.html#cb249-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="sc">+</span></span>
 <span id="cb249-12"><a href="05-regresion-logistica.html#cb249-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>predictores, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-187-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-187-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="valores-de-gran-influencia" class="section level3 hasAnchor" number="5.3.2">
 <h3><span class="header-section-number">5.3.2</span> Valores de gran influencia<a href="05-regresion-logistica.html#valores-de-gran-influencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -597,7 +597,7 @@ D_c -D_r \stackrel{H_0}{\sim} =\chi^{2}_{df_{c}-df_r}.
 ## 3        0  263     64    3.00  -2.47      -2.49 0.0171    1.12   0.118    352</code></pre>
 <div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="05-regresion-logistica.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fit_data, <span class="fu">aes</span>(indice, .std.resid)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(Survived)),</span>
 <span id="cb252-2"><a href="05-regresion-logistica.html#cb252-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-190-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-190-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="05-regresion-logistica.html#cb253-1" aria-hidden="true" tabindex="-1"></a>fit_data <span class="sc">%&gt;%</span></span>
 <span id="cb253-2"><a href="05-regresion-logistica.html#cb253-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">abs</span>(.std.resid) <span class="sc">&gt;</span> <span class="dv">3</span>)</span></code></pre></div>
 <pre><code>## # A tibble: 0 x 10
@@ -784,7 +784,7 @@ Es la tasa de elementos identificados correctamente como 0 que realmente estaban
 <span id="cb277-7"><a href="05-regresion-logistica.html#cb277-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb277-8"><a href="05-regresion-logistica.html#cb277-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(logist.perf)</span>
 <span id="cb277-9"><a href="05-regresion-logistica.html#cb277-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-195-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-195-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="05-regresion-logistica.html#cb278-1" aria-hidden="true" tabindex="-1"></a>auc <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="at">measure =</span> <span class="st">&quot;auc&quot;</span>)</span>
 <span id="cb278-2"><a href="05-regresion-logistica.html#cb278-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb278-3"><a href="05-regresion-logistica.html#cb278-3" aria-hidden="true" tabindex="-1"></a>auc<span class="sc">@</span>y.values</span></code></pre></div>
@@ -844,7 +844,7 @@ Es la tasa de elementos identificados correctamente como 0 que realmente estaban
 <span id="cb302-5"><a href="05-regresion-logistica.html#cb302-5" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb302-6"><a href="05-regresion-logistica.html#cb302-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(logist.perf)</span>
 <span id="cb302-7"><a href="05-regresion-logistica.html#cb302-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-200-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-200-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="05-regresion-logistica.html#cb303-1" aria-hidden="true" tabindex="-1"></a>auc <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="at">measure =</span> <span class="st">&quot;auc&quot;</span>)</span>
 <span id="cb303-2"><a href="05-regresion-logistica.html#cb303-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb303-3"><a href="05-regresion-logistica.html#cb303-3" aria-hidden="true" tabindex="-1"></a>auc<span class="sc">@</span>y.values</span></code></pre></div>
@@ -861,6 +861,8 @@ Es la tasa de elementos identificados correctamente como 0 que realmente estaban
 </ul></li>
 </ul>
 
+</div>
+</div>
             </section>
 
           </div>

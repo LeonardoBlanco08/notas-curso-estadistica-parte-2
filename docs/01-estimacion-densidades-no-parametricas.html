@@ -387,7 +387,7 @@ B_j = [x_0 +(j - 1)h,x_0 + jh), \quad j\in \mathbb{Z}
 \end{equation*}\]</span></p></li>
 <li><p>Cuente cuántas observaciones caen en el segmento <span class="math inline">\(B_j\)</span>. Denótelo como <span class="math inline">\(n_j\)</span>.</p></li>
 </ul>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/observaciones-histograma-1.svg" width="70%" style="display: block; margin: auto;" />
+<p><img src="Notas-Curso-Estadistica_files/figure-html/observaciones-histograma-1.svg" width="100%" style="display: block; margin: auto;" />
 - Divida el número de observaciones en <span class="math inline">\(B_j\)</span> por el tamaño de muestra <span class="math inline">\(n\)</span> y el ancho de banda <span class="math inline">\(h\)</span> de cada caja.
 <span class="math display">\[\begin{equation*}
 f_j = \frac{n_j}{nh}
@@ -400,7 +400,7 @@ De esta forma si se suma las áreas definidas por el histograma da un total de 1
   \end{equation*}\]</span></p></li>
 <li><p>Dibuje el histograma.</p></li>
 </ul>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/ejemplo-inicial-histograma-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/ejemplo-inicial-histograma-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>Formalmente el histograma es el</p>
 <p><span class="math display">\[\begin{equation*}
 \hat{f}_h(x) = \frac{1}{nh} \sum_{i = 1}^{n} \sum_{j} I(X_i\in B_j) I(x\in B_j),
@@ -534,7 +534,7 @@ decrece (converge a <span class="math inline">\(f^\prime (0)x^2\)</span>).</li>
 <p><span id="exr:unnamed-chunk-8" class="exercise"><strong>Ejercicio 2.3  </strong></span>Si <span class="math inline">\(f\sim N(0,1)\)</span>, aproxime los componentes de sesgo, varianza y MSE, y grafíquelos para distintos valores de <span class="math inline">\(h\)</span>.</p>
 </div>
 <p>Solución:</p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/MSE-histograma-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/MSE-histograma-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="error-cuadrático-medio-integrado" class="section level3 hasAnchor" number="2.1.8">
 <h3><span class="header-section-number">2.1.8</span> Error cuadrático medio integrado<a href="01-estimacion-densidades-no-parametricas.html#error-cuadrático-medio-integrado" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -569,12 +569,12 @@ decrece (converge a <span class="math inline">\(f^\prime (0)x^2\)</span>).</li>
 <h3><span class="header-section-number">2.1.9</span> Ancho de banda óptimo para el histograma<a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo-para-el-histograma" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>El MISE tiene un comportamiento asintótico similar al observado en el MSE. La figura siguiente presenta el comportamiento de la varianza, sesgo y MISE para nuestro ejemplo anterior:</p>
 <div class="figure" style="text-align: center">
-<img src="Notas-Curso-Estadistica_files/figure-html/MISE-histograma-1.svg" alt=" " width="70%" />
+<img src="Notas-Curso-Estadistica_files/figure-html/MISE-histograma-1.svg" alt=" " width="100%" />
 <p class="caption">
 </p>
 </div>
 <p>Un problema frecuente en los histogramas es que la mala elección del parámetro <span class="math inline">\(h\)</span> causa que estos no capturen toda la estructura de los datos. Por ejemplo, en el siguiente caso se muestra histogramas construídos a partir de 1000 números aleatorios según una <span class="math inline">\(N(0,1)\)</span>, bajo 4 distintas escogencias de ancho de banda.</p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-10-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-10-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>Un criterio más preciso para seleccionar el ancho de banda es a través de la minimización del MISE:</p>
 <p><span class="math display">\[\begin{equation*}
 \frac{\partial \mathrm{MISE}(f_{h})}{\partial h} = -\frac{1}{nh^2} + \frac{1}{6} h \Vert f^\prime\Vert_{2}^2 = 0
@@ -595,9 +595,9 @@ h_{opt} = \left(\frac{6}{n\Vert f^\prime\Vert_{2}^2}\right) ^{1/3} = O\left( n^{
 \end{equation*}\]</span></p>
 </div>
 <p>Según la nota anterior la tasas de convergencia del histograma es más lenta que la de un estimador parámetrico considerando la misma cantidad de datos, tal y como se ilustra en el siguiente gráfico:</p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-12-1.svg" width="70%" style="display: block; margin: auto;" /></p>
-<p>Finalmente, podemos encontrar el valor óptimo del ancho de banda (<span class="math inline">\(h=\)</span> 0.2805) del conjunto de datos en el ejemplo anterior.<br />
-<img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-14-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-12-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p>Finalmente, podemos encontrar el valor óptimo del ancho de banda (<span class="math inline">\(h=\)</span> 0.405) del conjunto de datos en el ejemplo anterior.<br />
+<img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-14-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="exercise">
 <p><span id="exr:unnamed-chunk-15" class="exercise"><strong>Ejercicio 2.4  </strong></span>Verifique que en el caso normal estándar: <span class="math inline">\(h_{opt}\approx 3.5 n^{-1/3}\)</span>.</p>
 </div>
@@ -679,7 +679,7 @@ con <span class="math inline">\(u = \frac{x-x_i}{h}\)</span>, entonces parte del
 <li><strong>Epanechnikov:</strong> <span class="math inline">\(\frac{3}{4} (1-u^{2}) I \left( \left\vert u \right\vert \leq 1 \right)\)</span>.</li>
 <li><strong>Gaussian:</strong> <span class="math inline">\(\frac{1}{\sqrt{2\pi}} \exp \left( -\frac{1}{2}u^{2} \right)\)</span>.</li>
 </ul>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-19-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-19-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>Entonces se tendría que la expresión general para un estimador por núcleos (kernel) de <span class="math inline">\(f\)</span>:</p>
 <p><span class="math display">\[\begin{equation*}
 \hat{f}_{h}\left( x \right) = \frac{1}{nh}\sum_{i=1}^{n} K\left( \frac{x-x_{i}}{h} \right)=\frac{1}{n}\sum_{i=1}^{n} K_h(x-x_{i})
@@ -693,13 +693,13 @@ y <span class="math inline">\(K\)</span> es un kernel según las 4 propiedades a
 <p><span id="unlabeled-div-6" class="remark"><em>Nota</em>. </span>¿Qué pasaría si modificamos el ancho de banda <span class="math inline">\(h\)</span> para un mismo kernel?</p>
 </div>
 <p>Nuevamente controlaríamos la suavidad del estimador a como se ilustra a continuación:</p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-21-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-21-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>Inconveniente: no tenemos aún un criterio para un <span class="math inline">\(h\)</span> óptimo.</p>
 <div class="remark">
 <p><span id="unlabeled-div-7" class="remark"><em>Nota</em>. </span>¿Qué pasaría si modificamos el kernel para un mismo ancho de banda <span class="math inline">\(h\)</span>?</p>
 </div>
 <p>Usando 1000 números aleatorios según una normal estándar, con un ancho de banda fijo (<span class="math inline">\(h=0.3\)</span>) podemos ver que no hay diferencias muy marcadas entre los estimadores por kernel:
-<img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-23-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-23-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>Recordemos nuevamente la fórmula</p>
 <p><span class="math display">\[\begin{equation*}
 \hat{f}_{h}\left( x \right) = \frac{1}{nh}\sum_{i=1}^{n} K\left( \frac{x-X_{i}}{h} \right)
@@ -712,7 +712,7 @@ y <span class="math inline">\(K\)</span> es un kernel según las 4 propiedades a
 = \frac{1}{n}
 \end{equation*}\]</span></p>
 <p>En el siguiente gráfico se generan 10 puntos aleatorios según una normal estándar (rojo) y se grafica cada uno de los 10 componentes del estimador de la densidad usando kernels gaussianos (azul). El estimador resultante aparece en color negro. Note que cada uno de los 10 componentes tiene la misma área bajo la curva, la cual en este caso es 0.1.
-<img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-24-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-24-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="propiedades-estadísticas-2" class="section level3 hasAnchor" number="2.2.3">
 <h3><span class="header-section-number">2.2.3</span> Propiedades Estadísticas<a href="01-estimacion-densidades-no-parametricas.html#propiedades-estadísticas-2" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -775,7 +775,7 @@ donde <span class="math inline">\(\mu_{2}=\int s^{2}K(s)ds\)</span>.</p>
 <p><span id="unlabeled-div-8" class="remark"><em>Nota</em>. </span>En algunas pruebas más formales, se necesita además que <span class="math inline">\(f^{\prime\prime}\)</span> sea absolutamente continua y que <span class="math inline">\(\int(f^{\prime\prime\prime}(x))dx&lt;\infty\)</span>.}</p>
 </div>
 <p>En el siguiente gráfico se ilustra el estimador no paramétrico de la distribución de tiempos entre erupciones en la muy conocida tabla de datos <em>faithful</em>. El estimador se calcula bajo dos distintas escogencias de ancho de banda.</p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-28-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-28-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="remark">
 <p><span id="unlabeled-div-9" class="remark"><em>Nota</em>. </span>Note como los cambios en el ancho de banda modifican la suavidad (sesgo) y el aplanamiento de la curva (varianza).</p>
 </div>
@@ -810,7 +810,7 @@ h_{opt}=\left(\frac{\Vert K\Vert_{2}^{2}}{\Vert f^{\prime\prime}\Vert_{2}^{2}\le
 \mathrm{MISE}(\hat{f}_{h})=\frac{5}{4}\left(\Vert K\Vert_{2}^{2}\right)^{4/5}\left(\Vert f^{\prime\prime}\Vert_{2}^{2}\mu_{2}(K)\right)^{2/5}n^{-4/5} = O\left( n^{-4/5} \right).
 \end{equation*}\]</span></p>
 <p>y por lo tanto la tasa de convergencia del MISE a 0 es más rápida que para el caso del histograma:</p>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-31-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-31-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="remark">
 <p><span id="unlabeled-div-11" class="remark"><em>Nota</em>. </span>Como se comentó anteriormente, el principal inconveniente del ancho de banda:
 <span class="math display">\[\begin{equation*}
@@ -991,36 +991,36 @@ ignorado.</p>
 <span id="cb4-2"><a href="01-estimacion-densidades-no-parametricas.html#cb4-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-3"><a href="01-estimacion-densidades-no-parametricas.html#cb4-3" aria-hidden="true" tabindex="-1"></a>fhat_normal <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;normal&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.05</span>)</span>
 <span id="cb4-4"><a href="01-estimacion-densidades-no-parametricas.html#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat_normal, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="01-estimacion-densidades-no-parametricas.html#cb5-1" aria-hidden="true" tabindex="-1"></a>fhat_unif <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;box&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.05</span>)</span>
 <span id="cb5-2"><a href="01-estimacion-densidades-no-parametricas.html#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat_unif, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-2.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="01-estimacion-densidades-no-parametricas.html#cb6-1" aria-hidden="true" tabindex="-1"></a>fhat_epanech <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;epanech&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.05</span>)</span>
 <span id="cb6-2"><a href="01-estimacion-densidades-no-parametricas.html#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat_epanech, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-3.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-3.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="01-estimacion-densidades-no-parametricas.html#cb7-1" aria-hidden="true" tabindex="-1"></a>fhat_biweight <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;biweight&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.05</span>)</span>
 <span id="cb7-2"><a href="01-estimacion-densidades-no-parametricas.html#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat_biweight, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-4.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-4.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="01-estimacion-densidades-no-parametricas.html#cb8-1" aria-hidden="true" tabindex="-1"></a>fhat_triweight <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;triweight&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.05</span>)</span>
 <span id="cb8-2"><a href="01-estimacion-densidades-no-parametricas.html#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat_triweight, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-5.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-45-5.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="efecto-del-ancho-de-banda-en-la-estimación" class="section level3 hasAnchor" number="2.3.2">
 <h3><span class="header-section-number">2.3.2</span> Efecto del ancho de banda en la estimación<a href="01-estimacion-densidades-no-parametricas.html#efecto-del-ancho-de-banda-en-la-estimación" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>** Kernel uniforme **</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="01-estimacion-densidades-no-parametricas.html#cb9-1" aria-hidden="true" tabindex="-1"></a>fhat <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;box&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.001</span>)</span>
 <span id="cb9-2"><a href="01-estimacion-densidades-no-parametricas.html#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-46-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-46-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="01-estimacion-densidades-no-parametricas.html#cb10-1" aria-hidden="true" tabindex="-1"></a>fhat <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;box&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.5</span>)</span>
 <span id="cb10-2"><a href="01-estimacion-densidades-no-parametricas.html#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-46-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-46-2.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>** Kernel Epanechnikov **</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="01-estimacion-densidades-no-parametricas.html#cb11-1" aria-hidden="true" tabindex="-1"></a>fhat <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.001</span>)</span>
 <span id="cb11-2"><a href="01-estimacion-densidades-no-parametricas.html#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-47-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-47-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="01-estimacion-densidades-no-parametricas.html#cb12-1" aria-hidden="true" tabindex="-1"></a>fhat <span class="ot">&lt;-</span> <span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="at">bandwidth =</span> <span class="fl">0.5</span>)</span>
 <span id="cb12-2"><a href="01-estimacion-densidades-no-parametricas.html#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fhat, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-47-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-47-2.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="01-estimacion-densidades-no-parametricas.html#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressMessages</span>(<span class="fu">library</span>(tidyverse))</span>
 <span id="cb13-2"><a href="01-estimacion-densidades-no-parametricas.html#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span>
 <span id="cb13-3"><a href="01-estimacion-densidades-no-parametricas.html#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
@@ -1081,7 +1081,7 @@ ignorado.</p>
 <span id="cb16-15"><a href="01-estimacion-densidades-no-parametricas.html#cb16-15" aria-hidden="true" tabindex="-1"></a>n_bins <span class="ot">&lt;-</span> <span class="fu">floor</span>(<span class="fu">diff</span>(<span class="fu">range</span>(x))<span class="sc">/</span>h)</span>
 <span id="cb16-16"><a href="01-estimacion-densidades-no-parametricas.html#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-17"><a href="01-estimacion-densidades-no-parametricas.html#cb16-17" aria-hidden="true" tabindex="-1"></a>f_hist <span class="ot">&lt;-</span> <span class="fu">hist</span>(x, <span class="at">breaks =</span> n_bins)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-50-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-50-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="01-estimacion-densidades-no-parametricas.html#cb17-1" aria-hidden="true" tabindex="-1"></a>f_epa <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">bkde</span>(x, <span class="at">kernel =</span> <span class="st">&quot;epa&quot;</span>, <span class="at">bandwidth =</span> h))</span>
 <span id="cb17-2"><a href="01-estimacion-densidades-no-parametricas.html#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb17-3"><a href="01-estimacion-densidades-no-parametricas.html#cb17-3" aria-hidden="true" tabindex="-1"></a>x_df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(x)</span>
@@ -1093,7 +1093,7 @@ ignorado.</p>
 <span id="cb17-9"><a href="01-estimacion-densidades-no-parametricas.html#cb17-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb17-10"><a href="01-estimacion-densidades-no-parametricas.html#cb17-10" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> f_epa,</span>
 <span id="cb17-11"><a href="01-estimacion-densidades-no-parametricas.html#cb17-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-50-2.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-50-2.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="ancho-de-banda-óptimo-1" class="section level3 hasAnchor" number="2.3.3">
 <h3><span class="header-section-number">2.3.3</span> Ancho de banda óptimo<a href="01-estimacion-densidades-no-parametricas.html#ancho-de-banda-óptimo-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1133,7 +1133,7 @@ h_{normal} =  1.06 \min \left\{ s , \frac{IQR}{1.34} \right\} n^{-1/5}.
 <span id="cb19-11"><a href="01-estimacion-densidades-no-parametricas.html#cb19-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb19-12"><a href="01-estimacion-densidades-no-parametricas.html#cb19-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> f_epa,</span>
 <span id="cb19-13"><a href="01-estimacion-densidades-no-parametricas.html#cb19-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-52-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-52-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="01-estimacion-densidades-no-parametricas.html#cb20-1" aria-hidden="true" tabindex="-1"></a>h_iqr <span class="ot">&lt;-</span> <span class="fl">1.06</span> <span class="sc">*</span> <span class="fu">min</span>(s, <span class="fu">IQR</span>(x)<span class="sc">/</span><span class="fl">1.34</span>) <span class="sc">*</span> n<span class="sc">^</span>(<span class="sc">-</span><span class="dv">1</span><span class="sc">/</span><span class="dv">5</span>)</span>
 <span id="cb20-2"><a href="01-estimacion-densidades-no-parametricas.html#cb20-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb20-3"><a href="01-estimacion-densidades-no-parametricas.html#cb20-3" aria-hidden="true" tabindex="-1"></a>h <span class="ot">&lt;-</span> h_iqr</span>
@@ -1147,7 +1147,7 @@ h_{normal} =  1.06 \min \left\{ s , \frac{IQR}{1.34} \right\} n^{-1/5}.
 <span id="cb20-11"><a href="01-estimacion-densidades-no-parametricas.html#cb20-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb20-12"><a href="01-estimacion-densidades-no-parametricas.html#cb20-12" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> f_epa,</span>
 <span id="cb20-13"><a href="01-estimacion-densidades-no-parametricas.html#cb20-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-53-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-53-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>Una librería más especializada es (non-parametric).</p>
 <div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="01-estimacion-densidades-no-parametricas.html#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(np)</span>
 <span id="cb21-2"><a href="01-estimacion-densidades-no-parametricas.html#cb21-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1165,7 +1165,7 @@ h_{normal} =  1.06 \min \left\{ s , \frac{IQR}{1.34} \right\} n^{-1/5}.
 <span id="cb21-14"><a href="01-estimacion-densidades-no-parametricas.html#cb21-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb21-15"><a href="01-estimacion-densidades-no-parametricas.html#cb21-15" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dens.ksum.df,</span>
 <span id="cb21-16"><a href="01-estimacion-densidades-no-parametricas.html#cb21-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-54-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-54-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="validación-cruzada-1" class="section level3 hasAnchor" number="2.3.4">
 <h3><span class="header-section-number">2.3.4</span> Validación cruzada<a href="01-estimacion-densidades-no-parametricas.html#validación-cruzada-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1185,7 +1185,7 @@ Multistart 1 of 1 |
 <div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="01-estimacion-densidades-no-parametricas.html#cb24-1" aria-hidden="true" tabindex="-1"></a>dens.np <span class="ot">&lt;-</span> <span class="fu">npudens</span>(h_cv_np_ls)</span>
 <span id="cb24-2"><a href="01-estimacion-densidades-no-parametricas.html#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb24-3"><a href="01-estimacion-densidades-no-parametricas.html#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dens.np, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-55-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-55-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="01-estimacion-densidades-no-parametricas.html#cb25-1" aria-hidden="true" tabindex="-1"></a>dens.np.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> dens.np<span class="sc">$</span>eval[, <span class="dv">1</span>], <span class="at">y =</span> dens.np<span class="sc">$</span>dens)</span>
 <span id="cb25-2"><a href="01-estimacion-densidades-no-parametricas.html#cb25-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb25-3"><a href="01-estimacion-densidades-no-parametricas.html#cb25-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(x_df, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..),</span>
@@ -1193,7 +1193,7 @@ Multistart 1 of 1 |
 <span id="cb25-5"><a href="01-estimacion-densidades-no-parametricas.html#cb25-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb25-6"><a href="01-estimacion-densidades-no-parametricas.html#cb25-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dens.np.df,</span>
 <span id="cb25-7"><a href="01-estimacion-densidades-no-parametricas.html#cb25-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-56-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-56-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="temas-adicionales" class="section level3 hasAnchor" number="2.3.5">
 <h3><span class="header-section-number">2.3.5</span> Temas adicionales<a href="01-estimacion-densidades-no-parametricas.html#temas-adicionales" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1214,7 +1214,7 @@ Multistart 1 of 1 |
 <div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="01-estimacion-densidades-no-parametricas.html#cb28-1" aria-hidden="true" tabindex="-1"></a>dens.np <span class="ot">&lt;-</span> <span class="fu">npudens</span>(h_cv_np_ls)</span>
 <span id="cb28-2"><a href="01-estimacion-densidades-no-parametricas.html#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb28-3"><a href="01-estimacion-densidades-no-parametricas.html#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dens.np, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>, <span class="at">lwd =</span> <span class="dv">2</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-57-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-57-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="01-estimacion-densidades-no-parametricas.html#cb29-1" aria-hidden="true" tabindex="-1"></a>dens.np.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> dens.np<span class="sc">$</span>eval[, <span class="dv">1</span>], <span class="at">y =</span> dens.np<span class="sc">$</span>dens)</span>
 <span id="cb29-2"><a href="01-estimacion-densidades-no-parametricas.html#cb29-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb29-3"><a href="01-estimacion-densidades-no-parametricas.html#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(x_df, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..),</span>
@@ -1222,7 +1222,7 @@ Multistart 1 of 1 |
 <span id="cb29-5"><a href="01-estimacion-densidades-no-parametricas.html#cb29-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb29-6"><a href="01-estimacion-densidades-no-parametricas.html#cb29-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dens.np.df,</span>
 <span id="cb29-7"><a href="01-estimacion-densidades-no-parametricas.html#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-58-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-58-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p><strong>Otra forma de estimar el ancho de banda</strong> Otra forma de estimar ancho
 de bandas óptimos es usando máxima verosimilitud. Les dejo de tarea
 revisar la sección 1.1 del artículo de <span class="citation">(Hall 1987)</span> para entender su
@@ -1240,7 +1240,7 @@ Multistart 1 of 1 |
 <div class="sourceCode" id="cb32"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb32-1"><a href="01-estimacion-densidades-no-parametricas.html#cb32-1" aria-hidden="true" tabindex="-1"></a>dens.np <span class="ot">&lt;-</span> <span class="fu">npudens</span>(h_cv_np_ml)</span>
 <span id="cb32-2"><a href="01-estimacion-densidades-no-parametricas.html#cb32-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb32-3"><a href="01-estimacion-densidades-no-parametricas.html#cb32-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dens.np, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-59-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-59-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb33"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb33-1"><a href="01-estimacion-densidades-no-parametricas.html#cb33-1" aria-hidden="true" tabindex="-1"></a>dens.np.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> dens.np<span class="sc">$</span>eval[, <span class="dv">1</span>], <span class="at">y =</span> dens.np<span class="sc">$</span>dens)</span>
 <span id="cb33-2"><a href="01-estimacion-densidades-no-parametricas.html#cb33-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb33-3"><a href="01-estimacion-densidades-no-parametricas.html#cb33-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(x_df, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..),</span>
@@ -1248,7 +1248,7 @@ Multistart 1 of 1 |
 <span id="cb33-5"><a href="01-estimacion-densidades-no-parametricas.html#cb33-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb33-6"><a href="01-estimacion-densidades-no-parametricas.html#cb33-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dens.np.df,</span>
 <span id="cb33-7"><a href="01-estimacion-densidades-no-parametricas.html#cb33-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-60-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-60-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb34"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb34-1"><a href="01-estimacion-densidades-no-parametricas.html#cb34-1" aria-hidden="true" tabindex="-1"></a>h_cv_np_ml <span class="ot">&lt;-</span> <span class="fu">npudensbw</span>(<span class="at">dat =</span> x, <span class="at">bwmethod =</span> <span class="st">&quot;cv.ml&quot;</span>,</span>
 <span id="cb34-2"><a href="01-estimacion-densidades-no-parametricas.html#cb34-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">ckertype =</span> <span class="st">&quot;epanechnikov&quot;</span>, <span class="at">ckerorder =</span> <span class="dv">4</span>)</span></code></pre></div>
 <pre><code>## 
@@ -1262,7 +1262,7 @@ Multistart 1 of 1 |
 <div class="sourceCode" id="cb36"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb36-1"><a href="01-estimacion-densidades-no-parametricas.html#cb36-1" aria-hidden="true" tabindex="-1"></a>dens.np <span class="ot">&lt;-</span> <span class="fu">npudens</span>(h_cv_np_ml)</span>
 <span id="cb36-2"><a href="01-estimacion-densidades-no-parametricas.html#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb36-3"><a href="01-estimacion-densidades-no-parametricas.html#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(dens.np, <span class="at">type =</span> <span class="st">&quot;b&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-61-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-61-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb37"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb37-1"><a href="01-estimacion-densidades-no-parametricas.html#cb37-1" aria-hidden="true" tabindex="-1"></a>dens.np.df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> dens.np<span class="sc">$</span>eval[, <span class="dv">1</span>], <span class="at">y =</span> dens.np<span class="sc">$</span>dens)</span>
 <span id="cb37-2"><a href="01-estimacion-densidades-no-parametricas.html#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb37-3"><a href="01-estimacion-densidades-no-parametricas.html#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(x_df, <span class="fu">aes</span>(x)) <span class="sc">+</span> <span class="fu">geom_histogram</span>(<span class="fu">aes</span>(<span class="at">y =</span> ..density..),</span>
@@ -1270,7 +1270,7 @@ Multistart 1 of 1 |
 <span id="cb37-5"><a href="01-estimacion-densidades-no-parametricas.html#cb37-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">stat_function</span>(<span class="at">fun =</span> dnorm, <span class="at">args =</span> <span class="fu">list</span>(<span class="at">mean =</span> mu,</span>
 <span id="cb37-6"><a href="01-estimacion-densidades-no-parametricas.html#cb37-6" aria-hidden="true" tabindex="-1"></a>        <span class="at">sd =</span> sigma), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dens.np.df,</span>
 <span id="cb37-7"><a href="01-estimacion-densidades-no-parametricas.html#cb37-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x, y), <span class="at">color =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">20</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-62-1.svg" width="70%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-62-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb38"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb38-1"><a href="01-estimacion-densidades-no-parametricas.html#cb38-1" aria-hidden="true" tabindex="-1"></a>fani <span class="ot">&lt;-</span> <span class="fu">tibble</span>()</span>
 <span id="cb38-2"><a href="01-estimacion-densidades-no-parametricas.html#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-3"><a href="01-estimacion-densidades-no-parametricas.html#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (b <span class="cf">in</span> <span class="fu">seq</span>(<span class="fl">0.001</span>, <span class="fl">0.05</span>, <span class="at">length.out =</span> <span class="dv">40</span>)) {</span>

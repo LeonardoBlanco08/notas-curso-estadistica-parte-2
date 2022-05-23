@@ -1,10 +1,3 @@
-```{r}
-options(tinytex.verbose = TRUE)
-```
-
-
-
-
 
 # Métodos de selección de variables y regularización.
 
@@ -427,9 +420,19 @@ Es posible comparar distintos ajustes de modelos usando cross-validation.
 
 Carguemos la base de datos `Auto` de `ISLR`.
 
+
 ```{r}
 library(ISLR)
+library(GGally)
 data("Auto")
+```
+
+```{r}
+ggpairs(Auto[,-9])
+```
+
+```{r}
+summary(Auto)
 ```
 
 Y ajustamos un modelo entre las millas por galon contra los caballos de fuerza de ciertos vehículos.
@@ -439,7 +442,18 @@ glm.fit <- glm(mpg ~ horsepower, data = Auto)
 summary(glm.fit)
 ```
 
-La librería `boot` tiene funciones para aplicar cross-validation. Por ejemplo:
+La librería `boot` tiene funciones para aplicar cross-validation. En particular el valor `delta` dice lo siguiente 
+
+```
+delta: A vector of length two.  The first component is the raw
+       cross-validation estimate of prediction error.  The second
+       component is the adjusted cross-validation estimate.  The
+       adjustment is designed to compensate for the bias introduced
+       by not using leave-one-out cross-validation.
+```
+
+
+Este valor se puede visualizar de la siguiente manera:
   
 ```{r}
 library(boot)
@@ -447,7 +461,7 @@ cv.err <- cv.glm(Auto, glm.fit)
 cv.err$delta
 ```
 
-En particular se puede usar un `for` para aplicar este mismo procedimiento a múltiples modelos.
+En particular se puede usar un `for` para aplicar este mismo procedimiento a múltiples modelos. En el siguiente caso trataremos de ajustar los modelos \(\beta_1 x\), \(\beta_1 x + \beta_2 x^2\), \(\beta_1 x + \beta_2 x^2 +\beta_3 x^{3}\), etc
 
 ```{r}
 cv.error.LOOCV = rep(0, 5)
