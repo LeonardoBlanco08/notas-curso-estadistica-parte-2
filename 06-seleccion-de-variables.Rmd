@@ -106,7 +106,7 @@ $$R^2 \text{ ajustado}= 1-\dfrac{\dfrac{RSS}{n-p-1}}{\dfrac{TSS}{n-1}}$$
 Este estadístico se define como 
 
 
-$$ C_p = \dfrac{RSS}{\hat\sigma^2} + 2p-n $$
+$$ C_p = \dfrac{RSS}{\hat\sigma^2} + 2(p+1)-n $$
 
 
 donde $p$ es el número de predictores y $\hat\sigma^2$ es el estimador de la varianza de los errores $\epsilon$. Si $\hat\sigma^2$ es insesgado de $\sigma^2$, entonces $C_p$ es un estimador insesgado del $MSE$ de prueba. 
