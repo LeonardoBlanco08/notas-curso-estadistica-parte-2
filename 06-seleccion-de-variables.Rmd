@@ -359,7 +359,7 @@ Una forma alternativa de hacer selección de variables es a través de la restri
 
 Considere el problema de mínimos cuadrados en el modelo lineal:
 
-$$ RSS = \sum_{i=1}^{n}\left(y_i-\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 $$
+$$ RSS = \sum_{i=1}^{n}\left(y_i-\beta_{0}-\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 $$
 y 
 \[
 \hat\beta = \underset{\beta}{\mathrm{argmin}} RSS
