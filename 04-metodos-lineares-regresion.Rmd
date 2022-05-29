@@ -988,9 +988,9 @@ Si este supuesto no se cumple puede provocar que los errores estándar en interv
 Multicolinealidad 
 : Se asume que la matriz $X^TX$ es invertible, es decir $X$ es una matriz de rango completo. Para esto cada una las covariables no debe ser linealmente dependientes, es decir $X^TX$ de debe acercarse a ser a una matriz singular con determinante cercano a 0. Es decir que cada variable explica aproximadamente "un aspecto o característica" del modelo. Sin embargo puede pasar que varias variables expliquen la misma característica y el modelo se vuelve __inestable__ por decidir entre las dos variables. Por ejemplo: la temperatura en grados centigrados y farenheit. 
 
-Esto generaría que \(\mathrm{Var}\left(\beta\right)\) sea alto ya que 
+Esto generaría que \(\mathrm{Var}\left(\hat{\beta}\right)\) sea alto ya que 
 \begin{equation*}
-\text{Var}(\beta) =  \sigma^2(X^{\top}X)^{-1}
+\text{Var}(\hat{\beta}) =  \sigma^2(X^{\top}X)^{-1}
 \end{equation*}
 
 
