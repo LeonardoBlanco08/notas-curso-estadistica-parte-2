@@ -119,7 +119,7 @@ L\left(\beta\right)=\prod_{i=1}^{n} p\left(\boldsymbol{X}_{i}\right)^{Y_{i}}\lef
 Muestre que 
 
 \begin{equation*}
-\frac{\partial^{2} \ell}{\partial \beta^{2}} = -\boldsymbol{X}W\boldsymbol{X} 
+\frac{\partial^{2} \ell}{\partial \beta^{2}} = -\boldsymbol{X}^{\top}W\boldsymbol{X} 
 \end{equation*}
 
 donde \(W_\beta = \mathrm{diag}\{p(\boldsymbol{X}_{i})(1-p(X_{i}))\}\).
