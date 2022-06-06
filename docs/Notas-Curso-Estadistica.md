@@ -335,7 +335,7 @@ Según la nota anterior la tasas de convergencia del histograma es más lenta qu
 
 
 
-Finalmente, podemos encontrar el valor óptimo  del ancho de banda ($h=$ 0.3335) del conjunto de datos en el ejemplo anterior.  
+Finalmente, podemos encontrar el valor óptimo  del ancho de banda ($h=$ 0.435) del conjunto de datos en el ejemplo anterior.  
 
 \begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
@@ -3836,9 +3836,9 @@ Si este supuesto no se cumple puede provocar que los errores estándar en interv
 Multicolinealidad 
 : Se asume que la matriz $X^TX$ es invertible, es decir $X$ es una matriz de rango completo. Para esto cada una las covariables no debe ser linealmente dependientes, es decir $X^TX$ de debe acercarse a ser a una matriz singular con determinante cercano a 0. Es decir que cada variable explica aproximadamente "un aspecto o característica" del modelo. Sin embargo puede pasar que varias variables expliquen la misma característica y el modelo se vuelve __inestable__ por decidir entre las dos variables. Por ejemplo: la temperatura en grados centigrados y farenheit. 
 
-Esto generaría que \(\mathrm{Var}\left(\beta\right)\) sea alto ya que 
+Esto generaría que \(\mathrm{Var}\left(\hat{\beta}\right)\) sea alto ya que 
 \begin{equation*}
-\text{Var}(\beta) =  \sigma^2(X^{\top}X)^{-1}
+\text{Var}(\hat{\beta}) =  \sigma^2(X^{\top}X)^{-1}
 \end{equation*}
 
 
@@ -4901,7 +4901,7 @@ L\left(\beta\right)=\prod_{i=1}^{n} p\left(\boldsymbol{X}_{i}\right)^{Y_{i}}\lef
 Muestre que 
 
 \begin{equation*}
-\frac{\partial^{2} \ell}{\partial \beta^{2}} = -\boldsymbol{X}W\boldsymbol{X} 
+\frac{\partial^{2} \ell}{\partial \beta^{2}} = -\boldsymbol{X}^{\top}W\boldsymbol{X} 
 \end{equation*}
 
 donde \(W_\beta = \mathrm{diag}\{p(\boldsymbol{X}_{i})(1-p(X_{i}))\}\).
@@ -5865,7 +5865,7 @@ De los que tienen $k=1$ variable, hay $\binom{3}{1}$ = 3 modelos. Para $k=2$, so
 1. Sea $M_p$ el modelo completo.
 1. Para $k=p,p-1,\dots,1$,
     a. Considere los $k$ modelos que contienen todos excepto uno de los predictores en $M_k$ para un total de $k-1$ predictores.
-    a. Seleccione el mejor entre esos $k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k+1}$.
+    a. Seleccione el mejor entre esos $k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k-1}$.
 1. Seleccione el mejor modelo entre $M_0,\dots,M_p$ usando $CV$, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
 
 
@@ -5889,7 +5889,7 @@ Una forma alternativa de hacer selección de variables es a través de la restri
 
 Considere el problema de mínimos cuadrados en el modelo lineal:
 
-$$ RSS = \sum_{i=1}^{n}\left(y_i-\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 $$
+$$ RSS = \sum_{i=1}^{n}\left(y_i-\beta_{0}-\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 $$
 y 
 \[
 \hat\beta = \underset{\beta}{\mathrm{argmin}} RSS
@@ -7243,7 +7243,7 @@ Ahora variemos el punto de corte $t$ para decidir cuál de estos es será 0 o 1.
 
 Con esta información hacemos la tabla
 
-| $Y_{Real}$ | $Y_{Prob}$ | $Y_0$ | $Y_{0.2} | $Y_{0.4}$ | $Y_{0.6}$ | $Y_{0.8}$ | $Y_{1}$ |
+| $Y_{Real}$ | $Y_{Prob}$ | $Y_0$ | $Y_{0.2}$ | $Y_{0.4}$ | $Y_{0.6}$ | $Y_{0.8}$ | $Y_{1}$ |
 |------------|------------|-------|----------|-----------|-----------|-----------|---------|
 | 1          | 0.8        | 1     | 1        | 1         | 1         | 1         | 0       |
 | 0          | 0.6        | 1     | 1        | 1         | 1         | 0         | 0       |
@@ -7272,7 +7272,7 @@ FPR_{1} &= \frac{0}{0+2} =0
 \end{align*}
 
 
-Finalmente gráficamos los valores 
+Finalmente graficamos los valores 
 
 
 ```r
@@ -8020,6 +8020,305 @@ svm_predicciones %>%
 <!--chapter:end:08-clasificacion.Rmd-->
 
 
+# Análisis en componentes principales
+
+## Aprendizaje no-supervisado
+
+Al contrario de los métodos que se han estudiado de regresión y clasificación, en este caso no hay variable dependiente, y el conjunto de datos está compuesto de $p$ variables o características y $n$ observaciones. 
+
+El principal objetivo del aprendizaje no-supervisado no es la predicción, sino en el *análisis de datos* por sí mismo, es decir se quiere buscar patrones o relaciones interesantes dentro de la tabla de datos: por ejemplo la visualización de datos o la identificación de subgrupos en los datos. (Análisis Exploratorio de Datos)
+
+En el caso de aprendizaje no-supervisado, no es posible verificar o validar los métodos adoptados.
+
+
+Si se quiere seleccionar la mejor proyección de 2 variables de una nube de puntos $X_1,\dots, X_p$, se debe hacer $\binom{p}{2}$ gráficos de dispersión. Un criterio de búsqueda es seleccionar la que tenga mayor información, en el sentido de mayor variabilidad.
+
+Usaremos como base los libros de [@HussonExploratory2017] y [@James2013b].
+
+
+```r
+library(rgl)
+library(car)
+knitr::knit_hooks$set(webgl = hook_webgl, rgl = hook_rgl)
+knitr::opts_chunk$set(fig.pos = "!h")
+```
+
+
+```r
+set.seed(123)
+x1 <- rnorm(1000, 0, 2)
+x2 <- cos(rnorm(1000, 0, 2))
+x3 <- x1 + rnorm(1000, 0, 2)
+```
+
+
+```r
+GGally::ggpairs(data.frame(x1, x2, x3))
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-284-1} \end{center}
+
+
+../../../../../../../../private/var/folders/4d/qj4qr8zx1n36td0hlt0p7x_h0000gn/T/RtmprshrVR/file157ff72929bbb.png
+
+
+```r
+plot3d(x1, x3, x2, point.col = "black")
+
+plot3d(scale(x1), scale(x2), scale(x3), point.col = "black")
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-286-1} \end{center}
+
+
+
+
+<!-- ```{r, echo=FALSE} -->
+<!-- library(ggplot2) -->
+
+<!-- qplot(1:300, rnorm(300, sd = 0.1) + 5, ylim = c(0, 10)) + theme_minimal() + xlab("") + ylab("") -->
+<!-- qplot(1:300, (3 * 1:300 + 100 * cos(1:300 / (2 * pi)) + 200 * rnorm(300, sd = -->
+<!--                                                                       0.1)) / 100) + theme_minimal() + xlab("") + ylab("") -->
+<!-- ``` -->
+
+El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones eliminando la mayor cantidad de ruido posible. 
+
+## Representación gráfica
+
+![Tomado de [The shape of data](https://shapeofdata.wordpress.com/2013/04/09/principle-component-analysis/)](manual_figures/pca.png)
+
+## Primer componente principal
+
+
+
+
+
+$$ Z_1 := \phi_{11}x_1 +  \phi_{21}x_2 + \dots + \phi_{p1}x_p;\quad \text{con } \sum_{j=1}^{p}\phi_{j1} = 1$$
+tal que $Z_1$ tenga la varianza máxima.
+
+Al vector $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$ se le llama *pasos o cargas*. 
+
+$X = (X_1,\dots,X_p)_{n\times p}$ es la *matriz de diseño* donde cada columna tiene media 0. Se resuelve el problema
+$$\hat{\phi}_1=\underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace $$
+La restricción de minimización se puede rescribir como $\Vert\phi_1\Vert_2^2= \sum_{j=1}^p \phi_{j1}^2 = 1$
+
+Los $Z_{11},\dots, Z_{n1}$ son los scores del primer componente principal.
+
+$\phi_1$ es la dirección en el espacio característico en $\mathbb{R}^p$ en donde los datos tengan la máxima varianza.
+
+
+Esta última expresión se podría rescribir de forma matricial como 
+
+\[
+\hat{\phi}_1 = \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{ \phi_1^\top X^\top X \phi_1 \right\}
+\]
+
+donde $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$
+
+
+dadas las condiciones, esta expresión se podría simplificar un poco más en 
+
+\[
+\hat{\phi}_1 = \underset{\phi_1}{\mathrm{argmax}} \left\{\frac{\phi_1^\top X^\top X \phi_1 }{\phi_1^\top \phi_1}\right\}
+\]
+
+Dado que la expresión anterio es un coeficiente de Rayleigh, se puede probar  que \(\hat{\phi}_{1}\) corresponde al primer vector propio de la matriz $X^\top X = \mathrm{Cov}(X)$ si las columnas de $X$ son centradas.
+
+## Segunda componente principal
+
+
+
+$$ Z_{2}:= \phi_{12}x_1 + \phi_{22}x_2+\dots+\phi_{p2}x_p$$
+ $$\underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j2} X_{ij} \right)^2 \right\rbrace$$
+ Se tiene, además, que $\forall i$, $Z_{i2}\perp Z_1$, entonces 
+ $$ Z_{i2}\perp Z_1 \implies \phi_{2} \perp \phi_{1}$$
+
+Esto se logra primero construyendo una matriz nueva de diseño, restando a la matrix $X$ original, el primer componente principal. 
+
+\[
+\tilde{X}_2 = X - X\phi_1\phi_1^\top
+\]
+
+Luego a esa matriz, se le aplica el procedimiento anterior 
+
+\[
+\hat{\phi}_2 = \underset{\phi_2}{\mathrm{argmax}} \left\{\frac{\phi_2^\top X^\top X \phi_2 }{\phi_2^\top \phi_2}\right\}
+\]
+
+Y nuevamente se puede probar que el componente principal corresponde al segundo vector propio de 
+$X^\top X = \mathrm{Cov}(X)$
+
+
+De la misma forma se construye $\phi_3,\phi_4,\dots, \phi_p$.
+
+Notas: 
+
+- **Escalas**: la varianza de las variables depende de las unidades. El problema es que los pesos $\phi_i$ son distintos dependiendo de las escalas. La solución es estandarizar las variables: $\dfrac{X_i-\mu_i}{\hat\sigma_i}$.
+- **Unicidad**: los componentes principales son únicos, módulo cambio de signo.
+\end{itemize}
+
+
+## Circulo de correlaciones 
+
+Se puede construir la correlación de cada variable con respecto a cada componente principal 
+
+\[
+cos(\theta_{i,j^\prime}) = \mathrm{Corr}(X_i, \mathrm{PC}_{j^\prime})
+\]
+
+El ángulo $\theta_{i,j^\prime}$ significa la lejanía o cercanía de cierta variable con respecto a cada componente principal. 
+
+Además, basados en el el círculo identidad $\cos^2(\theta)+\sin^2(\theta)=1$, el valor de $cos^2(\theta_{i,j^\prime})$ representa la "intensidad" con la cual la variable $X_i$ es representada por el componente principal $\mathrm{PC}_{i^\prime}$.
+
+## Volvamos a nuestro ejemplo 
+
+
+```r
+library("factoextra")
+library("FactoMineR")
+p <- PCA(scale(cbind(x1, x2, x3)))
+```
+
+
+```r
+p$var$cor
+```
+
+```
+##          Dim.1       Dim.2       Dim.3
+## x1  0.92280569 0.037753401 -0.38341145
+## x2 -0.03690606 0.999225664  0.01363871
+## x3  0.92346176 0.002207375  0.38368413
+```
+
+```r
+p$var$cos2
+```
+
+```
+##          Dim.1          Dim.2        Dim.3
+## x1 0.851570337 0.001425319299 0.1470043434
+## x2 0.001362057 0.998451928464 0.0001860145
+## x3 0.852781615 0.000004872503 0.1472135129
+```
+
+
+
+
+
+## ¿Cuántos componentes usar?
+
+
+```r
+fviz_screeplot(p, addlabels = F, ylim = c(0, 50)) +
+    xlab("Variables") + ylab("Porcentaje de varianza de Z explicada") +
+    labs(title = "Diagrama")
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-289-1} \end{center}
+
+```r
+qplot(1:3, p$eig[, 3], geom = "point") + xlab("Cantidad de componentes") +
+    ylab("Varianza acumulada") + geom_line() + theme_minimal() +
+    geom_hline(yintercept = 80, color = "red") + scale_x_continuous(breaks = 1:10)
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-290-1} \end{center}
+
+
+
+
+
+
+## Laboratorio
+
+Vamos a usar los datos `decathlon` de `FactomineR` que representa los resultados de varios atletas en pruebas de decathlon en el 2004. 
+
+El objetivo es encontrar si hay patrones entre ciudad y tipos de crimen.
+
+Exploración de datos
+Ejecute una exploración de datos
+
+
+
+```
+##       100m         Long.jump       Shot.put       High.jump          400m      
+##  Min.   :10.44   Min.   :6.61   Min.   :12.68   Min.   :1.850   Min.   :46.81  
+##  1st Qu.:10.85   1st Qu.:7.03   1st Qu.:13.88   1st Qu.:1.920   1st Qu.:48.93  
+##  Median :10.98   Median :7.30   Median :14.57   Median :1.950   Median :49.40  
+##  Mean   :11.00   Mean   :7.26   Mean   :14.48   Mean   :1.977   Mean   :49.62  
+##  3rd Qu.:11.14   3rd Qu.:7.48   3rd Qu.:14.97   3rd Qu.:2.040   3rd Qu.:50.30  
+##  Max.   :11.64   Max.   :7.96   Max.   :16.36   Max.   :2.150   Max.   :53.20  
+##   110m.hurdle        Discus        Pole.vault       Javeline    
+##  Min.   :13.97   Min.   :37.92   Min.   :4.200   Min.   :50.31  
+##  1st Qu.:14.21   1st Qu.:41.90   1st Qu.:4.500   1st Qu.:55.27  
+##  Median :14.48   Median :44.41   Median :4.800   Median :58.36  
+##  Mean   :14.61   Mean   :44.33   Mean   :4.762   Mean   :58.32  
+##  3rd Qu.:14.98   3rd Qu.:46.07   3rd Qu.:4.920   3rd Qu.:60.89  
+##  Max.   :15.67   Max.   :51.65   Max.   :5.400   Max.   :70.52  
+##      1500m            Rank           Points       Competition
+##  Min.   :262.1   Min.   : 1.00   Min.   :7313   Decastar:13  
+##  1st Qu.:271.0   1st Qu.: 6.00   1st Qu.:7802   OlympicG:28  
+##  Median :278.1   Median :11.00   Median :8021                
+##  Mean   :279.0   Mean   :12.12   Mean   :8005                
+##  3rd Qu.:285.1   3rd Qu.:18.00   3rd Qu.:8122                
+##  Max.   :317.0   Max.   :28.00   Max.   :8893
+```
+
+
+
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-293-1} \end{center}
+
+
+
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-295-1} \end{center}
+
+
+
+```r
+plot(acp.decathlon$ind$coord[, 1], acp.decathlon$ind$coord[,
+    2])
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-296-1} \end{center}
+
+```r
+plot(acp.decathlon$ind$coord[, 3], acp.decathlon$ind$coord[,
+    4])
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-296-2} \end{center}
+
+```
+
+## Ejercicios 
+
+- Del libro [@James2013b] 
+    - Capítulo 10:  6, 8
+`
+
+
+<!--chapter:end:07-componentes-principales.Rmd-->
+
+
 # Cálculo Bayesiano Computacional
 
 ## Repaso de Estadística Bayesiana
@@ -8066,7 +8365,7 @@ ggplot(dpred) + geom_line(mapping = aes(x = y, y = fy)) +
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-282-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-298-1} \end{center}
 
 por lo tanto una muerte no es un valor inusual en el comportamiento de muertes bajo transplantes. La comparación de las densidades posterior y previa de lambda:
 
@@ -8084,7 +8383,7 @@ ggplot(data = datoslambda) + geom_density(mapping = aes(x = value,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-283-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-299-1} \end{center}
 
 - Hospital B: 4 muertes en 1767 expuestos. Mismos cálculos:
 
@@ -8107,7 +8406,7 @@ ggplot(dpred) + geom_line(mapping = aes(x = y, y = fy)) +
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-284-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-300-1} \end{center}
 
 
 ```r
@@ -8123,7 +8422,7 @@ ggplot(data = datoslambda) + geom_density(mapping = aes(x = value,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-285-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-301-1} \end{center}
 
 ### Modelo de más de un parámetro
 
@@ -8167,7 +8466,7 @@ mycontour(normchi2post, c(220, 330, 500, 9000), time,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-287-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-303-1} \end{center}
 y les agregamos una muestra aleatoria de tamaño 1000 de la distribución posterior conjunta, generada a través de las distribuciones marginales:
 
 
@@ -8183,7 +8482,7 @@ points(mu, sigma2)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-288-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-304-1} \end{center}
 
 Si estamos interesados en hacer inferencia de $\mu$, podemos calcular un intervalo de credibilidad al 95%, usando la muestra marginal:
 
@@ -8280,7 +8579,7 @@ mycontour(betabinexch0, c(0.0001, 0.003, 1, 20000),
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-293-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-309-1} \end{center}
 y note la gran asimetría en el comportamiento de la densidad conjunta, especialmente en la dirección de la variable $K$. Por el dominio de las variables $K$ y $\eta$, entonces se transforman según:
 $$\theta_1=\text{logit}(\eta)=\log\left(\frac{\eta}{1-\eta}\right),\quad  \theta_2=\log(K)$$
 y usando el teorema de cambio de variable en densidades:
@@ -8294,7 +8593,7 @@ mycontour(betabinexch, c(-8, -4.5, 3, 16.5), cancermortality,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-294-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-310-1} \end{center}
 
 Definitivamente esta es una distribución posterior a la que no se le puede aplicar las técnicas usuales para hacer inferencia (caso no conjugado). Se va a considerar dos formas de realizar inferencia:
 
@@ -8345,7 +8644,7 @@ mycontour(lbinorm, c(-8, -4.5, 3, 16.5), npar, xlab = "logit eta",
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-296-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-312-1} \end{center}
 
 También podemos hacer inferencia de los parámetros:
 
@@ -8480,7 +8779,7 @@ points(thetaRS[, 1], thetaRS[, 2])
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-304-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-320-1} \end{center}
 
 ## Muestreo por importancia
 
@@ -8517,7 +8816,7 @@ hist(wt)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-305-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-321-1} \end{center}
 
 y calculamos el valor esperado de $\log K$ usando los pesos obtenidos del paso anterior:
 
@@ -8746,7 +9045,7 @@ points(fit2$par[5001:10000, 1], fit2$par[5001:10000,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-317-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-333-1} \end{center}
 
 Los traceplots del MCMC los graficamos a través del paquete *coda* junto con el paquete *bayesplot*:
 
@@ -8760,7 +9059,7 @@ mcmc_trace(obj_mcmc)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-318-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-334-1} \end{center}
 
 Los gráficos de autocorrelación empíricos se pueden generar con:
 
@@ -8770,7 +9069,7 @@ mcmc_acf(obj_mcmc)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-319-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-335-1} \end{center}
 y funciones de densidad estimadas con intervalos de predicción al 95% para algunos de los parámetros:
 
 ```r
@@ -8779,7 +9078,7 @@ mcmc_areas(obj_mcmc, pars = c("mu"), prob = 0.95)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-320-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-336-1} \end{center}
 ### Datos con outliers
 
 Suponga $y_1,\ldots,y_n\sim \text{Cauchy}(\mu,\sigma)$:
@@ -8859,7 +9158,7 @@ points(E1$par[, 1], E1$par[, 2])
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-324-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-340-1} \end{center}
 
 - Metropolis-Hastings independiente:
 
@@ -8887,7 +9186,7 @@ mycontour(cauchyerrorpost, c(-10, 60, 1, 4.5), data_darwin,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-325-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-341-1} \end{center}
 
 ```r
 points(E2$par[, 1], E2$par[, 2])
@@ -8909,7 +9208,7 @@ points(E3$par[, 1], E3$par[, 2])
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-326-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-342-1} \end{center}
 
 Comparemos el estimador bayesiano e intervalos de predicción al 95% para la media $\mu$:
 
@@ -9013,303 +9312,4 @@ mcmc_acf_bar(obj_mcmc2, pars = c("mu", "log sigma"))
     - Capítulo 6: 3, 5, 6, 10.
 
 <!--chapter:end:09-calculo-bayes.Rmd-->
-
-
-# Análisis en componentes principales
-
-## Aprendizaje no-supervisado
-
-Al contrario de los métodos que se han estudiado de regresión y clasificación, en este caso no hay variable dependiente, y el conjunto de datos está compuesto de $p$ variables o características y $n$ observaciones. 
-
-El principal objetivo del aprendizaje no-supervisado no es la predicción, sino en el *análisis de datos* por sí mismo, es decir se quiere buscar patrones o relaciones interesantes dentro de la tabla de datos: por ejemplo la visualización de datos o la identificación de subgrupos en los datos. (Análisis Exploratorio de Datos)
-
-En el caso de aprendizaje no-supervisado, no es posible verificar o validar los métodos adoptados.
-
-
-Si se quiere seleccionar la mejor proyección de 2 variables de una nube de puntos $X_1,\dots, X_p$, se debe hacer $\binom{p}{2}$ gráficos de dispersión. Un criterio de búsqueda es seleccionar la que tenga mayor información, en el sentido de mayor variabilidad.
-
-Usaremos como base los libros de [@HussonExploratory2017] y [@James2013b].
-
-
-```r
-library(rgl)
-library(car)
-knitr::knit_hooks$set(webgl = hook_webgl, rgl = hook_rgl)
-knitr::opts_chunk$set(fig.pos = "!h")
-```
-
-
-```r
-set.seed(123)
-x1 <- rnorm(1000, 0, 2)
-x2 <- cos(rnorm(1000, 0, 2))
-x3 <- x1 + rnorm(1000, 0, 2)
-```
-
-
-```r
-GGally::ggpairs(data.frame(x1, x2, x3))
-```
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-334-1} \end{center}
-
-
-../../../../../../../../private/var/folders/4d/qj4qr8zx1n36td0hlt0p7x_h0000gn/T/RtmpTR6HCg/filecca43f1e78ab.png
-
-
-```r
-plot3d(x1, x3, x2, point.col = "black")
-
-plot3d(scale(x1), scale(x2), scale(x3), point.col = "black")
-```
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-336-1} \end{center}
-
-
-
-
-<!-- ```{r, echo=FALSE} -->
-<!-- library(ggplot2) -->
-
-<!-- qplot(1:300, rnorm(300, sd = 0.1) + 5, ylim = c(0, 10)) + theme_minimal() + xlab("") + ylab("") -->
-<!-- qplot(1:300, (3 * 1:300 + 100 * cos(1:300 / (2 * pi)) + 200 * rnorm(300, sd = -->
-<!--                                                                       0.1)) / 100) + theme_minimal() + xlab("") + ylab("") -->
-<!-- ``` -->
-
-El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones eliminando la mayor cantidad de ruido posible. 
-
-## Representación gráfica
-
-![Tomado de [The shape of data](https://shapeofdata.wordpress.com/2013/04/09/principle-component-analysis/)](manual_figures/pca.png)
-
-## Primer componente principal
-
-
-
-
-
-$$ Z_1 := \phi_{11}x_1 +  \phi_{21}x_2 + \dots + \phi_{p1}x_p;\quad \text{con } \sum_{j=1}^{p}\phi_{j1} = 1$$
-tal que $Z_1$ tenga la varianza máxima.
-
-Al vector $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$ se le llama *pasos o cargas*. 
-
-$X = (X_1,\dots,X_p)_{n\times p}$ es la *matriz de diseño* donde cada columna tiene media 0. Se resuelve el problema
-$$\hat{\phi}_1=\underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace $$
-La restricción de minimización se puede rescribir como $\Vert\phi_1\Vert_2^2= \sum_{j=1}^p \phi_{j1}^2 = 1$
-
-Los $Z_{11},\dots, Z_{n1}$ son los scores del primer componente principal.
-
-$\phi_1$ es la dirección en el espacio característico en $\mathbb{R}^p$ en donde los datos tengan la máxima varianza.
-
-
-Esta última expresión se podría rescribir de forma matricial como 
-
-\[
-\hat{\phi}_1 = \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{ \phi_1^\top X^\top X \phi_1 \right\}
-\]
-
-donde $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$
-
-
-dadas las condiciones, esta expresión se podría simplificar un poco más en 
-
-\[
-\hat{\phi}_1 = \underset{\phi_1}{\mathrm{argmax}} \left\{\frac{\phi_1^\top X^\top X \phi_1 }{\phi_1^\top \phi_1}\right\}
-\]
-
-Dado que la expresión anterio es un coeficiente de Rayleigh, se puede probar  que \(\hat{\phi}_{1}\) corresponde al primer vector propio de la matriz $X^\top X = \mathrm{Cov}(X)$ si las columnas de $X$ son centradas.
-
-## Segunda componente principal
-
-
-
-$$ Z_{2}:= \phi_{12}x_1 + \phi_{22}x_2+\dots+\phi_{p2}x_p$$
- $$\underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j2} X_{ij} \right)^2 \right\rbrace$$
- Se tiene, además, que $\forall i$, $Z_{i2}\perp Z_1$, entonces 
- $$ Z_{i2}\perp Z_1 \implies \phi_{2} \perp \phi_{1}$$
-
-Esto se logra primero construyendo una matriz nueva de diseño, restando a la matrix $X$ original, el primer componente principal. 
-
-\[
-\tilde{X}_2 = X - X\phi_1\phi_1^\top
-\]
-
-Luego a esa matriz, se le aplica el procedimiento anterior 
-
-\[
-\hat{\phi}_2 = \underset{\phi_2}{\mathrm{argmax}} \left\{\frac{\phi_2^\top X^\top X \phi_2 }{\phi_2^\top \phi_2}\right\}
-\]
-
-Y nuevamente se puede probar que el componente principal corresponde al segundo vector propio de 
-$X^\top X = \mathrm{Cov}(X)$
-
-
-De la misma forma se construye $\phi_3,\phi_4,\dots, \phi_p$.
-
-Notas: 
-
-- **Escalas**: la varianza de las variables depende de las unidades. El problema es que los pesos $\phi_i$ son distintos dependiendo de las escalas. La solución es estandarizar las variables: $\dfrac{X_i-\mu_i}{\hat\sigma_i}$.
-- **Unicidad**: los componentes principales son únicos, módulo cambio de signo.
-\end{itemize}
-
-
-## Circulo de correlaciones 
-
-Se puede construir la correlación de cada variable con respecto a cada componente principal 
-
-\[
-cos(\theta_{i,j^\prime}) = \mathrm{Corr}(X_i, \mathrm{PC}_{j^\prime})
-\]
-
-El ángulo $\theta_{i,j^\prime}$ significa la lejanía o cercanía de cierta variable con respecto a cada componente principal. 
-
-Además, basados en el el círculo identidad $\cos^2(\theta)+\sin^2(\theta)=1$, el valor de $cos^2(\theta_{i,j^\prime})$ representa la "intensidad" con la cual la variable $X_i$ es representada por el componente principal $\mathrm{PC}_{i^\prime}$.
-
-## Volvamos a nuestro ejemplo 
-
-
-```r
-library("factoextra")
-library("FactoMineR")
-p <- PCA(scale(cbind(x1, x2, x3)))
-```
-
-
-```r
-p$var$cor
-```
-
-```
-##          Dim.1       Dim.2       Dim.3
-## x1  0.92280569 0.037753401 -0.38341145
-## x2 -0.03690606 0.999225664  0.01363871
-## x3  0.92346176 0.002207375  0.38368413
-```
-
-```r
-p$var$cos2
-```
-
-```
-##          Dim.1          Dim.2        Dim.3
-## x1 0.851570337 0.001425319299 0.1470043434
-## x2 0.001362057 0.998451928464 0.0001860145
-## x3 0.852781615 0.000004872503 0.1472135129
-```
-
-
-
-
-
-## ¿Cuántos componentes usar?
-
-
-```r
-fviz_screeplot(p, addlabels = F, ylim = c(0, 50)) +
-    xlab("Variables") + ylab("Porcentaje de varianza de Z explicada") +
-    labs(title = "Diagrama")
-```
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-339-1} \end{center}
-
-```r
-qplot(1:3, p$eig[, 3], geom = "point") + xlab("Cantidad de componentes") +
-    ylab("Varianza acumulada") + geom_line() + theme_minimal() +
-    geom_hline(yintercept = 80, color = "red") + scale_x_continuous(breaks = 1:10)
-```
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-340-1} \end{center}
-
-
-
-
-
-
-## Laboratorio
-
-Vamos a usar los datos `decathlon` de `FactomineR` que representa los resultados de varios atletas en pruebas de decathlon en el 2004. 
-
-El objetivo es encontrar si hay patrones entre ciudad y tipos de crimen.
-
-Exploración de datos
-Ejecute una exploración de datos
-
-
-
-```
-##       100m         Long.jump       Shot.put       High.jump          400m      
-##  Min.   :10.44   Min.   :6.61   Min.   :12.68   Min.   :1.850   Min.   :46.81  
-##  1st Qu.:10.85   1st Qu.:7.03   1st Qu.:13.88   1st Qu.:1.920   1st Qu.:48.93  
-##  Median :10.98   Median :7.30   Median :14.57   Median :1.950   Median :49.40  
-##  Mean   :11.00   Mean   :7.26   Mean   :14.48   Mean   :1.977   Mean   :49.62  
-##  3rd Qu.:11.14   3rd Qu.:7.48   3rd Qu.:14.97   3rd Qu.:2.040   3rd Qu.:50.30  
-##  Max.   :11.64   Max.   :7.96   Max.   :16.36   Max.   :2.150   Max.   :53.20  
-##   110m.hurdle        Discus        Pole.vault       Javeline    
-##  Min.   :13.97   Min.   :37.92   Min.   :4.200   Min.   :50.31  
-##  1st Qu.:14.21   1st Qu.:41.90   1st Qu.:4.500   1st Qu.:55.27  
-##  Median :14.48   Median :44.41   Median :4.800   Median :58.36  
-##  Mean   :14.61   Mean   :44.33   Mean   :4.762   Mean   :58.32  
-##  3rd Qu.:14.98   3rd Qu.:46.07   3rd Qu.:4.920   3rd Qu.:60.89  
-##  Max.   :15.67   Max.   :51.65   Max.   :5.400   Max.   :70.52  
-##      1500m            Rank           Points       Competition
-##  Min.   :262.1   Min.   : 1.00   Min.   :7313   Decastar:13  
-##  1st Qu.:271.0   1st Qu.: 6.00   1st Qu.:7802   OlympicG:28  
-##  Median :278.1   Median :11.00   Median :8021                
-##  Mean   :279.0   Mean   :12.12   Mean   :8005                
-##  3rd Qu.:285.1   3rd Qu.:18.00   3rd Qu.:8122                
-##  Max.   :317.0   Max.   :28.00   Max.   :8893
-```
-
-
-
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-343-1} \end{center}
-
-
-
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-345-1} \end{center}
-
-
-
-```r
-plot(acp.decathlon$ind$coord[, 1], acp.decathlon$ind$coord[,
-    2])
-```
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-346-1} \end{center}
-
-```r
-plot(acp.decathlon$ind$coord[, 3], acp.decathlon$ind$coord[,
-    4])
-```
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-346-2} \end{center}
-
-```
-
-## Ejercicios 
-
-- Del libro [@James2013b] 
-    - Capítulo 10:  6, 8
-`
-
-
-<!--chapter:end:07-componentes-principales.Rmd-->
 

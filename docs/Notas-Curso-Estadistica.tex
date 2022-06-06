@@ -535,7 +535,7 @@ Según la nota anterior la tasas de convergencia del histograma es más lenta qu
 
 \begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-12-1} \end{center}
 
-Finalmente, podemos encontrar el valor óptimo del ancho de banda (\(h=\) 0.3335) del conjunto de datos en el ejemplo anterior.
+Finalmente, podemos encontrar el valor óptimo del ancho de banda (\(h=\) 0.435) del conjunto de datos en el ejemplo anterior.
 
 \begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
@@ -4045,9 +4045,9 @@ Si este supuesto no se cumple puede provocar que los errores estándar en interv
 Se asume que la matriz \(X^TX\) es invertible, es decir \(X\) es una matriz de rango completo. Para esto cada una las covariables no debe ser linealmente dependientes, es decir \(X^TX\) de debe acercarse a ser a una matriz singular con determinante cercano a 0. Es decir que cada variable explica aproximadamente ``un aspecto o característica'' del modelo. Sin embargo puede pasar que varias variables expliquen la misma característica y el modelo se vuelve \textbf{inestable} por decidir entre las dos variables. Por ejemplo: la temperatura en grados centigrados y farenheit.
 \end{description}
 
-Esto generaría que \(\mathrm{Var}\left(\beta\right)\) sea alto ya que
+Esto generaría que \(\mathrm{Var}\left(\hat{\beta}\right)\) sea alto ya que
 \begin{equation*}
-\text{Var}(\beta) =  \sigma^2(X^{\top}X)^{-1}
+\text{Var}(\hat{\beta}) =  \sigma^2(X^{\top}X)^{-1}
 \end{equation*}
 
 \begin{description}
@@ -5063,7 +5063,7 @@ L\left(\beta\right)=\prod_{i=1}^{n} p\left(\boldsymbol{X}_{i}\right)^{Y_{i}}\lef
 Muestre que
 
 \begin{equation*}
-\frac{\partial^{2} \ell}{\partial \beta^{2}} = -\boldsymbol{X}W\boldsymbol{X} 
+\frac{\partial^{2} \ell}{\partial \beta^{2}} = -\boldsymbol{X}^{\top}W\boldsymbol{X} 
 \end{equation*}
 
 donde \(W_\beta = \mathrm{diag}\{p(\boldsymbol{X}_{i})(1-p(X_{i}))\}\).
@@ -6191,7 +6191,7 @@ De los que tienen \(k=1\) variable, hay \(\binom{3}{1}\) = 3 modelos. Para \(k=2
   \item
     Considere los \(k\) modelos que contienen todos excepto uno de los predictores en \(M_k\) para un total de \(k-1\) predictores.
   \item
-    Seleccione el mejor entre esos \(k\) modelos usando el \(R^2\) o \(RSS\). Llámelo \(M_{k+1}\).
+    Seleccione el mejor entre esos \(k\) modelos usando el \(R^2\) o \(RSS\). Llámelo \(M_{k-1}\).
   \end{enumerate}
 \item
   Seleccione el mejor modelo entre \(M_0,\dots,M_p\) usando \(CV\), \(C_p\), \(AIC\), \(BIC\) o \(R^2\) ajustado.
@@ -6222,7 +6222,7 @@ Una forma alternativa de hacer selección de variables es a través de la restri
 
 Considere el problema de mínimos cuadrados en el modelo lineal:
 
-\[ RSS = \sum_{i=1}^{n}\left(y_i-\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 \]
+\[ RSS = \sum_{i=1}^{n}\left(y_i-\beta_{0}-\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 \]
 y
 \[
 \hat\beta = \underset{\beta}{\mathrm{argmin}} RSS
@@ -7713,7 +7713,7 @@ Con esta información hacemos la tabla
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 \(Y_0\)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
-\$Y\_\{0.2\}
+\(Y_{0.2}\)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
 \(Y_{0.4}\)
 \end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
@@ -7752,7 +7752,7 @@ FPR_{0.8} &= \frac{0}{0+2} =0 \\
 FPR_{1} &= \frac{0}{0+2} =0 
 \end{align*}
 
-Finalmente gráficamos los valores
+Finalmente graficamos los valores
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8565,59 +8565,325 @@ Ahora ajustamos el modelo y analizamos su rendimiento con los conjuntos de entre
   \end{itemize}
 \end{itemize}
 
-\hypertarget{cuxe1lculo-bayesiano-computacional}{%
-\chapter{Cálculo Bayesiano Computacional}\label{cuxe1lculo-bayesiano-computacional}}
+\hypertarget{anuxe1lisis-en-componentes-principales}{%
+\chapter{Análisis en componentes principales}\label{anuxe1lisis-en-componentes-principales}}
 
-\hypertarget{repaso-de-estaduxedstica-bayesiana}{%
-\section{Repaso de Estadística Bayesiana}\label{repaso-de-estaduxedstica-bayesiana}}
+\hypertarget{aprendizaje-no-supervisado}{%
+\section{Aprendizaje no-supervisado}\label{aprendizaje-no-supervisado}}
 
-\hypertarget{modelo-de-un-paruxe1metro}{%
-\subsection{Modelo de un parámetro}\label{modelo-de-un-paruxe1metro}}
+Al contrario de los métodos que se han estudiado de regresión y clasificación, en este caso no hay variable dependiente, y el conjunto de datos está compuesto de \(p\) variables o características y \(n\) observaciones.
 
-Vamos a considerar el ejemplo en la sección 3.3 del \autocite{Albert2009}. En este caso se quiere estimar la tasa de éxito en transplantes de corazón en un hospital de EEUU. Suponga que en ese hospital hay \(n\) transplantes y \(y\) es el número de muertes en el transcurso de 30 días del transplante. Si se sabe el número esperado de muertes \(e\) a través de un modelo auxiliar, entonces un modelo sencillo para \(y\) es asumir que:
-\[y\sim \text{Poisson}(e\lambda)\]
-donde \(\lambda\) es la tasa de mortalidad por unidad de exposición y tiempo.
+El principal objetivo del aprendizaje no-supervisado no es la predicción, sino en el \emph{análisis de datos} por sí mismo, es decir se quiere buscar patrones o relaciones interesantes dentro de la tabla de datos: por ejemplo la visualización de datos o la identificación de subgrupos en los datos. (Análisis Exploratorio de Datos)
 
-Posible solución: estimar \(\hat \lambda=y/e\), pero el estimador es malo si hay pocas muertes observadas \(y\).
+En el caso de aprendizaje no-supervisado, no es posible verificar o validar los métodos adoptados.
 
-Solución bayesiana: Considere una previa conjugada (gamma) para \(\lambda\):
-\[p(\lambda)\propto \lambda^{\alpha-1}\exp(-\beta \lambda)\]
-además, suponga que se cuenta con información externa de un grupo pequeño de hospitales con condiciones similares a la del hospital de interés, es decir se cuenta con muertes \(z_j\) y exposición \(o_j\) para diez hospitales (\(j=1,\ldots,10\)). Asuma que:
-\[z_j\sim \text{Poisson}(o_j\lambda)\]
-asignamos una previa no-informativa a \(p(\lambda)\propto \lambda^{-1}\) y se obtiene un previa propuesta para \(\lambda\):
-\[p(\lambda)\propto \lambda^{\sum_{j=1}^{10}z_j-1}\exp{\left(-\lambda\sum_{j=1}^{10} o_j\right)}\]y
-Suponga que \(\alpha:=\sum z_j=16\) y \(\beta:=\sum o_j=15174\). Si para el hospital de interés \(y_{obs}\) es el número observado de muertes y \(e\) es la exposición entonces la distribución posterior de \(\lambda\) es:
-\[g(\lambda|y_{obs})\sim \Gamma(\alpha+y_{obs},\beta+e)\]
-y la densidad predictiva de \(y\) es (Ejercicio):
-\[f(y)=\frac{f(y|\lambda)p(\lambda)}{g(\lambda|y_{obs})}\]
+Si se quiere seleccionar la mejor proyección de 2 variables de una nube de puntos \(X_1,\dots, X_p\), se debe hacer \(\binom{p}{2}\) gráficos de dispersión. Un criterio de búsqueda es seleccionar la que tenga mayor información, en el sentido de mayor variabilidad.
 
-donde \(f(y|\lambda)\sim \text{Poisson}(e\lambda)\) (verosimilitud). Supongamos dos posibles hospitales:
+Usaremos como base los libros de \autocite{HussonExploratory2017} y \autocite{James2013b}.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rgl)}
+\FunctionTok{library}\NormalTok{(car)}
+\NormalTok{knitr}\SpecialCharTok{::}\NormalTok{knit\_hooks}\SpecialCharTok{$}\FunctionTok{set}\NormalTok{(}\AttributeTok{webgl =}\NormalTok{ hook\_webgl, }\AttributeTok{rgl =}\NormalTok{ hook\_rgl)}
+\NormalTok{knitr}\SpecialCharTok{::}\NormalTok{opts\_chunk}\SpecialCharTok{$}\FunctionTok{set}\NormalTok{(}\AttributeTok{fig.pos =} \StringTok{"!h"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
+\NormalTok{x1 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\NormalTok{x2 }\OtherTok{\textless{}{-}} \FunctionTok{cos}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{))}
+\NormalTok{x3 }\OtherTok{\textless{}{-}}\NormalTok{ x1 }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{GGally}\SpecialCharTok{::}\FunctionTok{ggpairs}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(x1, x2, x3))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-284-1} \end{center}
+
+../../../../../../../../private/var/folders/4d/qj4qr8zx1n36td0hlt0p7x\_h0000gn/T/RtmprshrVR/file157ff72929bbb.png
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot3d}\NormalTok{(x1, x3, x2, }\AttributeTok{point.col =} \StringTok{"black"}\NormalTok{)}
+
+\FunctionTok{plot3d}\NormalTok{(}\FunctionTok{scale}\NormalTok{(x1), }\FunctionTok{scale}\NormalTok{(x2), }\FunctionTok{scale}\NormalTok{(x3), }\AttributeTok{point.col =} \StringTok{"black"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-286-1} \end{center}
+
+El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones eliminando la mayor cantidad de ruido posible.
+
+\hypertarget{representaciuxf3n-gruxe1fica}{%
+\section{Representación gráfica}\label{representaciuxf3n-gruxe1fica}}
+
+\begin{figure}
+\centering
+\includegraphics{manual_figures/pca.png}
+\caption{Tomado de \href{https://shapeofdata.wordpress.com/2013/04/09/principle-component-analysis/}{The shape of data}}
+\end{figure}
+
+\hypertarget{primer-componente-principal}{%
+\section{Primer componente principal}\label{primer-componente-principal}}
+
+\[ Z_1 := \phi_{11}x_1 +  \phi_{21}x_2 + \dots + \phi_{p1}x_p;\quad \text{con } \sum_{j=1}^{p}\phi_{j1} = 1\]
+tal que \(Z_1\) tenga la varianza máxima.
+
+Al vector \(\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})\) se le llama \emph{pasos o cargas}.
+
+\(X = (X_1,\dots,X_p)_{n\times p}\) es la \emph{matriz de diseño} donde cada columna tiene media 0. Se resuelve el problema
+\[\hat{\phi}_1=\underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace \]
+La restricción de minimización se puede rescribir como \(\Vert\phi_1\Vert_2^2= \sum_{j=1}^p \phi_{j1}^2 = 1\)
+
+Los \(Z_{11},\dots, Z_{n1}\) son los scores del primer componente principal.
+
+\(\phi_1\) es la dirección en el espacio característico en \(\mathbb{R}^p\) en donde los datos tengan la máxima varianza.
+
+Esta última expresión se podría rescribir de forma matricial como
+
+\[
+\hat{\phi}_1 = \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{ \phi_1^\top X^\top X \phi_1 \right\}
+\]
+
+donde \(\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})\)
+
+dadas las condiciones, esta expresión se podría simplificar un poco más en
+
+\[
+\hat{\phi}_1 = \underset{\phi_1}{\mathrm{argmax}} \left\{\frac{\phi_1^\top X^\top X \phi_1 }{\phi_1^\top \phi_1}\right\}
+\]
+
+Dado que la expresión anterio es un coeficiente de Rayleigh, se puede probar que \(\hat{\phi}_{1}\) corresponde al primer vector propio de la matriz \(X^\top X = \mathrm{Cov}(X)\) si las columnas de \(X\) son centradas.
+
+\hypertarget{segunda-componente-principal}{%
+\section{Segunda componente principal}\label{segunda-componente-principal}}
+
+\[ Z_{2}:= \phi_{12}x_1 + \phi_{22}x_2+\dots+\phi_{p2}x_p\]
+\[\underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j2} X_{ij} \right)^2 \right\rbrace\]
+Se tiene, además, que \(\forall i\), \(Z_{i2}\perp Z_1\), entonces
+\[ Z_{i2}\perp Z_1 \implies \phi_{2} \perp \phi_{1}\]
+
+Esto se logra primero construyendo una matriz nueva de diseño, restando a la matrix \(X\) original, el primer componente principal.
+
+\[
+\tilde{X}_2 = X - X\phi_1\phi_1^\top
+\]
+
+Luego a esa matriz, se le aplica el procedimiento anterior
+
+\[
+\hat{\phi}_2 = \underset{\phi_2}{\mathrm{argmax}} \left\{\frac{\phi_2^\top X^\top X \phi_2 }{\phi_2^\top \phi_2}\right\}
+\]
+
+Y nuevamente se puede probar que el componente principal corresponde al segundo vector propio de
+\(X^\top X = \mathrm{Cov}(X)\)
+
+De la misma forma se construye \(\phi_3,\phi_4,\dots, \phi_p\).
+
+Notas:
 
 \begin{itemize}
 \tightlist
 \item
-  Hospital A: Se observa una muerte con 66 personas expuestas. Cálculo de la densidad posterior y densidad predictiva con \(\lambda = \alpha/\beta\):
+  \textbf{Escalas}: la varianza de las variables depende de las unidades. El problema es que los pesos \(\phi_i\) son distintos dependiendo de las escalas. La solución es estandarizar las variables: \(\dfrac{X_i-\mu_i}{\hat\sigma_i}\).
+\item
+  \textbf{Unicidad}: los componentes principales son únicos, módulo cambio de signo.
+  \textbackslash end\{itemize\}
 \end{itemize}
+
+\hypertarget{circulo-de-correlaciones}{%
+\section{Circulo de correlaciones}\label{circulo-de-correlaciones}}
+
+Se puede construir la correlación de cada variable con respecto a cada componente principal
+
+\[
+cos(\theta_{i,j^\prime}) = \mathrm{Corr}(X_i, \mathrm{PC}_{j^\prime})
+\]
+
+El ángulo \(\theta_{i,j^\prime}\) significa la lejanía o cercanía de cierta variable con respecto a cada componente principal.
+
+Además, basados en el el círculo identidad \(\cos^2(\theta)+\sin^2(\theta)=1\), el valor de \(cos^2(\theta_{i,j^\prime})\) representa la ``intensidad'' con la cual la variable \(X_i\) es representada por el componente principal \(\mathrm{PC}_{i^\prime}\).
+
+\hypertarget{volvamos-a-nuestro-ejemplo}{%
+\section{Volvamos a nuestro ejemplo}\label{volvamos-a-nuestro-ejemplo}}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{alpha }\OtherTok{\textless{}{-}} \DecValTok{16}
-\NormalTok{beta }\OtherTok{\textless{}{-}} \DecValTok{15174}
-\NormalTok{yobs }\OtherTok{\textless{}{-}} \DecValTok{1}
-\NormalTok{ex }\OtherTok{\textless{}{-}} \DecValTok{66}
-\NormalTok{y }\OtherTok{\textless{}{-}} \DecValTok{0}\SpecialCharTok{:}\DecValTok{10}
-\NormalTok{lam }\OtherTok{\textless{}{-}}\NormalTok{ alpha}\SpecialCharTok{/}\NormalTok{beta}
-\NormalTok{fy }\OtherTok{\textless{}{-}} \FunctionTok{dpois}\NormalTok{(y, lam }\SpecialCharTok{*}\NormalTok{ ex) }\SpecialCharTok{*} \FunctionTok{dgamma}\NormalTok{(lam, }\AttributeTok{shape =}\NormalTok{ alpha,}
-    \AttributeTok{rate =}\NormalTok{ beta)}\SpecialCharTok{/}\FunctionTok{dgamma}\NormalTok{(lam, }\AttributeTok{shape =}\NormalTok{ alpha }\SpecialCharTok{+}\NormalTok{ y, }\AttributeTok{rate =}\NormalTok{ beta }\SpecialCharTok{+}
-\NormalTok{    ex)}
-
-\NormalTok{dpred }\OtherTok{\textless{}{-}} \FunctionTok{tibble}\NormalTok{(y, fy)}
-\FunctionTok{ggplot}\NormalTok{(dpred) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{(}\AttributeTok{mapping =} \FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ y, }\AttributeTok{y =}\NormalTok{ fy)) }\SpecialCharTok{+}
-    \FunctionTok{geom\_vline}\NormalTok{(}\AttributeTok{xintercept =}\NormalTok{ yobs, }\AttributeTok{col =} \DecValTok{2}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{theme\_bw}\NormalTok{()}
+\FunctionTok{library}\NormalTok{(}\StringTok{"factoextra"}\NormalTok{)}
+\FunctionTok{library}\NormalTok{(}\StringTok{"FactoMineR"}\NormalTok{)}
+\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{PCA}\NormalTok{(}\FunctionTok{scale}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(x1, x2, x3)))}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-282-1} \end{center}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p}\SpecialCharTok{$}\NormalTok{var}\SpecialCharTok{$}\NormalTok{cor}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          Dim.1       Dim.2       Dim.3
+## x1  0.92280569 0.037753401 -0.38341145
+## x2 -0.03690606 0.999225664  0.01363871
+## x3  0.92346176 0.002207375  0.38368413
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{p}\SpecialCharTok{$}\NormalTok{var}\SpecialCharTok{$}\NormalTok{cos2}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          Dim.1          Dim.2        Dim.3
+## x1 0.851570337 0.001425319299 0.1470043434
+## x2 0.001362057 0.998451928464 0.0001860145
+## x3 0.852781615 0.000004872503 0.1472135129
+\end{verbatim}
+
+\hypertarget{cuuxe1ntos-componentes-usar}{%
+\section{¿Cuántos componentes usar?}\label{cuuxe1ntos-componentes-usar}}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{fviz\_screeplot}\NormalTok{(p, }\AttributeTok{addlabels =}\NormalTok{ F, }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{50}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Variables"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"Porcentaje de varianza de Z explicada"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Diagrama"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-289-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{qplot}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, p}\SpecialCharTok{$}\NormalTok{eig[, }\DecValTok{3}\NormalTok{], }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Cantidad de componentes"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{ylab}\NormalTok{(}\StringTok{"Varianza acumulada"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{80}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-290-1} \end{center}
+
+\hypertarget{laboratorio-8}{%
+\section{Laboratorio}\label{laboratorio-8}}
+
+Vamos a usar los datos \texttt{decathlon} de \texttt{FactomineR} que representa los resultados de varios atletas en pruebas de decathlon en el 2004.
+
+El objetivo es encontrar si hay patrones entre ciudad y tipos de crimen.
+
+Exploración de datos
+Ejecute una exploración de datos
+
+\begin{verbatim}
+##       100m         Long.jump       Shot.put       High.jump          400m      
+##  Min.   :10.44   Min.   :6.61   Min.   :12.68   Min.   :1.850   Min.   :46.81  
+##  1st Qu.:10.85   1st Qu.:7.03   1st Qu.:13.88   1st Qu.:1.920   1st Qu.:48.93  
+##  Median :10.98   Median :7.30   Median :14.57   Median :1.950   Median :49.40  
+##  Mean   :11.00   Mean   :7.26   Mean   :14.48   Mean   :1.977   Mean   :49.62  
+##  3rd Qu.:11.14   3rd Qu.:7.48   3rd Qu.:14.97   3rd Qu.:2.040   3rd Qu.:50.30  
+##  Max.   :11.64   Max.   :7.96   Max.   :16.36   Max.   :2.150   Max.   :53.20  
+##   110m.hurdle        Discus        Pole.vault       Javeline    
+##  Min.   :13.97   Min.   :37.92   Min.   :4.200   Min.   :50.31  
+##  1st Qu.:14.21   1st Qu.:41.90   1st Qu.:4.500   1st Qu.:55.27  
+##  Median :14.48   Median :44.41   Median :4.800   Median :58.36  
+##  Mean   :14.61   Mean   :44.33   Mean   :4.762   Mean   :58.32  
+##  3rd Qu.:14.98   3rd Qu.:46.07   3rd Qu.:4.920   3rd Qu.:60.89  
+##  Max.   :15.67   Max.   :51.65   Max.   :5.400   Max.   :70.52  
+##      1500m            Rank           Points       Competition
+##  Min.   :262.1   Min.   : 1.00   Min.   :7313   Decastar:13  
+##  1st Qu.:271.0   1st Qu.: 6.00   1st Qu.:7802   OlympicG:28  
+##  Median :278.1   Median :11.00   Median :8021                
+##  Mean   :279.0   Mean   :12.12   Mean   :8005                
+##  3rd Qu.:285.1   3rd Qu.:18.00   3rd Qu.:8122                
+##  Max.   :317.0   Max.   :28.00   Max.   :8893
+\end{verbatim}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-293-1} \end{center}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-295-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(acp.decathlon}\SpecialCharTok{$}\NormalTok{ind}\SpecialCharTok{$}\NormalTok{coord[, }\DecValTok{1}\NormalTok{], acp.decathlon}\SpecialCharTok{$}\NormalTok{ind}\SpecialCharTok{$}\NormalTok{coord[,}
+    \DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-296-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot}\NormalTok{(acp.decathlon}\SpecialCharTok{$}\NormalTok{ind}\SpecialCharTok{$}\NormalTok{coord[, }\DecValTok{3}\NormalTok{], acp.decathlon}\SpecialCharTok{$}\NormalTok{ind}\SpecialCharTok{$}\NormalTok{coord[,}
+    \DecValTok{4}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-296-2} \end{center}
+
+\begin{verbatim}
+
+## Ejercicios 
+
+- Del libro [@James2013b] 
+    - Capítulo 10:  6, 8
+`
+
+
+<!--chapter:end:07-componentes-principales.Rmd-->
+
+
+# Cálculo Bayesiano Computacional
+
+## Repaso de Estadística Bayesiana
+
+### Modelo de un parámetro
+
+Vamos a considerar el ejemplo en la sección 3.3 del [@Albert2009]. En este caso se quiere estimar la tasa de éxito en transplantes de corazón en un hospital de EEUU. Suponga que en ese hospital hay $n$ transplantes y $y$ es el número de muertes en el transcurso de 30 días del transplante. Si se sabe el número esperado de muertes $e$ a través de un modelo auxiliar, entonces un modelo sencillo para $y$ es asumir que:
+$$y\sim \text{Poisson}(e\lambda)$$
+donde $\lambda$ es la tasa de mortalidad por unidad de exposición y tiempo.
+
+Posible solución: estimar $\hat \lambda=y/e$, pero el estimador es malo si hay pocas muertes observadas $y$.
+
+Solución bayesiana: Considere una previa conjugada (gamma) para $\lambda$:
+$$p(\lambda)\propto \lambda^{\alpha-1}\exp(-\beta \lambda)$$
+además, suponga que se cuenta con información externa de un grupo pequeño de hospitales con condiciones similares a la del hospital de interés, es decir se cuenta con muertes $z_j$ y exposición $o_j$ para diez hospitales ($j=1,\ldots,10$). Asuma que:
+$$z_j\sim \text{Poisson}(o_j\lambda)$$
+asignamos una previa no-informativa a $p(\lambda)\propto \lambda^{-1}$ y se obtiene un previa propuesta para $\lambda$:
+$$p(\lambda)\propto \lambda^{\sum_{j=1}^{10}z_j-1}\exp{\left(-\lambda\sum_{j=1}^{10} o_j\right)}$$y
+Suponga que $\alpha:=\sum z_j=16$ y $\beta:=\sum o_j=15174$. Si para el hospital de interés $y_{obs}$ es el número observado de muertes y $e$ es la exposición entonces la distribución posterior de $\lambda$ es:
+$$g(\lambda|y_{obs})\sim \Gamma(\alpha+y_{obs},\beta+e)$$
+y la densidad predictiva de $y$ es (Ejercicio):
+$$f(y)=\frac{f(y|\lambda)p(\lambda)}{g(\lambda|y_{obs})}$$
+
+donde $f(y|\lambda)\sim \text{Poisson}(e\lambda)$ (verosimilitud). Supongamos dos posibles hospitales:
+
+- Hospital A: Se observa una muerte con 66 personas expuestas. Cálculo de la densidad posterior y densidad predictiva con $\lambda = \alpha/\beta$:
+
+
+```r
+alpha <- 16
+beta <- 15174
+yobs <- 1
+ex <- 66
+y <- 0:10
+lam <- alpha/beta
+fy <- dpois(y, lam * ex) * dgamma(lam, shape = alpha,
+    rate = beta)/dgamma(lam, shape = alpha + y, rate = beta +
+    ex)
+
+dpred <- tibble(y, fy)
+ggplot(dpred) + geom_line(mapping = aes(x = y, y = fy)) +
+    geom_vline(xintercept = yobs, col = 2) + theme_bw()
+\end{verbatim}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-298-1} \end{center}
 
 por lo tanto una muerte no es un valor inusual en el comportamiento de muertes bajo transplantes. La comparación de las densidades posterior y previa de lambda:
 
@@ -8634,7 +8900,7 @@ por lo tanto una muerte no es un valor inusual en el comportamiento de muertes b
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-283-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-299-1} \end{center}
 
 \begin{itemize}
 \tightlist
@@ -8660,7 +8926,7 @@ por lo tanto una muerte no es un valor inusual en el comportamiento de muertes b
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-284-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-300-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -8675,7 +8941,7 @@ por lo tanto una muerte no es un valor inusual en el comportamiento de muertes b
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-285-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-301-1} \end{center}
 
 \hypertarget{modelo-de-muxe1s-de-un-paruxe1metro}{%
 \subsection{Modelo de más de un parámetro}\label{modelo-de-muxe1s-de-un-paruxe1metro}}
@@ -8726,7 +8992,7 @@ y graficamos un diagrama de contorno de la distribución posterior de \(\mu,\sig
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-287-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-303-1} \end{center}
 
 y les agregamos una muestra aleatoria de tamaño 1000 de la distribución posterior conjunta, generada a través de las distribuciones marginales:
 
@@ -8742,7 +9008,7 @@ y les agregamos una muestra aleatoria de tamaño 1000 de la distribución poster
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-288-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-304-1} \end{center}
 
 Si estamos interesados en hacer inferencia de \(\mu\), podemos calcular un intervalo de credibilidad al 95\%, usando la muestra marginal:
 
@@ -8850,7 +9116,7 @@ donde \(0<\eta<1\), \(K>0\) y \(B(\cdot,\cdot)\) es la función beta. La funció
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-293-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-309-1} \end{center}
 
 y note la gran asimetría en el comportamiento de la densidad conjunta, especialmente en la dirección de la variable \(K\). Por el dominio de las variables \(K\) y \(\eta\), entonces se transforman según:
 \[\theta_1=\text{logit}(\eta)=\log\left(\frac{\eta}{1-\eta}\right),\quad  \theta_2=\log(K)\]
@@ -8865,7 +9131,7 @@ y usando el teorema de cambio de variable en densidades:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-294-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-310-1} \end{center}
 
 Definitivamente esta es una distribución posterior a la que no se le puede aplicar las técnicas usuales para hacer inferencia (caso no conjugado). Se va a considerar dos formas de realizar inferencia:
 
@@ -8923,7 +9189,7 @@ donde el punto (-7,6) se puede inferir a través del gráfico de contorno anteri
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-296-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-312-1} \end{center}
 
 También podemos hacer inferencia de los parámetros:
 
@@ -9089,7 +9355,7 @@ y dibujamos el gráfico de contorno con la muestra obtenida:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-304-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-320-1} \end{center}
 
 \hypertarget{muestreo-por-importancia}{%
 \section{Muestreo por importancia}\label{muestreo-por-importancia}}
@@ -9126,7 +9392,7 @@ Ahora implementamos el algoritmo en el ejemplo (buena parte es una repetición d
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-305-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-321-1} \end{center}
 
 y calculamos el valor esperado de \(\log K\) usando los pesos obtenidos del paso anterior:
 
@@ -9406,7 +9672,7 @@ También podemos graficar la densidad posterior junto con la muestra generada po
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-317-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-333-1} \end{center}
 
 Los traceplots del MCMC los graficamos a través del paquete \emph{coda} junto con el paquete \emph{bayesplot}:
 
@@ -9420,7 +9686,7 @@ Los traceplots del MCMC los graficamos a través del paquete \emph{coda} junto c
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-318-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-334-1} \end{center}
 
 Los gráficos de autocorrelación empíricos se pueden generar con:
 
@@ -9430,7 +9696,7 @@ Los gráficos de autocorrelación empíricos se pueden generar con:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-319-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-335-1} \end{center}
 
 y funciones de densidad estimadas con intervalos de predicción al 95\% para algunos de los parámetros:
 
@@ -9440,7 +9706,7 @@ y funciones de densidad estimadas con intervalos de predicción al 95\% para alg
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-320-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-336-1} \end{center}
 
 \hypertarget{datos-con-outliers}{%
 \subsection{Datos con outliers}\label{datos-con-outliers}}
@@ -9538,7 +9804,7 @@ y usamos lo anterior como insumo para generar tres escenarios de MCMC:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-324-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-340-1} \end{center}
 
 \begin{itemize}
 \tightlist
@@ -9574,7 +9840,7 @@ y usamos lo anterior como insumo para generar tres escenarios de MCMC:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-325-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-341-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -9602,7 +9868,7 @@ y usamos lo anterior como insumo para generar tres escenarios de MCMC:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-326-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-342-1} \end{center}
 
 Comparemos el estimador bayesiano e intervalos de predicción al 95\% para la media \(\mu\):
 
@@ -9735,286 +10001,6 @@ y los gráficos de autocorrelación respectivos:
     Capítulo 5: 1, 2, 4, 5.
   \item
     Capítulo 6: 3, 5, 6, 10.
-  \end{itemize}
-\end{itemize}
-
-\hypertarget{anuxe1lisis-en-componentes-principales}{%
-\chapter{Análisis en componentes principales}\label{anuxe1lisis-en-componentes-principales}}
-
-\hypertarget{aprendizaje-no-supervisado}{%
-\section{Aprendizaje no-supervisado}\label{aprendizaje-no-supervisado}}
-
-Al contrario de los métodos que se han estudiado de regresión y clasificación, en este caso no hay variable dependiente, y el conjunto de datos está compuesto de \(p\) variables o características y \(n\) observaciones.
-
-El principal objetivo del aprendizaje no-supervisado no es la predicción, sino en el \emph{análisis de datos} por sí mismo, es decir se quiere buscar patrones o relaciones interesantes dentro de la tabla de datos: por ejemplo la visualización de datos o la identificación de subgrupos en los datos. (Análisis Exploratorio de Datos)
-
-En el caso de aprendizaje no-supervisado, no es posible verificar o validar los métodos adoptados.
-
-Si se quiere seleccionar la mejor proyección de 2 variables de una nube de puntos \(X_1,\dots, X_p\), se debe hacer \(\binom{p}{2}\) gráficos de dispersión. Un criterio de búsqueda es seleccionar la que tenga mayor información, en el sentido de mayor variabilidad.
-
-Usaremos como base los libros de \autocite{HussonExploratory2017} y \autocite{James2013b}.
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(rgl)}
-\FunctionTok{library}\NormalTok{(car)}
-\NormalTok{knitr}\SpecialCharTok{::}\NormalTok{knit\_hooks}\SpecialCharTok{$}\FunctionTok{set}\NormalTok{(}\AttributeTok{webgl =}\NormalTok{ hook\_webgl, }\AttributeTok{rgl =}\NormalTok{ hook\_rgl)}
-\NormalTok{knitr}\SpecialCharTok{::}\NormalTok{opts\_chunk}\SpecialCharTok{$}\FunctionTok{set}\NormalTok{(}\AttributeTok{fig.pos =} \StringTok{"!h"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{set.seed}\NormalTok{(}\DecValTok{123}\NormalTok{)}
-\NormalTok{x1 }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{)}
-\NormalTok{x2 }\OtherTok{\textless{}{-}} \FunctionTok{cos}\NormalTok{(}\FunctionTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{))}
-\NormalTok{x3 }\OtherTok{\textless{}{-}}\NormalTok{ x1 }\SpecialCharTok{+} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1000}\NormalTok{, }\DecValTok{0}\NormalTok{, }\DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{GGally}\SpecialCharTok{::}\FunctionTok{ggpairs}\NormalTok{(}\FunctionTok{data.frame}\NormalTok{(x1, x2, x3))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-334-1} \end{center}
-
-../../../../../../../../private/var/folders/4d/qj4qr8zx1n36td0hlt0p7x\_h0000gn/T/RtmpTR6HCg/filecca43f1e78ab.png
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{plot3d}\NormalTok{(x1, x3, x2, }\AttributeTok{point.col =} \StringTok{"black"}\NormalTok{)}
-
-\FunctionTok{plot3d}\NormalTok{(}\FunctionTok{scale}\NormalTok{(x1), }\FunctionTok{scale}\NormalTok{(x2), }\FunctionTok{scale}\NormalTok{(x3), }\AttributeTok{point.col =} \StringTok{"black"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-336-1} \end{center}
-
-El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones eliminando la mayor cantidad de ruido posible.
-
-\hypertarget{representaciuxf3n-gruxe1fica}{%
-\section{Representación gráfica}\label{representaciuxf3n-gruxe1fica}}
-
-\begin{figure}
-\centering
-\includegraphics{manual_figures/pca.png}
-\caption{Tomado de \href{https://shapeofdata.wordpress.com/2013/04/09/principle-component-analysis/}{The shape of data}}
-\end{figure}
-
-\hypertarget{primer-componente-principal}{%
-\section{Primer componente principal}\label{primer-componente-principal}}
-
-\[ Z_1 := \phi_{11}x_1 +  \phi_{21}x_2 + \dots + \phi_{p1}x_p;\quad \text{con } \sum_{j=1}^{p}\phi_{j1} = 1\]
-tal que \(Z_1\) tenga la varianza máxima.
-
-Al vector \(\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})\) se le llama \emph{pasos o cargas}.
-
-\(X = (X_1,\dots,X_p)_{n\times p}\) es la \emph{matriz de diseño} donde cada columna tiene media 0. Se resuelve el problema
-\[\hat{\phi}_1=\underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace \]
-La restricción de minimización se puede rescribir como \(\Vert\phi_1\Vert_2^2= \sum_{j=1}^p \phi_{j1}^2 = 1\)
-
-Los \(Z_{11},\dots, Z_{n1}\) son los scores del primer componente principal.
-
-\(\phi_1\) es la dirección en el espacio característico en \(\mathbb{R}^p\) en donde los datos tengan la máxima varianza.
-
-Esta última expresión se podría rescribir de forma matricial como
-
-\[
-\hat{\phi}_1 = \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{ \phi_1^\top X^\top X \phi_1 \right\}
-\]
-
-donde \(\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})\)
-
-dadas las condiciones, esta expresión se podría simplificar un poco más en
-
-\[
-\hat{\phi}_1 = \underset{\phi_1}{\mathrm{argmax}} \left\{\frac{\phi_1^\top X^\top X \phi_1 }{\phi_1^\top \phi_1}\right\}
-\]
-
-Dado que la expresión anterio es un coeficiente de Rayleigh, se puede probar que \(\hat{\phi}_{1}\) corresponde al primer vector propio de la matriz \(X^\top X = \mathrm{Cov}(X)\) si las columnas de \(X\) son centradas.
-
-\hypertarget{segunda-componente-principal}{%
-\section{Segunda componente principal}\label{segunda-componente-principal}}
-
-\[ Z_{2}:= \phi_{12}x_1 + \phi_{22}x_2+\dots+\phi_{p2}x_p\]
-\[\underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j2} X_{ij} \right)^2 \right\rbrace\]
-Se tiene, además, que \(\forall i\), \(Z_{i2}\perp Z_1\), entonces
-\[ Z_{i2}\perp Z_1 \implies \phi_{2} \perp \phi_{1}\]
-
-Esto se logra primero construyendo una matriz nueva de diseño, restando a la matrix \(X\) original, el primer componente principal.
-
-\[
-\tilde{X}_2 = X - X\phi_1\phi_1^\top
-\]
-
-Luego a esa matriz, se le aplica el procedimiento anterior
-
-\[
-\hat{\phi}_2 = \underset{\phi_2}{\mathrm{argmax}} \left\{\frac{\phi_2^\top X^\top X \phi_2 }{\phi_2^\top \phi_2}\right\}
-\]
-
-Y nuevamente se puede probar que el componente principal corresponde al segundo vector propio de
-\(X^\top X = \mathrm{Cov}(X)\)
-
-De la misma forma se construye \(\phi_3,\phi_4,\dots, \phi_p\).
-
-Notas:
-
-\begin{itemize}
-\tightlist
-\item
-  \textbf{Escalas}: la varianza de las variables depende de las unidades. El problema es que los pesos \(\phi_i\) son distintos dependiendo de las escalas. La solución es estandarizar las variables: \(\dfrac{X_i-\mu_i}{\hat\sigma_i}\).
-\item
-  \textbf{Unicidad}: los componentes principales son únicos, módulo cambio de signo.
-  \textbackslash end\{itemize\}
-\end{itemize}
-
-\hypertarget{circulo-de-correlaciones}{%
-\section{Circulo de correlaciones}\label{circulo-de-correlaciones}}
-
-Se puede construir la correlación de cada variable con respecto a cada componente principal
-
-\[
-cos(\theta_{i,j^\prime}) = \mathrm{Corr}(X_i, \mathrm{PC}_{j^\prime})
-\]
-
-El ángulo \(\theta_{i,j^\prime}\) significa la lejanía o cercanía de cierta variable con respecto a cada componente principal.
-
-Además, basados en el el círculo identidad \(\cos^2(\theta)+\sin^2(\theta)=1\), el valor de \(cos^2(\theta_{i,j^\prime})\) representa la ``intensidad'' con la cual la variable \(X_i\) es representada por el componente principal \(\mathrm{PC}_{i^\prime}\).
-
-\hypertarget{volvamos-a-nuestro-ejemplo}{%
-\section{Volvamos a nuestro ejemplo}\label{volvamos-a-nuestro-ejemplo}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(}\StringTok{"factoextra"}\NormalTok{)}
-\FunctionTok{library}\NormalTok{(}\StringTok{"FactoMineR"}\NormalTok{)}
-\NormalTok{p }\OtherTok{\textless{}{-}} \FunctionTok{PCA}\NormalTok{(}\FunctionTok{scale}\NormalTok{(}\FunctionTok{cbind}\NormalTok{(x1, x2, x3)))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{p}\SpecialCharTok{$}\NormalTok{var}\SpecialCharTok{$}\NormalTok{cor}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##          Dim.1       Dim.2       Dim.3
-## x1  0.92280569 0.037753401 -0.38341145
-## x2 -0.03690606 0.999225664  0.01363871
-## x3  0.92346176 0.002207375  0.38368413
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{p}\SpecialCharTok{$}\NormalTok{var}\SpecialCharTok{$}\NormalTok{cos2}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-##          Dim.1          Dim.2        Dim.3
-## x1 0.851570337 0.001425319299 0.1470043434
-## x2 0.001362057 0.998451928464 0.0001860145
-## x3 0.852781615 0.000004872503 0.1472135129
-\end{verbatim}
-
-\hypertarget{cuuxe1ntos-componentes-usar}{%
-\section{¿Cuántos componentes usar?}\label{cuuxe1ntos-componentes-usar}}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{fviz\_screeplot}\NormalTok{(p, }\AttributeTok{addlabels =}\NormalTok{ F, }\AttributeTok{ylim =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{50}\NormalTok{)) }\SpecialCharTok{+}
-    \FunctionTok{xlab}\NormalTok{(}\StringTok{"Variables"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{ylab}\NormalTok{(}\StringTok{"Porcentaje de varianza de Z explicada"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Diagrama"}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-339-1} \end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{qplot}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{3}\NormalTok{, p}\SpecialCharTok{$}\NormalTok{eig[, }\DecValTok{3}\NormalTok{], }\AttributeTok{geom =} \StringTok{"point"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{xlab}\NormalTok{(}\StringTok{"Cantidad de componentes"}\NormalTok{) }\SpecialCharTok{+}
-    \FunctionTok{ylab}\NormalTok{(}\StringTok{"Varianza acumulada"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
-    \FunctionTok{geom\_hline}\NormalTok{(}\AttributeTok{yintercept =} \DecValTok{80}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{scale\_x\_continuous}\NormalTok{(}\AttributeTok{breaks =} \DecValTok{1}\SpecialCharTok{:}\DecValTok{10}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-340-1} \end{center}
-
-\hypertarget{laboratorio-8}{%
-\section{Laboratorio}\label{laboratorio-8}}
-
-Vamos a usar los datos \texttt{decathlon} de \texttt{FactomineR} que representa los resultados de varios atletas en pruebas de decathlon en el 2004.
-
-El objetivo es encontrar si hay patrones entre ciudad y tipos de crimen.
-
-Exploración de datos
-Ejecute una exploración de datos
-
-\begin{verbatim}
-##       100m         Long.jump       Shot.put       High.jump          400m      
-##  Min.   :10.44   Min.   :6.61   Min.   :12.68   Min.   :1.850   Min.   :46.81  
-##  1st Qu.:10.85   1st Qu.:7.03   1st Qu.:13.88   1st Qu.:1.920   1st Qu.:48.93  
-##  Median :10.98   Median :7.30   Median :14.57   Median :1.950   Median :49.40  
-##  Mean   :11.00   Mean   :7.26   Mean   :14.48   Mean   :1.977   Mean   :49.62  
-##  3rd Qu.:11.14   3rd Qu.:7.48   3rd Qu.:14.97   3rd Qu.:2.040   3rd Qu.:50.30  
-##  Max.   :11.64   Max.   :7.96   Max.   :16.36   Max.   :2.150   Max.   :53.20  
-##   110m.hurdle        Discus        Pole.vault       Javeline    
-##  Min.   :13.97   Min.   :37.92   Min.   :4.200   Min.   :50.31  
-##  1st Qu.:14.21   1st Qu.:41.90   1st Qu.:4.500   1st Qu.:55.27  
-##  Median :14.48   Median :44.41   Median :4.800   Median :58.36  
-##  Mean   :14.61   Mean   :44.33   Mean   :4.762   Mean   :58.32  
-##  3rd Qu.:14.98   3rd Qu.:46.07   3rd Qu.:4.920   3rd Qu.:60.89  
-##  Max.   :15.67   Max.   :51.65   Max.   :5.400   Max.   :70.52  
-##      1500m            Rank           Points       Competition
-##  Min.   :262.1   Min.   : 1.00   Min.   :7313   Decastar:13  
-##  1st Qu.:271.0   1st Qu.: 6.00   1st Qu.:7802   OlympicG:28  
-##  Median :278.1   Median :11.00   Median :8021                
-##  Mean   :279.0   Mean   :12.12   Mean   :8005                
-##  3rd Qu.:285.1   3rd Qu.:18.00   3rd Qu.:8122                
-##  Max.   :317.0   Max.   :28.00   Max.   :8893
-\end{verbatim}
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-343-1} \end{center}
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-345-1} \end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(acp.decathlon}\SpecialCharTok{$}\NormalTok{ind}\SpecialCharTok{$}\NormalTok{coord[, }\DecValTok{1}\NormalTok{], acp.decathlon}\SpecialCharTok{$}\NormalTok{ind}\SpecialCharTok{$}\NormalTok{coord[,}
-    \DecValTok{2}\NormalTok{])}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-346-1} \end{center}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{plot}\NormalTok{(acp.decathlon}\SpecialCharTok{$}\NormalTok{ind}\SpecialCharTok{$}\NormalTok{coord[, }\DecValTok{3}\NormalTok{], acp.decathlon}\SpecialCharTok{$}\NormalTok{ind}\SpecialCharTok{$}\NormalTok{coord[,}
-    \DecValTok{4}\NormalTok{])}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-346-2} \end{center}
-
-```
-
-\hypertarget{ejercicios-7}{%
-\section{Ejercicios}\label{ejercicios-7}}
-
-\begin{itemize}
-\tightlist
-\item
-  Del libro \autocite{James2013b}
-
-  \begin{itemize}
-  \tightlist
-  \item
-    Capítulo 10: 6, 8
-    `
   \end{itemize}
 \end{itemize}
 
