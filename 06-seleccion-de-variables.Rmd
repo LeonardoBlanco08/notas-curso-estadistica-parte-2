@@ -725,7 +725,7 @@ ridge.pred <- predict(ridge.mod, s = bestlam, newx = x[test, ])
 mean((ridge.pred - y.test)^2)
 
 out <- glmnet(x, y, alpha = 0)
-predict(out, type = "coefficients", s = bestlam, exact = FALSE)
+predict(out, type = "coefficients", s = bestlam*1.10, exact = FALSE)
 ```
 
 ### Regresión Lasso
@@ -767,7 +767,7 @@ mean((lasso.pred - y.test) ^ 2)
 ```{r}
 out <- glmnet(x, y, alpha = 1, lambda = grid)
 lasso.coef <-
-  predict(out, type = "coefficients", s = bestlam)
+  predict(out, type = "coefficients", s = bestlam*1.10)
 lasso.coef
 ```
 

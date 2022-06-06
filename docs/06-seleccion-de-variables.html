@@ -51,11 +51,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/rglWebGL-binding-0.108.3/rglWebGL.js"></script>
-<link href="libs/rglwidgetClass-0.108.3/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-0.108.3/rglClass.min.js"></script>
-<script src="libs/CanvasMatrix4-0.108.3/CanvasMatrix.min.js"></script>
 
 
 <style type="text/css">
@@ -305,14 +300,16 @@ div.csl-indent {
 <li class="chapter" data-level="7.3.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal"><i class="fa fa-check"></i><b>7.3.1</b> Análisis discriminante lineal</a></li>
 <li class="chapter" data-level="7.3.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático"><i class="fa fa-check"></i><b>7.3.2</b> Análisis discriminante cuadrático</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>7.4</b> Laboratorio</a>
+<li class="chapter" data-level="7.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#estimación-de-la-curva-roc"><i class="fa fa-check"></i><b>7.4</b> Estimación de la Curva ROC</a></li>
+<li class="chapter" data-level="7.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>7.5</b> Laboratorio</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>7.4.1</b> Clasificador logístico</a></li>
-<li class="chapter" data-level="7.4.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal-1"><i class="fa fa-check"></i><b>7.4.2</b> Análisis Discriminante Lineal</a></li>
-<li class="chapter" data-level="7.4.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático-1"><i class="fa fa-check"></i><b>7.4.3</b> Análisis Discriminante Cuadrático</a></li>
-<li class="chapter" data-level="7.4.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>7.4.4</b> K vecinos más cercanos</a></li>
+<li class="chapter" data-level="7.5.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>7.5.1</b> Clasificador logístico</a></li>
+<li class="chapter" data-level="7.5.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal-1"><i class="fa fa-check"></i><b>7.5.2</b> Análisis Discriminante Lineal</a></li>
+<li class="chapter" data-level="7.5.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático-1"><i class="fa fa-check"></i><b>7.5.3</b> Análisis Discriminante Cuadrático</a></li>
+<li class="chapter" data-level="7.5.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>7.5.4</b> K vecinos más cercanos</a></li>
+<li class="chapter" data-level="7.5.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#máquinas-de-soporte-vectorial"><i class="fa fa-check"></i><b>7.5.5</b> Máquinas de soporte vectorial</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-5"><i class="fa fa-check"></i><b>7.5</b> Ejercicios</a></li>
+<li class="chapter" data-level="7.6" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-5"><i class="fa fa-check"></i><b>7.6</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html"><i class="fa fa-check"></i><b>8</b> Cálculo Bayesiano Computacional</a>
 <ul>
@@ -695,12 +692,12 @@ Otra formulación para los métodos vistos son:</p>
 <h4><span class="header-section-number">6.4.1.1</span> Leave-one-out Cross Validation (LOOCV)<a href="06-seleccion-de-variables.html#leave-one-out-cross-validation-loocv" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Es posible comparar distintos ajustes de modelos usando cross-validation.</p>
 <p>Carguemos la base de datos <code>Auto</code> de <code>ISLR</code>.</p>
-<div class="sourceCode" id="cb305"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb305-1"><a href="06-seleccion-de-variables.html#cb305-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
-<span id="cb305-2"><a href="06-seleccion-de-variables.html#cb305-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb305-3"><a href="06-seleccion-de-variables.html#cb305-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Auto&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="06-seleccion-de-variables.html#cb306-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(Auto[, <span class="sc">-</span><span class="dv">9</span>])</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-203-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb307"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb307-1"><a href="06-seleccion-de-variables.html#cb307-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Auto)</span></code></pre></div>
+<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="06-seleccion-de-variables.html#cb334-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
+<span id="cb334-2"><a href="06-seleccion-de-variables.html#cb334-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb334-3"><a href="06-seleccion-de-variables.html#cb334-3" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;Auto&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="06-seleccion-de-variables.html#cb335-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(Auto[, <span class="sc">-</span><span class="dv">9</span>])</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-202-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb336"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb336-1"><a href="06-seleccion-de-variables.html#cb336-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Auto)</span></code></pre></div>
 <pre><code>##       mpg          cylinders      displacement     horsepower        weight    
 ##  Min.   : 9.00   Min.   :3.000   Min.   : 68.0   Min.   : 46.0   Min.   :1613  
 ##  1st Qu.:17.00   1st Qu.:4.000   1st Qu.:105.0   1st Qu.: 75.0   1st Qu.:2225  
@@ -718,8 +715,8 @@ Otra formulación para los métodos vistos son:</p>
 ##  Max.   :24.80   Max.   :82.00   Max.   :3.000   chevrolet chevette:  4  
 ##                                                  (Other)           :365</code></pre>
 <p>Y ajustamos un modelo entre las millas por galon contra los caballos de fuerza de ciertos vehículos.</p>
-<div class="sourceCode" id="cb309"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb309-1"><a href="06-seleccion-de-variables.html#cb309-1" aria-hidden="true" tabindex="-1"></a>glm.fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(mpg <span class="sc">~</span> horsepower, <span class="at">data =</span> Auto)</span>
-<span id="cb309-2"><a href="06-seleccion-de-variables.html#cb309-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.fit)</span></code></pre></div>
+<div class="sourceCode" id="cb338"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb338-1"><a href="06-seleccion-de-variables.html#cb338-1" aria-hidden="true" tabindex="-1"></a>glm.fit <span class="ot">&lt;-</span> <span class="fu">glm</span>(mpg <span class="sc">~</span> horsepower, <span class="at">data =</span> Auto)</span>
+<span id="cb338-2"><a href="06-seleccion-de-variables.html#cb338-2" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(glm.fit)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = mpg ~ horsepower, data = Auto)
@@ -749,46 +746,46 @@ Otra formulación para los métodos vistos son:</p>
        adjustment is designed to compensate for the bias introduced
        by not using leave-one-out cross-validation.</code></pre>
 <p>Este valor se puede visualizar de la siguiente manera:</p>
-<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="06-seleccion-de-variables.html#cb312-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
-<span id="cb312-2"><a href="06-seleccion-de-variables.html#cb312-2" aria-hidden="true" tabindex="-1"></a>cv.err <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(Auto, glm.fit)</span>
-<span id="cb312-3"><a href="06-seleccion-de-variables.html#cb312-3" aria-hidden="true" tabindex="-1"></a>cv.err<span class="sc">$</span>delta</span></code></pre></div>
+<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="06-seleccion-de-variables.html#cb341-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(boot)</span>
+<span id="cb341-2"><a href="06-seleccion-de-variables.html#cb341-2" aria-hidden="true" tabindex="-1"></a>cv.err <span class="ot">&lt;-</span> <span class="fu">cv.glm</span>(Auto, glm.fit)</span>
+<span id="cb341-3"><a href="06-seleccion-de-variables.html#cb341-3" aria-hidden="true" tabindex="-1"></a>cv.err<span class="sc">$</span>delta</span></code></pre></div>
 <pre><code>## [1] 24.23151 24.23114</code></pre>
 <p>En particular se puede usar un <code>for</code> para aplicar este mismo procedimiento a múltiples modelos. En el siguiente caso trataremos de ajustar los modelos <span class="math inline">\(\beta_1 x\)</span>, <span class="math inline">\(\beta_1 x + \beta_2 x^2\)</span>, <span class="math inline">\(\beta_1 x + \beta_2 x^2 +\beta_3 x^{3}\)</span>, etc</p>
-<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="06-seleccion-de-variables.html#cb314-1" aria-hidden="true" tabindex="-1"></a>cv.error.LOOCV <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">5</span>)</span>
-<span id="cb314-2"><a href="06-seleccion-de-variables.html#cb314-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
-<span id="cb314-3"><a href="06-seleccion-de-variables.html#cb314-3" aria-hidden="true" tabindex="-1"></a>    glm.fit <span class="ot">=</span> <span class="fu">glm</span>(mpg <span class="sc">~</span> <span class="fu">poly</span>(horsepower, i), <span class="at">data =</span> Auto)</span>
-<span id="cb314-4"><a href="06-seleccion-de-variables.html#cb314-4" aria-hidden="true" tabindex="-1"></a>    cv.error.LOOCV[i] <span class="ot">=</span> <span class="fu">cv.glm</span>(Auto, glm.fit)<span class="sc">$</span>delta[<span class="dv">1</span>]</span>
-<span id="cb314-5"><a href="06-seleccion-de-variables.html#cb314-5" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb314-6"><a href="06-seleccion-de-variables.html#cb314-6" aria-hidden="true" tabindex="-1"></a>cv.error.LOOCV</span></code></pre></div>
+<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="06-seleccion-de-variables.html#cb343-1" aria-hidden="true" tabindex="-1"></a>cv.error.LOOCV <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">5</span>)</span>
+<span id="cb343-2"><a href="06-seleccion-de-variables.html#cb343-2" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span>) {</span>
+<span id="cb343-3"><a href="06-seleccion-de-variables.html#cb343-3" aria-hidden="true" tabindex="-1"></a>    glm.fit <span class="ot">=</span> <span class="fu">glm</span>(mpg <span class="sc">~</span> <span class="fu">poly</span>(horsepower, i), <span class="at">data =</span> Auto)</span>
+<span id="cb343-4"><a href="06-seleccion-de-variables.html#cb343-4" aria-hidden="true" tabindex="-1"></a>    cv.error.LOOCV[i] <span class="ot">=</span> <span class="fu">cv.glm</span>(Auto, glm.fit)<span class="sc">$</span>delta[<span class="dv">1</span>]</span>
+<span id="cb343-5"><a href="06-seleccion-de-variables.html#cb343-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb343-6"><a href="06-seleccion-de-variables.html#cb343-6" aria-hidden="true" tabindex="-1"></a>cv.error.LOOCV</span></code></pre></div>
 <pre><code>## [1] 24.23151 19.24821 19.33498 19.42443 19.03321</code></pre>
-<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="06-seleccion-de-variables.html#cb316-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv.error.LOOCV, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-207-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="06-seleccion-de-variables.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv.error.LOOCV, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-206-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="k-fold-cross-validation" class="section level4 hasAnchor" number="6.4.1.2">
 <h4><span class="header-section-number">6.4.1.2</span> K-Fold Cross Validation<a href="06-seleccion-de-variables.html#k-fold-cross-validation" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Este procedimiento se puede repetir con los el K-fold.</p>
-<div class="sourceCode" id="cb317"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb317-1"><a href="06-seleccion-de-variables.html#cb317-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">17</span>)</span>
-<span id="cb317-2"><a href="06-seleccion-de-variables.html#cb317-2" aria-hidden="true" tabindex="-1"></a>cv.error<span class="fl">.10</span> <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
-<span id="cb317-3"><a href="06-seleccion-de-variables.html#cb317-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
-<span id="cb317-4"><a href="06-seleccion-de-variables.html#cb317-4" aria-hidden="true" tabindex="-1"></a>    glm.fit <span class="ot">=</span> <span class="fu">glm</span>(mpg <span class="sc">~</span> <span class="fu">poly</span>(horsepower, i), <span class="at">data =</span> Auto)</span>
-<span id="cb317-5"><a href="06-seleccion-de-variables.html#cb317-5" aria-hidden="true" tabindex="-1"></a>    cv.error<span class="fl">.10</span>[i] <span class="ot">=</span> <span class="fu">cv.glm</span>(Auto, glm.fit, <span class="at">K =</span> <span class="dv">10</span>)<span class="sc">$</span>delta[<span class="dv">1</span>]</span>
-<span id="cb317-6"><a href="06-seleccion-de-variables.html#cb317-6" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb317-7"><a href="06-seleccion-de-variables.html#cb317-7" aria-hidden="true" tabindex="-1"></a>cv.error<span class="fl">.10</span></span></code></pre></div>
+<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="06-seleccion-de-variables.html#cb346-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">17</span>)</span>
+<span id="cb346-2"><a href="06-seleccion-de-variables.html#cb346-2" aria-hidden="true" tabindex="-1"></a>cv.error<span class="fl">.10</span> <span class="ot">=</span> <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">10</span>)</span>
+<span id="cb346-3"><a href="06-seleccion-de-variables.html#cb346-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">10</span>) {</span>
+<span id="cb346-4"><a href="06-seleccion-de-variables.html#cb346-4" aria-hidden="true" tabindex="-1"></a>    glm.fit <span class="ot">=</span> <span class="fu">glm</span>(mpg <span class="sc">~</span> <span class="fu">poly</span>(horsepower, i), <span class="at">data =</span> Auto)</span>
+<span id="cb346-5"><a href="06-seleccion-de-variables.html#cb346-5" aria-hidden="true" tabindex="-1"></a>    cv.error<span class="fl">.10</span>[i] <span class="ot">=</span> <span class="fu">cv.glm</span>(Auto, glm.fit, <span class="at">K =</span> <span class="dv">10</span>)<span class="sc">$</span>delta[<span class="dv">1</span>]</span>
+<span id="cb346-6"><a href="06-seleccion-de-variables.html#cb346-6" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb346-7"><a href="06-seleccion-de-variables.html#cb346-7" aria-hidden="true" tabindex="-1"></a>cv.error<span class="fl">.10</span></span></code></pre></div>
 <pre><code>##  [1] 24.27207 19.26909 19.34805 19.29496 19.03198 18.89781 19.12061 19.14666
 ##  [9] 18.87013 20.95520</code></pre>
-<div class="sourceCode" id="cb319"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb319-1"><a href="06-seleccion-de-variables.html#cb319-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv.error.LOOCV, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
-<span id="cb319-2"><a href="06-seleccion-de-variables.html#cb319-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(cv.error<span class="fl">.10</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-208-1.svg" width="100%" style="display: block; margin: auto;" />
+<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="06-seleccion-de-variables.html#cb348-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv.error.LOOCV, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span>
+<span id="cb348-2"><a href="06-seleccion-de-variables.html#cb348-2" aria-hidden="true" tabindex="-1"></a><span class="fu">lines</span>(cv.error<span class="fl">.10</span>, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-207-1.svg" width="100%" style="display: block; margin: auto;" />
 ### Selección de variables</p>
 <p>Cargue los datos <code>Hitters</code> del paquete <code>ISLR</code> que representan el salario de varios jugadores de beisbol y sus estadística de juego (número de bateos, home runs, carreras, etc.).</p>
 </div>
 <div id="análisis-exploratorio" class="section level4 hasAnchor" number="6.4.1.3">
 <h4><span class="header-section-number">6.4.1.3</span> Análisis exploratorio<a href="06-seleccion-de-variables.html#análisis-exploratorio" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Con esta información, haga un análisis exploratorio de los datos usando <code>ggpairs</code>.</p>
-<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="06-seleccion-de-variables.html#cb320-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
-<span id="cb320-2"><a href="06-seleccion-de-variables.html#cb320-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(Hitters)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-209-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb321"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb321-1"><a href="06-seleccion-de-variables.html#cb321-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Hitters)</span></code></pre></div>
+<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="06-seleccion-de-variables.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(GGally)</span>
+<span id="cb349-2"><a href="06-seleccion-de-variables.html#cb349-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggpairs</span>(Hitters)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-208-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="06-seleccion-de-variables.html#cb350-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(Hitters)</span></code></pre></div>
 <pre><code>##      AtBat            Hits         HmRun            Runs       
 ##  Min.   : 16.0   Min.   :  1   Min.   : 0.00   Min.   :  0.00  
 ##  1st Qu.:255.2   1st Qu.: 64   1st Qu.: 4.00   1st Qu.: 30.25  
@@ -830,17 +827,17 @@ Otra formulación para los métodos vistos son:</p>
 ##  Max.   :32.00   Max.   :2460.0            
 ##                  NA&#39;s   :59</code></pre>
 <p>Para limpiar la base de datos de <code>NA</code> usamos <code>dplyr</code>.</p>
-<div class="sourceCode" id="cb323"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb323-1"><a href="06-seleccion-de-variables.html#cb323-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
-<span id="cb323-2"><a href="06-seleccion-de-variables.html#cb323-2" aria-hidden="true" tabindex="-1"></a>Hitters <span class="ot">&lt;-</span> Hitters <span class="sc">%&gt;%</span></span>
-<span id="cb323-3"><a href="06-seleccion-de-variables.html#cb323-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="06-seleccion-de-variables.html#cb352-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span>
+<span id="cb352-2"><a href="06-seleccion-de-variables.html#cb352-2" aria-hidden="true" tabindex="-1"></a>Hitters <span class="ot">&lt;-</span> Hitters <span class="sc">%&gt;%</span></span>
+<span id="cb352-3"><a href="06-seleccion-de-variables.html#cb352-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>()</span></code></pre></div>
 <p>Cargue la librería</p>
-<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="06-seleccion-de-variables.html#cb324-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaps)</span></code></pre></div>
+<div class="sourceCode" id="cb353"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb353-1"><a href="06-seleccion-de-variables.html#cb353-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaps)</span></code></pre></div>
 <p>y busque la ayuda de la función <code>regsubsets</code>. Use esta función para ajustar todo los posibles modelos de la forma <code>Salary ~ .</code>.</p>
 <p>Puede guardar estos modelos en ciertas variables (e.g. <code>regfit.full</code>) y usar la función <code>plot</code>.</p>
-<div class="sourceCode" id="cb325"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb325-1"><a href="06-seleccion-de-variables.html#cb325-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaps)</span>
-<span id="cb325-2"><a href="06-seleccion-de-variables.html#cb325-2" aria-hidden="true" tabindex="-1"></a>regfit.full <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(Salary <span class="sc">~</span> ., Hitters, <span class="at">nvmax =</span> <span class="dv">19</span>)</span>
-<span id="cb325-3"><a href="06-seleccion-de-variables.html#cb325-3" aria-hidden="true" tabindex="-1"></a>regfit.full.summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(regfit.full)</span>
-<span id="cb325-4"><a href="06-seleccion-de-variables.html#cb325-4" aria-hidden="true" tabindex="-1"></a>regfit.full.summary</span></code></pre></div>
+<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="06-seleccion-de-variables.html#cb354-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(leaps)</span>
+<span id="cb354-2"><a href="06-seleccion-de-variables.html#cb354-2" aria-hidden="true" tabindex="-1"></a>regfit.full <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(Salary <span class="sc">~</span> ., Hitters, <span class="at">nvmax =</span> <span class="dv">19</span>)</span>
+<span id="cb354-3"><a href="06-seleccion-de-variables.html#cb354-3" aria-hidden="true" tabindex="-1"></a>regfit.full.summary <span class="ot">&lt;-</span> <span class="fu">summary</span>(regfit.full)</span>
+<span id="cb354-4"><a href="06-seleccion-de-variables.html#cb354-4" aria-hidden="true" tabindex="-1"></a>regfit.full.summary</span></code></pre></div>
 <pre><code>## Subset selection object
 ## Call: regsubsets.formula(Salary ~ ., Hitters, nvmax = 19)
 ## 19 Variables  (and intercept)
@@ -906,7 +903,7 @@ Otra formulación para los métodos vistos son:</p>
 ## 17  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;       
 ## 18  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;       
 ## 19  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;</code></pre>
-<div class="sourceCode" id="cb327"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb327-1"><a href="06-seleccion-de-variables.html#cb327-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(regfit.full.summary)</span></code></pre></div>
+<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="06-seleccion-de-variables.html#cb356-1" aria-hidden="true" tabindex="-1"></a><span class="fu">str</span>(regfit.full.summary)</span></code></pre></div>
 <pre><code>## List of 8
 ##  $ which : logi [1:19, 1:20] TRUE TRUE TRUE TRUE TRUE TRUE ...
 ##   ..- attr(*, &quot;dimnames&quot;)=List of 2
@@ -954,28 +951,28 @@ Otra formulación para los métodos vistos son:</p>
 ##   ..$ call     : language regsubsets.formula(Salary ~ ., Hitters, nvmax = 19)
 ##   ..- attr(*, &quot;class&quot;)= chr &quot;regsubsets&quot;
 ##  - attr(*, &quot;class&quot;)= chr &quot;summary.regsubsets&quot;</code></pre>
-<div class="sourceCode" id="cb329"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb329-1"><a href="06-seleccion-de-variables.html#cb329-1" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">which.max</span>(regfit.full.summary<span class="sc">$</span>adjr2)</span>
-<span id="cb329-2"><a href="06-seleccion-de-variables.html#cb329-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.full.summary<span class="sc">$</span>adjr2)</span>
-<span id="cb329-3"><a href="06-seleccion-de-variables.html#cb329-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(idx, regfit.full.summary<span class="sc">$</span>adjr2[idx], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb329-4"><a href="06-seleccion-de-variables.html#cb329-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="06-seleccion-de-variables.html#cb358-1" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">which.max</span>(regfit.full.summary<span class="sc">$</span>adjr2)</span>
+<span id="cb358-2"><a href="06-seleccion-de-variables.html#cb358-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.full.summary<span class="sc">$</span>adjr2)</span>
+<span id="cb358-3"><a href="06-seleccion-de-variables.html#cb358-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(idx, regfit.full.summary<span class="sc">$</span>adjr2[idx], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb358-4"><a href="06-seleccion-de-variables.html#cb358-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">20</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-213-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb359"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb359-1"><a href="06-seleccion-de-variables.html#cb359-1" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">which.min</span>(regfit.full.summary<span class="sc">$</span>cp)</span>
+<span id="cb359-2"><a href="06-seleccion-de-variables.html#cb359-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.full.summary<span class="sc">$</span>cp)</span>
+<span id="cb359-3"><a href="06-seleccion-de-variables.html#cb359-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(idx, regfit.full.summary<span class="sc">$</span>cp[idx], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb359-4"><a href="06-seleccion-de-variables.html#cb359-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">20</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-214-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="06-seleccion-de-variables.html#cb330-1" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">which.min</span>(regfit.full.summary<span class="sc">$</span>cp)</span>
-<span id="cb330-2"><a href="06-seleccion-de-variables.html#cb330-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.full.summary<span class="sc">$</span>cp)</span>
-<span id="cb330-3"><a href="06-seleccion-de-variables.html#cb330-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(idx, regfit.full.summary<span class="sc">$</span>cp[idx], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb330-4"><a href="06-seleccion-de-variables.html#cb330-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="06-seleccion-de-variables.html#cb360-1" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">which.min</span>(regfit.full.summary<span class="sc">$</span>bic)</span>
+<span id="cb360-2"><a href="06-seleccion-de-variables.html#cb360-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.full.summary<span class="sc">$</span>bic)</span>
+<span id="cb360-3"><a href="06-seleccion-de-variables.html#cb360-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(idx, regfit.full.summary<span class="sc">$</span>bic[idx], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
+<span id="cb360-4"><a href="06-seleccion-de-variables.html#cb360-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">20</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-215-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb331"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb331-1"><a href="06-seleccion-de-variables.html#cb331-1" aria-hidden="true" tabindex="-1"></a>idx <span class="ot">&lt;-</span> <span class="fu">which.min</span>(regfit.full.summary<span class="sc">$</span>bic)</span>
-<span id="cb331-2"><a href="06-seleccion-de-variables.html#cb331-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.full.summary<span class="sc">$</span>bic)</span>
-<span id="cb331-3"><a href="06-seleccion-de-variables.html#cb331-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(idx, regfit.full.summary<span class="sc">$</span>bic[idx], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>,</span>
-<span id="cb331-4"><a href="06-seleccion-de-variables.html#cb331-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">20</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb361"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb361-1"><a href="06-seleccion-de-variables.html#cb361-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.full, <span class="at">scale =</span> <span class="st">&quot;bic&quot;</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-216-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="06-seleccion-de-variables.html#cb332-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.full, <span class="at">scale =</span> <span class="st">&quot;bic&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-217-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb333"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb333-1"><a href="06-seleccion-de-variables.html#cb333-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.full, <span class="at">scale =</span> <span class="st">&quot;Cp&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-217-2.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb334"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb334-1"><a href="06-seleccion-de-variables.html#cb334-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.full, <span class="at">scale =</span> <span class="st">&quot;adjr2&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-217-3.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb335"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb335-1"><a href="06-seleccion-de-variables.html#cb335-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(regfit.full, <span class="dv">10</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="06-seleccion-de-variables.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.full, <span class="at">scale =</span> <span class="st">&quot;Cp&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-216-2.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="06-seleccion-de-variables.html#cb363-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.full, <span class="at">scale =</span> <span class="st">&quot;adjr2&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-216-3.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="06-seleccion-de-variables.html#cb364-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(regfit.full, <span class="dv">10</span>)</span></code></pre></div>
 <pre><code>##  (Intercept)        AtBat         Hits        Walks       CAtBat        CRuns 
 ##  162.5354420   -2.1686501    6.9180175    5.7732246   -0.1300798    1.4082490 
 ##         CRBI       CWalks    DivisionW      PutOuts      Assists 
@@ -985,9 +982,9 @@ Otra formulación para los métodos vistos son:</p>
 <h4><span class="header-section-number">6.4.1.4</span> Regresión forward y backward<a href="06-seleccion-de-variables.html#regresión-forward-y-backward" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>La función <code>regsubsets</code> tiene un paramétro <code>method</code>. Usen los valores <code>forward</code> y <code>backward</code> y comparen los resultados.</p>
 <p>Puede guardar estos modelos en ciertas variables (e.g. <code>regfit.fwd</code> y <code>regfit.bwd</code>) y usar la función <code>plot</code>.</p>
-<div class="sourceCode" id="cb337"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb337-1"><a href="06-seleccion-de-variables.html#cb337-1" aria-hidden="true" tabindex="-1"></a>regfit.fwd <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(Salary <span class="sc">~</span> ., <span class="at">data =</span> Hitters,</span>
-<span id="cb337-2"><a href="06-seleccion-de-variables.html#cb337-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">nvmax =</span> <span class="dv">19</span>, <span class="at">method =</span> <span class="st">&quot;forward&quot;</span>)</span>
-<span id="cb337-3"><a href="06-seleccion-de-variables.html#cb337-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regfit.fwd)</span></code></pre></div>
+<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="06-seleccion-de-variables.html#cb366-1" aria-hidden="true" tabindex="-1"></a>regfit.fwd <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(Salary <span class="sc">~</span> ., <span class="at">data =</span> Hitters,</span>
+<span id="cb366-2"><a href="06-seleccion-de-variables.html#cb366-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">nvmax =</span> <span class="dv">19</span>, <span class="at">method =</span> <span class="st">&quot;forward&quot;</span>)</span>
+<span id="cb366-3"><a href="06-seleccion-de-variables.html#cb366-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regfit.fwd)</span></code></pre></div>
 <pre><code>## Subset selection object
 ## Call: regsubsets.formula(Salary ~ ., data = Hitters, nvmax = 19, method = &quot;forward&quot;)
 ## 19 Variables  (and intercept)
@@ -1053,9 +1050,9 @@ Otra formulación para los métodos vistos son:</p>
 ## 17  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;       
 ## 18  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;       
 ## 19  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;</code></pre>
-<div class="sourceCode" id="cb339"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb339-1"><a href="06-seleccion-de-variables.html#cb339-1" aria-hidden="true" tabindex="-1"></a>regfit.bwd <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(Salary <span class="sc">~</span> ., <span class="at">data =</span> Hitters,</span>
-<span id="cb339-2"><a href="06-seleccion-de-variables.html#cb339-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">nvmax =</span> <span class="dv">19</span>, <span class="at">method =</span> <span class="st">&quot;backward&quot;</span>)</span>
-<span id="cb339-3"><a href="06-seleccion-de-variables.html#cb339-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regfit.bwd)</span></code></pre></div>
+<div class="sourceCode" id="cb368"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb368-1"><a href="06-seleccion-de-variables.html#cb368-1" aria-hidden="true" tabindex="-1"></a>regfit.bwd <span class="ot">&lt;-</span> <span class="fu">regsubsets</span>(Salary <span class="sc">~</span> ., <span class="at">data =</span> Hitters,</span>
+<span id="cb368-2"><a href="06-seleccion-de-variables.html#cb368-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">nvmax =</span> <span class="dv">19</span>, <span class="at">method =</span> <span class="st">&quot;backward&quot;</span>)</span>
+<span id="cb368-3"><a href="06-seleccion-de-variables.html#cb368-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(regfit.bwd)</span></code></pre></div>
 <pre><code>## Subset selection object
 ## Call: regsubsets.formula(Salary ~ ., data = Hitters, nvmax = 19, method = &quot;backward&quot;)
 ## 19 Variables  (and intercept)
@@ -1121,28 +1118,28 @@ Otra formulación para los métodos vistos son:</p>
 ## 17  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;       
 ## 18  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;       
 ## 19  ( 1 ) &quot;*&quot;    &quot;*&quot;     &quot;*&quot;       &quot;*&quot;     &quot;*&quot;     &quot;*&quot;    &quot;*&quot;</code></pre>
-<div class="sourceCode" id="cb341"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb341-1"><a href="06-seleccion-de-variables.html#cb341-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb341-2"><a href="06-seleccion-de-variables.html#cb341-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.fwd, <span class="at">scale =</span> <span class="st">&quot;bic&quot;</span>)</span>
-<span id="cb341-3"><a href="06-seleccion-de-variables.html#cb341-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.bwd, <span class="at">scale =</span> <span class="st">&quot;bic&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="06-seleccion-de-variables.html#cb370-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb370-2"><a href="06-seleccion-de-variables.html#cb370-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.fwd, <span class="at">scale =</span> <span class="st">&quot;bic&quot;</span>)</span>
+<span id="cb370-3"><a href="06-seleccion-de-variables.html#cb370-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.bwd, <span class="at">scale =</span> <span class="st">&quot;bic&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-219-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb371"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb371-1"><a href="06-seleccion-de-variables.html#cb371-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb371-2"><a href="06-seleccion-de-variables.html#cb371-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.fwd, <span class="at">scale =</span> <span class="st">&quot;Cp&quot;</span>)</span>
+<span id="cb371-3"><a href="06-seleccion-de-variables.html#cb371-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.bwd, <span class="at">scale =</span> <span class="st">&quot;Cp&quot;</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-220-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb342"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb342-1"><a href="06-seleccion-de-variables.html#cb342-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb342-2"><a href="06-seleccion-de-variables.html#cb342-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.fwd, <span class="at">scale =</span> <span class="st">&quot;Cp&quot;</span>)</span>
-<span id="cb342-3"><a href="06-seleccion-de-variables.html#cb342-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.bwd, <span class="at">scale =</span> <span class="st">&quot;Cp&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="06-seleccion-de-variables.html#cb372-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
+<span id="cb372-2"><a href="06-seleccion-de-variables.html#cb372-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.fwd, <span class="at">scale =</span> <span class="st">&quot;adjr2&quot;</span>)</span>
+<span id="cb372-3"><a href="06-seleccion-de-variables.html#cb372-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.bwd, <span class="at">scale =</span> <span class="st">&quot;adjr2&quot;</span>)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-221-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb343"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb343-1"><a href="06-seleccion-de-variables.html#cb343-1" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>))</span>
-<span id="cb343-2"><a href="06-seleccion-de-variables.html#cb343-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.fwd, <span class="at">scale =</span> <span class="st">&quot;adjr2&quot;</span>)</span>
-<span id="cb343-3"><a href="06-seleccion-de-variables.html#cb343-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(regfit.bwd, <span class="at">scale =</span> <span class="st">&quot;adjr2&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-222-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="regresión-ridge-1" class="section level4 hasAnchor" number="6.4.1.5">
 <h4><span class="header-section-number">6.4.1.5</span> Regresión Ridge<a href="06-seleccion-de-variables.html#regresión-ridge-1" class="anchor-section" aria-label="Anchor link to header"></a></h4>
-<div class="sourceCode" id="cb344"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb344-1"><a href="06-seleccion-de-variables.html#cb344-1" aria-hidden="true" tabindex="-1"></a>mm <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(Salary <span class="sc">~</span> ., Hitters)[, <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb344-2"><a href="06-seleccion-de-variables.html#cb344-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> mm[, <span class="sc">-</span><span class="dv">1</span>]</span>
-<span id="cb344-3"><a href="06-seleccion-de-variables.html#cb344-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mm[, <span class="dv">1</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb373"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb373-1"><a href="06-seleccion-de-variables.html#cb373-1" aria-hidden="true" tabindex="-1"></a>mm <span class="ot">&lt;-</span> <span class="fu">model.matrix</span>(Salary <span class="sc">~</span> ., Hitters)[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb373-2"><a href="06-seleccion-de-variables.html#cb373-2" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> mm[, <span class="sc">-</span><span class="dv">1</span>]</span>
+<span id="cb373-3"><a href="06-seleccion-de-variables.html#cb373-3" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> mm[, <span class="dv">1</span>]</span></code></pre></div>
 <p>Usando el paquete <code>glmnet</code> y la función con el mismo nombre, ejecute el siguiente comando</p>
-<div class="sourceCode" id="cb345"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb345-1"><a href="06-seleccion-de-variables.html#cb345-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
-<span id="cb345-2"><a href="06-seleccion-de-variables.html#cb345-2" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">10</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="at">length =</span> <span class="dv">100</span>)</span>
-<span id="cb345-3"><a href="06-seleccion-de-variables.html#cb345-3" aria-hidden="true" tabindex="-1"></a>ridge.mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> grid)</span></code></pre></div>
+<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="06-seleccion-de-variables.html#cb374-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb374-2"><a href="06-seleccion-de-variables.html#cb374-2" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">10</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="at">length =</span> <span class="dv">100</span>)</span>
+<span id="cb374-3"><a href="06-seleccion-de-variables.html#cb374-3" aria-hidden="true" tabindex="-1"></a>ridge.mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> grid)</span></code></pre></div>
 <p>El factor <code>lambda</code> representa el <span class="math inline">\(\lambda\)</span> de la fórmula</p>
 <p><span class="math display">\[ \hat{\beta} = \underset{\beta}{\mathrm{argmin}} \left\{RSS + \lambda \Vert \beta \Vert_2^2\right\}.\]</span></p>
 <p>Si no se incluye el paramétro lambda del modelo, R construye una secuencia de <span class="math inline">\(\lambda&#39;\)</span>s estimados por validación cruzada.</p>
@@ -1151,33 +1148,33 @@ Otra formulación para los métodos vistos son:</p>
 <li><p>Construya un modelo usando todos los datos (sin separar muestra de entrenamiento y prueba).</p></li>
 <li><p>Construya el siguiente modelo</p></li>
 </ol>
-<div class="sourceCode" id="cb346"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb346-1"><a href="06-seleccion-de-variables.html#cb346-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb346-2"><a href="06-seleccion-de-variables.html#cb346-2" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x), <span class="fu">nrow</span>(x)<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb346-3"><a href="06-seleccion-de-variables.html#cb346-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="sc">-</span>train</span>
-<span id="cb346-4"><a href="06-seleccion-de-variables.html#cb346-4" aria-hidden="true" tabindex="-1"></a>y.test <span class="ot">&lt;-</span> y[test]</span>
-<span id="cb346-5"><a href="06-seleccion-de-variables.html#cb346-5" aria-hidden="true" tabindex="-1"></a>ridge.mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x[train, ], y[train], <span class="at">alpha =</span> <span class="dv">0</span>,</span>
-<span id="cb346-6"><a href="06-seleccion-de-variables.html#cb346-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lambda =</span> grid)</span>
-<span id="cb346-7"><a href="06-seleccion-de-variables.html#cb346-7" aria-hidden="true" tabindex="-1"></a>ridge.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ridge.mod, <span class="at">s =</span> <span class="dv">4</span>, <span class="at">newx =</span> x[test,</span>
-<span id="cb346-8"><a href="06-seleccion-de-variables.html#cb346-8" aria-hidden="true" tabindex="-1"></a>    ])</span>
-<span id="cb346-9"><a href="06-seleccion-de-variables.html#cb346-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb346-10"><a href="06-seleccion-de-variables.html#cb346-10" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE</span></span>
-<span id="cb346-11"><a href="06-seleccion-de-variables.html#cb346-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((ridge.pred <span class="sc">-</span> y.test)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb375"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb375-1"><a href="06-seleccion-de-variables.html#cb375-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb375-2"><a href="06-seleccion-de-variables.html#cb375-2" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x), <span class="fu">nrow</span>(x)<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb375-3"><a href="06-seleccion-de-variables.html#cb375-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="sc">-</span>train</span>
+<span id="cb375-4"><a href="06-seleccion-de-variables.html#cb375-4" aria-hidden="true" tabindex="-1"></a>y.test <span class="ot">&lt;-</span> y[test]</span>
+<span id="cb375-5"><a href="06-seleccion-de-variables.html#cb375-5" aria-hidden="true" tabindex="-1"></a>ridge.mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x[train, ], y[train], <span class="at">alpha =</span> <span class="dv">0</span>,</span>
+<span id="cb375-6"><a href="06-seleccion-de-variables.html#cb375-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lambda =</span> grid)</span>
+<span id="cb375-7"><a href="06-seleccion-de-variables.html#cb375-7" aria-hidden="true" tabindex="-1"></a>ridge.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ridge.mod, <span class="at">s =</span> <span class="dv">4</span>, <span class="at">newx =</span> x[test,</span>
+<span id="cb375-8"><a href="06-seleccion-de-variables.html#cb375-8" aria-hidden="true" tabindex="-1"></a>    ])</span>
+<span id="cb375-9"><a href="06-seleccion-de-variables.html#cb375-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb375-10"><a href="06-seleccion-de-variables.html#cb375-10" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE</span></span>
+<span id="cb375-11"><a href="06-seleccion-de-variables.html#cb375-11" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((ridge.pred <span class="sc">-</span> y.test)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 1518.103</code></pre>
 <p>¿Qué ocurre si se cambia el paramétro <span class="math inline">\(s\)</span> de <code>predict</code> por un <code>10e10</code> (i.e. <span class="math inline">\(10^{10}\)</span>). Comente los resultados. ¿Y qué ocurre si <span class="math inline">\(s=0\)</span>?</p>
 <ol start="3" style="list-style-type: decimal">
 <li>Finalmente, ejecute el siguiente código</li>
 </ol>
-<div class="sourceCode" id="cb348"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb348-1"><a href="06-seleccion-de-variables.html#cb348-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb348-2"><a href="06-seleccion-de-variables.html#cb348-2" aria-hidden="true" tabindex="-1"></a>cv.out <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[train, ], y[train], <span class="at">alpha =</span> <span class="dv">0</span>)</span>
-<span id="cb348-3"><a href="06-seleccion-de-variables.html#cb348-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv.out)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-226-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb377"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb377-1"><a href="06-seleccion-de-variables.html#cb377-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb377-2"><a href="06-seleccion-de-variables.html#cb377-2" aria-hidden="true" tabindex="-1"></a>cv.out <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[train, ], y[train], <span class="at">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb377-3"><a href="06-seleccion-de-variables.html#cb377-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv.out)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-225-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>Busque la ayuda de <code>cv.glmnet</code> y deduzca qué significa el gráfico.</p>
-<div class="sourceCode" id="cb349"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb349-1"><a href="06-seleccion-de-variables.html#cb349-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
-<span id="cb349-2"><a href="06-seleccion-de-variables.html#cb349-2" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">10</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="at">length =</span> <span class="dv">100</span>)</span>
-<span id="cb349-3"><a href="06-seleccion-de-variables.html#cb349-3" aria-hidden="true" tabindex="-1"></a>ridge.mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> grid)</span></code></pre></div>
-<div class="sourceCode" id="cb350"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb350-1"><a href="06-seleccion-de-variables.html#cb350-1" aria-hidden="true" tabindex="-1"></a>ridge.mod<span class="sc">$</span>lambda[<span class="dv">50</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="06-seleccion-de-variables.html#cb378-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(glmnet)</span>
+<span id="cb378-2"><a href="06-seleccion-de-variables.html#cb378-2" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> <span class="dv">10</span><span class="sc">^</span><span class="fu">seq</span>(<span class="dv">10</span>, <span class="sc">-</span><span class="dv">2</span>, <span class="at">length =</span> <span class="dv">100</span>)</span>
+<span id="cb378-3"><a href="06-seleccion-de-variables.html#cb378-3" aria-hidden="true" tabindex="-1"></a>ridge.mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>, <span class="at">lambda =</span> grid)</span></code></pre></div>
+<div class="sourceCode" id="cb379"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb379-1"><a href="06-seleccion-de-variables.html#cb379-1" aria-hidden="true" tabindex="-1"></a>ridge.mod<span class="sc">$</span>lambda[<span class="dv">50</span>]</span></code></pre></div>
 <pre><code>## [1] 11497.57</code></pre>
-<div class="sourceCode" id="cb352"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb352-1"><a href="06-seleccion-de-variables.html#cb352-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ridge.mod)[, <span class="dv">50</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="06-seleccion-de-variables.html#cb381-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ridge.mod)[, <span class="dv">50</span>]</span></code></pre></div>
 <pre><code>##    (Intercept)           Hits          HmRun           Runs            RBI 
 ## 386.3561073385   0.0383991148   0.1116115168   0.0630835744   0.0546958579 
 ##          Walks          Years         CAtBat          CHits         CHmRun 
@@ -1186,11 +1183,11 @@ Otra formulación para los métodos vistos son:</p>
 ##   0.0012039190   0.0011381860   0.0007896665  -0.5373933469  -0.1929369010 
 ##        PutOuts        Assists         Errors     NewLeagueN 
 ##   0.0019622481   0.0042908304   0.0891376637  -0.3078975567</code></pre>
-<div class="sourceCode" id="cb354"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb354-1"><a href="06-seleccion-de-variables.html#cb354-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">coef</span>(ridge.mod)[<span class="sc">-</span><span class="dv">1</span>, <span class="dv">50</span>]<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="06-seleccion-de-variables.html#cb383-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">coef</span>(ridge.mod)[<span class="sc">-</span><span class="dv">1</span>, <span class="dv">50</span>]<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] 0.6725377</code></pre>
-<div class="sourceCode" id="cb356"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb356-1"><a href="06-seleccion-de-variables.html#cb356-1" aria-hidden="true" tabindex="-1"></a>ridge.mod<span class="sc">$</span>lambda[<span class="dv">60</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="06-seleccion-de-variables.html#cb385-1" aria-hidden="true" tabindex="-1"></a>ridge.mod<span class="sc">$</span>lambda[<span class="dv">60</span>]</span></code></pre></div>
 <pre><code>## [1] 705.4802</code></pre>
-<div class="sourceCode" id="cb358"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb358-1"><a href="06-seleccion-de-variables.html#cb358-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ridge.mod)[, <span class="dv">60</span>]</span></code></pre></div>
+<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="06-seleccion-de-variables.html#cb387-1" aria-hidden="true" tabindex="-1"></a><span class="fu">coef</span>(ridge.mod)[, <span class="dv">60</span>]</span></code></pre></div>
 <pre><code>##    (Intercept)           Hits          HmRun           Runs            RBI 
 ## 253.3802418595   0.3853491695   0.8799062459   0.6027727547   0.4892399967 
 ##          Walks          Years         CAtBat          CHits         CHmRun 
@@ -1199,12 +1196,12 @@ Otra formulación para los métodos vistos son:</p>
 ##   0.0067934652   0.0052739646  -0.0001061786  -4.1471399456  -0.9052165274 
 ##        PutOuts        Assists         Errors     NewLeagueN 
 ##   0.0165938946   0.0457914679   0.8721362717  -1.5376591907</code></pre>
-<div class="sourceCode" id="cb360"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb360-1"><a href="06-seleccion-de-variables.html#cb360-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">coef</span>(ridge.mod)[<span class="sc">-</span><span class="dv">1</span>, <span class="dv">60</span>]<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="06-seleccion-de-variables.html#cb389-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sqrt</span>(<span class="fu">sum</span>(<span class="fu">coef</span>(ridge.mod)[<span class="sc">-</span><span class="dv">1</span>, <span class="dv">60</span>]<span class="sc">^</span><span class="dv">2</span>))</span></code></pre></div>
 <pre><code>## [1] 4.791781</code></pre>
-<div class="sourceCode" id="cb362"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb362-1"><a href="06-seleccion-de-variables.html#cb362-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ridge.mod)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-230-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb363"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb363-1"><a href="06-seleccion-de-variables.html#cb363-1" aria-hidden="true" tabindex="-1"></a>ridge.mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb364"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb364-1"><a href="06-seleccion-de-variables.html#cb364-1" aria-hidden="true" tabindex="-1"></a>ridge.mod<span class="sc">$</span>lambda</span></code></pre></div>
+<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="06-seleccion-de-variables.html#cb391-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ridge.mod)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-229-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb392"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb392-1"><a href="06-seleccion-de-variables.html#cb392-1" aria-hidden="true" tabindex="-1"></a>ridge.mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="06-seleccion-de-variables.html#cb393-1" aria-hidden="true" tabindex="-1"></a>ridge.mod<span class="sc">$</span>lambda</span></code></pre></div>
 <pre><code>##   [1] 141729.38335 129138.53556 117666.22398 107213.08094  97688.56632
 ##   [6]  89010.18333  81102.76397  73897.81795  67332.93947  61351.26671
 ##  [11]  55900.98926  50934.89945  46409.98336  42287.04835  38530.38352
@@ -1225,9 +1222,9 @@ Otra formulación para los métodos vistos son:</p>
 ##  [86]     52.13345     47.50206     43.28211     39.43704     35.93356
 ##  [91]     32.74133     29.83268     27.18242     24.76761     22.56733
 ##  [96]     20.56251     18.73579     17.07135     15.55478     14.17294</code></pre>
-<div class="sourceCode" id="cb366"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb366-1"><a href="06-seleccion-de-variables.html#cb366-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ridge.mod)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-231-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb367"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb367-1"><a href="06-seleccion-de-variables.html#cb367-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(ridge.mod, <span class="at">s =</span> <span class="dv">50</span>, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="06-seleccion-de-variables.html#cb395-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(ridge.mod)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-230-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb396"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb396-1"><a href="06-seleccion-de-variables.html#cb396-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(ridge.mod, <span class="at">s =</span> <span class="dv">50</span>, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>)</span></code></pre></div>
 <pre><code>## 19 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                        s1
 ## (Intercept) 94.5913466484
@@ -1249,26 +1246,26 @@ Otra formulación para los métodos vistos son:</p>
 ## Assists      0.1035681348
 ## Errors       1.1324147256
 ## NewLeagueN   4.8784587235</code></pre>
-<div class="sourceCode" id="cb369"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb369-1"><a href="06-seleccion-de-variables.html#cb369-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb369-2"><a href="06-seleccion-de-variables.html#cb369-2" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x), <span class="fu">nrow</span>(x)<span class="sc">/</span><span class="dv">2</span>)</span>
-<span id="cb369-3"><a href="06-seleccion-de-variables.html#cb369-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="sc">-</span>train</span>
-<span id="cb369-4"><a href="06-seleccion-de-variables.html#cb369-4" aria-hidden="true" tabindex="-1"></a>y.test <span class="ot">&lt;-</span> y[test]</span>
-<span id="cb369-5"><a href="06-seleccion-de-variables.html#cb369-5" aria-hidden="true" tabindex="-1"></a>ridge.mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x[train, ], y[train], <span class="at">alpha =</span> <span class="dv">0</span>,</span>
-<span id="cb369-6"><a href="06-seleccion-de-variables.html#cb369-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lambda =</span> grid)</span>
-<span id="cb369-7"><a href="06-seleccion-de-variables.html#cb369-7" aria-hidden="true" tabindex="-1"></a>ridge.pred <span class="ot">&lt;-</span> <span class="fu">predict.glmnet</span>(ridge.mod, <span class="at">s =</span> <span class="dv">4</span>, <span class="at">newx =</span> x[test,</span>
-<span id="cb369-8"><a href="06-seleccion-de-variables.html#cb369-8" aria-hidden="true" tabindex="-1"></a>    ], <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb370"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb370-1"><a href="06-seleccion-de-variables.html#cb370-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE</span></span>
-<span id="cb370-2"><a href="06-seleccion-de-variables.html#cb370-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((ridge.pred <span class="sc">-</span> y.test)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb398"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb398-1"><a href="06-seleccion-de-variables.html#cb398-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb398-2"><a href="06-seleccion-de-variables.html#cb398-2" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> <span class="fu">sample</span>(<span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(x), <span class="fu">nrow</span>(x)<span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb398-3"><a href="06-seleccion-de-variables.html#cb398-3" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> <span class="sc">-</span>train</span>
+<span id="cb398-4"><a href="06-seleccion-de-variables.html#cb398-4" aria-hidden="true" tabindex="-1"></a>y.test <span class="ot">&lt;-</span> y[test]</span>
+<span id="cb398-5"><a href="06-seleccion-de-variables.html#cb398-5" aria-hidden="true" tabindex="-1"></a>ridge.mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x[train, ], y[train], <span class="at">alpha =</span> <span class="dv">0</span>,</span>
+<span id="cb398-6"><a href="06-seleccion-de-variables.html#cb398-6" aria-hidden="true" tabindex="-1"></a>    <span class="at">lambda =</span> grid)</span>
+<span id="cb398-7"><a href="06-seleccion-de-variables.html#cb398-7" aria-hidden="true" tabindex="-1"></a>ridge.pred <span class="ot">&lt;-</span> <span class="fu">predict.glmnet</span>(ridge.mod, <span class="at">s =</span> <span class="dv">4</span>, <span class="at">newx =</span> x[test,</span>
+<span id="cb398-8"><a href="06-seleccion-de-variables.html#cb398-8" aria-hidden="true" tabindex="-1"></a>    ], <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="06-seleccion-de-variables.html#cb399-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE</span></span>
+<span id="cb399-2"><a href="06-seleccion-de-variables.html#cb399-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((ridge.pred <span class="sc">-</span> y.test)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 1518.103</code></pre>
-<div class="sourceCode" id="cb372"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb372-1"><a href="06-seleccion-de-variables.html#cb372-1" aria-hidden="true" tabindex="-1"></a>ridge.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ridge.mod, <span class="at">s =</span> <span class="dv">10000000000</span>, <span class="at">newx =</span> x[test,</span>
-<span id="cb372-2"><a href="06-seleccion-de-variables.html#cb372-2" aria-hidden="true" tabindex="-1"></a>    ], <span class="at">exact =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb372-3"><a href="06-seleccion-de-variables.html#cb372-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((ridge.pred <span class="sc">-</span> y.test)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="06-seleccion-de-variables.html#cb401-1" aria-hidden="true" tabindex="-1"></a>ridge.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ridge.mod, <span class="at">s =</span> <span class="dv">10000000000</span>, <span class="at">newx =</span> x[test,</span>
+<span id="cb401-2"><a href="06-seleccion-de-variables.html#cb401-2" aria-hidden="true" tabindex="-1"></a>    ], <span class="at">exact =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb401-3"><a href="06-seleccion-de-variables.html#cb401-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((ridge.pred <span class="sc">-</span> y.test)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 21582.12</code></pre>
-<div class="sourceCode" id="cb374"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb374-1"><a href="06-seleccion-de-variables.html#cb374-1" aria-hidden="true" tabindex="-1"></a>ridge.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ridge.mod, <span class="at">s =</span> <span class="dv">0</span>, <span class="at">newx =</span> x[test,</span>
-<span id="cb374-2"><a href="06-seleccion-de-variables.html#cb374-2" aria-hidden="true" tabindex="-1"></a>    ], <span class="at">exact =</span> <span class="cn">FALSE</span>)</span>
-<span id="cb374-3"><a href="06-seleccion-de-variables.html#cb374-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((ridge.pred <span class="sc">-</span> y.test)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="06-seleccion-de-variables.html#cb403-1" aria-hidden="true" tabindex="-1"></a>ridge.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ridge.mod, <span class="at">s =</span> <span class="dv">0</span>, <span class="at">newx =</span> x[test,</span>
+<span id="cb403-2"><a href="06-seleccion-de-variables.html#cb403-2" aria-hidden="true" tabindex="-1"></a>    ], <span class="at">exact =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb403-3"><a href="06-seleccion-de-variables.html#cb403-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((ridge.pred <span class="sc">-</span> y.test)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 1806.907</code></pre>
-<div class="sourceCode" id="cb376"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb376-1"><a href="06-seleccion-de-variables.html#cb376-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">subset =</span> train)</span></code></pre></div>
+<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="06-seleccion-de-variables.html#cb405-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(y <span class="sc">~</span> x, <span class="at">subset =</span> train)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## lm(formula = y ~ x, subset = train)
@@ -1282,7 +1279,7 @@ Otra formulación para los métodos vistos son:</p>
 ##    -0.13227     -9.74183      1.03070      0.00804      0.04660      0.65019  
 ## xNewLeagueN  
 ##     5.53145</code></pre>
-<div class="sourceCode" id="cb378"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb378-1"><a href="06-seleccion-de-variables.html#cb378-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(ridge.mod, <span class="at">s =</span> <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb407"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb407-1"><a href="06-seleccion-de-variables.html#cb407-1" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(ridge.mod, <span class="at">s =</span> <span class="dv">0</span>, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 19 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                       s1
 ## (Intercept) 56.400164521
@@ -1304,43 +1301,44 @@ Otra formulación para los métodos vistos son:</p>
 ## Assists      0.050791034
 ## Errors       0.647146833
 ## NewLeagueN   4.525279141</code></pre>
-<div class="sourceCode" id="cb380"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb380-1"><a href="06-seleccion-de-variables.html#cb380-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb380-2"><a href="06-seleccion-de-variables.html#cb380-2" aria-hidden="true" tabindex="-1"></a>cv.out <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[train, ], y[train], <span class="at">alpha =</span> <span class="dv">0</span>)</span>
-<span id="cb380-3"><a href="06-seleccion-de-variables.html#cb380-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb380-4"><a href="06-seleccion-de-variables.html#cb380-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv.out)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-233-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb381"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb381-1"><a href="06-seleccion-de-variables.html#cb381-1" aria-hidden="true" tabindex="-1"></a>bestlam <span class="ot">&lt;-</span> cv.out<span class="sc">$</span>lambda.min</span>
-<span id="cb381-2"><a href="06-seleccion-de-variables.html#cb381-2" aria-hidden="true" tabindex="-1"></a>bestlam</span></code></pre></div>
+<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="06-seleccion-de-variables.html#cb409-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb409-2"><a href="06-seleccion-de-variables.html#cb409-2" aria-hidden="true" tabindex="-1"></a>cv.out <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[train, ], y[train], <span class="at">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb409-3"><a href="06-seleccion-de-variables.html#cb409-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb409-4"><a href="06-seleccion-de-variables.html#cb409-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv.out)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-232-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="06-seleccion-de-variables.html#cb410-1" aria-hidden="true" tabindex="-1"></a>bestlam <span class="ot">&lt;-</span> cv.out<span class="sc">$</span>lambda.min</span>
+<span id="cb410-2"><a href="06-seleccion-de-variables.html#cb410-2" aria-hidden="true" tabindex="-1"></a>bestlam</span></code></pre></div>
 <pre><code>## [1] 14.27118</code></pre>
-<div class="sourceCode" id="cb383"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb383-1"><a href="06-seleccion-de-variables.html#cb383-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(bestlam)</span></code></pre></div>
+<div class="sourceCode" id="cb412"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb412-1"><a href="06-seleccion-de-variables.html#cb412-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(bestlam)</span></code></pre></div>
 <pre><code>## [1] 2.658242</code></pre>
-<div class="sourceCode" id="cb385"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb385-1"><a href="06-seleccion-de-variables.html#cb385-1" aria-hidden="true" tabindex="-1"></a>ridge.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ridge.mod, <span class="at">s =</span> bestlam, <span class="at">newx =</span> x[test,</span>
-<span id="cb385-2"><a href="06-seleccion-de-variables.html#cb385-2" aria-hidden="true" tabindex="-1"></a>    ])</span>
-<span id="cb385-3"><a href="06-seleccion-de-variables.html#cb385-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((ridge.pred <span class="sc">-</span> y.test)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb414"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb414-1"><a href="06-seleccion-de-variables.html#cb414-1" aria-hidden="true" tabindex="-1"></a>ridge.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(ridge.mod, <span class="at">s =</span> bestlam, <span class="at">newx =</span> x[test,</span>
+<span id="cb414-2"><a href="06-seleccion-de-variables.html#cb414-2" aria-hidden="true" tabindex="-1"></a>    ])</span>
+<span id="cb414-3"><a href="06-seleccion-de-variables.html#cb414-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((ridge.pred <span class="sc">-</span> y.test)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 1669.854</code></pre>
-<div class="sourceCode" id="cb387"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb387-1"><a href="06-seleccion-de-variables.html#cb387-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>)</span>
-<span id="cb387-2"><a href="06-seleccion-de-variables.html#cb387-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(out, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>, <span class="at">s =</span> bestlam, <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="06-seleccion-de-variables.html#cb416-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">0</span>)</span>
+<span id="cb416-2"><a href="06-seleccion-de-variables.html#cb416-2" aria-hidden="true" tabindex="-1"></a><span class="fu">predict</span>(out, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>, <span class="at">s =</span> bestlam <span class="sc">*</span> <span class="fl">1.1</span>,</span>
+<span id="cb416-3"><a href="06-seleccion-de-variables.html#cb416-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">exact =</span> <span class="cn">FALSE</span>)</span></code></pre></div>
 <pre><code>## 19 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                       s1
-## (Intercept) 69.824252126
-## Hits         1.586649928
-## HmRun       -0.083817620
-## Runs         1.298201495
-## RBI          0.885217905
-## Walks        0.521415084
-## Years       -0.897115251
-## CAtBat       0.004160358
-## CHits        0.005192629
-## CHmRun       0.022521114
-## CRuns        0.009343228
-## CRBI        -0.008077328
-## CWalks      -0.045652211
-## LeagueN     -8.954990325
-## DivisionW    7.576655558
-## PutOuts      0.016433884
-## Assists      0.098673953
-## Errors       0.806331327
-## NewLeagueN   8.465527964</code></pre>
+## (Intercept) 71.036471666
+## Hits         1.555439400
+## HmRun       -0.050233564
+## Runs         1.315874217
+## RBI          0.892901184
+## Walks        0.524945960
+## Years       -0.901366577
+## CAtBat       0.003948044
+## CHits        0.005599788
+## CHmRun       0.017240009
+## CRuns        0.009445223
+## CRBI        -0.006899589
+## CWalks      -0.044665964
+## LeagueN     -8.823263239
+## DivisionW    7.469232110
+## PutOuts      0.016728292
+## Assists      0.099502371
+## Errors       0.822957242
+## NewLeagueN   8.260148988</code></pre>
 </div>
 </div>
 <div id="regresión-lasso-1" class="section level3 hasAnchor" number="6.4.2">
@@ -1348,52 +1346,53 @@ Otra formulación para los métodos vistos son:</p>
 <p>Ejecute los procedimientos anteriores con glmnet pero modifique el paramétro <code>alpha = 0</code>. Compare los resultados.</p>
 <p>En este caso, se están encontrando los valores de <span class="math inline">\(\beta\)</span> tal que
 <span class="math display">\[\hat{\beta} = \underset{\beta}{\mathrm{argmin}} \left\{RSS + \lambda \Vert \beta \Vert_1^2\right\}.\]</span></p>
-<div class="sourceCode" id="cb389"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb389-1"><a href="06-seleccion-de-variables.html#cb389-1" aria-hidden="true" tabindex="-1"></a>lasso.mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x[train, ], y[train], <span class="at">alpha =</span> <span class="dv">1</span>,</span>
-<span id="cb389-2"><a href="06-seleccion-de-variables.html#cb389-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">lambda =</span> grid)</span>
-<span id="cb389-3"><a href="06-seleccion-de-variables.html#cb389-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lasso.mod)</span></code></pre></div>
+<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="06-seleccion-de-variables.html#cb418-1" aria-hidden="true" tabindex="-1"></a>lasso.mod <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x[train, ], y[train], <span class="at">alpha =</span> <span class="dv">1</span>,</span>
+<span id="cb418-2"><a href="06-seleccion-de-variables.html#cb418-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">lambda =</span> grid)</span>
+<span id="cb418-3"><a href="06-seleccion-de-variables.html#cb418-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(lasso.mod)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-233-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="06-seleccion-de-variables.html#cb419-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
+<span id="cb419-2"><a href="06-seleccion-de-variables.html#cb419-2" aria-hidden="true" tabindex="-1"></a>cv.out <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[train, ], y[train], <span class="at">alpha =</span> <span class="dv">1</span>)</span>
+<span id="cb419-3"><a href="06-seleccion-de-variables.html#cb419-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv.out)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-234-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb390"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb390-1"><a href="06-seleccion-de-variables.html#cb390-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1</span>)</span>
-<span id="cb390-2"><a href="06-seleccion-de-variables.html#cb390-2" aria-hidden="true" tabindex="-1"></a>cv.out <span class="ot">&lt;-</span> <span class="fu">cv.glmnet</span>(x[train, ], y[train], <span class="at">alpha =</span> <span class="dv">1</span>)</span>
-<span id="cb390-3"><a href="06-seleccion-de-variables.html#cb390-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(cv.out)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-235-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb391"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb391-1"><a href="06-seleccion-de-variables.html#cb391-1" aria-hidden="true" tabindex="-1"></a>bestlam <span class="ot">&lt;-</span> cv.out<span class="sc">$</span>lambda.min</span>
-<span id="cb391-2"><a href="06-seleccion-de-variables.html#cb391-2" aria-hidden="true" tabindex="-1"></a>bestlam</span></code></pre></div>
+<div class="sourceCode" id="cb420"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb420-1"><a href="06-seleccion-de-variables.html#cb420-1" aria-hidden="true" tabindex="-1"></a>bestlam <span class="ot">&lt;-</span> cv.out<span class="sc">$</span>lambda.min</span>
+<span id="cb420-2"><a href="06-seleccion-de-variables.html#cb420-2" aria-hidden="true" tabindex="-1"></a>bestlam</span></code></pre></div>
 <pre><code>## [1] 0.06939507</code></pre>
-<div class="sourceCode" id="cb393"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb393-1"><a href="06-seleccion-de-variables.html#cb393-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(bestlam)</span></code></pre></div>
+<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="06-seleccion-de-variables.html#cb422-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(bestlam)</span></code></pre></div>
 <pre><code>## [1] -2.667939</code></pre>
-<div class="sourceCode" id="cb395"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb395-1"><a href="06-seleccion-de-variables.html#cb395-1" aria-hidden="true" tabindex="-1"></a>lasso.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(lasso.mod, <span class="at">s =</span> bestlam, <span class="at">newx =</span> x[test,</span>
-<span id="cb395-2"><a href="06-seleccion-de-variables.html#cb395-2" aria-hidden="true" tabindex="-1"></a>    ])</span>
-<span id="cb395-3"><a href="06-seleccion-de-variables.html#cb395-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((lasso.pred <span class="sc">-</span> y.test)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="06-seleccion-de-variables.html#cb424-1" aria-hidden="true" tabindex="-1"></a>lasso.pred <span class="ot">&lt;-</span> <span class="fu">predict</span>(lasso.mod, <span class="at">s =</span> bestlam, <span class="at">newx =</span> x[test,</span>
+<span id="cb424-2"><a href="06-seleccion-de-variables.html#cb424-2" aria-hidden="true" tabindex="-1"></a>    ])</span>
+<span id="cb424-3"><a href="06-seleccion-de-variables.html#cb424-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>((lasso.pred <span class="sc">-</span> y.test)<span class="sc">^</span><span class="dv">2</span>)</span></code></pre></div>
 <pre><code>## [1] 1698.516</code></pre>
-<div class="sourceCode" id="cb397"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb397-1"><a href="06-seleccion-de-variables.html#cb397-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">lambda =</span> grid)</span>
-<span id="cb397-2"><a href="06-seleccion-de-variables.html#cb397-2" aria-hidden="true" tabindex="-1"></a>lasso.coef <span class="ot">&lt;-</span> <span class="fu">predict</span>(out, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>, <span class="at">s =</span> bestlam)</span>
-<span id="cb397-3"><a href="06-seleccion-de-variables.html#cb397-3" aria-hidden="true" tabindex="-1"></a>lasso.coef</span></code></pre></div>
+<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="06-seleccion-de-variables.html#cb426-1" aria-hidden="true" tabindex="-1"></a>out <span class="ot">&lt;-</span> <span class="fu">glmnet</span>(x, y, <span class="at">alpha =</span> <span class="dv">1</span>, <span class="at">lambda =</span> grid)</span>
+<span id="cb426-2"><a href="06-seleccion-de-variables.html#cb426-2" aria-hidden="true" tabindex="-1"></a>lasso.coef <span class="ot">&lt;-</span> <span class="fu">predict</span>(out, <span class="at">type =</span> <span class="st">&quot;coefficients&quot;</span>, <span class="at">s =</span> bestlam <span class="sc">*</span></span>
+<span id="cb426-3"><a href="06-seleccion-de-variables.html#cb426-3" aria-hidden="true" tabindex="-1"></a>    <span class="fl">1.1</span>)</span>
+<span id="cb426-4"><a href="06-seleccion-de-variables.html#cb426-4" aria-hidden="true" tabindex="-1"></a>lasso.coef</span></code></pre></div>
 <pre><code>## 19 x 1 sparse Matrix of class &quot;dgCMatrix&quot;
 ##                       s1
-## (Intercept)  49.43034834
-## Hits          2.58756283
+## (Intercept)  49.56032406
+## Hits          2.58207222
 ## HmRun         .         
-## Runs          0.01352442
-## RBI           0.50950339
-## Walks         0.73008990
-## Years        -2.72097480
-## CAtBat        0.06956598
-## CHits        -0.22930533
-## CHmRun        0.10795338
-## CRuns         0.11833697
-## CRBI         -0.05929447
-## CWalks       -0.11751099
-## LeagueN     -10.52682373
-## DivisionW     6.41207311
-## PutOuts       0.01253616
-## Assists       0.04384029
-## Errors        0.79511992
-## NewLeagueN   10.34406169</code></pre>
-<div class="sourceCode" id="cb399"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb399-1"><a href="06-seleccion-de-variables.html#cb399-1" aria-hidden="true" tabindex="-1"></a>lasso.coef[lasso.coef <span class="sc">!=</span> <span class="dv">0</span>]</span></code></pre></div>
-<pre><code>##  [1]  49.43034834   2.58756283   0.01352442   0.50950339   0.73008990
-##  [6]  -2.72097480   0.06956598  -0.22930533   0.10795338   0.11833697
-## [11]  -0.05929447  -0.11751099 -10.52682373   6.41207311   0.01253616
-## [16]   0.04384029   0.79511992  10.34406169</code></pre>
+## Runs          0.02675924
+## RBI           0.50847024
+## Walks         0.72598218
+## Years        -2.68697298
+## CAtBat        0.06824395
+## CHits        -0.22244024
+## CHmRun        0.11383736
+## CRuns         0.11243291
+## CRBI         -0.06110040
+## CWalks       -0.11519342
+## LeagueN     -10.40460337
+## DivisionW     6.39738948
+## PutOuts       0.01243378
+## Assists       0.04441187
+## Errors        0.79133922
+## NewLeagueN   10.19205922</code></pre>
+<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="06-seleccion-de-variables.html#cb428-1" aria-hidden="true" tabindex="-1"></a>lasso.coef[lasso.coef <span class="sc">!=</span> <span class="dv">0</span>]</span></code></pre></div>
+<pre><code>##  [1]  49.56032406   2.58207222   0.02675924   0.50847024   0.72598218
+##  [6]  -2.68697298   0.06824395  -0.22244024   0.11383736   0.11243291
+## [11]  -0.06110040  -0.11519342 -10.40460337   6.39738948   0.01243378
+## [16]   0.04441187   0.79133922  10.19205922</code></pre>
 </div>
 </div>
 <div id="ejercicios-4" class="section level2 hasAnchor" number="6.5">

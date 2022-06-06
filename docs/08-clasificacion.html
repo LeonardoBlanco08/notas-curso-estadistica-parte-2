@@ -51,11 +51,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/rglWebGL-binding-0.108.3/rglWebGL.js"></script>
-<link href="libs/rglwidgetClass-0.108.3/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-0.108.3/rglClass.min.js"></script>
-<script src="libs/CanvasMatrix4-0.108.3/CanvasMatrix.min.js"></script>
 
 
 <style type="text/css">
@@ -305,14 +300,16 @@ div.csl-indent {
 <li class="chapter" data-level="7.3.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal"><i class="fa fa-check"></i><b>7.3.1</b> Análisis discriminante lineal</a></li>
 <li class="chapter" data-level="7.3.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático"><i class="fa fa-check"></i><b>7.3.2</b> Análisis discriminante cuadrático</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>7.4</b> Laboratorio</a>
+<li class="chapter" data-level="7.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#estimación-de-la-curva-roc"><i class="fa fa-check"></i><b>7.4</b> Estimación de la Curva ROC</a></li>
+<li class="chapter" data-level="7.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>7.5</b> Laboratorio</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>7.4.1</b> Clasificador logístico</a></li>
-<li class="chapter" data-level="7.4.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal-1"><i class="fa fa-check"></i><b>7.4.2</b> Análisis Discriminante Lineal</a></li>
-<li class="chapter" data-level="7.4.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático-1"><i class="fa fa-check"></i><b>7.4.3</b> Análisis Discriminante Cuadrático</a></li>
-<li class="chapter" data-level="7.4.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>7.4.4</b> K vecinos más cercanos</a></li>
+<li class="chapter" data-level="7.5.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>7.5.1</b> Clasificador logístico</a></li>
+<li class="chapter" data-level="7.5.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal-1"><i class="fa fa-check"></i><b>7.5.2</b> Análisis Discriminante Lineal</a></li>
+<li class="chapter" data-level="7.5.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático-1"><i class="fa fa-check"></i><b>7.5.3</b> Análisis Discriminante Cuadrático</a></li>
+<li class="chapter" data-level="7.5.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>7.5.4</b> K vecinos más cercanos</a></li>
+<li class="chapter" data-level="7.5.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#máquinas-de-soporte-vectorial"><i class="fa fa-check"></i><b>7.5.5</b> Máquinas de soporte vectorial</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-5"><i class="fa fa-check"></i><b>7.5</b> Ejercicios</a></li>
+<li class="chapter" data-level="7.6" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-5"><i class="fa fa-check"></i><b>7.6</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html"><i class="fa fa-check"></i><b>8</b> Cálculo Bayesiano Computacional</a>
 <ul>
@@ -392,13 +389,27 @@ div.csl-indent {
 <span class="math inline">\(1-\max_j P(Y=j|X=x_0)\)</span>. En general la tasa de error bayesiana sería:
 <span class="math display">\[1-E\left[\max_j P(Y=j|X)\right]\]</span></p>
 <p>Para el caso de clasificación la tasa de error bayesiana es equivalente al error irreducible.</p>
-<p>Inconveniente: en datos reales no conocemos <span class="math inline">\(P(Y=j|X=x_0)\)</span>.</p>
+<p>Inconveniente: en datos reales no conocemos <span class="math inline">\(P(Y=j|X=x_0)\)</span>. Se puede aproximar estas probabilidades usando lo que se conoce como <em>Bayes ingenuo</em> (<em>Naïve Bayes</em>).</p>
+<ul>
+<li>Paso 1: Calcule la probabilidad previa para las etiquetas de clase dadas</li>
+<li>Paso 2: Encuentre la probabilidad de verosimilitud con cada atributo para cada clase</li>
+<li>Paso 3: Ponga estos valores en la fórmula de Bayes y calcule la probabilidad posterior.</li>
+<li>Paso 4: Revise qué clase tiene una probabilidad más alta, dado que la entrada pertenece a la clase de probabilidad más alta.</li>
+</ul>
+<div class="figure">
+<img src="manual_figures/naivebayes.png" alt="" />
+<p class="caption">Bayes ingenuo (tomado de <a href="https://www.datacamp.com/tutorial/naive-bayes-scikit-learn" class="uri">https://www.datacamp.com/tutorial/naive-bayes-scikit-learn</a>)</p>
+</div>
 </div>
 <div id="método-de-k-vecinos-más-cercanos-knn" class="section level2 hasAnchor" number="7.2">
 <h2><span class="header-section-number">7.2</span> Método de k vecinos más cercanos (KNN)<a href="08-clasificacion.html#método-de-k-vecinos-más-cercanos-knn" class="anchor-section" aria-label="Anchor link to header"></a></h2>
-<p>Este método aproxima la probabilidad condicional del clasificador bayesiano. Dado un entero <span class="math inline">\(K\)</span> y una observación de prueba <span class="math inline">\(x_0\)</span>, el clasificador primero identifica el conjunto de observaciones que son más cercanas a <span class="math inline">\(x_0\)</span>: <span class="math inline">\(\mathcal N_0\)</span>. Entonces:
-<span class="math display">\[P(Y=j|X=x_0) := \frac{1}{K}\sum_{i \in \mathcal N_0}I(y_i=j)\]</span>
-y siguiendo la regla de bayes se selecciona la categoría con probabilidad condicional máxima.</p>
+<p>Este método aproxima la probabilidad condicional del clasificador bayesiano. Dado un entero <span class="math inline">\(K\)</span> y una observación de prueba <span class="math inline">\(x_0\)</span>, el clasificador hace lo siguiente
+1. Encuentra los primeros <span class="math inline">\(K\)</span> vecinos más cercanos (usando alguna distancia) de observaciones que son más cercanas a <span class="math inline">\(x_0\)</span>: <span class="math inline">\(\mathcal N_0\)</span>
+2. Luego calcula</p>
+<p><span class="math display">\[P(Y=j|X=x_0) = \frac{1}{K}\sum_{i \in \mathcal N_0}I(y_i=j)\]</span></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Finalmente, siguiendo la regla de bayes se selecciona la categoría con probabilidad condicional máxima.</li>
+</ol>
 <div class="figure">
 <img src="manual_figures/KNN.png" alt="" />
 <p class="caption">Clasificación según K vecinos más cercanos (Wikimedia Commons)</p>
@@ -417,7 +428,7 @@ donde <span class="math inline">\(X_1,\ldots,X_p\)</span> son los predictores. P
 <p>Suponga que se quiere clasificar una observación en <span class="math inline">\(K\geq 2\)</span> clases. Sea <span class="math inline">\(\pi_k\)</span> la probabilidad previa de que la observación provenga de la clase <span class="math inline">\(k\)</span>-ésima. Sea
 <span class="math display">\[f_k(x)=P(X=x|Y=k)\]</span>
 por el teorema de Bayes:
-<span class="math display">\[P_k(x):=P(Y=k|X=x)=\frac{\pi_kf_k(x)}{\sum_{l=1}^K \pi_lf_l(x)}\]</span></p>
+<span class="math display">\[P_k(x)=P(Y=k|X=x)=\frac{\pi_kf_k(x)}{\sum_{l=1}^K \pi_lf_l(x)}\]</span></p>
 <p>Estimación de los componentes:</p>
 <ul>
 <li><span class="math inline">\(\pi_k\)</span>: proporción de observaciones en el conjunto de entrenamiento que pertenecen a la clase <span class="math inline">\(k\)</span>-ésima.</li>
@@ -477,31 +488,168 @@ Al uso de las funciones anteriores como herramientas de clasificación se le lla
 </ul>
 </div>
 </div>
-<div id="laboratorio-7" class="section level2 hasAnchor" number="7.4">
-<h2><span class="header-section-number">7.4</span> Laboratorio<a href="08-clasificacion.html#laboratorio-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="estimación-de-la-curva-roc" class="section level2 hasAnchor" number="7.4">
+<h2><span class="header-section-number">7.4</span> Estimación de la Curva ROC<a href="08-clasificacion.html#estimación-de-la-curva-roc" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<p>Suponga que para clasificación binaria se tiene el siguiente caso</p>
+<table>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Y_{Real}\)</span></th>
+<th><span class="math inline">\(Y_{Prob}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>0.8</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0.6</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0.4</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0.2</td>
+</tr>
+</tbody>
+</table>
+<p>Ahora variemos el punto de corte <span class="math inline">\(t\)</span> para decidir cuál de estos es será 0 o 1. La regla es</p>
+<p><span class="math display">\[\begin{equation*}
+\begin{cases}
+1 &amp; Y_{Prob} &gt; t \\
+0 &amp; \text{sino}
+\end{cases}
+\end{equation*}\]</span></p>
+<p>Con esta información hacemos la tabla</p>
+<table>
+<colgroup>
+<col width="14%" />
+<col width="14%" />
+<col width="8%" />
+<col width="12%" />
+<col width="13%" />
+<col width="13%" />
+<col width="13%" />
+<col width="10%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th><span class="math inline">\(Y_{Real}\)</span></th>
+<th><span class="math inline">\(Y_{Prob}\)</span></th>
+<th><span class="math inline">\(Y_0\)</span></th>
+<th>$Y_{0.2}</th>
+<th><span class="math inline">\(Y_{0.4}\)</span></th>
+<th><span class="math inline">\(Y_{0.6}\)</span></th>
+<th><span class="math inline">\(Y_{0.8}\)</span></th>
+<th><span class="math inline">\(Y_{1}\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>1</td>
+<td>0.8</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0.6</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="odd">
+<td>1</td>
+<td>0.4</td>
+<td>1</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+<tr class="even">
+<td>0</td>
+<td>0.2</td>
+<td>1</td>
+<td>1</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<p>Ahora calculamos las Tasas de positivos verdaderos <span class="math inline">\(TPR = \frac{TP}{P} = \frac{TP}{TP+FN}\)</span> y la tasa de falsos positivos <span class="math inline">\(FPR = \frac{FP}{P} = \frac{FP}{FP+TN}\)</span> para cada corte</p>
+<p><span class="math display">\[\begin{align*}
+TPR_0 &amp;= \frac{2}{2+0} = 1\\
+TPR_{0.2} &amp;= \frac{2}{2+0} =1\\
+TPR_{0.4} &amp;= \frac{2}{2+0} =1\\
+TPR_{0.6} &amp;= \frac{1}{1+1} =0.5\\
+TPR_{0.8} &amp;= \frac{1}{1+1} =0.5\\
+TPR_{1} &amp;= \frac{0}{0+2} = 0
+\end{align*}\]</span></p>
+<p><span class="math display">\[\begin{align*}
+FPR_0 &amp;= \frac{2}{2+0} = 1\\
+FPR_{0.2} &amp;= \frac{2}{2+0} =1\\
+FPR_{0.4} &amp;= \frac{1}{1+1} =0.5\\
+FPR_{0.6} &amp;= \frac{1}{1+1} =0.5\\
+FPR_{0.8} &amp;= \frac{0}{0+2} =0 \\
+FPR_{1} &amp;= \frac{0}{0+2} =0
+\end{align*}\]</span></p>
+<p>Finalmente gráficamos los valores</p>
+<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="08-clasificacion.html#cb430-1" aria-hidden="true" tabindex="-1"></a>TPR <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb430-2"><a href="08-clasificacion.html#cb430-2" aria-hidden="true" tabindex="-1"></a>FPR <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">0</span>, <span class="fl">0.5</span>, <span class="fl">0.5</span>, <span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb430-3"><a href="08-clasificacion.html#cb430-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb430-4"><a href="08-clasificacion.html#cb430-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(FPR, TPR, <span class="at">type =</span> <span class="st">&quot;l&quot;</span>)</span>
+<span id="cb430-5"><a href="08-clasificacion.html#cb430-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="dv">0</span>, <span class="at">b =</span> <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-241-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p>El cálculo del AUC es simplemente la suma de cada una de las cajas correspondientes.</p>
+<div class="sourceCode" id="cb431"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb431-1"><a href="08-clasificacion.html#cb431-1" aria-hidden="true" tabindex="-1"></a>calculo_auc <span class="ot">&lt;-</span> <span class="cf">function</span>(TPR, FPR) {</span>
+<span id="cb431-2"><a href="08-clasificacion.html#cb431-2" aria-hidden="true" tabindex="-1"></a>    dFPR <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">diff</span>(FPR), <span class="dv">0</span>)</span>
+<span id="cb431-3"><a href="08-clasificacion.html#cb431-3" aria-hidden="true" tabindex="-1"></a>    dTPR <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fu">diff</span>(TPR), <span class="dv">0</span>)</span>
+<span id="cb431-4"><a href="08-clasificacion.html#cb431-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(TPR <span class="sc">*</span> dFPR) <span class="sc">+</span> <span class="fu">sum</span>(dTPR <span class="sc">*</span> dFPR)<span class="sc">/</span><span class="dv">2</span></span>
+<span id="cb431-5"><a href="08-clasificacion.html#cb431-5" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb431-6"><a href="08-clasificacion.html#cb431-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb431-7"><a href="08-clasificacion.html#cb431-7" aria-hidden="true" tabindex="-1"></a><span class="fu">calculo_auc</span>(TPR, FPR)</span></code></pre></div>
+<pre><code>## [1] 0.75</code></pre>
+</div>
+<div id="laboratorio-7" class="section level2 hasAnchor" number="7.5">
+<h2><span class="header-section-number">7.5</span> Laboratorio<a href="08-clasificacion.html#laboratorio-7" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Datos sociodemográficos y de productos de aseguramiento de 5822 clientes. La variable dependiente es si cada cliente adquirió un seguro de remolques (<a href="https://liacs.leidenuniv.nl/~puttenpwhvander/library/cc2000/data.html" class="uri">https://liacs.leidenuniv.nl/~puttenpwhvander/library/cc2000/data.html</a>).</p>
-<div class="sourceCode" id="cb401"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb401-1"><a href="08-clasificacion.html#cb401-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
-<span id="cb401-2"><a href="08-clasificacion.html#cb401-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Caravan)</span>
-<span id="cb401-3"><a href="08-clasificacion.html#cb401-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(Caravan)</span></code></pre></div>
+<div class="sourceCode" id="cb433"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb433-1"><a href="08-clasificacion.html#cb433-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ISLR)</span>
+<span id="cb433-2"><a href="08-clasificacion.html#cb433-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(Caravan)</span>
+<span id="cb433-3"><a href="08-clasificacion.html#cb433-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dim</span>(Caravan)</span></code></pre></div>
 <pre><code>## [1] 5822   86</code></pre>
 <p>Vamos a usar las herramientas en el paquete <em>tidymodels</em> para efectuar una comparación entre los métodos de clasificación que hemos visto en clase. El objetivo es clasificar a los clientes entre compradores/no compradores del seguro (variable dependiente: Purchase, covariables: el resto)</p>
-<div class="sourceCode" id="cb403"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb403-1"><a href="08-clasificacion.html#cb403-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
-<span id="cb403-2"><a href="08-clasificacion.html#cb403-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb435"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb435-1"><a href="08-clasificacion.html#cb435-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidymodels)</span>
+<span id="cb435-2"><a href="08-clasificacion.html#cb435-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>El primer paso es construir una separación de conjunto de entrenamiento y de conjunto de prueba:</p>
-<div class="sourceCode" id="cb404"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb404-1"><a href="08-clasificacion.html#cb404-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
-<span id="cb404-2"><a href="08-clasificacion.html#cb404-2" aria-hidden="true" tabindex="-1"></a>Caravan.split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(Caravan, <span class="at">prop =</span> <span class="fl">0.8</span>,</span>
-<span id="cb404-3"><a href="08-clasificacion.html#cb404-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">strata =</span> Purchase)</span>
-<span id="cb404-4"><a href="08-clasificacion.html#cb404-4" aria-hidden="true" tabindex="-1"></a>Caravan.training <span class="ot">&lt;-</span> Caravan.split <span class="sc">%&gt;%</span></span>
-<span id="cb404-5"><a href="08-clasificacion.html#cb404-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">training</span>()</span>
-<span id="cb404-6"><a href="08-clasificacion.html#cb404-6" aria-hidden="true" tabindex="-1"></a>Caravan.testing <span class="ot">&lt;-</span> Caravan.split <span class="sc">%&gt;%</span></span>
-<span id="cb404-7"><a href="08-clasificacion.html#cb404-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">testing</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="08-clasificacion.html#cb436-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">1234</span>)</span>
+<span id="cb436-2"><a href="08-clasificacion.html#cb436-2" aria-hidden="true" tabindex="-1"></a>Caravan.split <span class="ot">&lt;-</span> <span class="fu">initial_split</span>(Caravan, <span class="at">prop =</span> <span class="fl">0.8</span>,</span>
+<span id="cb436-3"><a href="08-clasificacion.html#cb436-3" aria-hidden="true" tabindex="-1"></a>    <span class="at">strata =</span> Purchase)</span>
+<span id="cb436-4"><a href="08-clasificacion.html#cb436-4" aria-hidden="true" tabindex="-1"></a>Caravan.training <span class="ot">&lt;-</span> Caravan.split <span class="sc">%&gt;%</span></span>
+<span id="cb436-5"><a href="08-clasificacion.html#cb436-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">training</span>()</span>
+<span id="cb436-6"><a href="08-clasificacion.html#cb436-6" aria-hidden="true" tabindex="-1"></a>Caravan.testing <span class="ot">&lt;-</span> Caravan.split <span class="sc">%&gt;%</span></span>
+<span id="cb436-7"><a href="08-clasificacion.html#cb436-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">testing</span>()</span></code></pre></div>
 <p>Como vamos a usar el método KNN, lo conveniente es estandarizar todas las covariables:</p>
-<div class="sourceCode" id="cb405"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb405-1"><a href="08-clasificacion.html#cb405-1" aria-hidden="true" tabindex="-1"></a>Caravan.recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Purchase <span class="sc">~</span> ., <span class="at">data =</span> Caravan.training) <span class="sc">%&gt;%</span></span>
-<span id="cb405-2"><a href="08-clasificacion.html#cb405-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">step_normalize</span>(<span class="fu">all_predictors</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb437"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb437-1"><a href="08-clasificacion.html#cb437-1" aria-hidden="true" tabindex="-1"></a>Caravan.recipe <span class="ot">&lt;-</span> <span class="fu">recipe</span>(Purchase <span class="sc">~</span> ., <span class="at">data =</span> Caravan.training) <span class="sc">%&gt;%</span></span>
+<span id="cb437-2"><a href="08-clasificacion.html#cb437-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">step_normalize</span>(<span class="fu">all_predictors</span>(), <span class="sc">-</span><span class="fu">all_outcomes</span>())</span></code></pre></div>
 <p>y aplicamos la receta sobre el conjunto de prueba para verificar que la receta funciona bien:</p>
-<div class="sourceCode" id="cb406"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb406-1"><a href="08-clasificacion.html#cb406-1" aria-hidden="true" tabindex="-1"></a>Caravan.recipe <span class="sc">%&gt;%</span></span>
-<span id="cb406-2"><a href="08-clasificacion.html#cb406-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">prep</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb406-3"><a href="08-clasificacion.html#cb406-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bake</span>(<span class="at">new_data =</span> Caravan.testing)</span></code></pre></div>
+<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="08-clasificacion.html#cb438-1" aria-hidden="true" tabindex="-1"></a>Caravan.recipe <span class="sc">%&gt;%</span></span>
+<span id="cb438-2"><a href="08-clasificacion.html#cb438-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">prep</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb438-3"><a href="08-clasificacion.html#cb438-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bake</span>(<span class="at">new_data =</span> Caravan.testing)</span></code></pre></div>
 <pre><code>## # A tibble: 1,165 x 86
 ##    MOSTYPE MAANTHUI MGEMOMV MGEMLEEF MOSHOOFD MGODRK MGODPR  MGODOV MGODGE
 ##      &lt;dbl&gt;    &lt;dbl&gt;   &lt;dbl&gt;    &lt;dbl&gt;    &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
@@ -522,24 +670,24 @@ Al uso de las funciones anteriores como herramientas de clasificación se le lla
 ## #   MBERARBO &lt;dbl&gt;, MSKA &lt;dbl&gt;, MSKB1 &lt;dbl&gt;, MSKB2 &lt;dbl&gt;, MSKC &lt;dbl&gt;,
 ## #   MSKD &lt;dbl&gt;, MHHUUR &lt;dbl&gt;, MHKOOP &lt;dbl&gt;, MAUT1 &lt;dbl&gt;, MAUT2 &lt;dbl&gt;,
 ## #   MAUT0 &lt;dbl&gt;, MZFONDS &lt;dbl&gt;, MZPART &lt;dbl&gt;, MINKM30 &lt;dbl&gt;, ...</code></pre>
-<div id="clasificador-logístico" class="section level3 hasAnchor" number="7.4.1">
-<h3><span class="header-section-number">7.4.1</span> Clasificador logístico<a href="08-clasificacion.html#clasificador-logístico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="clasificador-logístico" class="section level3 hasAnchor" number="7.5.1">
+<h3><span class="header-section-number">7.5.1</span> Clasificador logístico<a href="08-clasificacion.html#clasificador-logístico" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Vamos a ajustar un modelo logístico a los datos. Primero especificamos el modelo:</p>
-<div class="sourceCode" id="cb408"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb408-1"><a href="08-clasificacion.html#cb408-1" aria-hidden="true" tabindex="-1"></a>modelo_logistico <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb408-2"><a href="08-clasificacion.html#cb408-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;glm&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb408-3"><a href="08-clasificacion.html#cb408-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="08-clasificacion.html#cb440-1" aria-hidden="true" tabindex="-1"></a>modelo_logistico <span class="ot">&lt;-</span> <span class="fu">logistic_reg</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb440-2"><a href="08-clasificacion.html#cb440-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;glm&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb440-3"><a href="08-clasificacion.html#cb440-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
 <p>y después definimos un objeto tipo <em>workflow</em> para unir el tratamiento de datos (recipe) con el modelo:</p>
-<div class="sourceCode" id="cb409"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb409-1"><a href="08-clasificacion.html#cb409-1" aria-hidden="true" tabindex="-1"></a>logistico_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb409-2"><a href="08-clasificacion.html#cb409-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_logistico) <span class="sc">%&gt;%</span></span>
-<span id="cb409-3"><a href="08-clasificacion.html#cb409-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span></code></pre></div>
+<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="08-clasificacion.html#cb441-1" aria-hidden="true" tabindex="-1"></a>logistico_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb441-2"><a href="08-clasificacion.html#cb441-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_logistico) <span class="sc">%&gt;%</span></span>
+<span id="cb441-3"><a href="08-clasificacion.html#cb441-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span></code></pre></div>
 <p>y ajustamos el modelo:</p>
-<div class="sourceCode" id="cb410"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb410-1"><a href="08-clasificacion.html#cb410-1" aria-hidden="true" tabindex="-1"></a>logistico_ajuste <span class="ot">&lt;-</span> logistico_wf <span class="sc">%&gt;%</span></span>
-<span id="cb410-2"><a href="08-clasificacion.html#cb410-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(<span class="at">data =</span> Caravan.training)</span></code></pre></div>
+<div class="sourceCode" id="cb442"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb442-1"><a href="08-clasificacion.html#cb442-1" aria-hidden="true" tabindex="-1"></a>logistico_ajuste <span class="ot">&lt;-</span> logistico_wf <span class="sc">%&gt;%</span></span>
+<span id="cb442-2"><a href="08-clasificacion.html#cb442-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(<span class="at">data =</span> Caravan.training)</span></code></pre></div>
 <p>Obtenemos predicciones en el conjunto de prueba:</p>
-<div class="sourceCode" id="cb411"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb411-1"><a href="08-clasificacion.html#cb411-1" aria-hidden="true" tabindex="-1"></a>predicciones_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistico_ajuste, <span class="at">new_data =</span> Caravan.testing,</span>
-<span id="cb411-2"><a href="08-clasificacion.html#cb411-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;prob&quot;</span>)</span>
-<span id="cb411-3"><a href="08-clasificacion.html#cb411-3" aria-hidden="true" tabindex="-1"></a>predicciones_categ <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistico_ajuste, <span class="at">new_data =</span> Caravan.testing)</span>
-<span id="cb411-4"><a href="08-clasificacion.html#cb411-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predicciones_probs)</span></code></pre></div>
+<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="08-clasificacion.html#cb443-1" aria-hidden="true" tabindex="-1"></a>predicciones_probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistico_ajuste, <span class="at">new_data =</span> Caravan.testing,</span>
+<span id="cb443-2"><a href="08-clasificacion.html#cb443-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;prob&quot;</span>)</span>
+<span id="cb443-3"><a href="08-clasificacion.html#cb443-3" aria-hidden="true" tabindex="-1"></a>predicciones_categ <span class="ot">&lt;-</span> <span class="fu">predict</span>(logistico_ajuste, <span class="at">new_data =</span> Caravan.testing)</span>
+<span id="cb443-4"><a href="08-clasificacion.html#cb443-4" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predicciones_probs)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 2
 ##   .pred_No .pred_Yes
 ##      &lt;dbl&gt;     &lt;dbl&gt;
@@ -549,7 +697,7 @@ Al uso de las funciones anteriores como herramientas de clasificación se le lla
 ## 4    0.921   0.0787 
 ## 5    0.967   0.0329 
 ## 6    0.994   0.00628</code></pre>
-<div class="sourceCode" id="cb413"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb413-1"><a href="08-clasificacion.html#cb413-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predicciones_categ)</span></code></pre></div>
+<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="08-clasificacion.html#cb445-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(predicciones_categ)</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 1
 ##   .pred_class
 ##   &lt;fct&gt;      
@@ -560,40 +708,49 @@ Al uso de las funciones anteriores como herramientas de clasificación se le lla
 ## 5 No         
 ## 6 No</code></pre>
 <p>Unimos todos los resultados en un solo arreglo:</p>
-<div class="sourceCode" id="cb415"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb415-1"><a href="08-clasificacion.html#cb415-1" aria-hidden="true" tabindex="-1"></a>resultados_logistico <span class="ot">&lt;-</span> Caravan.testing <span class="sc">%&gt;%</span></span>
-<span id="cb415-2"><a href="08-clasificacion.html#cb415-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Purchase) <span class="sc">%&gt;%</span></span>
-<span id="cb415-3"><a href="08-clasificacion.html#cb415-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(predicciones_categ) <span class="sc">%&gt;%</span></span>
-<span id="cb415-4"><a href="08-clasificacion.html#cb415-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(predicciones_probs)</span></code></pre></div>
+<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="08-clasificacion.html#cb447-1" aria-hidden="true" tabindex="-1"></a>resultados_logistico <span class="ot">&lt;-</span> Caravan.testing <span class="sc">%&gt;%</span></span>
+<span id="cb447-2"><a href="08-clasificacion.html#cb447-2" aria-hidden="true" tabindex="-1"></a>    dplyr<span class="sc">::</span><span class="fu">select</span>(Purchase) <span class="sc">%&gt;%</span></span>
+<span id="cb447-3"><a href="08-clasificacion.html#cb447-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(predicciones_categ) <span class="sc">%&gt;%</span></span>
+<span id="cb447-4"><a href="08-clasificacion.html#cb447-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">bind_cols</span>(predicciones_probs)</span>
+<span id="cb447-5"><a href="08-clasificacion.html#cb447-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb447-6"><a href="08-clasificacion.html#cb447-6" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(resultados_logistico)</span></code></pre></div>
+<pre><code>##    Purchase .pred_class  .pred_No  .pred_Yes
+## 6        No          No 0.9811405 0.01885947
+## 8        No          No 0.9899782 0.01002185
+## 12       No          No 0.8796827 0.12031730
+## 22       No          No 0.9212685 0.07873146
+## 25       No          No 0.9670789 0.03292113
+## 28       No          No 0.9937207 0.00627930</code></pre>
 <p>y podemos calcular la matriz de confusión:</p>
-<div class="sourceCode" id="cb416"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb416-1"><a href="08-clasificacion.html#cb416-1" aria-hidden="true" tabindex="-1"></a><span class="fu">conf_mat</span>(resultados_logistico, <span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
+<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="08-clasificacion.html#cb449-1" aria-hidden="true" tabindex="-1"></a><span class="fu">conf_mat</span>(resultados_logistico, <span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
 <pre><code>##           Truth
 ## Prediction   No  Yes
 ##        No  1095   64
 ##        Yes    4    2</code></pre>
 <p>curva ROC:</p>
-<div class="sourceCode" id="cb418"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb418-1"><a href="08-clasificacion.html#cb418-1" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_curve</span>(resultados_logistico, <span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
-<span id="cb418-2"><a href="08-clasificacion.html#cb418-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-253-1.svg" width="100%" style="display: block; margin: auto;" />
+<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="08-clasificacion.html#cb451-1" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_curve</span>(resultados_logistico, <span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
+<span id="cb451-2"><a href="08-clasificacion.html#cb451-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-254-1.svg" width="100%" style="display: block; margin: auto;" />
 y finalmente el área bajo la curva ROC:</p>
-<div class="sourceCode" id="cb419"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb419-1"><a href="08-clasificacion.html#cb419-1" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_auc</span>(resultados_logistico, <span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No)</span></code></pre></div>
+<div class="sourceCode" id="cb452"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb452-1"><a href="08-clasificacion.html#cb452-1" aria-hidden="true" tabindex="-1"></a><span class="fu">roc_auc</span>(resultados_logistico, <span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No)</span></code></pre></div>
 <pre><code>## # A tibble: 1 x 3
 ##   .metric .estimator .estimate
 ##   &lt;chr&gt;   &lt;chr&gt;          &lt;dbl&gt;
 ## 1 roc_auc binary         0.728</code></pre>
 <p>Existe otra alternativa de ajuste con el comando <em>last_fit</em> que automatiza el proceso:</p>
-<div class="sourceCode" id="cb421"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb421-1"><a href="08-clasificacion.html#cb421-1" aria-hidden="true" tabindex="-1"></a>last_fit_logistica <span class="ot">&lt;-</span> logistico_wf <span class="sc">%&gt;%</span></span>
-<span id="cb421-2"><a href="08-clasificacion.html#cb421-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
+<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="08-clasificacion.html#cb454-1" aria-hidden="true" tabindex="-1"></a>last_fit_logistica <span class="ot">&lt;-</span> logistico_wf <span class="sc">%&gt;%</span></span>
+<span id="cb454-2"><a href="08-clasificacion.html#cb454-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
 <p>Obtenemos métricas:</p>
-<div class="sourceCode" id="cb422"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb422-1"><a href="08-clasificacion.html#cb422-1" aria-hidden="true" tabindex="-1"></a>last_fit_logistica <span class="sc">%&gt;%</span></span>
-<span id="cb422-2"><a href="08-clasificacion.html#cb422-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="08-clasificacion.html#cb455-1" aria-hidden="true" tabindex="-1"></a>last_fit_logistica <span class="sc">%&gt;%</span></span>
+<span id="cb455-2"><a href="08-clasificacion.html#cb455-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
 <pre><code>## # A tibble: 2 x 4
 ##   .metric  .estimator .estimate .config             
 ##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
 ## 1 accuracy binary         0.942 Preprocessor1_Model1
 ## 2 roc_auc  binary         0.728 Preprocessor1_Model1</code></pre>
 <p>y predicciones:</p>
-<div class="sourceCode" id="cb424"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb424-1"><a href="08-clasificacion.html#cb424-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(last_fit_logistica <span class="sc">%&gt;%</span></span>
-<span id="cb424-2"><a href="08-clasificacion.html#cb424-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="08-clasificacion.html#cb457-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(last_fit_logistica <span class="sc">%&gt;%</span></span>
+<span id="cb457-2"><a href="08-clasificacion.html#cb457-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>())</span></code></pre></div>
 <pre><code>## # A tibble: 6 x 7
 ##   id               .pred_No .pred_Yes  .row .pred_class Purchase .config        
 ##   &lt;chr&gt;               &lt;dbl&gt;     &lt;dbl&gt; &lt;int&gt; &lt;fct&gt;       &lt;fct&gt;    &lt;chr&gt;          
@@ -604,126 +761,269 @@ y finalmente el área bajo la curva ROC:</p>
 ## 5 train/test split    0.967   0.0329     25 No          No       Preprocessor1_~
 ## 6 train/test split    0.994   0.00628    28 No          No       Preprocessor1_~</code></pre>
 </div>
-<div id="análisis-discriminante-lineal-1" class="section level3 hasAnchor" number="7.4.2">
-<h3><span class="header-section-number">7.4.2</span> Análisis Discriminante Lineal<a href="08-clasificacion.html#análisis-discriminante-lineal-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="análisis-discriminante-lineal-1" class="section level3 hasAnchor" number="7.5.2">
+<h3><span class="header-section-number">7.5.2</span> Análisis Discriminante Lineal<a href="08-clasificacion.html#análisis-discriminante-lineal-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Usando el mismo procedimiento de datos anterior, definimos el modelo LDA:</p>
-<div class="sourceCode" id="cb426"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb426-1"><a href="08-clasificacion.html#cb426-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(discrim)</span></code></pre></div>
-<pre><code>## Error in library(discrim): there is no package called &#39;discrim&#39;</code></pre>
-<div class="sourceCode" id="cb428"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb428-1"><a href="08-clasificacion.html#cb428-1" aria-hidden="true" tabindex="-1"></a>modelo_lda <span class="ot">&lt;-</span> <span class="fu">discrim_linear</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb428-2"><a href="08-clasificacion.html#cb428-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;MASS&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb428-3"><a href="08-clasificacion.html#cb428-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="08-clasificacion.html#cb459-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(discrim)</span>
+<span id="cb459-2"><a href="08-clasificacion.html#cb459-2" aria-hidden="true" tabindex="-1"></a>modelo_lda <span class="ot">&lt;-</span> <span class="fu">discrim_linear</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb459-3"><a href="08-clasificacion.html#cb459-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;MASS&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb459-4"><a href="08-clasificacion.html#cb459-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
 <p>flujo de trabajo:</p>
-<div class="sourceCode" id="cb429"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb429-1"><a href="08-clasificacion.html#cb429-1" aria-hidden="true" tabindex="-1"></a>lda_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb429-2"><a href="08-clasificacion.html#cb429-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_lda) <span class="sc">%&gt;%</span></span>
-<span id="cb429-3"><a href="08-clasificacion.html#cb429-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span></code></pre></div>
+<div class="sourceCode" id="cb460"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb460-1"><a href="08-clasificacion.html#cb460-1" aria-hidden="true" tabindex="-1"></a>lda_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb460-2"><a href="08-clasificacion.html#cb460-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_lda) <span class="sc">%&gt;%</span></span>
+<span id="cb460-3"><a href="08-clasificacion.html#cb460-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span></code></pre></div>
 <p>ajuste del modelo:</p>
-<div class="sourceCode" id="cb430"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb430-1"><a href="08-clasificacion.html#cb430-1" aria-hidden="true" tabindex="-1"></a>last_fit_lda <span class="ot">&lt;-</span> lda_wf <span class="sc">%&gt;%</span></span>
-<span id="cb430-2"><a href="08-clasificacion.html#cb430-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
-<pre><code>## Error in pkgs$pkg[[1]]: subscript out of bounds</code></pre>
+<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="08-clasificacion.html#cb461-1" aria-hidden="true" tabindex="-1"></a>last_fit_lda <span class="ot">&lt;-</span> lda_wf <span class="sc">%&gt;%</span></span>
+<span id="cb461-2"><a href="08-clasificacion.html#cb461-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
 <p>Métricas de LDA:</p>
-<div class="sourceCode" id="cb432"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb432-1"><a href="08-clasificacion.html#cb432-1" aria-hidden="true" tabindex="-1"></a>last_fit_lda <span class="sc">%&gt;%</span></span>
-<span id="cb432-2"><a href="08-clasificacion.html#cb432-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
-<pre><code>## Error in collect_metrics(.): object &#39;last_fit_lda&#39; not found</code></pre>
+<div class="sourceCode" id="cb462"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb462-1"><a href="08-clasificacion.html#cb462-1" aria-hidden="true" tabindex="-1"></a>last_fit_lda <span class="sc">%&gt;%</span></span>
+<span id="cb462-2"><a href="08-clasificacion.html#cb462-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##   .metric  .estimator .estimate .config             
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+## 1 accuracy binary         0.941 Preprocessor1_Model1
+## 2 roc_auc  binary         0.728 Preprocessor1_Model1</code></pre>
 <p>curva ROC:</p>
-<div class="sourceCode" id="cb434"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb434-1"><a href="08-clasificacion.html#cb434-1" aria-hidden="true" tabindex="-1"></a>lda_predicciones <span class="ot">&lt;-</span> last_fit_lda <span class="sc">%&gt;%</span></span>
-<span id="cb434-2"><a href="08-clasificacion.html#cb434-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span></code></pre></div>
-<pre><code>## Error in collect_predictions(.): object &#39;last_fit_lda&#39; not found</code></pre>
-<div class="sourceCode" id="cb436"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb436-1"><a href="08-clasificacion.html#cb436-1" aria-hidden="true" tabindex="-1"></a>lda_predicciones <span class="sc">%&gt;%</span></span>
-<span id="cb436-2"><a href="08-clasificacion.html#cb436-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
-<span id="cb436-3"><a href="08-clasificacion.html#cb436-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
-<pre><code>## Error in roc_curve(., truth = Purchase, estimate = .pred_No): object &#39;lda_predicciones&#39; not found</code></pre>
+<div class="sourceCode" id="cb464"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb464-1"><a href="08-clasificacion.html#cb464-1" aria-hidden="true" tabindex="-1"></a>lda_predicciones <span class="ot">&lt;-</span> last_fit_lda <span class="sc">%&gt;%</span></span>
+<span id="cb464-2"><a href="08-clasificacion.html#cb464-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span>
+<span id="cb464-3"><a href="08-clasificacion.html#cb464-3" aria-hidden="true" tabindex="-1"></a>lda_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb464-4"><a href="08-clasificacion.html#cb464-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
+<span id="cb464-5"><a href="08-clasificacion.html#cb464-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-263-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>y matriz de confusión:</p>
-<div class="sourceCode" id="cb438"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb438-1"><a href="08-clasificacion.html#cb438-1" aria-hidden="true" tabindex="-1"></a>lda_predicciones <span class="sc">%&gt;%</span></span>
-<span id="cb438-2"><a href="08-clasificacion.html#cb438-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
-<pre><code>## Error in conf_mat(., truth = Purchase, estimate = .pred_class): object &#39;lda_predicciones&#39; not found</code></pre>
+<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="08-clasificacion.html#cb465-1" aria-hidden="true" tabindex="-1"></a>lda_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb465-2"><a href="08-clasificacion.html#cb465-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
+<pre><code>##           Truth
+## Prediction   No  Yes
+##        No  1091   61
+##        Yes    8    5</code></pre>
 </div>
-<div id="análisis-discriminante-cuadrático-1" class="section level3 hasAnchor" number="7.4.3">
-<h3><span class="header-section-number">7.4.3</span> Análisis Discriminante Cuadrático<a href="08-clasificacion.html#análisis-discriminante-cuadrático-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="análisis-discriminante-cuadrático-1" class="section level3 hasAnchor" number="7.5.3">
+<h3><span class="header-section-number">7.5.3</span> Análisis Discriminante Cuadrático<a href="08-clasificacion.html#análisis-discriminante-cuadrático-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>En este caso usaremos otro generador (<em>klaR</em>).</p>
+<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="08-clasificacion.html#cb467-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(klaR)</span></code></pre></div>
 <p>Nota: El argumento <em>frac_common_cov=1</em> permite hacer LDA en lugar de QDA.</p>
-<div class="sourceCode" id="cb440"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb440-1"><a href="08-clasificacion.html#cb440-1" aria-hidden="true" tabindex="-1"></a>modelo_qda <span class="ot">&lt;-</span> <span class="fu">discrim_regularized</span>(<span class="at">frac_common_cov =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb440-2"><a href="08-clasificacion.html#cb440-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;klaR&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb440-3"><a href="08-clasificacion.html#cb440-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb441"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb441-1"><a href="08-clasificacion.html#cb441-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(klaR)</span></code></pre></div>
-<pre><code>## Error in library(klaR): there is no package called &#39;klaR&#39;</code></pre>
-<div class="sourceCode" id="cb443"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb443-1"><a href="08-clasificacion.html#cb443-1" aria-hidden="true" tabindex="-1"></a>qda_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb443-2"><a href="08-clasificacion.html#cb443-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_qda) <span class="sc">%&gt;%</span></span>
-<span id="cb443-3"><a href="08-clasificacion.html#cb443-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span>
-<span id="cb443-4"><a href="08-clasificacion.html#cb443-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb443-5"><a href="08-clasificacion.html#cb443-5" aria-hidden="true" tabindex="-1"></a>last_fit_qda <span class="ot">&lt;-</span> qda_wf <span class="sc">%&gt;%</span></span>
-<span id="cb443-6"><a href="08-clasificacion.html#cb443-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
-<pre><code>## Error in pkgs$pkg[[1]]: subscript out of bounds</code></pre>
-<div class="sourceCode" id="cb445"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb445-1"><a href="08-clasificacion.html#cb445-1" aria-hidden="true" tabindex="-1"></a>last_fit_qda <span class="sc">%&gt;%</span></span>
-<span id="cb445-2"><a href="08-clasificacion.html#cb445-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
-<pre><code>## Error in collect_metrics(.): object &#39;last_fit_qda&#39; not found</code></pre>
-<div class="sourceCode" id="cb447"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb447-1"><a href="08-clasificacion.html#cb447-1" aria-hidden="true" tabindex="-1"></a>qda_predicciones <span class="ot">&lt;-</span> last_fit_qda <span class="sc">%&gt;%</span></span>
-<span id="cb447-2"><a href="08-clasificacion.html#cb447-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span></code></pre></div>
-<pre><code>## Error in collect_predictions(.): object &#39;last_fit_qda&#39; not found</code></pre>
-<div class="sourceCode" id="cb449"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb449-1"><a href="08-clasificacion.html#cb449-1" aria-hidden="true" tabindex="-1"></a>qda_predicciones <span class="sc">%&gt;%</span></span>
-<span id="cb449-2"><a href="08-clasificacion.html#cb449-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
-<span id="cb449-3"><a href="08-clasificacion.html#cb449-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
-<pre><code>## Error in roc_curve(., truth = Purchase, estimate = .pred_No): object &#39;qda_predicciones&#39; not found</code></pre>
-<div class="sourceCode" id="cb451"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb451-1"><a href="08-clasificacion.html#cb451-1" aria-hidden="true" tabindex="-1"></a>qda_predicciones <span class="sc">%&gt;%</span></span>
-<span id="cb451-2"><a href="08-clasificacion.html#cb451-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
-<pre><code>## Error in conf_mat(., truth = Purchase, estimate = .pred_class): object &#39;qda_predicciones&#39; not found</code></pre>
+<div class="sourceCode" id="cb468"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb468-1"><a href="08-clasificacion.html#cb468-1" aria-hidden="true" tabindex="-1"></a>modelo_qda <span class="ot">&lt;-</span> <span class="fu">discrim_regularized</span>(<span class="at">frac_common_cov =</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb468-2"><a href="08-clasificacion.html#cb468-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;klaR&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb468-3"><a href="08-clasificacion.html#cb468-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="08-clasificacion.html#cb469-1" aria-hidden="true" tabindex="-1"></a>qda_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb469-2"><a href="08-clasificacion.html#cb469-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_qda) <span class="sc">%&gt;%</span></span>
+<span id="cb469-3"><a href="08-clasificacion.html#cb469-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span>
+<span id="cb469-4"><a href="08-clasificacion.html#cb469-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb469-5"><a href="08-clasificacion.html#cb469-5" aria-hidden="true" tabindex="-1"></a>last_fit_qda <span class="ot">&lt;-</span> qda_wf <span class="sc">%&gt;%</span></span>
+<span id="cb469-6"><a href="08-clasificacion.html#cb469-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
+<div class="sourceCode" id="cb470"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb470-1"><a href="08-clasificacion.html#cb470-1" aria-hidden="true" tabindex="-1"></a>last_fit_qda <span class="sc">%&gt;%</span></span>
+<span id="cb470-2"><a href="08-clasificacion.html#cb470-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##   .metric  .estimator .estimate .config             
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+## 1 accuracy binary         0.903 Preprocessor1_Model1
+## 2 roc_auc  binary         0.720 Preprocessor1_Model1</code></pre>
+<div class="sourceCode" id="cb472"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb472-1"><a href="08-clasificacion.html#cb472-1" aria-hidden="true" tabindex="-1"></a>qda_predicciones <span class="ot">&lt;-</span> last_fit_qda <span class="sc">%&gt;%</span></span>
+<span id="cb472-2"><a href="08-clasificacion.html#cb472-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span>
+<span id="cb472-3"><a href="08-clasificacion.html#cb472-3" aria-hidden="true" tabindex="-1"></a>qda_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb472-4"><a href="08-clasificacion.html#cb472-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
+<span id="cb472-5"><a href="08-clasificacion.html#cb472-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-268-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb473"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb473-1"><a href="08-clasificacion.html#cb473-1" aria-hidden="true" tabindex="-1"></a>qda_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb473-2"><a href="08-clasificacion.html#cb473-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
+<pre><code>##           Truth
+## Prediction   No  Yes
+##        No  1042   56
+##        Yes   57   10</code></pre>
 </div>
-<div id="k-vecinos-más-cercanos" class="section level3 hasAnchor" number="7.4.4">
-<h3><span class="header-section-number">7.4.4</span> K vecinos más cercanos<a href="08-clasificacion.html#k-vecinos-más-cercanos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<p>En el caso del KNN se va a seleccionar el número de vecinos a través de validación cruzada, usando como métrica el AUC. Primero definimos los conjuntos bajo el k-fold:</p>
-<div class="sourceCode" id="cb453"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb453-1"><a href="08-clasificacion.html#cb453-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">178</span>)</span>
-<span id="cb453-2"><a href="08-clasificacion.html#cb453-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb453-3"><a href="08-clasificacion.html#cb453-3" aria-hidden="true" tabindex="-1"></a>Caravan.folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(Caravan.training, <span class="at">v =</span> <span class="dv">5</span>,</span>
-<span id="cb453-4"><a href="08-clasificacion.html#cb453-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">strata =</span> Purchase)</span></code></pre></div>
+<div id="k-vecinos-más-cercanos" class="section level3 hasAnchor" number="7.5.4">
+<h3><span class="header-section-number">7.5.4</span> K vecinos más cercanos<a href="08-clasificacion.html#k-vecinos-más-cercanos" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>En el caso del KNN se va a seleccionar el número de vecinos a través de validación cruzada, usando como métrica el AUC.</p>
+<p>Este método requiere la siguiente librería para funcionar</p>
+<div class="sourceCode" id="cb475"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb475-1"><a href="08-clasificacion.html#cb475-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kknn)</span></code></pre></div>
+<p>Primero definimos los conjuntos bajo el k-fold:</p>
+<div class="sourceCode" id="cb476"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb476-1"><a href="08-clasificacion.html#cb476-1" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">178</span>)</span>
+<span id="cb476-2"><a href="08-clasificacion.html#cb476-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb476-3"><a href="08-clasificacion.html#cb476-3" aria-hidden="true" tabindex="-1"></a>Caravan.folds <span class="ot">&lt;-</span> <span class="fu">vfold_cv</span>(Caravan.training, <span class="at">v =</span> <span class="dv">5</span>,</span>
+<span id="cb476-4"><a href="08-clasificacion.html#cb476-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">strata =</span> Purchase)</span></code></pre></div>
 <p>y definimos el modelo KNN y el flujo de trabajo:</p>
-<div class="sourceCode" id="cb454"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb454-1"><a href="08-clasificacion.html#cb454-1" aria-hidden="true" tabindex="-1"></a>modelo_knn <span class="ot">&lt;-</span> <span class="fu">nearest_neighbor</span>(<span class="at">neighbors =</span> <span class="fu">tune</span>()) <span class="sc">%&gt;%</span></span>
-<span id="cb454-2"><a href="08-clasificacion.html#cb454-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;kknn&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb454-3"><a href="08-clasificacion.html#cb454-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span>
-<span id="cb454-4"><a href="08-clasificacion.html#cb454-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb454-5"><a href="08-clasificacion.html#cb454-5" aria-hidden="true" tabindex="-1"></a>knn_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb454-6"><a href="08-clasificacion.html#cb454-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_knn) <span class="sc">%&gt;%</span></span>
-<span id="cb454-7"><a href="08-clasificacion.html#cb454-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span></code></pre></div>
+<div class="sourceCode" id="cb477"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb477-1"><a href="08-clasificacion.html#cb477-1" aria-hidden="true" tabindex="-1"></a>modelo_knn <span class="ot">&lt;-</span> <span class="fu">nearest_neighbor</span>(<span class="at">neighbors =</span> <span class="fu">tune</span>()) <span class="sc">%&gt;%</span></span>
+<span id="cb477-2"><a href="08-clasificacion.html#cb477-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;kknn&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb477-3"><a href="08-clasificacion.html#cb477-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>)</span>
+<span id="cb477-4"><a href="08-clasificacion.html#cb477-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb477-5"><a href="08-clasificacion.html#cb477-5" aria-hidden="true" tabindex="-1"></a>knn_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb477-6"><a href="08-clasificacion.html#cb477-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_knn) <span class="sc">%&gt;%</span></span>
+<span id="cb477-7"><a href="08-clasificacion.html#cb477-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span></code></pre></div>
 <p>Definimos una grilla de posibles valores de # de vecinos que usaremos en el k-fold:</p>
-<div class="sourceCode" id="cb455"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb455-1"><a href="08-clasificacion.html#cb455-1" aria-hidden="true" tabindex="-1"></a>k_grid <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">neighbors =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">100</span>, <span class="dv">125</span>, <span class="dv">150</span>,</span>
-<span id="cb455-2"><a href="08-clasificacion.html#cb455-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">175</span>, <span class="dv">200</span>, <span class="dv">225</span>))</span>
-<span id="cb455-3"><a href="08-clasificacion.html#cb455-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb455-4"><a href="08-clasificacion.html#cb455-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">178</span>)</span>
-<span id="cb455-5"><a href="08-clasificacion.html#cb455-5" aria-hidden="true" tabindex="-1"></a>knn_tuning <span class="ot">&lt;-</span> knn_wf <span class="sc">%&gt;%</span></span>
-<span id="cb455-6"><a href="08-clasificacion.html#cb455-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tune_grid</span>(<span class="at">resamples =</span> Caravan.folds, <span class="at">grid =</span> k_grid)</span></code></pre></div>
-<pre><code>## Error in `check_installs()`:
-## ! Some package installs are required: 
-## * &#39;kknn&#39;, &#39;kknn&#39;</code></pre>
+<div class="sourceCode" id="cb478"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb478-1"><a href="08-clasificacion.html#cb478-1" aria-hidden="true" tabindex="-1"></a>k_grid <span class="ot">&lt;-</span> <span class="fu">tibble</span>(<span class="at">neighbors =</span> <span class="fu">c</span>(<span class="dv">50</span>, <span class="dv">75</span>, <span class="dv">100</span>, <span class="dv">125</span>, <span class="dv">150</span>,</span>
+<span id="cb478-2"><a href="08-clasificacion.html#cb478-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">175</span>, <span class="dv">200</span>, <span class="dv">225</span>))</span>
+<span id="cb478-3"><a href="08-clasificacion.html#cb478-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb478-4"><a href="08-clasificacion.html#cb478-4" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">178</span>)</span>
+<span id="cb478-5"><a href="08-clasificacion.html#cb478-5" aria-hidden="true" tabindex="-1"></a>knn_tuning <span class="ot">&lt;-</span> knn_wf <span class="sc">%&gt;%</span></span>
+<span id="cb478-6"><a href="08-clasificacion.html#cb478-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">tune_grid</span>(<span class="at">resamples =</span> Caravan.folds, <span class="at">grid =</span> k_grid)</span></code></pre></div>
 <p>y se selecciona el modelo con el mejor AUC:</p>
-<div class="sourceCode" id="cb457"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb457-1"><a href="08-clasificacion.html#cb457-1" aria-hidden="true" tabindex="-1"></a>knn_tuning <span class="sc">%&gt;%</span></span>
-<span id="cb457-2"><a href="08-clasificacion.html#cb457-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">show_best</span>(<span class="st">&quot;roc_auc&quot;</span>)</span></code></pre></div>
-<pre><code>## Error in show_best(., &quot;roc_auc&quot;): object &#39;knn_tuning&#39; not found</code></pre>
+<div class="sourceCode" id="cb479"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb479-1"><a href="08-clasificacion.html#cb479-1" aria-hidden="true" tabindex="-1"></a>knn_tuning <span class="sc">%&gt;%</span></span>
+<span id="cb479-2"><a href="08-clasificacion.html#cb479-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">show_best</span>(<span class="st">&quot;roc_auc&quot;</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 5 x 7
+##   neighbors .metric .estimator  mean     n std_err .config             
+##       &lt;dbl&gt; &lt;chr&gt;   &lt;chr&gt;      &lt;dbl&gt; &lt;int&gt;   &lt;dbl&gt; &lt;chr&gt;               
+## 1       225 roc_auc binary     0.711     5  0.0145 Preprocessor1_Model8
+## 2       200 roc_auc binary     0.709     5  0.0151 Preprocessor1_Model7
+## 3       175 roc_auc binary     0.707     5  0.0161 Preprocessor1_Model6
+## 4       150 roc_auc binary     0.705     5  0.0177 Preprocessor1_Model5
+## 5       125 roc_auc binary     0.701     5  0.0189 Preprocessor1_Model4</code></pre>
 <p>mejor modelo y actualización del flujo de trabajo:</p>
-<div class="sourceCode" id="cb459"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb459-1"><a href="08-clasificacion.html#cb459-1" aria-hidden="true" tabindex="-1"></a>mejor_knn <span class="ot">&lt;-</span> knn_tuning <span class="sc">%&gt;%</span></span>
-<span id="cb459-2"><a href="08-clasificacion.html#cb459-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select_best</span>(<span class="at">metric =</span> <span class="st">&quot;roc_auc&quot;</span>)</span></code></pre></div>
-<pre><code>## Error in show_best(x, metric = metric, n = 1): object &#39;knn_tuning&#39; not found</code></pre>
-<div class="sourceCode" id="cb461"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb461-1"><a href="08-clasificacion.html#cb461-1" aria-hidden="true" tabindex="-1"></a>final_knn_wf <span class="ot">&lt;-</span> knn_wf <span class="sc">%&gt;%</span></span>
-<span id="cb461-2"><a href="08-clasificacion.html#cb461-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">finalize_workflow</span>(mejor_knn)</span></code></pre></div>
-<pre><code>## Error in check_final_param(parameters): object &#39;mejor_knn&#39; not found</code></pre>
+<div class="sourceCode" id="cb481"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb481-1"><a href="08-clasificacion.html#cb481-1" aria-hidden="true" tabindex="-1"></a>mejor_knn <span class="ot">&lt;-</span> knn_tuning <span class="sc">%&gt;%</span></span>
+<span id="cb481-2"><a href="08-clasificacion.html#cb481-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select_best</span>(<span class="at">metric =</span> <span class="st">&quot;roc_auc&quot;</span>)</span>
+<span id="cb481-3"><a href="08-clasificacion.html#cb481-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb481-4"><a href="08-clasificacion.html#cb481-4" aria-hidden="true" tabindex="-1"></a>final_knn_wf <span class="ot">&lt;-</span> knn_wf <span class="sc">%&gt;%</span></span>
+<span id="cb481-5"><a href="08-clasificacion.html#cb481-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">finalize_workflow</span>(mejor_knn)</span></code></pre></div>
 <p>Ahora ajustamos el modelo y analizamos su rendimiento con los conjuntos de entrenamiento y prueba iniciales:</p>
-<div class="sourceCode" id="cb463"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb463-1"><a href="08-clasificacion.html#cb463-1" aria-hidden="true" tabindex="-1"></a>last_fit_knn <span class="ot">&lt;-</span> final_knn_wf <span class="sc">%&gt;%</span></span>
-<span id="cb463-2"><a href="08-clasificacion.html#cb463-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span></code></pre></div>
-<pre><code>## Error in last_fit(., split = Caravan.split): object &#39;final_knn_wf&#39; not found</code></pre>
-<div class="sourceCode" id="cb465"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb465-1"><a href="08-clasificacion.html#cb465-1" aria-hidden="true" tabindex="-1"></a>last_fit_knn <span class="sc">%&gt;%</span></span>
-<span id="cb465-2"><a href="08-clasificacion.html#cb465-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
-<pre><code>## Error in collect_metrics(.): object &#39;last_fit_knn&#39; not found</code></pre>
-<div class="sourceCode" id="cb467"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb467-1"><a href="08-clasificacion.html#cb467-1" aria-hidden="true" tabindex="-1"></a>knn_predicciones <span class="ot">&lt;-</span> last_fit_knn <span class="sc">%&gt;%</span></span>
-<span id="cb467-2"><a href="08-clasificacion.html#cb467-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span></code></pre></div>
-<pre><code>## Error in collect_predictions(.): object &#39;last_fit_knn&#39; not found</code></pre>
-<div class="sourceCode" id="cb469"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb469-1"><a href="08-clasificacion.html#cb469-1" aria-hidden="true" tabindex="-1"></a>knn_predicciones <span class="sc">%&gt;%</span></span>
-<span id="cb469-2"><a href="08-clasificacion.html#cb469-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
-<span id="cb469-3"><a href="08-clasificacion.html#cb469-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
-<pre><code>## Error in roc_curve(., truth = Purchase, estimate = .pred_No): object &#39;knn_predicciones&#39; not found</code></pre>
-<div class="sourceCode" id="cb471"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb471-1"><a href="08-clasificacion.html#cb471-1" aria-hidden="true" tabindex="-1"></a>knn_predicciones <span class="sc">%&gt;%</span></span>
-<span id="cb471-2"><a href="08-clasificacion.html#cb471-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
-<pre><code>## Error in conf_mat(., truth = Purchase, estimate = .pred_class): object &#39;knn_predicciones&#39; not found</code></pre>
+<div class="sourceCode" id="cb482"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb482-1"><a href="08-clasificacion.html#cb482-1" aria-hidden="true" tabindex="-1"></a>last_fit_knn <span class="ot">&lt;-</span> final_knn_wf <span class="sc">%&gt;%</span></span>
+<span id="cb482-2"><a href="08-clasificacion.html#cb482-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span>
+<span id="cb482-3"><a href="08-clasificacion.html#cb482-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb482-4"><a href="08-clasificacion.html#cb482-4" aria-hidden="true" tabindex="-1"></a>last_fit_knn <span class="sc">%&gt;%</span></span>
+<span id="cb482-5"><a href="08-clasificacion.html#cb482-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##   .metric  .estimator .estimate .config             
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+## 1 accuracy binary         0.943 Preprocessor1_Model1
+## 2 roc_auc  binary         0.693 Preprocessor1_Model1</code></pre>
+<div class="sourceCode" id="cb484"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb484-1"><a href="08-clasificacion.html#cb484-1" aria-hidden="true" tabindex="-1"></a>knn_predicciones <span class="ot">&lt;-</span> last_fit_knn <span class="sc">%&gt;%</span></span>
+<span id="cb484-2"><a href="08-clasificacion.html#cb484-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span>
+<span id="cb484-3"><a href="08-clasificacion.html#cb484-3" aria-hidden="true" tabindex="-1"></a>knn_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb484-4"><a href="08-clasificacion.html#cb484-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
+<span id="cb484-5"><a href="08-clasificacion.html#cb484-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-275-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb485"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb485-1"><a href="08-clasificacion.html#cb485-1" aria-hidden="true" tabindex="-1"></a>knn_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb485-2"><a href="08-clasificacion.html#cb485-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
+<pre><code>##           Truth
+## Prediction   No  Yes
+##        No  1099   66
+##        Yes    0    0</code></pre>
+</div>
+<div id="máquinas-de-soporte-vectorial" class="section level3 hasAnchor" number="7.5.5">
+<h3><span class="header-section-number">7.5.5</span> Máquinas de soporte vectorial<a href="08-clasificacion.html#máquinas-de-soporte-vectorial" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<div id="kernel-polinomial" class="section level4 hasAnchor" number="7.5.5.1">
+<h4><span class="header-section-number">7.5.5.1</span> Kernel polinomial<a href="08-clasificacion.html#kernel-polinomial" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb487"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb487-1"><a href="08-clasificacion.html#cb487-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(kernlab)</span>
+<span id="cb487-2"><a href="08-clasificacion.html#cb487-2" aria-hidden="true" tabindex="-1"></a>modelo_svm <span class="ot">&lt;-</span> <span class="fu">svm_poly</span>(<span class="at">degree =</span> <span class="dv">1</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb487-3"><a href="08-clasificacion.html#cb487-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb487-4"><a href="08-clasificacion.html#cb487-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;kernlab&quot;</span>, <span class="at">scaled =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb487-5"><a href="08-clasificacion.html#cb487-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb487-6"><a href="08-clasificacion.html#cb487-6" aria-hidden="true" tabindex="-1"></a>svm_lineal_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb487-7"><a href="08-clasificacion.html#cb487-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_svm) <span class="sc">%&gt;%</span></span>
+<span id="cb487-8"><a href="08-clasificacion.html#cb487-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span>
+<span id="cb487-9"><a href="08-clasificacion.html#cb487-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb487-10"><a href="08-clasificacion.html#cb487-10" aria-hidden="true" tabindex="-1"></a>last_fit_svm <span class="ot">&lt;-</span> svm_lineal_wf <span class="sc">%&gt;%</span></span>
+<span id="cb487-11"><a href="08-clasificacion.html#cb487-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span>
+<span id="cb487-12"><a href="08-clasificacion.html#cb487-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb487-13"><a href="08-clasificacion.html#cb487-13" aria-hidden="true" tabindex="-1"></a>last_fit_svm <span class="sc">%&gt;%</span></span>
+<span id="cb487-14"><a href="08-clasificacion.html#cb487-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##   .metric  .estimator .estimate .config             
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+## 1 accuracy binary         0.943 Preprocessor1_Model1
+## 2 roc_auc  binary         0.395 Preprocessor1_Model1</code></pre>
+<div class="sourceCode" id="cb489"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb489-1"><a href="08-clasificacion.html#cb489-1" aria-hidden="true" tabindex="-1"></a>svm_predicciones <span class="ot">&lt;-</span> last_fit_svm <span class="sc">%&gt;%</span></span>
+<span id="cb489-2"><a href="08-clasificacion.html#cb489-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span>
+<span id="cb489-3"><a href="08-clasificacion.html#cb489-3" aria-hidden="true" tabindex="-1"></a>svm_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb489-4"><a href="08-clasificacion.html#cb489-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
+<span id="cb489-5"><a href="08-clasificacion.html#cb489-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-276-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb490"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb490-1"><a href="08-clasificacion.html#cb490-1" aria-hidden="true" tabindex="-1"></a>svm_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb490-2"><a href="08-clasificacion.html#cb490-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
+<pre><code>##           Truth
+## Prediction   No  Yes
+##        No  1099   66
+##        Yes    0    0</code></pre>
+<div class="sourceCode" id="cb492"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb492-1"><a href="08-clasificacion.html#cb492-1" aria-hidden="true" tabindex="-1"></a><span class="do">## svm_linear_wf &lt;- workflow() %&gt;%</span></span>
+<span id="cb492-2"><a href="08-clasificacion.html#cb492-2" aria-hidden="true" tabindex="-1"></a><span class="do">## add_model(modelo_svm %&gt;% set_args(cost =</span></span>
+<span id="cb492-3"><a href="08-clasificacion.html#cb492-3" aria-hidden="true" tabindex="-1"></a><span class="do">## tune())) %&gt;% add_formula(Purchase ~ .)</span></span>
+<span id="cb492-4"><a href="08-clasificacion.html#cb492-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb492-5"><a href="08-clasificacion.html#cb492-5" aria-hidden="true" tabindex="-1"></a><span class="do">## set.seed(1234) Caravan_fold &lt;-</span></span>
+<span id="cb492-6"><a href="08-clasificacion.html#cb492-6" aria-hidden="true" tabindex="-1"></a><span class="do">## vfold_cv(Caravan.training, strata = Purchase,</span></span>
+<span id="cb492-7"><a href="08-clasificacion.html#cb492-7" aria-hidden="true" tabindex="-1"></a><span class="do">## v = 10)</span></span>
+<span id="cb492-8"><a href="08-clasificacion.html#cb492-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb492-9"><a href="08-clasificacion.html#cb492-9" aria-hidden="true" tabindex="-1"></a><span class="do">## param_grid &lt;- grid_regular(cost(), levels =</span></span>
+<span id="cb492-10"><a href="08-clasificacion.html#cb492-10" aria-hidden="true" tabindex="-1"></a><span class="do">## 10)</span></span>
+<span id="cb492-11"><a href="08-clasificacion.html#cb492-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb492-12"><a href="08-clasificacion.html#cb492-12" aria-hidden="true" tabindex="-1"></a><span class="do">## tune_res &lt;- tune_grid( svm_lineal_wf,</span></span>
+<span id="cb492-13"><a href="08-clasificacion.html#cb492-13" aria-hidden="true" tabindex="-1"></a><span class="do">## resamples = Caravan_fold, grid = param_grid )</span></span>
+<span id="cb492-14"><a href="08-clasificacion.html#cb492-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb492-15"><a href="08-clasificacion.html#cb492-15" aria-hidden="true" tabindex="-1"></a><span class="do">## autoplot(tune_res)</span></span></code></pre></div>
+<div class="sourceCode" id="cb493"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb493-1"><a href="08-clasificacion.html#cb493-1" aria-hidden="true" tabindex="-1"></a>best_cost <span class="ot">&lt;-</span> <span class="fu">select_best</span>(tune_res, <span class="at">metric =</span> <span class="st">&quot;accuracy&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in show_best(x, metric = metric, n = 1): object &#39;tune_res&#39; not found</code></pre>
+<div class="sourceCode" id="cb495"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb495-1"><a href="08-clasificacion.html#cb495-1" aria-hidden="true" tabindex="-1"></a>svm_linear_final <span class="ot">&lt;-</span> <span class="fu">finalize_workflow</span>(svm_linear_wf,</span>
+<span id="cb495-2"><a href="08-clasificacion.html#cb495-2" aria-hidden="true" tabindex="-1"></a>    best_cost)</span></code></pre></div>
+<pre><code>## Error in finalize_workflow(svm_linear_wf, best_cost): object &#39;svm_linear_wf&#39; not found</code></pre>
+<div class="sourceCode" id="cb497"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb497-1"><a href="08-clasificacion.html#cb497-1" aria-hidden="true" tabindex="-1"></a>(svm_linear_fit <span class="ot">&lt;-</span> svm_linear_final <span class="sc">%&gt;%</span></span>
+<span id="cb497-2"><a href="08-clasificacion.html#cb497-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">fit</span>(sim_data))</span></code></pre></div>
+<pre><code>## Error in fit(., sim_data): object &#39;svm_linear_final&#39; not found</code></pre>
+<div class="sourceCode" id="cb499"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb499-1"><a href="08-clasificacion.html#cb499-1" aria-hidden="true" tabindex="-1"></a>modelo_svm <span class="ot">&lt;-</span> <span class="fu">svm_poly</span>(<span class="at">degree =</span> <span class="dv">2</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb499-2"><a href="08-clasificacion.html#cb499-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb499-3"><a href="08-clasificacion.html#cb499-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;kernlab&quot;</span>, <span class="at">scaled =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb499-4"><a href="08-clasificacion.html#cb499-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb499-5"><a href="08-clasificacion.html#cb499-5" aria-hidden="true" tabindex="-1"></a>svm_lineal_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb499-6"><a href="08-clasificacion.html#cb499-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(modelo_svm) <span class="sc">%&gt;%</span></span>
+<span id="cb499-7"><a href="08-clasificacion.html#cb499-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span>
+<span id="cb499-8"><a href="08-clasificacion.html#cb499-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb499-9"><a href="08-clasificacion.html#cb499-9" aria-hidden="true" tabindex="-1"></a>last_fit_svm <span class="ot">&lt;-</span> svm_lineal_wf <span class="sc">%&gt;%</span></span>
+<span id="cb499-10"><a href="08-clasificacion.html#cb499-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span>
+<span id="cb499-11"><a href="08-clasificacion.html#cb499-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb499-12"><a href="08-clasificacion.html#cb499-12" aria-hidden="true" tabindex="-1"></a>last_fit_svm <span class="sc">%&gt;%</span></span>
+<span id="cb499-13"><a href="08-clasificacion.html#cb499-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##   .metric  .estimator .estimate .config             
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+## 1 accuracy binary         0.872 Preprocessor1_Model1
+## 2 roc_auc  binary         0.656 Preprocessor1_Model1</code></pre>
+<div class="sourceCode" id="cb501"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb501-1"><a href="08-clasificacion.html#cb501-1" aria-hidden="true" tabindex="-1"></a>svm_predicciones <span class="ot">&lt;-</span> last_fit_svm <span class="sc">%&gt;%</span></span>
+<span id="cb501-2"><a href="08-clasificacion.html#cb501-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span>
+<span id="cb501-3"><a href="08-clasificacion.html#cb501-3" aria-hidden="true" tabindex="-1"></a>svm_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb501-4"><a href="08-clasificacion.html#cb501-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
+<span id="cb501-5"><a href="08-clasificacion.html#cb501-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-279-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb502"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb502-1"><a href="08-clasificacion.html#cb502-1" aria-hidden="true" tabindex="-1"></a>svm_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb502-2"><a href="08-clasificacion.html#cb502-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
+<pre><code>##           Truth
+## Prediction   No  Yes
+##        No  1001   51
+##        Yes   98   15</code></pre>
+</div>
+<div id="kernels-en-alta-dimensión" class="section level4 hasAnchor" number="7.5.5.2">
+<h4><span class="header-section-number">7.5.5.2</span> Kernels en alta dimensión<a href="08-clasificacion.html#kernels-en-alta-dimensión" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<div class="sourceCode" id="cb504"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb504-1"><a href="08-clasificacion.html#cb504-1" aria-hidden="true" tabindex="-1"></a>model_svm_exp <span class="ot">&lt;-</span> <span class="fu">svm_rbf</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb504-2"><a href="08-clasificacion.html#cb504-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_mode</span>(<span class="st">&quot;classification&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb504-3"><a href="08-clasificacion.html#cb504-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">set_engine</span>(<span class="st">&quot;kernlab&quot;</span>)</span>
+<span id="cb504-4"><a href="08-clasificacion.html#cb504-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb504-5"><a href="08-clasificacion.html#cb504-5" aria-hidden="true" tabindex="-1"></a>svm_exp_wf <span class="ot">&lt;-</span> <span class="fu">workflow</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb504-6"><a href="08-clasificacion.html#cb504-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_model</span>(model_svm_exp) <span class="sc">%&gt;%</span></span>
+<span id="cb504-7"><a href="08-clasificacion.html#cb504-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">add_recipe</span>(Caravan.recipe)</span>
+<span id="cb504-8"><a href="08-clasificacion.html#cb504-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb504-9"><a href="08-clasificacion.html#cb504-9" aria-hidden="true" tabindex="-1"></a>last_fit_svm <span class="ot">&lt;-</span> svm_exp_wf <span class="sc">%&gt;%</span></span>
+<span id="cb504-10"><a href="08-clasificacion.html#cb504-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">last_fit</span>(<span class="at">split =</span> Caravan.split)</span>
+<span id="cb504-11"><a href="08-clasificacion.html#cb504-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb504-12"><a href="08-clasificacion.html#cb504-12" aria-hidden="true" tabindex="-1"></a>last_fit_svm <span class="sc">%&gt;%</span></span>
+<span id="cb504-13"><a href="08-clasificacion.html#cb504-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_metrics</span>()</span></code></pre></div>
+<pre><code>## # A tibble: 2 x 4
+##   .metric  .estimator .estimate .config             
+##   &lt;chr&gt;    &lt;chr&gt;          &lt;dbl&gt; &lt;chr&gt;               
+## 1 accuracy binary         0.943 Preprocessor1_Model1
+## 2 roc_auc  binary         0.636 Preprocessor1_Model1</code></pre>
+<div class="sourceCode" id="cb506"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb506-1"><a href="08-clasificacion.html#cb506-1" aria-hidden="true" tabindex="-1"></a>svm_predicciones <span class="ot">&lt;-</span> last_fit_svm <span class="sc">%&gt;%</span></span>
+<span id="cb506-2"><a href="08-clasificacion.html#cb506-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">collect_predictions</span>()</span>
+<span id="cb506-3"><a href="08-clasificacion.html#cb506-3" aria-hidden="true" tabindex="-1"></a>svm_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb506-4"><a href="08-clasificacion.html#cb506-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">roc_curve</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_No) <span class="sc">%&gt;%</span></span>
+<span id="cb506-5"><a href="08-clasificacion.html#cb506-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">autoplot</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-280-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb507"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb507-1"><a href="08-clasificacion.html#cb507-1" aria-hidden="true" tabindex="-1"></a>svm_predicciones <span class="sc">%&gt;%</span></span>
+<span id="cb507-2"><a href="08-clasificacion.html#cb507-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">conf_mat</span>(<span class="at">truth =</span> Purchase, <span class="at">estimate =</span> .pred_class)</span></code></pre></div>
+<pre><code>##           Truth
+## Prediction   No  Yes
+##        No  1099   66
+##        Yes    0    0</code></pre>
 </div>
 </div>
-<div id="ejercicios-5" class="section level2 hasAnchor" number="7.5">
-<h2><span class="header-section-number">7.5</span> Ejercicios<a href="08-clasificacion.html#ejercicios-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+</div>
+<div id="ejercicios-5" class="section level2 hasAnchor" number="7.6">
+<h2><span class="header-section-number">7.6</span> Ejercicios<a href="08-clasificacion.html#ejercicios-5" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <ul>
 <li>Del libro <span class="citation">(James et al. 2013)</span>
 <ul>

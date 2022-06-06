@@ -51,11 +51,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/rglWebGL-binding-0.108.3/rglWebGL.js"></script>
-<link href="libs/rglwidgetClass-0.108.3/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-0.108.3/rglClass.min.js"></script>
-<script src="libs/CanvasMatrix4-0.108.3/CanvasMatrix.min.js"></script>
 
 
 <style type="text/css">
@@ -305,14 +300,16 @@ div.csl-indent {
 <li class="chapter" data-level="7.3.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal"><i class="fa fa-check"></i><b>7.3.1</b> Análisis discriminante lineal</a></li>
 <li class="chapter" data-level="7.3.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático"><i class="fa fa-check"></i><b>7.3.2</b> Análisis discriminante cuadrático</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>7.4</b> Laboratorio</a>
+<li class="chapter" data-level="7.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#estimación-de-la-curva-roc"><i class="fa fa-check"></i><b>7.4</b> Estimación de la Curva ROC</a></li>
+<li class="chapter" data-level="7.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>7.5</b> Laboratorio</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>7.4.1</b> Clasificador logístico</a></li>
-<li class="chapter" data-level="7.4.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal-1"><i class="fa fa-check"></i><b>7.4.2</b> Análisis Discriminante Lineal</a></li>
-<li class="chapter" data-level="7.4.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático-1"><i class="fa fa-check"></i><b>7.4.3</b> Análisis Discriminante Cuadrático</a></li>
-<li class="chapter" data-level="7.4.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>7.4.4</b> K vecinos más cercanos</a></li>
+<li class="chapter" data-level="7.5.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>7.5.1</b> Clasificador logístico</a></li>
+<li class="chapter" data-level="7.5.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal-1"><i class="fa fa-check"></i><b>7.5.2</b> Análisis Discriminante Lineal</a></li>
+<li class="chapter" data-level="7.5.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático-1"><i class="fa fa-check"></i><b>7.5.3</b> Análisis Discriminante Cuadrático</a></li>
+<li class="chapter" data-level="7.5.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>7.5.4</b> K vecinos más cercanos</a></li>
+<li class="chapter" data-level="7.5.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#máquinas-de-soporte-vectorial"><i class="fa fa-check"></i><b>7.5.5</b> Máquinas de soporte vectorial</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-5"><i class="fa fa-check"></i><b>7.5</b> Ejercicios</a></li>
+<li class="chapter" data-level="7.6" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-5"><i class="fa fa-check"></i><b>7.6</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html"><i class="fa fa-check"></i><b>8</b> Cálculo Bayesiano Computacional</a>
 <ul>
@@ -801,10 +798,8 @@ b_{jack} = (n-1) (\overline{T}_{n} - T_{n})
 <span class="math display">\[\begin{equation*}
 \overline{T}_{n} = \frac{1}{n} \sum_{i=1}^{n} T_{(-i)}
 \end{equation*}\]</span></p>
-<p>y el estimador corregido por sesgo es: <span class="math inline">\(T_{jack}=T_n-b_{jack}\)</span>.
-::: {.exercise #unnamed-chunk-74}
-En nuestro caso tendríamos lo siguiente:
-:::</p>
+<p>y el estimador corregido por sesgo es: <span class="math inline">\(T_{jack}=T_n-b_{jack}\)</span>.</p>
+<p>En nuestro caso tendríamos lo siguiente:</p>
 <div class="sourceCode" id="cb47"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb47-1"><a href="02-jacknife-bootstrap.html#cb47-1" aria-hidden="true" tabindex="-1"></a>(bjack <span class="ot">&lt;-</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> (<span class="fu">mean</span>(T_i) <span class="sc">-</span> Tn))</span></code></pre></div>
 <pre><code>## [1] 0</code></pre>
 <p>Es decir, el sesgo aproximado (jackknife) del estimador <span class="math inline">\(T_n\)</span> es 0.</p>
@@ -843,7 +838,7 @@ representa el aporte o peso que tiene la variable <span class="math inline">\(X_
 estimar <span class="math inline">\(T_{n}\)</span>.</p>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-78" class="exercise"><strong>Ejercicio 3.2  </strong></span>Usado un cálculo similar para el <span class="math inline">\(b_{jack}\)</span> pruebe que</p>
+<p><span id="exr:unnamed-chunk-77" class="exercise"><strong>Ejercicio 3.2  </strong></span>Usado un cálculo similar para el <span class="math inline">\(b_{jack}\)</span> pruebe que</p>
 <p><span class="math display">\[
 \operatorname{Sesgo}\left(T_{\text {jack}
 }\right)=-\frac{b}{n(n-1)}+O\left(\frac{1}{n^{2}}\right)=O\left(\frac{1}{n^{2}}\right).
@@ -851,7 +846,7 @@ estimar <span class="math inline">\(T_{n}\)</span>.</p>
 <p>¿Qué conclusión se obtiene de este cálculo?</p>
 </div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-79" class="exercise"><strong>Ejercicio 3.3  </strong></span>Los pseudo-valores se estiman de forma directa como,</p>
+<p><span id="exr:unnamed-chunk-78" class="exercise"><strong>Ejercicio 3.3  </strong></span>Los pseudo-valores se estiman de forma directa como,</p>
 </div>
 <div class="sourceCode" id="cb49"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb49-1"><a href="02-jacknife-bootstrap.html#cb49-1" aria-hidden="true" tabindex="-1"></a>pseudo <span class="ot">&lt;-</span> n <span class="sc">*</span> Tn <span class="sc">-</span> (n <span class="sc">-</span> <span class="dv">1</span>) <span class="sc">*</span> T_i</span>
 <span id="cb49-2"><a href="02-jacknife-bootstrap.html#cb49-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -860,7 +855,7 @@ estimar <span class="math inline">\(T_{n}\)</span>.</p>
 ##  [6] 957.16225222 252.64417993 365.79679037  16.09799519 199.02972209</code></pre>
 <p>Lo importante acá es notar la asociación o correspondencia que tiene con los datos reales,</p>
 <div class="sourceCode" id="cb51"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb51-1"><a href="02-jacknife-bootstrap.html#cb51-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="at">x =</span> x, <span class="at">y =</span> pseudo)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-81-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-80-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>Con estos pseudo-valores, es posible estimar la media y la varianza de
 <span class="math inline">\(T_{n}\)</span> con los siguientes estimadores respectivos:</p>
 <p><span class="math display">\[
@@ -959,7 +954,7 @@ v_{\mathrm{boot}} \stackrel{\mathrm{a.s.}}{\longrightarrow} \mathbb{V}_{\widehat
 <li>Seleccione una muestra con remplazo <span class="math inline">\(X_{1}^{*}, \ldots, X_{n}^{*}\)</span> de <span class="math inline">\(X_{1},\ldots,X_{n}\)</span>.</li>
 </ol>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-89" class="exercise"><strong>Ejercicio 3.4  </strong></span>En este ejemplo podemos tomar <span class="math inline">\(B=1000\)</span> y construir esa cantidad de veces nuestro estimador de varianza:</p>
+<p><span id="exr:unnamed-chunk-88" class="exercise"><strong>Ejercicio 3.4  </strong></span>En este ejemplo podemos tomar <span class="math inline">\(B=1000\)</span> y construir esa cantidad de veces nuestro estimador de varianza:</p>
 </div>
 <div class="sourceCode" id="cb62"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb62-1"><a href="02-jacknife-bootstrap.html#cb62-1" aria-hidden="true" tabindex="-1"></a>B <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
 <span id="cb62-2"><a href="02-jacknife-bootstrap.html#cb62-2" aria-hidden="true" tabindex="-1"></a>Tboot_b <span class="ot">&lt;-</span> <span class="cn">NULL</span></span>
@@ -973,9 +968,9 @@ v_{\mathrm{boot}} \stackrel{\mathrm{a.s.}}{\longrightarrow} \mathbb{V}_{\widehat
 <pre><code>##  [1] 414.1915 391.2966 310.2777 468.8409 400.5235 380.8023 496.4924 418.5968
 ##  [9] 461.3902 547.3446</code></pre>
 <div class="sourceCode" id="cb64"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb64-1"><a href="02-jacknife-bootstrap.html#cb64-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(Tboot_b)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-91-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-90-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb65"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb65-1"><a href="02-jacknife-bootstrap.html#cb65-1" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(Tboot_b)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-91-2.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-90-2.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>Por supuesto podemos encontrar los estadísticos usuales para esta nueva muestra</p>
 <div class="sourceCode" id="cb66"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb66-1"><a href="02-jacknife-bootstrap.html#cb66-1" aria-hidden="true" tabindex="-1"></a>(Tboot <span class="ot">&lt;-</span> <span class="fu">mean</span>(Tboot_b))</span></code></pre></div>
 <pre><code>## [1] 428.0777</code></pre>
@@ -1106,7 +1101,7 @@ C_{n}=\left(T_{n}-z_{1-\alpha / 2}^{*} \widehat{\mathrm{se}}_{\mathrm{boot}}, T_
 <span id="cb76-16"><a href="02-jacknife-bootstrap.html#cb76-16" aria-hidden="true" tabindex="-1"></a>z_star <span class="ot">&lt;-</span> (Tboot_b <span class="sc">-</span> Tn)<span class="sc">/</span>sdboot_b</span>
 <span id="cb76-17"><a href="02-jacknife-bootstrap.html#cb76-17" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb76-18"><a href="02-jacknife-bootstrap.html#cb76-18" aria-hidden="true" tabindex="-1"></a><span class="fu">hist</span>(z_star)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-103-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-102-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb77"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb77-1"><a href="02-jacknife-bootstrap.html#cb77-1" aria-hidden="true" tabindex="-1"></a><span class="fu">c</span>(Tn <span class="sc">-</span> <span class="fu">quantile</span>(z_star, <span class="dv">1</span> <span class="sc">-</span> <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> sdboot, Tn <span class="sc">-</span></span>
 <span id="cb77-2"><a href="02-jacknife-bootstrap.html#cb77-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">quantile</span>(z_star, <span class="fl">0.05</span><span class="sc">/</span><span class="dv">2</span>) <span class="sc">*</span> sdboot)</span></code></pre></div>
 <pre><code>##    97.5%     2.5% 

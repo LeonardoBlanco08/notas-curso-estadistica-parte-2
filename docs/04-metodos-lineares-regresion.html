@@ -51,11 +51,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/rglWebGL-binding-0.108.3/rglWebGL.js"></script>
-<link href="libs/rglwidgetClass-0.108.3/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-0.108.3/rglClass.min.js"></script>
-<script src="libs/CanvasMatrix4-0.108.3/CanvasMatrix.min.js"></script>
 
 
 <style type="text/css">
@@ -305,14 +300,16 @@ div.csl-indent {
 <li class="chapter" data-level="7.3.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal"><i class="fa fa-check"></i><b>7.3.1</b> Análisis discriminante lineal</a></li>
 <li class="chapter" data-level="7.3.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático"><i class="fa fa-check"></i><b>7.3.2</b> Análisis discriminante cuadrático</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>7.4</b> Laboratorio</a>
+<li class="chapter" data-level="7.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#estimación-de-la-curva-roc"><i class="fa fa-check"></i><b>7.4</b> Estimación de la Curva ROC</a></li>
+<li class="chapter" data-level="7.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>7.5</b> Laboratorio</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>7.4.1</b> Clasificador logístico</a></li>
-<li class="chapter" data-level="7.4.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal-1"><i class="fa fa-check"></i><b>7.4.2</b> Análisis Discriminante Lineal</a></li>
-<li class="chapter" data-level="7.4.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático-1"><i class="fa fa-check"></i><b>7.4.3</b> Análisis Discriminante Cuadrático</a></li>
-<li class="chapter" data-level="7.4.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>7.4.4</b> K vecinos más cercanos</a></li>
+<li class="chapter" data-level="7.5.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>7.5.1</b> Clasificador logístico</a></li>
+<li class="chapter" data-level="7.5.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal-1"><i class="fa fa-check"></i><b>7.5.2</b> Análisis Discriminante Lineal</a></li>
+<li class="chapter" data-level="7.5.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático-1"><i class="fa fa-check"></i><b>7.5.3</b> Análisis Discriminante Cuadrático</a></li>
+<li class="chapter" data-level="7.5.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>7.5.4</b> K vecinos más cercanos</a></li>
+<li class="chapter" data-level="7.5.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#máquinas-de-soporte-vectorial"><i class="fa fa-check"></i><b>7.5.5</b> Máquinas de soporte vectorial</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-5"><i class="fa fa-check"></i><b>7.5</b> Ejercicios</a></li>
+<li class="chapter" data-level="7.6" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-5"><i class="fa fa-check"></i><b>7.6</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html"><i class="fa fa-check"></i><b>8</b> Cálculo Bayesiano Computacional</a>
 <ul>
@@ -451,7 +448,7 @@ Y = \beta_{0} + \beta_{1}X_{1} + \cdots +  \beta_{p}X_{p} + \varepsilon.
 <li>Categóricas: variables tipo factor que admiten un número de niveles. Estas variables pueden ser ordinales o nominales, dependiendo si hay un orden natural en la escala de los niveles. Para incorporarla en el modelo de regresión debemos <em>codificar</em> la variable:</li>
 </ol>
 <div class="example">
-<p><span id="exm:unnamed-chunk-107" class="example"><strong>Ejemplo 4.1  </strong></span>Se tiene la variable <span class="math inline">\(G\)</span> codificada con Casado (1), Soltero (2), Divorciado (3) y Unión Libre (4). Si queremos incorporar esta variable en una regresión podríamos usar la siguiente codificación:</p>
+<p><span id="exm:unnamed-chunk-106" class="example"><strong>Ejemplo 4.1  </strong></span>Se tiene la variable <span class="math inline">\(G\)</span> codificada con Casado (1), Soltero (2), Divorciado (3) y Unión Libre (4). Si queremos incorporar esta variable en una regresión podríamos usar la siguiente codificación:</p>
 <p><span class="math display">\[\begin{equation*}
 X_{j} = \mathbf{1}_{\{G=j+1\}}
 \end{equation*}\]</span></p>
@@ -536,7 +533,7 @@ Por lo tanto buscaríamos minimizar la suma de <em>residuos</em> al cuadrado.</p
 \end{align*}\]</span></p>
 <p>Donde <span class="math inline">\(H\)</span> es la matriz “techo” o “hat”. La matriz <span class="math inline">\(H\)</span> es la matriz de proyección de Y al espacio de las columnas de <span class="math inline">\(X\)</span>.</p>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-108" class="exercise"><strong>Ejercicio 4.1  </strong></span>Suponga que tenemos la regresión simple</p>
+<p><span id="exr:unnamed-chunk-107" class="exercise"><strong>Ejercicio 4.1  </strong></span>Suponga que tenemos la regresión simple</p>
 <p><span class="math display">\[\begin{equation*}
 Y = \beta_{0} + \beta_{1}X_{1}+\varepsilon.
 \end{equation*}\]</span></p>
@@ -602,7 +599,7 @@ Y = \beta_{0} + \beta_{1}X_{1}+\varepsilon.
 ##  8: 1</code></pre>
 <p>Observemos las relaciones generales de las variables de esta base de datos</p>
 <div class="sourceCode" id="cb84"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb84-1"><a href="04-metodos-lineares-regresion.html#cb84-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mtcars) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(wt, mpg)) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-110-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-109-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>El objetivo es tratar la eficiencia del automóvil <code>mpg</code> con respecto a su peso <code>wt</code>.</p>
 <p>Usaremos una regresión lineal para encontrar los coeficientes.</p>
 <p>Primero hay que construir la matriz de diseño</p>
@@ -620,7 +617,7 @@ Y = \beta_{0} + \beta_{1}X_{1}+\varepsilon.
 <div class="sourceCode" id="cb92"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb92-1"><a href="04-metodos-lineares-regresion.html#cb92-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x =</span> X, <span class="at">y =</span> Y)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(x,</span>
 <span id="cb92-2"><a href="04-metodos-lineares-regresion.html#cb92-2" aria-hidden="true" tabindex="-1"></a>    y)) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dfreg, <span class="fu">aes</span>(x, yreg), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
 <span id="cb92-3"><a href="04-metodos-lineares-regresion.html#cb92-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-112-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-111-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>en donde podemos concluir que la relación lineal no modela de manera apropiada la relación observada en los datos. Por lo tanto es necesario incluir el intercepto <span class="math inline">\(\beta_0\)</span> al modelo lineal:</p>
 <div class="sourceCode" id="cb93"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb93-1"><a href="04-metodos-lineares-regresion.html#cb93-1" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> <span class="fu">cbind</span>(<span class="dv">1</span>, mtcars<span class="sc">$</span>wt)</span>
 <span id="cb93-2"><a href="04-metodos-lineares-regresion.html#cb93-2" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(X)</span></code></pre></div>
@@ -643,7 +640,7 @@ Y = \beta_{0} + \beta_{1}X_{1}+\varepsilon.
 <div class="sourceCode" id="cb100"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb100-1"><a href="04-metodos-lineares-regresion.html#cb100-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(<span class="at">data =</span> <span class="fu">data.frame</span>(<span class="at">x0 =</span> X[, <span class="dv">1</span>], <span class="at">x1 =</span> X[, <span class="dv">2</span>],</span>
 <span id="cb100-2"><a href="04-metodos-lineares-regresion.html#cb100-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">y =</span> Y)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(x1, y)) <span class="sc">+</span> <span class="fu">geom_line</span>(<span class="at">data =</span> dfreg,</span>
 <span id="cb100-3"><a href="04-metodos-lineares-regresion.html#cb100-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">aes</span>(x<span class="fl">.2</span>, yreg), <span class="at">color =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-114-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-113-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>El mismo resultado se puede obtener a través del comando :</p>
 <div class="sourceCode" id="cb101"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb101-1"><a href="04-metodos-lineares-regresion.html#cb101-1" aria-hidden="true" tabindex="-1"></a><span class="fu">lm</span>(mpg <span class="sc">~</span> <span class="sc">-</span><span class="dv">1</span> <span class="sc">+</span> wt, <span class="at">data =</span> mtcars)</span></code></pre></div>
 <pre><code>## 
@@ -751,7 +748,7 @@ Y = X\beta + \varepsilon \sim \mathcal{N}\left(X\beta,\sigma^{2}I\right)
 <span class="math display">\[(n-p-1)\hat{\sigma}^{2} \sim \sigma^{2} \chi^{2}_{n-p-1}.\]</span>
 y además se puede comprobar que <span class="math inline">\(\hat \beta\)</span> y <span class="math inline">\(\hat \sigma^2\)</span> son independientes.</p>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-118" class="exercise"><strong>Ejercicio 4.2  </strong></span>Encuentre la varianza para <span class="math inline">\(\hat \beta_{0}\)</span> y <span class="math inline">\(\hat \beta_{1}\)</span> para el caso de la regresión simple.</p>
+<p><span id="exr:unnamed-chunk-117" class="exercise"><strong>Ejercicio 4.2  </strong></span>Encuentre la varianza para <span class="math inline">\(\hat \beta_{0}\)</span> y <span class="math inline">\(\hat \beta_{1}\)</span> para el caso de la regresión simple.</p>
 </div>
 <div id="prueba-t" class="section level3 hasAnchor" number="4.3.1">
 <h3><span class="header-section-number">4.3.1</span> Prueba <span class="math inline">\(t\)</span><a href="04-metodos-lineares-regresion.html#prueba-t" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1097,7 +1094,7 @@ X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{1+X_{0}^{\top}(X_{0}^{\
 <span id="cb156-10"><a href="04-metodos-lineares-regresion.html#cb156-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb156-11"><a href="04-metodos-lineares-regresion.html#cb156-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Dibujar el gráfico</span></span>
 <span id="cb156-12"><a href="04-metodos-lineares-regresion.html#cb156-12" aria-hidden="true" tabindex="-1"></a>p   </span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-126-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-125-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb157"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb157-1"><a href="04-metodos-lineares-regresion.html#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Guardar el gráfico en un archivo pdf</span></span>
 <span id="cb157-2"><a href="04-metodos-lineares-regresion.html#cb157-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave(filename = &#39;linear_reg_sin_IC.pdf&#39;) # </span></span></code></pre></div>
 </div>
@@ -1115,7 +1112,7 @@ X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{1+X_{0}^{\top}(X_{0}^{\
 <span id="cb158-10"><a href="04-metodos-lineares-regresion.html#cb158-10" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb158-11"><a href="04-metodos-lineares-regresion.html#cb158-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Dibujar el gráfico</span></span>
 <span id="cb158-12"><a href="04-metodos-lineares-regresion.html#cb158-12" aria-hidden="true" tabindex="-1"></a>p   </span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-127-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-126-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb159"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb159-1"><a href="04-metodos-lineares-regresion.html#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Guardar el gráfico en un archivo pdf</span></span>
 <span id="cb159-2"><a href="04-metodos-lineares-regresion.html#cb159-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave(filename = &#39;linear_reg_con_IC.pdf&#39;) # </span></span></code></pre></div>
 </div>
@@ -1145,7 +1142,7 @@ X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{1+X_{0}^{\top}(X_{0}^{\
 <span id="cb160-22"><a href="04-metodos-lineares-regresion.html#cb160-22" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb160-23"><a href="04-metodos-lineares-regresion.html#cb160-23" aria-hidden="true" tabindex="-1"></a><span class="co"># Dibujar el gr&lt;U+00E1&gt;fico</span></span>
 <span id="cb160-24"><a href="04-metodos-lineares-regresion.html#cb160-24" aria-hidden="true" tabindex="-1"></a>p</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-128-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-127-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb161"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb161-1"><a href="04-metodos-lineares-regresion.html#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="co"># # Guardar el gr&lt;U+00E1&gt;fico en un archivo pdf</span></span>
 <span id="cb161-2"><a href="04-metodos-lineares-regresion.html#cb161-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ggsave(filename = &#39;linear_reg_con_IC_IP.pdf&#39;) #</span></span></code></pre></div>
 <p>Repitamos el mismo ejercicio anterior pero con un caso más sencillo.</p>
@@ -1157,7 +1154,7 @@ X_{0}\beta \pm z_{1-\frac{\alpha}{2}} \hat{\sigma} \sqrt{1+X_{0}^{\top}(X_{0}^{\
 <span id="cb162-6"><a href="04-metodos-lineares-regresion.html#cb162-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">arrange</span>(X)</span>
 <span id="cb162-7"><a href="04-metodos-lineares-regresion.html#cb162-7" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb162-8"><a href="04-metodos-lineares-regresion.html#cb162-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(toyex.initial)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-129-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-128-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb163"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb163-1"><a href="04-metodos-lineares-regresion.html#cb163-1" aria-hidden="true" tabindex="-1"></a>lm.toyex.initial <span class="ot">&lt;-</span> <span class="fu">lm</span>(Y <span class="sc">~</span> X, <span class="at">data =</span> toyex.initial)</span>
 <span id="cb163-2"><a href="04-metodos-lineares-regresion.html#cb163-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb163-3"><a href="04-metodos-lineares-regresion.html#cb163-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(lm.toyex.initial)</span></code></pre></div>
@@ -1244,7 +1241,7 @@ Y =  \beta_{0} + \beta_{1}X_{1} + \beta_{2} X_{2} +  \beta_{3} X_{1} X_{2} +\var
 <p>Este modelo se le conoce como modelo lineal con interacciones (caso de 2 covariables). Este modelo considera la posible interacción entre las covariables <span class="math inline">\(X_1\)</span> y <span class="math inline">\(X_2\)</span> que permiten cambiar tanto el intercepto como las pendientes de los efectos principales.</p>
 <p><strong>Principio de jerarquía</strong>. Con el fin de mantener la estructura del modelo lineal, siempre es necesario incluir los efectos principales cuando se determina que una interacción entre ellos es significativa.</p>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-133" class="exercise"><strong>Ejercicio 4.3  </strong></span>Compruebe que para el caso anterior, si aumenta en una unidad <span class="math inline">\(X_{1}\)</span>, el modelo preserva su estructura.</p>
+<p><span id="exr:unnamed-chunk-132" class="exercise"><strong>Ejercicio 4.3  </strong></span>Compruebe que para el caso anterior, si aumenta en una unidad <span class="math inline">\(X_{1}\)</span>, el modelo preserva su estructura.</p>
 </div>
 <div id="laboratorio-5" class="section level3 hasAnchor" number="4.6.1">
 <h3><span class="header-section-number">4.6.1</span> Laboratorio<a href="04-metodos-lineares-regresion.html#laboratorio-5" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -1472,7 +1469,7 @@ En caso contrario existen formas alternativas de definir el problema de regresi�
 <span id="cb182-4"><a href="04-metodos-lineares-regresion.html#cb182-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
 <span id="cb182-5"><a href="04-metodos-lineares-regresion.html#cb182-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
 <span id="cb182-6"><a href="04-metodos-lineares-regresion.html#cb182-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">coef</span>(fit)[<span class="dv">1</span>], <span class="at">b =</span> <span class="fu">coef</span>(fit)[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-139-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-138-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb183"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb183-1"><a href="04-metodos-lineares-regresion.html#cb183-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(fit), <span class="fu">residuals</span>(fit))</span>
 <span id="cb183-2"><a href="04-metodos-lineares-regresion.html#cb183-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grafico-residuos-lineal"></span>
@@ -1488,7 +1485,7 @@ Figura 4.1: Gr&lt;U+00E1&gt;fico de residuos caso lineal
 <span id="cb184-4"><a href="04-metodos-lineares-regresion.html#cb184-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
 <span id="cb184-5"><a href="04-metodos-lineares-regresion.html#cb184-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
 <span id="cb184-6"><a href="04-metodos-lineares-regresion.html#cb184-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">coef</span>(fit)[<span class="dv">1</span>], <span class="at">b =</span> <span class="fu">coef</span>(fit)[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-140-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-139-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb185"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb185-1"><a href="04-metodos-lineares-regresion.html#cb185-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(fit), <span class="fu">residuals</span>(fit))</span>
 <span id="cb185-2"><a href="04-metodos-lineares-regresion.html#cb185-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <div class="figure" style="text-align: center"><span style="display:block;" id="fig:grafico-residuos-no-lineal"></span>
@@ -1504,10 +1501,10 @@ Figura 4.2: Gr&lt;U+00E1&gt;fico de residuos caso no-lineal
 <span id="cb186-4"><a href="04-metodos-lineares-regresion.html#cb186-4" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> xt)</span>
 <span id="cb186-5"><a href="04-metodos-lineares-regresion.html#cb186-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(xt, y)</span>
 <span id="cb186-6"><a href="04-metodos-lineares-regresion.html#cb186-6" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">coef</span>(fit)[<span class="dv">1</span>], <span class="at">b =</span> <span class="fu">coef</span>(fit)[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-141-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-140-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb187"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb187-1"><a href="04-metodos-lineares-regresion.html#cb187-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(fit), <span class="fu">residuals</span>(fit))</span>
 <span id="cb187-2"><a href="04-metodos-lineares-regresion.html#cb187-2" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">0</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-141-2.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-140-2.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="independencia-de-los-errores" class="section level4 hasAnchor" number="4.7.1.2">
@@ -1526,7 +1523,7 @@ Figura 4.2: Gr&lt;U+00E1&gt;fico de residuos caso no-lineal
 <div class="sourceCode" id="cb189"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb189-1"><a href="04-metodos-lineares-regresion.html#cb189-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
 <span id="cb189-2"><a href="04-metodos-lineares-regresion.html#cb189-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
 <span id="cb189-3"><a href="04-metodos-lineares-regresion.html#cb189-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">coef</span>(fit)[<span class="dv">1</span>], <span class="at">b =</span> <span class="fu">coef</span>(fit)[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-143-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-142-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb190"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb190-1"><a href="04-metodos-lineares-regresion.html#cb190-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -1547,14 +1544,14 @@ Figura 4.2: Gr&lt;U+00E1&gt;fico de residuos caso no-lineal
 ## Multiple R-squared:  0.4723, Adjusted R-squared:  0.4718 
 ## F-statistic: 893.2 on 1 and 998 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="sourceCode" id="cb192"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb192-1"><a href="04-metodos-lineares-regresion.html#cb192-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(<span class="fu">residuals</span>(fit))</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-144-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-143-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p><strong>Caso errores auto-correlacionados</strong></p>
 <div class="sourceCode" id="cb193"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb193-1"><a href="04-metodos-lineares-regresion.html#cb193-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
 <span id="cb193-2"><a href="04-metodos-lineares-regresion.html#cb193-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> x <span class="sc">+</span> <span class="fu">diffinv</span>(<span class="fu">rnorm</span>(<span class="dv">999</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">lag =</span> <span class="dv">1</span>)</span></code></pre></div>
 <div class="sourceCode" id="cb194"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb194-1"><a href="04-metodos-lineares-regresion.html#cb194-1" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span>
 <span id="cb194-2"><a href="04-metodos-lineares-regresion.html#cb194-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(x, y)</span>
 <span id="cb194-3"><a href="04-metodos-lineares-regresion.html#cb194-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">coef</span>(fit)[<span class="dv">1</span>], <span class="at">b =</span> <span class="fu">coef</span>(fit)[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-146-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-145-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb195"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb195-1"><a href="04-metodos-lineares-regresion.html#cb195-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit)</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -1575,7 +1572,7 @@ Figura 4.2: Gr&lt;U+00E1&gt;fico de residuos caso no-lineal
 ## Multiple R-squared:  0.0004058,  Adjusted R-squared:  -0.0005958 
 ## F-statistic: 0.4052 on 1 and 998 DF,  p-value: 0.5246</code></pre>
 <div class="sourceCode" id="cb197"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb197-1"><a href="04-metodos-lineares-regresion.html#cb197-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(<span class="fu">residuals</span>(fit))</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-147-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-146-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="normalidad-de-los-errores" class="section level4 hasAnchor" number="4.7.1.3">
 <h4><span class="header-section-number">4.7.1.3</span> Normalidad de los errores<a href="04-metodos-lineares-regresion.html#normalidad-de-los-errores" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1587,21 +1584,21 @@ Figura 4.2: Gr&lt;U+00E1&gt;fico de residuos caso no-lineal
 <span id="cb198-3"><a href="04-metodos-lineares-regresion.html#cb198-3" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
 <div class="sourceCode" id="cb199"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb199-1"><a href="04-metodos-lineares-regresion.html#cb199-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(fit), <span class="at">asp =</span> <span class="dv">1</span>)</span>
 <span id="cb199-2"><a href="04-metodos-lineares-regresion.html#cb199-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">residuals</span>(fit), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-149-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-148-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p><strong>Caso errores auto-correlacionados</strong></p>
 <div class="sourceCode" id="cb200"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb200-1"><a href="04-metodos-lineares-regresion.html#cb200-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
 <span id="cb200-2"><a href="04-metodos-lineares-regresion.html#cb200-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> <span class="dv">1</span> <span class="sc">+</span> x <span class="sc">+</span> <span class="fu">diffinv</span>(<span class="fu">rnorm</span>(<span class="dv">999</span>, <span class="at">sd =</span> <span class="dv">1</span>), <span class="at">lag =</span> <span class="dv">1</span>)</span>
 <span id="cb200-3"><a href="04-metodos-lineares-regresion.html#cb200-3" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
 <div class="sourceCode" id="cb201"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb201-1"><a href="04-metodos-lineares-regresion.html#cb201-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(fit), <span class="at">asp =</span> <span class="dv">0</span>)</span>
 <span id="cb201-2"><a href="04-metodos-lineares-regresion.html#cb201-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">residuals</span>(fit), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-151-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-150-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p><strong>Caso no-lineal</strong></p>
 <div class="sourceCode" id="cb202"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb202-1"><a href="04-metodos-lineares-regresion.html#cb202-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
 <span id="cb202-2"><a href="04-metodos-lineares-regresion.html#cb202-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">sd =</span> <span class="fl">0.5</span>)</span>
 <span id="cb202-3"><a href="04-metodos-lineares-regresion.html#cb202-3" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x)</span></code></pre></div>
 <div class="sourceCode" id="cb203"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb203-1"><a href="04-metodos-lineares-regresion.html#cb203-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(fit), <span class="at">asp =</span> <span class="dv">0</span>)</span>
 <span id="cb203-2"><a href="04-metodos-lineares-regresion.html#cb203-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">residuals</span>(fit), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-153-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-152-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb204"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb204-1"><a href="04-metodos-lineares-regresion.html#cb204-1" aria-hidden="true" tabindex="-1"></a>x <span class="ot">&lt;-</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>)</span>
 <span id="cb204-2"><a href="04-metodos-lineares-regresion.html#cb204-2" aria-hidden="true" tabindex="-1"></a>y <span class="ot">&lt;-</span> x<span class="sc">^</span><span class="dv">2</span> <span class="sc">+</span> <span class="fu">rnorm</span>(<span class="dv">1000</span>, <span class="at">sd =</span> <span class="fl">0.5</span>)</span>
 <span id="cb204-3"><a href="04-metodos-lineares-regresion.html#cb204-3" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">lm</span>(y <span class="sc">~</span> x <span class="sc">+</span> <span class="fu">I</span>(x<span class="sc">^</span><span class="dv">2</span>))</span>
@@ -1627,7 +1624,7 @@ Figura 4.2: Gr&lt;U+00E1&gt;fico de residuos caso no-lineal
 ## F-statistic:  3040 on 2 and 997 DF,  p-value: &lt; 2.2e-16</code></pre>
 <div class="sourceCode" id="cb206"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb206-1"><a href="04-metodos-lineares-regresion.html#cb206-1" aria-hidden="true" tabindex="-1"></a><span class="fu">qqnorm</span>(<span class="fu">residuals</span>(fit), <span class="at">asp =</span> <span class="dv">0</span>)</span>
 <span id="cb206-2"><a href="04-metodos-lineares-regresion.html#cb206-2" aria-hidden="true" tabindex="-1"></a><span class="fu">qqline</span>(<span class="fu">residuals</span>(fit), <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-155-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-154-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 <div id="multicolinealidad" class="section level4 hasAnchor" number="4.7.1.4">
 <h4><span class="header-section-number">4.7.1.4</span> Multicolinealidad<a href="04-metodos-lineares-regresion.html#multicolinealidad" class="anchor-section" aria-label="Anchor link to header"></a></h4>
@@ -1686,7 +1683,7 @@ Figura 4.2: Gr&lt;U+00E1&gt;fico de residuos caso no-lineal
 <span id="cb209-8"><a href="04-metodos-lineares-regresion.html#cb209-8" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb209-9"><a href="04-metodos-lineares-regresion.html#cb209-9" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(VIFs, <span class="fu">aes</span>(<span class="at">x =</span> vars, <span class="at">y =</span> VIFs, <span class="at">group =</span> <span class="dv">1</span>)) <span class="sc">+</span></span>
 <span id="cb209-10"><a href="04-metodos-lineares-regresion.html#cb209-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_line</span>() <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-157-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-156-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 <div id="otros-chequeos-importantes" class="section level3 hasAnchor" number="4.7.2">
@@ -1732,7 +1729,7 @@ r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
 <span id="cb210-8"><a href="04-metodos-lineares-regresion.html#cb210-8" aria-hidden="true" tabindex="-1"></a>I_H <span class="ot">&lt;-</span> I <span class="sc">-</span> H</span>
 <span id="cb210-9"><a href="04-metodos-lineares-regresion.html#cb210-9" aria-hidden="true" tabindex="-1"></a>r_sdnt <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">diag</span>(I_H) <span class="sc">*</span> <span class="fu">var</span>(y))</span>
 <span id="cb210-10"><a href="04-metodos-lineares-regresion.html#cb210-10" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(fit), r_sdnt)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-158-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-157-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb211"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb211-1"><a href="04-metodos-lineares-regresion.html#cb211-1" aria-hidden="true" tabindex="-1"></a>fit</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -1753,7 +1750,7 @@ r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
 <span id="cb213-9"><a href="04-metodos-lineares-regresion.html#cb213-9" aria-hidden="true" tabindex="-1"></a>I_H <span class="ot">&lt;-</span> I <span class="sc">-</span> H</span>
 <span id="cb213-10"><a href="04-metodos-lineares-regresion.html#cb213-10" aria-hidden="true" tabindex="-1"></a>r_sdnt <span class="ot">&lt;-</span> <span class="fu">residuals</span>(fit)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">diag</span>(I_H) <span class="sc">*</span> <span class="fu">var</span>(y))</span>
 <span id="cb213-11"><a href="04-metodos-lineares-regresion.html#cb213-11" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">fitted</span>(fit), r_sdnt)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-159-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-158-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb214"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb214-1"><a href="04-metodos-lineares-regresion.html#cb214-1" aria-hidden="true" tabindex="-1"></a>fit</span></code></pre></div>
 <pre><code>## 
 ## Call:
@@ -1793,15 +1790,15 @@ r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
 ##  11.3801152  -0.9696033</code></pre>
 <div class="sourceCode" id="cb219"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb219-1"><a href="04-metodos-lineares-regresion.html#cb219-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo, <span class="dv">5</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>), <span class="at">cex =</span> <span class="dv">2</span>,</span>
 <span id="cb219-2"><a href="04-metodos-lineares-regresion.html#cb219-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-162-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-161-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb220"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb220-1"><a href="04-metodos-lineares-regresion.html#cb220-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">hatvalues</span>(modelo), <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>),</span>
 <span id="cb220-2"><a href="04-metodos-lineares-regresion.html#cb220-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span>
 <span id="cb220-3"><a href="04-metodos-lineares-regresion.html#cb220-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">10</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-163-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-162-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb221"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb221-1"><a href="04-metodos-lineares-regresion.html#cb221-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(apa_df, <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>), <span class="at">cex =</span> <span class="dv">2</span>,</span>
 <span id="cb221-2"><a href="04-metodos-lineares-regresion.html#cb221-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">16</span>)</span>
 <span id="cb221-3"><a href="04-metodos-lineares-regresion.html#cb221-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">coef</span>(modelo)[<span class="dv">1</span>], <span class="at">b =</span> <span class="fu">coef</span>(modelo)[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-164-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-163-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p><strong>Bajo apalancamiento, residuos grandes, influencia pequeña</strong></p>
 <div class="sourceCode" id="cb222"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb222-1"><a href="04-metodos-lineares-regresion.html#cb222-1" aria-hidden="true" tabindex="-1"></a>p_1 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="fl">5.4</span>, <span class="dv">11</span>)</span>
 <span id="cb222-2"><a href="04-metodos-lineares-regresion.html#cb222-2" aria-hidden="true" tabindex="-1"></a>apa_df_1 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(apa_df, p_1)</span>
@@ -1811,17 +1808,17 @@ r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
 ##  11.8509232  -0.9749534</code></pre>
 <div class="sourceCode" id="cb224"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb224-1"><a href="04-metodos-lineares-regresion.html#cb224-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo_1, <span class="dv">5</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>),</span>
 <span id="cb224-2"><a href="04-metodos-lineares-regresion.html#cb224-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-166-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-165-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb225"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb225-1"><a href="04-metodos-lineares-regresion.html#cb225-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">hatvalues</span>(modelo_1), <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>),</span>
 <span id="cb225-2"><a href="04-metodos-lineares-regresion.html#cb225-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;red&quot;</span>), <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span>
 <span id="cb225-3"><a href="04-metodos-lineares-regresion.html#cb225-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">11</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-167-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-166-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb226"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb226-1"><a href="04-metodos-lineares-regresion.html#cb226-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(apa_df_1, <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>), <span class="at">cex =</span> <span class="dv">2</span>,</span>
 <span id="cb226-2"><a href="04-metodos-lineares-regresion.html#cb226-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">16</span>)</span>
 <span id="cb226-3"><a href="04-metodos-lineares-regresion.html#cb226-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">coef</span>(modelo)[<span class="dv">1</span>], <span class="at">b =</span> <span class="fu">coef</span>(modelo)[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
 <span id="cb226-4"><a href="04-metodos-lineares-regresion.html#cb226-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">coef</span>(modelo_1)[<span class="dv">1</span>], <span class="at">b =</span> <span class="fu">coef</span>(modelo_1)[<span class="dv">2</span>],</span>
 <span id="cb226-5"><a href="04-metodos-lineares-regresion.html#cb226-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-168-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-167-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p><strong>Alto apalancamiento, residuo pequeño, influencia pequeña</strong></p>
 <div class="sourceCode" id="cb227"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb227-1"><a href="04-metodos-lineares-regresion.html#cb227-1" aria-hidden="true" tabindex="-1"></a>p_2 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">18</span>, <span class="sc">-</span><span class="fl">5.7</span>)</span>
 <span id="cb227-2"><a href="04-metodos-lineares-regresion.html#cb227-2" aria-hidden="true" tabindex="-1"></a>apa_df_2 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(apa_df, p_2)</span>
@@ -1831,17 +1828,17 @@ r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
 ##  11.2888153  -0.9507397</code></pre>
 <div class="sourceCode" id="cb229"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb229-1"><a href="04-metodos-lineares-regresion.html#cb229-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo_2, <span class="dv">5</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>),</span>
 <span id="cb229-2"><a href="04-metodos-lineares-regresion.html#cb229-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-170-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-169-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb230"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb230-1"><a href="04-metodos-lineares-regresion.html#cb230-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">hatvalues</span>(modelo_2), <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>),</span>
 <span id="cb230-2"><a href="04-metodos-lineares-regresion.html#cb230-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;red&quot;</span>), <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span>
 <span id="cb230-3"><a href="04-metodos-lineares-regresion.html#cb230-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">11</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-171-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-170-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb231"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb231-1"><a href="04-metodos-lineares-regresion.html#cb231-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(apa_df_2, <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>), <span class="at">cex =</span> <span class="dv">2</span>,</span>
 <span id="cb231-2"><a href="04-metodos-lineares-regresion.html#cb231-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">16</span>)</span>
 <span id="cb231-3"><a href="04-metodos-lineares-regresion.html#cb231-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">coef</span>(modelo)[<span class="dv">1</span>], <span class="at">b =</span> <span class="fu">coef</span>(modelo)[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
 <span id="cb231-4"><a href="04-metodos-lineares-regresion.html#cb231-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">coef</span>(modelo_2)[<span class="dv">1</span>], <span class="at">b =</span> <span class="fu">coef</span>(modelo_2)[<span class="dv">2</span>],</span>
 <span id="cb231-5"><a href="04-metodos-lineares-regresion.html#cb231-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-172-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-171-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p><strong>Alto apalancamiento, residuo altos, influencia grande</strong></p>
 <div class="sourceCode" id="cb232"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb232-1"><a href="04-metodos-lineares-regresion.html#cb232-1" aria-hidden="true" tabindex="-1"></a>p_3 <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">14</span>, <span class="fl">5.1</span>)</span>
 <span id="cb232-2"><a href="04-metodos-lineares-regresion.html#cb232-2" aria-hidden="true" tabindex="-1"></a>apa_df_3 <span class="ot">&lt;-</span> <span class="fu">rbind</span>(apa_df, p_3)</span>
@@ -1851,22 +1848,22 @@ r_{i}^{s} = \frac{e_i}{\sqrt{(1-h_{ii}) \sigma^{2}}}
 ##   9.6572209  -0.5892241</code></pre>
 <div class="sourceCode" id="cb234"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb234-1"><a href="04-metodos-lineares-regresion.html#cb234-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo_3, <span class="dv">5</span>, <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>),</span>
 <span id="cb234-2"><a href="04-metodos-lineares-regresion.html#cb234-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-174-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-173-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb235"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb235-1"><a href="04-metodos-lineares-regresion.html#cb235-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(<span class="fu">hatvalues</span>(modelo_3), <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>),</span>
 <span id="cb235-2"><a href="04-metodos-lineares-regresion.html#cb235-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;red&quot;</span>), <span class="at">cex =</span> <span class="dv">2</span>, <span class="at">pch =</span> <span class="dv">16</span>)</span>
 <span id="cb235-3"><a href="04-metodos-lineares-regresion.html#cb235-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">h =</span> <span class="dv">2</span><span class="sc">/</span><span class="dv">11</span>, <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-175-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-174-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb236"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb236-1"><a href="04-metodos-lineares-regresion.html#cb236-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(apa_df_3, <span class="at">col =</span> <span class="fu">c</span>(<span class="fu">rep</span>(<span class="st">&quot;black&quot;</span>, <span class="dv">10</span>), <span class="st">&quot;red&quot;</span>), <span class="at">cex =</span> <span class="dv">2</span>,</span>
 <span id="cb236-2"><a href="04-metodos-lineares-regresion.html#cb236-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">pch =</span> <span class="dv">16</span>)</span>
 <span id="cb236-3"><a href="04-metodos-lineares-regresion.html#cb236-3" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">coef</span>(modelo)[<span class="dv">1</span>], <span class="at">b =</span> <span class="fu">coef</span>(modelo)[<span class="dv">2</span>], <span class="at">col =</span> <span class="st">&quot;blue&quot;</span>)</span>
 <span id="cb236-4"><a href="04-metodos-lineares-regresion.html#cb236-4" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="at">a =</span> <span class="fu">coef</span>(modelo_3)[<span class="dv">1</span>], <span class="at">b =</span> <span class="fu">coef</span>(modelo_3)[<span class="dv">2</span>],</span>
 <span id="cb236-5"><a href="04-metodos-lineares-regresion.html#cb236-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-176-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-175-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb237"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb237-1"><a href="04-metodos-lineares-regresion.html#cb237-1" aria-hidden="true" tabindex="-1"></a><span class="st">`</span><span class="at">?</span><span class="st">`</span>(stats<span class="sc">:::</span>plot.lm)</span></code></pre></div>
 <div class="sourceCode" id="cb238"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb238-1"><a href="04-metodos-lineares-regresion.html#cb238-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo_3, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-178-1.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-178-2.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-178-3.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-178-4.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-178-5.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-178-6.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-177-1.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-177-2.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-177-3.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-177-4.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-177-5.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-177-6.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb239"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb239-1"><a href="04-metodos-lineares-regresion.html#cb239-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(modelo, <span class="at">which =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">6</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-179-1.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-179-2.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-179-3.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-179-4.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-179-5.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-179-6.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-178-1.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-178-2.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-178-3.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-178-4.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-178-5.svg" width="100%" style="display: block; margin: auto;" /><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-178-6.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
 </div>

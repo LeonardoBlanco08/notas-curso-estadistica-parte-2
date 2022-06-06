@@ -51,11 +51,6 @@
 <link href="libs/anchor-sections-1.1.0/anchor-sections.css" rel="stylesheet" />
 <link href="libs/anchor-sections-1.1.0/anchor-sections-hash.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.1.0/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/rglWebGL-binding-0.108.3/rglWebGL.js"></script>
-<link href="libs/rglwidgetClass-0.108.3/rgl.css" rel="stylesheet" />
-<script src="libs/rglwidgetClass-0.108.3/rglClass.min.js"></script>
-<script src="libs/CanvasMatrix4-0.108.3/CanvasMatrix.min.js"></script>
 
 
 <style type="text/css">
@@ -305,14 +300,16 @@ div.csl-indent {
 <li class="chapter" data-level="7.3.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal"><i class="fa fa-check"></i><b>7.3.1</b> Análisis discriminante lineal</a></li>
 <li class="chapter" data-level="7.3.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático"><i class="fa fa-check"></i><b>7.3.2</b> Análisis discriminante cuadrático</a></li>
 </ul></li>
-<li class="chapter" data-level="7.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>7.4</b> Laboratorio</a>
+<li class="chapter" data-level="7.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#estimación-de-la-curva-roc"><i class="fa fa-check"></i><b>7.4</b> Estimación de la Curva ROC</a></li>
+<li class="chapter" data-level="7.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#laboratorio-7"><i class="fa fa-check"></i><b>7.5</b> Laboratorio</a>
 <ul>
-<li class="chapter" data-level="7.4.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>7.4.1</b> Clasificador logístico</a></li>
-<li class="chapter" data-level="7.4.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal-1"><i class="fa fa-check"></i><b>7.4.2</b> Análisis Discriminante Lineal</a></li>
-<li class="chapter" data-level="7.4.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático-1"><i class="fa fa-check"></i><b>7.4.3</b> Análisis Discriminante Cuadrático</a></li>
-<li class="chapter" data-level="7.4.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>7.4.4</b> K vecinos más cercanos</a></li>
+<li class="chapter" data-level="7.5.1" data-path="08-clasificacion.html"><a href="08-clasificacion.html#clasificador-logístico"><i class="fa fa-check"></i><b>7.5.1</b> Clasificador logístico</a></li>
+<li class="chapter" data-level="7.5.2" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-lineal-1"><i class="fa fa-check"></i><b>7.5.2</b> Análisis Discriminante Lineal</a></li>
+<li class="chapter" data-level="7.5.3" data-path="08-clasificacion.html"><a href="08-clasificacion.html#análisis-discriminante-cuadrático-1"><i class="fa fa-check"></i><b>7.5.3</b> Análisis Discriminante Cuadrático</a></li>
+<li class="chapter" data-level="7.5.4" data-path="08-clasificacion.html"><a href="08-clasificacion.html#k-vecinos-más-cercanos"><i class="fa fa-check"></i><b>7.5.4</b> K vecinos más cercanos</a></li>
+<li class="chapter" data-level="7.5.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#máquinas-de-soporte-vectorial"><i class="fa fa-check"></i><b>7.5.5</b> Máquinas de soporte vectorial</a></li>
 </ul></li>
-<li class="chapter" data-level="7.5" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-5"><i class="fa fa-check"></i><b>7.5</b> Ejercicios</a></li>
+<li class="chapter" data-level="7.6" data-path="08-clasificacion.html"><a href="08-clasificacion.html#ejercicios-5"><i class="fa fa-check"></i><b>7.6</b> Ejercicios</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html"><i class="fa fa-check"></i><b>8</b> Cálculo Bayesiano Computacional</a>
 <ul>
@@ -416,21 +413,21 @@ g(X) = \frac{1}{1+e^{-(\beta_{0} +\beta_{1} X_{1} + \cdots + \beta_{p} X_{p})}}
 ## </code></pre>
 <div class="sourceCode" id="cb242"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb242-1"><a href="05-regresion-logistica.html#cb242-1" aria-hidden="true" tabindex="-1"></a>titanic <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
 <span id="cb242-2"><a href="05-regresion-logistica.html#cb242-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Survived, Fare, Age) <span class="sc">%&gt;%</span></span>
-<span id="cb242-3"><a href="05-regresion-logistica.html#cb242-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>()</span>
-<span id="cb242-4"><a href="05-regresion-logistica.html#cb242-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb242-5"><a href="05-regresion-logistica.html#cb242-5" aria-hidden="true" tabindex="-1"></a>fit_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> titanic)</span></code></pre></div>
-<div class="sourceCode" id="cb243"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb243-1"><a href="05-regresion-logistica.html#cb243-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggiraphExtra)</span>
-<span id="cb243-2"><a href="05-regresion-logistica.html#cb243-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggPredict</span>(fit_lm) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-183-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<span id="cb242-3"><a href="05-regresion-logistica.html#cb242-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">drop_na</span>()</span></code></pre></div>
+<pre><code>## Error in select(., Survived, Fare, Age): unused arguments (Survived, Fare, Age)</code></pre>
+<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="05-regresion-logistica.html#cb244-1" aria-hidden="true" tabindex="-1"></a>fit_lm <span class="ot">&lt;-</span> <span class="fu">lm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> titanic)</span></code></pre></div>
+<div class="sourceCode" id="cb245"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb245-1"><a href="05-regresion-logistica.html#cb245-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggiraphExtra)</span>
+<span id="cb245-2"><a href="05-regresion-logistica.html#cb245-2" aria-hidden="true" tabindex="-1"></a><span class="fu">ggPredict</span>(fit_lm) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-182-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p>En lugar de esto, definamos el siguiente modelo</p>
 <p><span class="math display">\[\begin{equation*}
 Y \sim Bernoulli (g_{\beta}(\boldsymbol{X}))
 \end{equation*}\]</span></p>
 <p>con <span class="math inline">\(g_{\beta}(\boldsymbol{X}) = \mathbb{P}\left(Y=1 \vert \boldsymbol{X}\right)\)</span>.</p>
 <p>En <code>R</code> usaremos la función <code>glm</code></p>
-<div class="sourceCode" id="cb244"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb244-1"><a href="05-regresion-logistica.html#cb244-1" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> titanic,</span>
-<span id="cb244-2"><a href="05-regresion-logistica.html#cb244-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
-<span id="cb244-3"><a href="05-regresion-logistica.html#cb244-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_glm)</span></code></pre></div>
+<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="05-regresion-logistica.html#cb246-1" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> titanic,</span>
+<span id="cb246-2"><a href="05-regresion-logistica.html#cb246-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb246-3"><a href="05-regresion-logistica.html#cb246-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_glm)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Survived ~ Fare + Age, family = &quot;binomial&quot;, data = titanic)
@@ -451,11 +448,12 @@ Y \sim Bernoulli (g_{\beta}(\boldsymbol{X}))
 ## 
 ##     Null deviance: 964.52  on 713  degrees of freedom
 ## Residual deviance: 891.34  on 711  degrees of freedom
+##   (177 observations deleted due to missingness)
 ## AIC: 897.34
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode" id="cb246"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb246-1"><a href="05-regresion-logistica.html#cb246-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggPredict</span>(fit_glm) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-185-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb248"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb248-1"><a href="05-regresion-logistica.html#cb248-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggPredict</span>(fit_glm) <span class="sc">+</span> <span class="fu">theme_minimal</span>(<span class="at">base_size =</span> <span class="dv">16</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-184-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <p><strong>Nota:</strong> Existen otros tipos de regresión y estas se definen a través del parámetro <code>family</code>. En este curso solo nos enfocaremos en el parámetro <code>family="binomial"</code>.</p>
 <div id="oportunidad-relativa-odds-ratio" class="section level3 hasAnchor" number="5.1.1">
 <h3><span class="header-section-number">5.1.1</span> Oportunidad relativa (Odds Ratio)<a href="05-regresion-logistica.html#oportunidad-relativa-odds-ratio" class="anchor-section" aria-label="Anchor link to header"></a></h3>
@@ -541,9 +539,9 @@ D_c -D_r \stackrel{H_0}{\sim} =\chi^{2}_{df_{c}-df_r}.
 <div id="supuesto-de-linealidad" class="section level3 hasAnchor" number="5.3.1">
 <h3><span class="header-section-number">5.3.1</span> Supuesto de linealidad<a href="05-regresion-logistica.html#supuesto-de-linealidad" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Este supuesto debe ser chequeado con la función logit de las respuestas.</p>
-<div class="sourceCode" id="cb247"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb247-1"><a href="05-regresion-logistica.html#cb247-1" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> titanic,</span>
-<span id="cb247-2"><a href="05-regresion-logistica.html#cb247-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
-<span id="cb247-3"><a href="05-regresion-logistica.html#cb247-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_glm)</span></code></pre></div>
+<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="05-regresion-logistica.html#cb249-1" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> titanic,</span>
+<span id="cb249-2"><a href="05-regresion-logistica.html#cb249-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span>
+<span id="cb249-3"><a href="05-regresion-logistica.html#cb249-3" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(fit_glm)</span></code></pre></div>
 <pre><code>## 
 ## Call:
 ## glm(formula = Survived ~ Fare + Age, family = &quot;binomial&quot;, data = titanic)
@@ -564,50 +562,53 @@ D_c -D_r \stackrel{H_0}{\sim} =\chi^{2}_{df_{c}-df_r}.
 ## 
 ##     Null deviance: 964.52  on 713  degrees of freedom
 ## Residual deviance: 891.34  on 711  degrees of freedom
+##   (177 observations deleted due to missingness)
 ## AIC: 897.34
 ## 
 ## Number of Fisher Scoring iterations: 5</code></pre>
-<div class="sourceCode" id="cb249"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb249-1"><a href="05-regresion-logistica.html#cb249-1" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_glm, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb249-2"><a href="05-regresion-logistica.html#cb249-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb249-3"><a href="05-regresion-logistica.html#cb249-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
-<span id="cb249-4"><a href="05-regresion-logistica.html#cb249-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Fare, Age) <span class="sc">%&gt;%</span></span>
-<span id="cb249-5"><a href="05-regresion-logistica.html#cb249-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">logit =</span> <span class="fu">qlogis</span>(probs)) <span class="sc">%&gt;%</span></span>
-<span id="cb249-6"><a href="05-regresion-logistica.html#cb249-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;predictores&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;valores.predictores&quot;</span>,</span>
-<span id="cb249-7"><a href="05-regresion-logistica.html#cb249-7" aria-hidden="true" tabindex="-1"></a>        <span class="sc">-</span>logit)</span>
-<span id="cb249-8"><a href="05-regresion-logistica.html#cb249-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb249-9"><a href="05-regresion-logistica.html#cb249-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb249-10"><a href="05-regresion-logistica.html#cb249-10" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(valores.predictores, logit)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>,</span>
-<span id="cb249-11"><a href="05-regresion-logistica.html#cb249-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="sc">+</span></span>
-<span id="cb249-12"><a href="05-regresion-logistica.html#cb249-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>predictores, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-187-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb251"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb251-1"><a href="05-regresion-logistica.html#cb251-1" aria-hidden="true" tabindex="-1"></a>probs <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_glm, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb251-2"><a href="05-regresion-logistica.html#cb251-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb251-3"><a href="05-regresion-logistica.html#cb251-3" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
+<span id="cb251-4"><a href="05-regresion-logistica.html#cb251-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(Fare, Age) <span class="sc">%&gt;%</span></span>
+<span id="cb251-5"><a href="05-regresion-logistica.html#cb251-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">logit =</span> <span class="fu">qlogis</span>(probs)) <span class="sc">%&gt;%</span></span>
+<span id="cb251-6"><a href="05-regresion-logistica.html#cb251-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(<span class="at">names_to =</span> <span class="st">&quot;predictores&quot;</span>, <span class="at">values_to =</span> <span class="st">&quot;valores.predictores&quot;</span>,</span>
+<span id="cb251-7"><a href="05-regresion-logistica.html#cb251-7" aria-hidden="true" tabindex="-1"></a>        <span class="sc">-</span>logit)</span></code></pre></div>
+<pre><code>## Error in select(., Fare, Age): unused arguments (Fare, Age)</code></pre>
+<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="05-regresion-logistica.html#cb253-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(df, <span class="fu">aes</span>(valores.predictores, logit)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="at">size =</span> <span class="fl">0.5</span>,</span>
+<span id="cb253-2"><a href="05-regresion-logistica.html#cb253-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">geom_smooth</span>(<span class="at">method =</span> <span class="st">&quot;loess&quot;</span>) <span class="sc">+</span></span>
+<span id="cb253-3"><a href="05-regresion-logistica.html#cb253-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_bw</span>() <span class="sc">+</span> <span class="fu">facet_wrap</span>(<span class="sc">~</span>predictores, <span class="at">scales =</span> <span class="st">&quot;free&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in `ggplot()`:
+## !   You&#39;re passing a function as global data.
+##   Have you misspelled the `data` argument in `ggplot()`</code></pre>
 </div>
 <div id="valores-de-gran-influencia" class="section level3 hasAnchor" number="5.3.2">
 <h3><span class="header-section-number">5.3.2</span> Valores de gran influencia<a href="05-regresion-logistica.html#valores-de-gran-influencia" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb250"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb250-1"><a href="05-regresion-logistica.html#cb250-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
-<span id="cb250-2"><a href="05-regresion-logistica.html#cb250-2" aria-hidden="true" tabindex="-1"></a>fit_data <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">augment</span>(fit_glm) <span class="sc">%&gt;%</span></span>
-<span id="cb250-3"><a href="05-regresion-logistica.html#cb250-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">indice =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())</span>
-<span id="cb250-4"><a href="05-regresion-logistica.html#cb250-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb250-5"><a href="05-regresion-logistica.html#cb250-5" aria-hidden="true" tabindex="-1"></a>fit_data <span class="sc">%&gt;%</span></span>
-<span id="cb250-6"><a href="05-regresion-logistica.html#cb250-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">top_n</span>(<span class="dv">3</span>, .cooksd)</span></code></pre></div>
-<pre><code>## # A tibble: 3 x 10
-##   Survived  Fare   Age .fitted .resid .std.resid    .hat .sigma .cooksd indice
-##      &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;   &lt;dbl&gt;  &lt;int&gt;
-## 1        0  263     19    3.79  -2.76      -2.77 0.00862   1.12   0.129     24
-## 2        0  248.    24    3.43  -2.63      -2.65 0.0103    1.12   0.109     94
-## 3        0  263     64    3.00  -2.47      -2.49 0.0171    1.12   0.118    352</code></pre>
-<div class="sourceCode" id="cb252"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb252-1"><a href="05-regresion-logistica.html#cb252-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fit_data, <span class="fu">aes</span>(indice, .std.resid)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(Survived)),</span>
-<span id="cb252-2"><a href="05-regresion-logistica.html#cb252-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-190-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb253"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb253-1"><a href="05-regresion-logistica.html#cb253-1" aria-hidden="true" tabindex="-1"></a>fit_data <span class="sc">%&gt;%</span></span>
-<span id="cb253-2"><a href="05-regresion-logistica.html#cb253-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">abs</span>(.std.resid) <span class="sc">&gt;</span> <span class="dv">3</span>)</span></code></pre></div>
-<pre><code>## # A tibble: 0 x 10
-## # ... with 10 variables: Survived &lt;int&gt;, Fare &lt;dbl&gt;, Age &lt;dbl&gt;, .fitted &lt;dbl&gt;,
-## #   .resid &lt;dbl&gt;, .std.resid &lt;dbl&gt;, .hat &lt;dbl&gt;, .sigma &lt;dbl&gt;, .cooksd &lt;dbl&gt;,
-## #   indice &lt;int&gt;</code></pre>
+<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="05-regresion-logistica.html#cb255-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(broom)</span>
+<span id="cb255-2"><a href="05-regresion-logistica.html#cb255-2" aria-hidden="true" tabindex="-1"></a>fit_data <span class="ot">&lt;-</span> broom<span class="sc">::</span><span class="fu">augment</span>(fit_glm) <span class="sc">%&gt;%</span></span>
+<span id="cb255-3"><a href="05-regresion-logistica.html#cb255-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">indice =</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">n</span>())</span>
+<span id="cb255-4"><a href="05-regresion-logistica.html#cb255-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb255-5"><a href="05-regresion-logistica.html#cb255-5" aria-hidden="true" tabindex="-1"></a>fit_data <span class="sc">%&gt;%</span></span>
+<span id="cb255-6"><a href="05-regresion-logistica.html#cb255-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">top_n</span>(<span class="dv">3</span>, .cooksd)</span></code></pre></div>
+<pre><code>## # A tibble: 3 x 11
+##   .rownames Survived  Fare   Age .fitted .resid .std.resid    .hat .sigma
+##   &lt;chr&gt;        &lt;int&gt; &lt;dbl&gt; &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;      &lt;dbl&gt;   &lt;dbl&gt;  &lt;dbl&gt;
+## 1 28               0  263     19    3.79  -2.76      -2.77 0.00862   1.12
+## 2 119              0  248.    24    3.43  -2.63      -2.65 0.0103    1.12
+## 3 439              0  263     64    3.00  -2.47      -2.49 0.0171    1.12
+## # ... with 2 more variables: .cooksd &lt;dbl&gt;, indice &lt;int&gt;</code></pre>
+<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="05-regresion-logistica.html#cb257-1" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(fit_data, <span class="fu">aes</span>(indice, .std.resid)) <span class="sc">+</span> <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> <span class="fu">as.factor</span>(Survived)),</span>
+<span id="cb257-2"><a href="05-regresion-logistica.html#cb257-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">alpha =</span> <span class="fl">0.5</span>) <span class="sc">+</span> <span class="fu">theme_bw</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-189-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb258"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb258-1"><a href="05-regresion-logistica.html#cb258-1" aria-hidden="true" tabindex="-1"></a>fit_data <span class="sc">%&gt;%</span></span>
+<span id="cb258-2"><a href="05-regresion-logistica.html#cb258-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(<span class="fu">abs</span>(.std.resid) <span class="sc">&gt;</span> <span class="dv">3</span>)</span></code></pre></div>
+<pre><code>## # A tibble: 0 x 11
+## # ... with 11 variables: .rownames &lt;chr&gt;, Survived &lt;int&gt;, Fare &lt;dbl&gt;,
+## #   Age &lt;dbl&gt;, .fitted &lt;dbl&gt;, .resid &lt;dbl&gt;, .std.resid &lt;dbl&gt;, .hat &lt;dbl&gt;,
+## #   .sigma &lt;dbl&gt;, .cooksd &lt;dbl&gt;, indice &lt;int&gt;</code></pre>
 </div>
 <div id="multicolinealidad-1" class="section level3 hasAnchor" number="5.3.3">
 <h3><span class="header-section-number">5.3.3</span> Multicolinealidad<a href="05-regresion-logistica.html#multicolinealidad-1" class="anchor-section" aria-label="Anchor link to header"></a></h3>
-<div class="sourceCode" id="cb255"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb255-1"><a href="05-regresion-logistica.html#cb255-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(fit_glm)</span></code></pre></div>
+<div class="sourceCode" id="cb260"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb260-1"><a href="05-regresion-logistica.html#cb260-1" aria-hidden="true" tabindex="-1"></a>car<span class="sc">::</span><span class="fu">vif</span>(fit_glm)</span></code></pre></div>
 <pre><code>##     Fare      Age 
 ## 1.033878 1.033878</code></pre>
 </div>
@@ -658,19 +659,17 @@ D_c -D_r \stackrel{H_0}{\sim} =\chi^{2}_{df_{c}-df_r}.
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb257"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb257-1"><a href="05-regresion-logistica.html#cb257-1" aria-hidden="true" tabindex="-1"></a>predict_numeric <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_glm, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb257-2"><a href="05-regresion-logistica.html#cb257-2" aria-hidden="true" tabindex="-1"></a>predict_01 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(predict_numeric <span class="sc">&gt;=</span> <span class="fl">0.5</span>)</span>
-<span id="cb257-3"><a href="05-regresion-logistica.html#cb257-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb257-4"><a href="05-regresion-logistica.html#cb257-4" aria-hidden="true" tabindex="-1"></a>matriz_confusion <span class="ot">&lt;-</span> <span class="fu">table</span>(titanic<span class="sc">$</span>Survived, predict_01)</span>
-<span id="cb257-5"><a href="05-regresion-logistica.html#cb257-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb257-6"><a href="05-regresion-logistica.html#cb257-6" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
-<span id="cb257-7"><a href="05-regresion-logistica.html#cb257-7" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
-<span id="cb257-8"><a href="05-regresion-logistica.html#cb257-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb257-9"><a href="05-regresion-logistica.html#cb257-9" aria-hidden="true" tabindex="-1"></a>matriz_confusion</span></code></pre></div>
-<pre><code>##    predict_01
-##       N   P
-##   N 380  44
-##   P 201  89</code></pre>
+<div class="sourceCode" id="cb262"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb262-1"><a href="05-regresion-logistica.html#cb262-1" aria-hidden="true" tabindex="-1"></a>predict_numeric <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_glm, <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb262-2"><a href="05-regresion-logistica.html#cb262-2" aria-hidden="true" tabindex="-1"></a>predict_01 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(predict_numeric <span class="sc">&gt;=</span> <span class="fl">0.5</span>)</span>
+<span id="cb262-3"><a href="05-regresion-logistica.html#cb262-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb262-4"><a href="05-regresion-logistica.html#cb262-4" aria-hidden="true" tabindex="-1"></a>matriz_confusion <span class="ot">&lt;-</span> <span class="fu">table</span>(titanic<span class="sc">$</span>Survived, predict_01)</span></code></pre></div>
+<pre><code>## Error in table(titanic$Survived, predict_01): all arguments must have the same length</code></pre>
+<div class="sourceCode" id="cb264"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb264-1"><a href="05-regresion-logistica.html#cb264-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in colnames(matriz_confusion) &lt;- c(&quot;N&quot;, &quot;P&quot;): object &#39;matriz_confusion&#39; not found</code></pre>
+<div class="sourceCode" id="cb266"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb266-1"><a href="05-regresion-logistica.html#cb266-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in rownames(matriz_confusion) &lt;- c(&quot;N&quot;, &quot;P&quot;): object &#39;matriz_confusion&#39; not found</code></pre>
+<div class="sourceCode" id="cb268"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb268-1"><a href="05-regresion-logistica.html#cb268-1" aria-hidden="true" tabindex="-1"></a>matriz_confusion</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;matriz_confusion&#39; not found</code></pre>
 <p>Noten que se utilizó un umbral de .5 como separador de que un evento genera un 1 o un 0 a nivel de predicción. Para entender la siguiente tabla vamos a definir los siguientes términos:</p>
 <dl>
 <dt>Exactitud (Accuracy)</dt>
@@ -752,104 +751,104 @@ Es la tasa de elementos identificados correctamente como 0 que realmente estaban
 <li><strong>PPV</strong> es importante si se quiere estar más seguro de los <strong>verdaderos positivos</strong>. Por ejemplo detectar <strong>spam</strong> en correos electrónicos.</li>
 <li><strong>NPV</strong> es impotante si se desea predecir correctamente los <strong>verdaderos negativos</strong>. Por ejemplo, se está tratando una población con una droga experimental y se quiere saber cuál será la proporción de personas que se curaran de la enfermedad.</li>
 </ul>
-<div class="sourceCode" id="cb259"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb259-1"><a href="05-regresion-logistica.html#cb259-1" aria-hidden="true" tabindex="-1"></a>(TN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
-<pre><code>## [1] 380</code></pre>
-<div class="sourceCode" id="cb261"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb261-1"><a href="05-regresion-logistica.html#cb261-1" aria-hidden="true" tabindex="-1"></a>(TP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
-<pre><code>## [1] 89</code></pre>
-<div class="sourceCode" id="cb263"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb263-1"><a href="05-regresion-logistica.html#cb263-1" aria-hidden="true" tabindex="-1"></a>(FP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
-<pre><code>## [1] 44</code></pre>
-<div class="sourceCode" id="cb265"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb265-1"><a href="05-regresion-logistica.html#cb265-1" aria-hidden="true" tabindex="-1"></a>(FN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
-<pre><code>## [1] 201</code></pre>
-<div class="sourceCode" id="cb267"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb267-1"><a href="05-regresion-logistica.html#cb267-1" aria-hidden="true" tabindex="-1"></a>(exactitud <span class="ot">&lt;-</span> (TP <span class="sc">+</span> TN)<span class="sc">/</span>(TP <span class="sc">+</span> TN <span class="sc">+</span> FP <span class="sc">+</span> FN))</span></code></pre></div>
-<pre><code>## [1] 0.6568627</code></pre>
-<div class="sourceCode" id="cb269"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb269-1"><a href="05-regresion-logistica.html#cb269-1" aria-hidden="true" tabindex="-1"></a>(precision <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FP))</span></code></pre></div>
-<pre><code>## [1] 0.6691729</code></pre>
-<div class="sourceCode" id="cb271"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb271-1"><a href="05-regresion-logistica.html#cb271-1" aria-hidden="true" tabindex="-1"></a>(sensibilidad <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FN))</span></code></pre></div>
-<pre><code>## [1] 0.3068966</code></pre>
-<div class="sourceCode" id="cb273"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb273-1"><a href="05-regresion-logistica.html#cb273-1" aria-hidden="true" tabindex="-1"></a>(F_score <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (precision <span class="sc">*</span> sensibilidad)<span class="sc">/</span>(precision <span class="sc">+</span></span>
-<span id="cb273-2"><a href="05-regresion-logistica.html#cb273-2" aria-hidden="true" tabindex="-1"></a>    sensibilidad))</span></code></pre></div>
-<pre><code>## [1] 0.4208038</code></pre>
-<div class="sourceCode" id="cb275"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb275-1"><a href="05-regresion-logistica.html#cb275-1" aria-hidden="true" tabindex="-1"></a>(especificidad <span class="ot">&lt;-</span> TN<span class="sc">/</span>(TN <span class="sc">+</span> FP))</span></code></pre></div>
-<pre><code>## [1] 0.8962264</code></pre>
+<div class="sourceCode" id="cb270"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb270-1"><a href="05-regresion-logistica.html#cb270-1" aria-hidden="true" tabindex="-1"></a>(TN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;matriz_confusion&#39; not found</code></pre>
+<div class="sourceCode" id="cb272"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb272-1"><a href="05-regresion-logistica.html#cb272-1" aria-hidden="true" tabindex="-1"></a>(TP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;matriz_confusion&#39; not found</code></pre>
+<div class="sourceCode" id="cb274"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb274-1"><a href="05-regresion-logistica.html#cb274-1" aria-hidden="true" tabindex="-1"></a>(FP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;matriz_confusion&#39; not found</code></pre>
+<div class="sourceCode" id="cb276"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb276-1"><a href="05-regresion-logistica.html#cb276-1" aria-hidden="true" tabindex="-1"></a>(FN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;matriz_confusion&#39; not found</code></pre>
+<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="05-regresion-logistica.html#cb278-1" aria-hidden="true" tabindex="-1"></a>(exactitud <span class="ot">&lt;-</span> (TP <span class="sc">+</span> TN)<span class="sc">/</span>(TP <span class="sc">+</span> TN <span class="sc">+</span> FP <span class="sc">+</span> FN))</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;TP&#39; not found</code></pre>
+<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="05-regresion-logistica.html#cb280-1" aria-hidden="true" tabindex="-1"></a>(precision <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FP))</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;TP&#39; not found</code></pre>
+<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="05-regresion-logistica.html#cb282-1" aria-hidden="true" tabindex="-1"></a>(sensibilidad <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FN))</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;TP&#39; not found</code></pre>
+<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="05-regresion-logistica.html#cb284-1" aria-hidden="true" tabindex="-1"></a>(F_score <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (precision <span class="sc">*</span> sensibilidad)<span class="sc">/</span>(precision <span class="sc">+</span></span>
+<span id="cb284-2"><a href="05-regresion-logistica.html#cb284-2" aria-hidden="true" tabindex="-1"></a>    sensibilidad))</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;sensibilidad&#39; not found</code></pre>
+<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="05-regresion-logistica.html#cb286-1" aria-hidden="true" tabindex="-1"></a>(especificidad <span class="ot">&lt;-</span> TN<span class="sc">/</span>(TN <span class="sc">+</span> FP))</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;TN&#39; not found</code></pre>
 <div id="curva-roc" class="section level3 hasAnchor" number="5.4.1">
 <h3><span class="header-section-number">5.4.1</span> Curva ROC<a href="05-regresion-logistica.html#curva-roc" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Un excelente clasificador debería detectar correctamente los <strong>verdaderos positivos (TP)</strong> e ignorar los <strong>falsos positivos (FP)</strong>. Puesto de otra forma, si el clasificador es malo, los <strong>verdaderos positivos</strong> serían indistingibles de los <strong>falsos positivos</strong>.</p>
 <p>La curva ROC (Receiver Operation Curve) grafica la Tasa Falsos Positivos vs Sensibilidad del modelo. Y el estadístico AUC mide el área bajo la curva ROC.</p>
-<div class="sourceCode" id="cb277"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb277-1"><a href="05-regresion-logistica.html#cb277-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ROCR)</span>
-<span id="cb277-2"><a href="05-regresion-logistica.html#cb277-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb277-3"><a href="05-regresion-logistica.html#cb277-3" aria-hidden="true" tabindex="-1"></a>logist.pred.ROCR <span class="ot">&lt;-</span> <span class="fu">prediction</span>(predict_numeric, titanic<span class="sc">$</span>Survived)</span>
-<span id="cb277-4"><a href="05-regresion-logistica.html#cb277-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb277-5"><a href="05-regresion-logistica.html#cb277-5" aria-hidden="true" tabindex="-1"></a>logist.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="st">&quot;tpr&quot;</span>,</span>
-<span id="cb277-6"><a href="05-regresion-logistica.html#cb277-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;fpr&quot;</span>)</span>
-<span id="cb277-7"><a href="05-regresion-logistica.html#cb277-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb277-8"><a href="05-regresion-logistica.html#cb277-8" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(logist.perf)</span>
-<span id="cb277-9"><a href="05-regresion-logistica.html#cb277-9" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-195-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb278"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb278-1"><a href="05-regresion-logistica.html#cb278-1" aria-hidden="true" tabindex="-1"></a>auc <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="at">measure =</span> <span class="st">&quot;auc&quot;</span>)</span>
-<span id="cb278-2"><a href="05-regresion-logistica.html#cb278-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb278-3"><a href="05-regresion-logistica.html#cb278-3" aria-hidden="true" tabindex="-1"></a>auc<span class="sc">@</span>y.values</span></code></pre></div>
-<pre><code>## [[1]]
-## [1] 0.7063313</code></pre>
+<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="05-regresion-logistica.html#cb288-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ROCR)</span>
+<span id="cb288-2"><a href="05-regresion-logistica.html#cb288-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb288-3"><a href="05-regresion-logistica.html#cb288-3" aria-hidden="true" tabindex="-1"></a>logist.pred.ROCR <span class="ot">&lt;-</span> <span class="fu">prediction</span>(predict_numeric, titanic<span class="sc">$</span>Survived)</span></code></pre></div>
+<pre><code>## Error in prediction(predict_numeric, titanic$Survived): Number of predictions in each run must be equal to the number of labels for each run.</code></pre>
+<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="05-regresion-logistica.html#cb290-1" aria-hidden="true" tabindex="-1"></a>logist.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="st">&quot;tpr&quot;</span>,</span>
+<span id="cb290-2"><a href="05-regresion-logistica.html#cb290-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;fpr&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in performance(logist.pred.ROCR, &quot;tpr&quot;, &quot;fpr&quot;): object &#39;logist.pred.ROCR&#39; not found</code></pre>
+<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="05-regresion-logistica.html#cb292-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(logist.perf)</span></code></pre></div>
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;plot&#39;: object &#39;logist.perf&#39; not found</code></pre>
+<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="05-regresion-logistica.html#cb294-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet</code></pre>
+<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="05-regresion-logistica.html#cb296-1" aria-hidden="true" tabindex="-1"></a>auc <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="at">measure =</span> <span class="st">&quot;auc&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in performance(logist.pred.ROCR, measure = &quot;auc&quot;): object &#39;logist.pred.ROCR&#39; not found</code></pre>
+<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="05-regresion-logistica.html#cb298-1" aria-hidden="true" tabindex="-1"></a>auc<span class="sc">@</span>y.values</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;auc&#39; not found</code></pre>
 <p><strong>Nota:</strong></p>
 <p>Hasta este momento estamos verificando el poder de clasificación del modelo con los mismos datos que usamos para ajustarlo. Es decir, le estamos diciendo al modelo que compruebe la veracidad de la clasificación que ya se hizo previamente.</p>
 <p>Esto es incorrecto, ya que el modelo ya sabe “las respuestas” y no estamos midiendo su poder de clasificación sino más bien su capacidad predictiva dentro del conjunto de entrenamiento.</p>
 <p>Para resolver esto, debemos tomar otra muestra de prueba (<strong>training</strong>) que nos diga si el ajuste que hicimos es correcto.</p>
-<div class="sourceCode" id="cb280"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb280-1"><a href="05-regresion-logistica.html#cb280-1" aria-hidden="true" tabindex="-1"></a>titanic<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(titanic)</span>
-<span id="cb280-2"><a href="05-regresion-logistica.html#cb280-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb280-3"><a href="05-regresion-logistica.html#cb280-3" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
-<span id="cb280-4"><a href="05-regresion-logistica.html#cb280-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sample_frac</span>(<span class="fl">0.75</span>)</span>
-<span id="cb280-5"><a href="05-regresion-logistica.html#cb280-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb280-6"><a href="05-regresion-logistica.html#cb280-6" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
-<span id="cb280-7"><a href="05-regresion-logistica.html#cb280-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(train, <span class="at">by =</span> <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb281"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb281-1"><a href="05-regresion-logistica.html#cb281-1" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> train,</span>
-<span id="cb281-2"><a href="05-regresion-logistica.html#cb281-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb282"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb282-1"><a href="05-regresion-logistica.html#cb282-1" aria-hidden="true" tabindex="-1"></a>predict_numeric <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_glm, <span class="at">newdata =</span> test,</span>
-<span id="cb282-2"><a href="05-regresion-logistica.html#cb282-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
-<span id="cb282-3"><a href="05-regresion-logistica.html#cb282-3" aria-hidden="true" tabindex="-1"></a>predict_01 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(predict_numeric <span class="sc">&gt;=</span> <span class="fl">0.5</span>)</span>
-<span id="cb282-4"><a href="05-regresion-logistica.html#cb282-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb282-5"><a href="05-regresion-logistica.html#cb282-5" aria-hidden="true" tabindex="-1"></a>matriz_confusion <span class="ot">&lt;-</span> <span class="fu">table</span>(test<span class="sc">$</span>Survived, predict_01)</span>
-<span id="cb282-6"><a href="05-regresion-logistica.html#cb282-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb282-7"><a href="05-regresion-logistica.html#cb282-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
-<span id="cb282-8"><a href="05-regresion-logistica.html#cb282-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
-<span id="cb282-9"><a href="05-regresion-logistica.html#cb282-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb282-10"><a href="05-regresion-logistica.html#cb282-10" aria-hidden="true" tabindex="-1"></a>matriz_confusion</span></code></pre></div>
+<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="05-regresion-logistica.html#cb300-1" aria-hidden="true" tabindex="-1"></a>titanic<span class="sc">$</span>id <span class="ot">&lt;-</span> <span class="dv">1</span><span class="sc">:</span><span class="fu">nrow</span>(titanic)</span>
+<span id="cb300-2"><a href="05-regresion-logistica.html#cb300-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb300-3"><a href="05-regresion-logistica.html#cb300-3" aria-hidden="true" tabindex="-1"></a>train <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
+<span id="cb300-4"><a href="05-regresion-logistica.html#cb300-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sample_frac</span>(<span class="fl">0.75</span>)</span>
+<span id="cb300-5"><a href="05-regresion-logistica.html#cb300-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb300-6"><a href="05-regresion-logistica.html#cb300-6" aria-hidden="true" tabindex="-1"></a>test <span class="ot">&lt;-</span> titanic <span class="sc">%&gt;%</span></span>
+<span id="cb300-7"><a href="05-regresion-logistica.html#cb300-7" aria-hidden="true" tabindex="-1"></a>    <span class="fu">anti_join</span>(train, <span class="at">by =</span> <span class="st">&quot;id&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb301"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb301-1"><a href="05-regresion-logistica.html#cb301-1" aria-hidden="true" tabindex="-1"></a>fit_glm <span class="ot">&lt;-</span> <span class="fu">glm</span>(Survived <span class="sc">~</span> Fare <span class="sc">+</span> Age, <span class="at">data =</span> train,</span>
+<span id="cb301-2"><a href="05-regresion-logistica.html#cb301-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">family =</span> <span class="st">&quot;binomial&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="05-regresion-logistica.html#cb302-1" aria-hidden="true" tabindex="-1"></a>predict_numeric <span class="ot">&lt;-</span> <span class="fu">predict</span>(fit_glm, <span class="at">newdata =</span> test,</span>
+<span id="cb302-2"><a href="05-regresion-logistica.html#cb302-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">type =</span> <span class="st">&quot;response&quot;</span>)</span>
+<span id="cb302-3"><a href="05-regresion-logistica.html#cb302-3" aria-hidden="true" tabindex="-1"></a>predict_01 <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(predict_numeric <span class="sc">&gt;=</span> <span class="fl">0.5</span>)</span>
+<span id="cb302-4"><a href="05-regresion-logistica.html#cb302-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb302-5"><a href="05-regresion-logistica.html#cb302-5" aria-hidden="true" tabindex="-1"></a>matriz_confusion <span class="ot">&lt;-</span> <span class="fu">table</span>(test<span class="sc">$</span>Survived, predict_01)</span>
+<span id="cb302-6"><a href="05-regresion-logistica.html#cb302-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb302-7"><a href="05-regresion-logistica.html#cb302-7" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
+<span id="cb302-8"><a href="05-regresion-logistica.html#cb302-8" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(matriz_confusion) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>)</span>
+<span id="cb302-9"><a href="05-regresion-logistica.html#cb302-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb302-10"><a href="05-regresion-logistica.html#cb302-10" aria-hidden="true" tabindex="-1"></a>matriz_confusion</span></code></pre></div>
 <pre><code>##    predict_01
 ##      N  P
-##   N 93  9
-##   P 57 19</code></pre>
-<div class="sourceCode" id="cb284"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb284-1"><a href="05-regresion-logistica.html#cb284-1" aria-hidden="true" tabindex="-1"></a>(TN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
-<pre><code>## [1] 93</code></pre>
-<div class="sourceCode" id="cb286"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb286-1"><a href="05-regresion-logistica.html#cb286-1" aria-hidden="true" tabindex="-1"></a>(TP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
-<pre><code>## [1] 19</code></pre>
-<div class="sourceCode" id="cb288"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb288-1"><a href="05-regresion-logistica.html#cb288-1" aria-hidden="true" tabindex="-1"></a>(FP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
-<pre><code>## [1] 9</code></pre>
-<div class="sourceCode" id="cb290"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb290-1"><a href="05-regresion-logistica.html#cb290-1" aria-hidden="true" tabindex="-1"></a>(FN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
-<pre><code>## [1] 57</code></pre>
-<div class="sourceCode" id="cb292"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb292-1"><a href="05-regresion-logistica.html#cb292-1" aria-hidden="true" tabindex="-1"></a>(exactitud <span class="ot">&lt;-</span> (TP <span class="sc">+</span> TN)<span class="sc">/</span>(TP <span class="sc">+</span> TN <span class="sc">+</span> FP <span class="sc">+</span> FN))</span></code></pre></div>
-<pre><code>## [1] 0.6292135</code></pre>
-<div class="sourceCode" id="cb294"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb294-1"><a href="05-regresion-logistica.html#cb294-1" aria-hidden="true" tabindex="-1"></a>(precision <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FP))</span></code></pre></div>
-<pre><code>## [1] 0.6785714</code></pre>
-<div class="sourceCode" id="cb296"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb296-1"><a href="05-regresion-logistica.html#cb296-1" aria-hidden="true" tabindex="-1"></a>(sensibilidad <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FN))</span></code></pre></div>
-<pre><code>## [1] 0.25</code></pre>
-<div class="sourceCode" id="cb298"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb298-1"><a href="05-regresion-logistica.html#cb298-1" aria-hidden="true" tabindex="-1"></a>(F_score <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (precision <span class="sc">*</span> sensibilidad)<span class="sc">/</span>(precision <span class="sc">+</span></span>
-<span id="cb298-2"><a href="05-regresion-logistica.html#cb298-2" aria-hidden="true" tabindex="-1"></a>    sensibilidad))</span></code></pre></div>
-<pre><code>## [1] 0.3653846</code></pre>
-<div class="sourceCode" id="cb300"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb300-1"><a href="05-regresion-logistica.html#cb300-1" aria-hidden="true" tabindex="-1"></a>(especificidad <span class="ot">&lt;-</span> TN<span class="sc">/</span>(TN <span class="sc">+</span> FP))</span></code></pre></div>
-<pre><code>## [1] 0.9117647</code></pre>
+##   N 83  8
+##   P 60 21</code></pre>
+<div class="sourceCode" id="cb304"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb304-1"><a href="05-regresion-logistica.html#cb304-1" aria-hidden="true" tabindex="-1"></a>(TN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] 83</code></pre>
+<div class="sourceCode" id="cb306"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb306-1"><a href="05-regresion-logistica.html#cb306-1" aria-hidden="true" tabindex="-1"></a>(TP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] 21</code></pre>
+<div class="sourceCode" id="cb308"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb308-1"><a href="05-regresion-logistica.html#cb308-1" aria-hidden="true" tabindex="-1"></a>(FP <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;N&quot;</span>, <span class="st">&quot;P&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] 8</code></pre>
+<div class="sourceCode" id="cb310"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb310-1"><a href="05-regresion-logistica.html#cb310-1" aria-hidden="true" tabindex="-1"></a>(FN <span class="ot">&lt;-</span> matriz_confusion[<span class="st">&quot;P&quot;</span>, <span class="st">&quot;N&quot;</span>])</span></code></pre></div>
+<pre><code>## [1] 60</code></pre>
+<div class="sourceCode" id="cb312"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb312-1"><a href="05-regresion-logistica.html#cb312-1" aria-hidden="true" tabindex="-1"></a>(exactitud <span class="ot">&lt;-</span> (TP <span class="sc">+</span> TN)<span class="sc">/</span>(TP <span class="sc">+</span> TN <span class="sc">+</span> FP <span class="sc">+</span> FN))</span></code></pre></div>
+<pre><code>## [1] 0.6046512</code></pre>
+<div class="sourceCode" id="cb314"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb314-1"><a href="05-regresion-logistica.html#cb314-1" aria-hidden="true" tabindex="-1"></a>(precision <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FP))</span></code></pre></div>
+<pre><code>## [1] 0.7241379</code></pre>
+<div class="sourceCode" id="cb316"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb316-1"><a href="05-regresion-logistica.html#cb316-1" aria-hidden="true" tabindex="-1"></a>(sensibilidad <span class="ot">&lt;-</span> TP<span class="sc">/</span>(TP <span class="sc">+</span> FN))</span></code></pre></div>
+<pre><code>## [1] 0.2592593</code></pre>
+<div class="sourceCode" id="cb318"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb318-1"><a href="05-regresion-logistica.html#cb318-1" aria-hidden="true" tabindex="-1"></a>(F_score <span class="ot">&lt;-</span> <span class="dv">2</span> <span class="sc">*</span> (precision <span class="sc">*</span> sensibilidad)<span class="sc">/</span>(precision <span class="sc">+</span></span>
+<span id="cb318-2"><a href="05-regresion-logistica.html#cb318-2" aria-hidden="true" tabindex="-1"></a>    sensibilidad))</span></code></pre></div>
+<pre><code>## [1] 0.3818182</code></pre>
+<div class="sourceCode" id="cb320"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb320-1"><a href="05-regresion-logistica.html#cb320-1" aria-hidden="true" tabindex="-1"></a>(especificidad <span class="ot">&lt;-</span> TN<span class="sc">/</span>(TN <span class="sc">+</span> FP))</span></code></pre></div>
+<pre><code>## [1] 0.9120879</code></pre>
 <p>Por defecto, la probabilidad para crear la matrix de confusión es 0.5. Si empezamos a variar esa probabilidad en el rango de 0 a 1, obtenemos la curva ROC.</p>
-<div class="sourceCode" id="cb302"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb302-1"><a href="05-regresion-logistica.html#cb302-1" aria-hidden="true" tabindex="-1"></a>logist.pred.ROCR <span class="ot">&lt;-</span> <span class="fu">prediction</span>(predict_numeric, test<span class="sc">$</span>Survived)</span>
-<span id="cb302-2"><a href="05-regresion-logistica.html#cb302-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb302-3"><a href="05-regresion-logistica.html#cb302-3" aria-hidden="true" tabindex="-1"></a>logist.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="st">&quot;tpr&quot;</span>,</span>
-<span id="cb302-4"><a href="05-regresion-logistica.html#cb302-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;fpr&quot;</span>)</span>
-<span id="cb302-5"><a href="05-regresion-logistica.html#cb302-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb302-6"><a href="05-regresion-logistica.html#cb302-6" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(logist.perf)</span>
-<span id="cb302-7"><a href="05-regresion-logistica.html#cb302-7" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-200-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb303"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb303-1"><a href="05-regresion-logistica.html#cb303-1" aria-hidden="true" tabindex="-1"></a>auc <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="at">measure =</span> <span class="st">&quot;auc&quot;</span>)</span>
-<span id="cb303-2"><a href="05-regresion-logistica.html#cb303-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb303-3"><a href="05-regresion-logistica.html#cb303-3" aria-hidden="true" tabindex="-1"></a>auc<span class="sc">@</span>y.values</span></code></pre></div>
-<pre><code>## [[1]]
-## [1] 0.7138803</code></pre>
+<div class="sourceCode" id="cb322"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb322-1"><a href="05-regresion-logistica.html#cb322-1" aria-hidden="true" tabindex="-1"></a>logist.pred.ROCR <span class="ot">&lt;-</span> <span class="fu">prediction</span>(predict_numeric, test<span class="sc">$</span>Survived)</span></code></pre></div>
+<pre><code>## Error: &#39;predictions&#39; contains NA.</code></pre>
+<div class="sourceCode" id="cb324"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb324-1"><a href="05-regresion-logistica.html#cb324-1" aria-hidden="true" tabindex="-1"></a>logist.perf <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="st">&quot;tpr&quot;</span>,</span>
+<span id="cb324-2"><a href="05-regresion-logistica.html#cb324-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;fpr&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in performance(logist.pred.ROCR, &quot;tpr&quot;, &quot;fpr&quot;): object &#39;logist.pred.ROCR&#39; not found</code></pre>
+<div class="sourceCode" id="cb326"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb326-1"><a href="05-regresion-logistica.html#cb326-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(logist.perf)</span></code></pre></div>
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;plot&#39;: object &#39;logist.perf&#39; not found</code></pre>
+<div class="sourceCode" id="cb328"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb328-1"><a href="05-regresion-logistica.html#cb328-1" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in int_abline(a = a, b = b, h = h, v = v, untf = untf, ...): plot.new has not been called yet</code></pre>
+<div class="sourceCode" id="cb330"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb330-1"><a href="05-regresion-logistica.html#cb330-1" aria-hidden="true" tabindex="-1"></a>auc <span class="ot">&lt;-</span> <span class="fu">performance</span>(logist.pred.ROCR, <span class="at">measure =</span> <span class="st">&quot;auc&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in performance(logist.pred.ROCR, measure = &quot;auc&quot;): object &#39;logist.pred.ROCR&#39; not found</code></pre>
+<div class="sourceCode" id="cb332"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb332-1"><a href="05-regresion-logistica.html#cb332-1" aria-hidden="true" tabindex="-1"></a>auc<span class="sc">@</span>y.values</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;auc&#39; not found</code></pre>
 </div>
 </div>
 <div id="ejercicios-3" class="section level2 hasAnchor" number="5.5">

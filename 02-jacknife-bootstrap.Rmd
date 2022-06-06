@@ -175,11 +175,11 @@ donde
 \end{equation*}
 
 y el estimador corregido por sesgo es: $T_{jack}=T_n-b_{jack}$.
-```{exercise}
-En nuestro caso tendríamos lo siguiente:
-```
 
-```{r, }
+
+En nuestro caso tendríamos lo siguiente:
+
+```{r}
 (bjack <- (n-1)*(mean(T_i) - Tn))
 ```
 

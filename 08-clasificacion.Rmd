@@ -1,3 +1,9 @@
+---
+output:
+  pdf_document: default
+  html_document: default
+  word_document: default
+---
 # Otros Clasificadores
 
 ## Clasificador Bayesiano
@@ -29,13 +35,27 @@ $$1-E\left[\max_j P(Y=j|X)\right]$$
 
 Para el caso de clasificación la tasa de error bayesiana es equivalente al error irreducible.
 
-Inconveniente: en datos reales no conocemos $P(Y=j|X=x_0)$.
+Inconveniente: en datos reales no conocemos $P(Y=j|X=x_0)$. Se puede aproximar estas probabilidades usando lo que se conoce como _Bayes ingenuo_ (_Naïve Bayes_). 
+
+
+- Paso 1: Calcule la probabilidad previa para las etiquetas de clase dadas 
+- Paso 2: Encuentre la probabilidad de verosimilitud con cada atributo para cada clase 
+- Paso 3: Ponga estos valores en la fórmula de Bayes y calcule la probabilidad posterior. 
+- Paso 4: Revise qué clase tiene una probabilidad más alta, dado que la entrada pertenece a la clase de probabilidad más alta.
+
+
+![Bayes ingenuo (tomado de https://www.datacamp.com/tutorial/naive-bayes-scikit-learn)](manual_figures/naivebayes.png)
+
 
 ## Método de k vecinos más cercanos (KNN)
 
-Este método aproxima la probabilidad condicional del clasificador bayesiano. Dado un entero $K$ y una observación de prueba $x_0$, el clasificador primero identifica el conjunto de observaciones que son más cercanas a $x_0$: $\mathcal N_0$. Entonces:
-$$P(Y=j|X=x_0) := \frac{1}{K}\sum_{i \in \mathcal N_0}I(y_i=j)$$
-y siguiendo la regla de bayes se selecciona la categoría con probabilidad condicional máxima.
+Este método aproxima la probabilidad condicional del clasificador bayesiano. Dado un entero $K$ y una observación de prueba $x_0$, el clasificador hace lo siguiente 
+1. Encuentra los primeros \(K\) vecinos  más cercanos (usando alguna distancia) de observaciones que son más cercanas a $x_0$: $\mathcal N_0$
+2. Luego calcula 
+
+$$P(Y=j|X=x_0) = \frac{1}{K}\sum_{i \in \mathcal N_0}I(y_i=j)$$
+
+3. Finalmente, siguiendo la regla de bayes se selecciona la categoría con probabilidad condicional máxima.
 
 ![Clasificación según K vecinos más cercanos (Wikimedia Commons)](manual_figures/KNN.png)
 
@@ -54,7 +74,7 @@ donde $X_1,\ldots,X_p$ son los predictores. Para el modelo logístico tenemos lo
 Suponga que se quiere clasificar una observación en $K\geq 2$ clases. Sea $\pi_k$ la probabilidad previa de que la observación provenga de la clase $k$-ésima. Sea 
 $$f_k(x)=P(X=x|Y=k)$$
 por el teorema de Bayes:
-$$P_k(x):=P(Y=k|X=x)=\frac{\pi_kf_k(x)}{\sum_{l=1}^K \pi_lf_l(x)}$$
+$$P_k(x)=P(Y=k|X=x)=\frac{\pi_kf_k(x)}{\sum_{l=1}^K \pi_lf_l(x)}$$
 
 Estimación de los componentes:
 
@@ -116,6 +136,86 @@ Comparación de métodos:
 - KNN no tiene la misma capacidad de interpretabilidad que la regresión logística.
 - Como KNN depende de la distancia entre observaciones, entonces la escala de las covariables importa.
 
+## Estimación de la Curva ROC
+
+Suponga que para clasificación binaria se tiene el siguiente caso 
+
+| $Y_{Real}$ | $Y_{Prob}$ |
+|------------|------------|
+| 1          | 0.8        |
+| 0          | 0.6        |
+| 1          | 0.4        |
+| 0          | 0.2        |
+
+
+Ahora variemos el punto de corte $t$ para decidir cuál de estos es será 0 o 1. La regla es 
+
+
+\begin{equation*}
+\begin{cases}
+1 & Y_{Prob} > t \\
+0 & \text{sino}
+\end{cases}
+\end{equation*}
+
+Con esta información hacemos la tabla
+
+| $Y_{Real}$ | $Y_{Prob}$ | $Y_0$ | $Y_{0.2}$ | $Y_{0.4}$ | $Y_{0.6}$ | $Y_{0.8}$ | $Y_{1}$ |
+|------------|------------|-------|----------|-----------|-----------|-----------|---------|
+| 1          | 0.8        | 1     | 1        | 1         | 1         | 1         | 0       |
+| 0          | 0.6        | 1     | 1        | 1         | 1         | 0         | 0       |
+| 1          | 0.4        | 1     | 1        | 1         | 0         | 0         | 0       |
+| 0          | 0.2        | 1     | 1        | 0         | 0         | 0         | 0       |
+
+
+Ahora calculamos las Tasas de positivos verdaderos $TPR = \frac{TP}{P} = \frac{TP}{TP+FN}$ y la tasa de falsos positivos   $FPR = \frac{FP}{P} = \frac{FP}{FP+TN}$ para cada corte
+
+\begin{align*}
+TPR_0 &= \frac{2}{2+0} = 1\\
+TPR_{0.2} &= \frac{2}{2+0} =1\\
+TPR_{0.4} &= \frac{2}{2+0} =1\\
+TPR_{0.6} &= \frac{1}{1+1} =0.5\\
+TPR_{0.8} &= \frac{1}{1+1} =0.5\\
+TPR_{1} &= \frac{0}{0+2} = 0
+\end{align*}
+
+\begin{align*}
+FPR_0 &= \frac{2}{2+0} = 1\\
+FPR_{0.2} &= \frac{2}{2+0} =1\\
+FPR_{0.4} &= \frac{1}{1+1} =0.5\\
+FPR_{0.6} &= \frac{1}{1+1} =0.5\\
+FPR_{0.8} &= \frac{0}{0+2} =0 \\
+FPR_{1} &= \frac{0}{0+2} =0 
+\end{align*}
+
+
+Finalmente graficamos los valores 
+
+```{r}
+TPR <- c(0, 0.5, 0.5, 1, 1, 1)
+FPR <- c(0, 0, 0.5, 0.5, 1, 1)
+
+plot(FPR, TPR, type = "l")
+abline(a = 0, b = 1, col = "red")
+```
+
+El cálculo del AUC es simplemente la suma de cada una de las cajas correspondientes. 
+
+```{r}
+calculo_auc <- function(TPR, FPR) {
+  dFPR <- c(diff(FPR), 0)
+  dTPR <- c(diff(TPR), 0)
+  sum(TPR * dFPR) + sum(dTPR * dFPR) / 2
+}
+
+calculo_auc(TPR, FPR)
+```
+
+
+
+
+
+
 ## Laboratorio
 
 Datos sociodemográficos y de productos de aseguramiento de 5822 clientes. La variable dependiente es si cada cliente adquirió un seguro de remolques (https://liacs.leidenuniv.nl/~puttenpwhvander/library/cc2000/data.html). 
@@ -137,7 +237,7 @@ library(tidyverse)
 El primer paso es construir una separación de conjunto de entrenamiento y de conjunto de prueba:
 ```{r}
 set.seed(1234)
-Caravan.split <- initial_split(Caravan,prop = 0.8,strata = Purchase)
+Caravan.split <- initial_split(Caravan, prop = 0.8, strata = Purchase)
 Caravan.training <- Caravan.split %>% training()
 Caravan.testing <- Caravan.split %>% testing()
 ```
@@ -145,14 +245,15 @@ Caravan.testing <- Caravan.split %>% testing()
 Como vamos a usar el método KNN, lo conveniente es estandarizar todas las covariables:
 
 ```{r}
-Caravan.recipe <- recipe(Purchase~.,data = Caravan.training) %>%
-  step_normalize(all_predictors(),-all_outcomes())
+Caravan.recipe <- recipe(Purchase ~ ., data = Caravan.training) %>%
+  step_normalize(all_predictors(), -all_outcomes())
 ```
 y aplicamos la receta sobre el conjunto de prueba para verificar que la receta funciona bien:
 
 ```{r}
-Caravan.recipe %>% prep() %>%
-  bake(new_data=Caravan.testing)
+Caravan.recipe %>%
+  prep() %>%
+  bake(new_data = Caravan.testing)
 ```
 
 ### Clasificador logístico
@@ -161,8 +262,8 @@ Vamos a ajustar un modelo logístico a los datos. Primero especificamos el model
 
 ```{r}
 modelo_logistico <- logistic_reg() %>%
-  set_engine('glm') %>%
-  set_mode('classification')
+  set_engine("glm") %>%
+  set_mode("classification")
 ```
 
 y después definimos un objeto tipo *workflow* para unir el tratamiento de datos (recipe) con el modelo:
@@ -175,12 +276,12 @@ logistico_wf <- workflow() %>%
 
 y ajustamos el modelo:
 ```{r}
-logistico_ajuste <- logistico_wf %>% fit(data=Caravan.training)
+logistico_ajuste <- logistico_wf %>% fit(data = Caravan.training)
 ```
 
 Obtenemos predicciones en el conjunto de prueba:
 ```{r}
-predicciones_probs <- predict(logistico_ajuste, new_data = Caravan.testing,type='prob')
+predicciones_probs <- predict(logistico_ajuste, new_data = Caravan.testing, type = "prob")
 predicciones_categ <- predict(logistico_ajuste, new_data = Caravan.testing)
 head(predicciones_probs)
 head(predicciones_categ)
@@ -189,27 +290,30 @@ head(predicciones_categ)
 Unimos todos los resultados en un solo arreglo:
 
 ```{r}
-resultados_logistico <- Caravan.testing %>% select(Purchase) %>%
+resultados_logistico <- Caravan.testing %>%
+  dplyr::select(Purchase) %>%
   bind_cols(predicciones_categ) %>%
   bind_cols(predicciones_probs)
+
+head(resultados_logistico)
 ```
 
 y podemos calcular la matriz de confusión:
 
 ```{r}
-conf_mat(resultados_logistico,truth = Purchase,estimate = .pred_class)
+conf_mat(resultados_logistico, truth = Purchase, estimate = .pred_class)
 ```
 
 curva ROC:
 
 ```{r}
-roc_curve(resultados_logistico,truth = Purchase,estimate = .pred_No) %>%
+roc_curve(resultados_logistico, truth = Purchase, estimate = .pred_No) %>%
   autoplot()
 ```
 y finalmente el área bajo la curva ROC:
 
 ```{r}
-roc_auc(resultados_logistico,truth = Purchase,estimate = .pred_No)
+roc_auc(resultados_logistico, truth = Purchase, estimate = .pred_No)
 ```
 
 Existe otra alternativa de ajuste con el comando *last_fit* que automatiza el proceso:
@@ -237,8 +341,8 @@ Usando el mismo procedimiento de datos anterior, definimos el modelo LDA:
 ```{r}
 library(discrim)
 modelo_lda <- discrim_linear() %>%
-  set_engine('MASS') %>%
-  set_mode('classification')
+  set_engine("MASS") %>%
+  set_mode("classification")
 ```
 
 flujo de trabajo:
@@ -263,7 +367,8 @@ curva ROC:
 
 ```{r}
 lda_predicciones <- last_fit_lda %>% collect_predictions()
-lda_predicciones %>% roc_curve(truth = Purchase, estimate = .pred_No) %>%
+lda_predicciones %>%
+  roc_curve(truth = Purchase, estimate = .pred_No) %>%
   autoplot()
 ```
 
@@ -276,16 +381,21 @@ lda_predicciones %>% conf_mat(truth = Purchase, estimate = .pred_class)
 
 En este caso usaremos otro generador (*klaR*). 
 
+```{r}
+library(klaR)
+```
+
+
+
 Nota: El argumento *frac_common_cov=1* permite hacer LDA en lugar de QDA.
 
 ```{r}
 modelo_qda <- discrim_regularized(frac_common_cov = 0) %>%
-  set_engine('klaR') %>%
-  set_mode('classification')
+  set_engine("klaR") %>%
+  set_mode("classification")
 ```
 
 ```{r}
-library(klaR)
 qda_wf <- workflow() %>%
   add_model(modelo_qda) %>%
   add_recipe(Caravan.recipe)
@@ -297,14 +407,24 @@ last_fit_qda <- qda_wf %>%
 ```{r}
 last_fit_qda %>% collect_metrics()
 qda_predicciones <- last_fit_qda %>% collect_predictions()
-qda_predicciones %>% roc_curve(truth = Purchase, estimate = .pred_No) %>%
+qda_predicciones %>%
+  roc_curve(truth = Purchase, estimate = .pred_No) %>%
   autoplot()
 qda_predicciones %>% conf_mat(truth = Purchase, estimate = .pred_class)
 ```
 
 ### K vecinos más cercanos
 
-En el caso del KNN se va a seleccionar el número de vecinos a través de validación cruzada, usando como métrica el AUC. Primero definimos los conjuntos bajo el k-fold:
+En el caso del KNN se va a seleccionar el número de vecinos a través de validación cruzada, usando como métrica el AUC. 
+
+Este método requiere la siguiente librería para funcionar
+
+```{r}
+library(kknn)
+```
+
+
+Primero definimos los conjuntos bajo el k-fold:
 
 ```{r}
 set.seed(178)
@@ -316,8 +436,8 @@ y definimos el modelo KNN y el flujo de trabajo:
 
 ```{r}
 modelo_knn <- nearest_neighbor(neighbors = tune()) %>%
-  set_engine('kknn') %>%
-  set_mode('classification')
+  set_engine("kknn") %>%
+  set_mode("classification")
 
 knn_wf <- workflow() %>%
   add_model(modelo_knn) %>%
@@ -336,14 +456,14 @@ knn_tuning <- knn_wf %>%
 
 y se selecciona el modelo con el mejor AUC:
 ```{r}
-knn_tuning %>% show_best('roc_auc')
+knn_tuning %>% show_best("roc_auc")
 ```
 
 mejor modelo y actualización del flujo de trabajo:
 
 ```{r}
-mejor_knn <- knn_tuning %>% 
-  select_best(metric = 'roc_auc')
+mejor_knn <- knn_tuning %>%
+  select_best(metric = "roc_auc")
 
 final_knn_wf <- knn_wf %>% finalize_workflow(mejor_knn)
 ```
@@ -355,11 +475,110 @@ last_fit_knn <- final_knn_wf %>% last_fit(split = Caravan.split)
 
 last_fit_knn %>% collect_metrics()
 
-knn_predicciones <- last_fit_knn %>% 
-                   collect_predictions()
-knn_predicciones %>% roc_curve(truth = Purchase, estimate = .pred_No) %>%
+knn_predicciones <- last_fit_knn %>%
+  collect_predictions()
+knn_predicciones %>%
+  roc_curve(truth = Purchase, estimate = .pred_No) %>%
   autoplot()
 knn_predicciones %>% conf_mat(truth = Purchase, estimate = .pred_class)
+```
+
+### Máquinas de soporte vectorial
+
+#### Kernel polinomial
+```{r}
+
+library(kernlab)
+modelo_svm <- svm_poly(degree = 1) %>%
+  set_mode("classification") %>%
+  set_engine("kernlab", scaled = FALSE)
+
+svm_lineal_wf <- workflow() %>%
+  add_model(modelo_svm) %>%
+  add_recipe(Caravan.recipe)
+
+last_fit_svm <- svm_lineal_wf %>%
+  last_fit(split = Caravan.split)
+
+last_fit_svm %>% collect_metrics()
+svm_predicciones <- last_fit_svm %>% collect_predictions()
+svm_predicciones %>%
+  roc_curve(truth = Purchase, estimate = .pred_No) %>%
+  autoplot()
+svm_predicciones %>% conf_mat(truth = Purchase, estimate = .pred_class)
+```
+
+```{r}
+## svm_linear_wf <- workflow() %>%
+##   add_model(modelo_svm %>% set_args(cost = tune())) %>%
+##   add_formula(Purchase ~ .)
+
+## set.seed(1234)
+## Caravan_fold <- vfold_cv(Caravan.training, strata = Purchase, v = 10)
+
+## param_grid <- grid_regular(cost(), levels = 10)
+
+## tune_res <- tune_grid(
+##   svm_lineal_wf,
+##   resamples = Caravan_fold,
+##   grid = param_grid
+## )
+
+## autoplot(tune_res)
+```
+
+```{r}
+best_cost <- select_best(tune_res, metric = "accuracy")
+
+svm_linear_final <- finalize_workflow(svm_linear_wf, best_cost)
+
+(svm_linear_fit <- svm_linear_final %>% fit(sim_data))
+```
+
+
+```{r}
+modelo_svm <- svm_poly(degree = 2) %>%
+  set_mode("classification") %>%
+  set_engine("kernlab", scaled = FALSE)
+
+svm_lineal_wf <- workflow() %>%
+  add_model(modelo_svm) %>%
+  add_recipe(Caravan.recipe)
+
+last_fit_svm <- svm_lineal_wf %>%
+  last_fit(split = Caravan.split)
+
+last_fit_svm %>% collect_metrics()
+svm_predicciones <- last_fit_svm %>% collect_predictions()
+svm_predicciones %>%
+  roc_curve(truth = Purchase, estimate = .pred_No) %>%
+  autoplot()
+svm_predicciones %>% conf_mat(truth = Purchase, estimate = .pred_class)
+```
+
+
+#### Kernels en alta dimensión
+
+
+```{r}
+model_svm_exp <- svm_rbf() %>%
+  set_mode("classification") %>%
+  set_engine("kernlab")
+
+svm_exp_wf <- workflow() %>%
+  add_model(model_svm_exp) %>%
+  add_recipe(Caravan.recipe)
+
+last_fit_svm <- svm_exp_wf %>%
+  last_fit(split = Caravan.split)
+
+last_fit_svm %>% collect_metrics()
+svm_predicciones <- last_fit_svm %>% collect_predictions()
+svm_predicciones %>%
+  roc_curve(truth = Purchase, estimate = .pred_No) %>%
+  autoplot()
+svm_predicciones %>% conf_mat(truth = Purchase, estimate = .pred_class)
+
 ```
 
 ## Ejercicios 
