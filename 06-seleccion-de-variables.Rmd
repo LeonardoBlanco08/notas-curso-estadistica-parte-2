@@ -335,7 +335,7 @@ De los que tienen $k=1$ variable, hay $\binom{3}{1}$ = 3 modelos. Para $k=2$, so
 1. Sea $M_p$ el modelo completo.
 1. Para $k=p,p-1,\dots,1$,
     a. Considere los $k$ modelos que contienen todos excepto uno de los predictores en $M_k$ para un total de $k-1$ predictores.
-    a. Seleccione el mejor entre esos $k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k+1}$.
+    a. Seleccione el mejor entre esos $k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k-1}$.
 1. Seleccione el mejor modelo entre $M_0,\dots,M_p$ usando $CV$, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
 
 
