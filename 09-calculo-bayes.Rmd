@@ -4,38 +4,59 @@
 
 ### Modelo de un parámetro
 
-Vamos a considerar el ejemplo en la sección 3.3 del [@Albert2009]. En este caso se quiere estimar la tasa de éxito en transplantes de corazón en un hospital de EEUU. Suponga que en ese hospital hay $n$ transplantes y $y$ es el número de muertes en el transcurso de 30 días del transplante. Si se sabe el número esperado de muertes $e$ a través de un modelo auxiliar, entonces un modelo sencillo para $y$ es asumir que:
+Vamos a considerar el ejemplo en la sección 3.3 del [@Albert2009]. En este caso se quiere estimar la tasa de éxito en transplantes de corazón en un hospital de EEUU. Suponga que en ese hospital hay $n$ transplantes e $y$ es el número de muertes en el transcurso de 30 días del transplante. Si se sabe el número esperado de muertes $e$ a través de un modelo auxiliar, entonces un modelo sencillo para $y$ es asumir que:
 $$y\sim \text{Poisson}(e\lambda)$$
 donde $\lambda$ es la tasa de mortalidad por unidad de exposición y tiempo.
 
-Posible solución: estimar $\hat \lambda=y/e$, pero el estimador es malo si hay pocas muertes observadas $y$.
 
-Solución bayesiana: Considere una previa conjugada (gamma) para $\lambda$:
-$$p(\lambda)\propto \lambda^{\alpha-1}\exp(-\beta \lambda)$$
-además, suponga que se cuenta con información externa de un grupo pequeño de hospitales con condiciones similares a la del hospital de interés, es decir se cuenta con muertes $z_j$ y exposición $o_j$ para diez hospitales ($j=1,\ldots,10$). Asuma que:
-$$z_j\sim \text{Poisson}(o_j\lambda)$$
-asignamos una previa no-informativa a $p(\lambda)\propto \lambda^{-1}$ y se obtiene un previa propuesta para $\lambda$:
-$$p(\lambda)\propto \lambda^{\sum_{j=1}^{10}z_j-1}\exp{\left(-\lambda\sum_{j=1}^{10} o_j\right)}$$y
+**Solución clásica:** 
+
+: Estimar $\hat \lambda=y/e$, pero el estimador es malo si hay pocas muertes observadas $y$.
+
+**Solución bayesiana:** 
+
+: Considere una previa conjugada (gamma) para $\lambda$ de la forma, 
+
+$$p(\lambda)\propto \lambda^{\alpha-1}\exp(-\beta \lambda).$$
+
+La ventaja de los modelos bayesianos es que se pueden integrar información externa al modelo. Supongamos que se cuenta con información externa de un grupo pequeño de hospitales con condiciones similares a la del hospital de interés, es decir se cuenta con muertes $z_j$ y exposición $o_j$ para diez hospitales ($j=1,\ldots,10$). Asumamos  que cada hospital tiene el la distribución de sus muertes de la forma, 
+
+
+$$z_j\sim \text{Poisson}(o_j\lambda).$$
+
+Entonces, asignamos una previa no-informativa a $p(\lambda)\propto \lambda^{-1}$ (cuando \(\alpha=0\) y \(\lambda=0\)) y se obtiene un previa actualiza con todos los hospitales para $\lambda$ de la forma, 
+
+$$p(\lambda)\propto \lambda^{\sum_{j=1}^{10}z_j-1}\exp{\left(-\lambda\sum_{j=1}^{10} o_j\right)}$$
+
 Suponga que $\alpha:=\sum z_j=16$ y $\beta:=\sum o_j=15174$. Si para el hospital de interés $y_{obs}$ es el número observado de muertes y $e$ es la exposición entonces la distribución posterior de $\lambda$ es:
 $$g(\lambda|y_{obs})\sim \Gamma(\alpha+y_{obs},\beta+e)$$
 y la densidad predictiva de $y$ es (Ejercicio):
 $$f(y)=\frac{f(y|\lambda)p(\lambda)}{g(\lambda|y_{obs})}$$
 
-donde $f(y|\lambda)\sim \text{Poisson}(e\lambda)$ (verosimilitud). Supongamos dos posibles hospitales:
+donde $f(y|\lambda)\sim \text{Poisson}(e\lambda)$ (verosimilitud).
+
+Supongamos que existen dos posibles hospitales:
 
 - Hospital A: Se observa una muerte con 66 personas expuestas. Cálculo de la densidad posterior y densidad predictiva con $\lambda = \alpha/\beta$:
 
 ```{r}
-alpha <- 16; beta <- 15174
-yobs <- 1; ex <- 66
+alpha <- 16
+beta <- 15174
+yobs <- 1
+ex <- 66
 y <- 0:10
-lam <- alpha/beta
-fy <- dpois(y,lam*ex)*dgamma(lam,shape = alpha,rate = beta)/
-  dgamma(lam,shape = alpha + y,rate = beta + ex)
+lam <- alpha / beta
+
+## f(y|lambda) p(lambda) / g(lambda|y_obs)
+fy <- dpois(y, lam * ex) *
+  dgamma(lam, shape = alpha, rate = beta) /
+  dgamma(lam, shape = alpha + y, rate = beta + ex)
 
 dpred <- tibble(y, fy)
-ggplot(dpred) + geom_line(mapping = aes(x = y,y = fy))+
-  geom_vline(xintercept = yobs,col=2)+
+
+ggplot(dpred) +
+  geom_line(mapping = aes(x = y, y = fy)) +
+  geom_vline(xintercept = yobs, col = "red") +
   theme_bw()
 ```
 
@@ -43,38 +64,49 @@ por lo tanto una muerte no es un valor inusual en el comportamiento de muertes b
 
 ```{r}
 set.seed(1)
-lambda_prev <- rgamma(1000,shape = alpha,rate = beta)
-lambda_post <- rgamma(1000,shape = alpha + y,rate = beta + ex)
-datoslambda <- tibble(Previa = lambda_prev,Posterior = lambda_post) %>%
+lambda_prev <- rgamma(1000, shape = alpha, rate = beta)
+lambda_post <- rgamma(1000, shape = alpha + yobs, rate = beta + ex)
+datoslambda <- tibble(Previa = lambda_prev, Posterior = lambda_post) %>%
   pivot_longer(cols = everything())
-ggplot(data = datoslambda) + geom_density(mapping = aes(x = value,color = name))+
-  theme_bw() + theme(legend.title = element_blank())
+
+ggplot(data = datoslambda) +
+  geom_density(mapping = aes(x = value, color = name)) +
+  theme_bw() +
+  theme(legend.title = element_blank())
 ```
 
 - Hospital B: 4 muertes en 1767 expuestos. Mismos cálculos:
 
 ```{r}
-alpha <- 16; beta <- 15174
-yobs <- 4; ex <- 1767
+alpha <- 16
+beta <- 15174
+yobs <- 4
+ex <- 1767
 y <- 0:10
-lam <- alpha/beta
-fy <- dpois(y,lam*ex)*dgamma(lam,shape = alpha,rate = beta)/
-  dgamma(lam,shape = alpha + y,rate = beta + ex)
+lam <- alpha / beta
+
+fy <- dpois(y, lam * ex) * dgamma(lam, shape = alpha, rate = beta) /
+  dgamma(lam, shape = alpha + y, rate = beta + ex)
 
 dpred <- tibble(y, fy)
-ggplot(dpred) + geom_line(mapping = aes(x = y,y = fy))+
-  geom_vline(xintercept = yobs,col=2)+
+
+ggplot(dpred) +
+  geom_line(mapping = aes(x = y, y = fy)) +
+  geom_vline(xintercept = yobs, col = 2) +
   theme_bw()
 ```
 
 ```{r}
 set.seed(1)
-lambda_prev <- rgamma(1000,shape = alpha,rate = beta)
-lambda_post <- rgamma(1000,shape = alpha + y,rate = beta + ex)
-datoslambda <- tibble(Previa = lambda_prev,Posterior = lambda_post) %>%
+lambda_prev <- rgamma(1000, shape = alpha, rate = beta)
+lambda_post <- rgamma(1000, shape = alpha + yobs, rate = beta + ex)
+datoslambda <- tibble(Previa = lambda_prev, Posterior = lambda_post) %>%
   pivot_longer(cols = everything())
-ggplot(data = datoslambda) + geom_density(mapping = aes(x = value,color = name))+
-  theme_bw() + theme(legend.title = element_blank())
+
+ggplot(data = datoslambda) +
+  geom_density(mapping = aes(x = value, color = name)) +
+  theme_bw() +
+  theme(legend.title = element_blank())
 ```
 
 ### Modelo de más de un parámetro
@@ -101,23 +133,30 @@ y graficamos un diagrama de contorno de la distribución posterior de $\mu,\sigm
 
 ```{r}
 attach(marathontimes)
-mycontour(normchi2post, c(220, 330, 500, 9000), time,xlab="media",ylab="varianza")
+mycontour(normchi2post,
+  c(220, 330, 500, 9000), time,
+  xlab = "media", ylab = "varianza"
+)
 ```
 y les agregamos una muestra aleatoria de tamaño 1000 de la distribución posterior conjunta, generada a través de las distribuciones marginales:
 
 ```{r}
 S <- sum((time - mean(time))^2)
 n <- length(time)
-sigma2 <- S/rchisq(1000, n - 1)
-mu <- rnorm(1000, mean = mean(time), sd = sqrt(sigma2)/sqrt(n))
-mycontour(normchi2post, c(220, 330, 500, 9000), time,xlab="media",ylab="varianza")
-points(mu,sigma2)
+sigma2 <- S / rchisq(1000, n - 1)
+mu <- rnorm(1000, mean = mean(time), sd = sqrt(sigma2) / sqrt(n))
+
+mycontour(normchi2post,
+  c(220, 330, 500, 9000), time,
+  xlab = "media", ylab = "varianza"
+)
+points(mu, sigma2)
 ```
 
 Si estamos interesados en hacer inferencia de $\mu$, podemos calcular un intervalo de credibilidad al 95%, usando la muestra marginal:
 
 ```{r}
-quantile(mu,c(0.025,0.975))
+quantile(mu, c(0.025, 0.975))
 ```
 
 y también inferencia sobre $\sigma$:
@@ -127,7 +166,7 @@ quantile(sqrt(sigma2), c(0.025, 0.975))
 
 o aún sobre otros parámetros, por ejemplo el coeficiente de variación ($CV=\sigma/\mu$):
 ```{r}
-quantile(sqrt(sigma2)/mu, c(0.025, 0.975))
+quantile(sqrt(sigma2) / mu, c(0.025, 0.975))
 ```
 
 
@@ -173,8 +212,11 @@ $$g(\eta,K|\text{datos})\propto \frac{1}{\eta(1-\eta)}\frac{1}{(1+K)^2} \prod_{j
 donde $0<\eta<1$, $K>0$ y $B(\cdot,\cdot)$ es la función beta. La función *betabinexch0* contiene la implementación de la log-densidad posterior de $\eta,K$:
 
 ```{r}
-mycontour(betabinexch0,c(.0001,.003,1,20000),
-          cancermortality,xlab="eta",ylab="K")
+mycontour(betabinexch0,
+  c(.0001, .003, 1, 20000), cancermortality,
+  xlab = "eta",
+  ylab = "K"
+)
 ```
 y note la gran asimetría en el comportamiento de la densidad conjunta, especialmente en la dirección de la variable $K$. Por el dominio de las variables $K$ y $\eta$, entonces se transforman según:
 $$\theta_1=\text{logit}(\eta)=\log\left(\frac{\eta}{1-\eta}\right),\quad  \theta_2=\log(K)$$
@@ -182,8 +224,11 @@ y usando el teorema de cambio de variable en densidades:
 $$g_1(\theta_1,\theta_2|\text{datos})=g\left(\frac{e^{\theta_1}}{1+e^{\theta_2}},e^{\theta_2}\right)\frac{e^{\theta_1+\theta_2}}{(1+e^{\theta_2})^2}$$
 $g_1$ está implementada en la función *betabinexch* y el gráfico de contorno es más manejable ahora desde el punto de vista computacional:
 ```{r}
-mycontour(betabinexch,c(-8,-4.5,3,16.5),
-          cancermortality,xlab="logit eta",ylab="log K")
+mycontour(betabinexch,
+  c(-8, -4.5, 3, 16.5),
+  cancermortality,
+  xlab = "logit eta", ylab = "log K"
+)
 ```
 
 Definitivamente esta es una distribución posterior a la que no se le puede aplicar las técnicas usuales para hacer inferencia (caso no conjugado). Se va a considerar dos formas de realizar inferencia:
@@ -203,29 +248,31 @@ donde $V=(-h''(\hat \theta))^{-1}$. Con el fin de encontrar la moda $\hat \theta
 
 Por ejemplo, en el caso anterior:
 ```{r}
-fit <- laplace(betabinexch,c(-7,6),cancermortality)
+fit <- laplace(betabinexch, c(-7, 6), cancermortality)
 fit
 ```
 
 donde el punto (-7,6) se puede inferir a través del gráfico de contorno anterior. Por lo tanto podemos aproximar la densidad posterior conjunta de $(\text{logit}(\eta),\log K)$ se puede aproximar como una normal multivariada con media *fit$mode* y varianza *fit.var*. Un gráfico de contorno de la aproximación es:
 
 ```{r}
-npar <- list(m=fit$mode,v=fit$var)
-mycontour(lbinorm,c(-8,-4.5,3,16.5),npar,
-           xlab="logit eta", ylab="log K")
+npar <- list(m = fit$mode, v = fit$var)
+mycontour(lbinorm,
+  c(-8, -4.5, 3, 16.5), npar,
+  xlab = "logit eta", ylab = "log K"
+)
 ```
 
 También podemos hacer inferencia de los parámetros:
 
 ```{r}
 se <- sqrt(diag(fit$var))
-lb <- fit$mode-qnorm(0.975)*se
-ub <- fit$mode+qnorm(0.975)*se
+lb <- fit$mode - qnorm(0.975) * se
+ub <- fit$mode + qnorm(0.975) * se
 
-etainv <- c(lb[1],ub[1])
-Kinv <- c(lb[2],ub[2])
+etainv <- c(lb[1], ub[1])
+Kinv <- c(lb[2], ub[2])
 
-exp(etainv)/(1+exp(etainv))
+exp(etainv) / (1 + exp(etainv))
 exp(Kinv)
 ```
 
@@ -264,30 +311,33 @@ En el ejemplo anterior, seleccionamos $p(\theta)$ una distribución $t$ multivar
 Con el fin de encontrar $c$, maximizamos la diferencia de logaritmos entre $g(\theta|y)$ y la propuesta $p(\theta)$, usando la función *laplace*:
 
 ```{r}
-betabinT <- function(theta,datapar){
+beta_bin_T <- function(theta, datapar) {
   data <- datapar$data
   tpar <- datapar$par
-  d <- betabinexch(theta,data)-dmt(theta,mean=c(tpar$m),
-                                S=tpar$var,df=tpar$df,log=TRUE)
+
+  d <- betabinexch(theta, data) - dmt(theta,
+    mean = c(tpar$m),
+    S = tpar$var, df = tpar$df, log = TRUE
+  )
   return(d)
 }
 ```
 
 definimos parámetros:
 ```{r}
-tpar <- list(m=fit$mode,var=2*fit$var,df=4)
-datapar <- list(data=cancermortality,par=tpar)
+tpar <- list(m = fit$mode, var = 2 * fit$var, df = 4)
+datapar <- list(data = cancermortality, par = tpar)
 ```
 
 y resolvemos:
 ```{r}
-start <- c(-6.9,12.4)
-fit1 <- laplace(betabinT,start,datapar)
+start <- c(-6.9, 12.4)
+fit1 <- laplace(beta_bin_T, start, datapar)
 fit1$mode
 ```
 y el valor máximo de las diferencias de logaritmos es:
 ```{r}
-dmax <- betabinT(fit1$mode,datapar)
+dmax <- beta_bin_T(fit1$mode, datapar)
 dmax
 ```
 
@@ -295,23 +345,25 @@ el algoritmo sería:
 ```{r}
 set.seed(1)
 n <- 10000
-theta <- rmt(n,mean=c(tpar$m),S=tpar$var,df=tpar$df)
-lf <- map_dbl(1:10000,~betabinexch(theta[.,],cancermortality))
-lg <- dmt(theta,mean=c(tpar$m),S=tpar$var,df=tpar$df,log=TRUE)
-prob=exp(lf-lg-dmax)
-thetaRS <- theta[runif(n)<prob,]
+theta <- rmt(n, mean = c(tpar$m), S = tpar$var, df = tpar$df)
+lf <- map_dbl(1:10000, ~ betabinexch(theta[., ], cancermortality))
+lg <- dmt(theta, mean = c(tpar$m), S = tpar$var, df = tpar$df, log = TRUE)
+prob <- exp(lf - lg - dmax)
+thetaRS <- theta[runif(n) < prob, ]
 ```
 
 la tasa de aceptación es:
 ```{r}
-dim(thetaRS)[1]/10000
+dim(thetaRS)[1] / 10000
 ```
 
 y dibujamos el gráfico de contorno con la muestra obtenida:
 ```{r}
-mycontour(betabinexch,c(-8,-4.5,3,16.5),cancermortality,
-          xlab="logit eta",ylab="log K")
-points(thetaRS[,1],thetaRS[,2])
+mycontour(betabinexch,
+  c(-8, -4.5, 3, 16.5), cancermortality,
+  xlab = "logit eta", ylab = "log K"
+)
+points(thetaRS[, 1], thetaRS[, 2])
 ```
 
 ## Muestreo por importancia
@@ -337,19 +389,20 @@ Ahora implementamos el algoritmo en el ejemplo (buena parte es una repetición d
 ```{r}
 set.seed(1)
 n <- 10000
-theta <- rmt(n,mean=c(tpar$m),S=tpar$var,df=tpar$df)
-lf <- map_dbl(1:10000,~betabinexch(theta[.,],cancermortality))
-lp <- dmt(theta,mean=c(tpar$m),S=tpar$var,df=tpar$df,log=TRUE)
+theta <- rmt(n, mean = c(tpar$m), S = tpar$var, df = tpar$df)
+lf <- map_dbl(1:10000, ~ betabinexch(theta[., ], cancermortality))
+lp <- dmt(theta, mean = c(tpar$m), S = tpar$var, df = tpar$df, log = TRUE)
 md <- max(lf - lp)
 wt <- exp(lf - lp - md)
 hist(wt)
 ```
 
 y calculamos el valor esperado de $\log K$ usando los pesos obtenidos del paso anterior:
+
 ```{r}
-est <- sum(wt * theta[,2])/sum(wt)
-SEest <- sqrt(sum((theta[,2] - est)^2 * wt^2))/sum(wt)
-show(c(est,SEest))
+est <- sum(wt * theta[, 2]) / sum(wt)
+SE_est <- sqrt(sum((theta[, 2] - est)^2 * wt^2)) / sum(wt)
+show(c(est, SE_est))
 ```
 
 ## Remuestreo por importancia
@@ -360,15 +413,15 @@ Tomamos una nueva muestra $\theta^{*1},\ldots,\theta^{*m}\sim \{p^k\}$ es decir 
 
 Siguiendo con el ejemplo:
 ```{r}
-probs <- wt/sum(wt)
-indices <- sample(1:n,size = n,prob = probs, replace = T)
-thetaSIR <- theta[indices,]
+probs <- wt / sum(wt)
+indices <- sample(1:n, size = n, prob = probs, replace = T)
+theta_SIR <- theta[indices, ]
 ```
 
 y los intervalos de predicción al 95% para $\text{logit}(\eta)$ y $log K$ son:
 ```{r}
-quantile(thetaSIR[,1],probs = c(0.025,0.975))
-quantile(thetaSIR[,2],probs = c(0.025,0.975))
+quantile(theta_SIR[, 1], probs = c(0.025, 0.975))
+quantile(theta_SIR[, 2], probs = c(0.025, 0.975))
 ```
 
 ## Algoritmo de Metropolis-Hastings
@@ -450,36 +503,39 @@ L(\mu,\sigma)&\propto \Phi(66,\mu,\sigma)^{14}(\Phi(68,\mu,\sigma)-\Phi(66,\mu,\
 y asumimos una previa no informativa para $(\mu,\sigma)\sim \frac 1 \sigma$. Como $\sigma>0$ entonces usamos la transformación $\lambda=\log (\sigma)$.
 
 ```{r}
-d <- list(int.lo=c(-Inf,seq(66,74,by=2)),
-       int.hi=c(seq(66,74,by=2),Inf),
-       f=c(14,30,49,70,33,15))
+d <- list(
+  int.lo = c(-Inf, seq(66, 74, by = 2)),
+  int.hi = c(seq(66, 74, by = 2), Inf),
+  f = c(14, 30, 49, 70, 33, 15)
+)
 ```
 es una estructura de los datos agrupados. La log-densidad posterior de los datos sería:
 ```{r}
-groupeddatapost <- function(theta,data){
-  dj <- function(f, int.lo, int.hi, mu, sigma)
-    f * log(pnorm(int.hi, mu, sigma) -pnorm(int.lo, mu, sigma))
-mu <- theta[1]
-sigma <- exp(theta[2])
-sum(dj(data$f, data$int.lo, data$int.hi, mu, sigma))
+groupeddatapost <- function(theta, data) {
+  dj <- function(f, int.lo, int.hi, mu, sigma) {
+    f * log(pnorm(int.hi, mu, sigma) - pnorm(int.lo, mu, sigma))
+  }
+  mu <- theta[1]
+  sigma <- exp(theta[2])
+  sum(dj(data$f, data$int.lo, data$int.hi, mu, sigma))
 }
 ```
 
 Usamos el método de Laplace para encontrar una aproximación de los parámetros de la previa bajo Metropolis-Hastings:
 ```{r}
-start <- c(70,1)
-fit <- laplace(groupeddatapost,start,d)
+start <- c(70, 1)
+fit <- laplace(groupeddatapost, start, d)
 fit
 ```
 
 la escogencia del valor inicial se basa en los datos artificiales en la página 126 del [@Albert2009]. De esta forma definimos los parámetros de la propuesta como:
 ```{r}
-proposal <- list(var=fit$var,scale=2)
+proposal <- list(var = fit$var, scale = 2)
 ```
 
 y ajustamos la versión bajo caminata aleatoria de un Metropolis-Hastings (MH):
 ```{r}
-fit2 <- rwmetrop(groupeddatapost,proposal,start,10000,d)
+fit2 <- rwmetrop(groupeddatapost, proposal, start, 10000, d)
 ```
 
 con una tasa de aceptación:
@@ -489,30 +545,32 @@ fit2$accept
 
 Algunas estadísticas de la distribución posterior de $\mu$ y $\log \sigma$:
 ```{r}
-post.means <- apply(fit2$par,2,mean)
-post.sds <- apply(fit2$par,2,sd)
-cbind(post.means,post.sds)
+post.means <- apply(fit2$par, 2, mean)
+post.sds <- apply(fit2$par, 2, sd)
+cbind(post.means, post.sds)
 ```
 
 esto se puede comparar con los estimadores de la aproximación de Laplace:
 ```{r}
 modal.sds <- sqrt(diag(fit$var))
-cbind(c(fit$mode),modal.sds)
+cbind(c(fit$mode), modal.sds)
 ```
 
 También podemos graficar la densidad posterior junto con la muestra generada por el MH, usando una muestra de burn-in de 5000:
 ```{r}
- mycontour(groupeddatapost,c(69,71,.6,1.3),d, 
-           xlab="mu",ylab="log sigma")
-points(fit2$par[5001:10000,1],fit2$par[5001:10000,2])
+ mycontour(groupeddatapost,
+           c(69, 71, .6, 1.3), d,
+   xlab = "mu", ylab = "log sigma"
+ )
+ points(fit2$par[5001:10000, 1], fit2$par[5001:10000, 2])
 ```
 
 Los traceplots del MCMC los graficamos a través del paquete *coda* junto con el paquete *bayesplot*:
 ```{r}
 library(coda)
 library(bayesplot)
-dimnames(fit2$par)[[2]] <- c("mu","log sigma")
-obj_mcmc <- mcmc(fit2$par[-c(1:5000),])
+dimnames(fit2$par)[[2]] <- c("mu", "log sigma")
+obj_mcmc <- mcmc(fit2$par[-c(1:5000), ])
 mcmc_trace(obj_mcmc)
 ```
 
@@ -522,10 +580,7 @@ mcmc_acf(obj_mcmc)
 ```
 y funciones de densidad estimadas con intervalos de predicción al 95% para algunos de los parámetros:
 ```{r}
-mcmc_areas(
-  obj_mcmc,            
-  pars = c("mu"),   
-  prob = 0.95) 
+mcmc_areas(obj_mcmc, pars = c("mu"), prob = 0.95)
 ```
 ### Datos con outliers
 
@@ -553,7 +608,7 @@ log(sd(data_darwin))
 
 y usamos estos valores como valores iniciales dentro de la aproximación de Laplace:
 ```{r}
-fitlaplace <- laplace(cauchyerrorpost, c(21.6,3.6), data_darwin)
+fitlaplace <- laplace(cauchyerrorpost, c(21.6, 3.6), data_darwin)
 fitlaplace
 ```
 

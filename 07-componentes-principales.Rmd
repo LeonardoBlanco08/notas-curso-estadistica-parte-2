@@ -1,5 +1,9 @@
 # Análisis en componentes principales
 
+## Representación gráfica
+
+![Tomado de [The shape of data](https://shapeofdata.wordpress.com/2013/04/09/principle-component-analysis/)](manual_figures/pca.png)
+
 ## Aprendizaje no-supervisado
 
 Al contrario de los métodos que se han estudiado de regresión y clasificación, en este caso no hay variable dependiente, y el conjunto de datos está compuesto de $p$ variables o características y $n$ observaciones. 
@@ -22,43 +26,24 @@ knitr::opts_chunk$set(fig.pos = "!h")
 
 ```{r}
 set.seed(123)
-x1 <- rnorm(1000, 0, 2)
-x2 <- cos(rnorm(1000, 0, 2))
-x3 <- x1 + rnorm(1000, 0, 2)
+x1 <- rnorm(1000, 0, 1)
+x2 <- x1 + rnorm(1000, 0, 0.5)
+x3 <- cos(runif(1000, -3, 3))
 ```
 
 ```{r}
-GGally::ggpairs(data.frame(x1,x2,x3))
+GGally::ggpairs(data.frame(x1, x2, x3))
 ```
 
 
 ```{r,webgl=TRUE,echo=knitr::is_html_output()}
-plot3d(x1,
-          x2,
-          x3,
-          point.col = "black")
-
-plot3d(scale(x1),
-       scale(x2),
-       scale(x3),
-       point.col = "black")
-
+plot3d(x1, x2, x3, point.col = "black")
+plot3d(scale(x1), scale(x2), scale(x3), point.col = "black")
 ```
 
 ```{r,rgl=TRUE,echo=knitr::is_latex_output()}
-
-plot3d(
-  x1,
-  x3,
-  x2,
-  point.col = "black"
-)
-
-plot3d(scale(x1),
-       scale(x2),
-       scale(x3),
-       point.col = "black")
-
+plot3d(x1, x3, x2, point.col = "black")
+plot3d(scale(x1), scale(x2), scale(x3), point.col = "black")
 ```
 
 
@@ -72,56 +57,64 @@ plot3d(scale(x1),
 <!--                                                                       0.1)) / 100) + theme_minimal() + xlab("") + ylab("") -->
 <!-- ``` -->
 
-El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones eliminando la mayor cantidad de ruido posible. 
-
-## Representación gráfica
-
-![Tomado de [The shape of data](https://shapeofdata.wordpress.com/2013/04/09/principle-component-analysis/)](manual_figures/pca.png)
+El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones eliminando la mayor cantidad de ruido posible. El objetivo es crear una serie de variables sintéticas  $Z_{1},\dots, Z_{k}$  con \(k\leq p\), de modo  que posean la misma (o casi) información de las variables originales. 
 
 ## Primer componente principal
 
+El primer componente se define como el promedio ponderado de las variables originales \(X_1, \dots, X_p\) 
+\begin{equation*} 
+Z_{i1} = \phi_{11}x_{i1} + \phi_{21}x_{i2} + \dots + \phi_{p1}x_{ip};\quad \text{con } \sum_{j=1}^{p}\phi_{j1} = 1 
+\end{equation*}
 
+El objetivo es que el vector $Z_1$ tenga varianza máxima. Al vector $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$ se le llama *pesos o cargas* y funciona para promediar cada uno de las columnas de \(X\). Pensemos que $\phi_1$ es la dirección en el espacio característico en $\mathbb{R}^p$ en donde los datos tienen la máxima varianza. 
 
+En nuestro caso defina $X = (X_1,\dots,X_p)_{n\times p}$ la *matriz de diseño* donde cada columna tiene media 0. En este caso queremos resolver el problema 
 
+\begin{equation*}
+\hat{\phi}_1=\underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace 
+\end{equation*}
 
-$$ Z_1 := \phi_{11}x_1 +  \phi_{21}x_2 + \dots + \phi_{p1}x_p;\quad \text{con } \sum_{j=1}^{p}\phi_{j1} = 1$$
-tal que $Z_1$ tenga la varianza máxima.
+Note que la restricción de minimización se puede reescribir como $\Vert\phi_1\Vert_2^2= \sum_{j=1}^p \phi_{j1}^2 = 1$
 
-Al vector $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$ se le llama *pasos o cargas*. 
+Esta última expresión se podría reescribir de forma matricial como 
 
-$X = (X_1,\dots,X_p)_{n\times p}$ es la *matriz de diseño* donde cada columna tiene media 0. Se resuelve el problema
-$$\hat{\phi}_1=\underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace $$
-La restricción de minimización se puede rescribir como $\Vert\phi_1\Vert_2^2= \sum_{j=1}^p \phi_{j1}^2 = 1$
-
-Los $Z_{11},\dots, Z_{n1}$ son los scores del primer componente principal.
-
-$\phi_1$ es la dirección en el espacio característico en $\mathbb{R}^p$ en donde los datos tengan la máxima varianza.
-
-
-Esta última expresión se podría rescribir de forma matricial como 
-
-\[
-\hat{\phi}_1 = \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{ \phi_1^\top X^\top X \phi_1 \right\}
-\]
+\begin{align*}
+\hat{\phi}_1 &= \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{\frac{1}{n} \phi_1^\top X^\top X \phi_1 \right\} \\
+\hat{\phi}_1 &= \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{\phi_1^\top V \phi_1 \right\} \\
+\end{align*}
 
 donde $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$
 
 
-dadas las condiciones, esta expresión se podría simplificar un poco más en 
+Ahora s maximimizamos esta expresión usando multiplicadores de lagrange, tenemos que lo siguiente: 
 
-\[
-\hat{\phi}_1 = \underset{\phi_1}{\mathrm{argmax}} \left\{\frac{\phi_1^\top X^\top X \phi_1 }{\phi_1^\top \phi_1}\right\}
-\]
+\begin{align*}
+L(\phi_1, \lambda) &= \phi_1^\top V \phi_1 - \lambda (\phi_1^\top \phi_1 -1) \\
+\frac{\partial L}{\partial \lambda} &= \phi_1^\top \phi_1 -1 \\
+\frac{\partial L}{\partial \phi_1} &= 2V\phi_1 - 2\lambda \phi_1 
+\end{align*}
 
-Dado que la expresión anterio es un coeficiente de Rayleigh, se puede probar  que \(\hat{\phi}_{1}\) corresponde al primer vector propio de la matriz $X^\top X = \mathrm{Cov}(X)$ si las columnas de $X$ son centradas.
+Igualando a 0 las condiciones obtenemos que 
+
+\begin{align*}
+\phi_1^\top \phi &= 1 \\
+V \phi_1 &= \lambda V.
+\end{align*}
+
+
+Entonces el valor óptimo de \(\phi_1\) es el componente principal de $\frac{1}{n}X^\top X = \mathrm{Cov}(X)$ cuyo \(\lambda\) sea más grande si las columnas de $X$ son centradas.
 
 ## Segunda componente principal
 
+La segunda componente se escribe de la forma
 
+$$ Z_{2}:= \phi_{12}x_1 + \phi_{22}x_2+\dots+\phi_{p2}x_p.$$
 
-$$ Z_{2}:= \phi_{12}x_1 + \phi_{22}x_2+\dots+\phi_{p2}x_p$$
+En este caso debemos resolver el mismo problema de máximización que antes. 
  $$\underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j2} X_{ij} \right)^2 \right\rbrace$$
- Se tiene, además, que $\forall i$, $Z_{i2}\perp Z_1$, entonces 
+ 
+ 
+La diferencia es que se quiere que el segundo componente sea ortogonal al primero. Es decir, que $\forall i$, $Z_{i2}\perp Z_1$, entonces 
  $$ Z_{i2}\perp Z_1 \implies \phi_{2} \perp \phi_{1}$$
 
 Esto se logra primero construyendo una matriz nueva de diseño, restando a la matrix $X$ original, el primer componente principal. 
@@ -130,11 +123,14 @@ Esto se logra primero construyendo una matriz nueva de diseño, restando a la ma
 \tilde{X}_2 = X - X\phi_1\phi_1^\top
 \]
 
-Luego a esa matriz, se le aplica el procedimiento anterior 
+Luego a esa matriz, se le aplica el procedimiento anterior donde queremos maximizar
 
-\[
-\hat{\phi}_2 = \underset{\phi_2}{\mathrm{argmax}} \left\{\frac{\phi_2^\top X^\top X \phi_2 }{\phi_2^\top \phi_2}\right\}
-\]
+\begin{align*}
+\hat{\phi}_2 &= \underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\{\frac{1}{n} \phi_2^\top \tilde{X}_2^\top \tilde{X}_2 \phi_2 \right\} \\
+\hat{\phi}_2 &= \underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\{\phi_2^\top \tilde{V}_2 \phi_2 \right\} \\
+\end{align*}
+
+
 
 Y nuevamente se puede probar que el componente principal corresponde al segundo vector propio de 
 $X^\top X = \mathrm{Cov}(X)$
@@ -146,7 +142,6 @@ Notas:
 
 - **Escalas**: la varianza de las variables depende de las unidades. El problema es que los pesos $\phi_i$ son distintos dependiendo de las escalas. La solución es estandarizar las variables: $\dfrac{X_i-\mu_i}{\hat\sigma_i}$.
 - **Unicidad**: los componentes principales son únicos, módulo cambio de signo.
-\end{itemize}
 
 
 ## Circulo de correlaciones 
@@ -166,7 +161,28 @@ Además, basados en el el círculo identidad $\cos^2(\theta)+\sin^2(\theta)=1$, 
 ```{r}
 library("factoextra")
 library("FactoMineR")
-p <- PCA(scale(cbind(x1,x2,x3)))
+```
+
+```{r}
+(PC1 <- prcomp(cbind(x1,x2,x3),center = TRUE))
+```
+```{r}
+str(PC1)
+```
+
+
+```{r}
+(PC2 <- princomp(cbind(x1, x2, x3)))
+```
+
+```{r}
+str(PC2)
+```
+
+
+
+```{r}
+p <- PCA(scale(cbind(x1, x2, x3)))
 ```
 
 ```{r}
@@ -239,11 +255,10 @@ plot(acp.decathlon$ind$coord[, 3],
 
 ```
 
-```
 
 ## Ejercicios 
 
 - Del libro [@James2013b] 
-    - Capítulo 10:  6, 8
-`
+- Capítulo 10:  6, 8
+
 

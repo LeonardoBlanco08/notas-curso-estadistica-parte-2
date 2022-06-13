@@ -6,19 +6,30 @@ delete_merged_file: true
 before_chapter_script: ["_common.R"]
 language:
   label:
-    fig: 'Figura '
-    tab: 'Tabla '
-    eq: 'Ecuación '
-    thm: 'Teorema '
-    lem: 'Lema. '
-    def: 'Definición '
-    cor: 'Corolario '
-    prp: 'Proposición '
-    exm: 'Ejemplo '
-    exr: 'Ejercicio '
-    proof: 'Demostración. '
-    remark: 'Nota. '
-    solution: 'Solución. '
+    fig: "Figura "
+    tab: "Tabla "
+    eq: "Ecuación "
+    thm: "Teorema "
+    lem: "Lema. "
+    def: "Definición "
+    cor: "Corolario "
+    prp: "Proposición "
+    exm: "Ejemplo "
+    exr: "Ejercicio "
+    proof: "Demostración. "
+    remark: "Nota. "
+    solution: "Solución. "
   ui:
-    chapter_name: 'Capítulo '
-rmd_files: ["index.Rmd", "01-estimacion-densidades-no-parametricas.Rmd", "02-jacknife-bootstrap.Rmd", "04-metodos-lineares-regresion.Rmd", "05-regresion-logistica.Rmd", "06-seleccion-de-variables.Rmd", "08-clasificacion.Rmd", "07-componentes-principales.Rmd", "09-calculo-bayes.Rmd"]
+    chapter_name: "Capítulo "
+rmd_files:
+  [
+    "index.Rmd",
+    "01-estimacion-densidades-no-parametricas.Rmd",
+    "02-jacknife-bootstrap.Rmd",
+    "04-metodos-lineares-regresion.Rmd",
+    "05-regresion-logistica.Rmd",
+    "06-seleccion-de-variables.Rmd",
+    "08-clasificacion.Rmd",
+    "07-componentes-principales.Rmd",
+    "09-calculo-bayes.Rmd",
+  ]

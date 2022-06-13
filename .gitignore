@@ -11,3 +11,4 @@
 _region_.run.xml
 _region_.synctex.gz
 _region_.tex
+*.el

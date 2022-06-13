@@ -87,10 +87,13 @@
 <path style="stroke:none;" d="M -8.609375 -1.59375 L -1.28125 -4.0625 L -8.609375 -6.515625 L -8.609375 -7.8125 L 0 -4.671875 L 0 -3.4375 L -8.609375 -0.3125 Z M -8.609375 -1.59375 "/>
 </symbol>
 </g>
+<clipPath id="clip1">
+  <path d="M 74 63 L 473.757812 63 L 473.757812 237 L 74 237 Z M 74 63 "/>
+</clipPath>
 </defs>
-<g id="surface54">
+<g id="surface64">
 <rect x="0" y="0" width="504" height="311" style="fill:rgb(100%,100%,100%);fill-opacity:1;stroke:none;"/>
-<path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 74.398438 65.652344 L 170.398438 224.113281 L 266.398438 221.351562 L 362.398438 218.507812 L 458.398438 230.949219 "/>
+<path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(100%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 74.398438 65.652344 L 170.398438 224.113281 L 266.398438 221.351562 L 362.398438 218.507812 L 458.398438 230.949219 "/>
 <path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 74.398438 237.558594 L 458.398438 237.558594 "/>
 <path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 74.398438 237.558594 L 74.398438 244.761719 "/>
 <path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,0%);stroke-opacity:1;stroke-miterlimit:10;" d="M 170.398438 237.558594 L 170.398438 244.761719 "/>
@@ -166,6 +169,9 @@
   <use xlink:href="#glyph1-14" x="12.960938" y="131.296875"/>
   <use xlink:href="#glyph1-15" x="12.960938" y="121.962891"/>
   <use xlink:href="#glyph1-16" x="12.960938" y="113.296875"/>
+</g>
+<g clip-path="url(#clip1)" clip-rule="nonzero">
+<path style="fill:none;stroke-width:0.75;stroke-linecap:round;stroke-linejoin:round;stroke:rgb(0%,0%,100%);stroke-opacity:1;stroke-miterlimit:10;" d="M 74.398438 64.363281 L 170.398438 223.449219 L 266.398438 220.9375 L 362.398438 222.625 L 458.398438 230.988281 L 554.398438 235.253906 L 650.398438 228.167969 L 746.398438 227.339844 L 842.398438 236.132812 L 938.398438 169.832031 "/>
 </g>
 </g>
 </svg>

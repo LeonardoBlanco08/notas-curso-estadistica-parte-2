@@ -115,7 +115,8 @@ L\left(\beta\right)=\prod_{i=1}^{n} p\left(\boldsymbol{X}_{i}\right)^{Y_{i}}\lef
 
 **Solución:** Algoritmo de Netwon-Raphson.
 
-:::{.exercise data-latex=""}
+```{exercise}
+
 Muestre que 
 
 \begin{equation*}
@@ -124,7 +125,7 @@ Muestre que
 
 donde \(W_\beta = \mathrm{diag}\{p(\boldsymbol{X}_{i})(1-p(X_{i}))\}\).
 
-:::
+```
 
 
 El algoritmo de Netwon-Raphson usa el hecho que 
@@ -133,7 +134,7 @@ El algoritmo de Netwon-Raphson usa el hecho que
 \beta^{(t)} = \beta ^{(t-1)} - \left(  \frac{\partial^{2} \ell}{\partial \beta^{2}}\right)^{-1} \frac{\partial \ell}{\partial \beta}  \Bigg\vert_{\beta ^{(t-1)}}
 \end{equation*}
 
-:::{.exercise data-latex=""}
+```{exercise}
 Muestre que 
 
 \begin{equation*}
@@ -141,7 +142,7 @@ Muestre que
 \end{equation*}
 
 donde \(Z_{\beta} = Z\beta + W^{-1}_{\beta} (Y-p(X))\) y $\beta=\beta^{(t-1)}$.
-:::
+```
 
 
 A esta técnica se le conoce como __mínimos cuadrados ponderados e iterados__ o en inglés __Iteratively Re-Weighted Least Squares__ (IRLS).
@@ -272,11 +273,11 @@ Obviamente nuestro modelo puede equivocarse y darnos una respuesta errónea. Por
 Entonces tenemos realmente 4 opciones 
 
 
-|              | **Modelo \= 0**             | **Modelo \= 1**            |     |
-|:------------:|:--------------------------:|:-------------------------:|:---:|
+|               | **Modelo \= 0**            | **Modelo \= 1**           |     |
+|:-------------:|:--------------------------:|:-------------------------:|:---:|
 | **Real \= 0** | Verdaderos Negativos. (TN) | Falsos Positivos (FP)     | $N$ |
 | **Real \= 1** | Falsos Negativos (FN)      | Verdaderos Positivos (TP) | $P$ |
-| Total        | \(N^{*}\)                  | \(P^{*}\)                 |     |
+| Total         | \(N^{\star}\)              | \(P^{\star}\)             |     |
 
 
 
@@ -299,14 +300,14 @@ Exactitud (Accuracy)
 : Es la tasa de que un individuo esté bien identificado por el modelo de clasificación $(TP+TN)/(TP+TN+FN+FP)$.
 
 Precisión
-: Es la tasa de elementos identificados como 1 de forma correcta con respecto a los que fueron identificados con un valor de 1 $Precisión = TP/P^*$
+: Es la tasa de elementos identificados como 1 de forma correcta con respecto a los que fueron identificados con un valor de 1 $Precisión = TP/P^\star$
 
 
 Sensibilidad (Exhaustividad)
 : Es la tasa de elementos identificados como 1 de forma correcta con respecto a los que realmente son 1. $Sensibilidad = TP/P$
 
 F-Score
-: Es la media armónica entre la precisión y la sensibilidad. $F-Score = 2*(Sensibilidad * Precisión)/(Sensibilidad + Precisión)$
+: Es la media armónica entre la precisión y la sensibilidad. $F-Score = 2\times(Sensibilidad * Precisión)/(Sensibilidad + Precisión)$
 
 Especificidad
 : Es la tasa de elementos identificados correctamente como 0 que realmente estaban etiquetados como 0. 
@@ -318,9 +319,9 @@ Entonces esto nos da las siguientes posibilidades.
 |:------------------------------|:------------------------------------------------------|:---------------------------------------------------------------|
 | Sensibilidad                  | $TP/P$                                                | 1 - Error tipo II, Poder, Exhaustividad, Exhaustividad.                                                               |
 | Especificidad                 | $TN/N$                                                |  1- Error tipo I.                                                               |
-| Valor de Predicción Positivos | $TP/P^{*}$                                            | Positive predicted values (PPV), Precisión.                                |
-| Valor de Predicción Negativos | $TN/N^{*}$                                            | Negative predicted values (NPV)                                |
-| F-Score                       | $\frac{2(TP/P^{*} \times TP/P )}{(TP/P^{*} + TP/P )}$ |                                                                |
+| Valor de Predicción Positivos | $TP/P^{\star}$                                            | Positive predicted values (PPV), Precisión.                                |
+| Valor de Predicción Negativos | $TN/N^{\star}$                                            | Negative predicted values (NPV)                                |
+| F-Score                       | $\frac{2(TP/P^{\star} \times TP/P )}{(TP/P^{\star} + TP/P )}$ |                                                                |
 
 
 

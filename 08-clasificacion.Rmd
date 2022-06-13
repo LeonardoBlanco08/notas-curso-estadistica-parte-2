@@ -136,86 +136,6 @@ Comparación de métodos:
 - KNN no tiene la misma capacidad de interpretabilidad que la regresión logística.
 - Como KNN depende de la distancia entre observaciones, entonces la escala de las covariables importa.
 
-## Estimación de la Curva ROC
-
-Suponga que para clasificación binaria se tiene el siguiente caso 
-
-| $Y_{Real}$ | $Y_{Prob}$ |
-|------------|------------|
-| 1          | 0.8        |
-| 0          | 0.6        |
-| 1          | 0.4        |
-| 0          | 0.2        |
-
-
-Ahora variemos el punto de corte $t$ para decidir cuál de estos es será 0 o 1. La regla es 
-
-
-\begin{equation*}
-\begin{cases}
-1 & Y_{Prob} > t \\
-0 & \text{sino}
-\end{cases}
-\end{equation*}
-
-Con esta información hacemos la tabla
-
-| $Y_{Real}$ | $Y_{Prob}$ | $Y_0$ | $Y_{0.2}$ | $Y_{0.4}$ | $Y_{0.6}$ | $Y_{0.8}$ | $Y_{1}$ |
-|------------|------------|-------|----------|-----------|-----------|-----------|---------|
-| 1          | 0.8        | 1     | 1        | 1         | 1         | 1         | 0       |
-| 0          | 0.6        | 1     | 1        | 1         | 1         | 0         | 0       |
-| 1          | 0.4        | 1     | 1        | 1         | 0         | 0         | 0       |
-| 0          | 0.2        | 1     | 1        | 0         | 0         | 0         | 0       |
-
-
-Ahora calculamos las Tasas de positivos verdaderos $TPR = \frac{TP}{P} = \frac{TP}{TP+FN}$ y la tasa de falsos positivos   $FPR = \frac{FP}{P} = \frac{FP}{FP+TN}$ para cada corte
-
-\begin{align*}
-TPR_0 &= \frac{2}{2+0} = 1\\
-TPR_{0.2} &= \frac{2}{2+0} =1\\
-TPR_{0.4} &= \frac{2}{2+0} =1\\
-TPR_{0.6} &= \frac{1}{1+1} =0.5\\
-TPR_{0.8} &= \frac{1}{1+1} =0.5\\
-TPR_{1} &= \frac{0}{0+2} = 0
-\end{align*}
-
-\begin{align*}
-FPR_0 &= \frac{2}{2+0} = 1\\
-FPR_{0.2} &= \frac{2}{2+0} =1\\
-FPR_{0.4} &= \frac{1}{1+1} =0.5\\
-FPR_{0.6} &= \frac{1}{1+1} =0.5\\
-FPR_{0.8} &= \frac{0}{0+2} =0 \\
-FPR_{1} &= \frac{0}{0+2} =0 
-\end{align*}
-
-
-Finalmente graficamos los valores 
-
-```{r}
-TPR <- c(0, 0.5, 0.5, 1, 1, 1)
-FPR <- c(0, 0, 0.5, 0.5, 1, 1)
-
-plot(FPR, TPR, type = "l")
-abline(a = 0, b = 1, col = "red")
-```
-
-El cálculo del AUC es simplemente la suma de cada una de las cajas correspondientes. 
-
-```{r}
-calculo_auc <- function(TPR, FPR) {
-  dFPR <- c(diff(FPR), 0)
-  dTPR <- c(diff(TPR), 0)
-  sum(TPR * dFPR) + sum(dTPR * dFPR) / 2
-}
-
-calculo_auc(TPR, FPR)
-```
-
-
-
-
-
-
 ## Laboratorio
 
 Datos sociodemográficos y de productos de aseguramiento de 5822 clientes. La variable dependiente es si cada cliente adquirió un seguro de remolques (https://liacs.leidenuniv.nl/~puttenpwhvander/library/cc2000/data.html). 
@@ -224,6 +144,7 @@ Datos sociodemográficos y de productos de aseguramiento de 5822 clientes. La va
 library(ISLR)
 data(Caravan)
 dim(Caravan)
+head(Caravan)
 ```
 
 Vamos a usar las herramientas en el paquete *tidymodels* para efectuar una comparación entre los métodos de clasificación que hemos visto en clase. El objetivo es clasificar a los clientes entre compradores/no compradores del seguro (variable dependiente: Purchase, covariables: el resto)
@@ -251,8 +172,7 @@ Caravan.recipe <- recipe(Purchase ~ ., data = Caravan.training) %>%
 y aplicamos la receta sobre el conjunto de prueba para verificar que la receta funciona bien:
 
 ```{r}
-Caravan.recipe %>%
-  prep() %>%
+Caravan.recipe %>% prep() %>%
   bake(new_data = Caravan.testing)
 ```
 
@@ -262,8 +182,8 @@ Vamos a ajustar un modelo logístico a los datos. Primero especificamos el model
 
 ```{r}
 modelo_logistico <- logistic_reg() %>%
-  set_engine("glm") %>%
-  set_mode("classification")
+  set_engine('glm') %>%
+  set_mode('classification')
 ```
 
 y después definimos un objeto tipo *workflow* para unir el tratamiento de datos (recipe) con el modelo:
@@ -276,12 +196,12 @@ logistico_wf <- workflow() %>%
 
 y ajustamos el modelo:
 ```{r}
-logistico_ajuste <- logistico_wf %>% fit(data = Caravan.training)
+logistico_ajuste <- logistico_wf %>% fit(data=Caravan.training)
 ```
 
 Obtenemos predicciones en el conjunto de prueba:
 ```{r}
-predicciones_probs <- predict(logistico_ajuste, new_data = Caravan.testing, type = "prob")
+predicciones_probs <- predict(logistico_ajuste, new_data = Caravan.testing, type='prob')
 predicciones_categ <- predict(logistico_ajuste, new_data = Caravan.testing)
 head(predicciones_probs)
 head(predicciones_categ)
@@ -290,7 +210,7 @@ head(predicciones_categ)
 Unimos todos los resultados en un solo arreglo:
 
 ```{r}
-resultados_logistico <- Caravan.testing %>%
+resultados_logistico <- Caravan.testing %>% 
   dplyr::select(Purchase) %>%
   bind_cols(predicciones_categ) %>%
   bind_cols(predicciones_probs)
@@ -301,19 +221,19 @@ head(resultados_logistico)
 y podemos calcular la matriz de confusión:
 
 ```{r}
-conf_mat(resultados_logistico, truth = Purchase, estimate = .pred_class)
+conf_mat(resultados_logistico,truth = Purchase,estimate = .pred_class)
 ```
 
 curva ROC:
 
 ```{r}
-roc_curve(resultados_logistico, truth = Purchase, estimate = .pred_No) %>%
+roc_curve(resultados_logistico,truth = Purchase,estimate = .pred_No) %>%
   autoplot()
 ```
 y finalmente el área bajo la curva ROC:
 
 ```{r}
-roc_auc(resultados_logistico, truth = Purchase, estimate = .pred_No)
+roc_auc(resultados_logistico,truth = Purchase,estimate = .pred_No)
 ```
 
 Existe otra alternativa de ajuste con el comando *last_fit* que automatiza el proceso:
@@ -341,8 +261,8 @@ Usando el mismo procedimiento de datos anterior, definimos el modelo LDA:
 ```{r}
 library(discrim)
 modelo_lda <- discrim_linear() %>%
-  set_engine("MASS") %>%
-  set_mode("classification")
+  set_engine('MASS') %>%
+  set_mode('classification')
 ```
 
 flujo de trabajo:
@@ -367,8 +287,7 @@ curva ROC:
 
 ```{r}
 lda_predicciones <- last_fit_lda %>% collect_predictions()
-lda_predicciones %>%
-  roc_curve(truth = Purchase, estimate = .pred_No) %>%
+lda_predicciones %>% roc_curve(truth = Purchase, estimate = .pred_No) %>%
   autoplot()
 ```
 
@@ -391,8 +310,8 @@ Nota: El argumento *frac_common_cov=1* permite hacer LDA en lugar de QDA.
 
 ```{r}
 modelo_qda <- discrim_regularized(frac_common_cov = 0) %>%
-  set_engine("klaR") %>%
-  set_mode("classification")
+  set_engine('klaR') %>%
+  set_mode('classification')
 ```
 
 ```{r}
@@ -407,8 +326,7 @@ last_fit_qda <- qda_wf %>%
 ```{r}
 last_fit_qda %>% collect_metrics()
 qda_predicciones <- last_fit_qda %>% collect_predictions()
-qda_predicciones %>%
-  roc_curve(truth = Purchase, estimate = .pred_No) %>%
+qda_predicciones %>% roc_curve(truth = Purchase, estimate = .pred_No) %>%
   autoplot()
 qda_predicciones %>% conf_mat(truth = Purchase, estimate = .pred_class)
 ```
@@ -436,8 +354,8 @@ y definimos el modelo KNN y el flujo de trabajo:
 
 ```{r}
 modelo_knn <- nearest_neighbor(neighbors = tune()) %>%
-  set_engine("kknn") %>%
-  set_mode("classification")
+  set_engine('kknn') %>%
+  set_mode('classification')
 
 knn_wf <- workflow() %>%
   add_model(modelo_knn) %>%
@@ -456,14 +374,14 @@ knn_tuning <- knn_wf %>%
 
 y se selecciona el modelo con el mejor AUC:
 ```{r}
-knn_tuning %>% show_best("roc_auc")
+knn_tuning %>% show_best('roc_auc')
 ```
 
 mejor modelo y actualización del flujo de trabajo:
 
 ```{r}
-mejor_knn <- knn_tuning %>%
-  select_best(metric = "roc_auc")
+mejor_knn <- knn_tuning %>% 
+  select_best(metric = 'roc_auc')
 
 final_knn_wf <- knn_wf %>% finalize_workflow(mejor_knn)
 ```
@@ -475,56 +393,160 @@ last_fit_knn <- final_knn_wf %>% last_fit(split = Caravan.split)
 
 last_fit_knn %>% collect_metrics()
 
-knn_predicciones <- last_fit_knn %>%
-  collect_predictions()
-knn_predicciones %>%
-  roc_curve(truth = Purchase, estimate = .pred_No) %>%
+knn_predicciones <- last_fit_knn %>% 
+                   collect_predictions()
+knn_predicciones %>% roc_curve(truth = Purchase, estimate = .pred_No) %>%
   autoplot()
 knn_predicciones %>% conf_mat(truth = Purchase, estimate = .pred_class)
 ```
 
-### Máquinas de soporte vectorial
+Máquinas de soporte vectorial
 
-#### Kernel polinomial
 ```{r}
-
-library(kernlab)
 modelo_svm <- svm_poly(degree = 1) %>%
   set_mode("classification") %>%
   set_engine("kernlab", scaled = FALSE)
 
-svm_lineal_wf <- workflow() %>%
+svm_wf  <- workflow() %>%
   add_model(modelo_svm) %>%
   add_recipe(Caravan.recipe)
 
-last_fit_svm <- svm_lineal_wf %>%
+last_fit_svm <- svm_wf %>%
   last_fit(split = Caravan.split)
 
 last_fit_svm %>% collect_metrics()
 svm_predicciones <- last_fit_svm %>% collect_predictions()
-svm_predicciones %>%
-  roc_curve(truth = Purchase, estimate = .pred_No) %>%
+svm_predicciones %>% roc_curve(truth = Purchase, estimate = .pred_No) %>%
+  autoplot()
+svm_predicciones %>% conf_mat(truth = Purchase, estimate = .pred_class)
+```
+```{r}
+modelo_svm <- svm_poly(degree = 2) %>%
+  set_mode("classification") %>%
+  set_engine("kernlab", scaled = FALSE)
+
+svm_wf  <- workflow() %>%
+  add_model(modelo_svm) %>%
+  add_recipe(Caravan.recipe)
+
+last_fit_svm <- svm_wf %>%
+  last_fit(split = Caravan.split)
+
+last_fit_svm %>% collect_metrics()
+svm_predicciones <- last_fit_svm %>% collect_predictions()
+svm_predicciones %>% roc_curve(truth = Purchase, estimate = .pred_No) %>%
+  autoplot()
+svm_predicciones %>% conf_mat(truth = Purchase, estimate = .pred_class)
+```
+```{r}
+modelo_svm <- svm_poly(degree = 3) %>%
+  set_mode("classification") %>%
+  set_engine("kernlab", scaled = FALSE)
+
+svm_wf  <- workflow() %>%
+  add_model(modelo_svm) %>%
+  add_recipe(Caravan.recipe)
+
+last_fit_svm <- svm_wf %>%
+  last_fit(split = Caravan.split)
+
+last_fit_svm %>% collect_metrics()
+svm_predicciones <- last_fit_svm %>% collect_predictions()
+svm_predicciones %>% roc_curve(truth = Purchase, estimate = .pred_No) %>%
   autoplot()
 svm_predicciones %>% conf_mat(truth = Purchase, estimate = .pred_class)
 ```
 
 ```{r}
-## svm_linear_wf <- workflow() %>%
-##   add_model(modelo_svm %>% set_args(cost = tune())) %>%
-##   add_formula(Purchase ~ .)
+modelo_svm <- svm_poly(degree = 4) %>%
+  set_mode("classification") %>%
+  set_engine("kernlab", scaled = FALSE)
 
-## set.seed(1234)
-## Caravan_fold <- vfold_cv(Caravan.training, strata = Purchase, v = 10)
+svm_wf  <- workflow() %>%
+  add_model(modelo_svm) %>%
+  add_recipe(Caravan.recipe)
 
-## param_grid <- grid_regular(cost(), levels = 10)
+last_fit_svm <- svm_wf %>%
+  last_fit(split = Caravan.split)
 
-## tune_res <- tune_grid(
-##   svm_lineal_wf,
-##   resamples = Caravan_fold,
-##   grid = param_grid
-## )
+last_fit_svm %>% collect_metrics()
+svm_predicciones <- last_fit_svm %>% collect_predictions()
+svm_predicciones %>% roc_curve(truth = Purchase, estimate = .pred_No) %>%
+  autoplot()
+svm_predicciones %>% conf_mat(truth = Purchase, estimate = .pred_class)
+```
 
-## autoplot(tune_res)
+
+
+
+
+
+
+```{r}
+library(kernlab)
+set.seed(1)
+sim_data <- tibble(
+  x1 = rnorm(40),
+  x2 = rnorm(40),
+  y  = factor(rep(c(-1, 1), 20))
+) %>%
+  mutate(x1 = ifelse(y == 1, x1 + 1.5, x1),
+         x2 = ifelse(y == 1, x2 + 1.5, x2))
+```
+
+```{r}
+ggplot(sim_data, aes(x1, x2, color = y)) +
+  geom_point()
+```
+
+```{r}
+svm_linear_spec <- svm_poly(degree = 1) %>%
+  set_mode("classification") %>%
+  set_engine("kernlab", scaled = FALSE)
+```
+
+```{r}
+svm_linear_fit <- svm_linear_spec %>% 
+  set_args(cost = 10) %>%
+  fit(y ~ ., data = sim_data)
+
+svm_linear_fit
+```
+
+
+```{r}
+library(kernlab)
+svm_linear_fit %>%
+  extract_fit_engine() %>%
+  plot()
+```
+
+Si reducimos el costo
+```{r}
+svm_linear_fit <- svm_linear_spec %>% 
+  set_args(cost = 0.1) %>%
+  fit(y ~ ., data = sim_data)
+
+svm_linear_fit
+```
+
+```{r}
+svm_linear_wf <- workflow() %>%
+  add_model(svm_linear_spec %>% set_args(cost = tune())) %>%
+  add_formula(y ~ .)
+
+set.seed(1234)
+sim_data_fold <- vfold_cv(sim_data, strata = y)
+
+param_grid <- grid_regular(cost(), levels = 10)
+
+tune_res <- tune_grid(
+  svm_linear_wf, 
+  resamples = sim_data_fold, 
+  grid = param_grid
+)
+
+autoplot(tune_res)
 ```
 
 ```{r}
@@ -535,50 +557,52 @@ svm_linear_final <- finalize_workflow(svm_linear_wf, best_cost)
 (svm_linear_fit <- svm_linear_final %>% fit(sim_data))
 ```
 
+Kernels en alta dimensión
 
 ```{r}
-modelo_svm <- svm_poly(degree = 2) %>%
-  set_mode("classification") %>%
-  set_engine("kernlab", scaled = FALSE)
+set.seed(1)
+sim_data2 <- tibble(
+  x1 = rnorm(200) + rep(c(2, -2, 0), c(100, 50, 50)),
+  x2 = rnorm(200) + rep(c(2, -2, 0), c(100, 50, 50)),
+  y  = factor(rep(c(1, 2), c(150, 50)))
+)
 
-svm_lineal_wf <- workflow() %>%
-  add_model(modelo_svm) %>%
-  add_recipe(Caravan.recipe)
-
-last_fit_svm <- svm_lineal_wf %>%
-  last_fit(split = Caravan.split)
-
-last_fit_svm %>% collect_metrics()
-svm_predicciones <- last_fit_svm %>% collect_predictions()
-svm_predicciones %>%
-  roc_curve(truth = Purchase, estimate = .pred_No) %>%
-  autoplot()
-svm_predicciones %>% conf_mat(truth = Purchase, estimate = .pred_class)
+sim_data2 %>%
+  ggplot(aes(x1, x2, color = y)) +
+  geom_point()
 ```
 
 
-#### Kernels en alta dimensión
+```{r}
+svm_rbf_spec <- svm_rbf() %>%
+  set_mode("classification") %>%
+  set_engine("kernlab")
+```
 
 
 ```{r}
-model_svm_exp <- svm_rbf() %>%
-  set_mode("classification") %>%
-  set_engine("kernlab")
+svm_rbf_fit <- svm_rbf_spec %>%
+  fit(y ~ ., data = sim_data2)
+```
 
-svm_exp_wf <- workflow() %>%
-  add_model(model_svm_exp) %>%
-  add_recipe(Caravan.recipe)
+```{r}
+svm_rbf_fit %>%
+  extract_fit_engine() %>%
+  plot()
+```
+```{r}
+set.seed(2)
+sim_data2_test <- tibble(
+  x1 = rnorm(200) + rep(c(2, -2, 0), c(100, 50, 50)),
+  x2 = rnorm(200) + rep(c(2, -2, 0), c(100, 50, 50)),
+  y  = factor(rep(c(1, 2), c(150, 50)))
+)
+```
 
-last_fit_svm <- svm_exp_wf %>%
-  last_fit(split = Caravan.split)
-
-last_fit_svm %>% collect_metrics()
-svm_predicciones <- last_fit_svm %>% collect_predictions()
-svm_predicciones %>%
-  roc_curve(truth = Purchase, estimate = .pred_No) %>%
+```{r}
+augment(svm_rbf_fit, new_data = sim_data2_test) %>%
+  roc_curve(truth = y, estimate = .pred_1) %>%
   autoplot()
-svm_predicciones %>% conf_mat(truth = Purchase, estimate = .pred_class)
-
 ```
 
 ## Ejercicios 

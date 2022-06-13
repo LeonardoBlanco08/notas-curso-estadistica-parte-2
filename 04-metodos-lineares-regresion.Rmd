@@ -910,15 +910,17 @@ summary(lm(mpg ~ wt + disp + wt * disp, data = mtcars_centered))
 ```
 
 
-:::{.exercise data-latex=""}
+```{exercise}
 
 Repita los comandos anteriores con la siguiente base de datos y explique los resultados. 
+
+```
+
 ```{r}
 mtcars_scaled <- mtcars %>%
   mutate(across(c("wt", "disp"), scale, scale = TRUE, center = TRUE))
 ```
 
-:::
 
 
 <!-- Y aumentamos -->
@@ -1007,7 +1009,6 @@ Estos supuestos se puede constantar a partir de un gráfico  de residuos ya que 
 Se pueden aplicar transformaciones para resolver estos problemas. Normalmente se usan transformaciones como raiz cuadrada o logaritmos. 
 
 
-:::{.example data-latex=""}
 
 
 **Caso ideal**
@@ -1064,7 +1065,6 @@ abline(a = coef(fit)[1],
 plot(fitted(fit), residuals(fit));abline(h=0, col="red")
 
 ```
-:::
 
 
 #### Independencia de los errores

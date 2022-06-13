@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística II"
 author: "Maikol Solís Chacón y Luis Barboza Chinchilla"
-date: "Actualizado el 06 junio, 2022"
+date: "Actualizado el 13 junio, 2022"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -335,7 +335,7 @@ Según la nota anterior la tasas de convergencia del histograma es más lenta qu
 
 
 
-Finalmente, podemos encontrar el valor óptimo  del ancho de banda ($h=$ 0.435) del conjunto de datos en el ejemplo anterior.  
+Finalmente, podemos encontrar el valor óptimo  del ancho de banda ($h=$ 0.2725) del conjunto de datos en el ejemplo anterior.  
 
 \begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-14-1} \end{center}
 
@@ -3756,9 +3756,12 @@ summary(lm(mpg ~ wt + disp + wt * disp, data = mtcars_centered))
 ```
 
 
-:::{.exercise data-latex=""}
+::: {.exercise #unnamed-chunk-137}
 
 Repita los comandos anteriores con la siguiente base de datos y explique los resultados. 
+
+:::
+
 
 ```r
 mtcars_scaled <- mtcars %>%
@@ -3766,7 +3769,6 @@ mtcars_scaled <- mtcars %>%
         center = TRUE))
 ```
 
-:::
 
 
 <!-- Y aumentamos -->
@@ -3855,7 +3857,6 @@ Estos supuestos se puede constantar a partir de un gráfico  de residuos ya que 
 Se pueden aplicar transformaciones para resolver estos problemas. Normalmente se usan transformaciones como raiz cuadrada o logaritmos. 
 
 
-:::{.example data-latex=""}
 
 
 **Caso ideal**
@@ -3871,7 +3872,7 @@ abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-138-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-139-1} \end{center}
 
 
 
@@ -3904,7 +3905,7 @@ abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-139-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-1} \end{center}
 
 
 
@@ -3937,7 +3938,7 @@ abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-141-1} \end{center}
 
 ```r
 plot(fitted(fit), residuals(fit))
@@ -3946,8 +3947,7 @@ abline(h = 0, col = "red")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-140-2} \end{center}
-:::
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-141-2} \end{center}
 
 
 #### Independencia de los errores
@@ -3980,7 +3980,7 @@ abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-142-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-1} \end{center}
 
 
 
@@ -4015,7 +4015,7 @@ acf(residuals(fit))
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-143-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-144-1} \end{center}
 
 **Caso errores auto-correlacionados**
 
@@ -4035,7 +4035,7 @@ abline(a = coef(fit)[1], b = coef(fit)[2], col = "red")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-145-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-146-1} \end{center}
 
 
 
@@ -4070,7 +4070,7 @@ acf(residuals(fit))
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-146-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-147-1} \end{center}
 
 
 #### Normalidad de los errores 
@@ -4097,7 +4097,7 @@ qqline(residuals(fit), col = "red")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-148-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-149-1} \end{center}
 
 **Caso errores auto-correlacionados**
 
@@ -4117,7 +4117,7 @@ qqline(residuals(fit), col = "red")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-150-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-151-1} \end{center}
 
 **Caso no-lineal**
 
@@ -4137,7 +4137,7 @@ qqline(residuals(fit), col = "red")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-152-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-153-1} \end{center}
 
 
 ```r
@@ -4178,7 +4178,7 @@ qqline(residuals(fit), col = "red")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-154-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-155-1} \end{center}
 
 #### Multicolinealidad
 
@@ -4266,7 +4266,7 @@ ggplot(VIFs, aes(x = vars, y = VIFs, group = 1)) +
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-156-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-157-1} \end{center}
 
 
 
@@ -4337,7 +4337,7 @@ plot(fitted(fit), r_sdnt)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-157-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-158-1} \end{center}
 
 ```r
 fit
@@ -4372,7 +4372,7 @@ plot(fitted(fit), r_sdnt)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-158-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-159-1} \end{center}
 
 ```r
 fit
@@ -4446,7 +4446,7 @@ plot(modelo, 5, col = c(rep("black", 10), "red"), cex = 2,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-161-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-162-1} \end{center}
  
 
 
@@ -4458,7 +4458,7 @@ abline(h = 2/10, col = "blue")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-162-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-1} \end{center}
 
 
 
@@ -4470,7 +4470,7 @@ abline(a = coef(modelo)[1], b = coef(modelo)[2], col = "blue")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-163-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-164-1} \end{center}
 
 **Bajo apalancamiento, residuos grandes, influencia pequeña**
 
@@ -4496,7 +4496,7 @@ plot(modelo_1, 5, col = c(rep("black", 10), "red"),
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-165-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-166-1} \end{center}
 
 
 
@@ -4510,7 +4510,7 @@ abline(h = 2/11, col = "blue")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-166-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-167-1} \end{center}
 
 
 
@@ -4524,7 +4524,7 @@ abline(a = coef(modelo_1)[1], b = coef(modelo_1)[2],
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-167-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-168-1} \end{center}
 
 
 **Alto apalancamiento, residuo pequeño, influencia pequeña** 
@@ -4552,7 +4552,7 @@ plot(modelo_2, 5, col = c(rep("black", 10), "red"),
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-169-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-170-1} \end{center}
 
 
 
@@ -4564,7 +4564,7 @@ abline(h = 2/11, col = "blue")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-170-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-171-1} \end{center}
 
 
 
@@ -4578,7 +4578,7 @@ abline(a = coef(modelo_2)[1], b = coef(modelo_2)[2],
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-171-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-172-1} \end{center}
 
 
 **Alto apalancamiento, residuo altos, influencia grande** 
@@ -4604,7 +4604,7 @@ plot(modelo_3, 5, col = c(rep("black", 10), "red"),
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-173-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-174-1} \end{center}
 
 
 
@@ -4617,7 +4617,7 @@ abline(h = 2/11, col = "blue")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-174-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-175-1} \end{center}
  
 
 
@@ -4631,7 +4631,7 @@ abline(a = coef(modelo_3)[1], b = coef(modelo_3)[2],
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-175-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-176-1} \end{center}
 
 ```r
 `?`(stats:::plot.lm)
@@ -4641,36 +4641,6 @@ abline(a = coef(modelo_3)[1], b = coef(modelo_3)[2],
 
 ```r
 plot(modelo_3, which = 1:6)
-```
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-177-1} \end{center}
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-177-2} \end{center}
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-177-3} \end{center}
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-177-4} \end{center}
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-177-5} \end{center}
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-177-6} \end{center}
-
-
-
-```r
-plot(modelo, which = 1:6)
 ```
 
 
@@ -4696,6 +4666,36 @@ plot(modelo, which = 1:6)
 
 
 \begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-178-6} \end{center}
+
+
+
+```r
+plot(modelo, which = 1:6)
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-179-1} \end{center}
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-179-2} \end{center}
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-179-3} \end{center}
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-179-4} \end{center}
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-179-5} \end{center}
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-179-6} \end{center}
 
 ## Ejercicios 
 
@@ -4790,7 +4790,7 @@ ggPredict(fit_lm) + theme_minimal(base_size = 16)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-182-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-183-1} \end{center}
 
 
 
@@ -4846,7 +4846,7 @@ ggPredict(fit_glm) + theme_minimal(base_size = 16)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-184-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-185-1} \end{center}
 
 **Nota:** Existen otros tipos de regresión y estas se definen a través del parámetro `family`. En este curso solo nos enfocaremos en el parámetro `family="binomial"`.
 
@@ -4897,7 +4897,8 @@ L\left(\beta\right)=\prod_{i=1}^{n} p\left(\boldsymbol{X}_{i}\right)^{Y_{i}}\lef
 
 **Solución:** Algoritmo de Netwon-Raphson.
 
-:::{.exercise data-latex=""}
+::: {.exercise #unnamed-chunk-186}
+
 Muestre que 
 
 \begin{equation*}
@@ -4915,7 +4916,7 @@ El algoritmo de Netwon-Raphson usa el hecho que
 \beta^{(t)} = \beta ^{(t-1)} - \left(  \frac{\partial^{2} \ell}{\partial \beta^{2}}\right)^{-1} \frac{\partial \ell}{\partial \beta}  \Bigg\vert_{\beta ^{(t-1)}}
 \end{equation*}
 
-:::{.exercise data-latex=""}
+::: {.exercise #unnamed-chunk-187}
 Muestre que 
 
 \begin{equation*}
@@ -5066,7 +5067,7 @@ ggplot(fit_data, aes(indice, .std.resid)) + geom_point(aes(color = as.factor(Sur
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-189-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-192-1} \end{center}
 
 
 ```r
@@ -5116,11 +5117,11 @@ Obviamente nuestro modelo puede equivocarse y darnos una respuesta errónea. Por
 Entonces tenemos realmente 4 opciones 
 
 
-|              | **Modelo \= 0**             | **Modelo \= 1**            |     |
-|:------------:|:--------------------------:|:-------------------------:|:---:|
+|               | **Modelo \= 0**            | **Modelo \= 1**           |     |
+|:-------------:|:--------------------------:|:-------------------------:|:---:|
 | **Real \= 0** | Verdaderos Negativos. (TN) | Falsos Positivos (FP)     | $N$ |
 | **Real \= 1** | Falsos Negativos (FN)      | Verdaderos Positivos (TP) | $P$ |
-| Total        | \(N^{*}\)                  | \(P^{*}\)                 |     |
+| Total         | \(N^{\star}\)              | \(P^{\star}\)             |     |
 
 
 
@@ -5167,14 +5168,14 @@ Exactitud (Accuracy)
 : Es la tasa de que un individuo esté bien identificado por el modelo de clasificación $(TP+TN)/(TP+TN+FN+FP)$.
 
 Precisión
-: Es la tasa de elementos identificados como 1 de forma correcta con respecto a los que fueron identificados con un valor de 1 $Precisión = TP/P^*$
+: Es la tasa de elementos identificados como 1 de forma correcta con respecto a los que fueron identificados con un valor de 1 $Precisión = TP/P^\star$
 
 
 Sensibilidad (Exhaustividad)
 : Es la tasa de elementos identificados como 1 de forma correcta con respecto a los que realmente son 1. $Sensibilidad = TP/P$
 
 F-Score
-: Es la media armónica entre la precisión y la sensibilidad. $F-Score = 2*(Sensibilidad * Precisión)/(Sensibilidad + Precisión)$
+: Es la media armónica entre la precisión y la sensibilidad. $F-Score = 2\times(Sensibilidad * Precisión)/(Sensibilidad + Precisión)$
 
 Especificidad
 : Es la tasa de elementos identificados correctamente como 0 que realmente estaban etiquetados como 0. 
@@ -5186,9 +5187,9 @@ Entonces esto nos da las siguientes posibilidades.
 |:------------------------------|:------------------------------------------------------|:---------------------------------------------------------------|
 | Sensibilidad                  | $TP/P$                                                | 1 - Error tipo II, Poder, Exhaustividad, Exhaustividad.                                                               |
 | Especificidad                 | $TN/N$                                                |  1- Error tipo I.                                                               |
-| Valor de Predicción Positivos | $TP/P^{*}$                                            | Positive predicted values (PPV), Precisión.                                |
-| Valor de Predicción Negativos | $TN/N^{*}$                                            | Negative predicted values (NPV)                                |
-| F-Score                       | $\frac{2(TP/P^{*} \times TP/P )}{(TP/P^{*} + TP/P )}$ |                                                                |
+| Valor de Predicción Positivos | $TP/P^{\star}$                                            | Positive predicted values (PPV), Precisión.                                |
+| Valor de Predicción Negativos | $TN/N^{\star}$                                            | Negative predicted values (NPV)                                |
+| F-Score                       | $\frac{2(TP/P^{\star} \times TP/P )}{(TP/P^{\star} + TP/P )}$ |                                                                |
 
 
 
@@ -5528,9 +5529,7 @@ auc@y.values
 <!--chapter:end:05-regresion-logistica.Rmd-->
 
 
-
-# Métodos de selección de variables y regularización.
-
+# Métodos de selección de variables y regularización
 ## Estimación del error de prueba
 Recuerden que el error de prueba es el error promedio que se obtiene al usar un método de aprendizaje estadístico para predecir una observación que no está en el conjunto de calibración o entrenamiento. Si se tuviera un conjunto de prueba designado para medir el error de prueba, este último sería muy fácil de calcular. Cuando no se tiene un conjunto de prueba designado, entonces hay dos formas de estimar el error de prueba:
 
@@ -5626,57 +5625,17 @@ $$R^2 \text{ ajustado}= 1-\dfrac{\dfrac{RSS}{n-p-1}}{\dfrac{TSS}{n-1}}$$
 
 #### $C_p$ de Mallows
 
-Este estadístico se define como 
-
-
-$$ C_p = \dfrac{RSS}{\hat\sigma^2} + 2p-n $$
-
+$$ C_p = \dfrac{1}{n}\left[RSS+2p\hat\sigma^2\right]$$
 
 donde $p$ es el número de predictores y $\hat\sigma^2$ es el estimador de la varianza de los errores $\epsilon$. Si $\hat\sigma^2$ es insesgado de $\sigma^2$, entonces $C_p$ es un estimador insesgado del $MSE$ de prueba. 
 
-Para regresión ordinaria sabemos que \(\hat{\boldsymbol{\beta}}_{p}=\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1} \mathbf{X}_{p}^{\prime} \mathbf{Y}\). Nuestro caso ideal sería hacer el MSE lo más pequeño posible entre todos los posibles modleos,
-\begin{equation*}
-\mathrm{E}\left[\hat{\boldsymbol{\beta}}_{p}-\boldsymbol{\beta}\right]^{2}.
-\end{equation*}
+Definición alternativa:
 
-Con esto en mente, calculemos el RSS del modelo,
-
-\begin{equation*}
-\begin{aligned}
-\operatorname{RSS}(p) &=\sum_{n=1}^{N}\left(y_{n}-\mathbf{x}_{n} \hat{\boldsymbol{\beta}}_{p}\right)^{2} \\
-&=\left(\mathbf{Y}-\mathbf{X}_{p} \hat{\boldsymbol{\beta}}_{p}\right)^{\prime}\left(\mathbf{Y}-\mathbf{X}_{p} \hat{\boldsymbol{\beta}}_{p}\right) \\
-&=\mathbf{Y}^{\prime}\left(\mathbf{I}_{N}-\mathbf{X}_{p}\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1} \mathbf{X}_{p}^{\prime}\right) \mathbf{Y}
-\end{aligned}
-\end{equation*}
-
-
-Usando este resultado para matrices 
-
-\begin{equation*}
-\mathrm{E}\left[\mathbf{Y}^{\prime} \mathbf{A Y}\right]=\mathrm{E}\left[\mathbf{Y}^{\prime}\right] \mathbf{A E}[\mathbf{Y}]+\operatorname{tr}[\mathbf{\Sigma} \mathbf{A}]
-\end{equation*}
-
-y donde \(\boldsymbol{\Sigma}\) es la matriz de covarianza de \(\mathbf{Y}\), encontramos que 
-
-\begin{equation*}
-\begin{aligned}
-\mathrm{E}[\operatorname{RSS}(p)] &=\mathrm{E}\left[\mathbf{Y}^{\prime}\left(\mathbf{I}_{N}-\mathbf{X}_{p}\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1} \mathbf{X}_{p}^{\prime}\right) \mathbf{Y}\right] \\
-&=\mathrm{E}\left[\hat{\boldsymbol{\beta}}_{p}-\boldsymbol{\beta}\right]^{2}+\operatorname{tr}\left[\mathbf{I}_{N}-\mathbf{X}_{p}\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1} \mathbf{X}_{p}^{\prime}\right] \sigma^{2} \\
-&=\mathrm{E}\left[\hat{\boldsymbol{\beta}}_{p}-\boldsymbol{\beta}\right]^{2}+\sigma^{2}\left(N-\operatorname{tr}\left[\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1}\right]\right) \\
-&=\mathrm{E}\left[\hat{\boldsymbol{\beta}}_{p}-\boldsymbol{\beta}\right]^{2}+\sigma^{2}(N-p)
-\end{aligned}
-\end{equation*}
-
-Note que si el  modelo verddero  tiene   \(p\) parametros, entocnes \(\mathrm{E}\left[\mathrm{C}_{p}\right]=p\). Esto muestra por qué, si un modelo  es correcto, \(\mathrm{C}_{p}\) tenderá a estar cerca de \(p\)
-
-
-Un problema con el criterio \(\mathrm{C}_{p}\) es que tenemos que encontrar una estimación apropiada de \(\sigma^{2}\) para usar con todos los valores de \(p\).
+$$ C_p' = \dfrac{RSS}{\hat\sigma^2} + 2p-n \implies C_p = \dfrac1n\hat\sigma^2[C_p'+n] \propto C_p'$$
 
 #### Estimador de máxima verosimilitud (MLE)
 
-Supongamos para el conjunto de datos disponible una medida de ajuste del modelo $-\ln L(\hat{\beta} | x)=\ell(\beta)$. Así si el valor es grande, entonces los parámetros \(\beta\)s serían los correctos. Si se define \(\overline{\ell}(\beta)=\mathbb{E}(\ell(\beta\mid X))\) como la log verosimilitud poblacional. 
-
-El problema con está medida es que no penaliza el ingreso de nuevas variables al modelo. 
+Supongamos para el conjunto de datos disponible una medida de ajuste del modelo $2\ln L(\hat{\beta} | x)$. Así si el valor es grande, entonces los parámetros \(\beta\)s serían los correctos. El problema con está medida es que no penaliza el ingreso de nuevas variables al modelo. 
 
 
 #### Akaike Information Criterion (AIC).
@@ -5685,93 +5644,34 @@ El problema con está medida es que no penaliza el ingreso de nuevas variables a
 El AIC se define de la siguiente manera:
 
 \[
-AIC = -2\ell(\hat{\beta}) + 2p 
+AIC = -2\log(L(\hat{\beta} \vert X)) + 2p 
 \]
 
-_Explicación breve_: La idea del AIC es ajustar el riesgo empírico \(\hat{R}_n =  -\ell(\hat{\beta})\) con respecto al riesgo verdadero \(R(\hat{\beta}) = \mathbb{E}(-n\overline{\ell}(\hat{\beta}))\). Se puede probar que asintóticamente 
+La idea del AIC es ajustar el riesgo empírico 
 
-\begin{equation*}
-\mathbb{E}\left(\widehat{R}_{n}\left(\hat{\beta}_{n}\right)\right)-R\left(\widehat{\beta}_{n}\right)=-n \mathbb{E}\left(\left(\widehat{\beta}_{n}-\beta^{*}\right)^{T} I\left(\beta^{*}\right)\left(\widehat{\beta}_{n}-\beta^{*}\right)\right)
-\end{equation*}
+Esta medida es derivada asintóticamente de $-2n\mathbb{E}[\log(L(\hat{\beta} \vert X))]$ cuando $n\to \infty$. En el caso gaussiano, el AIC se puede escribir como:
 
-
-
-Por el curso de estadísitica I se puede probar que 
-\begin{equation*}
-\sqrt{n}\left(\hat{\beta}_{n}-\beta^{*}\right) \approx N\left(0, I^{-1}\left(\beta^{*}\right)\right)
-\end{equation*}
-
-Por lo tanto, 
-
-\begin{equation*}
-n\left(\widehat{\beta}_{n}-\beta^{*}\right)^{T} I\left(\beta^{*}\right)\left(\widehat{\beta}_{n}-\beta^{*}\right) \approx \chi_{d}^{2}
-\end{equation*}
-
-lo cual implica que 
-\begin{equation*}
-n \mathbb{E}\left(\left(\widehat{\beta}_{n}-\beta^{*}\right)^{T} I\left(\beta^{*}\right)\left(\widehat{\beta}_{n}-\beta^{*}\right)\right)=d
-\end{equation*}
+\begin{align*}
+AIC = \frac{1}{n\hat \sigma^2}(RSS+2p\hat \sigma^2)
+\end{align*}
 
 
-Entonces para asegurarnos de que el estimador sea insesgado asintóticamente, debemos redefinir nuestro riesgo empírico timador sumándole un término \(p\)
-
-
-\[\widehat{R}_{n}\left(\widehat{\beta}_{n}\right)+d=-\ell_{n}+d\]
-
-
-
-#### Bayesian Information Criterion (BIC)
-
-
-Este criterior se parece al AIC pero modificado con un \(\log(n)\),
+* $BIC$ (Bayesian Information Criterion).
 
 \[
-BIC = -2\ell(\hat{\beta}) + \log(n)p. 
+BIC = -2\log(L(\hat{\beta} \vert X)) + \log(n)p. 
 \]
 
-
-
-Para cada modelo \(m\) Escriba la regla de Bayes definida en el curso anterior 
-
-\begin{equation*}
-\pi\left(m \mid X_{1}, \cdots, X_{n}\right)=\frac{\pi\left(m, X_{1}, \cdots, X_{n}\right)}{L\left(X_{1}, \cdots, X_{n}\right)} \propto L\left(X_{1}, \cdots, X_{n} \mid m\right) \pi(m)
-\end{equation*}
-
-
-Se puede demostrar que 
-
-\begin{equation*}
-L\left(X_{1}, \cdots, X_{n} \mid \theta, m\right) \approx e^{\ell_{n}-n\left(\theta-\theta^{*}\right)^{T} I\left(\theta^{*}\right)\left(\theta-\theta^{*}\right)}
-\end{equation*}
-
-
-Asumiento que la variable respuesta \(Y\) es gaussiana, se puede simplificar la log-verosimilitud como 
-
-
-\begin{equation*}
-\log p\left(X_{1}, \cdots, X_{n} \mid m\right) \approx \ell_{n}-\frac{d}{2} \log n+\frac{d}{2} \log (2 \pi)+\log \operatorname{det}\left(I\left(\theta^{*}\right)\right)+\log \pi\left(\hat{\theta}_{n} \mid m\right)
-\end{equation*}
-
-
-Las únicas dos cantidades que incrementan con \(n\) son las dos primeras. Se multiplica por -2 para tener  el BIC. 
-
-
-En el caso de datos gaussiano se tendría lo siguiente:
+Representa asintóticamente hablando, el negativo del logaritmo de la distribución posterior. En el caso gaussiano:
 
 \begin{align*}
 BIC = \frac{1}{n}(RSS+2\log (n)p\hat \sigma^2).
 \end{align*}
 
-
-#### Notas adicionales 
-
-- Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@Hastie2009a] o en el artículo [@CavanaughAkaike2019].
-- La validación cruzada LOOCV es asintóticamente equivalente al AIC para modelos de regresión lineal múltiple [@StoneAsymptotic1977]. 
-- El AIC ajusta el modo que el riesgo o verosimilitud empírica o real sean insesgadas. Es decir, bajo la observación de nuevos datos, el error que se cometería debería ser cercano a 0. 
-- Aunque el BIC se parece al AIC, el razonamiento es algo diferente. En la construcción de BIC estamos seleccionando el modelo con mayor evidencia según los datos. Cuando los datos se generan de hecho a partir de uno de los modelos en la colección de modelos que estamos eligiendo, el posterior se concentrará en este modelo correcto.  
-- Una forma de interpretar ambos criterios es que AIC elige el mejor modelo predictivo, mientras que BIC intenta seleccionar el modelo verdadero si existe en el conjunto de modelos.
+**Validación cruzada LOOCV es asintóticamente equivalente al AIC para modelos de regresión lineal múltiple [@StoneAsymptotic1977]** 
 
 
+Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@HastieElements2009] o en el artículo [@CavanaughAkaike2019].
 
 
 ## Selección de variables
@@ -5780,8 +5680,6 @@ Cuando se construye un modelo de regresión (lineal o logística) existe la posi
 
 En este capítulo veremos cómo construir modelos más simples y cómo hacer comparaciones entre ellos. 
 
-  
-  
   
 ### Selección del mejor subconjunto.
 
@@ -5865,7 +5763,7 @@ De los que tienen $k=1$ variable, hay $\binom{3}{1}$ = 3 modelos. Para $k=2$, so
 1. Sea $M_p$ el modelo completo.
 1. Para $k=p,p-1,\dots,1$,
     a. Considere los $k$ modelos que contienen todos excepto uno de los predictores en $M_k$ para un total de $k-1$ predictores.
-    a. Seleccione el mejor entre esos $k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k-1}$.
+    a. Seleccione el mejor entre esos $k$ modelos usando el $R^2$ o $RSS$. Llámelo $M_{k+1}$.
 1. Seleccione el mejor modelo entre $M_0,\dots,M_p$ usando $CV$, $C_p$, $AIC$, $BIC$ o $R^2$ ajustado.
 
 
@@ -5889,7 +5787,7 @@ Una forma alternativa de hacer selección de variables es a través de la restri
 
 Considere el problema de mínimos cuadrados en el modelo lineal:
 
-$$ RSS = \sum_{i=1}^{n}\left(y_i-\beta_{0}-\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 $$
+$$ RSS = \sum_{i=1}^{n}\left(y_i-\sum_{j=1}^{p}\beta_jX_{ij}\right)^2 $$
 y 
 \[
 \hat\beta = \underset{\beta}{\mathrm{argmin}} RSS
@@ -5951,44 +5849,9 @@ Es posible comparar distintos ajustes de modelos usando cross-validation.
 Carguemos la base de datos `Auto` de `ISLR`.
 
 
-
 ```r
 library(ISLR)
-library(GGally)
 data("Auto")
-```
-
-
-```r
-ggpairs(Auto[, -9])
-```
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-202-1} \end{center}
-
-
-```r
-summary(Auto)
-```
-
-```
-##       mpg          cylinders      displacement     horsepower        weight    
-##  Min.   : 9.00   Min.   :3.000   Min.   : 68.0   Min.   : 46.0   Min.   :1613  
-##  1st Qu.:17.00   1st Qu.:4.000   1st Qu.:105.0   1st Qu.: 75.0   1st Qu.:2225  
-##  Median :22.75   Median :4.000   Median :151.0   Median : 93.5   Median :2804  
-##  Mean   :23.45   Mean   :5.472   Mean   :194.4   Mean   :104.5   Mean   :2978  
-##  3rd Qu.:29.00   3rd Qu.:8.000   3rd Qu.:275.8   3rd Qu.:126.0   3rd Qu.:3615  
-##  Max.   :46.60   Max.   :8.000   Max.   :455.0   Max.   :230.0   Max.   :5140  
-##                                                                                
-##   acceleration        year           origin                      name    
-##  Min.   : 8.00   Min.   :70.00   Min.   :1.000   amc matador       :  5  
-##  1st Qu.:13.78   1st Qu.:73.00   1st Qu.:1.000   ford pinto        :  5  
-##  Median :15.50   Median :76.00   Median :1.000   toyota corolla    :  5  
-##  Mean   :15.54   Mean   :75.98   Mean   :1.577   amc gremlin       :  4  
-##  3rd Qu.:17.02   3rd Qu.:79.00   3rd Qu.:2.000   amc hornet        :  4  
-##  Max.   :24.80   Max.   :82.00   Max.   :3.000   chevrolet chevette:  4  
-##                                                  (Other)           :365
 ```
 
 Y ajustamos un modelo entre las millas por galon contra los caballos de fuerza de ciertos vehículos.
@@ -6024,18 +5887,7 @@ summary(glm.fit)
 ## Number of Fisher Scoring iterations: 2
 ```
 
-La librería `boot` tiene funciones para aplicar cross-validation. En particular el valor `delta` dice lo siguiente 
-
-```
-delta: A vector of length two.  The first component is the raw
-       cross-validation estimate of prediction error.  The second
-       component is the adjusted cross-validation estimate.  The
-       adjustment is designed to compensate for the bias introduced
-       by not using leave-one-out cross-validation.
-```
-
-
-Este valor se puede visualizar de la siguiente manera:
+La librería `boot` tiene funciones para aplicar cross-validation. Por ejemplo:
   
 
 ```r
@@ -6048,7 +5900,7 @@ cv.err$delta
 ## [1] 24.23151 24.23114
 ```
 
-En particular se puede usar un `for` para aplicar este mismo procedimiento a múltiples modelos. En el siguiente caso trataremos de ajustar los modelos \(\beta_1 x\), \(\beta_1 x + \beta_2 x^2\), \(\beta_1 x + \beta_2 x^2 +\beta_3 x^{3}\), etc
+En particular se puede usar un `for` para aplicar este mismo procedimiento a múltiples modelos.
 
 
 ```r
@@ -6070,7 +5922,7 @@ plot(cv.error.LOOCV, type = "l")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-206-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-207-1} \end{center}
 
 #### K-Fold Cross Validation
 
@@ -6099,7 +5951,7 @@ lines(cv.error.10, type = "l", col = "blue")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-207-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-208-1} \end{center}
 ### Selección de variables
 
 Cargue los datos `Hitters` del paquete `ISLR` que representan el salario de varios jugadores de beisbol y sus estadística de juego (número de bateos, home runs, carreras, etc.).
@@ -6116,7 +5968,7 @@ ggpairs(Hitters)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-208-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-209-1} \end{center}
 
 ```r
 summary(Hitters)
@@ -6326,7 +6178,7 @@ points(idx, regfit.full.summary$adjr2[idx], col = "red",
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-213-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-214-1} \end{center}
 
 
 
@@ -6339,7 +6191,7 @@ points(idx, regfit.full.summary$cp[idx], col = "red",
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-214-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-1} \end{center}
 
 
 
@@ -6352,7 +6204,7 @@ points(idx, regfit.full.summary$bic[idx], col = "red",
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-215-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-216-1} \end{center}
 
 
 ```r
@@ -6361,7 +6213,7 @@ plot(regfit.full, scale = "bic")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-216-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-217-1} \end{center}
 
 ```r
 plot(regfit.full, scale = "Cp")
@@ -6369,7 +6221,7 @@ plot(regfit.full, scale = "Cp")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-216-2} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-217-2} \end{center}
 
 ```r
 plot(regfit.full, scale = "adjr2")
@@ -6377,7 +6229,7 @@ plot(regfit.full, scale = "adjr2")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-216-3} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-217-3} \end{center}
 
 ```r
 coef(regfit.full, 10)
@@ -6557,7 +6409,7 @@ plot(regfit.bwd, scale = "bic")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-219-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-220-1} \end{center}
 
 
 
@@ -6569,7 +6421,7 @@ plot(regfit.bwd, scale = "Cp")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-220-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-221-1} \end{center}
 
 
 
@@ -6581,7 +6433,7 @@ plot(regfit.bwd, scale = "adjr2")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-221-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-222-1} \end{center}
 
 #### Regresión Ridge
 
@@ -6645,7 +6497,7 @@ plot(cv.out)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-225-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-226-1} \end{center}
 
 Busque la ayuda de `cv.glmnet` y deduzca qué significa el gráfico.
 
@@ -6730,7 +6582,7 @@ plot(ridge.mod)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-229-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-230-1} \end{center}
 
 ```r
 ridge.mod <- glmnet(x, y, alpha = 0)
@@ -6771,7 +6623,7 @@ plot(ridge.mod)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-230-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-231-1} \end{center}
 
 ```r
 predict(ridge.mod, s = 50, type = "coefficients")
@@ -6902,7 +6754,7 @@ plot(cv.out)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-232-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-233-1} \end{center}
 
 ```r
 bestlam <- cv.out$lambda.min
@@ -6933,32 +6785,31 @@ mean((ridge.pred - y.test)^2)
 
 ```r
 out <- glmnet(x, y, alpha = 0)
-predict(out, type = "coefficients", s = bestlam * 1.1,
-    exact = FALSE)
+predict(out, type = "coefficients", s = bestlam, exact = FALSE)
 ```
 
 ```
 ## 19 x 1 sparse Matrix of class "dgCMatrix"
 ##                       s1
-## (Intercept) 71.036471666
-## Hits         1.555439400
-## HmRun       -0.050233564
-## Runs         1.315874217
-## RBI          0.892901184
-## Walks        0.524945960
-## Years       -0.901366577
-## CAtBat       0.003948044
-## CHits        0.005599788
-## CHmRun       0.017240009
-## CRuns        0.009445223
-## CRBI        -0.006899589
-## CWalks      -0.044665964
-## LeagueN     -8.823263239
-## DivisionW    7.469232110
-## PutOuts      0.016728292
-## Assists      0.099502371
-## Errors       0.822957242
-## NewLeagueN   8.260148988
+## (Intercept) 69.824252126
+## Hits         1.586649928
+## HmRun       -0.083817620
+## Runs         1.298201495
+## RBI          0.885217905
+## Walks        0.521415084
+## Years       -0.897115251
+## CAtBat       0.004160358
+## CHits        0.005192629
+## CHmRun       0.022521114
+## CRuns        0.009343228
+## CRBI        -0.008077328
+## CWalks      -0.045652211
+## LeagueN     -8.954990325
+## DivisionW    7.576655558
+## PutOuts      0.016433884
+## Assists      0.098673953
+## Errors       0.806331327
+## NewLeagueN   8.465527964
 ```
 
 ### Regresión Lasso
@@ -6976,7 +6827,7 @@ plot(lasso.mod)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-233-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-234-1} \end{center}
 
 
 
@@ -6988,7 +6839,7 @@ plot(cv.out)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-234-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-235-1} \end{center}
 
 
 
@@ -7027,33 +6878,32 @@ mean((lasso.pred - y.test)^2)
 
 ```r
 out <- glmnet(x, y, alpha = 1, lambda = grid)
-lasso.coef <- predict(out, type = "coefficients", s = bestlam *
-    1.1)
+lasso.coef <- predict(out, type = "coefficients", s = bestlam)
 lasso.coef
 ```
 
 ```
 ## 19 x 1 sparse Matrix of class "dgCMatrix"
 ##                       s1
-## (Intercept)  49.56032406
-## Hits          2.58207222
+## (Intercept)  49.43034834
+## Hits          2.58756283
 ## HmRun         .         
-## Runs          0.02675924
-## RBI           0.50847024
-## Walks         0.72598218
-## Years        -2.68697298
-## CAtBat        0.06824395
-## CHits        -0.22244024
-## CHmRun        0.11383736
-## CRuns         0.11243291
-## CRBI         -0.06110040
-## CWalks       -0.11519342
-## LeagueN     -10.40460337
-## DivisionW     6.39738948
-## PutOuts       0.01243378
-## Assists       0.04441187
-## Errors        0.79133922
-## NewLeagueN   10.19205922
+## Runs          0.01352442
+## RBI           0.50950339
+## Walks         0.73008990
+## Years        -2.72097480
+## CAtBat        0.06956598
+## CHits        -0.22930533
+## CHmRun        0.10795338
+## CRuns         0.11833697
+## CRBI         -0.05929447
+## CWalks       -0.11751099
+## LeagueN     -10.52682373
+## DivisionW     6.41207311
+## PutOuts       0.01253616
+## Assists       0.04384029
+## Errors        0.79511992
+## NewLeagueN   10.34406169
 ```
 
 
@@ -7063,10 +6913,10 @@ lasso.coef[lasso.coef != 0]
 ```
 
 ```
-##  [1]  49.56032406   2.58207222   0.02675924   0.50847024   0.72598218
-##  [6]  -2.68697298   0.06824395  -0.22244024   0.11383736   0.11243291
-## [11]  -0.06110040  -0.11519342 -10.40460337   6.39738948   0.01243378
-## [16]   0.04441187   0.79133922  10.19205922
+##  [1]  49.43034834   2.58756283   0.01352442   0.50950339   0.73008990
+##  [6]  -2.72097480   0.06956598  -0.22930533   0.10795338   0.11833697
+## [11]  -0.05929447  -0.11751099 -10.52682373   6.41207311   0.01253616
+## [16]   0.04384029   0.79511992  10.34406169
 ```
 
 
@@ -7219,96 +7069,6 @@ Comparación de métodos:
 - KNN no tiene la misma capacidad de interpretabilidad que la regresión logística.
 - Como KNN depende de la distancia entre observaciones, entonces la escala de las covariables importa.
 
-## Estimación de la Curva ROC
-
-Suponga que para clasificación binaria se tiene el siguiente caso 
-
-| $Y_{Real}$ | $Y_{Prob}$ |
-|------------|------------|
-| 1          | 0.8        |
-| 0          | 0.6        |
-| 1          | 0.4        |
-| 0          | 0.2        |
-
-
-Ahora variemos el punto de corte $t$ para decidir cuál de estos es será 0 o 1. La regla es 
-
-
-\begin{equation*}
-\begin{cases}
-1 & Y_{Prob} > t \\
-0 & \text{sino}
-\end{cases}
-\end{equation*}
-
-Con esta información hacemos la tabla
-
-| $Y_{Real}$ | $Y_{Prob}$ | $Y_0$ | $Y_{0.2}$ | $Y_{0.4}$ | $Y_{0.6}$ | $Y_{0.8}$ | $Y_{1}$ |
-|------------|------------|-------|----------|-----------|-----------|-----------|---------|
-| 1          | 0.8        | 1     | 1        | 1         | 1         | 1         | 0       |
-| 0          | 0.6        | 1     | 1        | 1         | 1         | 0         | 0       |
-| 1          | 0.4        | 1     | 1        | 1         | 0         | 0         | 0       |
-| 0          | 0.2        | 1     | 1        | 0         | 0         | 0         | 0       |
-
-
-Ahora calculamos las Tasas de positivos verdaderos $TPR = \frac{TP}{P} = \frac{TP}{TP+FN}$ y la tasa de falsos positivos   $FPR = \frac{FP}{P} = \frac{FP}{FP+TN}$ para cada corte
-
-\begin{align*}
-TPR_0 &= \frac{2}{2+0} = 1\\
-TPR_{0.2} &= \frac{2}{2+0} =1\\
-TPR_{0.4} &= \frac{2}{2+0} =1\\
-TPR_{0.6} &= \frac{1}{1+1} =0.5\\
-TPR_{0.8} &= \frac{1}{1+1} =0.5\\
-TPR_{1} &= \frac{0}{0+2} = 0
-\end{align*}
-
-\begin{align*}
-FPR_0 &= \frac{2}{2+0} = 1\\
-FPR_{0.2} &= \frac{2}{2+0} =1\\
-FPR_{0.4} &= \frac{1}{1+1} =0.5\\
-FPR_{0.6} &= \frac{1}{1+1} =0.5\\
-FPR_{0.8} &= \frac{0}{0+2} =0 \\
-FPR_{1} &= \frac{0}{0+2} =0 
-\end{align*}
-
-
-Finalmente graficamos los valores 
-
-
-```r
-TPR <- c(0, 0.5, 0.5, 1, 1, 1)
-FPR <- c(0, 0, 0.5, 0.5, 1, 1)
-
-plot(FPR, TPR, type = "l")
-abline(a = 0, b = 1, col = "red")
-```
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-241-1} \end{center}
-
-El cálculo del AUC es simplemente la suma de cada una de las cajas correspondientes. 
-
-
-```r
-calculo_auc <- function(TPR, FPR) {
-    dFPR <- c(diff(FPR), 0)
-    dTPR <- c(diff(TPR), 0)
-    sum(TPR * dFPR) + sum(dTPR * dFPR)/2
-}
-
-calculo_auc(TPR, FPR)
-```
-
-```
-## [1] 0.75
-```
-
-
-
-
-
-
 ## Laboratorio
 
 Datos sociodemográficos y de productos de aseguramiento de 5822 clientes. La variable dependiente es si cada cliente adquirió un seguro de remolques (https://liacs.leidenuniv.nl/~puttenpwhvander/library/cc2000/data.html). 
@@ -7322,6 +7082,83 @@ dim(Caravan)
 
 ```
 ## [1] 5822   86
+```
+
+```r
+head(Caravan)
+```
+
+```
+##   MOSTYPE MAANTHUI MGEMOMV MGEMLEEF MOSHOOFD MGODRK MGODPR MGODOV MGODGE MRELGE
+## 1      33        1       3        2        8      0      5      1      3      7
+## 2      37        1       2        2        8      1      4      1      4      6
+## 3      37        1       2        2        8      0      4      2      4      3
+## 4       9        1       3        3        3      2      3      2      4      5
+## 5      40        1       4        2       10      1      4      1      4      7
+## 6      23        1       2        1        5      0      5      0      5      0
+##   MRELSA MRELOV MFALLEEN MFGEKIND MFWEKIND MOPLHOOG MOPLMIDD MOPLLAAG MBERHOOG
+## 1      0      2        1        2        6        1        2        7        1
+## 2      2      2        0        4        5        0        5        4        0
+## 3      2      4        4        4        2        0        5        4        0
+## 4      2      2        2        3        4        3        4        2        4
+## 5      1      2        2        4        4        5        4        0        0
+## 6      6      3        3        5        2        0        5        4        2
+##   MBERZELF MBERBOER MBERMIDD MBERARBG MBERARBO MSKA MSKB1 MSKB2 MSKC MSKD
+## 1        0        1        2        5        2    1     1     2    6    1
+## 2        0        0        5        0        4    0     2     3    5    0
+## 3        0        0        7        0        2    0     5     0    4    0
+## 4        0        0        3        1        2    3     2     1    4    0
+## 5        5        4        0        0        0    9     0     0    0    0
+## 6        0        0        4        2        2    2     2     2    4    2
+##   MHHUUR MHKOOP MAUT1 MAUT2 MAUT0 MZFONDS MZPART MINKM30 MINK3045 MINK4575
+## 1      1      8     8     0     1       8      1       0        4        5
+## 2      2      7     7     1     2       6      3       2        0        5
+## 3      7      2     7     0     2       9      0       4        5        0
+## 4      5      4     9     0     0       7      2       1        5        3
+## 5      4      5     6     2     1       5      4       0        0        9
+## 6      9      0     5     3     3       9      0       5        2        3
+##   MINK7512 MINK123M MINKGEM MKOOPKLA PWAPART PWABEDR PWALAND PPERSAUT PBESAUT
+## 1        0        0       4        3       0       0       0        6       0
+## 2        2        0       5        4       2       0       0        0       0
+## 3        0        0       3        4       2       0       0        6       0
+## 4        0        0       4        4       0       0       0        6       0
+## 5        0        0       6        3       0       0       0        0       0
+## 6        0        0       3        3       0       0       0        6       0
+##   PMOTSCO PVRAAUT PAANHANG PTRACTOR PWERKT PBROM PLEVEN PPERSONG PGEZONG
+## 1       0       0        0        0      0     0      0        0       0
+## 2       0       0        0        0      0     0      0        0       0
+## 3       0       0        0        0      0     0      0        0       0
+## 4       0       0        0        0      0     0      0        0       0
+## 5       0       0        0        0      0     0      0        0       0
+## 6       0       0        0        0      0     0      0        0       0
+##   PWAOREG PBRAND PZEILPL PPLEZIER PFIETS PINBOED PBYSTAND AWAPART AWABEDR
+## 1       0      5       0        0      0       0        0       0       0
+## 2       0      2       0        0      0       0        0       2       0
+## 3       0      2       0        0      0       0        0       1       0
+## 4       0      2       0        0      0       0        0       0       0
+## 5       0      6       0        0      0       0        0       0       0
+## 6       0      0       0        0      0       0        0       0       0
+##   AWALAND APERSAUT ABESAUT AMOTSCO AVRAAUT AAANHANG ATRACTOR AWERKT ABROM
+## 1       0        1       0       0       0        0        0      0     0
+## 2       0        0       0       0       0        0        0      0     0
+## 3       0        1       0       0       0        0        0      0     0
+## 4       0        1       0       0       0        0        0      0     0
+## 5       0        0       0       0       0        0        0      0     0
+## 6       0        1       0       0       0        0        0      0     0
+##   ALEVEN APERSONG AGEZONG AWAOREG ABRAND AZEILPL APLEZIER AFIETS AINBOED
+## 1      0        0       0       0      1       0        0      0       0
+## 2      0        0       0       0      1       0        0      0       0
+## 3      0        0       0       0      1       0        0      0       0
+## 4      0        0       0       0      1       0        0      0       0
+## 5      0        0       0       0      1       0        0      0       0
+## 6      0        0       0       0      0       0        0      0       0
+##   ABYSTAND Purchase
+## 1        0       No
+## 2        0       No
+## 3        0       No
+## 4        0       No
+## 5        0       No
+## 6        0       No
 ```
 
 Vamos a usar las herramientas en el paquete *tidymodels* para efectuar una comparación entre los métodos de clasificación que hemos visto en clase. El objetivo es clasificar a los clientes entre compradores/no compradores del seguro (variable dependiente: Purchase, covariables: el resto)
@@ -7494,7 +7331,7 @@ roc_curve(resultados_logistico, truth = Purchase, estimate = .pred_No) %>%
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-254-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-253-1} \end{center}
 y finalmente el área bajo la curva ROC:
 
 
@@ -7607,7 +7444,7 @@ lda_predicciones %>%
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-263-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-262-1} \end{center}
 
 y matriz de confusión:
 
@@ -7677,7 +7514,7 @@ qda_predicciones %>%
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-268-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-267-1} \end{center}
 
 ```r
 qda_predicciones %>%
@@ -7796,7 +7633,7 @@ knn_predicciones %>%
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-275-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-274-1} \end{center}
 
 ```r
 knn_predicciones %>%
@@ -7810,21 +7647,19 @@ knn_predicciones %>%
 ##        Yes    0    0
 ```
 
-### Máquinas de soporte vectorial
+Máquinas de soporte vectorial
 
-#### Kernel polinomial
 
 ```r
-library(kernlab)
 modelo_svm <- svm_poly(degree = 1) %>%
     set_mode("classification") %>%
     set_engine("kernlab", scaled = FALSE)
 
-svm_lineal_wf <- workflow() %>%
+svm_wf <- workflow() %>%
     add_model(modelo_svm) %>%
     add_recipe(Caravan.recipe)
 
-last_fit_svm <- svm_lineal_wf %>%
+last_fit_svm <- svm_wf %>%
     last_fit(split = Caravan.split)
 
 last_fit_svm %>%
@@ -7849,7 +7684,7 @@ svm_predicciones %>%
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-276-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-275-1} \end{center}
 
 ```r
 svm_predicciones %>%
@@ -7863,64 +7698,16 @@ svm_predicciones %>%
 ##        Yes    0    0
 ```
 
-
-```r
-## svm_linear_wf <- workflow() %>%
-## add_model(modelo_svm %>% set_args(cost =
-## tune())) %>% add_formula(Purchase ~ .)
-
-## set.seed(1234) Caravan_fold <-
-## vfold_cv(Caravan.training, strata = Purchase,
-## v = 10)
-
-## param_grid <- grid_regular(cost(), levels =
-## 10)
-
-## tune_res <- tune_grid( svm_lineal_wf,
-## resamples = Caravan_fold, grid = param_grid )
-
-## autoplot(tune_res)
-```
-
-
-```r
-best_cost <- select_best(tune_res, metric = "accuracy")
-```
-
-```
-## Error in show_best(x, metric = metric, n = 1): object 'tune_res' not found
-```
-
-```r
-svm_linear_final <- finalize_workflow(svm_linear_wf,
-    best_cost)
-```
-
-```
-## Error in finalize_workflow(svm_linear_wf, best_cost): object 'svm_linear_wf' not found
-```
-
-```r
-(svm_linear_fit <- svm_linear_final %>%
-    fit(sim_data))
-```
-
-```
-## Error in fit(., sim_data): object 'svm_linear_final' not found
-```
-
-
-
 ```r
 modelo_svm <- svm_poly(degree = 2) %>%
     set_mode("classification") %>%
     set_engine("kernlab", scaled = FALSE)
 
-svm_lineal_wf <- workflow() %>%
+svm_wf <- workflow() %>%
     add_model(modelo_svm) %>%
     add_recipe(Caravan.recipe)
 
-last_fit_svm <- svm_lineal_wf %>%
+last_fit_svm <- svm_wf %>%
     last_fit(split = Caravan.split)
 
 last_fit_svm %>%
@@ -7945,7 +7732,7 @@ svm_predicciones %>%
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-279-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-276-1} \end{center}
 
 ```r
 svm_predicciones %>%
@@ -7959,21 +7746,16 @@ svm_predicciones %>%
 ##        Yes   98   15
 ```
 
-
-#### Kernels en alta dimensión
-
-
-
 ```r
-model_svm_exp <- svm_rbf() %>%
+modelo_svm <- svm_poly(degree = 3) %>%
     set_mode("classification") %>%
-    set_engine("kernlab")
+    set_engine("kernlab", scaled = FALSE)
 
-svm_exp_wf <- workflow() %>%
-    add_model(model_svm_exp) %>%
+svm_wf <- workflow() %>%
+    add_model(modelo_svm) %>%
     add_recipe(Caravan.recipe)
 
-last_fit_svm <- svm_exp_wf %>%
+last_fit_svm <- svm_wf %>%
     last_fit(split = Caravan.split)
 
 last_fit_svm %>%
@@ -7984,8 +7766,8 @@ last_fit_svm %>%
 ## # A tibble: 2 x 4
 ##   .metric  .estimator .estimate .config             
 ##   <chr>    <chr>          <dbl> <chr>               
-## 1 accuracy binary         0.943 Preprocessor1_Model1
-## 2 roc_auc  binary         0.636 Preprocessor1_Model1
+## 1 accuracy binary         0.886 Preprocessor1_Model1
+## 2 roc_auc  binary         0.645 Preprocessor1_Model1
 ```
 
 ```r
@@ -7998,7 +7780,7 @@ svm_predicciones %>%
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-280-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-277-1} \end{center}
 
 ```r
 svm_predicciones %>%
@@ -8008,9 +7790,274 @@ svm_predicciones %>%
 ```
 ##           Truth
 ## Prediction   No  Yes
-##        No  1099   66
-##        Yes    0    0
+##        No  1016   50
+##        Yes   83   16
 ```
+
+
+```r
+modelo_svm <- svm_poly(degree = 4) %>%
+    set_mode("classification") %>%
+    set_engine("kernlab", scaled = FALSE)
+
+svm_wf <- workflow() %>%
+    add_model(modelo_svm) %>%
+    add_recipe(Caravan.recipe)
+
+last_fit_svm <- svm_wf %>%
+    last_fit(split = Caravan.split)
+
+last_fit_svm %>%
+    collect_metrics()
+```
+
+```
+## NULL
+```
+
+```r
+svm_predicciones <- last_fit_svm %>%
+    collect_predictions()
+svm_predicciones %>%
+    roc_curve(truth = Purchase, estimate = .pred_No) %>%
+    autoplot()
+```
+
+```
+## Error in `chr_as_locations()`:
+## ! Can't subset columns that don't exist.
+## x Column `.pred_No` doesn't exist.
+```
+
+```r
+svm_predicciones %>%
+    conf_mat(truth = Purchase, estimate = .pred_class)
+```
+
+```
+## Error:
+## ! object 'Purchase' not found
+```
+
+
+
+
+
+
+
+
+```r
+library(kernlab)
+set.seed(1)
+sim_data <- tibble(x1 = rnorm(40), x2 = rnorm(40),
+    y = factor(rep(c(-1, 1), 20))) %>%
+    mutate(x1 = ifelse(y == 1, x1 + 1.5, x1), x2 = ifelse(y ==
+        1, x2 + 1.5, x2))
+```
+
+
+```r
+ggplot(sim_data, aes(x1, x2, color = y)) + geom_point()
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-280-1} \end{center}
+
+
+```r
+svm_linear_spec <- svm_poly(degree = 1) %>%
+    set_mode("classification") %>%
+    set_engine("kernlab", scaled = FALSE)
+```
+
+
+```r
+svm_linear_fit <- svm_linear_spec %>%
+    set_args(cost = 10) %>%
+    fit(y ~ ., data = sim_data)
+
+svm_linear_fit
+```
+
+```
+## parsnip model object
+## 
+## Support Vector Machine object of class "ksvm" 
+## 
+## SV type: C-svc  (classification) 
+##  parameter : cost C = 10 
+## 
+## Polynomial kernel function. 
+##  Hyperparameters : degree =  1  scale =  1  offset =  1 
+## 
+## Number of Support Vectors : 17 
+## 
+## Objective Function Value : -152.0188 
+## Training error : 0.125 
+## Probability model included.
+```
+
+
+
+```r
+library(kernlab)
+svm_linear_fit %>%
+    extract_fit_engine() %>%
+    plot()
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-283-1} \end{center}
+
+Si reducimos el costo
+
+```r
+svm_linear_fit <- svm_linear_spec %>%
+    set_args(cost = 0.1) %>%
+    fit(y ~ ., data = sim_data)
+
+svm_linear_fit
+```
+
+```
+## parsnip model object
+## 
+## Support Vector Machine object of class "ksvm" 
+## 
+## SV type: C-svc  (classification) 
+##  parameter : cost C = 0.1 
+## 
+## Polynomial kernel function. 
+##  Hyperparameters : degree =  1  scale =  1  offset =  1 
+## 
+## Number of Support Vectors : 25 
+## 
+## Objective Function Value : -2.0376 
+## Training error : 0.15 
+## Probability model included.
+```
+
+
+```r
+svm_linear_wf <- workflow() %>%
+    add_model(svm_linear_spec %>%
+        set_args(cost = tune())) %>%
+    add_formula(y ~ .)
+
+set.seed(1234)
+sim_data_fold <- vfold_cv(sim_data, strata = y)
+
+param_grid <- grid_regular(cost(), levels = 10)
+
+tune_res <- tune_grid(svm_linear_wf, resamples = sim_data_fold,
+    grid = param_grid)
+
+autoplot(tune_res)
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-285-1} \end{center}
+
+
+```r
+best_cost <- select_best(tune_res, metric = "accuracy")
+
+svm_linear_final <- finalize_workflow(svm_linear_wf,
+    best_cost)
+
+(svm_linear_fit <- svm_linear_final %>%
+    fit(sim_data))
+```
+
+```
+## == Workflow [trained] =======================================================================================================================================================================================================================
+## Preprocessor: Formula
+## Model: svm_poly()
+## 
+## -- Preprocessor -----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## y ~ .
+## 
+## -- Model ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+## Support Vector Machine object of class "ksvm" 
+## 
+## SV type: C-svc  (classification) 
+##  parameter : cost C = 1 
+## 
+## Polynomial kernel function. 
+##  Hyperparameters : degree =  1  scale =  1  offset =  1 
+## 
+## Number of Support Vectors : 18 
+## 
+## Objective Function Value : -16.025 
+## Training error : 0.15 
+## Probability model included.
+```
+
+Kernels en alta dimensión
+
+
+```r
+set.seed(1)
+sim_data2 <- tibble(x1 = rnorm(200) + rep(c(2, -2,
+    0), c(100, 50, 50)), x2 = rnorm(200) + rep(c(2,
+    -2, 0), c(100, 50, 50)), y = factor(rep(c(1, 2),
+    c(150, 50))))
+
+sim_data2 %>%
+    ggplot(aes(x1, x2, color = y)) + geom_point()
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-287-1} \end{center}
+
+
+
+```r
+svm_rbf_spec <- svm_rbf() %>%
+    set_mode("classification") %>%
+    set_engine("kernlab")
+```
+
+
+
+```r
+svm_rbf_fit <- svm_rbf_spec %>%
+    fit(y ~ ., data = sim_data2)
+```
+
+
+```r
+svm_rbf_fit %>%
+    extract_fit_engine() %>%
+    plot()
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-290-1} \end{center}
+
+```r
+set.seed(2)
+sim_data2_test <- tibble(x1 = rnorm(200) + rep(c(2,
+    -2, 0), c(100, 50, 50)), x2 = rnorm(200) + rep(c(2,
+    -2, 0), c(100, 50, 50)), y = factor(rep(c(1, 2),
+    c(150, 50))))
+```
+
+
+```r
+augment(svm_rbf_fit, new_data = sim_data2_test) %>%
+    roc_curve(truth = y, estimate = .pred_1) %>%
+    autoplot()
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-292-1} \end{center}
 
 ## Ejercicios 
 
@@ -8021,6 +8068,10 @@ svm_predicciones %>%
 
 
 # Análisis en componentes principales
+
+## Representación gráfica
+
+![Tomado de [The shape of data](https://shapeofdata.wordpress.com/2013/04/09/principle-component-analysis/)](manual_figures/pca.png)
 
 ## Aprendizaje no-supervisado
 
@@ -8046,9 +8097,9 @@ knitr::opts_chunk$set(fig.pos = "!h")
 
 ```r
 set.seed(123)
-x1 <- rnorm(1000, 0, 2)
-x2 <- cos(rnorm(1000, 0, 2))
-x3 <- x1 + rnorm(1000, 0, 2)
+x1 <- rnorm(1000, 0, 1)
+x2 <- x1 + rnorm(1000, 0, 0.5)
+x3 <- cos(runif(1000, -3, 3))
 ```
 
 
@@ -8058,21 +8109,16 @@ GGally::ggpairs(data.frame(x1, x2, x3))
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-284-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-296-1} \end{center}
 
 
-../../../../../../../../private/var/folders/4d/qj4qr8zx1n36td0hlt0p7x_h0000gn/T/RtmprshrVR/file157ff72929bbb.png
+
 
 
 ```r
 plot3d(x1, x3, x2, point.col = "black")
-
 plot3d(scale(x1), scale(x2), scale(x3), point.col = "black")
 ```
-
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-286-1} \end{center}
 
 
 
@@ -8085,56 +8131,64 @@ plot3d(scale(x1), scale(x2), scale(x3), point.col = "black")
 <!--                                                                       0.1)) / 100) + theme_minimal() + xlab("") + ylab("") -->
 <!-- ``` -->
 
-El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones eliminando la mayor cantidad de ruido posible. 
-
-## Representación gráfica
-
-![Tomado de [The shape of data](https://shapeofdata.wordpress.com/2013/04/09/principle-component-analysis/)](manual_figures/pca.png)
+El ACP lo que busca es un número reducido de dimensión que represente el máximo de variabilidad en las observaciones eliminando la mayor cantidad de ruido posible. El objetivo es crear una serie de variables sintéticas  $Z_{1},\dots, Z_{k}$  con \(k\leq p\), de modo  que posean la misma (o casi) información de las variables originales. 
 
 ## Primer componente principal
 
+El primer componente se define como el promedio ponderado de las variables originales \(X_1, \dots, X_p\) 
+\begin{equation*} 
+Z_{i1} = \phi_{11}x_{i1} + \phi_{21}x_{i2} + \dots + \phi_{p1}x_{ip};\quad \text{con } \sum_{j=1}^{p}\phi_{j1} = 1 
+\end{equation*}
 
+El objetivo es que el vector $Z_1$ tenga varianza máxima. Al vector $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$ se le llama *pesos o cargas* y funciona para promediar cada uno de las columnas de \(X\). Pensemos que $\phi_1$ es la dirección en el espacio característico en $\mathbb{R}^p$ en donde los datos tienen la máxima varianza. 
 
+En nuestro caso defina $X = (X_1,\dots,X_p)_{n\times p}$ la *matriz de diseño* donde cada columna tiene media 0. En este caso queremos resolver el problema 
 
+\begin{equation*}
+\hat{\phi}_1=\underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace 
+\end{equation*}
 
-$$ Z_1 := \phi_{11}x_1 +  \phi_{21}x_2 + \dots + \phi_{p1}x_p;\quad \text{con } \sum_{j=1}^{p}\phi_{j1} = 1$$
-tal que $Z_1$ tenga la varianza máxima.
+Note que la restricción de minimización se puede reescribir como $\Vert\phi_1\Vert_2^2= \sum_{j=1}^p \phi_{j1}^2 = 1$
 
-Al vector $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$ se le llama *pasos o cargas*. 
+Esta última expresión se podría reescribir de forma matricial como 
 
-$X = (X_1,\dots,X_p)_{n\times p}$ es la *matriz de diseño* donde cada columna tiene media 0. Se resuelve el problema
-$$\hat{\phi}_1=\underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j1} X_{ij} \right)^2 \right\rbrace $$
-La restricción de minimización se puede rescribir como $\Vert\phi_1\Vert_2^2= \sum_{j=1}^p \phi_{j1}^2 = 1$
-
-Los $Z_{11},\dots, Z_{n1}$ son los scores del primer componente principal.
-
-$\phi_1$ es la dirección en el espacio característico en $\mathbb{R}^p$ en donde los datos tengan la máxima varianza.
-
-
-Esta última expresión se podría rescribir de forma matricial como 
-
-\[
-\hat{\phi}_1 = \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{ \phi_1^\top X^\top X \phi_1 \right\}
-\]
+\begin{align*}
+\hat{\phi}_1 &= \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{\frac{1}{n} \phi_1^\top X^\top X \phi_1 \right\} \\
+\hat{\phi}_1 &= \underset{\Vert\phi_1\Vert_2^2=1}{\mathrm{argmax}} \left\{\phi_1^\top V \phi_1 \right\} \\
+\end{align*}
 
 donde $\phi_1 = (\phi_{11}, \phi_{21},\dots,\phi_{p1})$
 
 
-dadas las condiciones, esta expresión se podría simplificar un poco más en 
+Ahora s maximimizamos esta expresión usando multiplicadores de lagrange, tenemos que lo siguiente: 
 
-\[
-\hat{\phi}_1 = \underset{\phi_1}{\mathrm{argmax}} \left\{\frac{\phi_1^\top X^\top X \phi_1 }{\phi_1^\top \phi_1}\right\}
-\]
+\begin{align*}
+L(\phi_1, \lambda) &= \phi_1^\top V \phi_1 - \lambda (\phi_1^\top \phi_1 -1) \\
+\frac{\partial L}{\partial \lambda} &= \phi_1^\top \phi_1 -1 \\
+\frac{\partial L}{\partial \phi_1} &= 2V\phi_1 - 2\lambda \phi_1 
+\end{align*}
 
-Dado que la expresión anterio es un coeficiente de Rayleigh, se puede probar  que \(\hat{\phi}_{1}\) corresponde al primer vector propio de la matriz $X^\top X = \mathrm{Cov}(X)$ si las columnas de $X$ son centradas.
+Igualando a 0 las condiciones obtenemos que 
+
+\begin{align*}
+\phi_1^\top \phi &= 1 \\
+V \phi_1 &= \lambda V.
+\end{align*}
+
+
+Entonces el valor óptimo de \(\phi_1\) es el componente principal de $\frac{1}{n}X^\top X = \mathrm{Cov}(X)$ cuyo \(\lambda\) sea más grande si las columnas de $X$ son centradas.
 
 ## Segunda componente principal
 
+La segunda componente se escribe de la forma
 
+$$ Z_{2}:= \phi_{12}x_1 + \phi_{22}x_2+\dots+\phi_{p2}x_p.$$
 
-$$ Z_{2}:= \phi_{12}x_1 + \phi_{22}x_2+\dots+\phi_{p2}x_p$$
+En este caso debemos resolver el mismo problema de máximización que antes. 
  $$\underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\lbrace\dfrac{1}{n}\sum_{i=1}^{n}\left(\sum_{i=1}^p \phi_{j2} X_{ij} \right)^2 \right\rbrace$$
- Se tiene, además, que $\forall i$, $Z_{i2}\perp Z_1$, entonces 
+ 
+ 
+La diferencia es que se quiere que el segundo componente sea ortogonal al primero. Es decir, que $\forall i$, $Z_{i2}\perp Z_1$, entonces 
  $$ Z_{i2}\perp Z_1 \implies \phi_{2} \perp \phi_{1}$$
 
 Esto se logra primero construyendo una matriz nueva de diseño, restando a la matrix $X$ original, el primer componente principal. 
@@ -8143,11 +8197,14 @@ Esto se logra primero construyendo una matriz nueva de diseño, restando a la ma
 \tilde{X}_2 = X - X\phi_1\phi_1^\top
 \]
 
-Luego a esa matriz, se le aplica el procedimiento anterior 
+Luego a esa matriz, se le aplica el procedimiento anterior donde queremos maximizar
 
-\[
-\hat{\phi}_2 = \underset{\phi_2}{\mathrm{argmax}} \left\{\frac{\phi_2^\top X^\top X \phi_2 }{\phi_2^\top \phi_2}\right\}
-\]
+\begin{align*}
+\hat{\phi}_2 &= \underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\{\frac{1}{n} \phi_2^\top \tilde{X}_2^\top \tilde{X}_2 \phi_2 \right\} \\
+\hat{\phi}_2 &= \underset{\Vert\phi_2\Vert_2^2=1}{\mathrm{argmax}} \left\{\phi_2^\top \tilde{V}_2 \phi_2 \right\} \\
+\end{align*}
+
+
 
 Y nuevamente se puede probar que el componente principal corresponde al segundo vector propio de 
 $X^\top X = \mathrm{Cov}(X)$
@@ -8159,7 +8216,6 @@ Notas:
 
 - **Escalas**: la varianza de las variables depende de las unidades. El problema es que los pesos $\phi_i$ son distintos dependiendo de las escalas. La solución es estandarizar las variables: $\dfrac{X_i-\mu_i}{\hat\sigma_i}$.
 - **Unicidad**: los componentes principales son únicos, módulo cambio de signo.
-\end{itemize}
 
 
 ## Circulo de correlaciones 
@@ -8180,6 +8236,92 @@ Además, basados en el el círculo identidad $\cos^2(\theta)+\sin^2(\theta)=1$, 
 ```r
 library("factoextra")
 library("FactoMineR")
+```
+
+
+```r
+(PC1 <- prcomp(cbind(x1, x2, x3), center = TRUE))
+```
+
+```
+## Standard deviations (1, .., p=3):
+## [1] 1.4815788 0.6822887 0.3366470
+## 
+## Rotation (n x k) = (3 x 3):
+##             PC1          PC2          PC3
+## x1  0.646510691 -0.004875673 -0.762889346
+## x2  0.762889958 -0.002132344  0.646524837
+## x3 -0.004778986 -0.999985840  0.002341018
+```
+
+```r
+str(PC1)
+```
+
+```
+## List of 5
+##  $ sdev    : num [1:3] 1.482 0.682 0.337
+##  $ rotation: num [1:3, 1:3] 0.64651 0.76289 -0.00478 -0.00488 -0.00213 ...
+##   ..- attr(*, "dimnames")=List of 2
+##   .. ..$ : chr [1:3] "x1" "x2" "x3"
+##   .. ..$ : chr [1:3] "PC1" "PC2" "PC3"
+##  $ center  : Named num [1:3] 0.0161 0.0374 0.0814
+##   ..- attr(*, "names")= chr [1:3] "x1" "x2" "x3"
+##  $ scale   : logi FALSE
+##  $ x       : num [1:1000, 1:3] -1.2102 -0.7577 2.1474 0.0117 -0.8303 ...
+##   ..- attr(*, "dimnames")=List of 2
+##   .. ..$ : NULL
+##   .. ..$ : chr [1:3] "PC1" "PC2" "PC3"
+##  - attr(*, "class")= chr "prcomp"
+```
+
+
+
+```r
+(PC2 <- princomp(cbind(x1, x2, x3)))
+```
+
+```
+## Call:
+## princomp(x = cbind(x1, x2, x3))
+## 
+## Standard deviations:
+##    Comp.1    Comp.2    Comp.3 
+## 1.4808378 0.6819475 0.3364786 
+## 
+##  3  variables and  1000 observations.
+```
+
+
+```r
+str(PC2)
+```
+
+```
+## List of 7
+##  $ sdev    : Named num [1:3] 1.481 0.682 0.336
+##   ..- attr(*, "names")= chr [1:3] "Comp.1" "Comp.2" "Comp.3"
+##  $ loadings: 'loadings' num [1:3, 1:3] 0.64651 0.76289 -0.00478 0.00488 0.00213 ...
+##   ..- attr(*, "dimnames")=List of 2
+##   .. ..$ : chr [1:3] "x1" "x2" "x3"
+##   .. ..$ : chr [1:3] "Comp.1" "Comp.2" "Comp.3"
+##  $ center  : Named num [1:3] 0.0161 0.0374 0.0814
+##   ..- attr(*, "names")= chr [1:3] "x1" "x2" "x3"
+##  $ scale   : Named num [1:3] 1 1 1
+##   ..- attr(*, "names")= chr [1:3] "x1" "x2" "x3"
+##  $ n.obs   : int 1000
+##  $ scores  : num [1:1000, 1:3] -1.2102 -0.7577 2.1474 0.0117 -0.8303 ...
+##   ..- attr(*, "dimnames")=List of 2
+##   .. ..$ : NULL
+##   .. ..$ : chr [1:3] "Comp.1" "Comp.2" "Comp.3"
+##  $ call    : language princomp(x = cbind(x1, x2, x3))
+##  - attr(*, "class")= chr "princomp"
+```
+
+
+
+
+```r
 p <- PCA(scale(cbind(x1, x2, x3)))
 ```
 
@@ -8189,10 +8331,10 @@ p$var$cor
 ```
 
 ```
-##          Dim.1       Dim.2       Dim.3
-## x1  0.92280569 0.037753401 -0.38341145
-## x2 -0.03690606 0.999225664  0.01363871
-## x3  0.92346176 0.002207375  0.38368413
+##          Dim.1       Dim.2        Dim.3
+## x1  0.97450087 0.009678028 -0.224174906
+## x2  0.97451729 0.007743861  0.224178685
+## x3 -0.01698022 0.999855732  0.000433625
 ```
 
 ```r
@@ -8200,10 +8342,10 @@ p$var$cos2
 ```
 
 ```
-##          Dim.1          Dim.2        Dim.3
-## x1 0.851570337 0.001425319299 0.1470043434
-## x2 0.001362057 0.998451928464 0.0001860145
-## x3 0.852781615 0.000004872503 0.1472135129
+##          Dim.1        Dim.2        Dim.3
+## x1 0.949651947 9.366422e-05 5.025439e-02
+## x2 0.949683950 5.996738e-05 5.025608e-02
+## x3 0.000288328 9.997115e-01 1.880306e-07
 ```
 
 
@@ -8221,7 +8363,7 @@ fviz_screeplot(p, addlabels = F, ylim = c(0, 50)) +
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-289-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-306-1} \end{center}
 
 ```r
 qplot(1:3, p$eig[, 3], geom = "point") + xlab("Cantidad de componentes") +
@@ -8231,7 +8373,7 @@ qplot(1:3, p$eig[, 3], geom = "point") + xlab("Cantidad de componentes") +
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-290-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-307-1} \end{center}
 
 
 
@@ -8278,14 +8420,14 @@ Ejecute una exploración de datos
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-293-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-310-1} \end{center}
 
 
 
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-295-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-312-1} \end{center}
 
 
 
@@ -8296,7 +8438,7 @@ plot(acp.decathlon$ind$coord[, 1], acp.decathlon$ind$coord[,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-296-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-313-1} \end{center}
 
 ```r
 plot(acp.decathlon$ind$coord[, 3], acp.decathlon$ind$coord[,
@@ -8305,15 +8447,14 @@ plot(acp.decathlon$ind$coord[, 3], acp.decathlon$ind$coord[,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-296-2} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-313-2} \end{center}
 
-```
 
 ## Ejercicios 
 
 - Del libro [@James2013b] 
-    - Capítulo 10:  6, 8
-`
+- Capítulo 10:  6, 8
+
 
 
 <!--chapter:end:07-componentes-principales.Rmd-->
@@ -8325,24 +8466,38 @@ plot(acp.decathlon$ind$coord[, 3], acp.decathlon$ind$coord[,
 
 ### Modelo de un parámetro
 
-Vamos a considerar el ejemplo en la sección 3.3 del [@Albert2009]. En este caso se quiere estimar la tasa de éxito en transplantes de corazón en un hospital de EEUU. Suponga que en ese hospital hay $n$ transplantes y $y$ es el número de muertes en el transcurso de 30 días del transplante. Si se sabe el número esperado de muertes $e$ a través de un modelo auxiliar, entonces un modelo sencillo para $y$ es asumir que:
+Vamos a considerar el ejemplo en la sección 3.3 del [@Albert2009]. En este caso se quiere estimar la tasa de éxito en transplantes de corazón en un hospital de EEUU. Suponga que en ese hospital hay $n$ transplantes e $y$ es el número de muertes en el transcurso de 30 días del transplante. Si se sabe el número esperado de muertes $e$ a través de un modelo auxiliar, entonces un modelo sencillo para $y$ es asumir que:
 $$y\sim \text{Poisson}(e\lambda)$$
 donde $\lambda$ es la tasa de mortalidad por unidad de exposición y tiempo.
 
-Posible solución: estimar $\hat \lambda=y/e$, pero el estimador es malo si hay pocas muertes observadas $y$.
 
-Solución bayesiana: Considere una previa conjugada (gamma) para $\lambda$:
-$$p(\lambda)\propto \lambda^{\alpha-1}\exp(-\beta \lambda)$$
-además, suponga que se cuenta con información externa de un grupo pequeño de hospitales con condiciones similares a la del hospital de interés, es decir se cuenta con muertes $z_j$ y exposición $o_j$ para diez hospitales ($j=1,\ldots,10$). Asuma que:
-$$z_j\sim \text{Poisson}(o_j\lambda)$$
-asignamos una previa no-informativa a $p(\lambda)\propto \lambda^{-1}$ y se obtiene un previa propuesta para $\lambda$:
-$$p(\lambda)\propto \lambda^{\sum_{j=1}^{10}z_j-1}\exp{\left(-\lambda\sum_{j=1}^{10} o_j\right)}$$y
+**Solución clásica:** 
+
+: Estimar $\hat \lambda=y/e$, pero el estimador es malo si hay pocas muertes observadas $y$.
+
+**Solución bayesiana:** 
+
+: Considere una previa conjugada (gamma) para $\lambda$ de la forma, 
+
+$$p(\lambda)\propto \lambda^{\alpha-1}\exp(-\beta \lambda).$$
+
+La ventaja de los modelos bayesianos es que se pueden integrar información externa al modelo. Supongamos que se cuenta con información externa de un grupo pequeño de hospitales con condiciones similares a la del hospital de interés, es decir se cuenta con muertes $z_j$ y exposición $o_j$ para diez hospitales ($j=1,\ldots,10$). Asumamos  que cada hospital tiene el la distribución de sus muertes de la forma, 
+
+
+$$z_j\sim \text{Poisson}(o_j\lambda).$$
+
+Entonces, asignamos una previa no-informativa a $p(\lambda)\propto \lambda^{-1}$ (cuando \(\alpha=0\) y \(\lambda=0\)) y se obtiene un previa actualiza con todos los hospitales para $\lambda$ de la forma, 
+
+$$p(\lambda)\propto \lambda^{\sum_{j=1}^{10}z_j-1}\exp{\left(-\lambda\sum_{j=1}^{10} o_j\right)}$$
+
 Suponga que $\alpha:=\sum z_j=16$ y $\beta:=\sum o_j=15174$. Si para el hospital de interés $y_{obs}$ es el número observado de muertes y $e$ es la exposición entonces la distribución posterior de $\lambda$ es:
 $$g(\lambda|y_{obs})\sim \Gamma(\alpha+y_{obs},\beta+e)$$
 y la densidad predictiva de $y$ es (Ejercicio):
 $$f(y)=\frac{f(y|\lambda)p(\lambda)}{g(\lambda|y_{obs})}$$
 
-donde $f(y|\lambda)\sim \text{Poisson}(e\lambda)$ (verosimilitud). Supongamos dos posibles hospitales:
+donde $f(y|\lambda)\sim \text{Poisson}(e\lambda)$ (verosimilitud).
+
+Supongamos que existen dos posibles hospitales:
 
 - Hospital A: Se observa una muerte con 66 personas expuestas. Cálculo de la densidad posterior y densidad predictiva con $\lambda = \alpha/\beta$:
 
@@ -8354,18 +8509,21 @@ yobs <- 1
 ex <- 66
 y <- 0:10
 lam <- alpha/beta
+
+## f(y|lambda) p(lambda) / g(lambda|y_obs)
 fy <- dpois(y, lam * ex) * dgamma(lam, shape = alpha,
     rate = beta)/dgamma(lam, shape = alpha + y, rate = beta +
     ex)
 
 dpred <- tibble(y, fy)
+
 ggplot(dpred) + geom_line(mapping = aes(x = y, y = fy)) +
-    geom_vline(xintercept = yobs, col = 2) + theme_bw()
+    geom_vline(xintercept = yobs, col = "red") + theme_bw()
 ```
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-298-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-315-1} \end{center}
 
 por lo tanto una muerte no es un valor inusual en el comportamiento de muertes bajo transplantes. La comparación de las densidades posterior y previa de lambda:
 
@@ -8373,17 +8531,18 @@ por lo tanto una muerte no es un valor inusual en el comportamiento de muertes b
 ```r
 set.seed(1)
 lambda_prev <- rgamma(1000, shape = alpha, rate = beta)
-lambda_post <- rgamma(1000, shape = alpha + y, rate = beta +
+lambda_post <- rgamma(1000, shape = alpha + yobs, rate = beta +
     ex)
 datoslambda <- tibble(Previa = lambda_prev, Posterior = lambda_post) %>%
     pivot_longer(cols = everything())
+
 ggplot(data = datoslambda) + geom_density(mapping = aes(x = value,
     color = name)) + theme_bw() + theme(legend.title = element_blank())
 ```
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-299-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-316-1} \end{center}
 
 - Hospital B: 4 muertes en 1767 expuestos. Mismos cálculos:
 
@@ -8395,34 +8554,37 @@ yobs <- 4
 ex <- 1767
 y <- 0:10
 lam <- alpha/beta
+
 fy <- dpois(y, lam * ex) * dgamma(lam, shape = alpha,
     rate = beta)/dgamma(lam, shape = alpha + y, rate = beta +
     ex)
 
 dpred <- tibble(y, fy)
+
 ggplot(dpred) + geom_line(mapping = aes(x = y, y = fy)) +
     geom_vline(xintercept = yobs, col = 2) + theme_bw()
 ```
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-300-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-317-1} \end{center}
 
 
 ```r
 set.seed(1)
 lambda_prev <- rgamma(1000, shape = alpha, rate = beta)
-lambda_post <- rgamma(1000, shape = alpha + y, rate = beta +
+lambda_post <- rgamma(1000, shape = alpha + yobs, rate = beta +
     ex)
 datoslambda <- tibble(Previa = lambda_prev, Posterior = lambda_post) %>%
     pivot_longer(cols = everything())
+
 ggplot(data = datoslambda) + geom_density(mapping = aes(x = value,
     color = name)) + theme_bw() + theme(legend.title = element_blank())
 ```
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-301-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-318-1} \end{center}
 
 ### Modelo de más de un parámetro
 
@@ -8466,7 +8628,7 @@ mycontour(normchi2post, c(220, 330, 500, 9000), time,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-303-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-320-1} \end{center}
 y les agregamos una muestra aleatoria de tamaño 1000 de la distribución posterior conjunta, generada a través de las distribuciones marginales:
 
 
@@ -8475,6 +8637,7 @@ S <- sum((time - mean(time))^2)
 n <- length(time)
 sigma2 <- S/rchisq(1000, n - 1)
 mu <- rnorm(1000, mean = mean(time), sd = sqrt(sigma2)/sqrt(n))
+
 mycontour(normchi2post, c(220, 330, 500, 9000), time,
     xlab = "media", ylab = "varianza")
 points(mu, sigma2)
@@ -8482,7 +8645,7 @@ points(mu, sigma2)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-304-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-321-1} \end{center}
 
 Si estamos interesados en hacer inferencia de $\mu$, podemos calcular un intervalo de credibilidad al 95%, usando la muestra marginal:
 
@@ -8493,7 +8656,7 @@ quantile(mu, c(0.025, 0.975))
 
 ```
 ##     2.5%    97.5% 
-## 254.9617 300.8669
+## 255.1484 301.2853
 ```
 
 y también inferencia sobre $\sigma$:
@@ -8515,7 +8678,7 @@ quantile(sqrt(sigma2)/mu, c(0.025, 0.975))
 
 ```
 ##      2.5%     97.5% 
-## 0.1357104 0.2634229
+## 0.1334257 0.2677118
 ```
 
 
@@ -8573,13 +8736,13 @@ donde $0<\eta<1$, $K>0$ y $B(\cdot,\cdot)$ es la función beta. La función *bet
 
 
 ```r
-mycontour(betabinexch0, c(0.0001, 0.003, 1, 20000),
+mycontour(betabinexch0, c(1e-04, 0.003, 1, 20000),
     cancermortality, xlab = "eta", ylab = "K")
 ```
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-309-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-326-1} \end{center}
 y note la gran asimetría en el comportamiento de la densidad conjunta, especialmente en la dirección de la variable $K$. Por el dominio de las variables $K$ y $\eta$, entonces se transforman según:
 $$\theta_1=\text{logit}(\eta)=\log\left(\frac{\eta}{1-\eta}\right),\quad  \theta_2=\log(K)$$
 y usando el teorema de cambio de variable en densidades:
@@ -8593,7 +8756,7 @@ mycontour(betabinexch, c(-8, -4.5, 3, 16.5), cancermortality,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-310-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-327-1} \end{center}
 
 Definitivamente esta es una distribución posterior a la que no se le puede aplicar las técnicas usuales para hacer inferencia (caso no conjugado). Se va a considerar dos formas de realizar inferencia:
 
@@ -8644,7 +8807,7 @@ mycontour(lbinorm, c(-8, -4.5, 3, 16.5), npar, xlab = "logit eta",
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-312-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-329-1} \end{center}
 
 También podemos hacer inferencia de los parámetros:
 
@@ -8708,9 +8871,10 @@ Con el fin de encontrar $c$, maximizamos la diferencia de logaritmos entre $g(\t
 
 
 ```r
-betabinT <- function(theta, datapar) {
+beta_bin_T <- function(theta, datapar) {
     data <- datapar$data
     tpar <- datapar$par
+
     d <- betabinexch(theta, data) - dmt(theta, mean = c(tpar$m),
         S = tpar$var, df = tpar$df, log = TRUE)
     return(d)
@@ -8728,7 +8892,7 @@ y resolvemos:
 
 ```r
 start <- c(-6.9, 12.4)
-fit1 <- laplace(betabinT, start, datapar)
+fit1 <- laplace(beta_bin_T, start, datapar)
 fit1$mode
 ```
 
@@ -8738,7 +8902,7 @@ fit1$mode
 y el valor máximo de las diferencias de logaritmos es:
 
 ```r
-dmax <- betabinT(fit1$mode, datapar)
+dmax <- beta_bin_T(fit1$mode, datapar)
 dmax
 ```
 
@@ -8755,7 +8919,7 @@ theta <- rmt(n, mean = c(tpar$m), S = tpar$var, df = tpar$df)
 lf <- map_dbl(1:10000, ~betabinexch(theta[., ], cancermortality))
 lg <- dmt(theta, mean = c(tpar$m), S = tpar$var, df = tpar$df,
     log = TRUE)
-prob = exp(lf - lg - dmax)
+prob <- exp(lf - lg - dmax)
 thetaRS <- theta[runif(n) < prob, ]
 ```
 
@@ -8779,7 +8943,7 @@ points(thetaRS[, 1], thetaRS[, 2])
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-320-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-337-1} \end{center}
 
 ## Muestreo por importancia
 
@@ -8816,14 +8980,15 @@ hist(wt)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-321-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-338-1} \end{center}
 
 y calculamos el valor esperado de $\log K$ usando los pesos obtenidos del paso anterior:
 
+
 ```r
 est <- sum(wt * theta[, 2])/sum(wt)
-SEest <- sqrt(sum((theta[, 2] - est)^2 * wt^2))/sum(wt)
-show(c(est, SEest))
+SE_est <- sqrt(sum((theta[, 2] - est)^2 * wt^2))/sum(wt)
+show(c(est, SE_est))
 ```
 
 ```
@@ -8841,13 +9006,13 @@ Siguiendo con el ejemplo:
 ```r
 probs <- wt/sum(wt)
 indices <- sample(1:n, size = n, prob = probs, replace = T)
-thetaSIR <- theta[indices, ]
+theta_SIR <- theta[indices, ]
 ```
 
 y los intervalos de predicción al 95% para $\text{logit}(\eta)$ y $log K$ son:
 
 ```r
-quantile(thetaSIR[, 1], probs = c(0.025, 0.975))
+quantile(theta_SIR[, 1], probs = c(0.025, 0.975))
 ```
 
 ```
@@ -8856,7 +9021,7 @@ quantile(thetaSIR[, 1], probs = c(0.025, 0.975))
 ```
 
 ```r
-quantile(thetaSIR[, 2], probs = c(0.025, 0.975))
+quantile(theta_SIR[, 2], probs = c(0.025, 0.975))
 ```
 
 ```
@@ -8951,9 +9116,10 @@ es una estructura de los datos agrupados. La log-densidad posterior de los datos
 
 ```r
 groupeddatapost <- function(theta, data) {
-    dj <- function(f, int.lo, int.hi, mu, sigma) f *
-        log(pnorm(int.hi, mu, sigma) - pnorm(int.lo,
+    dj <- function(f, int.lo, int.hi, mu, sigma) {
+        f * log(pnorm(int.hi, mu, sigma) - pnorm(int.lo,
             mu, sigma))
+    }
     mu <- theta[1]
     sigma <- exp(theta[2])
     sum(dj(data$f, data$int.lo, data$int.hi, mu, sigma))
@@ -8973,9 +9139,9 @@ fit
 ## [1] 70.169880  0.973644
 ## 
 ## $var
-##               [,1]          [,2]
-## [1,] 0.03534713484 0.00003520776
-## [2,] 0.00003520776 0.00314647024
+##              [,1]         [,2]
+## [1,] 3.534713e-02 3.520776e-05
+## [2,] 3.520776e-05 3.146470e-03
 ## 
 ## $int
 ## [1] -350.6305
@@ -9045,7 +9211,7 @@ points(fit2$par[5001:10000, 1], fit2$par[5001:10000,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-333-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-350-1} \end{center}
 
 Los traceplots del MCMC los graficamos a través del paquete *coda* junto con el paquete *bayesplot*:
 
@@ -9059,7 +9225,7 @@ mcmc_trace(obj_mcmc)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-334-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-351-1} \end{center}
 
 Los gráficos de autocorrelación empíricos se pueden generar con:
 
@@ -9069,7 +9235,7 @@ mcmc_acf(obj_mcmc)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-335-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-352-1} \end{center}
 y funciones de densidad estimadas con intervalos de predicción al 95% para algunos de los parámetros:
 
 ```r
@@ -9078,7 +9244,7 @@ mcmc_areas(obj_mcmc, pars = c("mu"), prob = 0.95)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-336-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-353-1} \end{center}
 ### Datos con outliers
 
 Suponga $y_1,\ldots,y_n\sim \text{Cauchy}(\mu,\sigma)$:
@@ -9158,7 +9324,7 @@ points(E1$par[, 1], E1$par[, 2])
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-340-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-357-1} \end{center}
 
 - Metropolis-Hastings independiente:
 
@@ -9186,7 +9352,7 @@ mycontour(cauchyerrorpost, c(-10, 60, 1, 4.5), data_darwin,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-341-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-358-1} \end{center}
 
 ```r
 points(E2$par[, 1], E2$par[, 2])
@@ -9208,7 +9374,7 @@ points(E3$par[, 1], E3$par[, 2])
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-342-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-359-1} \end{center}
 
 Comparemos el estimador bayesiano e intervalos de predicción al 95% para la media $\mu$:
 
