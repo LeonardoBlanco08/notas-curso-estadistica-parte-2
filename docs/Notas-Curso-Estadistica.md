@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística II"
 author: "Maikol Solís Chacón y Luis Barboza Chinchilla"
-date: "Actualizado el 13 junio, 2022"
+date: "Actualizado el 16 junio, 2022"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -319,7 +319,7 @@ y por lo tanto
 \mathrm{MISE}(\hat{f}_{h}) = \frac{1}{n} \left(\frac{n\Vert f^\prime\Vert_{2}^2}{6}\right)  ^{1/3}
 \end{equation*}
 
-::: {.remark name="Recuerde de Estad<U+00ED>stica I"}
+::: {.remark name="Recuerde de Estadística I"}
 Si \(X_1, \ldots, X_n \sim f_{\theta} \) i.i.d, con \(\mathrm{Var}(X) = \sigma^2\) y media $\theta$, recuerde que el estimador \(\hat{\theta}\)  de \(\theta\) tiene la característica que
 
 \begin{equation*}
@@ -3887,7 +3887,7 @@ abline(h = 0, col = "red")
 
 }
 
-\caption{Gr<U+00E1>fico de residuos caso lineal}(\#fig:grafico-residuos-lineal)
+\caption{Gráfico de residuos caso lineal}(\#fig:grafico-residuos-lineal)
 \end{figure}
 
 
@@ -3920,7 +3920,7 @@ abline(h = 0, col = "red")
 
 }
 
-\caption{Gr<U+00E1>fico de residuos caso no-lineal}(\#fig:grafico-residuos-no-lineal)
+\caption{Gráfico de residuos caso no-lineal}(\#fig:grafico-residuos-no-lineal)
 \end{figure}
 
 
@@ -5667,6 +5667,158 @@ Representa asintóticamente hablando, el negativo del logaritmo de la distribuci
 \begin{align*}
 BIC = \frac{1}{n}(RSS+2\log (n)p\hat \sigma^2).
 \end{align*}
+
+
+#### $C_p$ de Mallows
+
+Este estadístico se define como 
+
+
+$$ C_p = \dfrac{RSS}{\hat\sigma^2} + 2p-n $$
+
+
+donde $p$ es el número de predictores y $\hat\sigma^2$ es el estimador de la varianza de los errores $\epsilon$. Si $\hat\sigma^2$ es insesgado de $\sigma^2$, entonces $C_p$ es un estimador insesgado del $MSE$ de prueba. 
+
+Para regresión ordinaria sabemos que \(\hat{\boldsymbol{\beta}}_{p}=\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1} \mathbf{X}_{p}^{\prime} \mathbf{Y}\). Nuestro caso ideal sería hacer el MSE lo más pequeño posible entre todos los posibles modleos,
+\begin{equation*}
+\mathrm{E}\left[\hat{\boldsymbol{\beta}}_{p}-\boldsymbol{\beta}\right]^{2}.
+\end{equation*}
+
+Con esto en mente, calculemos el RSS del modelo,
+
+\begin{equation*}
+\begin{aligned}
+\operatorname{RSS}(p) &=\sum_{n=1}^{N}\left(y_{n}-\mathbf{x}_{n} \hat{\boldsymbol{\beta}}_{p}\right)^{2} \\
+&=\left(\mathbf{Y}-\mathbf{X}_{p} \hat{\boldsymbol{\beta}}_{p}\right)^{\prime}\left(\mathbf{Y}-\mathbf{X}_{p} \hat{\boldsymbol{\beta}}_{p}\right) \\
+&=\mathbf{Y}^{\prime}\left(\mathbf{I}_{N}-\mathbf{X}_{p}\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1} \mathbf{X}_{p}^{\prime}\right) \mathbf{Y}
+\end{aligned}
+\end{equation*}
+
+
+Usando este resultado para matrices 
+
+\begin{equation*}
+\mathrm{E}\left[\mathbf{Y}^{\prime} \mathbf{A Y}\right]=\mathrm{E}\left[\mathbf{Y}^{\prime}\right] \mathbf{A E}[\mathbf{Y}]+\operatorname{tr}[\mathbf{\Sigma} \mathbf{A}]
+\end{equation*}
+
+y donde \(\boldsymbol{\Sigma}\) es la matriz de covarianza de \(\mathbf{Y}\), encontramos que 
+
+\begin{equation*}
+\begin{aligned}
+\mathrm{E}[\operatorname{RSS}(p)] &=\mathrm{E}\left[\mathbf{Y}^{\prime}\left(\mathbf{I}_{N}-\mathbf{X}_{p}\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1} \mathbf{X}_{p}^{\prime}\right) \mathbf{Y}\right] \\
+&=\mathrm{E}\left[\hat{\boldsymbol{\beta}}_{p}-\boldsymbol{\beta}\right]^{2}+\operatorname{tr}\left[\mathbf{I}_{N}-\mathbf{X}_{p}\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1} \mathbf{X}_{p}^{\prime}\right] \sigma^{2} \\
+&=\mathrm{E}\left[\hat{\boldsymbol{\beta}}_{p}-\boldsymbol{\beta}\right]^{2}+\sigma^{2}\left(N-\operatorname{tr}\left[\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)\left(\mathbf{X}_{p}^{\prime} \mathbf{X}_{p}\right)^{-1}\right]\right) \\
+&=\mathrm{E}\left[\hat{\boldsymbol{\beta}}_{p}-\boldsymbol{\beta}\right]^{2}+\sigma^{2}(N-p)
+\end{aligned}
+\end{equation*}
+
+Note que si el  modelo verddero  tiene   \(p\) parametros, entocnes \(\mathrm{E}\left[\mathrm{C}_{p}\right]=p\). Esto muestra por qué, si un modelo  es correcto, \(\mathrm{C}_{p}\) tenderá a estar cerca de \(p\)
+
+
+Un problema con el criterio \(\mathrm{C}_{p}\) es que tenemos que encontrar una estimación apropiada de \(\sigma^{2}\) para usar con todos los valores de \(p\).
+
+#### Estimador de máxima verosimilitud (MLE)
+
+Supongamos para el conjunto de datos disponible una medida de ajuste del modelo $-\ln L(\hat{\beta} | x)=\ell(\beta)$. Así si el valor es grande, entonces los parámetros \(\beta\)s serían los correctos. Si se define \(\overline{\ell}(\beta)=\mathbb{E}(\ell(\beta\mid X))\) como la log verosimilitud poblacional. 
+
+El problema con está medida es que no penaliza el ingreso de nuevas variables al modelo. 
+
+
+#### Akaike Information Criterion (AIC).
+
+
+El AIC se define de la siguiente manera:
+
+\[
+AIC = -2\ell(\hat{\beta}) + 2p 
+\]
+
+_Explicación breve_: La idea del AIC es ajustar el riesgo empírico \(\hat{R}_n =  -\ell(\hat{\beta})\) con respecto al riesgo verdadero \(R(\hat{\beta}) = \mathbb{E}(-n\overline{\ell}(\hat{\beta}))\). Se puede probar que asintóticamente 
+
+\begin{equation*}
+\mathbb{E}\left(\widehat{R}_{n}\left(\hat{\beta}_{n}\right)\right)-R\left(\widehat{\beta}_{n}\right)=-n \mathbb{E}\left(\left(\widehat{\beta}_{n}-\beta^{*}\right)^{T} I\left(\beta^{*}\right)\left(\widehat{\beta}_{n}-\beta^{*}\right)\right)
+\end{equation*}
+
+
+
+Por el curso de estadísitica I se puede probar que 
+\begin{equation*}
+\sqrt{n}\left(\hat{\beta}_{n}-\beta^{*}\right) \approx N\left(0, I^{-1}\left(\beta^{*}\right)\right)
+\end{equation*}
+
+Por lo tanto, 
+
+\begin{equation*}
+n\left(\widehat{\beta}_{n}-\beta^{*}\right)^{T} I\left(\beta^{*}\right)\left(\widehat{\beta}_{n}-\beta^{*}\right) \approx \chi_{d}^{2}
+\end{equation*}
+
+lo cual implica que 
+\begin{equation*}
+n \mathbb{E}\left(\left(\widehat{\beta}_{n}-\beta^{*}\right)^{T} I\left(\beta^{*}\right)\left(\widehat{\beta}_{n}-\beta^{*}\right)\right)=d
+\end{equation*}
+
+
+Entonces para asegurarnos de que el estimador sea insesgado asintóticamente, debemos redefinir nuestro riesgo empírico timador sumándole un término \(p\)
+
+
+\[\widehat{R}_{n}\left(\widehat{\beta}_{n}\right)+d=-\ell_{n}+d\]
+
+
+
+#### Bayesian Information Criterion (BIC)
+
+
+Este criterior se parece al AIC pero modificado con un \(\log(n)\),
+
+\[
+BIC = -2\ell(\hat{\beta}) + \log(n)p. 
+\]
+
+
+
+Para cada modelo \(m\) Escriba la regla de Bayes definida en el curso anterior 
+
+\begin{equation*}
+\pi\left(m \mid X_{1}, \cdots, X_{n}\right)=\frac{\pi\left(m, X_{1}, \cdots, X_{n}\right)}{L\left(X_{1}, \cdots, X_{n}\right)} \propto L\left(X_{1}, \cdots, X_{n} \mid m\right) \pi(m)
+\end{equation*}
+
+
+Se puede demostrar que 
+
+\begin{equation*}
+L\left(X_{1}, \cdots, X_{n} \mid \theta, m\right) \approx e^{\ell_{n}-n\left(\theta-\theta^{*}\right)^{T} I\left(\theta^{*}\right)\left(\theta-\theta^{*}\right)}
+\end{equation*}
+
+
+Asumiento que la variable respuesta \(Y\) es gaussiana, se puede simplificar la log-verosimilitud como 
+
+
+\begin{equation*}
+\log p\left(X_{1}, \cdots, X_{n} \mid m\right) \approx \ell_{n}-\frac{d}{2} \log n+\frac{d}{2} \log (2 \pi)+\log \operatorname{det}\left(I\left(\theta^{*}\right)\right)+\log \pi\left(\hat{\theta}_{n} \mid m\right)
+\end{equation*}
+
+
+Las únicas dos cantidades que incrementan con \(n\) son las dos primeras. Se multiplica por -2 para tener  el BIC. 
+
+
+En el caso de datos gaussiano se tendría lo siguiente:
+
+\begin{align*}
+BIC = \frac{1}{n}(RSS+2\log (n)p\hat \sigma^2).
+\end{align*}
+
+
+#### Notas adicionales 
+
+- Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@Hastie2009a] o en el artículo [@CavanaughAkaike2019].
+- La validación cruzada LOOCV es asintóticamente equivalente al AIC para modelos de regresión lineal múltiple [@StoneAsymptotic1977]. 
+- El AIC ajusta el modo que el riesgo o verosimilitud empírica o real sean insesgadas. Es decir, bajo la observación de nuevos datos, el error que se cometería debería ser cercano a 0. 
+- Aunque el BIC se parece al AIC, el razonamiento es algo diferente. En la construcción de BIC estamos seleccionando el modelo con mayor evidencia según los datos. Cuando los datos se generan de hecho a partir de uno de los modelos en la colección de modelos que estamos eligiendo, el posterior se concentrará en este modelo correcto.  
+- Una forma de interpretar ambos criterios es que AIC elige el mejor modelo predictivo, mientras que BIC intenta seleccionar el modelo verdadero si existe en el conjunto de modelos.
+
+
+
+
 
 **Validación cruzada LOOCV es asintóticamente equivalente al AIC para modelos de regresión lineal múltiple [@StoneAsymptotic1977]** 
 
@@ -8622,8 +8774,8 @@ y graficamos un diagrama de contorno de la distribución posterior de $\mu,\sigm
 
 ```r
 attach(marathontimes)
-mycontour(normchi2post, c(220, 330, 500, 9000), time,
-    xlab = "media", ylab = "varianza")
+mycontour(logf = normchi2post, limits = c(220, 330,
+    500, 9000), data = time, xlab = "media", ylab = "varianza")
 ```
 
 
@@ -8690,7 +8842,7 @@ Recuerden que según el teorema de Bayes, si observamos datos $y$ a partir de un
 
 $$g(\theta|y)\propto g(\theta)f(y|\theta)$$
 
-Problema: tratar de manejar la distribución posterior de $\theta$ desde un punto de vista computacional con el fin de hacer inferencia.
+**Problema**: tratar de manejar la distribución posterior de $\theta$ desde un punto de vista computacional con el fin de hacer inferencia.
 
 Los procesos de inferencia requieren el cálculo o aproximación de integrales, por ejemplo:
 
@@ -8701,7 +8853,7 @@ $$E(h(\theta)|y)=\frac{\int h(\theta)g(\theta)f(y|\theta) d\theta}{\int g(\theta
 - Probabilidad posterior de que $h(\theta) \in A$:
 
 $$P(h(\theta) \in A|y)=\frac{\int_{h(\theta) \in A} g(\theta)f(y|\theta) d\theta}{\int g(\theta)f(y|\theta) d\theta}$$
-- Densidades marginales. Si $\theta=(\theta_1,\theta_2)$:
+- Densidades marginales. Si $\theta=(\theta_1,\theta_2)$ y se quiere obtener la distribución para $\theta_1$, entonces se integra con respecto a $\theta_2$. 
 
 $$g(\theta_1|y)\propto \int g(\theta_1,\theta_2|y)d\theta_2$$
 
@@ -8726,7 +8878,37 @@ head(cancermortality)
 ## 6 1 1025
 ```
 
-Un primer intento de modelación podría considerar $y_j\sim \text{Binomial}(p,n_j)$ pero en este caso se puede comprobar que el modelo binomial no logra captar la variabilidad de las muertes totalmente. Otro intento de modelación que no tiene ese problema es un modelo beta-binomial con media $\eta$ y precisión $K$:
+Un primer intento de modelación podría considerar $y_j\sim \text{Binomial}(p,n_j)$. Es decir que existe una probabilidad común $p$ para toda la población. 
+
+
+```r
+(p_emp <- sum(cancermortality$y)/(sum(cancermortality$n)))
+```
+
+```
+## [1] 0.0009933126
+```
+
+```r
+hist(cancermortality$y)
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-327-1} \end{center}
+
+```r
+hist(cancermortality$n)
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-327-2} \end{center}
+
+
+En este caso se puede comprobar que el modelo binomial no logra captar la variabilidad de las muertes totalmente. 
+
+Otro intento de modelación que no tiene ese problema es un modelo beta-binomial con media $\eta$ y precisión $K$:
 $$f(y_j|\eta,K)={n_j \choose y_j}\frac{B(K\eta+y_j,K(1-\eta)+n_j-y_j)}{B(K\eta,K(1-\eta))}$$
 con previa no informativa:
 $$g(\eta,K)\propto \frac{1}{\eta(1-\eta)}\frac{1}{(1+K)^2}$$
@@ -8742,7 +8924,7 @@ mycontour(betabinexch0, c(1e-04, 0.003, 1, 20000),
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-326-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-328-1} \end{center}
 y note la gran asimetría en el comportamiento de la densidad conjunta, especialmente en la dirección de la variable $K$. Por el dominio de las variables $K$ y $\eta$, entonces se transforman según:
 $$\theta_1=\text{logit}(\eta)=\log\left(\frac{\eta}{1-\eta}\right),\quad  \theta_2=\log(K)$$
 y usando el teorema de cambio de variable en densidades:
@@ -8756,7 +8938,7 @@ mycontour(betabinexch, c(-8, -4.5, 3, 16.5), cancermortality,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-327-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-329-1} \end{center}
 
 Definitivamente esta es una distribución posterior a la que no se le puede aplicar las técnicas usuales para hacer inferencia (caso no conjugado). Se va a considerar dos formas de realizar inferencia:
 
@@ -8768,10 +8950,25 @@ Definitivamente esta es una distribución posterior a la que no se le puede apli
 Considere el logaritmo de la densidad posterior proporcional:
 $$h(\theta,y)=\log(g(\theta)f(y|\theta))$$
 Suponga que $\hat \theta$ es la moda de $\theta$. Un desarrollo de Taylor alrededor de $\hat \theta$ para $h(\theta)$ da la siguiente aproximación:
-$$h(\theta)\approx h(\hat \theta)+\frac 1 2(\theta-\hat \theta)^Th''(\hat \theta)(\theta-\hat \theta)$$
+$$h(\theta)\approx h(\hat \theta)+\frac 1 2(\theta-\hat \theta)^\top h^{\prime\prime}(\hat \theta)(\theta-\hat \theta)$$
 Por lo tanto podemos aproximar el comportamiento en distribución de $\theta$ como:
 $$\theta \sim N(\hat \theta,V)$$
-donde $V=(-h''(\hat \theta))^{-1}$. Con el fin de encontrar la moda $\hat \theta$ se puede usar algún algoritmo para encontrar máximos en funciones de varias variables, por ejemplo el método de Newton o el de Nelder-Mead (default en *optim*). La función *laplace* tiene el método de optimización implementado tomando como argumentos la log-densidad posterior, un valor inicial de los parámetros y el conjunto de datos.
+donde $V=(-h^{\prime\prime}(\hat \theta))^{-1}$. 
+
+Se podría encontrar una solución analítica del problema integrando la distribución conjunta de $h$ y obteniendo la posterior predictiva de la siguiente forma, 
+
+$$
+f(y) \approx(2 \pi)^{d / 2} g(\hat{\theta}) f(y \mid \hat{\theta})\left|-h^{\prime \prime}(\hat{\theta})\right|^{1 / 2}
+$$
+
+
+Con el fin de encontrar la moda $\hat \theta$ se puede usar algún algoritmo para encontrar máximos en funciones de varias variables, por ejemplo el método de Newton o el de Nelder-Mead (default en *optim*).
+
+$$
+\theta^{t}=\theta^{t-1}-\left[h^{\prime \prime}\left(\theta^{t-1}\right)\right]^{-1} h^{\prime}\left(\theta^{t-1}\right)
+$$
+
+La función *laplace* tiene el método de optimización implementado tomando como argumentos la log-densidad posterior, un valor inicial de los parámetros y el conjunto de datos.
 
 Por ejemplo, en el caso anterior:
 
@@ -8807,7 +9004,7 @@ mycontour(lbinorm, c(-8, -4.5, 3, 16.5), npar, xlab = "logit eta",
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-329-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-331-1} \end{center}
 
 También podemos hacer inferencia de los parámetros:
 
@@ -8943,7 +9140,7 @@ points(thetaRS[, 1], thetaRS[, 2])
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-337-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-339-1} \end{center}
 
 ## Muestreo por importancia
 
@@ -8980,7 +9177,7 @@ hist(wt)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-338-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-340-1} \end{center}
 
 y calculamos el valor esperado de $\log K$ usando los pesos obtenidos del paso anterior:
 
@@ -9211,7 +9408,7 @@ points(fit2$par[5001:10000, 1], fit2$par[5001:10000,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-350-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-352-1} \end{center}
 
 Los traceplots del MCMC los graficamos a través del paquete *coda* junto con el paquete *bayesplot*:
 
@@ -9225,7 +9422,7 @@ mcmc_trace(obj_mcmc)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-351-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-353-1} \end{center}
 
 Los gráficos de autocorrelación empíricos se pueden generar con:
 
@@ -9235,7 +9432,7 @@ mcmc_acf(obj_mcmc)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-352-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-354-1} \end{center}
 y funciones de densidad estimadas con intervalos de predicción al 95% para algunos de los parámetros:
 
 ```r
@@ -9244,7 +9441,7 @@ mcmc_areas(obj_mcmc, pars = c("mu"), prob = 0.95)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-353-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-355-1} \end{center}
 ### Datos con outliers
 
 Suponga $y_1,\ldots,y_n\sim \text{Cauchy}(\mu,\sigma)$:
@@ -9324,7 +9521,7 @@ points(E1$par[, 1], E1$par[, 2])
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-357-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-359-1} \end{center}
 
 - Metropolis-Hastings independiente:
 
@@ -9352,7 +9549,7 @@ mycontour(cauchyerrorpost, c(-10, 60, 1, 4.5), data_darwin,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-358-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-360-1} \end{center}
 
 ```r
 points(E2$par[, 1], E2$par[, 2])
@@ -9374,7 +9571,7 @@ points(E3$par[, 1], E3$par[, 2])
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-359-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-361-1} \end{center}
 
 Comparemos el estimador bayesiano e intervalos de predicción al 95% para la media $\mu$:
 

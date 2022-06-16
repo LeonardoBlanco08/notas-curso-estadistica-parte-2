@@ -133,10 +133,14 @@ y graficamos un diagrama de contorno de la distribución posterior de $\mu,\sigm
 
 ```{r}
 attach(marathontimes)
-mycontour(normchi2post,
-  c(220, 330, 500, 9000), time,
-  xlab = "media", ylab = "varianza"
+mycontour(
+  logf = normchi2post,
+  limits = c(220, 330, 500, 9000),
+  data = time,
+  xlab = "media",
+  ylab = "varianza"
 )
+
 ```
 y les agregamos una muestra aleatoria de tamaño 1000 de la distribución posterior conjunta, generada a través de las distribuciones marginales:
 
@@ -178,7 +182,7 @@ Recuerden que según el teorema de Bayes, si observamos datos $y$ a partir de un
 
 $$g(\theta|y)\propto g(\theta)f(y|\theta)$$
 
-Problema: tratar de manejar la distribución posterior de $\theta$ desde un punto de vista computacional con el fin de hacer inferencia.
+**Problema**: tratar de manejar la distribución posterior de $\theta$ desde un punto de vista computacional con el fin de hacer inferencia.
 
 Los procesos de inferencia requieren el cálculo o aproximación de integrales, por ejemplo:
 
@@ -189,7 +193,7 @@ $$E(h(\theta)|y)=\frac{\int h(\theta)g(\theta)f(y|\theta) d\theta}{\int g(\theta
 - Probabilidad posterior de que $h(\theta) \in A$:
 
 $$P(h(\theta) \in A|y)=\frac{\int_{h(\theta) \in A} g(\theta)f(y|\theta) d\theta}{\int g(\theta)f(y|\theta) d\theta}$$
-- Densidades marginales. Si $\theta=(\theta_1,\theta_2)$:
+- Densidades marginales. Si $\theta=(\theta_1,\theta_2)$ y se quiere obtener la distribución para $\theta_1$, entonces se integra con respecto a $\theta_2$. 
 
 $$g(\theta_1|y)\propto \int g(\theta_1,\theta_2|y)d\theta_2$$
 
@@ -203,7 +207,20 @@ data("cancermortality")
 head(cancermortality)
 ```
 
-Un primer intento de modelación podría considerar $y_j\sim \text{Binomial}(p,n_j)$ pero en este caso se puede comprobar que el modelo binomial no logra captar la variabilidad de las muertes totalmente. Otro intento de modelación que no tiene ese problema es un modelo beta-binomial con media $\eta$ y precisión $K$:
+Un primer intento de modelación podría considerar $y_j\sim \text{Binomial}(p,n_j)$. Es decir que existe una probabilidad común $p$ para toda la población. 
+
+```{r}
+(p_emp <- sum(cancermortality$y)/(sum(cancermortality$n)))
+```
+```{r}
+hist(cancermortality$y)
+hist(cancermortality$n)
+```
+
+
+En este caso se puede comprobar que el modelo binomial no logra captar la variabilidad de las muertes totalmente. 
+
+Otro intento de modelación que no tiene ese problema es un modelo beta-binomial con media $\eta$ y precisión $K$:
 $$f(y_j|\eta,K)={n_j \choose y_j}\frac{B(K\eta+y_j,K(1-\eta)+n_j-y_j)}{B(K\eta,K(1-\eta))}$$
 con previa no informativa:
 $$g(\eta,K)\propto \frac{1}{\eta(1-\eta)}\frac{1}{(1+K)^2}$$
@@ -241,10 +258,25 @@ Definitivamente esta es una distribución posterior a la que no se le puede apli
 Considere el logaritmo de la densidad posterior proporcional:
 $$h(\theta,y)=\log(g(\theta)f(y|\theta))$$
 Suponga que $\hat \theta$ es la moda de $\theta$. Un desarrollo de Taylor alrededor de $\hat \theta$ para $h(\theta)$ da la siguiente aproximación:
-$$h(\theta)\approx h(\hat \theta)+\frac 1 2(\theta-\hat \theta)^Th''(\hat \theta)(\theta-\hat \theta)$$
+$$h(\theta)\approx h(\hat \theta)+\frac 1 2(\theta-\hat \theta)^\top h^{\prime\prime}(\hat \theta)(\theta-\hat \theta)$$
 Por lo tanto podemos aproximar el comportamiento en distribución de $\theta$ como:
 $$\theta \sim N(\hat \theta,V)$$
-donde $V=(-h''(\hat \theta))^{-1}$. Con el fin de encontrar la moda $\hat \theta$ se puede usar algún algoritmo para encontrar máximos en funciones de varias variables, por ejemplo el método de Newton o el de Nelder-Mead (default en *optim*). La función *laplace* tiene el método de optimización implementado tomando como argumentos la log-densidad posterior, un valor inicial de los parámetros y el conjunto de datos.
+donde $V=(-h^{\prime\prime}(\hat \theta))^{-1}$. 
+
+Se podría encontrar una solución analítica del problema integrando la distribución conjunta de $h$ y obteniendo la posterior predictiva de la siguiente forma, 
+
+$$
+f(y) \approx(2 \pi)^{d / 2} g(\hat{\theta}) f(y \mid \hat{\theta})\left|-h^{\prime \prime}(\hat{\theta})\right|^{1 / 2}
+$$
+
+
+Con el fin de encontrar la moda $\hat \theta$ se puede usar algún algoritmo para encontrar máximos en funciones de varias variables, por ejemplo el método de Newton o el de Nelder-Mead (default en *optim*).
+
+$$
+\theta^{t}=\theta^{t-1}-\left[h^{\prime \prime}\left(\theta^{t-1}\right)\right]^{-1} h^{\prime}\left(\theta^{t-1}\right)
+$$
+
+La función *laplace* tiene el método de optimización implementado tomando como argumentos la log-densidad posterior, un valor inicial de los parámetros y el conjunto de datos.
 
 Por ejemplo, en el caso anterior:
 ```{r}
@@ -257,9 +289,10 @@ donde el punto (-7,6) se puede inferir a través del gráfico de contorno anteri
 ```{r}
 npar <- list(m = fit$mode, v = fit$var)
 mycontour(lbinorm,
-  c(-8, -4.5, 3, 16.5), npar,
-  xlab = "logit eta", ylab = "log K"
-)
+          c(-8,-4.5, 3, 16.5),
+          npar,
+          xlab = "logit eta",
+          ylab = "log K")
 ```
 
 También podemos hacer inferencia de los parámetros:
