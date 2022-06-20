@@ -151,9 +151,10 @@ sigma2 <- S / rchisq(1000, n - 1)
 mu <- rnorm(1000, mean = mean(time), sd = sqrt(sigma2) / sqrt(n))
 
 mycontour(normchi2post,
-  c(220, 330, 500, 9000), time,
-  xlab = "media", ylab = "varianza"
-)
+          c(220, 330, 500, 9000),
+          time,
+          xlab = "media",
+          ylab = "varianza")
 points(mu, sigma2)
 ```
 
@@ -255,44 +256,73 @@ Definitivamente esta es una distribución posterior a la que no se le puede apli
 
 ## Aproximación de Laplace
 
-Considere el logaritmo de la densidad posterior proporcional:
+Un forma de resumir el comportamiento de la posterior, es a través del comportamiento de la moda de la densidad. 
+
+Considere el logaritmo de la densidad posterior conjunta de \(\theta\) e \(y\):
+
 $$h(\theta,y)=\log(g(\theta)f(y|\theta))$$
+
 Suponga que $\hat \theta$ es la moda de $\theta$. Un desarrollo de Taylor alrededor de $\hat \theta$ para $h(\theta)$ da la siguiente aproximación:
-$$h(\theta)\approx h(\hat \theta)+\frac 1 2(\theta-\hat \theta)^\top h^{\prime\prime}(\hat \theta)(\theta-\hat \theta)$$
+
+
+$$h(\theta)\approx h(\hat \theta)+ (\theta - \hat{\theta})^{\top}h^{\prime}(\theta) + \frac{1}{2}(\theta-\hat \theta)^\top h^{\prime\prime}(\hat \theta)(\theta-\hat \theta)$$
+
+Ahora dado que \(h^{\prime}(\hat{\theta})=0\) dado que es la moda, entonces la expresión se simplifica a: 
+
+$$h(\theta)\approx h(\hat \theta) + \frac{1}{2}(\theta-\hat \theta)^\top h^{\prime\prime}(\hat \theta)(\theta-\hat \theta)$$
+
+
+Para estimar el comportamiento de \(\theta\) note que 
+
+\begin{align*}
+g(\theta)f(y\mid \theta) 
+&= \exp\left(h(\theta)\right)\\
+&= \exp \left(h(\hat \theta) + \frac{1}{2}(\theta-\hat \theta)^\top h^{\prime\prime}(\hat \theta)(\theta-\hat \theta \right) \\
+&= \exp \left(h(\hat \theta)\right) \exp\left(\frac{1}{2}(\theta-\hat \theta)^\top h^{\prime\prime}(\hat \theta)(\theta-\hat \theta \right) \\
+&= \exp \left(h(\hat \theta)\right) \exp\left(-\frac{1}{2}(\theta-\hat \theta)^\top (-h^{\prime\prime}(\hat \theta))^{-1}(\theta-\hat \theta \right) \\
+\end{align*}
+
+
 Por lo tanto podemos aproximar el comportamiento en distribución de $\theta$ como:
+
 $$\theta \sim N(\hat \theta,V)$$
+
 donde $V=(-h^{\prime\prime}(\hat \theta))^{-1}$. 
 
-Se podría encontrar una solución analítica del problema integrando la distribución conjunta de $h$ y obteniendo la posterior predictiva de la siguiente forma, 
+Se podría encontrar una solución analítica del problema integrando \(\exp(h(\theta,y))\) con respecto a \(\theta\)  y obteniendo la posterior predictiva de la siguiente forma, 
 
 $$
-f(y) \approx(2 \pi)^{d / 2} g(\hat{\theta}) f(y \mid \hat{\theta})\left|-h^{\prime \prime}(\hat{\theta})\right|^{1 / 2}
+f(y) \approx(2 \pi)^{d / 2} g(\hat{\theta}) f(y \mid \hat{\theta})\left|-h^{\prime \prime}(\hat{\theta})\right|^{1 / 2}.
 $$
 
 
-Con el fin de encontrar la moda $\hat \theta$ se puede usar algún algoritmo para encontrar máximos en funciones de varias variables, por ejemplo el método de Newton o el de Nelder-Mead (default en *optim*).
+Con el fin de encontrar la moda $\hat \theta$ se puede usar algún algoritmo para encontrar máximos en funciones de varias variables, por ejemplo el método de Newton o el de Nelder-Mead (default en *optim*). El caso de método de Newton, este usa información de las derivadas para encontrar las direcciones de más bajo decrecimiento. 
 
 $$
 \theta^{t}=\theta^{t-1}-\left[h^{\prime \prime}\left(\theta^{t-1}\right)\right]^{-1} h^{\prime}\left(\theta^{t-1}\right)
 $$
 
+El método de Nelder-Mead usa el método simplex, junto con reflecciones, simetrías, contracciones, expansiones para encontrar el punto mínimo en una superficie. En el caso no convexo, podría caer en mínimos  locales. 
+
 La función *laplace* tiene el método de optimización implementado tomando como argumentos la log-densidad posterior, un valor inicial de los parámetros y el conjunto de datos.
 
-Por ejemplo, en el caso anterior:
+Por ejemplo, en el caso anterior podemos tomar \(\mathrm{logit}(\eta),l\log K = (-7,6)\) como puntos iniciales para el algoritmo de Nelder-Mead. Estos se pueden inferir a través del gráfico de un gráfico de contorno. Por lo tanto podemos aproximar la densidad posterior conjunta de $(\text{logit}(\eta),\log K)$ se puede aproximar como una normal multivariada con media *fit$mode* y varianza *fit.var*.
+
 ```{r}
 fit <- laplace(betabinexch, c(-7, 6), cancermortality)
 fit
 ```
 
-donde el punto (-7,6) se puede inferir a través del gráfico de contorno anterior. Por lo tanto podemos aproximar la densidad posterior conjunta de $(\text{logit}(\eta),\log K)$ se puede aproximar como una normal multivariada con media *fit$mode* y varianza *fit.var*. Un gráfico de contorno de la aproximación es:
+Un gráfico de contorno de la aproximación es:
 
 ```{r}
 npar <- list(m = fit$mode, v = fit$var)
 mycontour(lbinorm,
-          c(-8,-4.5, 3, 16.5),
-          npar,
-          xlab = "logit eta",
-          ylab = "log K")
+  c(-8, -4.5, 3, 16.5),
+  npar,
+  xlab = "logit eta",
+  ylab = "log K"
+)
 ```
 
 También podemos hacer inferencia de los parámetros:
@@ -677,6 +707,7 @@ points(E3$par[,1],E3$par[,2])
 ```
 
 Comparemos el estimador bayesiano e intervalos de predicción al 95% para la media $\mu$:
+
 ```{r}
 Resultados <- data.frame(rbind(
   c(mean(E1$par[,1]),quantile(E1$par[,1],probs =c(0.025,0.975)),E1$accept),  c(mean(E2$par[,1]),quantile(E2$par[,1],probs =c(0.025,0.975)),E2$accept),

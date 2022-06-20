@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística II"
 author: "Maikol Solís Chacón y Luis Barboza Chinchilla"
-date: "Actualizado el 16 junio, 2022"
+date: "Actualizado el 20 junio, 2022"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -5810,7 +5810,7 @@ BIC = \frac{1}{n}(RSS+2\log (n)p\hat \sigma^2).
 
 #### Notas adicionales 
 
-- Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@Hastie2009a] o en el artículo [@CavanaughAkaike2019].
+- Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@HastieElements2009] o en el artículo [@CavanaughAkaike2019].
 - La validación cruzada LOOCV es asintóticamente equivalente al AIC para modelos de regresión lineal múltiple [@StoneAsymptotic1977]. 
 - El AIC ajusta el modo que el riesgo o verosimilitud empírica o real sean insesgadas. Es decir, bajo la observación de nuevos datos, el error que se cometería debería ser cercano a 0. 
 - Aunque el BIC se parece al AIC, el razonamiento es algo diferente. En la construcción de BIC estamos seleccionando el modelo con mayor evidencia según los datos. Cuando los datos se generan de hecho a partir de uno de los modelos en la colección de modelos que estamos eligiendo, el posterior se concentrará en este modelo correcto.  
@@ -8786,18 +8786,45 @@ y les agregamos una muestra aleatoria de tamaño 1000 de la distribución poster
 
 ```r
 S <- sum((time - mean(time))^2)
+```
+
+```
+## Error in time - mean(time): non-numeric argument to binary operator
+```
+
+```r
 n <- length(time)
 sigma2 <- S/rchisq(1000, n - 1)
-mu <- rnorm(1000, mean = mean(time), sd = sqrt(sigma2)/sqrt(n))
+```
 
+```
+## Error in S/rchisq(1000, n - 1): non-numeric argument to binary operator
+```
+
+```r
+mu <- rnorm(1000, mean = mean(time), sd = sqrt(sigma2)/sqrt(n))
+```
+
+```
+## Error in rnorm(1000, mean = mean(time), sd = sqrt(sigma2)/sqrt(n)): object 'sigma2' not found
+```
+
+```r
 mycontour(normchi2post, c(220, 330, 500, 9000), time,
     xlab = "media", ylab = "varianza")
+```
+
+```
+## Error in y - mu: non-numeric argument to binary operator
+```
+
+```r
 points(mu, sigma2)
 ```
 
-
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-321-1} \end{center}
+```
+## Error in points(mu, sigma2): object 'mu' not found
+```
 
 Si estamos interesados en hacer inferencia de $\mu$, podemos calcular un intervalo de credibilidad al 95%, usando la muestra marginal:
 
@@ -8947,30 +8974,58 @@ Definitivamente esta es una distribución posterior a la que no se le puede apli
 
 ## Aproximación de Laplace
 
-Considere el logaritmo de la densidad posterior proporcional:
+Un forma de resumir el comportamiento de la posterior, es a través del comportamiento de la moda de la densidad. 
+
+Considere el logaritmo de la densidad posterior conjunta de \(\theta\) e \(y\):
+
 $$h(\theta,y)=\log(g(\theta)f(y|\theta))$$
+
 Suponga que $\hat \theta$ es la moda de $\theta$. Un desarrollo de Taylor alrededor de $\hat \theta$ para $h(\theta)$ da la siguiente aproximación:
-$$h(\theta)\approx h(\hat \theta)+\frac 1 2(\theta-\hat \theta)^\top h^{\prime\prime}(\hat \theta)(\theta-\hat \theta)$$
+
+
+$$h(\theta)\approx h(\hat \theta)+ (\theta - \hat{\theta})^{\top}h^{\prime}(\theta) + \frac{1}{2}(\theta-\hat \theta)^\top h^{\prime\prime}(\hat \theta)(\theta-\hat \theta)$$
+
+Ahora dado que \(h^{\prime}(\hat{\theta})=0\) dado que es la moda, entonces la expresión se simplifica a: 
+
+$$h(\theta)\approx h(\hat \theta) + \frac{1}{2}(\theta-\hat \theta)^\top h^{\prime\prime}(\hat \theta)(\theta-\hat \theta)$$
+
+
+Para estimar el comportamiento de \(\theta\) note que 
+
+\begin{align*}
+g(\theta)f(y\mid \theta) 
+&= \exp\left(h(\theta)\right)\\
+&= \exp \left(h(\hat \theta) + \frac{1}{2}(\theta-\hat \theta)^\top h^{\prime\prime}(\hat \theta)(\theta-\hat \theta \right) \\
+&= \exp \left(h(\hat \theta)\right) \exp\left(\frac{1}{2}(\theta-\hat \theta)^\top h^{\prime\prime}(\hat \theta)(\theta-\hat \theta \right) \\
+&= \exp \left(h(\hat \theta)\right) \exp\left(-\frac{1}{2}(\theta-\hat \theta)^\top (-h^{\prime\prime}(\hat \theta))^{-1}(\theta-\hat \theta \right) \\
+\end{align*}
+
+
 Por lo tanto podemos aproximar el comportamiento en distribución de $\theta$ como:
+
 $$\theta \sim N(\hat \theta,V)$$
+
 donde $V=(-h^{\prime\prime}(\hat \theta))^{-1}$. 
 
-Se podría encontrar una solución analítica del problema integrando la distribución conjunta de $h$ y obteniendo la posterior predictiva de la siguiente forma, 
+Se podría encontrar una solución analítica del problema integrando \(\exp(h(\theta,y))\) con respecto a \(\theta\)  y obteniendo la posterior predictiva de la siguiente forma, 
 
 $$
-f(y) \approx(2 \pi)^{d / 2} g(\hat{\theta}) f(y \mid \hat{\theta})\left|-h^{\prime \prime}(\hat{\theta})\right|^{1 / 2}
+f(y) \approx(2 \pi)^{d / 2} g(\hat{\theta}) f(y \mid \hat{\theta})\left|-h^{\prime \prime}(\hat{\theta})\right|^{1 / 2}.
 $$
 
 
-Con el fin de encontrar la moda $\hat \theta$ se puede usar algún algoritmo para encontrar máximos en funciones de varias variables, por ejemplo el método de Newton o el de Nelder-Mead (default en *optim*).
+Con el fin de encontrar la moda $\hat \theta$ se puede usar algún algoritmo para encontrar máximos en funciones de varias variables, por ejemplo el método de Newton o el de Nelder-Mead (default en *optim*). El caso de método de Newton, este usa información de las derivadas para encontrar las direcciones de más bajo decrecimiento. 
 
 $$
 \theta^{t}=\theta^{t-1}-\left[h^{\prime \prime}\left(\theta^{t-1}\right)\right]^{-1} h^{\prime}\left(\theta^{t-1}\right)
 $$
 
+El método de Nelder-Mead usa el método simplex, junto con reflecciones, simetrías, contracciones, expansiones para encontrar el punto mínimo en una superficie. En el caso no convexo, podría caer en mínimos  locales. 
+
 La función *laplace* tiene el método de optimización implementado tomando como argumentos la log-densidad posterior, un valor inicial de los parámetros y el conjunto de datos.
 
-Por ejemplo, en el caso anterior:
+Por ejemplo, en el caso anterior podemos tomar \(\mathrm{logit}(\eta),l\log K = (-7,6)\) como puntos iniciales para el algoritmo de Nelder-Mead. Estos se pueden inferir a través del gráfico de un gráfico de contorno. Por lo tanto podemos aproximar la densidad posterior conjunta de $(\text{logit}(\eta),\log K)$ se puede aproximar como una normal multivariada con media *fit$mode* y varianza *fit.var*.
+
 
 ```r
 fit <- laplace(betabinexch, c(-7, 6), cancermortality)
@@ -8993,7 +9048,7 @@ fit
 ## [1] TRUE
 ```
 
-donde el punto (-7,6) se puede inferir a través del gráfico de contorno anterior. Por lo tanto podemos aproximar la densidad posterior conjunta de $(\text{logit}(\eta),\log K)$ se puede aproximar como una normal multivariada con media *fit$mode* y varianza *fit.var*. Un gráfico de contorno de la aproximación es:
+Un gráfico de contorno de la aproximación es:
 
 
 ```r
@@ -9574,6 +9629,7 @@ points(E3$par[, 1], E3$par[, 2])
 \begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-361-1} \end{center}
 
 Comparemos el estimador bayesiano e intervalos de predicción al 95% para la media $\mu$:
+
 
 ```r
 Resultados <- data.frame(rbind(c(mean(E1$par[, 1]),

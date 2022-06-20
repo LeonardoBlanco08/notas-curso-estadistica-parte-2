@@ -279,7 +279,7 @@ BIC = \frac{1}{n}(RSS+2\log (n)p\hat \sigma^2).
 
 #### Notas adicionales 
 
-- Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@Hastie2009a] o en el artículo [@CavanaughAkaike2019].
+- Una explicación detallada de cada medida la pueden encontrar en el Capítulo 7 [@HastieElements2009] o en el artículo [@CavanaughAkaike2019].
 - La validación cruzada LOOCV es asintóticamente equivalente al AIC para modelos de regresión lineal múltiple [@StoneAsymptotic1977]. 
 - El AIC ajusta el modo que el riesgo o verosimilitud empírica o real sean insesgadas. Es decir, bajo la observación de nuevos datos, el error que se cometería debería ser cercano a 0. 
 - Aunque el BIC se parece al AIC, el razonamiento es algo diferente. En la construcción de BIC estamos seleccionando el modelo con mayor evidencia según los datos. Cuando los datos se generan de hecho a partir de uno de los modelos en la colección de modelos que estamos eligiendo, el posterior se concentrará en este modelo correcto.  
