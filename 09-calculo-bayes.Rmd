@@ -306,6 +306,7 @@ El método de Nelder-Mead usa el método simplex, junto con reflecciones, simetr
 
 La función *laplace* tiene el método de optimización implementado tomando como argumentos la log-densidad posterior, un valor inicial de los parámetros y el conjunto de datos.
 
+
 Por ejemplo, en el caso anterior podemos tomar \(\mathrm{logit}(\eta),l\log K = (-7,6)\) como puntos iniciales para el algoritmo de Nelder-Mead. Estos se pueden inferir a través del gráfico de un gráfico de contorno. Por lo tanto podemos aproximar la densidad posterior conjunta de $(\text{logit}(\eta),\log K)$ se puede aproximar como una normal multivariada con media *fit$mode* y varianza *fit.var*.
 
 ```{r}
@@ -353,6 +354,18 @@ con su error estándar:
 $$se_{\bar h}=\sqrt{\frac{1}{m(m-1)}\sum_{j=1}^m\left(h(\theta^j)-\bar h\right)^2}$$
 En el caso en que no es posible obtener muestras de la densidad posterior, entonces se pueden definir algoritmos que aproximan la generación de muestras.
 
+Por ejemplo, en el caso de los hospitales, supongamos que queremos saber que pasaría si la tasa de mortalidad se vuelve 2 veces más rápida. Entonces caso tenemos que 
+
+```{r}
+head(lambda_post)
+est <- mean(2 * lambda_post)
+se <- sd(2 * lambda_post) / sqrt(1000)
+c(est, se)
+```
+
+
+
+
 ### Muestreo por rechazo
 
 Suponga que queremos obtener una muestra de $g(\theta|y)$ donde la constante de normalización no es conocida. Suponga que conocemos una densidad $p(\theta)$ que satisface:
@@ -367,21 +380,45 @@ Algoritmo:
 2. Si $U\leq g(\theta|y)/(cp(\theta))$ entonces acepte $\theta$, caso contrario rechace la muestra propuesta.
 3. Continue 1 y 2 hasta que se haya generado un número deseado de muestras.
 
-Nota: un algoritmo eficiente tiene una tasa de aceptación de muestras alta.
 
-En el ejemplo anterior, seleccionamos $p(\theta)$ una distribución $t$ multivariada con parámetro de locación igual a la media aproximada del método de Laplace, matriz de escala igual a 2 veces la matriz de varianza aproximada según Laplace y 4 grados de libertad. De esta forma nos aseguramos que $g(\theta|y)/p(\theta)$ está acotado superiormente.
 
-Con el fin de encontrar $c$, maximizamos la diferencia de logaritmos entre $g(\theta|y)$ y la propuesta $p(\theta)$, usando la función *laplace*:
+Para este algoritmo se necesita definir y estimar: 
+- La distribución propuesta \(p\). 
+- La constante \(c\).  
+
+
+
+Note que en el paso 2, la probabilidad de aceptar candidatos es dado por \(g\frac{\theta\mid y}{cp(\theta)}\). Se puede revisar este valor y ver la efectividad de la distribución propuesta. Si es bien escogida, estos valores deberían ser altos.   
+
+
+Apliquemos este método en el ejemplo de la mortalidad por cancer de los adultos en Missouri. 
+
+Primero, debemos encontrar una distribución que al multiplicarla por \(c\), cubra efectivamente toda la distribución \(g(\theta\mid y)\). Una opción sería la Gaussiana bivariada.  El problema es que las colas de la normal son ligeras, por lo que \(g\frac{\theta\mid y}{cp(\theta)}\) podría ser no acotado. 
+
+
+Una opción mejor para  $p(\theta)$ es una distribución $t$ multivariada de modo que la media y escala sean compatibles con las posterior. 
+
+Suponga que usamos el parámetro de locación igual a la media aproximada del método de Laplace, matriz de escala igual a 2 veces la matriz de varianza aproximada según Laplace y 4 grados de libertad. De esta forma nos aseguramos que $g(\theta|y)/p(\theta)$ está acotado superiormente.
+
+
+
+Con el fin de encontrar $c$, dado que estamos en la log escala debemos encontrar una constante 
+
+\begin{equation*}
+\log g(\theta\mid y) - \log p(\theta) \leq d 
+\end{equation*}
+
+Esto se logra maximimizando \(\log g(\theta\mid y) - \log p(\theta) \). 
+
+Podemos usar la función **laplace** para lograr esto. 
 
 ```{r}
-beta_bin_T <- function(theta, datapar) {
+betabinT <- function(theta, datapar) {
   data <- datapar$data
   tpar <- datapar$par
 
-  d <- betabinexch(theta, data) - dmt(theta,
-    mean = c(tpar$m),
-    S = tpar$var, df = tpar$df, log = TRUE
-  )
+  d <- betabinexch(theta, data) -
+    dmt(theta, mean = c(tpar$m), S = tpar$var, df = tpar$df, log = TRUE)
   return(d)
 }
 ```
@@ -395,12 +432,12 @@ datapar <- list(data = cancermortality, par = tpar)
 y resolvemos:
 ```{r}
 start <- c(-6.9, 12.4)
-fit1 <- laplace(beta_bin_T, start, datapar)
+fit1 <- laplace(betabinT, start, datapar)
 fit1$mode
 ```
 y el valor máximo de las diferencias de logaritmos es:
 ```{r}
-dmax <- beta_bin_T(fit1$mode, datapar)
+dmax <- betabinT(fit1$mode, datapar)
 dmax
 ```
 
@@ -427,6 +464,23 @@ mycontour(betabinexch,
   xlab = "logit eta", ylab = "log K"
 )
 points(thetaRS[, 1], thetaRS[, 2])
+```
+
+
+
+El mismo proceso se podría hacer con el siguiente código 
+
+```{r}
+thetaRS2 <- rejectsampling(betabinexch, tpar, -569.2813, 10000, cancermortality)
+
+dim(thetaRS2)
+```
+
+```{r}
+mycontour(betabinexch, c(-8, -4.5, 3, 16.5), cancermortality,
+  xlab = "logit eta", ylab = "log K"
+)
+points(thetaRS2[, 1], thetaRS2[, 2])
 ```
 
 ## Muestreo por importancia
@@ -468,6 +522,19 @@ SE_est <- sqrt(sum((theta[, 2] - est)^2 * wt^2)) / sum(wt)
 show(c(est, SE_est))
 ```
 
+La función para LearnBayes sería,
+
+```{r}
+tpar <- list(m = fit$mode, var = 2 * fit$var, df = 4)
+myfunc <- function(theta) {
+  return(theta[2])
+}
+s <- impsampling(betabinexch, tpar, myfunc, 10000, cancermortality)
+cbind(s$est, s$se)
+```
+
+
+
 ## Remuestreo por importancia
 
 Al igual que en el caso anterior simulamos $\theta^1,\ldots,\theta^m\sim p(\theta)$ y calculamos los pesos $\{w(\theta^j)=g(\theta^j|y)/p(\theta^j)\}$. Los pesos se convierten a probabilidades según:
@@ -485,6 +552,18 @@ y los intervalos de predicción al 95% para $\text{logit}(\eta)$ y $log K$ son:
 ```{r}
 quantile(theta_SIR[, 1], probs = c(0.025, 0.975))
 quantile(theta_SIR[, 2], probs = c(0.025, 0.975))
+```
+
+
+Hay otra función que hace exactamente este procedimiento,
+
+```{r}
+theta_SIR2 = sir(betabinexch, tpar, 10000, cancermortality)
+```
+
+```{r}
+quantile(theta_SIR2[, 1], probs = c(0.025, 0.975))
+quantile(theta_SIR2[, 2], probs = c(0.025, 0.975))
 ```
 
 ## Algoritmo de Metropolis-Hastings

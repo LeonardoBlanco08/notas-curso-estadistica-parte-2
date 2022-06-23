@@ -190,7 +190,7 @@
 
 \title{Notas Curso de Estadística II}
 \author{Maikol Solís Chacón y Luis Barboza Chinchilla}
-\date{Actualizado el 20 junio, 2022}
+\date{Actualizado el 23 junio, 2022}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -9637,6 +9637,31 @@ con su error estándar:
 \[se_{\bar h}=\sqrt{\frac{1}{m(m-1)}\sum_{j=1}^m\left(h(\theta^j)-\bar h\right)^2}\]
 En el caso en que no es posible obtener muestras de la densidad posterior, entonces se pueden definir algoritmos que aproximan la generación de muestras.
 
+Por ejemplo, en el caso de los hospitales, supongamos que queremos saber que pasaría si la tasa de mortalidad se vuelve 2 veces más rápida. Entonces caso tenemos que
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{head}\NormalTok{(lambda\_post)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.0014598268 0.0011440068 0.0012703128 0.0012821699 0.0009823593
+## [6] 0.0009834807
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{est }\OtherTok{\textless{}{-}} \FunctionTok{mean}\NormalTok{(}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ lambda\_post)}
+\NormalTok{se }\OtherTok{\textless{}{-}} \FunctionTok{sd}\NormalTok{(}\DecValTok{2} \SpecialCharTok{*}\NormalTok{ lambda\_post)}\SpecialCharTok{/}\FunctionTok{sqrt}\NormalTok{(}\DecValTok{1000}\NormalTok{)}
+\FunctionTok{c}\NormalTok{(est, se)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2.361136e-03 1.715134e-05
+\end{verbatim}
+
 \hypertarget{muestreo-por-rechazo}{%
 \subsection{Muestreo por rechazo}\label{muestreo-por-rechazo}}
 
@@ -9665,15 +9690,33 @@ Algoritmo:
   Continue 1 y 2 hasta que se haya generado un número deseado de muestras.
 \end{enumerate}
 
-Nota: un algoritmo eficiente tiene una tasa de aceptación de muestras alta.
+Para este algoritmo se necesita definir y estimar:
+- La distribución propuesta \(p\).
+- La constante \(c\).
 
-En el ejemplo anterior, seleccionamos \(p(\theta)\) una distribución \(t\) multivariada con parámetro de locación igual a la media aproximada del método de Laplace, matriz de escala igual a 2 veces la matriz de varianza aproximada según Laplace y 4 grados de libertad. De esta forma nos aseguramos que \(g(\theta|y)/p(\theta)\) está acotado superiormente.
+Note que en el paso 2, la probabilidad de aceptar candidatos es dado por \(g\frac{\theta\mid y}{cp(\theta)}\). Se puede revisar este valor y ver la efectividad de la distribución propuesta. Si es bien escogida, estos valores deberían ser altos.
 
-Con el fin de encontrar \(c\), maximizamos la diferencia de logaritmos entre \(g(\theta|y)\) y la propuesta \(p(\theta)\), usando la función \emph{laplace}:
+Apliquemos este método en el ejemplo de la mortalidad por cancer de los adultos en Missouri.
+
+Primero, debemos encontrar una distribución que al multiplicarla por \(c\), cubra efectivamente toda la distribución \(g(\theta\mid y)\). Una opción sería la Gaussiana bivariada. El problema es que las colas de la normal son ligeras, por lo que \(g\frac{\theta\mid y}{cp(\theta)}\) podría ser no acotado.
+
+Una opción mejor para \(p(\theta)\) es una distribución \(t\) multivariada de modo que la media y escala sean compatibles con las posterior.
+
+Suponga que usamos el parámetro de locación igual a la media aproximada del método de Laplace, matriz de escala igual a 2 veces la matriz de varianza aproximada según Laplace y 4 grados de libertad. De esta forma nos aseguramos que \(g(\theta|y)/p(\theta)\) está acotado superiormente.
+
+Con el fin de encontrar \(c\), dado que estamos en la log escala debemos encontrar una constante
+
+\begin{equation*}
+\log g(\theta\mid y) - \log p(\theta) \leq d 
+\end{equation*}
+
+Esto se logra maximimizando \(\log g(\theta\mid y) - \log p(\theta)\).
+
+Podemos usar la función \textbf{laplace} para lograr esto.
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{beta\_bin\_T }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta, datapar) \{}
+\NormalTok{betabinT }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta, datapar) \{}
 \NormalTok{    data }\OtherTok{\textless{}{-}}\NormalTok{ datapar}\SpecialCharTok{$}\NormalTok{data}
 \NormalTok{    tpar }\OtherTok{\textless{}{-}}\NormalTok{ datapar}\SpecialCharTok{$}\NormalTok{par}
 
@@ -9698,7 +9741,7 @@ y resolvemos:
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{start }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\FloatTok{6.9}\NormalTok{, }\FloatTok{12.4}\NormalTok{)}
-\NormalTok{fit1 }\OtherTok{\textless{}{-}} \FunctionTok{laplace}\NormalTok{(beta\_bin\_T, start, datapar)}
+\NormalTok{fit1 }\OtherTok{\textless{}{-}} \FunctionTok{laplace}\NormalTok{(betabinT, start, datapar)}
 \NormalTok{fit1}\SpecialCharTok{$}\NormalTok{mode}
 \end{Highlighting}
 \end{Shaded}
@@ -9711,7 +9754,7 @@ y el valor máximo de las diferencias de logaritmos es:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{dmax }\OtherTok{\textless{}{-}} \FunctionTok{beta\_bin\_T}\NormalTok{(fit1}\SpecialCharTok{$}\NormalTok{mode, datapar)}
+\NormalTok{dmax }\OtherTok{\textless{}{-}} \FunctionTok{betabinT}\NormalTok{(fit1}\SpecialCharTok{$}\NormalTok{mode, datapar)}
 \NormalTok{dmax}
 \end{Highlighting}
 \end{Shaded}
@@ -9757,7 +9800,32 @@ y dibujamos el gráfico de contorno con la muestra obtenida:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-339-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-340-1} \end{center}
+
+El mismo proceso se podría hacer con el siguiente código
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{thetaRS2 }\OtherTok{\textless{}{-}} \FunctionTok{rejectsampling}\NormalTok{(betabinexch, tpar, }\SpecialCharTok{{-}}\FloatTok{569.2813}\NormalTok{,}
+    \DecValTok{10000}\NormalTok{, cancermortality)}
+
+\FunctionTok{dim}\NormalTok{(thetaRS2)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 2408    2
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mycontour}\NormalTok{(betabinexch, }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{8}\NormalTok{, }\SpecialCharTok{{-}}\FloatTok{4.5}\NormalTok{, }\DecValTok{3}\NormalTok{, }\FloatTok{16.5}\NormalTok{), cancermortality,}
+    \AttributeTok{xlab =} \StringTok{"logit eta"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log K"}\NormalTok{)}
+\FunctionTok{points}\NormalTok{(thetaRS2[, }\DecValTok{1}\NormalTok{], thetaRS2[, }\DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-342-1} \end{center}
 
 \hypertarget{muestreo-por-importancia}{%
 \section{Muestreo por importancia}\label{muestreo-por-importancia}}
@@ -9794,7 +9862,7 @@ Ahora implementamos el algoritmo en el ejemplo (buena parte es una repetición d
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-340-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-343-1} \end{center}
 
 y calculamos el valor esperado de \(\log K\) usando los pesos obtenidos del paso anterior:
 
@@ -9808,6 +9876,25 @@ y calculamos el valor esperado de \(\log K\) usando los pesos obtenidos del paso
 
 \begin{verbatim}
 ## [1] 7.92445868 0.01905786
+\end{verbatim}
+
+La función para LearnBayes sería,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{tpar }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{m =}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{mode, }\AttributeTok{var =} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{df =} \DecValTok{4}\NormalTok{)}
+\NormalTok{myfunc }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta) \{}
+    \FunctionTok{return}\NormalTok{(theta[}\DecValTok{2}\NormalTok{])}
+\NormalTok{\}}
+\NormalTok{s }\OtherTok{\textless{}{-}} \FunctionTok{impsampling}\NormalTok{(betabinexch, tpar, myfunc, }\DecValTok{10000}\NormalTok{,}
+\NormalTok{    cancermortality)}
+\FunctionTok{cbind}\NormalTok{(s}\SpecialCharTok{$}\NormalTok{est, s}\SpecialCharTok{$}\NormalTok{se)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##          [,1]       [,2]
+## [1,] 7.944597 0.01908028
 \end{verbatim}
 
 \hypertarget{remuestreo-por-importancia}{%
@@ -9837,7 +9924,7 @@ y los intervalos de predicción al 95\% para \(\text{logit}(\eta)\) y \(log K\) 
 
 \begin{verbatim}
 ##      2.5%     97.5% 
-## -7.342559 -6.155018
+## -7.353821 -6.179805
 \end{verbatim}
 
 \begin{Shaded}
@@ -9848,7 +9935,37 @@ y los intervalos de predicción al 95\% para \(\text{logit}(\eta)\) y \(log K\) 
 
 \begin{verbatim}
 ##      2.5%     97.5% 
-##  5.587915 11.190022
+##  5.618474 11.198193
+\end{verbatim}
+
+Hay otra función que hace exactamente este procedimiento,
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{theta\_SIR2 }\OtherTok{=} \FunctionTok{sir}\NormalTok{(betabinexch, tpar, }\DecValTok{10000}\NormalTok{, cancermortality)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{quantile}\NormalTok{(theta\_SIR2[, }\DecValTok{1}\NormalTok{], }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      2.5%     97.5% 
+## -7.355285 -6.147236
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{quantile}\NormalTok{(theta\_SIR2[, }\DecValTok{2}\NormalTok{], }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      2.5%     97.5% 
+##  5.638189 11.165893
 \end{verbatim}
 
 \hypertarget{algoritmo-de-metropolis-hastings}{%
@@ -10030,7 +10147,7 @@ con una tasa de aceptación:
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.2956
+## [1] 0.2946
 \end{verbatim}
 
 Algunas estadísticas de la distribución posterior de \(\mu\) y \(\log \sigma\):
@@ -10045,8 +10162,8 @@ Algunas estadísticas de la distribución posterior de \(\mu\) y \(\log \sigma\)
 
 \begin{verbatim}
 ##      post.means   post.sds
-## [1,] 70.1596677 0.19072746
-## [2,]  0.9799831 0.05389768
+## [1,] 70.1613566 0.18546491
+## [2,]  0.9777817 0.05533915
 \end{verbatim}
 
 esto se puede comparar con los estimadores de la aproximación de Laplace:
@@ -10075,7 +10192,7 @@ También podemos graficar la densidad posterior junto con la muestra generada po
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-352-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-358-1} \end{center}
 
 Los traceplots del MCMC los graficamos a través del paquete \emph{coda} junto con el paquete \emph{bayesplot}:
 
@@ -10089,7 +10206,7 @@ Los traceplots del MCMC los graficamos a través del paquete \emph{coda} junto c
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-353-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-359-1} \end{center}
 
 Los gráficos de autocorrelación empíricos se pueden generar con:
 
@@ -10099,7 +10216,7 @@ Los gráficos de autocorrelación empíricos se pueden generar con:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-354-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-360-1} \end{center}
 
 y funciones de densidad estimadas con intervalos de predicción al 95\% para algunos de los parámetros:
 
@@ -10109,7 +10226,7 @@ y funciones de densidad estimadas con intervalos de predicción al 95\% para alg
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-355-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-361-1} \end{center}
 
 \hypertarget{datos-con-outliers}{%
 \subsection{Datos con outliers}\label{datos-con-outliers}}
@@ -10207,7 +10324,7 @@ y usamos lo anterior como insumo para generar tres escenarios de MCMC:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-359-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-365-1} \end{center}
 
 \begin{itemize}
 \tightlist
@@ -10243,7 +10360,7 @@ y usamos lo anterior como insumo para generar tres escenarios de MCMC:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-360-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-366-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10271,7 +10388,7 @@ y usamos lo anterior como insumo para generar tres escenarios de MCMC:
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-361-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-367-1} \end{center}
 
 Comparemos el estimador bayesiano e intervalos de predicción al 95\% para la media \(\mu\):
 

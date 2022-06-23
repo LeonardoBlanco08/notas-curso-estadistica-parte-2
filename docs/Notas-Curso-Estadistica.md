@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística II"
 author: "Maikol Solís Chacón y Luis Barboza Chinchilla"
-date: "Actualizado el 20 junio, 2022"
+date: "Actualizado el 23 junio, 2022"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -9024,6 +9024,7 @@ El método de Nelder-Mead usa el método simplex, junto con reflecciones, simetr
 
 La función *laplace* tiene el método de optimización implementado tomando como argumentos la log-densidad posterior, un valor inicial de los parámetros y el conjunto de datos.
 
+
 Por ejemplo, en el caso anterior podemos tomar \(\mathrm{logit}(\eta),l\log K = (-7,6)\) como puntos iniciales para el algoritmo de Nelder-Mead. Estos se pueden inferir a través del gráfico de un gráfico de contorno. Por lo tanto podemos aproximar la densidad posterior conjunta de $(\text{logit}(\eta),\log K)$ se puede aproximar como una normal multivariada con media *fit$mode* y varianza *fit.var*.
 
 
@@ -9101,6 +9102,31 @@ con su error estándar:
 $$se_{\bar h}=\sqrt{\frac{1}{m(m-1)}\sum_{j=1}^m\left(h(\theta^j)-\bar h\right)^2}$$
 En el caso en que no es posible obtener muestras de la densidad posterior, entonces se pueden definir algoritmos que aproximan la generación de muestras.
 
+Por ejemplo, en el caso de los hospitales, supongamos que queremos saber que pasaría si la tasa de mortalidad se vuelve 2 veces más rápida. Entonces caso tenemos que 
+
+
+```r
+head(lambda_post)
+```
+
+```
+## [1] 0.0014598268 0.0011440068 0.0012703128 0.0012821699 0.0009823593
+## [6] 0.0009834807
+```
+
+```r
+est <- mean(2 * lambda_post)
+se <- sd(2 * lambda_post)/sqrt(1000)
+c(est, se)
+```
+
+```
+## [1] 2.361136e-03 1.715134e-05
+```
+
+
+
+
 ### Muestreo por rechazo
 
 Suponga que queremos obtener una muestra de $g(\theta|y)$ donde la constante de normalización no es conocida. Suponga que conocemos una densidad $p(\theta)$ que satisface:
@@ -9115,15 +9141,41 @@ Algoritmo:
 2. Si $U\leq g(\theta|y)/(cp(\theta))$ entonces acepte $\theta$, caso contrario rechace la muestra propuesta.
 3. Continue 1 y 2 hasta que se haya generado un número deseado de muestras.
 
-Nota: un algoritmo eficiente tiene una tasa de aceptación de muestras alta.
 
-En el ejemplo anterior, seleccionamos $p(\theta)$ una distribución $t$ multivariada con parámetro de locación igual a la media aproximada del método de Laplace, matriz de escala igual a 2 veces la matriz de varianza aproximada según Laplace y 4 grados de libertad. De esta forma nos aseguramos que $g(\theta|y)/p(\theta)$ está acotado superiormente.
 
-Con el fin de encontrar $c$, maximizamos la diferencia de logaritmos entre $g(\theta|y)$ y la propuesta $p(\theta)$, usando la función *laplace*:
+Para este algoritmo se necesita definir y estimar: 
+- La distribución propuesta \(p\). 
+- La constante \(c\).  
+
+
+
+Note que en el paso 2, la probabilidad de aceptar candidatos es dado por \(g\frac{\theta\mid y}{cp(\theta)}\). Se puede revisar este valor y ver la efectividad de la distribución propuesta. Si es bien escogida, estos valores deberían ser altos.   
+
+
+Apliquemos este método en el ejemplo de la mortalidad por cancer de los adultos en Missouri. 
+
+Primero, debemos encontrar una distribución que al multiplicarla por \(c\), cubra efectivamente toda la distribución \(g(\theta\mid y)\). Una opción sería la Gaussiana bivariada.  El problema es que las colas de la normal son ligeras, por lo que \(g\frac{\theta\mid y}{cp(\theta)}\) podría ser no acotado. 
+
+
+Una opción mejor para  $p(\theta)$ es una distribución $t$ multivariada de modo que la media y escala sean compatibles con las posterior. 
+
+Suponga que usamos el parámetro de locación igual a la media aproximada del método de Laplace, matriz de escala igual a 2 veces la matriz de varianza aproximada según Laplace y 4 grados de libertad. De esta forma nos aseguramos que $g(\theta|y)/p(\theta)$ está acotado superiormente.
+
+
+
+Con el fin de encontrar $c$, dado que estamos en la log escala debemos encontrar una constante 
+
+\begin{equation*}
+\log g(\theta\mid y) - \log p(\theta) \leq d 
+\end{equation*}
+
+Esto se logra maximimizando \(\log g(\theta\mid y) - \log p(\theta) \). 
+
+Podemos usar la función **laplace** para lograr esto. 
 
 
 ```r
-beta_bin_T <- function(theta, datapar) {
+betabinT <- function(theta, datapar) {
     data <- datapar$data
     tpar <- datapar$par
 
@@ -9144,7 +9196,7 @@ y resolvemos:
 
 ```r
 start <- c(-6.9, 12.4)
-fit1 <- laplace(beta_bin_T, start, datapar)
+fit1 <- laplace(betabinT, start, datapar)
 fit1$mode
 ```
 
@@ -9154,7 +9206,7 @@ fit1$mode
 y el valor máximo de las diferencias de logaritmos es:
 
 ```r
-dmax <- beta_bin_T(fit1$mode, datapar)
+dmax <- betabinT(fit1$mode, datapar)
 dmax
 ```
 
@@ -9195,7 +9247,34 @@ points(thetaRS[, 1], thetaRS[, 2])
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-339-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-340-1} \end{center}
+
+
+
+El mismo proceso se podría hacer con el siguiente código 
+
+
+```r
+thetaRS2 <- rejectsampling(betabinexch, tpar, -569.2813,
+    10000, cancermortality)
+
+dim(thetaRS2)
+```
+
+```
+## [1] 2408    2
+```
+
+
+```r
+mycontour(betabinexch, c(-8, -4.5, 3, 16.5), cancermortality,
+    xlab = "logit eta", ylab = "log K")
+points(thetaRS2[, 1], thetaRS2[, 2])
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-342-1} \end{center}
 
 ## Muestreo por importancia
 
@@ -9232,7 +9311,7 @@ hist(wt)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-340-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-343-1} \end{center}
 
 y calculamos el valor esperado de $\log K$ usando los pesos obtenidos del paso anterior:
 
@@ -9246,6 +9325,26 @@ show(c(est, SE_est))
 ```
 ## [1] 7.92445868 0.01905786
 ```
+
+La función para LearnBayes sería,
+
+
+```r
+tpar <- list(m = fit$mode, var = 2 * fit$var, df = 4)
+myfunc <- function(theta) {
+    return(theta[2])
+}
+s <- impsampling(betabinexch, tpar, myfunc, 10000,
+    cancermortality)
+cbind(s$est, s$se)
+```
+
+```
+##          [,1]       [,2]
+## [1,] 7.944597 0.01908028
+```
+
+
 
 ## Remuestreo por importancia
 
@@ -9269,7 +9368,7 @@ quantile(theta_SIR[, 1], probs = c(0.025, 0.975))
 
 ```
 ##      2.5%     97.5% 
-## -7.342559 -6.155018
+## -7.353821 -6.179805
 ```
 
 ```r
@@ -9278,7 +9377,34 @@ quantile(theta_SIR[, 2], probs = c(0.025, 0.975))
 
 ```
 ##      2.5%     97.5% 
-##  5.587915 11.190022
+##  5.618474 11.198193
+```
+
+
+Hay otra función que hace exactamente este procedimiento,
+
+
+```r
+theta_SIR2 = sir(betabinexch, tpar, 10000, cancermortality)
+```
+
+
+```r
+quantile(theta_SIR2[, 1], probs = c(0.025, 0.975))
+```
+
+```
+##      2.5%     97.5% 
+## -7.355285 -6.147236
+```
+
+```r
+quantile(theta_SIR2[, 2], probs = c(0.025, 0.975))
+```
+
+```
+##      2.5%     97.5% 
+##  5.638189 11.165893
 ```
 
 ## Algoritmo de Metropolis-Hastings
@@ -9422,7 +9548,7 @@ fit2$accept
 ```
 
 ```
-## [1] 0.2956
+## [1] 0.2946
 ```
 
 Algunas estadísticas de la distribución posterior de $\mu$ y $\log \sigma$:
@@ -9435,8 +9561,8 @@ cbind(post.means, post.sds)
 
 ```
 ##      post.means   post.sds
-## [1,] 70.1596677 0.19072746
-## [2,]  0.9799831 0.05389768
+## [1,] 70.1613566 0.18546491
+## [2,]  0.9777817 0.05533915
 ```
 
 esto se puede comparar con los estimadores de la aproximación de Laplace:
@@ -9463,7 +9589,7 @@ points(fit2$par[5001:10000, 1], fit2$par[5001:10000,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-352-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-358-1} \end{center}
 
 Los traceplots del MCMC los graficamos a través del paquete *coda* junto con el paquete *bayesplot*:
 
@@ -9477,7 +9603,7 @@ mcmc_trace(obj_mcmc)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-353-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-359-1} \end{center}
 
 Los gráficos de autocorrelación empíricos se pueden generar con:
 
@@ -9487,7 +9613,7 @@ mcmc_acf(obj_mcmc)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-354-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-360-1} \end{center}
 y funciones de densidad estimadas con intervalos de predicción al 95% para algunos de los parámetros:
 
 ```r
@@ -9496,7 +9622,7 @@ mcmc_areas(obj_mcmc, pars = c("mu"), prob = 0.95)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-355-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-361-1} \end{center}
 ### Datos con outliers
 
 Suponga $y_1,\ldots,y_n\sim \text{Cauchy}(\mu,\sigma)$:
@@ -9576,7 +9702,7 @@ points(E1$par[, 1], E1$par[, 2])
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-359-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-365-1} \end{center}
 
 - Metropolis-Hastings independiente:
 
@@ -9604,7 +9730,7 @@ mycontour(cauchyerrorpost, c(-10, 60, 1, 4.5), data_darwin,
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-360-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-366-1} \end{center}
 
 ```r
 points(E2$par[, 1], E2$par[, 2])
@@ -9626,7 +9752,7 @@ points(E3$par[, 1], E3$par[, 2])
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-361-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-367-1} \end{center}
 
 Comparemos el estimador bayesiano e intervalos de predicción al 95% para la media $\mu$:
 
