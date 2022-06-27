@@ -525,6 +525,7 @@ show(c(est, SE_est))
 La función para LearnBayes sería,
 
 ```{r}
+set.seed(1)
 tpar <- list(m = fit$mode, var = 2 * fit$var, df = 4)
 myfunc <- function(theta) {
   return(theta[2])
