@@ -190,7 +190,7 @@
 
 \title{Notas Curso de Estadística II}
 \author{Maikol Solís Chacón y Luis Barboza Chinchilla}
-\date{Actualizado el 23 junio, 2022}
+\date{Actualizado el 27 junio, 2022}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -9882,6 +9882,7 @@ La función para LearnBayes sería,
 
 \begin{Shaded}
 \begin{Highlighting}[]
+\FunctionTok{set.seed}\NormalTok{(}\DecValTok{1}\NormalTok{)}
 \NormalTok{tpar }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{m =}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{mode, }\AttributeTok{var =} \DecValTok{2} \SpecialCharTok{*}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{df =} \DecValTok{4}\NormalTok{)}
 \NormalTok{myfunc }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta) \{}
     \FunctionTok{return}\NormalTok{(theta[}\DecValTok{2}\NormalTok{])}
@@ -9894,7 +9895,7 @@ La función para LearnBayes sería,
 
 \begin{verbatim}
 ##          [,1]       [,2]
-## [1,] 7.944597 0.01908028
+## [1,] 7.924459 0.01905786
 \end{verbatim}
 
 \hypertarget{remuestreo-por-importancia}{%
@@ -9968,395 +9969,780 @@ Hay otra función que hace exactamente este procedimiento,
 ##  5.638189 11.165893
 \end{verbatim}
 
-\hypertarget{algoritmo-de-metropolis-hastings}{%
-\section{Algoritmo de Metropolis-Hastings}\label{algoritmo-de-metropolis-hastings}}
+\hypertarget{muxe9todos-monte-carlo}{%
+\section{Métodos Monte Carlo}\label{muxe9todos-monte-carlo}}
 
-Muestreo por cadenas de Markov-Monte Carlo (MCMC): algoritmos que definen una cadena de Markov irreducible y aperiódica cuya densidad estacionaria es la densidad posterior de interés.
+El tratamiento clásico de la estimación de parámetros bayesiana nos dice que si tenemos una densidad previa y la ``combinamos'\,' con la verosimilitud de los datos, estos nos dará una densidad con más información. Se podría repetir el proceso varias veces para tratar de ajustar mejor la densidad posterior.
 
-Simplificamos la notación de la densidad posterior \(g(\theta|y)\) usando \(g(\theta)\). Seleccionamos un valor inicial del algoritmo \(\theta^0\) y procedemos con el
+Sin embargo, se podría usar potencia de los métodos Monte Carlo para que esta búsqueda sea muy efectiva para encontrar los parámetros adecuados.
 
-Algoritmo
+\hypertarget{ejemplo-del-viajero-con-una-moneda}{%
+\subsection{Ejemplo del viajero con una moneda}\label{ejemplo-del-viajero-con-una-moneda}}
 
-\begin{itemize}
-\tightlist
-\item
-  Simule un candidato \(\theta^*\sim p(\theta^*|\theta^{t-1})\) (densidad propuesta).
-\item
-  Calcule:
-  \[R=\frac{g(\theta^*)p(\theta^{t-1}|\theta^*)}{g(\theta^{t-1})p(\theta^*|\theta^{t-1})}\]
-\item
-  Calcule la probabilidad de aceptación \(P=\min \{R,1\}\).
-\item
-  Acepte la propuesta \(\theta^{t}=\theta^*\) con probabilidad P, en caso contrario \(\theta^t=\theta^{t-1}\).
-\end{itemize}
+Suponga que tenemos un viajero que quiere estar en 7 lugares distintos (suponga que están en línea recta) y la probabilidad de pasar a un lugar a otro se decide tirando una moneda no sesgada (50\% a la derecha y 50\% a la izquierda).
 
-Nota: bajo ciertas condiciones de regularidad sobre la probabilidad propuesta:
-\[\theta^n \stackrel{d}{\longrightarrow} M\sim g(\theta)\]
-cuando \(n\rightarrow \infty\).
+Este caso sería una simple caminata aleatoria sin ningún interés en particular.
 
-Escogencias de la densidad propuesta:
-- Metropolis-Hastings independiente:
-\[p(\theta^*|\theta^{t-1})=p(\theta^*)\]
-- Metropolis-Hastings con caminata aleatoria:
-\[p(\theta^*|\theta^{t-1})=h(\theta^*-\theta^{t-1})\]
-donde \(h\) es una función simétrica alrededor del origen. En este caso es fácil verificar que:
-\[R=\frac{g(\theta^*)}{g(\theta^{t-1})}\]
-Nota: las implementaciones de Metropolis-Hastings dentro del paquete LearnBayes tienen las siguientes particularidades:
-
-\begin{itemize}
-\item
-  La función \emph{indepmetrop} contiene una propuesta que es normal multivariada con media \(\mu\) y varianza \(V\) (modelo independiente). Los parámetros de la propuesta se debe escoger de manera que \(g/p\) se acotado, especialmente en las colas.
-\item
-  La función \emph{rwmetrop} contiene una propuesta de la siguiente forma:
-  \[\theta^*=\theta^{t-1}+\sigma Z\]
-  donde \(Z\) es una normal multivariada con media 0 y matriz de varianza \(V\). Además \(\sigma\) es un parámetro de escala positivo.
-\end{itemize}
-
-\hypertarget{algoritmo-de-gibbs}{%
-\section{Algoritmo de Gibbs}\label{algoritmo-de-gibbs}}
-
-Suponga que el parámetro de interés es \(\theta=(\theta_1,\ldots,\theta_p)\) y que podemos obtener muestras de manera secuencial a partir de las siguientes distribuciones condicionales (dado un valor inicial \(\theta^0\) y \(t=1,\ldots,n\)):
-
-\begin{align*}
-\theta_1^t&\sim [\theta_1|\theta_2^{t-1},\ldots,\theta_p^{t-1},\text{datos}]\\
-\theta_2^t&\sim [\theta_2|\theta_1^t,\theta_3^{t-1},\ldots,\theta_p^{t-1},\text{datos}]\\
-\vdots & \qquad \vdots\\
-\theta_p^t&\sim [\theta_p|\theta_1^t,\ldots,\theta_{p-1}^t,\text{datos}]
-\end{align*}
-
-Bajo condiciones bastante generales se puede comprobar que \(\theta^t\) converge a una muestra de la distribución conjunta posterior de \(\theta\).
-
-Nota: cuando en alguna de las condicionales anteriores no se puede obtener muestras de manera directa, entonces se puede sustituir el muestreo por un paso del algoritmo de Metropolis-Hastings. Así está implementado en la función \emph{gibbs} del paquete LearnBayes.
-
-\hypertarget{diagnuxf3sticos-de-convergencia-de-mcmc}{%
-\subsection{Diagnósticos de convergencia de MCMC}\label{diagnuxf3sticos-de-convergencia-de-mcmc}}
+Suponga además, que el viajero quiere estar más tiempo donde haya una mayor cantidad de personas \(P\) pero siguiendo ese patrón aleatorio. Entonces la forma de describir su decisión de moverse sería:
 
 \begin{itemize}
 \tightlist
 \item
-  Tasa de aceptación.
-\item
-  Gráficos de traza (traceplots): gráfico de \((t,\theta^t)\). Por la naturaleza secuencial de los algoritmos de MH y Gibbs, los primeros valores de la cadena no representan normalmente una muestra confiable de la distribución posterior, por lo que generalmente se desecha un porcentaje inicial de la muestra (periodo de quema o burn-in period).
-\item
-  Por construcción, uno esperaría que el nivel de autocorrelación de las cadenas sea bajo. Al igual que en el análisis de residuos de regresión, uno puede construir un ACF de las cadenas y esperar autocorrelación baja y convergente a 0.
+  Tira la moneda y decide si va a la izquierda o la derecha.
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \item
+    Si el lugar nuevo tiene \textbf{MÁS} personas que el actual salta a ese lugar.
+  \item
+    Si el lugar nuevo tiene \textbf{MENOS} personas entonces el viajero tiene que decidir si se queda o se mueve. \textbar{} calcula la probabilidad de moverse como \(p_{moverse} = P_{nuevo}/P_{actual}\).
+
+    \textbf{Tira un número aleatorio entre 0 y 1}
+
+    \begin{enumerate}
+    \def\labelenumii{\arabic{enumii}.}
+    \tightlist
+    \item
+      Si \(p_{moverse}>r\) entonces se mueve.
+    \item
+      Sino, se queda donde está.
+    \end{enumerate}
+  \end{enumerate}
 \end{itemize}
 
-\hypertarget{ejemplos}{%
-\section{Ejemplos}\label{ejemplos}}
-
-\hypertarget{datos-agrupados-bajo-una-poblaciuxf3n-normal}{%
-\subsection{Datos agrupados bajo una población normal}\label{datos-agrupados-bajo-una-poblaciuxf3n-normal}}
-
-Suponga que observamos los siguientes datos agrupados:
-
-\begin{longtable}[]{@{}ll@{}}
-\toprule()
-Altura (pulgadas) & Frecuencia \\
-\midrule()
-\endhead
-Menos de 66 & 14 \\
-Entre 66 y 68 & 30 \\
-Entre 68 y 70 & 49 \\
-Entre 70 y 72 & 70 \\
-Entre 72 y 74 & 33 \\
-Más de 74 & 15 \\
-\bottomrule()
-\end{longtable}
-
-Si asumimos que las alturas son normales con media \(\mu\) y desviación estándar \(\sigma\), podemos asumir una verosimilitud multinomial para los datos agrupados:
-\begin{align*}
-L(\mu,\sigma)&\propto \Phi(66,\mu,\sigma)^{14}(\Phi(68,\mu,\sigma)-\Phi(66,\mu,\sigma))^{30} \\
-&\times  (\Phi(70,\mu,\sigma)-\Phi(68,\mu,\sigma))^{49} (\Phi(72,\mu,\sigma)-\Phi(70,\mu,\sigma))^{70}\\
-&\times  (\Phi(74,\mu,\sigma)-\Phi(72,\mu,\sigma))^{33} (1-\Phi(74,\mu,\sigma))^{15}
-\end{align*}
-
-y asumimos una previa no informativa para \((\mu,\sigma)\sim \frac 1 \sigma\). Como \(\sigma>0\) entonces usamos la transformación \(\lambda=\log (\sigma)\).
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{int.lo =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\FunctionTok{seq}\NormalTok{(}\DecValTok{66}\NormalTok{, }\DecValTok{74}\NormalTok{, }\AttributeTok{by =} \DecValTok{2}\NormalTok{)), }\AttributeTok{int.hi =} \FunctionTok{c}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\DecValTok{66}\NormalTok{,}
-    \DecValTok{74}\NormalTok{, }\AttributeTok{by =} \DecValTok{2}\NormalTok{), }\ConstantTok{Inf}\NormalTok{), }\AttributeTok{f =} \FunctionTok{c}\NormalTok{(}\DecValTok{14}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{49}\NormalTok{, }\DecValTok{70}\NormalTok{, }\DecValTok{33}\NormalTok{, }\DecValTok{15}\NormalTok{))}
-\end{Highlighting}
-\end{Shaded}
+\NormalTok{P }\OtherTok{\textless{}{-}} \DecValTok{1}\SpecialCharTok{:}\DecValTok{7}
 
-es una estructura de los datos agrupados. La log-densidad posterior de los datos sería:
+\NormalTok{pos\_actual }\OtherTok{\textless{}{-}} \FunctionTok{sample}\NormalTok{(P, }\DecValTok{1}\NormalTok{)}
+\NormalTok{pos\_nueva }\OtherTok{\textless{}{-}}\NormalTok{ pos\_actual}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{groupeddatapost }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta, data) \{}
-\NormalTok{    dj }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(f, int.lo, int.hi, mu, sigma) \{}
-\NormalTok{        f }\SpecialCharTok{*} \FunctionTok{log}\NormalTok{(}\FunctionTok{pnorm}\NormalTok{(int.hi, mu, sigma) }\SpecialCharTok{{-}} \FunctionTok{pnorm}\NormalTok{(int.lo,}
-\NormalTok{            mu, sigma))}
+\NormalTok{n\_pasos }\OtherTok{\textless{}{-}} \DecValTok{50000}
+\NormalTok{trayectoria }\OtherTok{\textless{}{-}} \FunctionTok{numeric}\NormalTok{(n\_pasos)}
+
+\NormalTok{trayectoria[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ pos\_actual}
+
+\ControlFlowTok{for}\NormalTok{ (k }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\NormalTok{n\_pasos) \{}
+    \CommentTok{\# Tira la moneda para decidir}
+
+\NormalTok{    moneda }\OtherTok{\textless{}{-}} \FunctionTok{rbinom}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{0.5}\NormalTok{)}
+    \CommentTok{\# moneda es 0 o 1}
+\NormalTok{    pos\_nueva }\OtherTok{\textless{}{-}}\NormalTok{ pos\_actual}
+    \ControlFlowTok{if}\NormalTok{ (moneda }\SpecialCharTok{==} \DecValTok{1} \SpecialCharTok{\&\&}\NormalTok{ (pos\_actual }\SpecialCharTok{+} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\textless{}=} \DecValTok{7}\NormalTok{) \{}
+\NormalTok{        pos\_nueva }\OtherTok{\textless{}{-}}\NormalTok{ pos\_actual }\SpecialCharTok{+} \DecValTok{1}
+\NormalTok{    \} }\ControlFlowTok{else} \ControlFlowTok{if}\NormalTok{ (moneda }\SpecialCharTok{==} \DecValTok{0} \SpecialCharTok{\&\&}\NormalTok{ (pos\_actual }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{) }\SpecialCharTok{\textgreater{}=} \DecValTok{1}\NormalTok{) \{}
+\NormalTok{        pos\_nueva }\OtherTok{\textless{}{-}}\NormalTok{ pos\_actual }\SpecialCharTok{{-}} \DecValTok{1}
 \NormalTok{    \}}
-\NormalTok{    mu }\OtherTok{\textless{}{-}}\NormalTok{ theta[}\DecValTok{1}\NormalTok{]}
-\NormalTok{    sigma }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(theta[}\DecValTok{2}\NormalTok{])}
-    \FunctionTok{sum}\NormalTok{(}\FunctionTok{dj}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{f, data}\SpecialCharTok{$}\NormalTok{int.lo, data}\SpecialCharTok{$}\NormalTok{int.hi, mu, sigma))}
+
+\NormalTok{    p\_moverse }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(pos\_nueva}\SpecialCharTok{/}\NormalTok{pos\_actual, }\DecValTok{1}\NormalTok{)}
+
+\NormalTok{    hay\_movimiento }\OtherTok{\textless{}{-}} \DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ p\_moverse }\SpecialCharTok{\textless{}=} \FunctionTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{)}
+
+    \ControlFlowTok{if}\NormalTok{ (hay\_movimiento) \{}
+\NormalTok{        pos\_actual }\OtherTok{\textless{}{-}}\NormalTok{ pos\_nueva}
+\NormalTok{    \}}
+
+\NormalTok{    trayectoria[k] }\OtherTok{\textless{}{-}}\NormalTok{ pos\_nueva}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
-Usamos el método de Laplace para encontrar una aproximación de los parámetros de la previa bajo Metropolis-Hastings:
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_pasos, }\AttributeTok{P =}\NormalTok{ trayectoria)}
+
+\FunctionTok{ggplot}\NormalTok{(df[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{200}\NormalTok{, ]) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(x, P)) }\SpecialCharTok{+} \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+}
+    \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{16}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-351-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{start }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{70}\NormalTok{, }\DecValTok{1}\NormalTok{)}
-\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{laplace}\NormalTok{(groupeddatapost, start, d)}
-\NormalTok{fit}
+\FunctionTok{ggplot}\NormalTok{(df) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(P), }\AttributeTok{stat =} \StringTok{"count"}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{16}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-351-2} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(trayectoria)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## $mode
-## [1] 70.169880  0.973644
-## 
-## $var
-##              [,1]         [,2]
-## [1,] 3.534713e-02 3.520776e-05
-## [2,] 3.520776e-05 3.146470e-03
-## 
-## $int
-## [1] -350.6305
-## 
-## $converge
-## [1] TRUE
+## [1] 4.90532
 \end{verbatim}
 
-la escogencia del valor inicial se basa en los datos artificiales en la página 126 del \autocite{Albert2009}. De esta forma definimos los parámetros de la propuesta como:
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{proposal }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{var =}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{scale =} \DecValTok{2}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-y ajustamos la versión bajo caminata aleatoria de un Metropolis-Hastings (MH):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{fit2 }\OtherTok{\textless{}{-}} \FunctionTok{rwmetrop}\NormalTok{(groupeddatapost, proposal, start,}
-    \DecValTok{10000}\NormalTok{, d)}
-\end{Highlighting}
-\end{Shaded}
-
-con una tasa de aceptación:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{fit2}\SpecialCharTok{$}\NormalTok{accept}
+\FunctionTok{sd}\NormalTok{(trayectoria)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.2946
+## [1] 1.774739
 \end{verbatim}
 
-Algunas estadísticas de la distribución posterior de \(\mu\) y \(\log \sigma\):
+\hypertarget{cadenas-de-markov}{%
+\subsection{Cadenas de Markov}\label{cadenas-de-markov}}
+
+Recuerde que estamos buscando el ``camino'' que el viajero tomará para pasar la mayor parte del tiempo de en los lugares más poblados (con mayor \(\theta\)).
+
+\begin{equation*}
+\theta_{1} \curvearrowright \theta_{2} \curvearrowright \ldots \curvearrowright \theta_{50000}.
+\end{equation*}
+
+Denotamos \(\theta_{1}\to\theta_{2}\) si el viajero pasó de \(\theta_{1}\) hacia \(\theta_{2}\).
+
+Entonces
+
+\begin{itemize}
+\tightlist
+\item
+  \(\mathbb{P}\left(\theta \rightarrow \theta+1\right)=0.5 \min \left(\frac{P(\theta+1)}{P(\theta)} , 1\right)\)
+\item
+  \(\mathbb{P}\left(\theta + 1 \rightarrow \theta\right)=0.5 \min \left(\frac{P(\theta)}{P(\theta+1)} , 1\right)\)
+\end{itemize}
+
+Entonces la razón entre estas dos probabilidades es
+
+\begin{align*}
+ \frac{\mathbb{P}\left(\theta \rightarrow \theta+1\right)}{\mathbb{P}\left(\theta +1 \rightarrow \theta\right)}
+   & =\frac{0.5 \min (P(\theta+1) / P(\theta), 1)}{0.5 \min (P(\theta) / P(\theta+1), 1)} \\
+   & =\left\{\begin{array}{ll}
+  \frac{P(\theta+1)}{P(\theta) }
+    & \text { si } P(\theta+1)>P(\theta) \\
+  \frac{P(\theta+1) }{P(\theta)}
+    & \text { si } P(\theta+1)<P(\theta)
+ \end{array}\right.                                             \\
+ \, & =\frac{P(\theta+1)}{P(\theta)}.
+\end{align*}
+
+Es decir que la razón de las probabilidades es equivalente a la razón entre las proporción de las poblaciones. Por lo tanto la mayoría de las veces se estará en los lugares con mayor población.
+
+Esta cadena se puede escribir usando una matriz de transición de la forma
+
+\begin{equation*}
+T= \left(\begin{array}{ccccc}
+\ddots & \mathbb{P}(\theta-2 \rightarrow \theta-1) & 0 & 0 & 0 \\
+\ddots & \mathbb{P}(\theta-1 \rightarrow \theta-1) & \mathbb{P}(\theta-1 \rightarrow \theta) & 0 & 0 \\
+0 & \mathbb{P}(\theta \rightarrow \theta-1) & \mathbb{P}(\theta \rightarrow \theta) & \mathbb{P}(\theta \rightarrow \theta+1) & 0 \\
+0 & 0 & \mathbb{P}(\theta+1 \rightarrow \theta) & \mathbb{P}(\theta+1 \rightarrow \theta+1) & \ddots \\
+0 & 0 & 0 & \mathbb{P}(\theta+2 \rightarrow \theta+1) & \ddots
+\end{array}\right)
+\end{equation*}
+
+La matriz \(T\) tiene las propiedades
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Existencia de una única distribución estacionaria (llamada \(f\) más adelante).
+\item
+  Es ergódica, i.e., es aperíodica y positiva recurrente. Recuerde que una cadena de markov es érgodica si siempre se puede pasar de un estado a otro (no necesariamente en 1 paso). Otra forma de verlo es que la para alguna potencia de \(T\) todos los sus elementos serán positivos estrictos.
+\end{enumerate}
+
+\hypertarget{el-algoritmo-de-metropolis-hasting}{%
+\subsection{El algoritmo de Metropolis-Hasting}\label{el-algoritmo-de-metropolis-hasting}}
+
+El ejemplo anterior era bastante sencillo pero demuestra que se puede
+encontrar el mejor estimador posible simplemente ejecutando una y otra
+vez maximizando la estadía en los lugares más poblados.
+
+En este ejemplo la función a maximizar es la cantidad de personas
+\(P(\theta)=\theta\), pero en general nuestro objetivo será maximizar
+la distribución posterior \(f(\theta| \text{ datos })\).
+
+En palabras simples el algoritmo de Metropoli Hasting es
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Simule un valor \(\theta^{*}\) de una densidad de propuesta
+  \(p\left(\theta^{*} | \theta^{t-1}\right)\)
+\item
+  Estime la razón
+  \[
+   R=\frac{f\left(\theta^{*}\right) L\left(\theta^{t-1} |
+    \theta^{*}\right)}{f\left(\theta^{t-1}\right) L\left(\theta^{*} |
+    \theta^{t-1}\right)}
+  \]
+\item
+  Estima la probabilidad de aceptación \(p_{\text {moverse }}=\min \{R, 1\}\).
+\item
+  Tome \(\theta^{t}\) tal que \(\theta^{t}=\theta^{*}\)
+  con probabilidad \(p_{\text {moverse }}\); en otro caso \(\theta^{t}=\) \(\theta^{t-1}\)
+\end{enumerate}
+
+El algoritmo de Metropolis-Hastings se puede construir de muchas
+formas, dependiendo de la densidad de proposición
+
+Si esta es independiente de las elecciones anteriores entonces,
+\[
+ p\left(\theta^{*} | \theta^{t-1}\right)=p\left(\theta^{*}\right)
+\]
+
+Otras formas es escoger es usando
+\[
+ p\left(\theta^{*} |
+ \theta^{t-1}\right)=h\left(\theta^{*}-\theta^{t-1}\right)
+\]
+donde \(h\) es simétrica alrededor del origen. En este tipo de
+cadenas, la razón \(R\) tiene la forma
+\[
+ R=\frac{f\left(\theta^{*}\right)}{f\left(\theta^{t-1}\right)}
+\]
+
+Una última opción es simular solo el \emph{salto} \(Z\)
+\[
+ \theta^{*}=\theta^{t-1}+ Z
+\]
+
+donde \(Z\) es una normal centrada con cierta estructura de varianza.
+
+\hypertarget{por-quuxe9-el-algoritmo-de-metropolis-hasting-funciona}{%
+\subsection{¿Por qué el algoritmo de Metropolis Hasting funciona?}\label{por-quuxe9-el-algoritmo-de-metropolis-hasting-funciona}}
+
+\begin{equation}
+\mathbb{P}\left(\theta^{\star} | \theta^{(t-1)}\right)=L\left(\theta^{\star} | \theta^{(t-1)}\right) \cdot \min \left\{1, \frac{f\left(\theta^{\star}\right) L\left(\theta^{(t-1)} | \theta^{\star}\right)}{f\left(\theta^{(t-1)}\right) L\left(\theta^{\star} | \theta^{(t-1)}\right)}\right\}
+\end{equation}
+
+Si se comienza en \(f\left(\theta^{(t-1)}\right)\) entonces
+
+\begin{align}
+&= f\left(\theta^{(t-1)}\right) \mathbb{P}\left(\theta^{\star} | \theta^{(t-1)}\right) \\
+&= f\left(\theta^{(t-1)}\right) L\left(\theta^{\star} | \theta^{(t-1)}\right) \min \left\{1, \frac{f\left(\theta^{\star}\right) L\left(\theta^{(t-1)} | \theta^{\star}\right)}{f\left(\theta^{(t-1)}\right) L\left(\theta^{\star} | \theta^{(t-1)}\right)}\right\} \\
+&=\min \left\{f\left(\theta^{(t-1)}\right) L\left(\theta^{\star} | \theta^{(t-1)}\right), f\left(\theta^{\star}\right) L\left(\theta^{(t-1)} | \theta^{\star}\right)\right\} \\
+&= f\left(\theta^{\star}\right) L\left(\theta^{(t-1)} | \theta^{\star}\right) \min \left\{\frac{f\left(\theta^{(t-1)}\right) L\left(\theta^{\star} | \theta^{(t-1)}\right)}{f\left(\theta^{\star}\right) L\left(\theta^{(t-1)} | \theta^{\star}\right)}, 1\right\} \\
+&=f\left(\theta^{\star}\right) \mathbb{P}\left(\theta^{(t-1)} | \theta^{\star}\right)
+\end{align}
+
+Asumiendo que existe una cantidad finita de estados \(\theta_{1}, \ldots, \theta_{M}\), entonces.
+
+\begin{equation*}
+f\left(\theta_{j}\right) = \underbrace{\sum_{i=1}^{M} f\left(\theta_{i}\right) \mathbb{P} \left(\theta_{j} | \theta_{i}\right)}_{\text {Probabilidad total  }}=\sum_{i=1}^{M} f\left(\theta_{j}\right) \mathbb{P} \left(\theta_{i} | \theta_{j}\right)
+\end{equation*}
+
+\begin{equation}
+f(\boldsymbol{\theta})^\top T =   f(\boldsymbol{\theta})
+\end{equation}
+
+Cual indica que no importa donde empecemos siempre llegaremos a la densidad estacionaria \(f\).
+
+\hypertarget{extensiuxf3n-al-caso-del-viajero}{%
+\subsection{Extensión al caso del viajero}\label{extensiuxf3n-al-caso-del-viajero}}
+
+Retomemos el ejemplo del viajero. Supongamos que ahora existen una
+cantidad infinita de lugares a los que puede ir y que la población de
+cada isla es proporcional a la densidad posterior. Además, el viajero
+podría saltar a cualquier isla que quisiera y su probabilidad de
+salto cae de forma continua en el intervalo \([0,1]\).
+
+Para hacer este ejemplo concreto, el viajero no conoce cuál es su
+probabilidad de salto \(\theta\) pero sabe que ha tirado la
+moneda \(N\) veces y observado \(z\) exitos. Por lo tanto tendremos
+una verosimilitud de \(L(z, N | \theta)=\theta^{z}(1-\theta)^{(N-z)}\).
+
+La previa será dada por \(f(\theta)=\operatorname{beta}(\theta | a, b)\).
+
+Los saltos serán gobernados por una normal centrada con media
+\(\sigma\) de modo que \(\Delta \theta \sim \mathcal{N}\left(0,\sigma^{2}\right)\).
+
+Entonces el algoritmo de Metropolis Hasting se puede reformular como
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\item
+  Simule un valor de salto\(\Delta \theta \sim \mathcal{N}\left(0,\sigma^{2}\right)\) y denote \(\theta^{t} = \theta^{t} + \Delta\theta\).
+\item
+  Probabilidad de aceptación \(p_{\text {moverse }}\)
+  \begin{align*}
+   p_{\text {moverse }}
+  & =\min \left(1, \frac{P\left(\theta_{\ast}\right)}{P\left(\theta_{t-1}\right)}\right) \\
+     & =\min \left(1, \frac{p\left(D |
+    \theta_{\ast}\right) p\left(\theta_{\ast}\right)}{p\left(D | \theta_{t-1}\right)
+    p\left(\theta_{t-1}\right)}\right) \\
+  & =\min \left(1, \frac{\operatorname{Bernoulli}\left(z, N |
+    \theta_{\ast}\right)
+    \operatorname{beta}\left(\theta_{\ast} | a,
+    b\right)}{\operatorname{Bernoulli}\left(z, N |
+    \theta_{t-1}\right)
+    \operatorname{beta}\left(\theta_{t-1} | a, b\right)}\right) \\
+  & =\min \left(1,
+   \frac{\theta_{\ast}^{z}\left(1-\theta_{\ast}\right)^{(N-z)}
+  \theta_{\ast} \left(1-\theta_{\ast}\right)^{(b-1)}
+  / B(a,b)}{\theta_{t-1}^{z}\left(1-\theta_{t-1}\right)^{(N-z)}
+  \theta_{t-1}^{(a-1)}\left(1-\theta_{t-1}\right)^{(b-1)}
+  / B(a, b)}\right)
+  \end{align*}
+\item
+  Tome \(\theta_{t}\) tal que \(\theta_{t}=\theta_{*}\)
+  con probabilidad \(p_{\text {moverse }} ;\) en otro caso \(\theta_{t}=\) \(\theta_{t-1}\)
+\end{enumerate}
+
+En el ejemplo del viajero queremos ver la probabilidad \(\theta\) de
+que salte al siguiente destino. Tomemos \(\sigma=0.2\) y supongamos
+que se ha visto que el viajero de \(N=20\) y \(z=14\) éxitos. Por
+cuestiones de practicidad se tomará \(\theta_0 = 0.1\).
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{post.means }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par, }\DecValTok{2}\NormalTok{, mean)}
-\NormalTok{post.sds }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par, }\DecValTok{2}\NormalTok{, sd)}
-\FunctionTok{cbind}\NormalTok{(post.means, post.sds)}
+\CommentTok{\# Carga de datos observados}
+\NormalTok{datos\_observados }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, }\DecValTok{6}\NormalTok{), }\FunctionTok{rep}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{14}\NormalTok{))}
+
+\CommentTok{\# Función de verosimilitud Binomial}
+\NormalTok{verosimilitud }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta, data) \{}
+\NormalTok{    z }\OtherTok{\textless{}{-}} \FunctionTok{sum}\NormalTok{(data)}
+\NormalTok{    N }\OtherTok{\textless{}{-}} \FunctionTok{length}\NormalTok{(data)}
+\NormalTok{    pDatosDadoTheta }\OtherTok{\textless{}{-}}\NormalTok{ theta}\SpecialCharTok{\^{}}\NormalTok{z }\SpecialCharTok{*}\NormalTok{ (}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ theta)}\SpecialCharTok{\^{}}\NormalTok{(N }\SpecialCharTok{{-}}\NormalTok{ z)}
+    \CommentTok{\# Es para asegurarse que los datos caigan en}
+    \CommentTok{\# [0,1].}
+\NormalTok{    pDatosDadoTheta[theta }\SpecialCharTok{\textgreater{}} \DecValTok{1} \SpecialCharTok{|}\NormalTok{ theta }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{0}
+    \FunctionTok{return}\NormalTok{(pDatosDadoTheta)}
+\NormalTok{\}}
+
+\CommentTok{\# densidad previa}
+\NormalTok{previa }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta) \{}
+\NormalTok{    pTheta }\OtherTok{\textless{}{-}} \FunctionTok{dbeta}\NormalTok{(theta, }\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+    \CommentTok{\# Es para asegurarse que los datos caigan en}
+    \CommentTok{\# [0,1].}
+\NormalTok{    pTheta[theta }\SpecialCharTok{\textgreater{}} \DecValTok{1} \SpecialCharTok{|}\NormalTok{ theta }\SpecialCharTok{\textless{}} \DecValTok{0}\NormalTok{] }\OtherTok{\textless{}{-}} \DecValTok{0}
+    \FunctionTok{return}\NormalTok{(pTheta)}
+\NormalTok{\}}
+
+\CommentTok{\# densidad posterior}
+\NormalTok{posterior }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta, data) \{}
+\NormalTok{    posterior }\OtherTok{\textless{}{-}} \FunctionTok{verosimilitud}\NormalTok{(theta, data) }\SpecialCharTok{*} \FunctionTok{previa}\NormalTok{(theta)}
+    \FunctionTok{return}\NormalTok{(posterior)}
+\NormalTok{\}}
+
+\NormalTok{n\_pasos }\OtherTok{\textless{}{-}} \DecValTok{50000}
+
+\NormalTok{trayectoria }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\DecValTok{0}\NormalTok{, n\_pasos)}
+
+\CommentTok{\# Valor inicial}
+\NormalTok{trayectoria[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \FloatTok{0.01}
+
+\NormalTok{n\_aceptados }\OtherTok{\textless{}{-}} \DecValTok{0}
+\NormalTok{n\_rechazados }\OtherTok{\textless{}{-}} \DecValTok{0}
+
+
+\NormalTok{sigma }\OtherTok{\textless{}{-}} \FloatTok{0.2}
+
+\ControlFlowTok{for}\NormalTok{ (t }\ControlFlowTok{in} \DecValTok{2}\SpecialCharTok{:}\NormalTok{(n\_pasos }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)) \{}
+\NormalTok{    pos\_actual }\OtherTok{\textless{}{-}}\NormalTok{ trayectoria[t]}
+
+\NormalTok{    salto\_propuesto }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{, }\AttributeTok{mean =} \DecValTok{0}\NormalTok{, }\AttributeTok{sd =}\NormalTok{ sigma)}
+
+\NormalTok{    proba\_aceptacion }\OtherTok{\textless{}{-}} \FunctionTok{min}\NormalTok{(}\DecValTok{1}\NormalTok{, }\FunctionTok{posterior}\NormalTok{(pos\_actual }\SpecialCharTok{+}
+\NormalTok{        salto\_propuesto, datos\_observados)}\SpecialCharTok{/}\FunctionTok{posterior}\NormalTok{(pos\_actual,}
+\NormalTok{        datos\_observados))}
+
+    \CommentTok{\# Aceptamos el salto?}
+    \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{) }\SpecialCharTok{\textless{}}\NormalTok{ proba\_aceptacion) \{}
+        \CommentTok{\# Aceptados}
+\NormalTok{        trayectoria[t }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ pos\_actual }\SpecialCharTok{+}\NormalTok{ salto\_propuesto}
+\NormalTok{        n\_aceptados }\OtherTok{\textless{}{-}}\NormalTok{ n\_aceptados }\SpecialCharTok{+} \DecValTok{1}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+        \CommentTok{\# Rechazos}
+\NormalTok{        trayectoria[t }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ pos\_actual}
+\NormalTok{        n\_rechazados }\OtherTok{\textless{}{-}}\NormalTok{ n\_rechazados }\SpecialCharTok{+} \DecValTok{1}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Obtenemos una tasa de aceptación del 49.8 y tasa de rechazo del 50.2
+
+Podemos desechar los primeros 500 pasos (por ejemplo) del proceso ya que estos son de ``calentamiento''. De esta forma podremos estimar la media y la varianza de las trayectoria.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(trayectoria[}\DecValTok{500}\SpecialCharTok{:}\NormalTok{n\_pasos])}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##      post.means   post.sds
-## [1,] 70.1613566 0.18546491
-## [2,]  0.9777817 0.05533915
+## [1] 0.683422
 \end{verbatim}
-
-esto se puede comparar con los estimadores de la aproximación de Laplace:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{modal.sds }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(fit}\SpecialCharTok{$}\NormalTok{var))}
-\FunctionTok{cbind}\NormalTok{(}\FunctionTok{c}\NormalTok{(fit}\SpecialCharTok{$}\NormalTok{mode), modal.sds)}
+\FunctionTok{sd}\NormalTok{(trayectoria[}\DecValTok{500}\SpecialCharTok{:}\NormalTok{n\_pasos])}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-##                 modal.sds
-## [1,] 70.169880 0.18800834
-## [2,]  0.973644 0.05609341
+## [1] 0.09785508
 \end{verbatim}
-
-También podemos graficar la densidad posterior junto con la muestra generada por el MH, usando una muestra de burn-in de 5000:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{mycontour}\NormalTok{(groupeddatapost, }\FunctionTok{c}\NormalTok{(}\DecValTok{69}\NormalTok{, }\DecValTok{71}\NormalTok{, }\FloatTok{0.6}\NormalTok{, }\FloatTok{1.3}\NormalTok{), d,}
-    \AttributeTok{xlab =} \StringTok{"mu"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log sigma"}\NormalTok{)}
-\FunctionTok{points}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{5001}\SpecialCharTok{:}\DecValTok{10000}\NormalTok{, }\DecValTok{1}\NormalTok{], fit2}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{5001}\SpecialCharTok{:}\DecValTok{10000}\NormalTok{,}
-    \DecValTok{2}\NormalTok{])}
+\NormalTok{df }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\AttributeTok{x =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{n\_pasos, }\AttributeTok{P =}\NormalTok{ trayectoria)}
+
+\FunctionTok{ggplot}\NormalTok{(df[}\DecValTok{1}\SpecialCharTok{:}\DecValTok{500}\NormalTok{, ]) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(x, P), }\AttributeTok{size =} \FloatTok{0.5}\NormalTok{) }\SpecialCharTok{+}
+    \FunctionTok{coord\_flip}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{16}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-355-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(df[}\DecValTok{500}\SpecialCharTok{:}\NormalTok{n\_pasos, ]) }\SpecialCharTok{+} \FunctionTok{geom\_histogram}\NormalTok{(}\FunctionTok{aes}\NormalTok{(P, }\AttributeTok{y =}\NormalTok{ ..density..),}
+    \AttributeTok{color =} \StringTok{"white"}\NormalTok{) }\SpecialCharTok{+} \FunctionTok{theme\_minimal}\NormalTok{(}\AttributeTok{base\_size =} \DecValTok{16}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-355-2} \end{center}
+
+\hypertarget{el-problema-del-viajero-con-dos-monedas}{%
+\section{El problema del viajero con dos monedas}\label{el-problema-del-viajero-con-dos-monedas}}
+
+Un problema con el algoritmo de Metropolis-Hastings (M-H) es que solo funciona para la estimación de un solo parámetro.
+
+El muestreo de Gibbs está pensado en el caso de la estimación de muchos parámetros de forma bastante ordenada.
+
+Supongamos que tenemos dos monedas y queremos ver la proporción de escudos generados entre las dos monedas:
+
+Tenemos:
+
+\begin{itemize}
+\tightlist
+\item
+  Parámetros: \(\theta_{1}\) y \(\theta_{2}\).
+\item
+  Datos: \(N_{1}\) tiradas de la moneda 1 y \(N_{2}\) tiradas de la moneda 2. (cada una tuvo \(z_{1}\) y \(z_{2}\) éxitos).
+\end{itemize}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  Verosimilitud: Bernoulli.
+  \begin{equation*}
+  y_{1}^{i}\sim \mathrm{Bernoulli}(\theta_{1}) 
+  \quad 
+  y_{2}^{i}\sim \mathrm{Bernoulli}(\theta_{2}) 
+  \end{equation*}
+\item
+  Previa: Beta independiente para cada \(\theta\).
+  \begin{equation*}
+  \theta_{1}\sim \mathrm{Beta}(a_{1},b_{1}) 
+  \quad 
+  \theta_{2}\sim \mathrm{Beta}(a_{2},b_{2}) 
+  \end{equation*}
+\end{enumerate}
+
+La distribución posterior se puede escribir como
+
+\begin{align*}
+f\left(\theta_{1}, \theta_{2} | D\right) 
+&=f\left(D | \theta_{1}, \theta_{2}\right) \frac{f\left(\theta_{1}, \theta_{2}\right)}{f(D)} \\
+&=\theta_{1}^{z_{1}}\left(1-\theta_{1}\right)^{N_{1}-z_{1}} \theta_{1}^{z_{2}}\left(1-\theta_{2}\right)^{N_{2}-z_{2}} \frac{f\left(\theta_{1}, \theta_{2}\right)}{f(D)}  \\
+&=\frac{\theta_{1}^{z_{1}}\left(1-\theta_{1}\right)^{N_{1}-z_{1}} \theta_{1}^{z_{2}}\left(1-\theta_{2}\right)^{N_{2}-z_{2}} \theta_{1}^{a_{1}-1}\left(1-\theta_{1}\right)^{b_{1}-1} \theta_{2}^{a_{2}-1}\left(1-\theta_{2}\right)^{b_{2}-1}}{f(D) B\left(a_{1}, b_{1}\right) B\left(a_{2}, b_{2}\right)} \\
+&=\frac{\theta_{1}^{z_{1}+a_{1}-1}\left(1-\theta_{1}\right)^{N_{1}-z_{1}+b_{1}-1} \theta_{2}^{z_{2}+a_{2}-1}\left(1-\theta_{2}\right)^{N_{2}-z_{2}+b_{2}-1}}{f(D) B\left(a_{1}, b_{1}\right) B\left(a_{2}, b_{2}\right)}
+\end{align*}
+Entonces la distribución posterior de \(\left(\theta_{1}, \theta_{2}\right)\) son dos distribuciones independientes Betas:
+\(\operatorname{Beta}\left(z_{1}+a, N_{1}-z_{1}+b_{1}\right)\) y \(\operatorname{Beta}\left(z_{2}+a, N_{2}-z_{2}+b_{2}\right)\)
+
+Tratemos de encontrar los parámetros para la distribución posterior usando un algoritmo de Metropolis-Hasting. \href{https://rpruim.github.io/Kruschke-Notes/markov-chain-monte-carlo-mcmc.html\#metropolis}{Función tomada de Kruschke-Notes}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{metro\_2coins }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(z1, n1, }\CommentTok{\# z = successes, n = trials}
+\NormalTok{                         z2, n2, }\CommentTok{\# z = successes, n = trials}
+                         \AttributeTok{size =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{, }\FloatTok{0.1}\NormalTok{), }\CommentTok{\# sds of jump distribution}
+                         \AttributeTok{start =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{), }\CommentTok{\# value of thetas to start at}
+                         \AttributeTok{num\_steps =} \FloatTok{5e4}\NormalTok{, }\CommentTok{\# number of steps to run the algorithm}
+                         \AttributeTok{prior1 =}\NormalTok{ dbeta, }\CommentTok{\# function describing prior}
+                         \AttributeTok{prior2 =}\NormalTok{ dbeta, }\CommentTok{\# function describing prior}
+                         \AttributeTok{args1 =} \FunctionTok{list}\NormalTok{(), }\CommentTok{\# additional args for prior1}
+                         \AttributeTok{args2 =} \FunctionTok{list}\NormalTok{() }\CommentTok{\# additional args for prior2}
+\NormalTok{) \{}
+\NormalTok{  theta1 }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, num\_steps) }\CommentTok{\# trick to pre{-}alocate memory}
+\NormalTok{  theta2 }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, num\_steps) }\CommentTok{\# trick to pre{-}alocate memory}
+\NormalTok{  proposed\_theta1 }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, num\_steps) }\CommentTok{\# trick to pre{-}alocate memory}
+\NormalTok{  proposed\_theta2 }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, num\_steps) }\CommentTok{\# trick to pre{-}alocate memory}
+\NormalTok{  move }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, num\_steps) }\CommentTok{\# trick to pre{-}alocate memory}
+\NormalTok{  theta1[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ start[}\DecValTok{1}\NormalTok{]}
+\NormalTok{  theta2[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ start[}\DecValTok{2}\NormalTok{]}
+
+\NormalTok{  size1 }\OtherTok{\textless{}{-}}\NormalTok{ size[}\DecValTok{1}\NormalTok{]}
+\NormalTok{  size2 }\OtherTok{\textless{}{-}}\NormalTok{ size[}\DecValTok{2}\NormalTok{]}
+
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{(num\_steps }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)) \{}
+    \CommentTok{\# head to new "island"}
+\NormalTok{    proposed\_theta1[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{, theta1[i], size1)}
+\NormalTok{    proposed\_theta2[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{rnorm}\NormalTok{(}\DecValTok{1}\NormalTok{, theta2[i], size2)}
+
+    \ControlFlowTok{if}\NormalTok{ (proposed\_theta1[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\SpecialCharTok{\textless{}=} \DecValTok{0} \SpecialCharTok{||}
+\NormalTok{      proposed\_theta1[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\SpecialCharTok{\textgreater{}=} \DecValTok{1} \SpecialCharTok{||}
+\NormalTok{      proposed\_theta2[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\SpecialCharTok{\textless{}=} \DecValTok{0} \SpecialCharTok{||}
+\NormalTok{      proposed\_theta2[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\SpecialCharTok{\textgreater{}=} \DecValTok{1}\NormalTok{) \{}
+\NormalTok{      proposed\_posterior }\OtherTok{\textless{}{-}} \DecValTok{0} \CommentTok{\# because prior is 0}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{}
+\NormalTok{      current\_prior }\OtherTok{\textless{}{-}}
+        \FunctionTok{do.call}\NormalTok{(prior1, }\FunctionTok{c}\NormalTok{(}\FunctionTok{list}\NormalTok{(theta1[i]), args1)) }\SpecialCharTok{*}
+          \FunctionTok{do.call}\NormalTok{(prior2, }\FunctionTok{c}\NormalTok{(}\FunctionTok{list}\NormalTok{(theta2[i]), args2))}
+\NormalTok{      current\_likelihood }\OtherTok{\textless{}{-}}
+        \FunctionTok{dbinom}\NormalTok{(z1, n1, theta1[i]) }\SpecialCharTok{*}
+          \FunctionTok{dbinom}\NormalTok{(z2, n2, theta2[i])}
+\NormalTok{      current\_posterior }\OtherTok{\textless{}{-}}\NormalTok{ current\_prior }\SpecialCharTok{*}\NormalTok{ current\_likelihood}
+
+\NormalTok{      proposed\_prior }\OtherTok{\textless{}{-}}
+        \FunctionTok{do.call}\NormalTok{(prior1, }\FunctionTok{c}\NormalTok{(}\FunctionTok{list}\NormalTok{(proposed\_theta1[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{]), args1)) }\SpecialCharTok{*}
+          \FunctionTok{do.call}\NormalTok{(prior2, }\FunctionTok{c}\NormalTok{(}\FunctionTok{list}\NormalTok{(proposed\_theta2[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{]), args2))}
+\NormalTok{      proposed\_likelihood }\OtherTok{\textless{}{-}}
+        \FunctionTok{dbinom}\NormalTok{(z1, n1, proposed\_theta1[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{]) }\SpecialCharTok{*}
+          \FunctionTok{dbinom}\NormalTok{(z2, n2, proposed\_theta2[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{])}
+\NormalTok{      proposed\_posterior }\OtherTok{\textless{}{-}}\NormalTok{ proposed\_prior }\SpecialCharTok{*}\NormalTok{ proposed\_likelihood}
+\NormalTok{    \}}
+\NormalTok{    prob\_move }\OtherTok{\textless{}{-}}\NormalTok{ proposed\_posterior }\SpecialCharTok{/}\NormalTok{ current\_posterior}
+
+    \CommentTok{\# sometimes we "sail back"}
+    \ControlFlowTok{if}\NormalTok{ (}\FunctionTok{runif}\NormalTok{(}\DecValTok{1}\NormalTok{) }\SpecialCharTok{\textgreater{}}\NormalTok{ prob\_move) \{ }\CommentTok{\# sail back}
+\NormalTok{      move[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \ConstantTok{FALSE}
+\NormalTok{      theta1[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ theta1[i]}
+\NormalTok{      theta2[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ theta2[i]}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{ }\CommentTok{\# stay}
+\NormalTok{      move[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \ConstantTok{TRUE}
+\NormalTok{      theta1[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ proposed\_theta1[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{]}
+\NormalTok{      theta2[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ proposed\_theta2[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{]}
+\NormalTok{    \}}
+\NormalTok{  \}}
+
+  \FunctionTok{tibble}\NormalTok{(}
+    \AttributeTok{step =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{num\_steps,}
+    \AttributeTok{theta1 =}\NormalTok{ theta1,}
+    \AttributeTok{theta2 =}\NormalTok{ theta2,}
+    \AttributeTok{proposed\_theta1 =}\NormalTok{ proposed\_theta1,}
+    \AttributeTok{proposed\_theta2 =}\NormalTok{ proposed\_theta2,}
+    \AttributeTok{move =}\NormalTok{ move,}
+    \AttributeTok{size1 =}\NormalTok{ size1,}
+    \AttributeTok{size2 =}\NormalTok{ size2}
+\NormalTok{  )}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Metro\_2coinsA }\OtherTok{\textless{}{-}} \FunctionTok{metro\_2coins}\NormalTok{(}\AttributeTok{z1 =} \DecValTok{6}\NormalTok{, }\AttributeTok{n1 =} \DecValTok{8}\NormalTok{, }\AttributeTok{z2 =} \DecValTok{2}\NormalTok{,}
+    \AttributeTok{n2 =} \DecValTok{7}\NormalTok{, }\AttributeTok{size =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.02}\NormalTok{, }\FloatTok{0.02}\NormalTok{), }\AttributeTok{args1 =} \FunctionTok{list}\NormalTok{(}\AttributeTok{shape1 =} \DecValTok{2}\NormalTok{,}
+        \AttributeTok{shape2 =} \DecValTok{2}\NormalTok{), }\AttributeTok{args2 =} \FunctionTok{list}\NormalTok{(}\AttributeTok{shape1 =} \DecValTok{2}\NormalTok{, }\AttributeTok{shape2 =} \DecValTok{2}\NormalTok{))}
+
+\NormalTok{Metro\_2coinsA }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_density2d}\NormalTok{(theta2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ theta1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-357-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Metro\_2coinsA }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_density}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{(theta2 }\SpecialCharTok{{-}}\NormalTok{ theta1))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-357-2} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{acf}\NormalTok{(Metro\_2coinsA}\SpecialCharTok{$}\NormalTok{theta2 }\SpecialCharTok{{-}}\NormalTok{ Metro\_2coinsA}\SpecialCharTok{$}\NormalTok{theta1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-357-3} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Metro\_2coinsA }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(step }\SpecialCharTok{\textless{}} \DecValTok{500}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_path}\NormalTok{(theta2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ theta1, }\AttributeTok{color =} \SpecialCharTok{\textasciitilde{}}\NormalTok{step, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{,}
+        \AttributeTok{arrow =} \FunctionTok{arrow}\NormalTok{(}\AttributeTok{type =} \StringTok{"open"}\NormalTok{, }\AttributeTok{angle =} \DecValTok{30}\NormalTok{, }\AttributeTok{length =} \FunctionTok{unit}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}
+            \StringTok{"inches"}\NormalTok{))) }\SpecialCharTok{+} \FunctionTok{theme\_minimal}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-358-1} \end{center}
 
-Los traceplots del MCMC los graficamos a través del paquete \emph{coda} junto con el paquete \emph{bayesplot}:
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(coda)}
-\FunctionTok{library}\NormalTok{(bayesplot)}
-\FunctionTok{dimnames}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par)[[}\DecValTok{2}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{, }\StringTok{"log sigma"}\NormalTok{)}
-\NormalTok{obj\_mcmc }\OtherTok{\textless{}{-}} \FunctionTok{mcmc}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5000}\NormalTok{), ])}
-\FunctionTok{mcmc\_trace}\NormalTok{(obj\_mcmc)}
+\FunctionTok{library}\NormalTok{(gganimate)}
+\NormalTok{Metro\_2coinsAplot }\OtherTok{\textless{}{-}}\NormalTok{ Metro\_2coinsA }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(step }\SpecialCharTok{\textless{}} \DecValTok{500}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_path}\NormalTok{(theta2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ theta1, }\AttributeTok{color =} \SpecialCharTok{\textasciitilde{}}\NormalTok{step, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{,}
+        \AttributeTok{arrow =} \FunctionTok{arrow}\NormalTok{(}\AttributeTok{type =} \StringTok{"open"}\NormalTok{, }\AttributeTok{angle =} \DecValTok{30}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{transition\_reveal}\NormalTok{(step)}
+
+\FunctionTok{animate}\NormalTok{(Metro\_2coinsAplot, }\AttributeTok{fps =} \DecValTok{1}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-359-1} \end{center}
-
-Los gráficos de autocorrelación empíricos se pueden generar con:
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{mcmc\_acf}\NormalTok{(obj\_mcmc)}
+\NormalTok{Metro\_2coinsB }\OtherTok{\textless{}{-}} \FunctionTok{metro\_2coins}\NormalTok{(}\AttributeTok{z1 =} \DecValTok{6}\NormalTok{, }\AttributeTok{n1 =} \DecValTok{8}\NormalTok{, }\AttributeTok{z2 =} \DecValTok{2}\NormalTok{,}
+    \AttributeTok{n2 =} \DecValTok{7}\NormalTok{, }\AttributeTok{size =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.2}\NormalTok{, }\FloatTok{0.2}\NormalTok{), }\AttributeTok{args1 =} \FunctionTok{list}\NormalTok{(}\AttributeTok{shape1 =} \DecValTok{2}\NormalTok{,}
+        \AttributeTok{shape2 =} \DecValTok{2}\NormalTok{), }\AttributeTok{args2 =} \FunctionTok{list}\NormalTok{(}\AttributeTok{shape1 =} \DecValTok{2}\NormalTok{, }\AttributeTok{shape2 =} \DecValTok{2}\NormalTok{))}
+
+\NormalTok{Metro\_2coinsB }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_density2d}\NormalTok{(theta2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ theta1)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-360-1} \end{center}
 
-y funciones de densidad estimadas con intervalos de predicción al 95\% para algunos de los parámetros:
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{acf}\NormalTok{(Metro\_2coinsB}\SpecialCharTok{$}\NormalTok{theta2 }\SpecialCharTok{{-}}\NormalTok{ Metro\_2coinsB}\SpecialCharTok{$}\NormalTok{theta1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-360-2} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{mcmc\_areas}\NormalTok{(obj\_mcmc, }\AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{), }\AttributeTok{prob =} \FloatTok{0.95}\NormalTok{)}
+\NormalTok{Metro\_2coinsB }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(step }\SpecialCharTok{\textless{}} \DecValTok{500}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_path}\NormalTok{(theta2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ theta1, }\AttributeTok{color =} \SpecialCharTok{\textasciitilde{}}\NormalTok{step, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{,}
+        \AttributeTok{arrow =} \FunctionTok{arrow}\NormalTok{(}\AttributeTok{type =} \StringTok{"open"}\NormalTok{, }\AttributeTok{angle =} \DecValTok{30}\NormalTok{, }\AttributeTok{length =} \FunctionTok{unit}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}
+            \StringTok{"inches"}\NormalTok{))) }\SpecialCharTok{+} \FunctionTok{theme\_minimal}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-361-1} \end{center}
 
-\hypertarget{datos-con-outliers}{%
-\subsection{Datos con outliers}\label{datos-con-outliers}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Metro\_2coinsBplot }\OtherTok{\textless{}{-}}\NormalTok{ Metro\_2coinsA }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(step }\SpecialCharTok{\textless{}} \DecValTok{500}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_path}\NormalTok{(theta2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ theta1, }\AttributeTok{color =} \SpecialCharTok{\textasciitilde{}}\NormalTok{step, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{,}
+        \AttributeTok{arrow =} \FunctionTok{arrow}\NormalTok{(}\AttributeTok{type =} \StringTok{"open"}\NormalTok{, }\AttributeTok{angle =} \DecValTok{30}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{transition\_reveal}\NormalTok{(step)}
 
-Suponga \(y_1,\ldots,y_n\sim \text{Cauchy}(\mu,\sigma)\):
-\[f(y|\mu,\sigma)=\frac{1}{\pi\sigma(1+z^2)}\]
-donde \(z=\frac{y-\mu}{\sigma}\). Con una previa no informativa \(g(\mu,\sigma)\propto 1/\sigma\) y transformando \(\lambda = \log \sigma\) se puede comprobar que la log-densidad posterior es:
-\[\log g(\mu,\lambda|\text{datos}) = \sum_{i=1}^n\left[-\lambda-\log\left(1+\exp(-2\lambda)(y_i-\mu)^2\right)\right]\]
+\FunctionTok{animate}\NormalTok{(Metro\_2coinsBplot, }\AttributeTok{fps =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
 
-y la implementación de la log-posterior usando la distribución t de Student como generador de la distribución Cauchy:
+\hypertarget{muestreo-de-gibbs}{%
+\subsection{Muestreo de Gibbs}\label{muestreo-de-gibbs}}
+
+Para este ejemplo \(\left( \theta_{1},\theta_{2} \right)\), entonces la forma de escoger la posteriores en cada paso sería de la forma:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Tome al azar un \(\boldsymbol{\theta}^{0} = \left( \theta_{1}^{0},\theta_{2}^{0} \right)\).
+\item
+  Escoja \(\theta_{1}^{1}\) a partir de la distribución
+  \(f\left(\theta_{1} \vert \theta_{1}=\theta_{1}^{0}, \theta_{2}=\theta_{2}^{0}, \boldsymbol{X} \right)\).
+\item
+  Escoja \(\theta_{2}^{1}\) a partir de la distribución
+  \(f\left(\theta_{2} \vert \theta_{1}=\theta_{1}^{1}, \theta_{2}=\theta_{2}^{0}, \boldsymbol{X} \right)\).
+\end{enumerate}
+
+Esto completa un ciclo del muestreo. Cada ciclo genera nuevos \(\boldsymbol{\theta}^{i} = \left( \theta_{1}^{i},\theta_{2}^{i} \right)\) hasta que el proceso converja.
+
+\begin{remark}
+En realidad el muestreo de Gibbs se basa en el algoritmo de M-H, con la diferencia que la elección de los parámetros se escogen teniendo en cuanta los datos y fijando los otros parámetros. Es decir,
+
+\begin{align*}
+&{\left[\theta_{1} | \theta_{2}, \ldots, \theta_{M}, datos \right]} \\
+&{\left[\theta_{2} | \theta_{1}, \theta_{3}, \ldots, \theta_{M}, datos \right]} \\
+&{\left[\theta_{M} | \theta_{1}, \ldots, \theta_{M-1}, datos \right]}
+\end{align*}
+\end{remark}
+
+El tratamiento teórico puede ser consultado \url{https://www.ece.iastate.edu/~namrata/EE527_Spring08/l4c.pdf\#page=16}
+
+\begin{align*}
+f\left(\theta_{1} | \theta_{2}, D\right) 
+&= \frac{f\left(\theta_{1}, \theta_{2} | D\right)}{f\left(\theta_{2} | D\right)}  \\
+&= \frac{f\left(\theta_{1}, \theta_{2} | D\right)}{\int f\left(\theta_{1}, \theta_{2} | D\right)d \theta_{1}}   \\
+&=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2}, z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)}{\int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2} | z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)d \theta_{1}} \\
+&=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2}, z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)}{\operatorname{dbeta}\left(\theta_{2} | z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right) \int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)d \theta_{1}} \\
+&=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)}{\int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)d \theta_{1}} \\
+&=\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)
+\end{align*}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{cauchyerrorpost }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta, data) \{}
-\NormalTok{    logf }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data, theta) }\FunctionTok{log}\NormalTok{(}\FunctionTok{dt}\NormalTok{((data }\SpecialCharTok{{-}}\NormalTok{ theta[}\DecValTok{1}\NormalTok{])}\SpecialCharTok{/}\FunctionTok{exp}\NormalTok{(theta[}\DecValTok{2}\NormalTok{]),}
-        \AttributeTok{df =} \DecValTok{1}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{exp}\NormalTok{(theta[}\DecValTok{2}\NormalTok{]))}
-    \FunctionTok{return}\NormalTok{(}\FunctionTok{sum}\NormalTok{(}\FunctionTok{logf}\NormalTok{(data, theta)))}
+\NormalTok{gibbs\_2coins }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(z1, n1, }\CommentTok{\# z = successes, n = trials}
+\NormalTok{                         z2, n2, }\CommentTok{\# z = successes, n = trials}
+                         \AttributeTok{start =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.5}\NormalTok{, }\FloatTok{0.5}\NormalTok{), }\CommentTok{\# value of thetas to start at}
+                         \AttributeTok{num\_steps =} \FloatTok{1e4}\NormalTok{, }\CommentTok{\# number of steps to run the algorithm}
+\NormalTok{                         a1, b1, }\CommentTok{\# params for prior for theta1}
+\NormalTok{                         a2, b2 }\CommentTok{\# params for prior for theta2}
+\NormalTok{) \{}
+\NormalTok{  theta1 }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, num\_steps) }\CommentTok{\# trick to pre{-}alocate memory}
+\NormalTok{  theta2 }\OtherTok{\textless{}{-}} \FunctionTok{rep}\NormalTok{(}\ConstantTok{NA}\NormalTok{, num\_steps) }\CommentTok{\# trick to pre{-}alocate memory}
+\NormalTok{  theta1[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ start[}\DecValTok{1}\NormalTok{]}
+\NormalTok{  theta2[}\DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ start[}\DecValTok{2}\NormalTok{]}
+
+  \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{(num\_steps }\SpecialCharTok{{-}} \DecValTok{1}\NormalTok{)) \{}
+    \ControlFlowTok{if}\NormalTok{ (i }\SpecialCharTok{\%\%} \DecValTok{2} \SpecialCharTok{==} \DecValTok{1}\NormalTok{) \{ }\CommentTok{\# update theta1}
+\NormalTok{      theta1[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{rbeta}\NormalTok{(}\DecValTok{1}\NormalTok{, z1 }\SpecialCharTok{+}\NormalTok{ a1, n1 }\SpecialCharTok{{-}}\NormalTok{ z1 }\SpecialCharTok{+}\NormalTok{ b1)}
+\NormalTok{      theta2[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ theta2[i]}
+\NormalTok{    \} }\ControlFlowTok{else}\NormalTok{ \{ }\CommentTok{\# update theta2}
+\NormalTok{      theta1[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}}\NormalTok{ theta1[i]}
+\NormalTok{      theta2[i }\SpecialCharTok{+} \DecValTok{1}\NormalTok{] }\OtherTok{\textless{}{-}} \FunctionTok{rbeta}\NormalTok{(}\DecValTok{1}\NormalTok{, z2 }\SpecialCharTok{+}\NormalTok{ a2, n2 }\SpecialCharTok{{-}}\NormalTok{ z2 }\SpecialCharTok{+}\NormalTok{ b2)}
+\NormalTok{    \}}
+\NormalTok{  \}}
+
+  \FunctionTok{tibble}\NormalTok{(}
+    \AttributeTok{step =} \DecValTok{1}\SpecialCharTok{:}\NormalTok{num\_steps,}
+    \AttributeTok{theta1 =}\NormalTok{ theta1,}
+    \AttributeTok{theta2 =}\NormalTok{ theta2,}
+\NormalTok{  )}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
 
-Los datos provienen de la base \emph{darwin} con 15 diferencias entre alturas de plantas según Fisher (1960). La media y log-desviación estándar empíricos de los datos son:
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{data}\NormalTok{(darwin)}
-\NormalTok{data\_darwin }\OtherTok{\textless{}{-}}\NormalTok{ darwin}\SpecialCharTok{$}\NormalTok{difference}
-\FunctionTok{mean}\NormalTok{(data\_darwin)}
-\end{Highlighting}
-\end{Shaded}
+\NormalTok{Gibbs }\OtherTok{\textless{}{-}} \FunctionTok{gibbs\_2coins}\NormalTok{(}\AttributeTok{z1 =} \DecValTok{6}\NormalTok{, }\AttributeTok{n1 =} \DecValTok{8}\NormalTok{, }\AttributeTok{z2 =} \DecValTok{2}\NormalTok{, }\AttributeTok{n2 =} \DecValTok{7}\NormalTok{,}
+    \AttributeTok{a1 =} \DecValTok{2}\NormalTok{, }\AttributeTok{b1 =} \DecValTok{2}\NormalTok{, }\AttributeTok{a2 =} \DecValTok{2}\NormalTok{, }\AttributeTok{b2 =} \DecValTok{2}\NormalTok{)}
 
-\begin{verbatim}
-## [1] NA
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{log}\NormalTok{(}\FunctionTok{sd}\NormalTok{(data\_darwin))}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## [1] NA
-\end{verbatim}
-
-y usamos estos valores como valores iniciales dentro de la aproximación de Laplace:
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{fitlaplace }\OtherTok{\textless{}{-}} \FunctionTok{laplace}\NormalTok{(cauchyerrorpost, }\FunctionTok{c}\NormalTok{(}\FloatTok{21.6}\NormalTok{, }\FloatTok{3.6}\NormalTok{),}
-\NormalTok{    data\_darwin)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Error in solve.default(fit$hessian): Lapack routine dgesv: system is exactly singular: U[1,1] = 0
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{fitlaplace}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
-\end{verbatim}
-
-y usamos lo anterior como insumo para generar tres escenarios de MCMC:
-
-\begin{itemize}
-\tightlist
-\item
-  Metropolis-Hastings con caminata aleatoria:
-\end{itemize}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{proposal }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{var =}\NormalTok{ fitlaplace}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{scale =} \FloatTok{2.5}\NormalTok{)}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{verbatim}
-## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
-\end{verbatim}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{start }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{3}\NormalTok{)}
-\NormalTok{E1 }\OtherTok{\textless{}{-}} \FunctionTok{rwmetrop}\NormalTok{(cauchyerrorpost, proposal, start, }\DecValTok{50000}\NormalTok{,}
-\NormalTok{    data\_darwin)}
-\FunctionTok{mycontour}\NormalTok{(cauchyerrorpost, }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{4.5}\NormalTok{), data\_darwin,}
-    \AttributeTok{xlab =} \StringTok{"mu"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log sigma"}\NormalTok{)}
-\FunctionTok{points}\NormalTok{(E1}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], E1}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{2}\NormalTok{])}
+\NormalTok{Gibbs }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_density2d}\NormalTok{(theta2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ theta1)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-365-1} \end{center}
 
-\begin{itemize}
-\tightlist
-\item
-  Metropolis-Hastings independiente:
-\end{itemize}
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{proposal2 }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{var =}\NormalTok{ fitlaplace}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{mu =} \FunctionTok{t}\NormalTok{(fitlaplace}\SpecialCharTok{$}\NormalTok{mode))}
+\NormalTok{Gibbs }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_dens}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{theta1)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
-\end{verbatim}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-365-2} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{E2 }\OtherTok{\textless{}{-}} \FunctionTok{indepmetrop}\NormalTok{(cauchyerrorpost, proposal2, start,}
-    \DecValTok{50000}\NormalTok{, data\_darwin)}
+\FunctionTok{acf}\NormalTok{(Gibbs}\SpecialCharTok{$}\NormalTok{theta1)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## Error in matrix(proposal$mu): object 'proposal2' not found
-\end{verbatim}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-365-3} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{mycontour}\NormalTok{(cauchyerrorpost, }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{4.5}\NormalTok{), data\_darwin,}
-    \AttributeTok{xlab =} \StringTok{"mu"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log sigma"}\NormalTok{)}
+\NormalTok{Gibbs }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(step }\SpecialCharTok{\textless{}} \DecValTok{500}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_path}\NormalTok{(theta2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ theta1, }\AttributeTok{color =} \SpecialCharTok{\textasciitilde{}}\NormalTok{step, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{,}
+        \AttributeTok{arrow =} \FunctionTok{arrow}\NormalTok{(}\AttributeTok{type =} \StringTok{"open"}\NormalTok{, }\AttributeTok{angle =} \DecValTok{30}\NormalTok{, }\AttributeTok{length =} \FunctionTok{unit}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}
+            \StringTok{"inches"}\NormalTok{))) }\SpecialCharTok{+} \FunctionTok{theme\_minimal}\NormalTok{()}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10364,165 +10750,604 @@ y usamos lo anterior como insumo para generar tres escenarios de MCMC:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{points}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], E2}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{2}\NormalTok{])}
+\NormalTok{Gibbsplot }\OtherTok{\textless{}{-}}\NormalTok{ Gibbs }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(step }\SpecialCharTok{\textless{}} \DecValTok{500}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_path}\NormalTok{(theta2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ theta1, }\AttributeTok{color =} \SpecialCharTok{\textasciitilde{}}\NormalTok{step, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{,}
+        \AttributeTok{arrow =} \FunctionTok{arrow}\NormalTok{(}\AttributeTok{type =} \StringTok{"open"}\NormalTok{, }\AttributeTok{angle =} \DecValTok{30}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{transition\_reveal}\NormalTok{(step)}
+
+\FunctionTok{animate}\NormalTok{(Gibbsplot, }\AttributeTok{fps =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+Ciclos completos
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Gibbs }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(step}\SpecialCharTok{\%\%}\DecValTok{2} \SpecialCharTok{==} \DecValTok{0}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_density2d}\NormalTok{(theta2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ theta1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-368-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Gibbs }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(step}\SpecialCharTok{\%\%}\DecValTok{2} \SpecialCharTok{==} \DecValTok{0}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_density}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{(theta2 }\SpecialCharTok{{-}}\NormalTok{ theta1))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-368-2} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Gibbs }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(step}\SpecialCharTok{\%\%}\DecValTok{2} \SpecialCharTok{==} \DecValTok{0}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{difference =}\NormalTok{ theta2 }\SpecialCharTok{{-}}\NormalTok{ theta1) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{pull}\NormalTok{(difference) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{acf}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-368-3} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Gibbs }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(step }\SpecialCharTok{\textless{}} \DecValTok{500}\NormalTok{, step}\SpecialCharTok{\%\%}\DecValTok{2} \SpecialCharTok{==} \DecValTok{0}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_path}\NormalTok{(theta2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ theta1, }\AttributeTok{color =} \SpecialCharTok{\textasciitilde{}}\NormalTok{step, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{,}
+        \AttributeTok{arrow =} \FunctionTok{arrow}\NormalTok{(}\AttributeTok{type =} \StringTok{"open"}\NormalTok{, }\AttributeTok{angle =} \DecValTok{30}\NormalTok{, }\AttributeTok{length =} \FunctionTok{unit}\NormalTok{(}\FloatTok{0.1}\NormalTok{,}
+            \StringTok{"inches"}\NormalTok{))) }\SpecialCharTok{+} \FunctionTok{theme\_minimal}\NormalTok{()}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-369-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Gibbsplot2 }\OtherTok{\textless{}{-}}\NormalTok{ Gibbs }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{filter}\NormalTok{(step }\SpecialCharTok{\textless{}} \DecValTok{500}\NormalTok{, step}\SpecialCharTok{\%\%}\DecValTok{2} \SpecialCharTok{==} \DecValTok{0}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_path}\NormalTok{(theta2 }\SpecialCharTok{\textasciitilde{}}\NormalTok{ theta1, }\AttributeTok{color =} \SpecialCharTok{\textasciitilde{}}\NormalTok{step, }\AttributeTok{alpha =} \FloatTok{0.5}\NormalTok{,}
+        \AttributeTok{arrow =} \FunctionTok{arrow}\NormalTok{(}\AttributeTok{type =} \StringTok{"open"}\NormalTok{, }\AttributeTok{angle =} \DecValTok{30}\NormalTok{)) }\SpecialCharTok{+}
+    \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{transition\_reveal}\NormalTok{(step)}
+
+\FunctionTok{animate}\NormalTok{(Gibbsplot2, }\AttributeTok{fps =} \DecValTok{1}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\hypertarget{uso-de-jags}{%
+\section{Uso de JAGS}\label{uso-de-jags}}
+
+El paquete que usaremos en esta sección es \texttt{R2jags} y \texttt{coda}. Los cargamos con las instrucciones
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{remotes}\SpecialCharTok{::}\FunctionTok{install\_github}\NormalTok{(}\StringTok{"rpruim/CalvinBayes"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(R2jags)}
+\FunctionTok{library}\NormalTok{(coda)}
+\FunctionTok{library}\NormalTok{(CalvinBayes)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bernoulli }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\AttributeTok{file =} \StringTok{"data/bernoulli.csv"}\NormalTok{,}
+    \AttributeTok{sep =} \StringTok{""}\NormalTok{)}
+\NormalTok{tibble}\SpecialCharTok{::}\FunctionTok{glimpse}\NormalTok{(bernoulli)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Error in points(E2$par[, 1], E2$par[, 2]): object 'E2' not found
+## Rows: 50
+## Columns: 1
+## $ y <int> 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0,~
 \end{verbatim}
 
-\begin{itemize}
-\tightlist
-\item
-  Muestreo de Gibbs:
-\end{itemize}
-
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{E3 }\OtherTok{\textless{}{-}} \FunctionTok{gibbs}\NormalTok{(cauchyerrorpost, start, }\DecValTok{50000}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\DecValTok{12}\NormalTok{, }\FloatTok{0.75}\NormalTok{),}
-\NormalTok{    data\_darwin)}
-\FunctionTok{mycontour}\NormalTok{(cauchyerrorpost, }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{4.5}\NormalTok{), data\_darwin,}
-    \AttributeTok{xlab =} \StringTok{"mu"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log sigma"}\NormalTok{)}
-\FunctionTok{points}\NormalTok{(E3}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], E3}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{2}\NormalTok{])}
-\end{Highlighting}
-\end{Shaded}
-
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-367-1} \end{center}
-
-Comparemos el estimador bayesiano e intervalos de predicción al 95\% para la media \(\mu\):
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\NormalTok{Resultados }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{rbind}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(E1}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{]),}
-    \FunctionTok{quantile}\NormalTok{(E1}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{)),}
-\NormalTok{    E1}\SpecialCharTok{$}\NormalTok{accept), }\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{]), }\FunctionTok{quantile}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par[,}
-    \DecValTok{1}\NormalTok{], }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{)), E2}\SpecialCharTok{$}\NormalTok{accept), }\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(E3}\SpecialCharTok{$}\NormalTok{par[,}
-    \DecValTok{1}\NormalTok{]), }\FunctionTok{quantile}\NormalTok{(E3}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{)),}
-    \ConstantTok{NA}\NormalTok{)))}
+\FunctionTok{mean}\NormalTok{(bernoulli}\SpecialCharTok{$}\NormalTok{y)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'mean': object 'E2' not found
+## [1] 0.3
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{colnames}\NormalTok{(Resultados) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Media"}\NormalTok{, }\StringTok{"Q1"}\NormalTok{, }\StringTok{"Q3"}\NormalTok{, }\StringTok{"Accept"}\NormalTok{)}
+\FunctionTok{sd}\NormalTok{(bernoulli}\SpecialCharTok{$}\NormalTok{y)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Error in colnames(Resultados) <- c("Media", "Q1", "Q3", "Accept"): object 'Resultados' not found
+## [1] 0.46291
+\end{verbatim}
+
+En el lenguaje usual de JAGS, el modelo debe escribirse de la forma:
+
+\begin{verbatim}
+model
+{
+    for (i in 1:N) {
+        y[i] ~ dbern(theta)
+    }
+    theta ~ dbeta(1, 1)
+}
+\end{verbatim}
+
+donde \texttt{dbern} y \texttt{dbeta} son las densidades de una bernoulli y beta respectivamente. En este lenguage no existen versiones vectorizadas de las funciones por lo que todo debe llenarse usando \texttt{for}'s. Una revisión completa de este lenguage la pueden econtrar en su manual de uso \footnote{\url{http://web.sgh.waw.pl/~atoroj/ekonometria_bayesowska/jags_user_manual.pdf}}
+
+El paquete \texttt{R2jags} tiene la capacidad que en lugar de usar este tipo de sintaxis, se pueda usar el lenguaje natural para escribir el modelo. Note el uso de \texttt{function} en este caso.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bern\_model }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{() \{}
+    \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{N) \{}
+\NormalTok{        y[i] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dbern}\NormalTok{(theta)}
+\NormalTok{    \}}
+\NormalTok{    theta }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dbeta}\NormalTok{(}\DecValTok{1}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bern\_jags }\OtherTok{\textless{}{-}} \FunctionTok{jags}\NormalTok{(}\AttributeTok{data =} \FunctionTok{list}\NormalTok{(}\AttributeTok{y =}\NormalTok{ bernoulli}\SpecialCharTok{$}\NormalTok{y, }\AttributeTok{N =} \FunctionTok{nrow}\NormalTok{(bernoulli)),}
+    \AttributeTok{model.file =}\NormalTok{ bern\_model, }\AttributeTok{parameters.to.save =} \FunctionTok{c}\NormalTok{(}\StringTok{"theta"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Compiling model graph
+##    Resolving undeclared variables
+##    Allocating nodes
+## Graph information:
+##    Observed stochastic nodes: 50
+##    Unobserved stochastic nodes: 1
+##    Total graph size: 53
+## 
+## Initializing model
+\end{verbatim}
+
+Veamos el resultado
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{bern\_jags}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Inference for Bugs model at "/var/folders/4d/qj4qr8zx1n36td0hlt0p7x_h0000gn/T//RtmpfBAscS/model14eb543d3816d.txt", fit using jags,
+##  3 chains, each with 2000 iterations (first 1000 discarded)
+##  n.sims = 3000 iterations saved
+##          mu.vect sd.vect   2.5%    25%    50%    75%  97.5%  Rhat n.eff
+## theta      0.305   0.063  0.193  0.261  0.303  0.346  0.436 1.001  3000
+## deviance  62.031   1.300 61.088 61.186 61.519 62.313 65.727 1.005   920
+## 
+## For each parameter, n.eff is a crude measure of effective sample size,
+## and Rhat is the potential scale reduction factor (at convergence, Rhat=1).
+## 
+## DIC info (using the rule, pD = var(deviance)/2)
+## pD = 0.8 and DIC = 62.9
+## DIC is an estimate of expected predictive error (lower deviance is better).
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{rownames}\NormalTok{(Resultados) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"MH{-}RW"}\NormalTok{, }\StringTok{"MH{-}Indep"}\NormalTok{, }\StringTok{"Gibbs"}\NormalTok{)}
+\FunctionTok{head}\NormalTok{(}\FunctionTok{posterior}\NormalTok{(bern\_jags))}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Error in rownames(Resultados) <- c("MH-RW", "MH-Indep", "Gibbs"): object 'Resultados' not found
+## Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'head': argument "data" is missing, with no default
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{Resultados }\OtherTok{\textless{}{-}}\NormalTok{ Resultados }\SpecialCharTok{\%\textgreater{}\%}
-    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Ancho =}\NormalTok{ Q3 }\SpecialCharTok{{-}}\NormalTok{ Q1)}
+\FunctionTok{gf\_dhistogram}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{theta, }\AttributeTok{data =} \FunctionTok{posterior}\NormalTok{(bern\_jags),}
+    \AttributeTok{bins =} \DecValTok{50}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_dens}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{theta, }\AttributeTok{size =} \FloatTok{1.5}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.8}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_dist}\NormalTok{(}\StringTok{"beta"}\NormalTok{, }\AttributeTok{shape1 =} \DecValTok{16}\NormalTok{, }\AttributeTok{shape2 =} \DecValTok{36}\NormalTok{, }\AttributeTok{color =} \StringTok{"red"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Error in mutate(., Ancho = Q3 - Q1): object 'Resultados' not found
+## Error in verosimilitud(theta, data): argument "data" is missing, with no default
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(knitr)}
-\FunctionTok{kable}\NormalTok{(Resultados)}
+\NormalTok{bern\_mcmc }\OtherTok{\textless{}{-}} \FunctionTok{as.mcmc}\NormalTok{(bern\_jags)}
+\FunctionTok{plot}\NormalTok{(bern\_mcmc)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-## Error in kable(Resultados): object 'Resultados' not found
-\end{verbatim}
-
-En el caso del algoritmo de Gibbs, cada uno de los pasos tiene una tasa de aceptación de MH en este caso:
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-379-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{E3}\SpecialCharTok{$}\NormalTok{accept}
+\FunctionTok{library}\NormalTok{(bayesplot)}
+\FunctionTok{mcmc\_areas}\NormalTok{(bern\_mcmc, }\AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"theta"}\NormalTok{), }\AttributeTok{prob =} \FloatTok{0.9}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
-\begin{verbatim}
-##      [,1] [,2]
-## [1,]    1    1
-\end{verbatim}
-
-También podemos incluir histogramas para las muestras posteriores de ambos parámetros. Para el MH independiente (burn-in=5000):
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-380-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{color\_scheme\_set}\NormalTok{(}\StringTok{"green"}\NormalTok{)}
-\FunctionTok{dimnames}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par)[[}\DecValTok{2}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{, }\StringTok{"log sigma"}\NormalTok{)}
+\FunctionTok{mcmc\_trace}\NormalTok{(bern\_mcmc, }\AttributeTok{pars =} \StringTok{"theta"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-381-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mcmc\_trace}\NormalTok{(bern\_mcmc, }\AttributeTok{pars =} \StringTok{"theta"}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_facet\_grid}\NormalTok{(Chain }\SpecialCharTok{\textasciitilde{}}\NormalTok{ .) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{gf\_refine}\NormalTok{(}\FunctionTok{scale\_color\_viridis\_d}\NormalTok{())}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Error in dimnames(E2$par)[[2]] <- c("mu", "log sigma"): object 'E2' not found
+## Error in `combine_vars()`:
+## ! At least one layer must contain all faceting variables: `Chain`.
+## * Plot is missing `Chain`
+## * Layer 1 is missing `Chain`
+\end{verbatim}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-382-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{plot\_post}\NormalTok{(bern\_mcmc[, }\StringTok{"theta"}\NormalTok{], }\AttributeTok{main =} \StringTok{"theta"}\NormalTok{, }\AttributeTok{xlab =} \FunctionTok{expression}\NormalTok{(theta),}
+    \AttributeTok{cenTend =} \StringTok{"median"}\NormalTok{, }\AttributeTok{compVal =} \FloatTok{0.5}\NormalTok{, }\AttributeTok{ROPE =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.45}\NormalTok{,}
+        \FloatTok{0.55}\NormalTok{), }\AttributeTok{credMass =} \FloatTok{0.9}\NormalTok{, }\AttributeTok{quietly =} \ConstantTok{TRUE}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-383-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{twobernoulli }\OtherTok{\textless{}{-}} \FunctionTok{read.csv}\NormalTok{(}\StringTok{"data/2bernoulli.csv"}\NormalTok{)}
+
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(twobernoulli)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{tabular}{r|l}
+\hline
+y & s\\
+\hline
+1 & Reginald\\
+\hline
+0 & Reginald\\
+\hline
+1 & Reginald\\
+\hline
+1 & Reginald\\
+\hline
+1 & Reginald\\
+\hline
+1 & Reginald\\
+\hline
+1 & Reginald\\
+\hline
+0 & Reginald\\
+\hline
+0 & Tony\\
+\hline
+0 & Tony\\
+\hline
+1 & Tony\\
+\hline
+0 & Tony\\
+\hline
+0 & Tony\\
+\hline
+1 & Tony\\
+\hline
+0 & Tony\\
+\hline
+\end{tabular}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Target }\OtherTok{\textless{}{-}}\NormalTok{ twobernoulli }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{rename}\NormalTok{(}\AttributeTok{hit =}\NormalTok{ y, }\AttributeTok{subject =}\NormalTok{ s)}
+
+\NormalTok{Target }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{group\_by}\NormalTok{(subject) }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{summarise}\NormalTok{(}\AttributeTok{prop\_0 =} \FunctionTok{sum}\NormalTok{(}\DecValTok{1} \SpecialCharTok{{-}}\NormalTok{ hit)}\SpecialCharTok{/}\FunctionTok{n}\NormalTok{(), }\AttributeTok{prop\_1 =} \FunctionTok{sum}\NormalTok{(hit)}\SpecialCharTok{/}\FunctionTok{n}\NormalTok{(),}
+        \AttributeTok{attemps =} \FunctionTok{n}\NormalTok{())}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 2 x 4
+##   subject  prop_0 prop_1 attemps
+##   <chr>     <dbl>  <dbl>   <int>
+## 1 Reginald  0.25   0.75        8
+## 2 Tony      0.714  0.286       7
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\NormalTok{obj\_mcmc2 }\OtherTok{\textless{}{-}} \FunctionTok{mcmc}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5000}\NormalTok{), ])}
+\NormalTok{bern2\_model }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{() \{}
+    \ControlFlowTok{for}\NormalTok{ (i }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{Nobs) \{}
+        \CommentTok{\# each response is Bernoulli with the}
+        \CommentTok{\# appropriate theta}
+\NormalTok{        hit[i] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dbern}\NormalTok{(theta[subject[i]])}
+\NormalTok{    \}}
+    \ControlFlowTok{for}\NormalTok{ (s }\ControlFlowTok{in} \DecValTok{1}\SpecialCharTok{:}\NormalTok{Nsub) \{}
+\NormalTok{        theta[s] }\SpecialCharTok{\textasciitilde{}} \FunctionTok{dbeta}\NormalTok{(}\DecValTok{2}\NormalTok{, }\DecValTok{2}\NormalTok{)  }\CommentTok{\# prior for each theta}
+\NormalTok{    \}}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{TargetList }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{Nobs =} \FunctionTok{nrow}\NormalTok{(Target), }\AttributeTok{Nsub =} \DecValTok{2}\NormalTok{, }\AttributeTok{hit =}\NormalTok{ Target}\SpecialCharTok{$}\NormalTok{hit,}
+    \AttributeTok{subject =} \FunctionTok{as.numeric}\NormalTok{(}\FunctionTok{as.factor}\NormalTok{(Target}\SpecialCharTok{$}\NormalTok{subject)))}
+\NormalTok{TargetList}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Error in mcmc(E2$par[-c(1:5000), ]): object 'E2' not found
+## $Nobs
+## [1] 15
+## 
+## $Nsub
+## [1] 2
+## 
+## $hit
+##  [1] 1 0 1 1 1 1 1 0 0 0 1 0 0 1 0
+## 
+## $subject
+##  [1] 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2
 \end{verbatim}
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{mcmc\_hist}\NormalTok{(obj\_mcmc2, }\AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{, }\StringTok{"log sigma"}\NormalTok{))}
+\NormalTok{bern2\_jags }\OtherTok{\textless{}{-}} \FunctionTok{jags}\NormalTok{(}\AttributeTok{data =}\NormalTok{ TargetList, }\AttributeTok{model =}\NormalTok{ bern2\_model,}
+    \AttributeTok{parameters.to.save =} \StringTok{"theta"}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Error in posterior::is_draws(x): object 'obj_mcmc2' not found
+## Compiling model graph
+##    Resolving undeclared variables
+##    Allocating nodes
+## Graph information:
+##    Observed stochastic nodes: 15
+##    Unobserved stochastic nodes: 2
+##    Total graph size: 35
+## 
+## Initializing model
 \end{verbatim}
-
-y los gráficos de autocorrelación respectivos:
 
 \begin{Shaded}
 \begin{Highlighting}[]
-\FunctionTok{mcmc\_acf\_bar}\NormalTok{(obj\_mcmc2, }\AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{, }\StringTok{"log sigma"}\NormalTok{))}
+\NormalTok{bern2\_mcmc }\OtherTok{\textless{}{-}} \FunctionTok{as.mcmc}\NormalTok{(bern2\_jags)}
+
+\FunctionTok{mcmc\_acf}\NormalTok{(bern2\_mcmc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-388-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mcmc\_combo}\NormalTok{(bern2\_mcmc, }\AttributeTok{combo =} \FunctionTok{c}\NormalTok{(}\StringTok{"dens"}\NormalTok{, }\StringTok{"dens\_overlay"}\NormalTok{,}
+    \StringTok{"trace"}\NormalTok{, }\StringTok{"scatter"}\NormalTok{), }\AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"theta[1]"}\NormalTok{, }\StringTok{"theta[2]"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-388-2} \end{center}
+
+\hypertarget{uso-de-stan}{%
+\section{Uso de STAN}\label{uso-de-stan}}
+
+STAN\footnote{\url{https://mc-stan.org/}} es otro tipo de lenguaje para definir modelos bayesiano. El lenguaje es un poco más sencillo, pero es particularmente útil para modelos bastante complejos.
+
+STAN no usa el muestreo de Gibbs, sino en el método de Monte-Carlo Hamiltoniano. En el artículo \autocite{Hoffman2014} se propone el método NUTS para mejorar el muestreo de Gibbs.
+
+En este curso no nos referiremos a este procedimiento, pero si veremos un poco de la sintaxis del lenguaje STAN.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\KeywordTok{data}\NormalTok{ \{}
+  \DataTypeTok{int}\NormalTok{\textless{}}\KeywordTok{lower}\NormalTok{=}\DecValTok{0}\NormalTok{\textgreater{} N;               }\CommentTok{// number of trials}
+  \DataTypeTok{int}\NormalTok{\textless{}}\KeywordTok{lower}\NormalTok{=}\DecValTok{0}\NormalTok{, }\KeywordTok{upper}\NormalTok{=}\DecValTok{1}\NormalTok{\textgreater{} y[N];   }\CommentTok{// success on trial n}
+\NormalTok{\}}
+
+\KeywordTok{parameters}\NormalTok{ \{}
+  \DataTypeTok{real}\NormalTok{\textless{}}\KeywordTok{lower}\NormalTok{=}\DecValTok{0}\NormalTok{, }\KeywordTok{upper}\NormalTok{=}\DecValTok{1}\NormalTok{\textgreater{} theta; }\CommentTok{// chance of success}
+\NormalTok{\}}
+
+\KeywordTok{model}\NormalTok{ \{}
+\NormalTok{  theta \textasciitilde{} uniform(}\DecValTok{0}\NormalTok{, }\DecValTok{1}\NormalTok{);        }\CommentTok{// prior}
+\NormalTok{  y \textasciitilde{} bernoulli(theta);         }\CommentTok{// likelihood}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(rstan)}
+
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{stan}\NormalTok{(}\AttributeTok{model\_code =}\NormalTok{ bern\_stan}\SpecialCharTok{@}\NormalTok{model\_code, }\AttributeTok{data =} \FunctionTok{list}\NormalTok{(}\AttributeTok{y =}\NormalTok{ bernoulli}\SpecialCharTok{$}\NormalTok{y,}
+    \AttributeTok{N =} \FunctionTok{nrow}\NormalTok{(bernoulli)), }\AttributeTok{iter =} \DecValTok{5000}\NormalTok{)}
 \end{Highlighting}
 \end{Shaded}
 
 \begin{verbatim}
-## Error in posterior::is_draws(x): object 'obj_mcmc2' not found
+## 
+## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 1).
+## Chain 1: 
+## Chain 1: Gradient evaluation took 2.1e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.21 seconds.
+## Chain 1: Adjust your expectations accordingly!
+## Chain 1: 
+## Chain 1: 
+## Chain 1: Iteration:    1 / 5000 [  0%]  (Warmup)
+## Chain 1: Iteration:  500 / 5000 [ 10%]  (Warmup)
+## Chain 1: Iteration: 1000 / 5000 [ 20%]  (Warmup)
+## Chain 1: Iteration: 1500 / 5000 [ 30%]  (Warmup)
+## Chain 1: Iteration: 2000 / 5000 [ 40%]  (Warmup)
+## Chain 1: Iteration: 2500 / 5000 [ 50%]  (Warmup)
+## Chain 1: Iteration: 2501 / 5000 [ 50%]  (Sampling)
+## Chain 1: Iteration: 3000 / 5000 [ 60%]  (Sampling)
+## Chain 1: Iteration: 3500 / 5000 [ 70%]  (Sampling)
+## Chain 1: Iteration: 4000 / 5000 [ 80%]  (Sampling)
+## Chain 1: Iteration: 4500 / 5000 [ 90%]  (Sampling)
+## Chain 1: Iteration: 5000 / 5000 [100%]  (Sampling)
+## Chain 1: 
+## Chain 1:  Elapsed Time: 0.024206 seconds (Warm-up)
+## Chain 1:                0.026863 seconds (Sampling)
+## Chain 1:                0.051069 seconds (Total)
+## Chain 1: 
+## 
+## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 2).
+## Chain 2: 
+## Chain 2: Gradient evaluation took 7e-06 seconds
+## Chain 2: 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
+## Chain 2: Adjust your expectations accordingly!
+## Chain 2: 
+## Chain 2: 
+## Chain 2: Iteration:    1 / 5000 [  0%]  (Warmup)
+## Chain 2: Iteration:  500 / 5000 [ 10%]  (Warmup)
+## Chain 2: Iteration: 1000 / 5000 [ 20%]  (Warmup)
+## Chain 2: Iteration: 1500 / 5000 [ 30%]  (Warmup)
+## Chain 2: Iteration: 2000 / 5000 [ 40%]  (Warmup)
+## Chain 2: Iteration: 2500 / 5000 [ 50%]  (Warmup)
+## Chain 2: Iteration: 2501 / 5000 [ 50%]  (Sampling)
+## Chain 2: Iteration: 3000 / 5000 [ 60%]  (Sampling)
+## Chain 2: Iteration: 3500 / 5000 [ 70%]  (Sampling)
+## Chain 2: Iteration: 4000 / 5000 [ 80%]  (Sampling)
+## Chain 2: Iteration: 4500 / 5000 [ 90%]  (Sampling)
+## Chain 2: Iteration: 5000 / 5000 [100%]  (Sampling)
+## Chain 2: 
+## Chain 2:  Elapsed Time: 0.023686 seconds (Warm-up)
+## Chain 2:                0.023843 seconds (Sampling)
+## Chain 2:                0.047529 seconds (Total)
+## Chain 2: 
+## 
+## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 3).
+## Chain 3: 
+## Chain 3: Gradient evaluation took 5e-06 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.05 seconds.
+## Chain 3: Adjust your expectations accordingly!
+## Chain 3: 
+## Chain 3: 
+## Chain 3: Iteration:    1 / 5000 [  0%]  (Warmup)
+## Chain 3: Iteration:  500 / 5000 [ 10%]  (Warmup)
+## Chain 3: Iteration: 1000 / 5000 [ 20%]  (Warmup)
+## Chain 3: Iteration: 1500 / 5000 [ 30%]  (Warmup)
+## Chain 3: Iteration: 2000 / 5000 [ 40%]  (Warmup)
+## Chain 3: Iteration: 2500 / 5000 [ 50%]  (Warmup)
+## Chain 3: Iteration: 2501 / 5000 [ 50%]  (Sampling)
+## Chain 3: Iteration: 3000 / 5000 [ 60%]  (Sampling)
+## Chain 3: Iteration: 3500 / 5000 [ 70%]  (Sampling)
+## Chain 3: Iteration: 4000 / 5000 [ 80%]  (Sampling)
+## Chain 3: Iteration: 4500 / 5000 [ 90%]  (Sampling)
+## Chain 3: Iteration: 5000 / 5000 [100%]  (Sampling)
+## Chain 3: 
+## Chain 3:  Elapsed Time: 0.023822 seconds (Warm-up)
+## Chain 3:                0.022415 seconds (Sampling)
+## Chain 3:                0.046237 seconds (Total)
+## Chain 3: 
+## 
+## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 4).
+## Chain 4: 
+## Chain 4: Gradient evaluation took 6e-06 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
+## Chain 4: Adjust your expectations accordingly!
+## Chain 4: 
+## Chain 4: 
+## Chain 4: Iteration:    1 / 5000 [  0%]  (Warmup)
+## Chain 4: Iteration:  500 / 5000 [ 10%]  (Warmup)
+## Chain 4: Iteration: 1000 / 5000 [ 20%]  (Warmup)
+## Chain 4: Iteration: 1500 / 5000 [ 30%]  (Warmup)
+## Chain 4: Iteration: 2000 / 5000 [ 40%]  (Warmup)
+## Chain 4: Iteration: 2500 / 5000 [ 50%]  (Warmup)
+## Chain 4: Iteration: 2501 / 5000 [ 50%]  (Sampling)
+## Chain 4: Iteration: 3000 / 5000 [ 60%]  (Sampling)
+## Chain 4: Iteration: 3500 / 5000 [ 70%]  (Sampling)
+## Chain 4: Iteration: 4000 / 5000 [ 80%]  (Sampling)
+## Chain 4: Iteration: 4500 / 5000 [ 90%]  (Sampling)
+## Chain 4: Iteration: 5000 / 5000 [100%]  (Sampling)
+## Chain 4: 
+## Chain 4:  Elapsed Time: 0.024683 seconds (Warm-up)
+## Chain 4:                0.02536 seconds (Sampling)
+## Chain 4:                0.050043 seconds (Total)
+## Chain 4:
 \end{verbatim}
 
-\hypertarget{ejercicios-7}{%
-\section{Ejercicios}\label{ejercicios-7}}
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{print}\NormalTok{(fit, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{, }\FloatTok{0.9}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
 
-\begin{itemize}
-\tightlist
-\item
-  Del libro \autocite{Albert2009}
+\begin{verbatim}
+## Inference for Stan model: 4584de91ce47196187979d2da8a67926.
+## 4 chains, each with iter=5000; warmup=2500; thin=1; 
+## post-warmup draws per chain=2500, total post-warmup draws=10000.
+## 
+##         mean se_mean   sd    10%    90% n_eff Rhat
+## theta   0.31    0.00 0.06   0.23   0.39  3497    1
+## lp__  -32.61    0.01 0.73 -33.48 -32.10  3903    1
+## 
+## Samples were drawn using NUTS(diag_e) at Mon Jun 27 08:33:29 2022.
+## For each parameter, n_eff is a crude measure of effective sample size,
+## and Rhat is the potential scale reduction factor on split chains (at 
+## convergence, Rhat=1).
+\end{verbatim}
 
-  \begin{itemize}
-  \tightlist
-  \item
-    Capítulo 5: 1, 2, 4, 5.
-  \item
-    Capítulo 6: 3, 5, 6, 10.
-  \end{itemize}
-\end{itemize}
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{theta\_draws }\OtherTok{\textless{}{-}} \FunctionTok{extract}\NormalTok{(fit)}\SpecialCharTok{$}\NormalTok{theta}
+
+\FunctionTok{mean}\NormalTok{(theta\_draws)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.3069652
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{quantile}\NormalTok{(theta\_draws, }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.1}\NormalTok{, }\FloatTok{0.9}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##       10%       90% 
+## 0.2261308 0.3905893
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{shinystan}\SpecialCharTok{::}\FunctionTok{launch\_shinystan}\NormalTok{(fit)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{exercise}
+\protect\hypertarget{exr:unnamed-chunk-392}{}\label{exr:unnamed-chunk-392}Replique los resultados anteriores pero para el caso de 2 monedas y comente los resultados.
+\end{exercise}
 
 \printbibliography
 

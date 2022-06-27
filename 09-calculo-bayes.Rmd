@@ -567,260 +567,1278 @@ quantile(theta_SIR2[, 1], probs = c(0.025, 0.975))
 quantile(theta_SIR2[, 2], probs = c(0.025, 0.975))
 ```
 
-## Algoritmo de Metropolis-Hastings
 
-Muestreo por cadenas de Markov-Monte Carlo (MCMC): algoritmos que definen una cadena de Markov irreducible y aperiódica cuya densidad estacionaria es la densidad posterior de interés.
 
-Simplificamos la notación de la densidad posterior $g(\theta|y)$ usando $g(\theta)$. Seleccionamos un valor inicial del algoritmo $\theta^0$ y procedemos con el
+## Métodos Monte Carlo 
 
-Algoritmo
+El tratamiento clásico de la estimación de parámetros bayesiana nos dice que si tenemos una densidad previa y la ``combinamos'' con la verosimilitud de los datos, estos nos dará una densidad con más información. Se podría repetir el proceso varias veces para tratar de ajustar mejor la densidad posterior.
 
-- Simule un candidato $\theta^*\sim p(\theta^*|\theta^{t-1})$ (densidad propuesta).
-- Calcule:
-$$R=\frac{g(\theta^*)p(\theta^{t-1}|\theta^*)}{g(\theta^{t-1})p(\theta^*|\theta^{t-1})}$$
-- Calcule la probabilidad de aceptación $P=\min \{R,1\}$.
-- Acepte la propuesta $\theta^{t}=\theta^*$ con probabilidad P, en caso contrario $\theta^t=\theta^{t-1}$.
+Sin embargo, se podría usar potencia de los métodos Monte Carlo para que esta búsqueda sea muy efectiva para encontrar los parámetros adecuados.
 
-Nota: bajo ciertas condiciones de regularidad sobre la probabilidad propuesta:
-$$\theta^n \stackrel{d}{\longrightarrow} M\sim g(\theta)$$
-cuando $n\rightarrow \infty$.
+### Ejemplo del viajero con una moneda
 
-Escogencias de la densidad propuesta:
-- Metropolis-Hastings independiente: 
-$$p(\theta^*|\theta^{t-1})=p(\theta^*)$$
-- Metropolis-Hastings con caminata aleatoria: 
-$$p(\theta^*|\theta^{t-1})=h(\theta^*-\theta^{t-1})$$
-donde $h$ es una función simétrica alrededor del origen. En este caso es fácil verificar que:
-$$R=\frac{g(\theta^*)}{g(\theta^{t-1})}$$
-Nota: las implementaciones de Metropolis-Hastings dentro del paquete LearnBayes tienen las siguientes particularidades:
+Suponga que tenemos un viajero que quiere estar en 7 lugares distintos (suponga que están en línea recta) y la probabilidad de pasar a un lugar a otro se decide tirando una moneda no sesgada (50\% a la derecha y 50\% a la izquierda).
 
-- La función *indepmetrop* contiene una propuesta que es normal multivariada con media $\mu$ y varianza $V$ (modelo independiente). Los parámetros de la propuesta se debe escoger de manera que $g/p$ se acotado, especialmente en las colas.
+Este caso sería una simple caminata aleatoria sin ningún interés en particular.
 
-- La función *rwmetrop* contiene una propuesta de la siguiente forma:
-$$\theta^*=\theta^{t-1}+\sigma Z$$
-donde $Z$ es una normal multivariada con media 0 y matriz de varianza $V$. Además $\sigma$ es un parámetro de escala positivo.
+Suponga además, que el viajero quiere estar más tiempo donde haya una mayor cantidad de personas \(P\) pero siguiendo ese patrón aleatorio. Entonces la forma de describir su decisión de moverse sería:
 
-## Algoritmo de Gibbs
 
-Suponga que el parámetro de interés es $\theta=(\theta_1,\ldots,\theta_p)$ y que podemos obtener muestras de manera secuencial a partir de las siguientes distribuciones condicionales (dado un valor inicial $\theta^0$ y $t=1,\ldots,n$):
+- Tira la moneda y decide si va a la izquierda o la derecha.
+    1. Si el lugar nuevo tiene \textbf{MÁS} personas que el actual salta a ese lugar. 
+    2. Si el lugar nuevo tiene \textbf{MENOS} personas entonces el viajero         tiene que decidir si se queda o se mueve. | calcula la probabilidad de moverse como $p_{moverse} = P_{nuevo}/P_{actual}$.
+    
+        **Tira un número aleatorio entre 0 y 1**
+        
+        1. Si $p_{moverse}>r$ entonces se mueve. 
+        2. Sino, se queda donde está. 
+        
 
-\begin{align*}
-\theta_1^t&\sim [\theta_1|\theta_2^{t-1},\ldots,\theta_p^{t-1},\text{datos}]\\
-\theta_2^t&\sim [\theta_2|\theta_1^t,\theta_3^{t-1},\ldots,\theta_p^{t-1},\text{datos}]\\
-\vdots & \qquad \vdots\\
-\theta_p^t&\sim [\theta_p|\theta_1^t,\ldots,\theta_{p-1}^t,\text{datos}]
-\end{align*}
 
-Bajo condiciones bastante generales se puede comprobar que $\theta^t$ converge a una muestra de la distribución conjunta posterior de $\theta$.
+```{r,cache=TRUE}
+P <- 1:7
 
-Nota: cuando en alguna de las condicionales anteriores no se puede obtener muestras de manera directa, entonces se puede sustituir el muestreo por un paso del algoritmo de Metropolis-Hastings. Así está implementado en la función *gibbs* del paquete LearnBayes.
+pos_actual <- sample(P, 1)
+pos_nueva <- pos_actual
 
-### Diagnósticos de convergencia de MCMC
+n_pasos <- 50000
+trayectoria <- numeric(n_pasos)
 
-- Tasa de aceptación.
-- Gráficos de traza (traceplots): gráfico de $(t,\theta^t)$. Por la naturaleza secuencial de los algoritmos de MH y Gibbs, los primeros valores de la cadena no representan normalmente una muestra confiable de la distribución posterior, por lo que generalmente se desecha un porcentaje inicial de la muestra (periodo de quema o burn-in period). 
-- Por construcción, uno esperaría que el nivel de autocorrelación de las cadenas sea bajo. Al igual que en el análisis de residuos de regresión, uno puede construir un ACF de las cadenas y esperar autocorrelación baja y convergente a 0.
+trayectoria[1] <- pos_actual
 
-## Ejemplos
+for (k in 2:n_pasos) {
+  # Tira la moneda para decidir
 
-### Datos agrupados bajo una población normal
+  moneda <- rbinom(1, 1, 0.5)
+  # moneda  es 0 o 1
+  pos_nueva <- pos_actual
+  if (moneda == 1 && (pos_actual + 1) <= 7) {
+    pos_nueva <- pos_actual + 1
+  } else if (moneda == 0 && (pos_actual - 1) >= 1) {
+    pos_nueva <- pos_actual - 1
+  }
 
-Suponga que observamos los siguientes datos agrupados:
+  p_moverse <- min(pos_nueva / pos_actual, 1)
 
-|Altura (pulgadas)|Frecuencia|
-|------|----------|
-|Menos de 66| 14|
-|Entre 66 y 68 |30|
-|Entre 68 y 70 |49|
-|Entre 70 y 72 |70|
-|Entre 72 y 74 |33|
-|Más de 74|15|
+  hay_movimiento <- 1 - p_moverse <= runif(1)
 
-Si asumimos que las alturas son normales con media $\mu$ y desviación estándar $\sigma$, podemos asumir una verosimilitud multinomial para los datos agrupados:
-\begin{align*}
-L(\mu,\sigma)&\propto \Phi(66,\mu,\sigma)^{14}(\Phi(68,\mu,\sigma)-\Phi(66,\mu,\sigma))^{30} \\
-&\times  (\Phi(70,\mu,\sigma)-\Phi(68,\mu,\sigma))^{49} (\Phi(72,\mu,\sigma)-\Phi(70,\mu,\sigma))^{70}\\
-&\times  (\Phi(74,\mu,\sigma)-\Phi(72,\mu,\sigma))^{33} (1-\Phi(74,\mu,\sigma))^{15}
-\end{align*}
+  if (hay_movimiento) {
+    pos_actual <- pos_nueva
+  }
 
-y asumimos una previa no informativa para $(\mu,\sigma)\sim \frac 1 \sigma$. Como $\sigma>0$ entonces usamos la transformación $\lambda=\log (\sigma)$.
+  trayectoria[k] <- pos_nueva
+}
+```
 
 ```{r}
-d <- list(
-  int.lo = c(-Inf, seq(66, 74, by = 2)),
-  int.hi = c(seq(66, 74, by = 2), Inf),
-  f = c(14, 30, 49, 70, 33, 15)
+df <- data.frame(x = 1:n_pasos, P = trayectoria)
+
+ggplot(df[1:200, ]) +
+  geom_line(aes(x, P)) +
+  coord_flip() +
+  theme_minimal(base_size = 16)
+
+
+ggplot(df) +
+  geom_histogram(aes(P), stat = "count") +
+  theme_minimal(base_size = 16)
+
+```
+
+```{r} 
+mean(trayectoria)
+sd(trayectoria)
+```
+
+### Cadenas de Markov
+
+Recuerde que estamos buscando el "camino" que el viajero tomará para pasar la mayor parte del tiempo de en los lugares más poblados (con mayor \(\theta\)).  
+
+\begin{equation*}
+\theta_{1} \curvearrowright \theta_{2} \curvearrowright \ldots \curvearrowright \theta_{50000}.
+\end{equation*}
+
+Denotamos \(\theta_{1}\to\theta_{2}\) si el viajero pasó de \(\theta_{1}\) hacia \(\theta_{2}\). 
+
+Entonces 
+
+- \(\mathbb{P}\left(\theta \rightarrow \theta+1\right)=0.5  \min \left(\frac{P(\theta+1)}{P(\theta)}  , 1\right)\)
+- \(\mathbb{P}\left(\theta + 1 \rightarrow \theta\right)=0.5  \min \left(\frac{P(\theta)}{P(\theta+1)}  , 1\right)\)
+
+Entonces la razón entre estas dos probabilidades es 
+
+\begin{align*}
+ \frac{\mathbb{P}\left(\theta \rightarrow \theta+1\right)}{\mathbb{P}\left(\theta +1 \rightarrow \theta\right)}
+   & =\frac{0.5 \min (P(\theta+1) / P(\theta), 1)}{0.5 \min (P(\theta) / P(\theta+1), 1)} \\
+   & =\left\{\begin{array}{ll}
+  \frac{P(\theta+1)}{P(\theta) }
+    & \text { si } P(\theta+1)>P(\theta) \\
+  \frac{P(\theta+1) }{P(\theta)}
+    & \text { si } P(\theta+1)<P(\theta)
+ \end{array}\right.                                             \\
+ \, & =\frac{P(\theta+1)}{P(\theta)}.
+\end{align*}
+
+Es decir que la razón de las probabilidades es equivalente a la razón entre las proporción de las poblaciones. Por lo tanto la mayoría de las veces se estará en los lugares con mayor población. 
+
+Esta cadena se puede escribir usando una matriz de transición de la forma 
+
+
+\begin{equation*}
+T= \left(\begin{array}{ccccc}
+\ddots & \mathbb{P}(\theta-2 \rightarrow \theta-1) & 0 & 0 & 0 \\
+\ddots & \mathbb{P}(\theta-1 \rightarrow \theta-1) & \mathbb{P}(\theta-1 \rightarrow \theta) & 0 & 0 \\
+0 & \mathbb{P}(\theta \rightarrow \theta-1) & \mathbb{P}(\theta \rightarrow \theta) & \mathbb{P}(\theta \rightarrow \theta+1) & 0 \\
+0 & 0 & \mathbb{P}(\theta+1 \rightarrow \theta) & \mathbb{P}(\theta+1 \rightarrow \theta+1) & \ddots \\
+0 & 0 & 0 & \mathbb{P}(\theta+2 \rightarrow \theta+1) & \ddots
+\end{array}\right)
+\end{equation*}
+
+
+La matriz \(T\)  tiene las propiedades 
+
+1. Existencia de una única distribución estacionaria (llamada \(f\) más adelante). 
+2. Es ergódica, i.e., es aperíodica y positiva recurrente. Recuerde que una cadena de markov es érgodica si siempre se puede pasar de un estado a otro (no necesariamente en 1 paso). Otra forma de verlo es que la para alguna potencia de \(T\) todos los sus elementos serán positivos estrictos.  
+
+
+
+### El algoritmo de Metropolis-Hasting
+
+El ejemplo anterior era bastante sencillo pero demuestra que se puede
+encontrar el mejor estimador posible simplemente ejecutando una y otra
+vez maximizando la estadía en los lugares más poblados.
+
+En este ejemplo la función a maximizar es la cantidad de personas
+\(P(\theta)=\theta\), pero en general nuestro objetivo será maximizar
+la distribución posterior \(f(\theta| \text{ datos })\).
+
+En palabras simples el algoritmo de Metropoli Hasting es
+
+1. Simule un valor \(\theta^{*}\) de una densidad de propuesta
+\(p\left(\theta^{*} | \theta^{t-1}\right)\)
+2. Estime la razón
+\[
+ R=\frac{f\left(\theta^{*}\right) L\left(\theta^{t-1} |
+  \theta^{*}\right)}{f\left(\theta^{t-1}\right) L\left(\theta^{*} |
+  \theta^{t-1}\right)}
+\]
+3. Estima la probabilidad de aceptación \( p_{\text {moverse }}=\min \{R, 1\}\).
+4. Tome \(\theta^{t}\) tal que \(\theta^{t}=\theta^{*}\)
+con probabilidad \( p_{\text {moverse }}\); en otro caso \(\theta^{t}=\) \(\theta^{t-1}\)
+
+El algoritmo de Metropolis-Hastings se puede construir de muchas
+formas, dependiendo de la densidad de proposición
+
+Si esta es independiente de las elecciones anteriores entonces,
+\[
+ p\left(\theta^{*} | \theta^{t-1}\right)=p\left(\theta^{*}\right)
+\]
+
+Otras formas es escoger es usando
+\[
+ p\left(\theta^{*} |
+ \theta^{t-1}\right)=h\left(\theta^{*}-\theta^{t-1}\right)
+\]
+donde \(h\) es simétrica alrededor del origen. En este tipo de
+cadenas, la razón \(R\) tiene la forma
+\[
+ R=\frac{f\left(\theta^{*}\right)}{f\left(\theta^{t-1}\right)}
+\]
+
+Una última opción es simular solo el _salto_ $Z$ 
+\[
+ \theta^{*}=\theta^{t-1}+ Z
+\]
+
+donde \(Z\) es una normal centrada con cierta estructura de varianza.
+
+
+###  ¿Por qué el algoritmo de Metropolis Hasting funciona?
+
+
+\begin{equation}
+\mathbb{P}\left(\theta^{\star} | \theta^{(t-1)}\right)=L\left(\theta^{\star} | \theta^{(t-1)}\right) \cdot \min \left\{1, \frac{f\left(\theta^{\star}\right) L\left(\theta^{(t-1)} | \theta^{\star}\right)}{f\left(\theta^{(t-1)}\right) L\left(\theta^{\star} | \theta^{(t-1)}\right)}\right\}
+\end{equation}
+
+Si se comienza en \(f\left(\theta^{(t-1)}\right)\) entonces
+
+\begin{align}
+&= f\left(\theta^{(t-1)}\right) \mathbb{P}\left(\theta^{\star} | \theta^{(t-1)}\right) \\
+&= f\left(\theta^{(t-1)}\right) L\left(\theta^{\star} | \theta^{(t-1)}\right) \min \left\{1, \frac{f\left(\theta^{\star}\right) L\left(\theta^{(t-1)} | \theta^{\star}\right)}{f\left(\theta^{(t-1)}\right) L\left(\theta^{\star} | \theta^{(t-1)}\right)}\right\} \\
+&=\min \left\{f\left(\theta^{(t-1)}\right) L\left(\theta^{\star} | \theta^{(t-1)}\right), f\left(\theta^{\star}\right) L\left(\theta^{(t-1)} | \theta^{\star}\right)\right\} \\
+&= f\left(\theta^{\star}\right) L\left(\theta^{(t-1)} | \theta^{\star}\right) \min \left\{\frac{f\left(\theta^{(t-1)}\right) L\left(\theta^{\star} | \theta^{(t-1)}\right)}{f\left(\theta^{\star}\right) L\left(\theta^{(t-1)} | \theta^{\star}\right)}, 1\right\} \\
+&=f\left(\theta^{\star}\right) \mathbb{P}\left(\theta^{(t-1)} | \theta^{\star}\right)
+\end{align}
+
+Asumiendo que existe una cantidad finita de estados \(\theta_{1}, \ldots, \theta_{M}\), entonces. 
+
+\begin{equation*}
+f\left(\theta_{j}\right) = \underbrace{\sum_{i=1}^{M} f\left(\theta_{i}\right) \mathbb{P} \left(\theta_{j} | \theta_{i}\right)}_{\text {Probabilidad total  }}=\sum_{i=1}^{M} f\left(\theta_{j}\right) \mathbb{P} \left(\theta_{i} | \theta_{j}\right)
+\end{equation*}
+
+\begin{equation}
+f(\boldsymbol{\theta})^\top T =   f(\boldsymbol{\theta})
+\end{equation}
+
+Cual indica que no importa donde empecemos siempre llegaremos a la densidad estacionaria \(f\). 
+
+<!-- [https://www.ece.iastate.edu/~namrata/EE527_Spring08/l4c.pdf#page=32](https://www.ece.iastate.edu/~namrata/EE527_Spring08/l4c.pdf#page=32) -->
+
+### Extensión al caso del viajero
+
+Retomemos el ejemplo del viajero. Supongamos que ahora existen una
+cantidad infinita de lugares a los que puede ir y que la población de
+cada isla es proporcional a la densidad posterior. Además, el viajero
+podría saltar a cualquier isla que quisiera y su probabilidad de 
+salto cae de forma continua en el intervalo \([0,1]\).
+
+Para hacer este ejemplo concreto, el viajero no conoce cuál es su 
+probabilidad de salto \(\theta\) pero sabe que ha tirado la
+moneda \(N\) veces y observado \(z\) exitos. Por lo tanto tendremos
+una verosimilitud de \(L(z, N |
+\theta)=\theta^{z}(1-\theta)^{(N-z)}\).
+
+La  previa será dada por \(f(\theta)=\operatorname{beta}(\theta | a,
+b)\).
+
+Los saltos serán gobernados por una normal centrada con media
+\(\sigma\) de modo que \(\Delta \theta \sim
+\mathcal{N}\left(0,\sigma^{2}\right)\).
+
+Entonces el algoritmo de Metropolis Hasting se puede reformular como
+
+1. Simule un valor de salto\(\Delta \theta \sim
+\mathcal{N}\left(0,\sigma^{2}\right)\) y denote \(\theta^{t} =
+\theta^{t} + \Delta\theta\).
+2. Probabilidad de aceptación \( p_{\text {moverse }}\)
+\begin{align*}
+ p_{\text {moverse }}
+   & =\min \left(1, \frac{P\left(\theta_{\ast}\right)}{P\left(\theta_{t-1}\right)}\right) \\
+      & =\min \left(1, \frac{p\left(D |
+  \theta_{\ast}\right) p\left(\theta_{\ast}\right)}{p\left(D | \theta_{t-1}\right)
+  p\left(\theta_{t-1}\right)}\right) \\
+   & =\min \left(1, \frac{\operatorname{Bernoulli}\left(z, N |
+  \theta_{\ast}\right)
+  \operatorname{beta}\left(\theta_{\ast} | a,
+  b\right)}{\operatorname{Bernoulli}\left(z, N |
+  \theta_{t-1}\right)
+  \operatorname{beta}\left(\theta_{t-1} | a, b\right)}\right) \\
+   & =\min \left(1,
+ \frac{\theta_{\ast}^{z}\left(1-\theta_{\ast}\right)^{(N-z)}
+   \theta_{\ast} \left(1-\theta_{\ast}\right)^{(b-1)}
+   / B(a,b)}{\theta_{t-1}^{z}\left(1-\theta_{t-1}\right)^{(N-z)}
+   \theta_{t-1}^{(a-1)}\left(1-\theta_{t-1}\right)^{(b-1)}
+   / B(a, b)}\right)
+\end{align*}
+
+3. Tome \(\theta_{t}\) tal que \(\theta_{t}=\theta_{*}\)
+con probabilidad \( p_{\text {moverse }} ;\) en otro caso \(\theta_{t}=\) \(\theta_{t-1}\)
+
+
+
+En el ejemplo del viajero queremos ver la probabilidad \(\theta\) de 
+que salte al siguiente destino. Tomemos \(\sigma=0.2\) y supongamos 
+que se ha visto que el viajero de \(N=20\) y \(z=14\) éxitos.  Por 
+cuestiones de practicidad se tomará \(\theta_0 = 0.1\).
+
+
+
+
+
+```{r, cache=TRUE}
+# Carga de datos observados
+datos_observados <- c(rep(0, 6), rep(1, 14))
+
+# Función de verosimilitud Binomial
+verosimilitud <- function(theta, data) {
+  z <- sum(data)
+  N <- length(data)
+  pDatosDadoTheta <- theta^z * (1 - theta)^(N - z)
+  # Es para asegurarse que los datos caigan en [0,1].
+  pDatosDadoTheta[theta > 1 | theta < 0] <- 0
+  return(pDatosDadoTheta)
+}
+
+# densidad previa
+previa <- function(theta) {
+  pTheta <- dbeta(theta, 1, 1)
+  # Es para asegurarse que los datos caigan en [0,1].
+  pTheta[theta > 1 | theta < 0] <- 0
+  return(pTheta)
+}
+
+# densidad posterior
+posterior <- function(theta, data) {
+  posterior <- verosimilitud(theta, data) * previa(theta)
+  return(posterior)
+}
+
+n_pasos <- 50000
+
+trayectoria <- rep(0, n_pasos)
+
+# Valor inicial
+trayectoria[1] <- 0.01
+
+n_aceptados <- 0
+n_rechazados <- 0
+
+
+sigma <- 0.2
+
+for (t in 2:(n_pasos - 1)) {
+  pos_actual <- trayectoria[t]
+
+  salto_propuesto <- rnorm(1, mean = 0, sd = sigma)
+
+  proba_aceptacion <-
+    min(
+      1,
+      posterior(
+        pos_actual + salto_propuesto,
+        datos_observados
+      ) / posterior(pos_actual, datos_observados)
+    )
+
+  # Aceptamos el salto?
+  if (runif(1) < proba_aceptacion) {
+    # Aceptados
+    trayectoria[t + 1] <- pos_actual + salto_propuesto
+    n_aceptados <- n_aceptados + 1
+  } else {
+    # Rechazos
+    trayectoria[t + 1] <- pos_actual
+    n_rechazados <- n_rechazados + 1
+  }
+}
+
+```
+
+
+Obtenemos una tasa de aceptación del `r round(n_aceptados/n_pasos*100, 2)` y tasa de rechazo del `r round(n_rechazados/n_pasos*100, 2)`
+
+Podemos desechar los primeros 500 pasos (por ejemplo) del proceso ya que estos son de "calentamiento". De esta forma podremos estimar la media y la varianza de las trayectoria. 
+
+```{r}
+mean(trayectoria[500:n_pasos])
+sd(trayectoria[500:n_pasos])
+```
+
+
+
+
+```{r, warning=FALSE}
+df <- data.frame(x = 1:n_pasos, P = trayectoria)
+
+ggplot(df[1:500, ]) +
+  geom_line(aes(x, P), size = 0.5) +
+  coord_flip() +
+  theme_minimal(base_size = 16)
+
+ggplot(df[500:n_pasos, ]) +
+  geom_histogram(aes(P, y = ..density..), color = "white") +
+  theme_minimal(base_size = 16)
+
+```
+
+## El problema del viajero con dos monedas
+
+Un problema con el algoritmo de Metropolis-Hastings (M-H) es que solo funciona para la estimación de un solo parámetro.  
+
+
+El muestreo de Gibbs está pensado en el caso de la estimación de muchos parámetros de forma bastante ordenada.  
+
+Supongamos que tenemos dos monedas y queremos ver la proporción de escudos generados entre las dos monedas: 
+
+Tenemos: 
+
+- Parámetros: \(\theta_{1}\) y \(\theta_{2}\). 
+- Datos: \(N_{1}\) tiradas de la moneda 1 y \(N_{2}\) tiradas de la moneda 2. (cada una tuvo \(z_{1}\) y \(z_{2}\) éxitos). 
+3. Verosimilitud: Bernoulli. 
+\begin{equation*}
+y_{1}^{i}\sim \mathrm{Bernoulli}(\theta_{1}) 
+\quad 
+y_{2}^{i}\sim \mathrm{Bernoulli}(\theta_{2}) 
+\end{equation*}
+
+
+4. Previa: Beta independiente para cada \(\theta\). 
+\begin{equation*}
+\theta_{1}\sim \mathrm{Beta}(a_{1},b_{1}) 
+\quad 
+\theta_{2}\sim \mathrm{Beta}(a_{2},b_{2}) 
+\end{equation*}
+
+La distribución posterior se puede escribir como 
+
+\begin{align*}
+f\left(\theta_{1}, \theta_{2} | D\right) 
+&=f\left(D | \theta_{1}, \theta_{2}\right) \frac{f\left(\theta_{1}, \theta_{2}\right)}{f(D)} \\
+&=\theta_{1}^{z_{1}}\left(1-\theta_{1}\right)^{N_{1}-z_{1}} \theta_{1}^{z_{2}}\left(1-\theta_{2}\right)^{N_{2}-z_{2}} \frac{f\left(\theta_{1}, \theta_{2}\right)}{f(D)}  \\
+&=\frac{\theta_{1}^{z_{1}}\left(1-\theta_{1}\right)^{N_{1}-z_{1}} \theta_{1}^{z_{2}}\left(1-\theta_{2}\right)^{N_{2}-z_{2}} \theta_{1}^{a_{1}-1}\left(1-\theta_{1}\right)^{b_{1}-1} \theta_{2}^{a_{2}-1}\left(1-\theta_{2}\right)^{b_{2}-1}}{f(D) B\left(a_{1}, b_{1}\right) B\left(a_{2}, b_{2}\right)} \\
+&=\frac{\theta_{1}^{z_{1}+a_{1}-1}\left(1-\theta_{1}\right)^{N_{1}-z_{1}+b_{1}-1} \theta_{2}^{z_{2}+a_{2}-1}\left(1-\theta_{2}\right)^{N_{2}-z_{2}+b_{2}-1}}{f(D) B\left(a_{1}, b_{1}\right) B\left(a_{2}, b_{2}\right)}
+\end{align*}
+Entonces la distribución posterior de \(\left(\theta_{1}, \theta_{2}\right)\) son dos distribuciones independientes Betas:
+\(\operatorname{Beta}\left(z_{1}+a, N_{1}-z_{1}+b_{1}\right)\) y \(\operatorname{Beta}\left(z_{2}+a, N_{2}-z_{2}+b_{2}\right)\)
+
+
+Tratemos de encontrar los parámetros para la distribución posterior usando un algoritmo de Metropolis-Hasting. [Función tomada de Kruschke-Notes ](https://rpruim.github.io/Kruschke-Notes/markov-chain-monte-carlo-mcmc.html#metropolis)
+
+```{r, tidy=FALSE}
+metro_2coins <- function(z1, n1, # z = successes, n = trials
+                         z2, n2, # z = successes, n = trials
+                         size = c(0.1, 0.1), # sds of jump distribution
+                         start = c(0.5, 0.5), # value of thetas to start at
+                         num_steps = 5e4, # number of steps to run the algorithm
+                         prior1 = dbeta, # function describing prior
+                         prior2 = dbeta, # function describing prior
+                         args1 = list(), # additional args for prior1
+                         args2 = list() # additional args for prior2
+) {
+  theta1 <- rep(NA, num_steps) # trick to pre-alocate memory
+  theta2 <- rep(NA, num_steps) # trick to pre-alocate memory
+  proposed_theta1 <- rep(NA, num_steps) # trick to pre-alocate memory
+  proposed_theta2 <- rep(NA, num_steps) # trick to pre-alocate memory
+  move <- rep(NA, num_steps) # trick to pre-alocate memory
+  theta1[1] <- start[1]
+  theta2[1] <- start[2]
+
+  size1 <- size[1]
+  size2 <- size[2]
+
+  for (i in 1:(num_steps - 1)) {
+    # head to new "island"
+    proposed_theta1[i + 1] <- rnorm(1, theta1[i], size1)
+    proposed_theta2[i + 1] <- rnorm(1, theta2[i], size2)
+
+    if (proposed_theta1[i + 1] <= 0 ||
+      proposed_theta1[i + 1] >= 1 ||
+      proposed_theta2[i + 1] <= 0 ||
+      proposed_theta2[i + 1] >= 1) {
+      proposed_posterior <- 0 # because prior is 0
+    } else {
+      current_prior <-
+        do.call(prior1, c(list(theta1[i]), args1)) *
+          do.call(prior2, c(list(theta2[i]), args2))
+      current_likelihood <-
+        dbinom(z1, n1, theta1[i]) *
+          dbinom(z2, n2, theta2[i])
+      current_posterior <- current_prior * current_likelihood
+
+      proposed_prior <-
+        do.call(prior1, c(list(proposed_theta1[i + 1]), args1)) *
+          do.call(prior2, c(list(proposed_theta2[i + 1]), args2))
+      proposed_likelihood <-
+        dbinom(z1, n1, proposed_theta1[i + 1]) *
+          dbinom(z2, n2, proposed_theta2[i + 1])
+      proposed_posterior <- proposed_prior * proposed_likelihood
+    }
+    prob_move <- proposed_posterior / current_posterior
+
+    # sometimes we "sail back"
+    if (runif(1) > prob_move) { # sail back
+      move[i + 1] <- FALSE
+      theta1[i + 1] <- theta1[i]
+      theta2[i + 1] <- theta2[i]
+    } else { # stay
+      move[i + 1] <- TRUE
+      theta1[i + 1] <- proposed_theta1[i + 1]
+      theta2[i + 1] <- proposed_theta2[i + 1]
+    }
+  }
+
+  tibble(
+    step = 1:num_steps,
+    theta1 = theta1,
+    theta2 = theta2,
+    proposed_theta1 = proposed_theta1,
+    proposed_theta2 = proposed_theta2,
+    move = move,
+    size1 = size1,
+    size2 = size2
+  )
+}
+```
+
+```{r}
+Metro_2coinsA <-
+  metro_2coins(
+    z1 = 6,
+    n1 = 8,
+    z2 = 2,
+    n2 = 7,
+    size = c(0.02, 0.02),
+    args1 = list(shape1 = 2, shape2 = 2),
+    args2 = list(shape1 = 2, shape2 = 2)
+  )
+
+Metro_2coinsA %>%
+  gf_density2d(theta2 ~ theta1)
+
+Metro_2coinsA %>%
+  gf_density(~ (theta2 - theta1))
+
+acf(Metro_2coinsA$theta2 - Metro_2coinsA$theta1)
+```
+
+
+```{r}
+Metro_2coinsA %>%
+  filter(step < 500) %>%
+  gf_path(
+    theta2 ~ theta1,
+    color = ~step,
+    alpha = 0.5,
+    arrow = arrow(
+      type = "open",
+      angle = 30,
+      length = unit(0.1, "inches")
+    )
+  ) +
+  theme_minimal()
+```
+
+```{r, eval=FALSE}
+library(gganimate)
+Metro_2coinsAplot <- Metro_2coinsA %>%
+  filter(step < 500) %>%
+  gf_path(
+    theta2 ~ theta1,
+    color = ~step,
+    alpha = 0.5,
+    arrow = arrow(
+      type = "open",
+      angle = 30
+    )
+  ) +
+  theme_minimal() +
+  transition_reveal(step)
+
+animate(Metro_2coinsAplot, fps = 1)
+```
+
+
+
+
+```{r}
+Metro_2coinsB <-
+  metro_2coins(
+    z1 = 6,
+    n1 = 8,
+    z2 = 2,
+    n2 = 7,
+    size = c(0.2, 0.2),
+    args1 = list(shape1 = 2, shape2 = 2),
+    args2 = list(shape1 = 2, shape2 = 2)
+  )
+
+Metro_2coinsB %>%
+  gf_density2d(theta2 ~ theta1)
+
+acf(Metro_2coinsB$theta2 - Metro_2coinsB$theta1)
+
+```
+
+```{r}
+Metro_2coinsB %>%
+  filter(step < 500) %>%
+  gf_path(
+    theta2 ~ theta1,
+    color = ~step,
+    alpha = 0.5,
+    arrow = arrow(
+      type = "open",
+      angle = 30,
+      length = unit(0.1, "inches")
+    )
+  ) +
+  theme_minimal()
+```
+
+```{r, eval = FALSE}
+Metro_2coinsBplot <- Metro_2coinsA %>%
+  filter(step < 500) %>%
+  gf_path(
+    theta2 ~ theta1,
+    color = ~step,
+    alpha = 0.5,
+    arrow = arrow(
+      type = "open",
+      angle = 30
+    )
+  ) +
+  theme_minimal() +
+  transition_reveal(step)
+
+animate(Metro_2coinsBplot, fps = 1)
+```
+
+
+### Muestreo de Gibbs
+
+Para este ejemplo \(\left( \theta_{1},\theta_{2} \right)\), entonces la forma de escoger la posteriores en cada paso sería de la forma:
+
+1. Tome al azar un \(\boldsymbol{\theta}^{0} = \left( \theta_{1}^{0},\theta_{2}^{0} \right)\).
+2. Escoja \(\theta_{1}^{1}\) a partir de la distribución
+\(f\left(\theta_{1} \vert \theta_{1}=\theta_{1}^{0}, \theta_{2}=\theta_{2}^{0}, \boldsymbol{X}   \right)\).
+3. Escoja \(\theta_{2}^{1}\) a partir de la distribución
+\(f\left(\theta_{2} \vert \theta_{1}=\theta_{1}^{1}, \theta_{2}=\theta_{2}^{0}, \boldsymbol{X}   \right)\).
+
+Esto completa un ciclo del muestreo. Cada ciclo genera nuevos  \(\boldsymbol{\theta}^{i} = \left( \theta_{1}^{i},\theta_{2}^{i} \right)\) hasta que el proceso converja.
+
+
+```{remark}
+En realidad el muestreo de Gibbs se basa en el algoritmo de M-H, con la diferencia que la elección de los parámetros se escogen teniendo en cuanta los datos y fijando los otros parámetros. Es decir,
+
+\begin{align*}
+&{\left[\theta_{1} | \theta_{2}, \ldots, \theta_{M}, datos \right]} \\
+&{\left[\theta_{2} | \theta_{1}, \theta_{3}, \ldots, \theta_{M}, datos \right]} \\
+&{\left[\theta_{M} | \theta_{1}, \ldots, \theta_{M-1}, datos \right]}
+\end{align*}
+
+```
+
+El tratamiento teórico puede ser consultado [https://www.ece.iastate.edu/~namrata/EE527_Spring08/l4c.pdf#page=16](https://www.ece.iastate.edu/~namrata/EE527_Spring08/l4c.pdf#page=16)
+
+\begin{align*}
+f\left(\theta_{1} | \theta_{2}, D\right) 
+&= \frac{f\left(\theta_{1}, \theta_{2} | D\right)}{f\left(\theta_{2} | D\right)}  \\
+&= \frac{f\left(\theta_{1}, \theta_{2} | D\right)}{\int f\left(\theta_{1}, \theta_{2} | D\right)d \theta_{1}}   \\
+&=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2}, z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)}{\int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2} | z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)d \theta_{1}} \\
+&=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2}, z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)}{\operatorname{dbeta}\left(\theta_{2} | z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right) \int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)d \theta_{1}} \\
+&=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)}{\int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)d \theta_{1}} \\
+&=\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)
+\end{align*}
+
+```{r, tidy=FALSE}
+gibbs_2coins <- function(z1, n1, # z = successes, n = trials
+                         z2, n2, # z = successes, n = trials
+                         start = c(0.5, 0.5), # value of thetas to start at
+                         num_steps = 1e4, # number of steps to run the algorithm
+                         a1, b1, # params for prior for theta1
+                         a2, b2 # params for prior for theta2
+) {
+  theta1 <- rep(NA, num_steps) # trick to pre-alocate memory
+  theta2 <- rep(NA, num_steps) # trick to pre-alocate memory
+  theta1[1] <- start[1]
+  theta2[1] <- start[2]
+
+  for (i in 1:(num_steps - 1)) {
+    if (i %% 2 == 1) { # update theta1
+      theta1[i + 1] <- rbeta(1, z1 + a1, n1 - z1 + b1)
+      theta2[i + 1] <- theta2[i]
+    } else { # update theta2
+      theta1[i + 1] <- theta1[i]
+      theta2[i + 1] <- rbeta(1, z2 + a2, n2 - z2 + b2)
+    }
+  }
+
+  tibble(
+    step = 1:num_steps,
+    theta1 = theta1,
+    theta2 = theta2,
+  )
+}
+```
+
+
+```{r}
+Gibbs <-
+  gibbs_2coins(
+    z1 = 6, n1 = 8,
+    z2 = 2, n2 = 7,
+    a1 = 2, b1 = 2, a2 = 2, b2 = 2
+  )
+
+Gibbs %>% gf_density2d(theta2 ~ theta1)
+
+Gibbs %>% gf_dens(~theta1)
+
+acf(Gibbs$theta1)
+```
+
+
+```{r}
+Gibbs %>%
+  filter(step < 500) %>%
+  gf_path(
+    theta2 ~ theta1,
+    color = ~step,
+    alpha = 0.5,
+    arrow = arrow(
+      type = "open",
+      angle = 30,
+      length = unit(0.1, "inches")
+    )
+  ) +
+  theme_minimal()
+```
+
+```{r, eval=FALSE}
+Gibbsplot <- Gibbs %>%
+  filter(step < 500) %>%
+  gf_path(
+    theta2 ~ theta1,
+    color = ~step,
+    alpha = 0.5,
+    arrow = arrow(
+      type = "open",
+      angle = 30
+    )
+  ) +
+  theme_minimal() +
+  transition_reveal(step)
+
+animate(Gibbsplot, fps = 1)
+```
+
+
+
+
+Ciclos completos 
+
+```{r}
+Gibbs %>%
+  filter(step %% 2 == 0) %>%
+  gf_density2d(theta2 ~ theta1)
+
+Gibbs %>%
+  filter(step %% 2 == 0) %>%
+  gf_density(~ (theta2 - theta1))
+
+Gibbs %>%
+  filter(step %% 2 == 0) %>%
+  mutate(difference = theta2 - theta1) %>%
+  pull(difference) %>%
+  acf()
+
+```
+
+```{r}
+Gibbs %>%
+  filter(step < 500, step %% 2 == 0) %>%
+  gf_path(
+    theta2 ~ theta1,
+    color = ~step,
+    alpha = 0.5,
+    arrow = arrow(
+      type = "open",
+      angle = 30,
+      length = unit(0.1, "inches")
+    )
+  ) +
+  theme_minimal()
+```
+
+```{r, eval=FALSE}
+Gibbsplot2 <- Gibbs %>%
+  filter(step < 500, step %% 2 == 0) %>%
+  gf_path(
+    theta2 ~ theta1,
+    color = ~step,
+    alpha = 0.5,
+    arrow = arrow(
+      type = "open",
+      angle = 30
+    )
+  ) +
+  theme_minimal() +
+  transition_reveal(step)
+
+animate(Gibbsplot2, fps = 1)
+```
+
+## Uso de JAGS 
+
+
+El paquete que usaremos en esta sección es `R2jags` y `coda`. Los cargamos con las instrucciones
+
+
+```{r, eval=FALSE}
+remotes::install_github("rpruim/CalvinBayes")
+
+```
+
+```{r}
+library(R2jags)
+library(coda)
+library(CalvinBayes)
+```
+
+
+
+
+```{r}
+bernoulli <- read.csv(file = "data/bernoulli.csv", sep="")
+tibble::glimpse(bernoulli)
+mean(bernoulli$y)
+sd(bernoulli$y)
+```
+En el lenguaje usual de JAGS, el modelo debe escribirse de la forma: 
+
+```
+model
+{
+    for (i in 1:N) {
+        y[i] ~ dbern(theta)
+    }
+    theta ~ dbeta(1, 1)
+}
+
+```
+
+donde `dbern` y `dbeta` son las densidades de una bernoulli y beta respectivamente. En este lenguage no existen versiones vectorizadas de las funciones por lo que todo debe llenarse usando `for`'s.  Una revisión completa de este lenguage la pueden econtrar en su manual de uso ^[[http://web.sgh.waw.pl/~atoroj/ekonometria_bayesowska/jags_user_manual.pdf](http://web.sgh.waw.pl/~atoroj/ekonometria_bayesowska/jags_user_manual.pdf)]
+
+El paquete `R2jags` tiene la capacidad que en lugar de usar este tipo de sintaxis, se pueda usar el lenguaje natural para escribir el modelo. Note el uso de `function` en este caso. 
+
+
+```{r}
+bern_model <- function() {
+  for (i in 1:N) {
+    y[i] ~ dbern(theta)  
+  }
+  theta ~ dbeta(1, 1)    
+}
+```
+
+
+
+```{r}
+
+
+bern_jags <- 
+  jags(
+    data = list(y = bernoulli$y, N = nrow(bernoulli)),
+    model.file = bern_model,
+    parameters.to.save = c("theta")
+  )
+```
+
+Veamos el resultado 
+
+```{r}
+bern_jags
+```
+
+```{r}
+head(posterior(bern_jags))
+```
+
+```{r}
+gf_dhistogram(~theta, data = posterior(bern_jags), bins = 50) %>% 
+  gf_dens(~theta, size = 1.5, alpha = 0.8) %>%
+  gf_dist("beta", shape1 = 16, shape2 = 36, color = "red")
+```
+
+```{r}
+bern_mcmc <- as.mcmc(bern_jags)
+plot(bern_mcmc)
+```
+
+```{r}
+library(bayesplot)
+mcmc_areas(bern_mcmc,
+           pars = c("theta"),
+           prob = 0.90)           
+```
+
+```{r}
+mcmc_trace(bern_mcmc, pars = "theta") 
+```
+
+```{r}
+mcmc_trace(bern_mcmc, pars = "theta") %>%
+  gf_facet_grid(Chain ~ .) %>%
+  gf_refine(scale_color_viridis_d())
+```
+
+```{r}
+plot_post(bern_mcmc[, "theta"], main = "theta", xlab = expression(theta),
+         cenTend = "median", compVal = 0.5, ROPE = c(0.45, 0.55), 
+         credMass = 0.90, quietly = TRUE)
+```
+
+```{r}
+twobernoulli <- read.csv("data/2bernoulli.csv")
+
+knitr::kable(twobernoulli)
+
+Target <- twobernoulli %>%
+  rename(hit = y, subject = s) 
+
+Target %>%
+  group_by(subject) %>%
+  summarise(prop_0 = sum(1-hit)/n(), prop_1 = sum(hit)/n(), attemps = n())
+
+```
+
+```{r}
+bern2_model <- function() {
+  for (i in 1:Nobs) {
+    # each response is Bernoulli with the appropriate theta
+    hit[i] ~ dbern(theta[subject[i]])  
+  }
+  for (s in 1:Nsub) {
+    theta[s] ~ dbeta(2, 2)    # prior for each theta
+  }
+}
+```
+
+```{r}
+TargetList <-
+  list(
+    Nobs = nrow(Target),
+    Nsub = 2,
+    hit = Target$hit,
+    subject = as.numeric(as.factor(Target$subject))
+)
+TargetList
+```
+
+```{r}
+bern2_jags <- 
+  jags(
+    data = TargetList,
+    model = bern2_model,
+    parameters.to.save = "theta")
+```
+
+
+```{r}
+bern2_mcmc <- as.mcmc(bern2_jags)
+
+mcmc_acf(bern2_mcmc)
+
+mcmc_combo(
+  bern2_mcmc,
+  combo = c("dens", "dens_overlay", "trace", "scatter"),
+  pars = c("theta[1]", "theta[2]")
 )
 ```
-es una estructura de los datos agrupados. La log-densidad posterior de los datos sería:
-```{r}
-groupeddatapost <- function(theta, data) {
-  dj <- function(f, int.lo, int.hi, mu, sigma) {
-    f * log(pnorm(int.hi, mu, sigma) - pnorm(int.lo, mu, sigma))
-  }
-  mu <- theta[1]
-  sigma <- exp(theta[2])
-  sum(dj(data$f, data$int.lo, data$int.hi, mu, sigma))
+
+## Uso de STAN
+
+STAN^[[https://mc-stan.org/](https://mc-stan.org/)] es otro tipo de lenguaje para definir modelos bayesiano. El lenguaje es un poco más sencillo, pero es particularmente útil para modelos bastante complejos. 
+
+STAN no usa el muestreo de Gibbs, sino en el método de Monte-Carlo Hamiltoniano. En el artículo [@Hoffman2014]  se propone el método NUTS para mejorar el muestreo de Gibbs. 
+
+En este curso no nos referiremos a este procedimiento, pero si veremos un poco de la sintaxis del lenguaje STAN.
+
+```{stan output.var="bern_stan"}
+data {
+  int<lower=0> N;               // number of trials
+  int<lower=0, upper=1> y[N];   // success on trial n
+}
+
+parameters {
+  real<lower=0, upper=1> theta; // chance of success
+}
+
+model {
+  theta ~ uniform(0, 1);        // prior
+  y ~ bernoulli(theta);         // likelihood
 }
 ```
 
-Usamos el método de Laplace para encontrar una aproximación de los parámetros de la previa bajo Metropolis-Hastings:
-```{r}
-start <- c(70, 1)
-fit <- laplace(groupeddatapost, start, d)
-fit
-```
 
-la escogencia del valor inicial se basa en los datos artificiales en la página 126 del [@Albert2009]. De esta forma definimos los parámetros de la propuesta como:
-```{r}
-proposal <- list(var = fit$var, scale = 2)
-```
 
-y ajustamos la versión bajo caminata aleatoria de un Metropolis-Hastings (MH):
-```{r}
-fit2 <- rwmetrop(groupeddatapost, proposal, start, 10000, d)
-```
-
-con una tasa de aceptación:
-```{r}
-fit2$accept
-```
-
-Algunas estadísticas de la distribución posterior de $\mu$ y $\log \sigma$:
-```{r}
-post.means <- apply(fit2$par, 2, mean)
-post.sds <- apply(fit2$par, 2, sd)
-cbind(post.means, post.sds)
-```
-
-esto se puede comparar con los estimadores de la aproximación de Laplace:
-```{r}
-modal.sds <- sqrt(diag(fit$var))
-cbind(c(fit$mode), modal.sds)
-```
-
-También podemos graficar la densidad posterior junto con la muestra generada por el MH, usando una muestra de burn-in de 5000:
-```{r}
- mycontour(groupeddatapost,
-           c(69, 71, .6, 1.3), d,
-   xlab = "mu", ylab = "log sigma"
- )
- points(fit2$par[5001:10000, 1], fit2$par[5001:10000, 2])
-```
-
-Los traceplots del MCMC los graficamos a través del paquete *coda* junto con el paquete *bayesplot*:
-```{r}
-library(coda)
-library(bayesplot)
-dimnames(fit2$par)[[2]] <- c("mu", "log sigma")
-obj_mcmc <- mcmc(fit2$par[-c(1:5000), ])
-mcmc_trace(obj_mcmc)
-```
-
-Los gráficos de autocorrelación empíricos se pueden generar con:
-```{r}
-mcmc_acf(obj_mcmc)
-```
-y funciones de densidad estimadas con intervalos de predicción al 95% para algunos de los parámetros:
-```{r}
-mcmc_areas(obj_mcmc, pars = c("mu"), prob = 0.95)
-```
-### Datos con outliers
-
-Suponga $y_1,\ldots,y_n\sim \text{Cauchy}(\mu,\sigma)$:
-$$f(y|\mu,\sigma)=\frac{1}{\pi\sigma(1+z^2)}$$
-donde $z=\frac{y-\mu}{\sigma}$. Con una previa no informativa $g(\mu,\sigma)\propto 1/\sigma$ y transformando $\lambda = \log \sigma$ se puede comprobar que la log-densidad posterior es:
-$$\log g(\mu,\lambda|\text{datos}) = \sum_{i=1}^n\left[-\lambda-\log\left(1+\exp(-2\lambda)(y_i-\mu)^2\right)\right]$$
-
-y la implementación de la log-posterior usando la distribución t de Student como generador de la distribución Cauchy:
-```{r}
-cauchyerrorpost <- function (theta, data){
-  logf <- function(data, theta)
-    log(dt((data - theta[1])/exp(theta[2]),df = 1)/exp(theta[2]))
-return(sum(logf(data, theta)))
-}
-```
-
-Los datos provienen de la base *darwin* con 15 diferencias entre alturas de plantas según Fisher (1960). La media y log-desviación estándar empíricos de los datos son:
-```{r}
-data(darwin)
-data_darwin <- darwin$difference
-mean(data_darwin)
-log(sd(data_darwin))
-```
-
-y usamos estos valores como valores iniciales dentro de la aproximación de Laplace:
-```{r}
-fitlaplace <- laplace(cauchyerrorpost, c(21.6, 3.6), data_darwin)
-fitlaplace
-```
-
-y usamos lo anterior como insumo para generar tres escenarios de MCMC:
-
-- Metropolis-Hastings con caminata aleatoria:
-```{r}
-proposal <- list(var=fitlaplace$var,scale=2.5)
-start <- c(20,3)
-E1 <- rwmetrop(cauchyerrorpost,proposal,start,50000,data_darwin)
-mycontour(cauchyerrorpost,c(-10,60,1,4.5),data_darwin,
-           xlab="mu",ylab="log sigma")
-points(E1$par[,1],E1$par[,2])
-```
-
-- Metropolis-Hastings independiente:
-```{r}
-proposal2 <- list(var=fitlaplace$var,mu=t(fitlaplace$mode))
-E2 <- indepmetrop(cauchyerrorpost,proposal2,
-                  start,50000,data_darwin)
-mycontour(cauchyerrorpost,c(-10,60,1,4.5),data_darwin,
-           xlab="mu",ylab="log sigma")
-points(E2$par[,1],E2$par[,2])
-```
-
-- Muestreo de Gibbs:
-```{r}
-E3 <- gibbs(cauchyerrorpost,start,50000,
-               c(12,.75),data_darwin)
-mycontour(cauchyerrorpost,c(-10,60,1,4.5),data_darwin,
-           xlab="mu",ylab="log sigma")
-points(E3$par[,1],E3$par[,2])
-```
-
-Comparemos el estimador bayesiano e intervalos de predicción al 95% para la media $\mu$:
 
 ```{r}
-Resultados <- data.frame(rbind(
-  c(mean(E1$par[,1]),quantile(E1$par[,1],probs =c(0.025,0.975)),E1$accept),  c(mean(E2$par[,1]),quantile(E2$par[,1],probs =c(0.025,0.975)),E2$accept),
-  c(mean(E3$par[,1]),quantile(E3$par[,1],probs =c(0.025,0.975)),NA)))
+library(rstan)
 
+fit <- stan(
+  model_code = bern_stan@model_code,
+  data = list(y = bernoulli$y, N = nrow(bernoulli)),
+  iter = 5000
+)
 
-colnames(Resultados) <- c('Media','Q1','Q3','Accept')
-rownames(Resultados) <- c('MH-RW','MH-Indep','Gibbs')
-Resultados <- Resultados %>% mutate(Ancho = Q3-Q1)
+print(fit, probs=c(0.1, 0.9))
 
+theta_draws <-  extract(fit)$theta
 
-library(knitr)
-kable(Resultados)
-```
-En el caso del algoritmo de Gibbs, cada uno de los pasos tiene una tasa de aceptación de MH en este caso:
-```{r}
-E3$accept
-```
+mean(theta_draws)
 
-También podemos incluir histogramas para las muestras posteriores de ambos parámetros. Para el MH independiente (burn-in=5000):
-```{r}
-color_scheme_set('green')
-dimnames(E2$par)[[2]] <- c("mu","log sigma")
-obj_mcmc2 <- mcmc(E2$par[-c(1:5000),])
-mcmc_hist(obj_mcmc2,pars = c('mu','log sigma'))
+quantile(theta_draws, probs=c(0.10, 0.90))
 ```
 
-y los gráficos de autocorrelación respectivos:
-```{r}
-mcmc_acf_bar(obj_mcmc2,pars = c('mu','log sigma'))
-```
-## Ejercicios 
 
-- Del libro [@Albert2009]
-    - Capítulo 5:  1, 2, 4, 5.
-    - Capítulo 6: 3, 5, 6, 10.
+```{r, eval=FALSE}
+shinystan::launch_shinystan(fit)
+```
+
+
+```{exercise}
+
+Replique los resultados anteriores pero para el caso de 2 monedas y comente los resultados. 
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- ## Algoritmo de Metropolis-Hastings -->
+
+<!-- Muestreo por cadenas de Markov-Monte Carlo (MCMC): algoritmos que definen una cadena de Markov irreducible y aperiódica cuya densidad estacionaria es la densidad posterior de interés. -->
+
+<!-- Simplificamos la notación de la densidad posterior $g(\theta|y)$ usando $g(\theta)$. Seleccionamos un valor inicial del algoritmo $\theta^0$ y procedemos con el -->
+
+<!-- Algoritmo -->
+
+<!-- - Simule un candidato $\theta^*\sim p(\theta^*|\theta^{t-1})$ (densidad propuesta). -->
+<!-- - Calcule: -->
+<!-- $$R=\frac{g(\theta^*)p(\theta^{t-1}|\theta^*)}{g(\theta^{t-1})p(\theta^*|\theta^{t-1})}$$ -->
+<!-- - Calcule la probabilidad de aceptación $P=\min \{R,1\}$. -->
+<!-- - Acepte la propuesta $\theta^{t}=\theta^*$ con probabilidad P, en caso contrario $\theta^t=\theta^{t-1}$. -->
+
+<!-- Nota: bajo ciertas condiciones de regularidad sobre la probabilidad propuesta: -->
+<!-- $$\theta^n \stackrel{d}{\longrightarrow} M\sim g(\theta)$$ -->
+<!-- cuando $n\rightarrow \infty$. -->
+
+<!-- Escogencias de la densidad propuesta: -->
+<!-- - Metropolis-Hastings independiente:  -->
+<!-- $$p(\theta^*|\theta^{t-1})=p(\theta^*)$$ -->
+<!-- - Metropolis-Hastings con caminata aleatoria:  -->
+<!-- $$p(\theta^*|\theta^{t-1})=h(\theta^*-\theta^{t-1})$$ -->
+<!-- donde $h$ es una función simétrica alrededor del origen. En este caso es fácil verificar que: -->
+<!-- $$R=\frac{g(\theta^*)}{g(\theta^{t-1})}$$ -->
+<!-- Nota: las implementaciones de Metropolis-Hastings dentro del paquete LearnBayes tienen las siguientes particularidades: -->
+
+<!-- - La función *indepmetrop* contiene una propuesta que es normal multivariada con media $\mu$ y varianza $V$ (modelo independiente). Los parámetros de la propuesta se debe escoger de manera que $g/p$ se acotado, especialmente en las colas. -->
+
+<!-- - La función *rwmetrop* contiene una propuesta de la siguiente forma: -->
+<!-- $$\theta^*=\theta^{t-1}+\sigma Z$$ -->
+<!-- donde $Z$ es una normal multivariada con media 0 y matriz de varianza $V$. Además $\sigma$ es un parámetro de escala positivo. -->
+
+<!-- ## Algoritmo de Gibbs -->
+
+<!-- Suponga que el parámetro de interés es $\theta=(\theta_1,\ldots,\theta_p)$ y que podemos obtener muestras de manera secuencial a partir de las siguientes distribuciones condicionales (dado un valor inicial $\theta^0$ y $t=1,\ldots,n$): -->
+
+<!-- \begin{align*} -->
+<!-- \theta_1^t&\sim [\theta_1|\theta_2^{t-1},\ldots,\theta_p^{t-1},\text{datos}]\\ -->
+<!-- \theta_2^t&\sim [\theta_2|\theta_1^t,\theta_3^{t-1},\ldots,\theta_p^{t-1},\text{datos}]\\ -->
+<!-- \vdots & \qquad \vdots\\ -->
+<!-- \theta_p^t&\sim [\theta_p|\theta_1^t,\ldots,\theta_{p-1}^t,\text{datos}] -->
+<!-- \end{align*} -->
+
+<!-- Bajo condiciones bastante generales se puede comprobar que $\theta^t$ converge a una muestra de la distribución conjunta posterior de $\theta$. -->
+
+<!-- Nota: cuando en alguna de las condicionales anteriores no se puede obtener muestras de manera directa, entonces se puede sustituir el muestreo por un paso del algoritmo de Metropolis-Hastings. Así está implementado en la función *gibbs* del paquete LearnBayes. -->
+
+<!-- ### Diagnósticos de convergencia de MCMC -->
+
+<!-- - Tasa de aceptación. -->
+<!-- - Gráficos de traza (traceplots): gráfico de $(t,\theta^t)$. Por la naturaleza secuencial de los algoritmos de MH y Gibbs, los primeros valores de la cadena no representan normalmente una muestra confiable de la distribución posterior, por lo que generalmente se desecha un porcentaje inicial de la muestra (periodo de quema o burn-in period).  -->
+<!-- - Por construcción, uno esperaría que el nivel de autocorrelación de las cadenas sea bajo. Al igual que en el análisis de residuos de regresión, uno puede construir un ACF de las cadenas y esperar autocorrelación baja y convergente a 0. -->
+
+<!-- ## Ejemplos -->
+
+<!-- ### Datos agrupados bajo una población normal -->
+
+<!-- Suponga que observamos los siguientes datos agrupados: -->
+
+<!-- |Altura (pulgadas)|Frecuencia| -->
+<!-- |------|----------| -->
+<!-- |Menos de 66| 14| -->
+<!-- |Entre 66 y 68 |30| -->
+<!-- |Entre 68 y 70 |49| -->
+<!-- |Entre 70 y 72 |70| -->
+<!-- |Entre 72 y 74 |33| -->
+<!-- |Más de 74|15| -->
+
+<!-- Si asumimos que las alturas son normales con media $\mu$ y desviación estándar $\sigma$, podemos asumir una verosimilitud multinomial para los datos agrupados: -->
+<!-- \begin{align*} -->
+<!-- L(\mu,\sigma)&\propto \Phi(66,\mu,\sigma)^{14}(\Phi(68,\mu,\sigma)-\Phi(66,\mu,\sigma))^{30} \\ -->
+<!-- &\times  (\Phi(70,\mu,\sigma)-\Phi(68,\mu,\sigma))^{49} (\Phi(72,\mu,\sigma)-\Phi(70,\mu,\sigma))^{70}\\ -->
+<!-- &\times  (\Phi(74,\mu,\sigma)-\Phi(72,\mu,\sigma))^{33} (1-\Phi(74,\mu,\sigma))^{15} -->
+<!-- \end{align*} -->
+
+<!-- y asumimos una previa no informativa para $(\mu,\sigma)\sim \frac 1 \sigma$. Como $\sigma>0$ entonces usamos la transformación $\lambda=\log (\sigma)$. -->
+
+<!-- ```{r} -->
+<!-- d <- list( -->
+<!--   int.lo = c(-Inf, seq(66, 74, by = 2)), -->
+<!--   int.hi = c(seq(66, 74, by = 2), Inf), -->
+<!--   f = c(14, 30, 49, 70, 33, 15) -->
+<!-- ) -->
+<!-- ``` -->
+<!-- es una estructura de los datos agrupados. La log-densidad posterior de los datos sería: -->
+<!-- ```{r} -->
+<!-- groupeddatapost <- function(theta, data) { -->
+<!--   dj <- function(f, int.lo, int.hi, mu, sigma) { -->
+<!--     f * log(pnorm(int.hi, mu, sigma) - pnorm(int.lo, mu, sigma)) -->
+<!--   } -->
+<!--   mu <- theta[1] -->
+<!--   sigma <- exp(theta[2]) -->
+<!--   sum(dj(data$f, data$int.lo, data$int.hi, mu, sigma)) -->
+<!-- } -->
+<!-- ``` -->
+
+<!-- Usamos el método de Laplace para encontrar una aproximación de los parámetros de la previa bajo Metropolis-Hastings: -->
+<!-- ```{r} -->
+<!-- start <- c(70, 1) -->
+<!-- fit <- laplace(groupeddatapost, start, d) -->
+<!-- fit -->
+<!-- ``` -->
+
+<!-- la escogencia del valor inicial se basa en los datos artificiales en la página 126 del [@Albert2009]. De esta forma definimos los parámetros de la propuesta como: -->
+<!-- ```{r} -->
+<!-- proposal <- list(var = fit$var, scale = 2) -->
+<!-- ``` -->
+
+<!-- y ajustamos la versión bajo caminata aleatoria de un Metropolis-Hastings (MH): -->
+<!-- ```{r} -->
+<!-- fit2 <- rwmetrop(groupeddatapost, proposal, start, 10000, d) -->
+<!-- ``` -->
+
+<!-- con una tasa de aceptación: -->
+<!-- ```{r} -->
+<!-- fit2$accept -->
+<!-- ``` -->
+
+<!-- Algunas estadísticas de la distribución posterior de $\mu$ y $\log \sigma$: -->
+<!-- ```{r} -->
+<!-- post.means <- apply(fit2$par, 2, mean) -->
+<!-- post.sds <- apply(fit2$par, 2, sd) -->
+<!-- cbind(post.means, post.sds) -->
+<!-- ``` -->
+
+<!-- esto se puede comparar con los estimadores de la aproximación de Laplace: -->
+<!-- ```{r} -->
+<!-- modal.sds <- sqrt(diag(fit$var)) -->
+<!-- cbind(c(fit$mode), modal.sds) -->
+<!-- ``` -->
+
+<!-- También podemos graficar la densidad posterior junto con la muestra generada por el MH, usando una muestra de burn-in de 5000: -->
+<!-- ```{r} -->
+<!--  mycontour(groupeddatapost, -->
+<!--            c(69, 71, .6, 1.3), d, -->
+<!--    xlab = "mu", ylab = "log sigma" -->
+<!--  ) -->
+<!--  points(fit2$par[5001:10000, 1], fit2$par[5001:10000, 2]) -->
+<!-- ``` -->
+
+<!-- Los traceplots del MCMC los graficamos a través del paquete *coda* junto con el paquete *bayesplot*: -->
+<!-- ```{r} -->
+<!-- library(coda) -->
+<!-- library(bayesplot) -->
+<!-- dimnames(fit2$par)[[2]] <- c("mu", "log sigma") -->
+<!-- obj_mcmc <- mcmc(fit2$par[-c(1:5000), ]) -->
+<!-- mcmc_trace(obj_mcmc) -->
+<!-- ``` -->
+
+<!-- Los gráficos de autocorrelación empíricos se pueden generar con: -->
+<!-- ```{r} -->
+<!-- mcmc_acf(obj_mcmc) -->
+<!-- ``` -->
+<!-- y funciones de densidad estimadas con intervalos de predicción al 95% para algunos de los parámetros: -->
+<!-- ```{r} -->
+<!-- mcmc_areas(obj_mcmc, pars = c("mu"), prob = 0.95) -->
+<!-- ``` -->
+<!-- ### Datos con outliers -->
+
+<!-- Suponga $y_1,\ldots,y_n\sim \text{Cauchy}(\mu,\sigma)$: -->
+<!-- $$f(y|\mu,\sigma)=\frac{1}{\pi\sigma(1+z^2)}$$ -->
+<!-- donde $z=\frac{y-\mu}{\sigma}$. Con una previa no informativa $g(\mu,\sigma)\propto 1/\sigma$ y transformando $\lambda = \log \sigma$ se puede comprobar que la log-densidad posterior es: -->
+<!-- $$\log g(\mu,\lambda|\text{datos}) = \sum_{i=1}^n\left[-\lambda-\log\left(1+\exp(-2\lambda)(y_i-\mu)^2\right)\right]$$ -->
+
+<!-- y la implementación de la log-posterior usando la distribución t de Student como generador de la distribución Cauchy: -->
+<!-- ```{r} -->
+<!-- cauchyerrorpost <- function (theta, data){ -->
+<!--   logf <- function(data, theta) -->
+<!--     log(dt((data - theta[1])/exp(theta[2]),df = 1)/exp(theta[2])) -->
+<!-- return(sum(logf(data, theta))) -->
+<!-- } -->
+<!-- ``` -->
+
+<!-- Los datos provienen de la base *darwin* con 15 diferencias entre alturas de plantas según Fisher (1960). La media y log-desviación estándar empíricos de los datos son: -->
+<!-- ```{r} -->
+<!-- data(darwin) -->
+<!-- data_darwin <- darwin$difference -->
+<!-- mean(data_darwin) -->
+<!-- log(sd(data_darwin)) -->
+<!-- ``` -->
+
+<!-- y usamos estos valores como valores iniciales dentro de la aproximación de Laplace: -->
+<!-- ```{r} -->
+<!-- fitlaplace <- laplace(cauchyerrorpost, c(21.6, 3.6), data_darwin) -->
+<!-- fitlaplace -->
+<!-- ``` -->
+
+<!-- y usamos lo anterior como insumo para generar tres escenarios de MCMC: -->
+
+<!-- - Metropolis-Hastings con caminata aleatoria: -->
+<!-- ```{r} -->
+<!-- proposal <- list(var=fitlaplace$var,scale=2.5) -->
+<!-- start <- c(20,3) -->
+<!-- E1 <- rwmetrop(cauchyerrorpost,proposal,start,50000,data_darwin) -->
+<!-- mycontour(cauchyerrorpost,c(-10,60,1,4.5),data_darwin, -->
+<!--            xlab="mu",ylab="log sigma") -->
+<!-- points(E1$par[,1],E1$par[,2]) -->
+<!-- ``` -->
+
+<!-- - Metropolis-Hastings independiente: -->
+<!-- ```{r} -->
+<!-- proposal2 <- list(var=fitlaplace$var,mu=t(fitlaplace$mode)) -->
+<!-- E2 <- indepmetrop(cauchyerrorpost,proposal2, -->
+<!--                   start,50000,data_darwin) -->
+<!-- mycontour(cauchyerrorpost,c(-10,60,1,4.5),data_darwin, -->
+<!--            xlab="mu",ylab="log sigma") -->
+<!-- points(E2$par[,1],E2$par[,2]) -->
+<!-- ``` -->
+
+<!-- - Muestreo de Gibbs: -->
+<!-- ```{r} -->
+<!-- E3 <- gibbs(cauchyerrorpost,start,50000, -->
+<!--                c(12,.75),data_darwin) -->
+<!-- mycontour(cauchyerrorpost,c(-10,60,1,4.5),data_darwin, -->
+<!--            xlab="mu",ylab="log sigma") -->
+<!-- points(E3$par[,1],E3$par[,2]) -->
+<!-- ``` -->
+
+<!-- Comparemos el estimador bayesiano e intervalos de predicción al 95% para la media $\mu$: -->
+
+<!-- ```{r} -->
+<!-- Resultados <- data.frame(rbind( -->
+<!--   c(mean(E1$par[,1]),quantile(E1$par[,1],probs =c(0.025,0.975)),E1$accept),  c(mean(E2$par[,1]),quantile(E2$par[,1],probs =c(0.025,0.975)),E2$accept), -->
+<!--   c(mean(E3$par[,1]),quantile(E3$par[,1],probs =c(0.025,0.975)),NA))) -->
+
+
+<!-- colnames(Resultados) <- c('Media','Q1','Q3','Accept') -->
+<!-- rownames(Resultados) <- c('MH-RW','MH-Indep','Gibbs') -->
+<!-- Resultados <- Resultados %>% mutate(Ancho = Q3-Q1) -->
+
+
+<!-- library(knitr) -->
+<!-- kable(Resultados) -->
+<!-- ``` -->
+<!-- En el caso del algoritmo de Gibbs, cada uno de los pasos tiene una tasa de aceptación de MH en este caso: -->
+<!-- ```{r} -->
+<!-- E3$accept -->
+<!-- ``` -->
+
+<!-- También podemos incluir histogramas para las muestras posteriores de ambos parámetros. Para el MH independiente (burn-in=5000): -->
+<!-- ```{r} -->
+<!-- color_scheme_set('green') -->
+<!-- dimnames(E2$par)[[2]] <- c("mu","log sigma") -->
+<!-- obj_mcmc2 <- mcmc(E2$par[-c(1:5000),]) -->
+<!-- mcmc_hist(obj_mcmc2,pars = c('mu','log sigma')) -->
+<!-- ``` -->
+
+<!-- y los gráficos de autocorrelación respectivos: -->
+<!-- ```{r} -->
+<!-- mcmc_acf_bar(obj_mcmc2,pars = c('mu','log sigma')) -->
+<!-- ``` -->
+<!-- ## Ejercicios  -->
+
+<!-- - Del libro [@Albert2009] -->
+<!--     - Capítulo 5:  1, 2, 4, 5. -->
+<!--     - Capítulo 6: 3, 5, 6, 10. -->
