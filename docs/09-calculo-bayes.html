@@ -6,7 +6,7 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <title>Capítulo 9 Cálculo Bayesiano Computacional | Notas Curso de Estadística II</title>
   <meta name="description" content="Capítulo 9 Cálculo Bayesiano Computacional | Notas Curso de Estadística II" />
-  <meta name="generator" content="bookdown 0.26 and GitBook 2.6.7" />
+  <meta name="generator" content="bookdown 0.27 and GitBook 2.6.7" />
 
   <meta property="og:title" content="Capítulo 9 Cálculo Bayesiano Computacional | Notas Curso de Estadística II" />
   <meta property="og:type" content="book" />
@@ -346,12 +346,16 @@ div.csl-indent {
 <li class="chapter" data-level="9.8.4" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#por-qué-el-algoritmo-de-metropolis-hasting-funciona"><i class="fa fa-check"></i><b>9.8.4</b> ¿Por qué el algoritmo de Metropolis Hasting funciona?</a></li>
 <li class="chapter" data-level="9.8.5" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#extensión-al-caso-del-viajero"><i class="fa fa-check"></i><b>9.8.5</b> Extensión al caso del viajero</a></li>
 </ul></li>
-<li class="chapter" data-level="9.9" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#el-problema-del-viajero-con-dos-monedas"><i class="fa fa-check"></i><b>9.9</b> El problema del viajero con dos monedas</a>
+<li class="chapter" data-level="9.9" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#el-problema-del-viajero-en-un-plano"><i class="fa fa-check"></i><b>9.9</b> El problema del viajero en un plano</a>
 <ul>
 <li class="chapter" data-level="9.9.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#muestreo-de-gibbs"><i class="fa fa-check"></i><b>9.9.1</b> Muestreo de Gibbs</a></li>
 </ul></li>
-<li class="chapter" data-level="9.10" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#uso-de-jags"><i class="fa fa-check"></i><b>9.10</b> Uso de JAGS</a></li>
-<li class="chapter" data-level="9.11" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#uso-de-stan"><i class="fa fa-check"></i><b>9.11</b> Uso de STAN</a></li>
+<li class="chapter" data-level="9.10" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#ejemplo-reales"><i class="fa fa-check"></i><b>9.10</b> Ejemplo reales</a>
+<ul>
+<li class="chapter" data-level="9.10.1" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#datos-agrupados-bajo-una-población-normal"><i class="fa fa-check"></i><b>9.10.1</b> Datos agrupados bajo una población normal</a></li>
+</ul></li>
+<li class="chapter" data-level="9.11" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#uso-de-jags"><i class="fa fa-check"></i><b>9.11</b> Uso de JAGS</a></li>
+<li class="chapter" data-level="9.12" data-path="09-calculo-bayes.html"><a href="09-calculo-bayes.html#uso-de-stan"><i class="fa fa-check"></i><b>9.12</b> Uso de STAN</a></li>
 </ul></li>
 </ul>
 
@@ -852,7 +856,7 @@ Tomamos una nueva muestra <span class="math inline">\(\theta^{*1},\ldots,\theta^
 <span id="cb604-28"><a href="09-calculo-bayes.html#cb604-28" aria-hidden="true" tabindex="-1"></a>        pos_actual <span class="ot">&lt;-</span> pos_nueva</span>
 <span id="cb604-29"><a href="09-calculo-bayes.html#cb604-29" aria-hidden="true" tabindex="-1"></a>    }</span>
 <span id="cb604-30"><a href="09-calculo-bayes.html#cb604-30" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb604-31"><a href="09-calculo-bayes.html#cb604-31" aria-hidden="true" tabindex="-1"></a>    trayectoria[k] <span class="ot">&lt;-</span> pos_nueva</span>
+<span id="cb604-31"><a href="09-calculo-bayes.html#cb604-31" aria-hidden="true" tabindex="-1"></a>    trayectoria[k] <span class="ot">&lt;-</span> pos_actual</span>
 <span id="cb604-32"><a href="09-calculo-bayes.html#cb604-32" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
 <div class="sourceCode" id="cb605"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb605-1"><a href="09-calculo-bayes.html#cb605-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="at">x =</span> <span class="dv">1</span><span class="sc">:</span>n_pasos, <span class="at">P =</span> trayectoria)</span>
 <span id="cb605-2"><a href="09-calculo-bayes.html#cb605-2" aria-hidden="true" tabindex="-1"></a></span>
@@ -1097,11 +1101,12 @@ cuestiones de practicidad se tomará <span class="math inline">\(\theta_0 = 0.1\
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-355-2.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
 </div>
-<div id="el-problema-del-viajero-con-dos-monedas" class="section level2 hasAnchor" number="9.9">
-<h2><span class="header-section-number">9.9</span> El problema del viajero con dos monedas<a href="09-calculo-bayes.html#el-problema-del-viajero-con-dos-monedas" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="el-problema-del-viajero-en-un-plano" class="section level2 hasAnchor" number="9.9">
+<h2><span class="header-section-number">9.9</span> El problema del viajero en un plano<a href="09-calculo-bayes.html#el-problema-del-viajero-en-un-plano" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>Un problema con el algoritmo de Metropolis-Hastings (M-H) es que solo funciona para la estimación de un solo parámetro.</p>
 <p>El muestreo de Gibbs está pensado en el caso de la estimación de muchos parámetros de forma bastante ordenada.</p>
-<p>Supongamos que tenemos dos monedas y queremos ver la proporción de escudos generados entre las dos monedas:</p>
+<p>Empecemos usando un algoritmo de Metropolis-Hastings en caso de tener dos monedas. Es decir, supongamos que ahora tenemos una cantidad infinita de islas en un plano. Cada vez que tiremos la moneda tenemos que saltar a otra isla con cierta probabilidad.</p>
+<p>El objetivo sería maximizar la distribución posterior dado los datos iniciales.</p>
 <p>Tenemos:</p>
 <ul>
 <li>Parámetros: <span class="math inline">\(\theta_{1}\)</span> y <span class="math inline">\(\theta_{2}\)</span>.</li>
@@ -1129,7 +1134,7 @@ f\left(\theta_{1}, \theta_{2} | D\right)
 &amp;=\frac{\theta_{1}^{z_{1}}\left(1-\theta_{1}\right)^{N_{1}-z_{1}} \theta_{1}^{z_{2}}\left(1-\theta_{2}\right)^{N_{2}-z_{2}} \theta_{1}^{a_{1}-1}\left(1-\theta_{1}\right)^{b_{1}-1} \theta_{2}^{a_{2}-1}\left(1-\theta_{2}\right)^{b_{2}-1}}{f(D) B\left(a_{1}, b_{1}\right) B\left(a_{2}, b_{2}\right)} \\
 &amp;=\frac{\theta_{1}^{z_{1}+a_{1}-1}\left(1-\theta_{1}\right)^{N_{1}-z_{1}+b_{1}-1} \theta_{2}^{z_{2}+a_{2}-1}\left(1-\theta_{2}\right)^{N_{2}-z_{2}+b_{2}-1}}{f(D) B\left(a_{1}, b_{1}\right) B\left(a_{2}, b_{2}\right)}
 \end{align*}\]</span>
-Entonces la distribución posterior de <span class="math inline">\(\left(\theta_{1}, \theta_{2}\right)\)</span> son dos distribuciones independientes Betas:
+Entonces la distribución posterior de <span class="math inline">\(\left(\theta_{1}, \theta_{2}\right)\)</span> es el producto de dos distribuciones independientes Betas:
 <span class="math inline">\(\operatorname{Beta}\left(z_{1}+a, N_{1}-z_{1}+b_{1}\right)\)</span> y <span class="math inline">\(\operatorname{Beta}\left(z_{2}+a, N_{2}-z_{2}+b_{2}\right)\)</span></p>
 <p>Tratemos de encontrar los parámetros para la distribución posterior usando un algoritmo de Metropolis-Hasting. <a href="https://rpruim.github.io/Kruschke-Notes/markov-chain-monte-carlo-mcmc.html#metropolis">Función tomada de Kruschke-Notes</a></p>
 <div class="sourceCode" id="cb618"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb618-1"><a href="09-calculo-bayes.html#cb618-1" aria-hidden="true" tabindex="-1"></a>metro_2coins <span class="ot">&lt;-</span> <span class="cf">function</span>(z1, n1, <span class="co"># z = successes, n = trials</span></span>
@@ -1205,6 +1210,7 @@ Entonces la distribución posterior de <span class="math inline">\(\left(\theta_
 <span id="cb618-71"><a href="09-calculo-bayes.html#cb618-71" aria-hidden="true" tabindex="-1"></a>    <span class="at">size2 =</span> size2</span>
 <span id="cb618-72"><a href="09-calculo-bayes.html#cb618-72" aria-hidden="true" tabindex="-1"></a>  )</span>
 <span id="cb618-73"><a href="09-calculo-bayes.html#cb618-73" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>En este ejemplo empezaremos con una desviación estándar de <span class="math inline">\((0.02,0.02)\)</span> para cada dirección. Las densidades beta tendrán parámetros <span class="math inline">\(a=2\)</span> y <span class="math inline">\(b=2\)</span> cada una.</p>
 <div class="sourceCode" id="cb619"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb619-1"><a href="09-calculo-bayes.html#cb619-1" aria-hidden="true" tabindex="-1"></a>Metro_2coinsA <span class="ot">&lt;-</span> <span class="fu">metro_2coins</span>(<span class="at">z1 =</span> <span class="dv">6</span>, <span class="at">n1 =</span> <span class="dv">8</span>, <span class="at">z2 =</span> <span class="dv">2</span>,</span>
 <span id="cb619-2"><a href="09-calculo-bayes.html#cb619-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">n2 =</span> <span class="dv">7</span>, <span class="at">size =</span> <span class="fu">c</span>(<span class="fl">0.02</span>, <span class="fl">0.02</span>), <span class="at">args1 =</span> <span class="fu">list</span>(<span class="at">shape1 =</span> <span class="dv">2</span>,</span>
 <span id="cb619-3"><a href="09-calculo-bayes.html#cb619-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">shape2 =</span> <span class="dv">2</span>), <span class="at">args2 =</span> <span class="fu">list</span>(<span class="at">shape1 =</span> <span class="dv">2</span>, <span class="at">shape2 =</span> <span class="dv">2</span>))</span>
@@ -1222,7 +1228,6 @@ Entonces la distribución posterior de <span class="math inline">\(\left(\theta_
 <span id="cb622-3"><a href="09-calculo-bayes.html#cb622-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_path</span>(theta2 <span class="sc">~</span> theta1, <span class="at">color =</span> <span class="sc">~</span>step, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
 <span id="cb622-4"><a href="09-calculo-bayes.html#cb622-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;open&quot;</span>, <span class="at">angle =</span> <span class="dv">30</span>, <span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>,</span>
 <span id="cb622-5"><a href="09-calculo-bayes.html#cb622-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;inches&quot;</span>))) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-358-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb623"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb623-1"><a href="09-calculo-bayes.html#cb623-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(gganimate)</span>
 <span id="cb623-2"><a href="09-calculo-bayes.html#cb623-2" aria-hidden="true" tabindex="-1"></a>Metro_2coinsAplot <span class="ot">&lt;-</span> Metro_2coinsA <span class="sc">%&gt;%</span></span>
 <span id="cb623-3"><a href="09-calculo-bayes.html#cb623-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
@@ -1230,29 +1235,33 @@ Entonces la distribución posterior de <span class="math inline">\(\left(\theta_
 <span id="cb623-5"><a href="09-calculo-bayes.html#cb623-5" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;open&quot;</span>, <span class="at">angle =</span> <span class="dv">30</span>)) <span class="sc">+</span></span>
 <span id="cb623-6"><a href="09-calculo-bayes.html#cb623-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">transition_reveal</span>(step)</span>
 <span id="cb623-7"><a href="09-calculo-bayes.html#cb623-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb623-8"><a href="09-calculo-bayes.html#cb623-8" aria-hidden="true" tabindex="-1"></a><span class="fu">animate</span>(Metro_2coinsAplot, <span class="at">fps =</span> <span class="dv">1</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb624"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb624-1"><a href="09-calculo-bayes.html#cb624-1" aria-hidden="true" tabindex="-1"></a>Metro_2coinsB <span class="ot">&lt;-</span> <span class="fu">metro_2coins</span>(<span class="at">z1 =</span> <span class="dv">6</span>, <span class="at">n1 =</span> <span class="dv">8</span>, <span class="at">z2 =</span> <span class="dv">2</span>,</span>
-<span id="cb624-2"><a href="09-calculo-bayes.html#cb624-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">n2 =</span> <span class="dv">7</span>, <span class="at">size =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.2</span>), <span class="at">args1 =</span> <span class="fu">list</span>(<span class="at">shape1 =</span> <span class="dv">2</span>,</span>
-<span id="cb624-3"><a href="09-calculo-bayes.html#cb624-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">shape2 =</span> <span class="dv">2</span>), <span class="at">args2 =</span> <span class="fu">list</span>(<span class="at">shape1 =</span> <span class="dv">2</span>, <span class="at">shape2 =</span> <span class="dv">2</span>))</span>
-<span id="cb624-4"><a href="09-calculo-bayes.html#cb624-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb624-5"><a href="09-calculo-bayes.html#cb624-5" aria-hidden="true" tabindex="-1"></a>Metro_2coinsB <span class="sc">%&gt;%</span></span>
-<span id="cb624-6"><a href="09-calculo-bayes.html#cb624-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_density2d</span>(theta2 <span class="sc">~</span> theta1)</span></code></pre></div>
+<span id="cb623-8"><a href="09-calculo-bayes.html#cb623-8" aria-hidden="true" tabindex="-1"></a><span class="fu">anim_save</span>(<span class="at">filename =</span> <span class="st">&quot;./manual_figures/metro2coinsA.gif&quot;</span>,</span>
+<span id="cb623-9"><a href="09-calculo-bayes.html#cb623-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">animation =</span> Metro_2coinsAplot)</span></code></pre></div>
+<pre><code>## Error in device(files[i], ...): unused arguments (units = &quot;in&quot;, res = 96)</code></pre>
+<p>Un efecto interesante ocurre si cambiamos las desviaciones estándar a <span class="math inline">\((0.2,0.2)\)</span>. Note que los pasos son más grandes y por lo tanto más erráticos.</p>
+<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="09-calculo-bayes.html#cb625-1" aria-hidden="true" tabindex="-1"></a>Metro_2coinsB <span class="ot">&lt;-</span> <span class="fu">metro_2coins</span>(<span class="at">z1 =</span> <span class="dv">6</span>, <span class="at">n1 =</span> <span class="dv">8</span>, <span class="at">z2 =</span> <span class="dv">2</span>,</span>
+<span id="cb625-2"><a href="09-calculo-bayes.html#cb625-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">n2 =</span> <span class="dv">7</span>, <span class="at">size =</span> <span class="fu">c</span>(<span class="fl">0.2</span>, <span class="fl">0.2</span>), <span class="at">args1 =</span> <span class="fu">list</span>(<span class="at">shape1 =</span> <span class="dv">2</span>,</span>
+<span id="cb625-3"><a href="09-calculo-bayes.html#cb625-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">shape2 =</span> <span class="dv">2</span>), <span class="at">args2 =</span> <span class="fu">list</span>(<span class="at">shape1 =</span> <span class="dv">2</span>, <span class="at">shape2 =</span> <span class="dv">2</span>))</span>
+<span id="cb625-4"><a href="09-calculo-bayes.html#cb625-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb625-5"><a href="09-calculo-bayes.html#cb625-5" aria-hidden="true" tabindex="-1"></a>Metro_2coinsB <span class="sc">%&gt;%</span></span>
+<span id="cb625-6"><a href="09-calculo-bayes.html#cb625-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_density2d</span>(theta2 <span class="sc">~</span> theta1)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-360-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb625"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb625-1"><a href="09-calculo-bayes.html#cb625-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(Metro_2coinsB<span class="sc">$</span>theta2 <span class="sc">-</span> Metro_2coinsB<span class="sc">$</span>theta1)</span></code></pre></div>
+<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="09-calculo-bayes.html#cb626-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(Metro_2coinsB<span class="sc">$</span>theta2 <span class="sc">-</span> Metro_2coinsB<span class="sc">$</span>theta1)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-360-2.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb626"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb626-1"><a href="09-calculo-bayes.html#cb626-1" aria-hidden="true" tabindex="-1"></a>Metro_2coinsB <span class="sc">%&gt;%</span></span>
-<span id="cb626-2"><a href="09-calculo-bayes.html#cb626-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb626-3"><a href="09-calculo-bayes.html#cb626-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_path</span>(theta2 <span class="sc">~</span> theta1, <span class="at">color =</span> <span class="sc">~</span>step, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
-<span id="cb626-4"><a href="09-calculo-bayes.html#cb626-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;open&quot;</span>, <span class="at">angle =</span> <span class="dv">30</span>, <span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>,</span>
-<span id="cb626-5"><a href="09-calculo-bayes.html#cb626-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;inches&quot;</span>))) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-361-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="09-calculo-bayes.html#cb627-1" aria-hidden="true" tabindex="-1"></a>Metro_2coinsBplot <span class="ot">&lt;-</span> Metro_2coinsA <span class="sc">%&gt;%</span></span>
+<div class="sourceCode" id="cb627"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb627-1"><a href="09-calculo-bayes.html#cb627-1" aria-hidden="true" tabindex="-1"></a>Metro_2coinsB <span class="sc">%&gt;%</span></span>
 <span id="cb627-2"><a href="09-calculo-bayes.html#cb627-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
 <span id="cb627-3"><a href="09-calculo-bayes.html#cb627-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_path</span>(theta2 <span class="sc">~</span> theta1, <span class="at">color =</span> <span class="sc">~</span>step, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
-<span id="cb627-4"><a href="09-calculo-bayes.html#cb627-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;open&quot;</span>, <span class="at">angle =</span> <span class="dv">30</span>)) <span class="sc">+</span></span>
-<span id="cb627-5"><a href="09-calculo-bayes.html#cb627-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">transition_reveal</span>(step)</span>
-<span id="cb627-6"><a href="09-calculo-bayes.html#cb627-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb627-7"><a href="09-calculo-bayes.html#cb627-7" aria-hidden="true" tabindex="-1"></a><span class="fu">animate</span>(Metro_2coinsBplot, <span class="at">fps =</span> <span class="dv">1</span>)</span></code></pre></div>
+<span id="cb627-4"><a href="09-calculo-bayes.html#cb627-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;open&quot;</span>, <span class="at">angle =</span> <span class="dv">30</span>, <span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>,</span>
+<span id="cb627-5"><a href="09-calculo-bayes.html#cb627-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;inches&quot;</span>))) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="09-calculo-bayes.html#cb628-1" aria-hidden="true" tabindex="-1"></a>Metro_2coinsBplot <span class="ot">&lt;-</span> Metro_2coinsA <span class="sc">%&gt;%</span></span>
+<span id="cb628-2"><a href="09-calculo-bayes.html#cb628-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb628-3"><a href="09-calculo-bayes.html#cb628-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_path</span>(theta2 <span class="sc">~</span> theta1, <span class="at">color =</span> <span class="sc">~</span>step, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb628-4"><a href="09-calculo-bayes.html#cb628-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;open&quot;</span>, <span class="at">angle =</span> <span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb628-5"><a href="09-calculo-bayes.html#cb628-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">transition_reveal</span>(step)</span>
+<span id="cb628-6"><a href="09-calculo-bayes.html#cb628-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb628-7"><a href="09-calculo-bayes.html#cb628-7" aria-hidden="true" tabindex="-1"></a><span class="fu">anim_save</span>(<span class="at">filename =</span> <span class="st">&quot;./manual_figures/metro2coinsB.gif&quot;</span>,</span>
+<span id="cb628-8"><a href="09-calculo-bayes.html#cb628-8" aria-hidden="true" tabindex="-1"></a>    <span class="at">animation =</span> Metro_2coinsBplot)</span></code></pre></div>
+<pre><code>## Error in device(files[i], ...): unused arguments (units = &quot;in&quot;, res = 96)</code></pre>
 <div id="muestreo-de-gibbs" class="section level3 hasAnchor" number="9.9.1">
 <h3><span class="header-section-number">9.9.1</span> Muestreo de Gibbs<a href="09-calculo-bayes.html#muestreo-de-gibbs" class="anchor-section" aria-label="Anchor link to header"></a></h3>
 <p>Para este ejemplo <span class="math inline">\(\left( \theta_{1},\theta_{2} \right)\)</span>, entonces la forma de escoger la posteriores en cada paso sería de la forma:</p>
@@ -1280,106 +1289,317 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 &amp;=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2}, z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)}{\int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2} | z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)d \theta_{1}} \\
 &amp;=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2}, z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)}{\operatorname{dbeta}\left(\theta_{2} | z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right) \int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)d \theta_{1}} \\
 &amp;=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)}{\int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)d \theta_{1}} \\
-&amp;=\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)
+&amp;=\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \\
+&amp;= f(\theta_1 | D)
 \end{align*}\]</span></p>
-<div class="sourceCode" id="cb628"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb628-1"><a href="09-calculo-bayes.html#cb628-1" aria-hidden="true" tabindex="-1"></a>gibbs_2coins <span class="ot">&lt;-</span> <span class="cf">function</span>(z1, n1, <span class="co"># z = successes, n = trials</span></span>
-<span id="cb628-2"><a href="09-calculo-bayes.html#cb628-2" aria-hidden="true" tabindex="-1"></a>                         z2, n2, <span class="co"># z = successes, n = trials</span></span>
-<span id="cb628-3"><a href="09-calculo-bayes.html#cb628-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">start =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="co"># value of thetas to start at</span></span>
-<span id="cb628-4"><a href="09-calculo-bayes.html#cb628-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">num_steps =</span> <span class="fl">1e4</span>, <span class="co"># number of steps to run the algorithm</span></span>
-<span id="cb628-5"><a href="09-calculo-bayes.html#cb628-5" aria-hidden="true" tabindex="-1"></a>                         a1, b1, <span class="co"># params for prior for theta1</span></span>
-<span id="cb628-6"><a href="09-calculo-bayes.html#cb628-6" aria-hidden="true" tabindex="-1"></a>                         a2, b2 <span class="co"># params for prior for theta2</span></span>
-<span id="cb628-7"><a href="09-calculo-bayes.html#cb628-7" aria-hidden="true" tabindex="-1"></a>) {</span>
-<span id="cb628-8"><a href="09-calculo-bayes.html#cb628-8" aria-hidden="true" tabindex="-1"></a>  theta1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, num_steps) <span class="co"># trick to pre-alocate memory</span></span>
-<span id="cb628-9"><a href="09-calculo-bayes.html#cb628-9" aria-hidden="true" tabindex="-1"></a>  theta2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, num_steps) <span class="co"># trick to pre-alocate memory</span></span>
-<span id="cb628-10"><a href="09-calculo-bayes.html#cb628-10" aria-hidden="true" tabindex="-1"></a>  theta1[<span class="dv">1</span>] <span class="ot">&lt;-</span> start[<span class="dv">1</span>]</span>
-<span id="cb628-11"><a href="09-calculo-bayes.html#cb628-11" aria-hidden="true" tabindex="-1"></a>  theta2[<span class="dv">1</span>] <span class="ot">&lt;-</span> start[<span class="dv">2</span>]</span>
-<span id="cb628-12"><a href="09-calculo-bayes.html#cb628-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb628-13"><a href="09-calculo-bayes.html#cb628-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(num_steps <span class="sc">-</span> <span class="dv">1</span>)) {</span>
-<span id="cb628-14"><a href="09-calculo-bayes.html#cb628-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (i <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">1</span>) { <span class="co"># update theta1</span></span>
-<span id="cb628-15"><a href="09-calculo-bayes.html#cb628-15" aria-hidden="true" tabindex="-1"></a>      theta1[i <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>, z1 <span class="sc">+</span> a1, n1 <span class="sc">-</span> z1 <span class="sc">+</span> b1)</span>
-<span id="cb628-16"><a href="09-calculo-bayes.html#cb628-16" aria-hidden="true" tabindex="-1"></a>      theta2[i <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> theta2[i]</span>
-<span id="cb628-17"><a href="09-calculo-bayes.html#cb628-17" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> { <span class="co"># update theta2</span></span>
-<span id="cb628-18"><a href="09-calculo-bayes.html#cb628-18" aria-hidden="true" tabindex="-1"></a>      theta1[i <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> theta1[i]</span>
-<span id="cb628-19"><a href="09-calculo-bayes.html#cb628-19" aria-hidden="true" tabindex="-1"></a>      theta2[i <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>, z2 <span class="sc">+</span> a2, n2 <span class="sc">-</span> z2 <span class="sc">+</span> b2)</span>
-<span id="cb628-20"><a href="09-calculo-bayes.html#cb628-20" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb628-21"><a href="09-calculo-bayes.html#cb628-21" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb628-22"><a href="09-calculo-bayes.html#cb628-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb628-23"><a href="09-calculo-bayes.html#cb628-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
-<span id="cb628-24"><a href="09-calculo-bayes.html#cb628-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">step =</span> <span class="dv">1</span><span class="sc">:</span>num_steps,</span>
-<span id="cb628-25"><a href="09-calculo-bayes.html#cb628-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">theta1 =</span> theta1,</span>
-<span id="cb628-26"><a href="09-calculo-bayes.html#cb628-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">theta2 =</span> theta2,</span>
-<span id="cb628-27"><a href="09-calculo-bayes.html#cb628-27" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb628-28"><a href="09-calculo-bayes.html#cb628-28" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb629"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb629-1"><a href="09-calculo-bayes.html#cb629-1" aria-hidden="true" tabindex="-1"></a>Gibbs <span class="ot">&lt;-</span> <span class="fu">gibbs_2coins</span>(<span class="at">z1 =</span> <span class="dv">6</span>, <span class="at">n1 =</span> <span class="dv">8</span>, <span class="at">z2 =</span> <span class="dv">2</span>, <span class="at">n2 =</span> <span class="dv">7</span>,</span>
-<span id="cb629-2"><a href="09-calculo-bayes.html#cb629-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">a1 =</span> <span class="dv">2</span>, <span class="at">b1 =</span> <span class="dv">2</span>, <span class="at">a2 =</span> <span class="dv">2</span>, <span class="at">b2 =</span> <span class="dv">2</span>)</span>
-<span id="cb629-3"><a href="09-calculo-bayes.html#cb629-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb629-4"><a href="09-calculo-bayes.html#cb629-4" aria-hidden="true" tabindex="-1"></a>Gibbs <span class="sc">%&gt;%</span></span>
-<span id="cb629-5"><a href="09-calculo-bayes.html#cb629-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_density2d</span>(theta2 <span class="sc">~</span> theta1)</span></code></pre></div>
+<p>Es decir, que la distribución posterior para <span class="math inline">\(\theta_1\)</span> solamente dependerá de los datos <span class="math inline">\(D\)</span> y no del valor de <span class="math inline">\(\theta_2\)</span>.</p>
+<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="09-calculo-bayes.html#cb630-1" aria-hidden="true" tabindex="-1"></a>gibbs_2coins <span class="ot">&lt;-</span> <span class="cf">function</span>(z1, n1, <span class="co"># z = successes, n = trials</span></span>
+<span id="cb630-2"><a href="09-calculo-bayes.html#cb630-2" aria-hidden="true" tabindex="-1"></a>                         z2, n2, <span class="co"># z = successes, n = trials</span></span>
+<span id="cb630-3"><a href="09-calculo-bayes.html#cb630-3" aria-hidden="true" tabindex="-1"></a>                         <span class="at">start =</span> <span class="fu">c</span>(<span class="fl">0.5</span>, <span class="fl">0.5</span>), <span class="co"># value of thetas to start at</span></span>
+<span id="cb630-4"><a href="09-calculo-bayes.html#cb630-4" aria-hidden="true" tabindex="-1"></a>                         <span class="at">num_steps =</span> <span class="fl">1e4</span>, <span class="co"># number of steps to run the algorithm</span></span>
+<span id="cb630-5"><a href="09-calculo-bayes.html#cb630-5" aria-hidden="true" tabindex="-1"></a>                         a1, b1, <span class="co"># params for prior for theta1</span></span>
+<span id="cb630-6"><a href="09-calculo-bayes.html#cb630-6" aria-hidden="true" tabindex="-1"></a>                         a2, b2 <span class="co"># params for prior for theta2</span></span>
+<span id="cb630-7"><a href="09-calculo-bayes.html#cb630-7" aria-hidden="true" tabindex="-1"></a>) {</span>
+<span id="cb630-8"><a href="09-calculo-bayes.html#cb630-8" aria-hidden="true" tabindex="-1"></a>  theta1 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, num_steps) <span class="co"># trick to pre-alocate memory</span></span>
+<span id="cb630-9"><a href="09-calculo-bayes.html#cb630-9" aria-hidden="true" tabindex="-1"></a>  theta2 <span class="ot">&lt;-</span> <span class="fu">rep</span>(<span class="cn">NA</span>, num_steps) <span class="co"># trick to pre-alocate memory</span></span>
+<span id="cb630-10"><a href="09-calculo-bayes.html#cb630-10" aria-hidden="true" tabindex="-1"></a>  theta1[<span class="dv">1</span>] <span class="ot">&lt;-</span> start[<span class="dv">1</span>]</span>
+<span id="cb630-11"><a href="09-calculo-bayes.html#cb630-11" aria-hidden="true" tabindex="-1"></a>  theta2[<span class="dv">1</span>] <span class="ot">&lt;-</span> start[<span class="dv">2</span>]</span>
+<span id="cb630-12"><a href="09-calculo-bayes.html#cb630-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb630-13"><a href="09-calculo-bayes.html#cb630-13" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>(num_steps <span class="sc">-</span> <span class="dv">1</span>)) {</span>
+<span id="cb630-14"><a href="09-calculo-bayes.html#cb630-14" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> (i <span class="sc">%%</span> <span class="dv">2</span> <span class="sc">==</span> <span class="dv">1</span>) { <span class="co"># update theta1</span></span>
+<span id="cb630-15"><a href="09-calculo-bayes.html#cb630-15" aria-hidden="true" tabindex="-1"></a>      theta1[i <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>, z1 <span class="sc">+</span> a1, n1 <span class="sc">-</span> z1 <span class="sc">+</span> b1)</span>
+<span id="cb630-16"><a href="09-calculo-bayes.html#cb630-16" aria-hidden="true" tabindex="-1"></a>      theta2[i <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> theta2[i]</span>
+<span id="cb630-17"><a href="09-calculo-bayes.html#cb630-17" aria-hidden="true" tabindex="-1"></a>    } <span class="cf">else</span> { <span class="co"># update theta2</span></span>
+<span id="cb630-18"><a href="09-calculo-bayes.html#cb630-18" aria-hidden="true" tabindex="-1"></a>      theta1[i <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> theta1[i]</span>
+<span id="cb630-19"><a href="09-calculo-bayes.html#cb630-19" aria-hidden="true" tabindex="-1"></a>      theta2[i <span class="sc">+</span> <span class="dv">1</span>] <span class="ot">&lt;-</span> <span class="fu">rbeta</span>(<span class="dv">1</span>, z2 <span class="sc">+</span> a2, n2 <span class="sc">-</span> z2 <span class="sc">+</span> b2)</span>
+<span id="cb630-20"><a href="09-calculo-bayes.html#cb630-20" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb630-21"><a href="09-calculo-bayes.html#cb630-21" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb630-22"><a href="09-calculo-bayes.html#cb630-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb630-23"><a href="09-calculo-bayes.html#cb630-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tibble</span>(</span>
+<span id="cb630-24"><a href="09-calculo-bayes.html#cb630-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">step =</span> <span class="dv">1</span><span class="sc">:</span>num_steps,</span>
+<span id="cb630-25"><a href="09-calculo-bayes.html#cb630-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">theta1 =</span> theta1,</span>
+<span id="cb630-26"><a href="09-calculo-bayes.html#cb630-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">theta2 =</span> theta2,</span>
+<span id="cb630-27"><a href="09-calculo-bayes.html#cb630-27" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb630-28"><a href="09-calculo-bayes.html#cb630-28" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="09-calculo-bayes.html#cb631-1" aria-hidden="true" tabindex="-1"></a>Gibbs <span class="ot">&lt;-</span> <span class="fu">gibbs_2coins</span>(<span class="at">z1 =</span> <span class="dv">6</span>, <span class="at">n1 =</span> <span class="dv">8</span>, <span class="at">z2 =</span> <span class="dv">2</span>, <span class="at">n2 =</span> <span class="dv">7</span>,</span>
+<span id="cb631-2"><a href="09-calculo-bayes.html#cb631-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">a1 =</span> <span class="dv">2</span>, <span class="at">b1 =</span> <span class="dv">2</span>, <span class="at">a2 =</span> <span class="dv">2</span>, <span class="at">b2 =</span> <span class="dv">2</span>)</span>
+<span id="cb631-3"><a href="09-calculo-bayes.html#cb631-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb631-4"><a href="09-calculo-bayes.html#cb631-4" aria-hidden="true" tabindex="-1"></a>Gibbs <span class="sc">%&gt;%</span></span>
+<span id="cb631-5"><a href="09-calculo-bayes.html#cb631-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_density2d</span>(theta2 <span class="sc">~</span> theta1)</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-365-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb630"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb630-1"><a href="09-calculo-bayes.html#cb630-1" aria-hidden="true" tabindex="-1"></a>Gibbs <span class="sc">%&gt;%</span></span>
-<span id="cb630-2"><a href="09-calculo-bayes.html#cb630-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_dens</span>(<span class="sc">~</span>theta1)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-365-2.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb631"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb631-1"><a href="09-calculo-bayes.html#cb631-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(Gibbs<span class="sc">$</span>theta1)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-365-3.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb632"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb632-1"><a href="09-calculo-bayes.html#cb632-1" aria-hidden="true" tabindex="-1"></a>Gibbs <span class="sc">%&gt;%</span></span>
-<span id="cb632-2"><a href="09-calculo-bayes.html#cb632-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb632-3"><a href="09-calculo-bayes.html#cb632-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_path</span>(theta2 <span class="sc">~</span> theta1, <span class="at">color =</span> <span class="sc">~</span>step, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
-<span id="cb632-4"><a href="09-calculo-bayes.html#cb632-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;open&quot;</span>, <span class="at">angle =</span> <span class="dv">30</span>, <span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>,</span>
-<span id="cb632-5"><a href="09-calculo-bayes.html#cb632-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;inches&quot;</span>))) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-366-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="09-calculo-bayes.html#cb633-1" aria-hidden="true" tabindex="-1"></a>Gibbsplot <span class="ot">&lt;-</span> Gibbs <span class="sc">%&gt;%</span></span>
-<span id="cb633-2"><a href="09-calculo-bayes.html#cb633-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb633-3"><a href="09-calculo-bayes.html#cb633-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_path</span>(theta2 <span class="sc">~</span> theta1, <span class="at">color =</span> <span class="sc">~</span>step, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
-<span id="cb633-4"><a href="09-calculo-bayes.html#cb633-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;open&quot;</span>, <span class="at">angle =</span> <span class="dv">30</span>)) <span class="sc">+</span></span>
-<span id="cb633-5"><a href="09-calculo-bayes.html#cb633-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">transition_reveal</span>(step)</span>
-<span id="cb633-6"><a href="09-calculo-bayes.html#cb633-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb633-7"><a href="09-calculo-bayes.html#cb633-7" aria-hidden="true" tabindex="-1"></a><span class="fu">animate</span>(Gibbsplot, <span class="at">fps =</span> <span class="dv">1</span>)</span></code></pre></div>
-<p>Ciclos completos</p>
+<span id="cb632-2"><a href="09-calculo-bayes.html#cb632-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_dens</span>(<span class="sc">~</span>theta1)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-365-2.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb633"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb633-1"><a href="09-calculo-bayes.html#cb633-1" aria-hidden="true" tabindex="-1"></a><span class="fu">acf</span>(Gibbs<span class="sc">$</span>theta1)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-365-3.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb634"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb634-1"><a href="09-calculo-bayes.html#cb634-1" aria-hidden="true" tabindex="-1"></a>Gibbs <span class="sc">%&gt;%</span></span>
-<span id="cb634-2"><a href="09-calculo-bayes.html#cb634-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step<span class="sc">%%</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb634-3"><a href="09-calculo-bayes.html#cb634-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_density2d</span>(theta2 <span class="sc">~</span> theta1)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-368-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="09-calculo-bayes.html#cb635-1" aria-hidden="true" tabindex="-1"></a>Gibbs <span class="sc">%&gt;%</span></span>
-<span id="cb635-2"><a href="09-calculo-bayes.html#cb635-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step<span class="sc">%%</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb635-3"><a href="09-calculo-bayes.html#cb635-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_density</span>(<span class="sc">~</span>(theta2 <span class="sc">-</span> theta1))</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-368-2.svg" width="100%" style="display: block; margin: auto;" /></p>
+<span id="cb634-2"><a href="09-calculo-bayes.html#cb634-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb634-3"><a href="09-calculo-bayes.html#cb634-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_path</span>(theta2 <span class="sc">~</span> theta1, <span class="at">color =</span> <span class="sc">~</span>step, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb634-4"><a href="09-calculo-bayes.html#cb634-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;open&quot;</span>, <span class="at">angle =</span> <span class="dv">30</span>, <span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>,</span>
+<span id="cb634-5"><a href="09-calculo-bayes.html#cb634-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;inches&quot;</span>))) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-366-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb635"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb635-1"><a href="09-calculo-bayes.html#cb635-1" aria-hidden="true" tabindex="-1"></a>Gibbsplot <span class="ot">&lt;-</span> Gibbs <span class="sc">%&gt;%</span></span>
+<span id="cb635-2"><a href="09-calculo-bayes.html#cb635-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step <span class="sc">&lt;</span> <span class="dv">500</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb635-3"><a href="09-calculo-bayes.html#cb635-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_path</span>(theta2 <span class="sc">~</span> theta1, <span class="at">color =</span> <span class="sc">~</span>step, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb635-4"><a href="09-calculo-bayes.html#cb635-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;open&quot;</span>, <span class="at">angle =</span> <span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb635-5"><a href="09-calculo-bayes.html#cb635-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">transition_reveal</span>(step)</span>
+<span id="cb635-6"><a href="09-calculo-bayes.html#cb635-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb635-7"><a href="09-calculo-bayes.html#cb635-7" aria-hidden="true" tabindex="-1"></a><span class="fu">animate</span>(Gibbsplot, <span class="at">fps =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p>Ciclos completos</p>
 <div class="sourceCode" id="cb636"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb636-1"><a href="09-calculo-bayes.html#cb636-1" aria-hidden="true" tabindex="-1"></a>Gibbs <span class="sc">%&gt;%</span></span>
 <span id="cb636-2"><a href="09-calculo-bayes.html#cb636-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step<span class="sc">%%</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb636-3"><a href="09-calculo-bayes.html#cb636-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">difference =</span> theta2 <span class="sc">-</span> theta1) <span class="sc">%&gt;%</span></span>
-<span id="cb636-4"><a href="09-calculo-bayes.html#cb636-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(difference) <span class="sc">%&gt;%</span></span>
-<span id="cb636-5"><a href="09-calculo-bayes.html#cb636-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">acf</span>()</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-368-3.svg" width="100%" style="display: block; margin: auto;" /></p>
+<span id="cb636-3"><a href="09-calculo-bayes.html#cb636-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_density2d</span>(theta2 <span class="sc">~</span> theta1)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-368-1.svg" width="100%" style="display: block; margin: auto;" /></p>
 <div class="sourceCode" id="cb637"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb637-1"><a href="09-calculo-bayes.html#cb637-1" aria-hidden="true" tabindex="-1"></a>Gibbs <span class="sc">%&gt;%</span></span>
-<span id="cb637-2"><a href="09-calculo-bayes.html#cb637-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step <span class="sc">&lt;</span> <span class="dv">500</span>, step<span class="sc">%%</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb637-3"><a href="09-calculo-bayes.html#cb637-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_path</span>(theta2 <span class="sc">~</span> theta1, <span class="at">color =</span> <span class="sc">~</span>step, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
-<span id="cb637-4"><a href="09-calculo-bayes.html#cb637-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;open&quot;</span>, <span class="at">angle =</span> <span class="dv">30</span>, <span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>,</span>
-<span id="cb637-5"><a href="09-calculo-bayes.html#cb637-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;inches&quot;</span>))) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
+<span id="cb637-2"><a href="09-calculo-bayes.html#cb637-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step<span class="sc">%%</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb637-3"><a href="09-calculo-bayes.html#cb637-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_density</span>(<span class="sc">~</span>(theta2 <span class="sc">-</span> theta1))</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-368-2.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="09-calculo-bayes.html#cb638-1" aria-hidden="true" tabindex="-1"></a>Gibbs <span class="sc">%&gt;%</span></span>
+<span id="cb638-2"><a href="09-calculo-bayes.html#cb638-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step<span class="sc">%%</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb638-3"><a href="09-calculo-bayes.html#cb638-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">difference =</span> theta2 <span class="sc">-</span> theta1) <span class="sc">%&gt;%</span></span>
+<span id="cb638-4"><a href="09-calculo-bayes.html#cb638-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pull</span>(difference) <span class="sc">%&gt;%</span></span>
+<span id="cb638-5"><a href="09-calculo-bayes.html#cb638-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">acf</span>()</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-368-3.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="09-calculo-bayes.html#cb639-1" aria-hidden="true" tabindex="-1"></a>Gibbs <span class="sc">%&gt;%</span></span>
+<span id="cb639-2"><a href="09-calculo-bayes.html#cb639-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step <span class="sc">&lt;</span> <span class="dv">500</span>, step<span class="sc">%%</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb639-3"><a href="09-calculo-bayes.html#cb639-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_path</span>(theta2 <span class="sc">~</span> theta1, <span class="at">color =</span> <span class="sc">~</span>step, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb639-4"><a href="09-calculo-bayes.html#cb639-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;open&quot;</span>, <span class="at">angle =</span> <span class="dv">30</span>, <span class="at">length =</span> <span class="fu">unit</span>(<span class="fl">0.1</span>,</span>
+<span id="cb639-5"><a href="09-calculo-bayes.html#cb639-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">&quot;inches&quot;</span>))) <span class="sc">+</span> <span class="fu">theme_minimal</span>()</span></code></pre></div>
 <p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-369-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb638"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb638-1"><a href="09-calculo-bayes.html#cb638-1" aria-hidden="true" tabindex="-1"></a>Gibbsplot2 <span class="ot">&lt;-</span> Gibbs <span class="sc">%&gt;%</span></span>
-<span id="cb638-2"><a href="09-calculo-bayes.html#cb638-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step <span class="sc">&lt;</span> <span class="dv">500</span>, step<span class="sc">%%</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb638-3"><a href="09-calculo-bayes.html#cb638-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_path</span>(theta2 <span class="sc">~</span> theta1, <span class="at">color =</span> <span class="sc">~</span>step, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
-<span id="cb638-4"><a href="09-calculo-bayes.html#cb638-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;open&quot;</span>, <span class="at">angle =</span> <span class="dv">30</span>)) <span class="sc">+</span></span>
-<span id="cb638-5"><a href="09-calculo-bayes.html#cb638-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">transition_reveal</span>(step)</span>
-<span id="cb638-6"><a href="09-calculo-bayes.html#cb638-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb638-7"><a href="09-calculo-bayes.html#cb638-7" aria-hidden="true" tabindex="-1"></a><span class="fu">animate</span>(Gibbsplot2, <span class="at">fps =</span> <span class="dv">1</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="09-calculo-bayes.html#cb640-1" aria-hidden="true" tabindex="-1"></a>Gibbsplot2 <span class="ot">&lt;-</span> Gibbs <span class="sc">%&gt;%</span></span>
+<span id="cb640-2"><a href="09-calculo-bayes.html#cb640-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">filter</span>(step <span class="sc">&lt;</span> <span class="dv">500</span>, step<span class="sc">%%</span><span class="dv">2</span> <span class="sc">==</span> <span class="dv">0</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb640-3"><a href="09-calculo-bayes.html#cb640-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_path</span>(theta2 <span class="sc">~</span> theta1, <span class="at">color =</span> <span class="sc">~</span>step, <span class="at">alpha =</span> <span class="fl">0.5</span>,</span>
+<span id="cb640-4"><a href="09-calculo-bayes.html#cb640-4" aria-hidden="true" tabindex="-1"></a>        <span class="at">arrow =</span> <span class="fu">arrow</span>(<span class="at">type =</span> <span class="st">&quot;open&quot;</span>, <span class="at">angle =</span> <span class="dv">30</span>)) <span class="sc">+</span></span>
+<span id="cb640-5"><a href="09-calculo-bayes.html#cb640-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme_minimal</span>() <span class="sc">+</span> <span class="fu">transition_reveal</span>(step)</span>
+<span id="cb640-6"><a href="09-calculo-bayes.html#cb640-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb640-7"><a href="09-calculo-bayes.html#cb640-7" aria-hidden="true" tabindex="-1"></a><span class="fu">animate</span>(Gibbsplot2, <span class="at">fps =</span> <span class="dv">1</span>)</span></code></pre></div>
 </div>
 </div>
-<div id="uso-de-jags" class="section level2 hasAnchor" number="9.10">
-<h2><span class="header-section-number">9.10</span> Uso de JAGS<a href="09-calculo-bayes.html#uso-de-jags" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="ejemplo-reales" class="section level2 hasAnchor" number="9.10">
+<h2><span class="header-section-number">9.10</span> Ejemplo reales<a href="09-calculo-bayes.html#ejemplo-reales" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="datos-agrupados-bajo-una-población-normal" class="section level3 hasAnchor" number="9.10.1">
+<h3><span class="header-section-number">9.10.1</span> Datos agrupados bajo una población normal<a href="09-calculo-bayes.html#datos-agrupados-bajo-una-población-normal" class="anchor-section" aria-label="Anchor link to header"></a></h3>
+<p>Suponga que observamos los siguientes datos agrupados:</p>
+<table>
+<thead>
+<tr class="header">
+<th>Altura (pulgadas)</th>
+<th>Frecuencia</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>Menos de 66</td>
+<td>14</td>
+</tr>
+<tr class="even">
+<td>Entre 66 y 68</td>
+<td>30</td>
+</tr>
+<tr class="odd">
+<td>Entre 68 y 70</td>
+<td>49</td>
+</tr>
+<tr class="even">
+<td>Entre 70 y 72</td>
+<td>70</td>
+</tr>
+<tr class="odd">
+<td>Entre 72 y 74</td>
+<td>33</td>
+</tr>
+<tr class="even">
+<td>Más de 74</td>
+<td>15</td>
+</tr>
+</tbody>
+</table>
+<p>Si asumimos que las alturas son normales con media <span class="math inline">\(\mu\)</span> y desviación estándar <span class="math inline">\(\sigma\)</span>, podemos asumir una verosimilitud multinomial para los datos agrupados:
+<span class="math display">\[\begin{align*}
+L(\mu,\sigma)&amp;\propto \Phi(66,\mu,\sigma)^{14}(\Phi(68,\mu,\sigma)-\Phi(66,\mu,\sigma))^{30} \\
+&amp;\times  (\Phi(70,\mu,\sigma)-\Phi(68,\mu,\sigma))^{49} (\Phi(72,\mu,\sigma)-\Phi(70,\mu,\sigma))^{70}\\
+&amp;\times  (\Phi(74,\mu,\sigma)-\Phi(72,\mu,\sigma))^{33} (1-\Phi(74,\mu,\sigma))^{15}
+\end{align*}\]</span></p>
+<p>y asumimos una previa no informativa para <span class="math inline">\((\mu,\sigma)\sim \frac 1 \sigma\)</span>. Como <span class="math inline">\(\sigma&gt;0\)</span> entonces usamos la transformación <span class="math inline">\(\lambda=\log (\sigma)\)</span>.</p>
+<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="09-calculo-bayes.html#cb641-1" aria-hidden="true" tabindex="-1"></a>d <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">int.lo =</span> <span class="fu">c</span>(<span class="sc">-</span><span class="cn">Inf</span>, <span class="fu">seq</span>(<span class="dv">66</span>, <span class="dv">74</span>, <span class="at">by =</span> <span class="dv">2</span>)), <span class="at">int.hi =</span> <span class="fu">c</span>(<span class="fu">seq</span>(<span class="dv">66</span>,</span>
+<span id="cb641-2"><a href="09-calculo-bayes.html#cb641-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">74</span>, <span class="at">by =</span> <span class="dv">2</span>), <span class="cn">Inf</span>), <span class="at">f =</span> <span class="fu">c</span>(<span class="dv">14</span>, <span class="dv">30</span>, <span class="dv">49</span>, <span class="dv">70</span>, <span class="dv">33</span>, <span class="dv">15</span>))</span></code></pre></div>
+<p>es una estructura de los datos agrupados. La log-densidad posterior de los datos sería:</p>
+<div class="sourceCode" id="cb642"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb642-1"><a href="09-calculo-bayes.html#cb642-1" aria-hidden="true" tabindex="-1"></a>groupeddatapost <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, data) {</span>
+<span id="cb642-2"><a href="09-calculo-bayes.html#cb642-2" aria-hidden="true" tabindex="-1"></a>    dj <span class="ot">&lt;-</span> <span class="cf">function</span>(f, int.lo, int.hi, mu, sigma) {</span>
+<span id="cb642-3"><a href="09-calculo-bayes.html#cb642-3" aria-hidden="true" tabindex="-1"></a>        f <span class="sc">*</span> <span class="fu">log</span>(<span class="fu">pnorm</span>(int.hi, mu, sigma) <span class="sc">-</span> <span class="fu">pnorm</span>(int.lo,</span>
+<span id="cb642-4"><a href="09-calculo-bayes.html#cb642-4" aria-hidden="true" tabindex="-1"></a>            mu, sigma))</span>
+<span id="cb642-5"><a href="09-calculo-bayes.html#cb642-5" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb642-6"><a href="09-calculo-bayes.html#cb642-6" aria-hidden="true" tabindex="-1"></a>    mu <span class="ot">&lt;-</span> theta[<span class="dv">1</span>]</span>
+<span id="cb642-7"><a href="09-calculo-bayes.html#cb642-7" aria-hidden="true" tabindex="-1"></a>    sigma <span class="ot">&lt;-</span> <span class="fu">exp</span>(theta[<span class="dv">2</span>])</span>
+<span id="cb642-8"><a href="09-calculo-bayes.html#cb642-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">sum</span>(<span class="fu">dj</span>(data<span class="sc">$</span>f, data<span class="sc">$</span>int.lo, data<span class="sc">$</span>int.hi, mu, sigma))</span>
+<span id="cb642-9"><a href="09-calculo-bayes.html#cb642-9" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Usamos el método de Laplace para encontrar una aproximación de los parámetros de la previa bajo Metropolis-Hastings:</p>
+<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="09-calculo-bayes.html#cb643-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">70</span>, <span class="dv">1</span>)</span>
+<span id="cb643-2"><a href="09-calculo-bayes.html#cb643-2" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">laplace</span>(groupeddatapost, start, d)</span>
+<span id="cb643-3"><a href="09-calculo-bayes.html#cb643-3" aria-hidden="true" tabindex="-1"></a>fit</span></code></pre></div>
+<pre><code>## $mode
+## [1] 70.169880  0.973644
+## 
+## $var
+##              [,1]         [,2]
+## [1,] 3.534713e-02 3.520776e-05
+## [2,] 3.520776e-05 3.146470e-03
+## 
+## $int
+## [1] -350.6305
+## 
+## $converge
+## [1] TRUE</code></pre>
+<p>la escogencia del valor inicial se basa en los datos artificiales en la página 126 del <span class="citation">(Albert et al. 2009)</span>. De esta forma definimos los parámetros de la propuesta como:</p>
+<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="09-calculo-bayes.html#cb645-1" aria-hidden="true" tabindex="-1"></a>proposal <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">var =</span> fit<span class="sc">$</span>var, <span class="at">scale =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>y ajustamos la versión bajo caminata aleatoria de un Metropolis-Hastings (MH):</p>
+<div class="sourceCode" id="cb646"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb646-1"><a href="09-calculo-bayes.html#cb646-1" aria-hidden="true" tabindex="-1"></a>fit2 <span class="ot">&lt;-</span> <span class="fu">rwmetrop</span>(groupeddatapost, proposal, start,</span>
+<span id="cb646-2"><a href="09-calculo-bayes.html#cb646-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">10000</span>, d)</span></code></pre></div>
+<p>con una tasa de aceptación:</p>
+<div class="sourceCode" id="cb647"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb647-1"><a href="09-calculo-bayes.html#cb647-1" aria-hidden="true" tabindex="-1"></a>fit2<span class="sc">$</span>accept</span></code></pre></div>
+<pre><code>## [1] 0.301</code></pre>
+<p>Algunas estadísticas de la distribución posterior de <span class="math inline">\(\mu\)</span> y <span class="math inline">\(\log \sigma\)</span>:</p>
+<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="09-calculo-bayes.html#cb649-1" aria-hidden="true" tabindex="-1"></a>post.means <span class="ot">&lt;-</span> <span class="fu">apply</span>(fit2<span class="sc">$</span>par, <span class="dv">2</span>, mean)</span>
+<span id="cb649-2"><a href="09-calculo-bayes.html#cb649-2" aria-hidden="true" tabindex="-1"></a>post.sds <span class="ot">&lt;-</span> <span class="fu">apply</span>(fit2<span class="sc">$</span>par, <span class="dv">2</span>, sd)</span>
+<span id="cb649-3"><a href="09-calculo-bayes.html#cb649-3" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(post.means, post.sds)</span></code></pre></div>
+<pre><code>##      post.means  post.sds
+## [1,] 70.1704173 0.1949509
+## [2,]  0.9803398 0.0576197</code></pre>
+<p>esto se puede comparar con los estimadores de la aproximación de Laplace:</p>
+<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="09-calculo-bayes.html#cb651-1" aria-hidden="true" tabindex="-1"></a>modal.sds <span class="ot">&lt;-</span> <span class="fu">sqrt</span>(<span class="fu">diag</span>(fit<span class="sc">$</span>var))</span>
+<span id="cb651-2"><a href="09-calculo-bayes.html#cb651-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cbind</span>(<span class="fu">c</span>(fit<span class="sc">$</span>mode), modal.sds)</span></code></pre></div>
+<pre><code>##                 modal.sds
+## [1,] 70.169880 0.18800834
+## [2,]  0.973644 0.05609341</code></pre>
+<p>También podemos graficar la densidad posterior junto con la muestra generada por el MH, usando una muestra de burn-in de 5000:</p>
+<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="09-calculo-bayes.html#cb653-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mycontour</span>(groupeddatapost, <span class="fu">c</span>(<span class="dv">69</span>, <span class="dv">71</span>, <span class="fl">0.6</span>, <span class="fl">1.3</span>), d,</span>
+<span id="cb653-2"><a href="09-calculo-bayes.html#cb653-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;mu&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;log sigma&quot;</span>)</span>
+<span id="cb653-3"><a href="09-calculo-bayes.html#cb653-3" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(fit2<span class="sc">$</span>par[<span class="dv">5001</span><span class="sc">:</span><span class="dv">10000</span>, <span class="dv">1</span>], fit2<span class="sc">$</span>par[<span class="dv">5001</span><span class="sc">:</span><span class="dv">10000</span>,</span>
+<span id="cb653-4"><a href="09-calculo-bayes.html#cb653-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">2</span>])</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-379-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p>Los traceplots del MCMC los graficamos a través del paquete <em>coda</em> junto con el paquete <em>bayesplot</em>:</p>
+<div class="sourceCode" id="cb654"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb654-1"><a href="09-calculo-bayes.html#cb654-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coda)</span>
+<span id="cb654-2"><a href="09-calculo-bayes.html#cb654-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span>
+<span id="cb654-3"><a href="09-calculo-bayes.html#cb654-3" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(fit2<span class="sc">$</span>par)[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;mu&quot;</span>, <span class="st">&quot;log sigma&quot;</span>)</span>
+<span id="cb654-4"><a href="09-calculo-bayes.html#cb654-4" aria-hidden="true" tabindex="-1"></a>obj_mcmc <span class="ot">&lt;-</span> <span class="fu">mcmc</span>(fit2<span class="sc">$</span>par[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5000</span>), ])</span>
+<span id="cb654-5"><a href="09-calculo-bayes.html#cb654-5" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(obj_mcmc)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-380-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p>Los gráficos de autocorrelación empíricos se pueden generar con:</p>
+<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="09-calculo-bayes.html#cb655-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_acf</span>(obj_mcmc)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-381-1.svg" width="100%" style="display: block; margin: auto;" />
+y funciones de densidad estimadas con intervalos de predicción al 95% para algunos de los parámetros:</p>
+<div class="sourceCode" id="cb656"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb656-1"><a href="09-calculo-bayes.html#cb656-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(obj_mcmc, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;mu&quot;</span>), <span class="at">prob =</span> <span class="fl">0.95</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-382-1.svg" width="100%" style="display: block; margin: auto;" />
+### Datos con outliers</p>
+<p>Suponga <span class="math inline">\(y_1,\ldots,y_n\sim \text{Cauchy}(\mu,\sigma)\)</span>:
+<span class="math display">\[f(y|\mu,\sigma)=\frac{1}{\pi\sigma(1+z^2)}\]</span>
+donde <span class="math inline">\(z=\frac{y-\mu}{\sigma}\)</span>. Con una previa no informativa <span class="math inline">\(g(\mu,\sigma)\propto 1/\sigma\)</span> y transformando <span class="math inline">\(\lambda = \log \sigma\)</span> se puede comprobar que la log-densidad posterior es:
+<span class="math display">\[\log g(\mu,\lambda|\text{datos}) = \sum_{i=1}^n\left[-\lambda-\log\left(1+\exp(-2\lambda)(y_i-\mu)^2\right)\right]\]</span></p>
+<p>y la implementación de la log-posterior usando la distribución t de Student como generador de la distribución Cauchy:</p>
+<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="09-calculo-bayes.html#cb657-1" aria-hidden="true" tabindex="-1"></a>cauchyerrorpost <span class="ot">&lt;-</span> <span class="cf">function</span>(theta, data) {</span>
+<span id="cb657-2"><a href="09-calculo-bayes.html#cb657-2" aria-hidden="true" tabindex="-1"></a>    logf <span class="ot">&lt;-</span> <span class="cf">function</span>(data, theta) <span class="fu">log</span>(<span class="fu">dt</span>((data <span class="sc">-</span> theta[<span class="dv">1</span>])<span class="sc">/</span><span class="fu">exp</span>(theta[<span class="dv">2</span>]),</span>
+<span id="cb657-3"><a href="09-calculo-bayes.html#cb657-3" aria-hidden="true" tabindex="-1"></a>        <span class="at">df =</span> <span class="dv">1</span>)<span class="sc">/</span><span class="fu">exp</span>(theta[<span class="dv">2</span>]))</span>
+<span id="cb657-4"><a href="09-calculo-bayes.html#cb657-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="fu">sum</span>(<span class="fu">logf</span>(data, theta)))</span>
+<span id="cb657-5"><a href="09-calculo-bayes.html#cb657-5" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<p>Los datos provienen de la base <em>darwin</em> con 15 diferencias entre alturas de plantas según Fisher (1960). La media y log-desviación estándar empíricos de los datos son:</p>
+<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="09-calculo-bayes.html#cb658-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(LearnBayes)</span>
+<span id="cb658-2"><a href="09-calculo-bayes.html#cb658-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(darwin)</span>
+<span id="cb658-3"><a href="09-calculo-bayes.html#cb658-3" aria-hidden="true" tabindex="-1"></a>data_darwin <span class="ot">&lt;-</span> darwin<span class="sc">$</span>difference</span></code></pre></div>
+<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="09-calculo-bayes.html#cb659-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(data_darwin)</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<div class="sourceCode" id="cb661"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb661-1"><a href="09-calculo-bayes.html#cb661-1" aria-hidden="true" tabindex="-1"></a><span class="fu">log</span>(<span class="fu">sd</span>(data_darwin))</span></code></pre></div>
+<pre><code>## [1] NA</code></pre>
+<p>y usamos estos valores como valores iniciales dentro de la aproximación de Laplace:</p>
+<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="09-calculo-bayes.html#cb663-1" aria-hidden="true" tabindex="-1"></a>fitlaplace <span class="ot">&lt;-</span> <span class="fu">laplace</span>(cauchyerrorpost, <span class="fu">c</span>(<span class="fl">21.6</span>, <span class="fl">3.6</span>),</span>
+<span id="cb663-2"><a href="09-calculo-bayes.html#cb663-2" aria-hidden="true" tabindex="-1"></a>    data_darwin)</span></code></pre></div>
+<pre><code>## Error in solve.default(fit$hessian): Lapack routine dgesv: system is exactly singular: U[1,1] = 0</code></pre>
+<div class="sourceCode" id="cb665"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb665-1"><a href="09-calculo-bayes.html#cb665-1" aria-hidden="true" tabindex="-1"></a>fitlaplace</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;fitlaplace&#39; not found</code></pre>
+<p>y usamos lo anterior como insumo para generar tres escenarios de MCMC:</p>
+<ul>
+<li>Metropolis-Hastings con caminata aleatoria:</li>
+</ul>
+<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="09-calculo-bayes.html#cb667-1" aria-hidden="true" tabindex="-1"></a>proposal <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">var =</span> fitlaplace<span class="sc">$</span>var, <span class="at">scale =</span> <span class="fl">2.5</span>)</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;fitlaplace&#39; not found</code></pre>
+<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="09-calculo-bayes.html#cb669-1" aria-hidden="true" tabindex="-1"></a>start <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">20</span>, <span class="dv">3</span>)</span>
+<span id="cb669-2"><a href="09-calculo-bayes.html#cb669-2" aria-hidden="true" tabindex="-1"></a>E1 <span class="ot">&lt;-</span> <span class="fu">rwmetrop</span>(cauchyerrorpost, proposal, start, <span class="dv">50000</span>,</span>
+<span id="cb669-3"><a href="09-calculo-bayes.html#cb669-3" aria-hidden="true" tabindex="-1"></a>    data_darwin)</span>
+<span id="cb669-4"><a href="09-calculo-bayes.html#cb669-4" aria-hidden="true" tabindex="-1"></a><span class="fu">mycontour</span>(cauchyerrorpost, <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">60</span>, <span class="dv">1</span>, <span class="fl">4.5</span>), data_darwin,</span>
+<span id="cb669-5"><a href="09-calculo-bayes.html#cb669-5" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;mu&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;log sigma&quot;</span>)</span>
+<span id="cb669-6"><a href="09-calculo-bayes.html#cb669-6" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(E1<span class="sc">$</span>par[, <span class="dv">1</span>], E1<span class="sc">$</span>par[, <span class="dv">2</span>])</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-387-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<ul>
+<li>Metropolis-Hastings independiente:</li>
+</ul>
+<div class="sourceCode" id="cb670"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb670-1"><a href="09-calculo-bayes.html#cb670-1" aria-hidden="true" tabindex="-1"></a>proposal2 <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">var =</span> fitlaplace<span class="sc">$</span>var, <span class="at">mu =</span> <span class="fu">t</span>(fitlaplace<span class="sc">$</span>mode))</span></code></pre></div>
+<pre><code>## Error in eval(expr, envir, enclos): object &#39;fitlaplace&#39; not found</code></pre>
+<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="09-calculo-bayes.html#cb672-1" aria-hidden="true" tabindex="-1"></a>E2 <span class="ot">&lt;-</span> <span class="fu">indepmetrop</span>(cauchyerrorpost, proposal2, start,</span>
+<span id="cb672-2"><a href="09-calculo-bayes.html#cb672-2" aria-hidden="true" tabindex="-1"></a>    <span class="dv">50000</span>, data_darwin)</span></code></pre></div>
+<pre><code>## Error in matrix(proposal$mu): object &#39;proposal2&#39; not found</code></pre>
+<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="09-calculo-bayes.html#cb674-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mycontour</span>(cauchyerrorpost, <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">60</span>, <span class="dv">1</span>, <span class="fl">4.5</span>), data_darwin,</span>
+<span id="cb674-2"><a href="09-calculo-bayes.html#cb674-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;mu&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;log sigma&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-388-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb675"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb675-1"><a href="09-calculo-bayes.html#cb675-1" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(E2<span class="sc">$</span>par[, <span class="dv">1</span>], E2<span class="sc">$</span>par[, <span class="dv">2</span>])</span></code></pre></div>
+<pre><code>## Error in points(E2$par[, 1], E2$par[, 2]): object &#39;E2&#39; not found</code></pre>
+<ul>
+<li>Muestreo de Gibbs:</li>
+</ul>
+<div class="sourceCode" id="cb677"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb677-1"><a href="09-calculo-bayes.html#cb677-1" aria-hidden="true" tabindex="-1"></a>E3 <span class="ot">&lt;-</span> <span class="fu">gibbs</span>(cauchyerrorpost, start, <span class="dv">50000</span>, <span class="fu">c</span>(<span class="dv">12</span>, <span class="fl">0.75</span>),</span>
+<span id="cb677-2"><a href="09-calculo-bayes.html#cb677-2" aria-hidden="true" tabindex="-1"></a>    data_darwin)</span>
+<span id="cb677-3"><a href="09-calculo-bayes.html#cb677-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mycontour</span>(cauchyerrorpost, <span class="fu">c</span>(<span class="sc">-</span><span class="dv">10</span>, <span class="dv">60</span>, <span class="dv">1</span>, <span class="fl">4.5</span>), data_darwin,</span>
+<span id="cb677-4"><a href="09-calculo-bayes.html#cb677-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">xlab =</span> <span class="st">&quot;mu&quot;</span>, <span class="at">ylab =</span> <span class="st">&quot;log sigma&quot;</span>)</span>
+<span id="cb677-5"><a href="09-calculo-bayes.html#cb677-5" aria-hidden="true" tabindex="-1"></a><span class="fu">points</span>(E3<span class="sc">$</span>par[, <span class="dv">1</span>], E3<span class="sc">$</span>par[, <span class="dv">2</span>])</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-389-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<p>Comparemos el estimador bayesiano e intervalos de predicción al 95% para la media <span class="math inline">\(\mu\)</span>:</p>
+<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="09-calculo-bayes.html#cb678-1" aria-hidden="true" tabindex="-1"></a>Resultados <span class="ot">&lt;-</span> <span class="fu">data.frame</span>(<span class="fu">rbind</span>(<span class="fu">c</span>(<span class="fu">mean</span>(E1<span class="sc">$</span>par[, <span class="dv">1</span>]),</span>
+<span id="cb678-2"><a href="09-calculo-bayes.html#cb678-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">quantile</span>(E1<span class="sc">$</span>par[, <span class="dv">1</span>], <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)),</span>
+<span id="cb678-3"><a href="09-calculo-bayes.html#cb678-3" aria-hidden="true" tabindex="-1"></a>    E1<span class="sc">$</span>accept), <span class="fu">c</span>(<span class="fu">mean</span>(E2<span class="sc">$</span>par[, <span class="dv">1</span>]), <span class="fu">quantile</span>(E2<span class="sc">$</span>par[,</span>
+<span id="cb678-4"><a href="09-calculo-bayes.html#cb678-4" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>], <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)), E2<span class="sc">$</span>accept), <span class="fu">c</span>(<span class="fu">mean</span>(E3<span class="sc">$</span>par[,</span>
+<span id="cb678-5"><a href="09-calculo-bayes.html#cb678-5" aria-hidden="true" tabindex="-1"></a>    <span class="dv">1</span>]), <span class="fu">quantile</span>(E3<span class="sc">$</span>par[, <span class="dv">1</span>], <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.025</span>, <span class="fl">0.975</span>)),</span>
+<span id="cb678-6"><a href="09-calculo-bayes.html#cb678-6" aria-hidden="true" tabindex="-1"></a>    <span class="cn">NA</span>)))</span></code></pre></div>
+<pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;mean&#39;: object &#39;E2&#39; not found</code></pre>
+<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="09-calculo-bayes.html#cb680-1" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(Resultados) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;Media&quot;</span>, <span class="st">&quot;Q1&quot;</span>, <span class="st">&quot;Q3&quot;</span>, <span class="st">&quot;Accept&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in colnames(Resultados) &lt;- c(&quot;Media&quot;, &quot;Q1&quot;, &quot;Q3&quot;, &quot;Accept&quot;): object &#39;Resultados&#39; not found</code></pre>
+<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="09-calculo-bayes.html#cb682-1" aria-hidden="true" tabindex="-1"></a><span class="fu">rownames</span>(Resultados) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;MH-RW&quot;</span>, <span class="st">&quot;MH-Indep&quot;</span>, <span class="st">&quot;Gibbs&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in rownames(Resultados) &lt;- c(&quot;MH-RW&quot;, &quot;MH-Indep&quot;, &quot;Gibbs&quot;): object &#39;Resultados&#39; not found</code></pre>
+<div class="sourceCode" id="cb684"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb684-1"><a href="09-calculo-bayes.html#cb684-1" aria-hidden="true" tabindex="-1"></a>Resultados <span class="ot">&lt;-</span> Resultados <span class="sc">%&gt;%</span></span>
+<span id="cb684-2"><a href="09-calculo-bayes.html#cb684-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">Ancho =</span> Q3 <span class="sc">-</span> Q1)</span></code></pre></div>
+<pre><code>## Error in mutate(., Ancho = Q3 - Q1): object &#39;Resultados&#39; not found</code></pre>
+<div class="sourceCode" id="cb686"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb686-1"><a href="09-calculo-bayes.html#cb686-1" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(Resultados)</span></code></pre></div>
+<pre><code>## Error in knitr::kable(Resultados): object &#39;Resultados&#39; not found</code></pre>
+<p>En el caso del algoritmo de Gibbs, cada uno de los pasos tiene una tasa de aceptación de MH en este caso:</p>
+<div class="sourceCode" id="cb688"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb688-1"><a href="09-calculo-bayes.html#cb688-1" aria-hidden="true" tabindex="-1"></a>E3<span class="sc">$</span>accept</span></code></pre></div>
+<pre><code>##      [,1] [,2]
+## [1,]    1    1</code></pre>
+<p>También podemos incluir histogramas para las muestras posteriores de ambos parámetros. Para el MH independiente (burn-in=5000):</p>
+<div class="sourceCode" id="cb690"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb690-1"><a href="09-calculo-bayes.html#cb690-1" aria-hidden="true" tabindex="-1"></a><span class="fu">color_scheme_set</span>(<span class="st">&quot;green&quot;</span>)</span>
+<span id="cb690-2"><a href="09-calculo-bayes.html#cb690-2" aria-hidden="true" tabindex="-1"></a><span class="fu">dimnames</span>(E2<span class="sc">$</span>par)[[<span class="dv">2</span>]] <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">&quot;mu&quot;</span>, <span class="st">&quot;log sigma&quot;</span>)</span></code></pre></div>
+<pre><code>## Error in dimnames(E2$par)[[2]] &lt;- c(&quot;mu&quot;, &quot;log sigma&quot;): object &#39;E2&#39; not found</code></pre>
+<div class="sourceCode" id="cb692"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb692-1"><a href="09-calculo-bayes.html#cb692-1" aria-hidden="true" tabindex="-1"></a>obj_mcmc2 <span class="ot">&lt;-</span> <span class="fu">mcmc</span>(E2<span class="sc">$</span>par[<span class="sc">-</span><span class="fu">c</span>(<span class="dv">1</span><span class="sc">:</span><span class="dv">5000</span>), ])</span></code></pre></div>
+<pre><code>## Error in mcmc(E2$par[-c(1:5000), ]): object &#39;E2&#39; not found</code></pre>
+<div class="sourceCode" id="cb694"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb694-1"><a href="09-calculo-bayes.html#cb694-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_hist</span>(obj_mcmc2, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;mu&quot;</span>, <span class="st">&quot;log sigma&quot;</span>))</span></code></pre></div>
+<pre><code>## Error in posterior::is_draws(x): object &#39;obj_mcmc2&#39; not found</code></pre>
+<p>y los gráficos de autocorrelación respectivos:</p>
+<div class="sourceCode" id="cb696"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb696-1"><a href="09-calculo-bayes.html#cb696-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_acf_bar</span>(obj_mcmc2, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;mu&quot;</span>, <span class="st">&quot;log sigma&quot;</span>))</span></code></pre></div>
+<pre><code>## Error in posterior::is_draws(x): object &#39;obj_mcmc2&#39; not found</code></pre>
+</div>
+</div>
+<div id="uso-de-jags" class="section level2 hasAnchor" number="9.11">
+<h2><span class="header-section-number">9.11</span> Uso de JAGS<a href="09-calculo-bayes.html#uso-de-jags" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>El paquete que usaremos en esta sección es <code>R2jags</code> y <code>coda</code>. Los cargamos con las instrucciones</p>
-<div class="sourceCode" id="cb639"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb639-1"><a href="09-calculo-bayes.html#cb639-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;rpruim/CalvinBayes&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb640"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb640-1"><a href="09-calculo-bayes.html#cb640-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
-<span id="cb640-2"><a href="09-calculo-bayes.html#cb640-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coda)</span>
-<span id="cb640-3"><a href="09-calculo-bayes.html#cb640-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CalvinBayes)</span></code></pre></div>
-<div class="sourceCode" id="cb641"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb641-1"><a href="09-calculo-bayes.html#cb641-1" aria-hidden="true" tabindex="-1"></a>bernoulli <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;data/bernoulli.csv&quot;</span>,</span>
-<span id="cb641-2"><a href="09-calculo-bayes.html#cb641-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span>
-<span id="cb641-3"><a href="09-calculo-bayes.html#cb641-3" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(bernoulli)</span></code></pre></div>
+<div class="sourceCode" id="cb698"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb698-1"><a href="09-calculo-bayes.html#cb698-1" aria-hidden="true" tabindex="-1"></a>remotes<span class="sc">::</span><span class="fu">install_github</span>(<span class="st">&quot;rpruim/CalvinBayes&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb699"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb699-1"><a href="09-calculo-bayes.html#cb699-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(R2jags)</span>
+<span id="cb699-2"><a href="09-calculo-bayes.html#cb699-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(coda)</span>
+<span id="cb699-3"><a href="09-calculo-bayes.html#cb699-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(CalvinBayes)</span></code></pre></div>
+<div class="sourceCode" id="cb700"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb700-1"><a href="09-calculo-bayes.html#cb700-1" aria-hidden="true" tabindex="-1"></a>bernoulli <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="at">file =</span> <span class="st">&quot;data/bernoulli.csv&quot;</span>,</span>
+<span id="cb700-2"><a href="09-calculo-bayes.html#cb700-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">sep =</span> <span class="st">&quot;&quot;</span>)</span>
+<span id="cb700-3"><a href="09-calculo-bayes.html#cb700-3" aria-hidden="true" tabindex="-1"></a>tibble<span class="sc">::</span><span class="fu">glimpse</span>(bernoulli)</span></code></pre></div>
 <pre><code>## Rows: 50
 ## Columns: 1
 ## $ y &lt;int&gt; 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 0, 0, 1, 0, 0, 0,…</code></pre>
-<div class="sourceCode" id="cb643"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb643-1"><a href="09-calculo-bayes.html#cb643-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bernoulli<span class="sc">$</span>y)</span></code></pre></div>
+<div class="sourceCode" id="cb702"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb702-1"><a href="09-calculo-bayes.html#cb702-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(bernoulli<span class="sc">$</span>y)</span></code></pre></div>
 <pre><code>## [1] 0.3</code></pre>
-<div class="sourceCode" id="cb645"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb645-1"><a href="09-calculo-bayes.html#cb645-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(bernoulli<span class="sc">$</span>y)</span></code></pre></div>
+<div class="sourceCode" id="cb704"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb704-1"><a href="09-calculo-bayes.html#cb704-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sd</span>(bernoulli<span class="sc">$</span>y)</span></code></pre></div>
 <pre><code>## [1] 0.46291</code></pre>
 <p>En el lenguaje usual de JAGS, el modelo debe escribirse de la forma:</p>
 <pre><code>model
@@ -1392,14 +1612,14 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 </code></pre>
 <p>donde <code>dbern</code> y <code>dbeta</code> son las densidades de una bernoulli y beta respectivamente. En este lenguage no existen versiones vectorizadas de las funciones por lo que todo debe llenarse usando <code>for</code>’s. Una revisión completa de este lenguage la pueden econtrar en su manual de uso <a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
 <p>El paquete <code>R2jags</code> tiene la capacidad que en lugar de usar este tipo de sintaxis, se pueda usar el lenguaje natural para escribir el modelo. Note el uso de <code>function</code> en este caso.</p>
-<div class="sourceCode" id="cb648"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb648-1"><a href="09-calculo-bayes.html#cb648-1" aria-hidden="true" tabindex="-1"></a>bern_model <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb648-2"><a href="09-calculo-bayes.html#cb648-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
-<span id="cb648-3"><a href="09-calculo-bayes.html#cb648-3" aria-hidden="true" tabindex="-1"></a>        y[i] <span class="sc">~</span> <span class="fu">dbern</span>(theta)</span>
-<span id="cb648-4"><a href="09-calculo-bayes.html#cb648-4" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb648-5"><a href="09-calculo-bayes.html#cb648-5" aria-hidden="true" tabindex="-1"></a>    theta <span class="sc">~</span> <span class="fu">dbeta</span>(<span class="dv">1</span>, <span class="dv">1</span>)</span>
-<span id="cb648-6"><a href="09-calculo-bayes.html#cb648-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb649"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb649-1"><a href="09-calculo-bayes.html#cb649-1" aria-hidden="true" tabindex="-1"></a>bern_jags <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data =</span> <span class="fu">list</span>(<span class="at">y =</span> bernoulli<span class="sc">$</span>y, <span class="at">N =</span> <span class="fu">nrow</span>(bernoulli)),</span>
-<span id="cb649-2"><a href="09-calculo-bayes.html#cb649-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">model.file =</span> bern_model, <span class="at">parameters.to.save =</span> <span class="fu">c</span>(<span class="st">&quot;theta&quot;</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb707"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb707-1"><a href="09-calculo-bayes.html#cb707-1" aria-hidden="true" tabindex="-1"></a>bern_model <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb707-2"><a href="09-calculo-bayes.html#cb707-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>N) {</span>
+<span id="cb707-3"><a href="09-calculo-bayes.html#cb707-3" aria-hidden="true" tabindex="-1"></a>        y[i] <span class="sc">~</span> <span class="fu">dbern</span>(theta)</span>
+<span id="cb707-4"><a href="09-calculo-bayes.html#cb707-4" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb707-5"><a href="09-calculo-bayes.html#cb707-5" aria-hidden="true" tabindex="-1"></a>    theta <span class="sc">~</span> <span class="fu">dbeta</span>(<span class="dv">1</span>, <span class="dv">1</span>)</span>
+<span id="cb707-6"><a href="09-calculo-bayes.html#cb707-6" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb708"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb708-1"><a href="09-calculo-bayes.html#cb708-1" aria-hidden="true" tabindex="-1"></a>bern_jags <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data =</span> <span class="fu">list</span>(<span class="at">y =</span> bernoulli<span class="sc">$</span>y, <span class="at">N =</span> <span class="fu">nrow</span>(bernoulli)),</span>
+<span id="cb708-2"><a href="09-calculo-bayes.html#cb708-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">model.file =</span> bern_model, <span class="at">parameters.to.save =</span> <span class="fu">c</span>(<span class="st">&quot;theta&quot;</span>))</span></code></pre></div>
 <pre><code>## Compiling model graph
 ##    Resolving undeclared variables
 ##    Allocating nodes
@@ -1410,50 +1630,50 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## 
 ## Initializing model</code></pre>
 <p>Veamos el resultado</p>
-<div class="sourceCode" id="cb651"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb651-1"><a href="09-calculo-bayes.html#cb651-1" aria-hidden="true" tabindex="-1"></a>bern_jags</span></code></pre></div>
-<pre><code>## Inference for Bugs model at &quot;/var/folders/4d/qj4qr8zx1n36td0hlt0p7x_h0000gn/T//RtmpC6DYg2/model14d6a5bc19be9.txt&quot;, fit using jags,
+<div class="sourceCode" id="cb710"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb710-1"><a href="09-calculo-bayes.html#cb710-1" aria-hidden="true" tabindex="-1"></a>bern_jags</span></code></pre></div>
+<pre><code>## Inference for Bugs model at &quot;/var/folders/4d/qj4qr8zx1n36td0hlt0p7x_h0000gn/T//RtmpqylVH8/model2aec614b1ab0.txt&quot;, fit using jags,
 ##  3 chains, each with 2000 iterations (first 1000 discarded)
 ##  n.sims = 3000 iterations saved
 ##          mu.vect sd.vect   2.5%    25%    50%    75%  97.5%  Rhat n.eff
-## theta      0.305   0.063  0.193  0.261  0.303  0.346  0.436 1.001  3000
-## deviance  62.031   1.300 61.088 61.186 61.519 62.313 65.727 1.005   920
+## theta      0.310   0.063  0.199  0.265  0.306  0.351  0.441 1.001  2600
+## deviance  62.039   1.324 61.088 61.191 61.527 62.350 66.043 1.001  3000
 ## 
 ## For each parameter, n.eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor (at convergence, Rhat=1).
 ## 
 ## DIC info (using the rule, pD = var(deviance)/2)
-## pD = 0.8 and DIC = 62.9
+## pD = 0.9 and DIC = 62.9
 ## DIC is an estimate of expected predictive error (lower deviance is better).</code></pre>
-<div class="sourceCode" id="cb653"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb653-1"><a href="09-calculo-bayes.html#cb653-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">posterior</span>(bern_jags))</span></code></pre></div>
+<div class="sourceCode" id="cb712"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb712-1"><a href="09-calculo-bayes.html#cb712-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(<span class="fu">posterior</span>(bern_jags))</span></code></pre></div>
 <pre><code>## Error in h(simpleError(msg, call)): error in evaluating the argument &#39;x&#39; in selecting a method for function &#39;head&#39;: argument &quot;data&quot; is missing, with no default</code></pre>
-<div class="sourceCode" id="cb655"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb655-1"><a href="09-calculo-bayes.html#cb655-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_dhistogram</span>(<span class="sc">~</span>theta, <span class="at">data =</span> <span class="fu">posterior</span>(bern_jags),</span>
-<span id="cb655-2"><a href="09-calculo-bayes.html#cb655-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">50</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb655-3"><a href="09-calculo-bayes.html#cb655-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_dens</span>(<span class="sc">~</span>theta, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb655-4"><a href="09-calculo-bayes.html#cb655-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_dist</span>(<span class="st">&quot;beta&quot;</span>, <span class="at">shape1 =</span> <span class="dv">16</span>, <span class="at">shape2 =</span> <span class="dv">36</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb714"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb714-1"><a href="09-calculo-bayes.html#cb714-1" aria-hidden="true" tabindex="-1"></a><span class="fu">gf_dhistogram</span>(<span class="sc">~</span>theta, <span class="at">data =</span> <span class="fu">posterior</span>(bern_jags),</span>
+<span id="cb714-2"><a href="09-calculo-bayes.html#cb714-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">bins =</span> <span class="dv">50</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb714-3"><a href="09-calculo-bayes.html#cb714-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_dens</span>(<span class="sc">~</span>theta, <span class="at">size =</span> <span class="fl">1.5</span>, <span class="at">alpha =</span> <span class="fl">0.8</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb714-4"><a href="09-calculo-bayes.html#cb714-4" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_dist</span>(<span class="st">&quot;beta&quot;</span>, <span class="at">shape1 =</span> <span class="dv">16</span>, <span class="at">shape2 =</span> <span class="dv">36</span>, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
 <pre><code>## Error in verosimilitud(theta, data): argument &quot;data&quot; is missing, with no default</code></pre>
-<div class="sourceCode" id="cb657"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb657-1"><a href="09-calculo-bayes.html#cb657-1" aria-hidden="true" tabindex="-1"></a>bern_mcmc <span class="ot">&lt;-</span> <span class="fu">as.mcmc</span>(bern_jags)</span>
-<span id="cb657-2"><a href="09-calculo-bayes.html#cb657-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bern_mcmc)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-379-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb658"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb658-1"><a href="09-calculo-bayes.html#cb658-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span>
-<span id="cb658-2"><a href="09-calculo-bayes.html#cb658-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(bern_mcmc, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;theta&quot;</span>), <span class="at">prob =</span> <span class="fl">0.9</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-380-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb659"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb659-1"><a href="09-calculo-bayes.html#cb659-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(bern_mcmc, <span class="at">pars =</span> <span class="st">&quot;theta&quot;</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-381-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb660"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb660-1"><a href="09-calculo-bayes.html#cb660-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(bern_mcmc, <span class="at">pars =</span> <span class="st">&quot;theta&quot;</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb660-2"><a href="09-calculo-bayes.html#cb660-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_facet_grid</span>(Chain <span class="sc">~</span> .) <span class="sc">%&gt;%</span></span>
-<span id="cb660-3"><a href="09-calculo-bayes.html#cb660-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_refine</span>(<span class="fu">scale_color_viridis_d</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb716"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb716-1"><a href="09-calculo-bayes.html#cb716-1" aria-hidden="true" tabindex="-1"></a>bern_mcmc <span class="ot">&lt;-</span> <span class="fu">as.mcmc</span>(bern_jags)</span>
+<span id="cb716-2"><a href="09-calculo-bayes.html#cb716-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(bern_mcmc)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-402-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb717"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb717-1"><a href="09-calculo-bayes.html#cb717-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(bayesplot)</span>
+<span id="cb717-2"><a href="09-calculo-bayes.html#cb717-2" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_areas</span>(bern_mcmc, <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;theta&quot;</span>), <span class="at">prob =</span> <span class="fl">0.9</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-403-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb718"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb718-1"><a href="09-calculo-bayes.html#cb718-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(bern_mcmc, <span class="at">pars =</span> <span class="st">&quot;theta&quot;</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-404-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb719"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb719-1"><a href="09-calculo-bayes.html#cb719-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_trace</span>(bern_mcmc, <span class="at">pars =</span> <span class="st">&quot;theta&quot;</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb719-2"><a href="09-calculo-bayes.html#cb719-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_facet_grid</span>(Chain <span class="sc">~</span> .) <span class="sc">%&gt;%</span></span>
+<span id="cb719-3"><a href="09-calculo-bayes.html#cb719-3" aria-hidden="true" tabindex="-1"></a>    <span class="fu">gf_refine</span>(<span class="fu">scale_color_viridis_d</span>())</span></code></pre></div>
 <pre><code>## Error in `combine_vars()`:
 ## ! At least one layer must contain all faceting variables: `Chain`.
 ## * Plot is missing `Chain`
 ## * Layer 1 is missing `Chain`</code></pre>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-382-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb662"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb662-1"><a href="09-calculo-bayes.html#cb662-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_post</span>(bern_mcmc[, <span class="st">&quot;theta&quot;</span>], <span class="at">main =</span> <span class="st">&quot;theta&quot;</span>, <span class="at">xlab =</span> <span class="fu">expression</span>(theta),</span>
-<span id="cb662-2"><a href="09-calculo-bayes.html#cb662-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">cenTend =</span> <span class="st">&quot;median&quot;</span>, <span class="at">compVal =</span> <span class="fl">0.5</span>, <span class="at">ROPE =</span> <span class="fu">c</span>(<span class="fl">0.45</span>,</span>
-<span id="cb662-3"><a href="09-calculo-bayes.html#cb662-3" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0.55</span>), <span class="at">credMass =</span> <span class="fl">0.9</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-383-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb663"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb663-1"><a href="09-calculo-bayes.html#cb663-1" aria-hidden="true" tabindex="-1"></a>twobernoulli <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/2bernoulli.csv&quot;</span>)</span>
-<span id="cb663-2"><a href="09-calculo-bayes.html#cb663-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb663-3"><a href="09-calculo-bayes.html#cb663-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(twobernoulli)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-405-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb721"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb721-1"><a href="09-calculo-bayes.html#cb721-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot_post</span>(bern_mcmc[, <span class="st">&quot;theta&quot;</span>], <span class="at">main =</span> <span class="st">&quot;theta&quot;</span>, <span class="at">xlab =</span> <span class="fu">expression</span>(theta),</span>
+<span id="cb721-2"><a href="09-calculo-bayes.html#cb721-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">cenTend =</span> <span class="st">&quot;median&quot;</span>, <span class="at">compVal =</span> <span class="fl">0.5</span>, <span class="at">ROPE =</span> <span class="fu">c</span>(<span class="fl">0.45</span>,</span>
+<span id="cb721-3"><a href="09-calculo-bayes.html#cb721-3" aria-hidden="true" tabindex="-1"></a>        <span class="fl">0.55</span>), <span class="at">credMass =</span> <span class="fl">0.9</span>, <span class="at">quietly =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-406-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb722"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb722-1"><a href="09-calculo-bayes.html#cb722-1" aria-hidden="true" tabindex="-1"></a>twobernoulli <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">&quot;data/2bernoulli.csv&quot;</span>)</span>
+<span id="cb722-2"><a href="09-calculo-bayes.html#cb722-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb722-3"><a href="09-calculo-bayes.html#cb722-3" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(twobernoulli)</span></code></pre></div>
 <table>
 <thead>
 <tr class="header">
@@ -1524,31 +1744,31 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 </tr>
 </tbody>
 </table>
-<div class="sourceCode" id="cb664"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb664-1"><a href="09-calculo-bayes.html#cb664-1" aria-hidden="true" tabindex="-1"></a>Target <span class="ot">&lt;-</span> twobernoulli <span class="sc">%&gt;%</span></span>
-<span id="cb664-2"><a href="09-calculo-bayes.html#cb664-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">hit =</span> y, <span class="at">subject =</span> s)</span>
-<span id="cb664-3"><a href="09-calculo-bayes.html#cb664-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb664-4"><a href="09-calculo-bayes.html#cb664-4" aria-hidden="true" tabindex="-1"></a>Target <span class="sc">%&gt;%</span></span>
-<span id="cb664-5"><a href="09-calculo-bayes.html#cb664-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(subject) <span class="sc">%&gt;%</span></span>
-<span id="cb664-6"><a href="09-calculo-bayes.html#cb664-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">prop_0 =</span> <span class="fu">sum</span>(<span class="dv">1</span> <span class="sc">-</span> hit)<span class="sc">/</span><span class="fu">n</span>(), <span class="at">prop_1 =</span> <span class="fu">sum</span>(hit)<span class="sc">/</span><span class="fu">n</span>(),</span>
-<span id="cb664-7"><a href="09-calculo-bayes.html#cb664-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">attemps =</span> <span class="fu">n</span>())</span></code></pre></div>
+<div class="sourceCode" id="cb723"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb723-1"><a href="09-calculo-bayes.html#cb723-1" aria-hidden="true" tabindex="-1"></a>Target <span class="ot">&lt;-</span> twobernoulli <span class="sc">%&gt;%</span></span>
+<span id="cb723-2"><a href="09-calculo-bayes.html#cb723-2" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rename</span>(<span class="at">hit =</span> y, <span class="at">subject =</span> s)</span>
+<span id="cb723-3"><a href="09-calculo-bayes.html#cb723-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb723-4"><a href="09-calculo-bayes.html#cb723-4" aria-hidden="true" tabindex="-1"></a>Target <span class="sc">%&gt;%</span></span>
+<span id="cb723-5"><a href="09-calculo-bayes.html#cb723-5" aria-hidden="true" tabindex="-1"></a>    <span class="fu">group_by</span>(subject) <span class="sc">%&gt;%</span></span>
+<span id="cb723-6"><a href="09-calculo-bayes.html#cb723-6" aria-hidden="true" tabindex="-1"></a>    <span class="fu">summarise</span>(<span class="at">prop_0 =</span> <span class="fu">sum</span>(<span class="dv">1</span> <span class="sc">-</span> hit)<span class="sc">/</span><span class="fu">n</span>(), <span class="at">prop_1 =</span> <span class="fu">sum</span>(hit)<span class="sc">/</span><span class="fu">n</span>(),</span>
+<span id="cb723-7"><a href="09-calculo-bayes.html#cb723-7" aria-hidden="true" tabindex="-1"></a>        <span class="at">attemps =</span> <span class="fu">n</span>())</span></code></pre></div>
 <pre><code>## # A tibble: 2 × 4
 ##   subject  prop_0 prop_1 attemps
 ##   &lt;chr&gt;     &lt;dbl&gt;  &lt;dbl&gt;   &lt;int&gt;
 ## 1 Reginald  0.25   0.75        8
 ## 2 Tony      0.714  0.286       7</code></pre>
-<div class="sourceCode" id="cb666"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb666-1"><a href="09-calculo-bayes.html#cb666-1" aria-hidden="true" tabindex="-1"></a>bern2_model <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
-<span id="cb666-2"><a href="09-calculo-bayes.html#cb666-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>Nobs) {</span>
-<span id="cb666-3"><a href="09-calculo-bayes.html#cb666-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># each response is Bernoulli with the</span></span>
-<span id="cb666-4"><a href="09-calculo-bayes.html#cb666-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># appropriate theta</span></span>
-<span id="cb666-5"><a href="09-calculo-bayes.html#cb666-5" aria-hidden="true" tabindex="-1"></a>        hit[i] <span class="sc">~</span> <span class="fu">dbern</span>(theta[subject[i]])</span>
-<span id="cb666-6"><a href="09-calculo-bayes.html#cb666-6" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb666-7"><a href="09-calculo-bayes.html#cb666-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (s <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>Nsub) {</span>
-<span id="cb666-8"><a href="09-calculo-bayes.html#cb666-8" aria-hidden="true" tabindex="-1"></a>        theta[s] <span class="sc">~</span> <span class="fu">dbeta</span>(<span class="dv">2</span>, <span class="dv">2</span>)  <span class="co"># prior for each theta</span></span>
-<span id="cb666-9"><a href="09-calculo-bayes.html#cb666-9" aria-hidden="true" tabindex="-1"></a>    }</span>
-<span id="cb666-10"><a href="09-calculo-bayes.html#cb666-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb667"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb667-1"><a href="09-calculo-bayes.html#cb667-1" aria-hidden="true" tabindex="-1"></a>TargetList <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Nobs =</span> <span class="fu">nrow</span>(Target), <span class="at">Nsub =</span> <span class="dv">2</span>, <span class="at">hit =</span> Target<span class="sc">$</span>hit,</span>
-<span id="cb667-2"><a href="09-calculo-bayes.html#cb667-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subject =</span> <span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(Target<span class="sc">$</span>subject)))</span>
-<span id="cb667-3"><a href="09-calculo-bayes.html#cb667-3" aria-hidden="true" tabindex="-1"></a>TargetList</span></code></pre></div>
+<div class="sourceCode" id="cb725"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb725-1"><a href="09-calculo-bayes.html#cb725-1" aria-hidden="true" tabindex="-1"></a>bern2_model <span class="ot">&lt;-</span> <span class="cf">function</span>() {</span>
+<span id="cb725-2"><a href="09-calculo-bayes.html#cb725-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>Nobs) {</span>
+<span id="cb725-3"><a href="09-calculo-bayes.html#cb725-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># each response is Bernoulli with the</span></span>
+<span id="cb725-4"><a href="09-calculo-bayes.html#cb725-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># appropriate theta</span></span>
+<span id="cb725-5"><a href="09-calculo-bayes.html#cb725-5" aria-hidden="true" tabindex="-1"></a>        hit[i] <span class="sc">~</span> <span class="fu">dbern</span>(theta[subject[i]])</span>
+<span id="cb725-6"><a href="09-calculo-bayes.html#cb725-6" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb725-7"><a href="09-calculo-bayes.html#cb725-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (s <span class="cf">in</span> <span class="dv">1</span><span class="sc">:</span>Nsub) {</span>
+<span id="cb725-8"><a href="09-calculo-bayes.html#cb725-8" aria-hidden="true" tabindex="-1"></a>        theta[s] <span class="sc">~</span> <span class="fu">dbeta</span>(<span class="dv">2</span>, <span class="dv">2</span>)  <span class="co"># prior for each theta</span></span>
+<span id="cb725-9"><a href="09-calculo-bayes.html#cb725-9" aria-hidden="true" tabindex="-1"></a>    }</span>
+<span id="cb725-10"><a href="09-calculo-bayes.html#cb725-10" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb726"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb726-1"><a href="09-calculo-bayes.html#cb726-1" aria-hidden="true" tabindex="-1"></a>TargetList <span class="ot">&lt;-</span> <span class="fu">list</span>(<span class="at">Nobs =</span> <span class="fu">nrow</span>(Target), <span class="at">Nsub =</span> <span class="dv">2</span>, <span class="at">hit =</span> Target<span class="sc">$</span>hit,</span>
+<span id="cb726-2"><a href="09-calculo-bayes.html#cb726-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">subject =</span> <span class="fu">as.numeric</span>(<span class="fu">as.factor</span>(Target<span class="sc">$</span>subject)))</span>
+<span id="cb726-3"><a href="09-calculo-bayes.html#cb726-3" aria-hidden="true" tabindex="-1"></a>TargetList</span></code></pre></div>
 <pre><code>## $Nobs
 ## [1] 15
 ## 
@@ -1560,8 +1780,8 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## 
 ## $subject
 ##  [1] 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2</code></pre>
-<div class="sourceCode" id="cb669"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb669-1"><a href="09-calculo-bayes.html#cb669-1" aria-hidden="true" tabindex="-1"></a>bern2_jags <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data =</span> TargetList, <span class="at">model =</span> bern2_model,</span>
-<span id="cb669-2"><a href="09-calculo-bayes.html#cb669-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">parameters.to.save =</span> <span class="st">&quot;theta&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb728"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb728-1"><a href="09-calculo-bayes.html#cb728-1" aria-hidden="true" tabindex="-1"></a>bern2_jags <span class="ot">&lt;-</span> <span class="fu">jags</span>(<span class="at">data =</span> TargetList, <span class="at">model =</span> bern2_model,</span>
+<span id="cb728-2"><a href="09-calculo-bayes.html#cb728-2" aria-hidden="true" tabindex="-1"></a>    <span class="at">parameters.to.save =</span> <span class="st">&quot;theta&quot;</span>)</span></code></pre></div>
 <pre><code>## Compiling model graph
 ##    Resolving undeclared variables
 ##    Allocating nodes
@@ -1571,41 +1791,41 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ##    Total graph size: 35
 ## 
 ## Initializing model</code></pre>
-<div class="sourceCode" id="cb671"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb671-1"><a href="09-calculo-bayes.html#cb671-1" aria-hidden="true" tabindex="-1"></a>bern2_mcmc <span class="ot">&lt;-</span> <span class="fu">as.mcmc</span>(bern2_jags)</span>
-<span id="cb671-2"><a href="09-calculo-bayes.html#cb671-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb671-3"><a href="09-calculo-bayes.html#cb671-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_acf</span>(bern2_mcmc)</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-388-1.svg" width="100%" style="display: block; margin: auto;" /></p>
-<div class="sourceCode" id="cb672"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb672-1"><a href="09-calculo-bayes.html#cb672-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_combo</span>(bern2_mcmc, <span class="at">combo =</span> <span class="fu">c</span>(<span class="st">&quot;dens&quot;</span>, <span class="st">&quot;dens_overlay&quot;</span>,</span>
-<span id="cb672-2"><a href="09-calculo-bayes.html#cb672-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;trace&quot;</span>, <span class="st">&quot;scatter&quot;</span>), <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;theta[1]&quot;</span>, <span class="st">&quot;theta[2]&quot;</span>))</span></code></pre></div>
-<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-388-2.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb730"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb730-1"><a href="09-calculo-bayes.html#cb730-1" aria-hidden="true" tabindex="-1"></a>bern2_mcmc <span class="ot">&lt;-</span> <span class="fu">as.mcmc</span>(bern2_jags)</span>
+<span id="cb730-2"><a href="09-calculo-bayes.html#cb730-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb730-3"><a href="09-calculo-bayes.html#cb730-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_acf</span>(bern2_mcmc)</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-411-1.svg" width="100%" style="display: block; margin: auto;" /></p>
+<div class="sourceCode" id="cb731"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb731-1"><a href="09-calculo-bayes.html#cb731-1" aria-hidden="true" tabindex="-1"></a><span class="fu">mcmc_combo</span>(bern2_mcmc, <span class="at">combo =</span> <span class="fu">c</span>(<span class="st">&quot;dens&quot;</span>, <span class="st">&quot;dens_overlay&quot;</span>,</span>
+<span id="cb731-2"><a href="09-calculo-bayes.html#cb731-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">&quot;trace&quot;</span>, <span class="st">&quot;scatter&quot;</span>), <span class="at">pars =</span> <span class="fu">c</span>(<span class="st">&quot;theta[1]&quot;</span>, <span class="st">&quot;theta[2]&quot;</span>))</span></code></pre></div>
+<p><img src="Notas-Curso-Estadistica_files/figure-html/unnamed-chunk-411-2.svg" width="100%" style="display: block; margin: auto;" /></p>
 </div>
-<div id="uso-de-stan" class="section level2 hasAnchor" number="9.11">
-<h2><span class="header-section-number">9.11</span> Uso de STAN<a href="09-calculo-bayes.html#uso-de-stan" class="anchor-section" aria-label="Anchor link to header"></a></h2>
+<div id="uso-de-stan" class="section level2 hasAnchor" number="9.12">
+<h2><span class="header-section-number">9.12</span> Uso de STAN<a href="09-calculo-bayes.html#uso-de-stan" class="anchor-section" aria-label="Anchor link to header"></a></h2>
 <p>STAN<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a> es otro tipo de lenguaje para definir modelos bayesiano. El lenguaje es un poco más sencillo, pero es particularmente útil para modelos bastante complejos.</p>
 <p>STAN no usa el muestreo de Gibbs, sino en el método de Monte-Carlo Hamiltoniano. En el artículo <span class="citation">(Hoffman and Gelman 2014)</span> se propone el método NUTS para mejorar el muestreo de Gibbs.</p>
 <p>En este curso no nos referiremos a este procedimiento, pero si veremos un poco de la sintaxis del lenguaje STAN.</p>
-<div class="sourceCode" id="cb673"><pre class="sourceCode stan"><code class="sourceCode stan"><span id="cb673-1"><a href="09-calculo-bayes.html#cb673-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> {</span>
-<span id="cb673-2"><a href="09-calculo-bayes.html#cb673-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; N;               <span class="co">// number of trials</span></span>
-<span id="cb673-3"><a href="09-calculo-bayes.html#cb673-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>, <span class="kw">upper</span>=<span class="dv">1</span>&gt; y[N];   <span class="co">// success on trial n</span></span>
-<span id="cb673-4"><a href="09-calculo-bayes.html#cb673-4" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb673-5"><a href="09-calculo-bayes.html#cb673-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb673-6"><a href="09-calculo-bayes.html#cb673-6" aria-hidden="true" tabindex="-1"></a><span class="kw">parameters</span> {</span>
-<span id="cb673-7"><a href="09-calculo-bayes.html#cb673-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>, <span class="kw">upper</span>=<span class="dv">1</span>&gt; theta; <span class="co">// chance of success</span></span>
-<span id="cb673-8"><a href="09-calculo-bayes.html#cb673-8" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb673-9"><a href="09-calculo-bayes.html#cb673-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb673-10"><a href="09-calculo-bayes.html#cb673-10" aria-hidden="true" tabindex="-1"></a><span class="kw">model</span> {</span>
-<span id="cb673-11"><a href="09-calculo-bayes.html#cb673-11" aria-hidden="true" tabindex="-1"></a>  theta ~ uniform(<span class="dv">0</span>, <span class="dv">1</span>);        <span class="co">// prior</span></span>
-<span id="cb673-12"><a href="09-calculo-bayes.html#cb673-12" aria-hidden="true" tabindex="-1"></a>  y ~ bernoulli(theta);         <span class="co">// likelihood</span></span>
-<span id="cb673-13"><a href="09-calculo-bayes.html#cb673-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
-<div class="sourceCode" id="cb674"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb674-1"><a href="09-calculo-bayes.html#cb674-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstan)</span>
-<span id="cb674-2"><a href="09-calculo-bayes.html#cb674-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb674-3"><a href="09-calculo-bayes.html#cb674-3" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">stan</span>(<span class="at">model_code =</span> bern_stan<span class="sc">@</span>model_code, <span class="at">data =</span> <span class="fu">list</span>(<span class="at">y =</span> bernoulli<span class="sc">$</span>y,</span>
-<span id="cb674-4"><a href="09-calculo-bayes.html#cb674-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">nrow</span>(bernoulli)), <span class="at">iter =</span> <span class="dv">5000</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb732"><pre class="sourceCode stan"><code class="sourceCode stan"><span id="cb732-1"><a href="09-calculo-bayes.html#cb732-1" aria-hidden="true" tabindex="-1"></a><span class="kw">data</span> {</span>
+<span id="cb732-2"><a href="09-calculo-bayes.html#cb732-2" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>&gt; N;               <span class="co">// number of trials</span></span>
+<span id="cb732-3"><a href="09-calculo-bayes.html#cb732-3" aria-hidden="true" tabindex="-1"></a>  <span class="dt">int</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>, <span class="kw">upper</span>=<span class="dv">1</span>&gt; y[N];   <span class="co">// success on trial n</span></span>
+<span id="cb732-4"><a href="09-calculo-bayes.html#cb732-4" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb732-5"><a href="09-calculo-bayes.html#cb732-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb732-6"><a href="09-calculo-bayes.html#cb732-6" aria-hidden="true" tabindex="-1"></a><span class="kw">parameters</span> {</span>
+<span id="cb732-7"><a href="09-calculo-bayes.html#cb732-7" aria-hidden="true" tabindex="-1"></a>  <span class="dt">real</span>&lt;<span class="kw">lower</span>=<span class="dv">0</span>, <span class="kw">upper</span>=<span class="dv">1</span>&gt; theta; <span class="co">// chance of success</span></span>
+<span id="cb732-8"><a href="09-calculo-bayes.html#cb732-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb732-9"><a href="09-calculo-bayes.html#cb732-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb732-10"><a href="09-calculo-bayes.html#cb732-10" aria-hidden="true" tabindex="-1"></a><span class="kw">model</span> {</span>
+<span id="cb732-11"><a href="09-calculo-bayes.html#cb732-11" aria-hidden="true" tabindex="-1"></a>  theta ~ uniform(<span class="dv">0</span>, <span class="dv">1</span>);        <span class="co">// prior</span></span>
+<span id="cb732-12"><a href="09-calculo-bayes.html#cb732-12" aria-hidden="true" tabindex="-1"></a>  y ~ bernoulli(theta);         <span class="co">// likelihood</span></span>
+<span id="cb732-13"><a href="09-calculo-bayes.html#cb732-13" aria-hidden="true" tabindex="-1"></a>}</span></code></pre></div>
+<div class="sourceCode" id="cb733"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb733-1"><a href="09-calculo-bayes.html#cb733-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rstan)</span>
+<span id="cb733-2"><a href="09-calculo-bayes.html#cb733-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb733-3"><a href="09-calculo-bayes.html#cb733-3" aria-hidden="true" tabindex="-1"></a>fit <span class="ot">&lt;-</span> <span class="fu">stan</span>(<span class="at">model_code =</span> bern_stan<span class="sc">@</span>model_code, <span class="at">data =</span> <span class="fu">list</span>(<span class="at">y =</span> bernoulli<span class="sc">$</span>y,</span>
+<span id="cb733-4"><a href="09-calculo-bayes.html#cb733-4" aria-hidden="true" tabindex="-1"></a>    <span class="at">N =</span> <span class="fu">nrow</span>(bernoulli)), <span class="at">iter =</span> <span class="dv">5000</span>)</span></code></pre></div>
 <pre><code>## 
 ## SAMPLING FOR MODEL &#39;4584de91ce47196187979d2da8a67926&#39; NOW (CHAIN 1).
 ## Chain 1: 
-## Chain 1: Gradient evaluation took 2.4e-05 seconds
-## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.24 seconds.
+## Chain 1: Gradient evaluation took 2e-05 seconds
+## Chain 1: 1000 transitions using 10 leapfrog steps per transition would take 0.2 seconds.
 ## Chain 1: Adjust your expectations accordingly!
 ## Chain 1: 
 ## Chain 1: 
@@ -1622,9 +1842,9 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## Chain 1: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 1: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 1: 
-## Chain 1:  Elapsed Time: 0.026362 seconds (Warm-up)
-## Chain 1:                0.030089 seconds (Sampling)
-## Chain 1:                0.056451 seconds (Total)
+## Chain 1:  Elapsed Time: 0.026854 seconds (Warm-up)
+## Chain 1:                0.025296 seconds (Sampling)
+## Chain 1:                0.05215 seconds (Total)
 ## Chain 1: 
 ## 
 ## SAMPLING FOR MODEL &#39;4584de91ce47196187979d2da8a67926&#39; NOW (CHAIN 2).
@@ -1647,15 +1867,15 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## Chain 2: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 2: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 2: 
-## Chain 2:  Elapsed Time: 0.027912 seconds (Warm-up)
-## Chain 2:                0.02768 seconds (Sampling)
-## Chain 2:                0.055592 seconds (Total)
+## Chain 2:  Elapsed Time: 0.028045 seconds (Warm-up)
+## Chain 2:                0.022934 seconds (Sampling)
+## Chain 2:                0.050979 seconds (Total)
 ## Chain 2: 
 ## 
 ## SAMPLING FOR MODEL &#39;4584de91ce47196187979d2da8a67926&#39; NOW (CHAIN 3).
 ## Chain 3: 
-## Chain 3: Gradient evaluation took 2e-05 seconds
-## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.2 seconds.
+## Chain 3: Gradient evaluation took 7e-06 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
 ## Chain 3: Adjust your expectations accordingly!
 ## Chain 3: 
 ## Chain 3: 
@@ -1672,15 +1892,15 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## Chain 3: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 3: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 3: 
-## Chain 3:  Elapsed Time: 0.025409 seconds (Warm-up)
-## Chain 3:                0.027097 seconds (Sampling)
-## Chain 3:                0.052506 seconds (Total)
+## Chain 3:  Elapsed Time: 0.026774 seconds (Warm-up)
+## Chain 3:                0.027332 seconds (Sampling)
+## Chain 3:                0.054106 seconds (Total)
 ## Chain 3: 
 ## 
 ## SAMPLING FOR MODEL &#39;4584de91ce47196187979d2da8a67926&#39; NOW (CHAIN 4).
 ## Chain 4: 
-## Chain 4: Gradient evaluation took 7e-06 seconds
-## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
+## Chain 4: Gradient evaluation took 6e-06 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
 ## Chain 4: Adjust your expectations accordingly!
 ## Chain 4: 
 ## Chain 4: 
@@ -1697,33 +1917,33 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 ## Chain 4: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 4: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 4: 
-## Chain 4:  Elapsed Time: 0.026013 seconds (Warm-up)
-## Chain 4:                0.028213 seconds (Sampling)
-## Chain 4:                0.054226 seconds (Total)
+## Chain 4:  Elapsed Time: 0.026119 seconds (Warm-up)
+## Chain 4:                0.021757 seconds (Sampling)
+## Chain 4:                0.047876 seconds (Total)
 ## Chain 4:</code></pre>
-<div class="sourceCode" id="cb676"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb676-1"><a href="09-calculo-bayes.html#cb676-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fit, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb735"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb735-1"><a href="09-calculo-bayes.html#cb735-1" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(fit, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span></code></pre></div>
 <pre><code>## Inference for Stan model: 4584de91ce47196187979d2da8a67926.
 ## 4 chains, each with iter=5000; warmup=2500; thin=1; 
 ## post-warmup draws per chain=2500, total post-warmup draws=10000.
 ## 
 ##         mean se_mean   sd    10%    90% n_eff Rhat
-## theta   0.31    0.00 0.06   0.23   0.39  3497    1
-## lp__  -32.61    0.01 0.73 -33.48 -32.10  3903    1
+## theta   0.31    0.00 0.06   0.23   0.39  3672    1
+## lp__  -32.61    0.01 0.76 -33.44 -32.10  3637    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Mon Jun 27 08:32:05 2022.
+## Samples were drawn using NUTS(diag_e) at Thu Jun 30 09:49:56 2022.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).</code></pre>
-<div class="sourceCode" id="cb678"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb678-1"><a href="09-calculo-bayes.html#cb678-1" aria-hidden="true" tabindex="-1"></a>theta_draws <span class="ot">&lt;-</span> <span class="fu">extract</span>(fit)<span class="sc">$</span>theta</span>
-<span id="cb678-2"><a href="09-calculo-bayes.html#cb678-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb678-3"><a href="09-calculo-bayes.html#cb678-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(theta_draws)</span></code></pre></div>
-<pre><code>## [1] 0.3069652</code></pre>
-<div class="sourceCode" id="cb680"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb680-1"><a href="09-calculo-bayes.html#cb680-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(theta_draws, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb737"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb737-1"><a href="09-calculo-bayes.html#cb737-1" aria-hidden="true" tabindex="-1"></a>theta_draws <span class="ot">&lt;-</span> <span class="fu">extract</span>(fit)<span class="sc">$</span>theta</span>
+<span id="cb737-2"><a href="09-calculo-bayes.html#cb737-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb737-3"><a href="09-calculo-bayes.html#cb737-3" aria-hidden="true" tabindex="-1"></a><span class="fu">mean</span>(theta_draws)</span></code></pre></div>
+<pre><code>## [1] 0.307339</code></pre>
+<div class="sourceCode" id="cb739"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb739-1"><a href="09-calculo-bayes.html#cb739-1" aria-hidden="true" tabindex="-1"></a><span class="fu">quantile</span>(theta_draws, <span class="at">probs =</span> <span class="fu">c</span>(<span class="fl">0.1</span>, <span class="fl">0.9</span>))</span></code></pre></div>
 <pre><code>##       10%       90% 
-## 0.2261308 0.3905893</code></pre>
-<div class="sourceCode" id="cb682"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb682-1"><a href="09-calculo-bayes.html#cb682-1" aria-hidden="true" tabindex="-1"></a>shinystan<span class="sc">::</span><span class="fu">launch_shinystan</span>(fit)</span></code></pre></div>
+## 0.2262677 0.3907008</code></pre>
+<div class="sourceCode" id="cb741"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb741-1"><a href="09-calculo-bayes.html#cb741-1" aria-hidden="true" tabindex="-1"></a>shinystan<span class="sc">::</span><span class="fu">launch_shinystan</span>(fit)</span></code></pre></div>
 <div class="exercise">
-<p><span id="exr:unnamed-chunk-392" class="exercise"><strong>Ejercicio 9.1  </strong></span>Replique los resultados anteriores pero para el caso de 2 monedas y comente los resultados.</p>
+<p><span id="exr:unnamed-chunk-415" class="exercise"><strong>Ejercicio 9.1  </strong></span>Replique los resultados anteriores pero para el caso de 2 monedas y comente los resultados.</p>
 </div>
 <!-- ## Algoritmo de Metropolis-Hastings -->
 <!-- Muestreo por cadenas de Markov-Monte Carlo (MCMC): algoritmos que definen una cadena de Markov irreducible y aperiódica cuya densidad estacionaria es la densidad posterior de interés. -->

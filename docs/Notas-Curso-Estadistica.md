@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística II"
 author: "Maikol Solís Chacón y Luis Barboza Chinchilla"
-date: "Actualizado el 27 junio, 2022"
+date: "Actualizado el 30 junio, 2022"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -13,6 +13,10 @@ biblatexoptions: [url=false, doi=false, eprint=false, isbn=false]
 # link-citations: yes
 description: ""
 ---
+
+
+
+
 
 
 
@@ -9468,7 +9472,7 @@ for (k in 2:n_pasos) {
         pos_actual <- pos_nueva
     }
 
-    trayectoria[k] <- pos_nueva
+    trayectoria[k] <- pos_actual
 }
 ```
 
@@ -9817,14 +9821,18 @@ ggplot(df[500:n_pasos, ]) + geom_histogram(aes(P, y = ..density..),
 
 \begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-355-2} \end{center}
 
-## El problema del viajero con dos monedas
+## El problema del viajero en un plano 
 
 Un problema con el algoritmo de Metropolis-Hastings (M-H) es que solo funciona para la estimación de un solo parámetro.  
 
 
 El muestreo de Gibbs está pensado en el caso de la estimación de muchos parámetros de forma bastante ordenada.  
 
-Supongamos que tenemos dos monedas y queremos ver la proporción de escudos generados entre las dos monedas: 
+
+Empecemos usando un algoritmo de Metropolis-Hastings en caso de tener dos monedas. Es decir, supongamos que ahora tenemos una cantidad infinita de islas en un plano. Cada vez que tiremos la moneda tenemos que saltar a otra isla con cierta probabilidad. 
+
+El objetivo sería maximizar la distribución posterior dado los datos iniciales. 
+
 
 Tenemos: 
 
@@ -9854,7 +9862,7 @@ f\left(\theta_{1}, \theta_{2} | D\right)
 &=\frac{\theta_{1}^{z_{1}}\left(1-\theta_{1}\right)^{N_{1}-z_{1}} \theta_{1}^{z_{2}}\left(1-\theta_{2}\right)^{N_{2}-z_{2}} \theta_{1}^{a_{1}-1}\left(1-\theta_{1}\right)^{b_{1}-1} \theta_{2}^{a_{2}-1}\left(1-\theta_{2}\right)^{b_{2}-1}}{f(D) B\left(a_{1}, b_{1}\right) B\left(a_{2}, b_{2}\right)} \\
 &=\frac{\theta_{1}^{z_{1}+a_{1}-1}\left(1-\theta_{1}\right)^{N_{1}-z_{1}+b_{1}-1} \theta_{2}^{z_{2}+a_{2}-1}\left(1-\theta_{2}\right)^{N_{2}-z_{2}+b_{2}-1}}{f(D) B\left(a_{1}, b_{1}\right) B\left(a_{2}, b_{2}\right)}
 \end{align*}
-Entonces la distribución posterior de \(\left(\theta_{1}, \theta_{2}\right)\) son dos distribuciones independientes Betas:
+Entonces la distribución posterior de \(\left(\theta_{1}, \theta_{2}\right)\) es el producto de dos distribuciones independientes Betas:
 \(\operatorname{Beta}\left(z_{1}+a, N_{1}-z_{1}+b_{1}\right)\) y \(\operatorname{Beta}\left(z_{2}+a, N_{2}-z_{2}+b_{2}\right)\)
 
 
@@ -9938,6 +9946,10 @@ metro_2coins <- function(z1, n1, # z = successes, n = trials
 ```
 
 
+En este ejemplo empezaremos con una desviación estándar de  \((0.02,0.02)\) para cada dirección.  Las densidades beta tendrán parámetros \(a=2\) y \(b=2\) cada una. 
+
+
+
 ```r
 Metro_2coinsA <- metro_2coins(z1 = 6, n1 = 8, z2 = 2,
     n2 = 7, size = c(0.02, 0.02), args1 = list(shape1 = 2,
@@ -9991,9 +10003,12 @@ Metro_2coinsAplot <- Metro_2coinsA %>%
         arrow = arrow(type = "open", angle = 30)) +
     theme_minimal() + transition_reveal(step)
 
-animate(Metro_2coinsAplot, fps = 1)
+anim_save(filename = "./manual_figures/metro2coinsA.gif",
+    animation = Metro_2coinsAplot)
 ```
 
+
+Un efecto interesante ocurre si cambiamos las desviaciones estándar a \((0.2,0.2)\). Note que los pasos son más grandes y por lo tanto más erráticos.  
 
 
 
@@ -10040,8 +10055,11 @@ Metro_2coinsBplot <- Metro_2coinsA %>%
         arrow = arrow(type = "open", angle = 30)) +
     theme_minimal() + transition_reveal(step)
 
-animate(Metro_2coinsBplot, fps = 1)
+anim_save(filename = "./manual_figures/metro2coinsB.gif",
+    animation = Metro_2coinsBplot)
 ```
+
+
 
 
 ### Muestreo de Gibbs
@@ -10077,8 +10095,15 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 &=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2}, z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)}{\int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2} | z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)d \theta_{1}} \\
 &=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2}, z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)}{\operatorname{dbeta}\left(\theta_{2} | z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right) \int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)d \theta_{1}} \\
 &=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)}{\int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)d \theta_{1}} \\
-&=\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)
+&=\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \\
+&= f(\theta_1 | D)
 \end{align*}
+
+
+Es decir, que la distribución posterior para \(\theta_1\) solamente dependerá de  los datos \(D\) y no del valor de \(\theta_2\).
+
+
+
 
 
 ```r
@@ -10230,6 +10255,407 @@ Gibbsplot2 <- Gibbs %>%
 animate(Gibbsplot2, fps = 1)
 ```
 
+
+## Ejemplo reales
+
+### Datos agrupados bajo una población normal
+
+Suponga que observamos los siguientes datos agrupados:
+
+| Altura (pulgadas) | Frecuencia |
+|-------------------|------------|
+| Menos de 66       | 14         |
+| Entre 66 y 68     | 30         |
+| Entre 68 y 70     | 49         |
+| Entre 70 y 72     | 70         |
+| Entre 72 y 74     | 33         |
+| Más de 74         | 15         |
+
+Si asumimos que las alturas son normales con media $\mu$ y desviación estándar $\sigma$, podemos asumir una verosimilitud multinomial para los datos agrupados:
+\begin{align*}
+L(\mu,\sigma)&\propto \Phi(66,\mu,\sigma)^{14}(\Phi(68,\mu,\sigma)-\Phi(66,\mu,\sigma))^{30} \\
+&\times  (\Phi(70,\mu,\sigma)-\Phi(68,\mu,\sigma))^{49} (\Phi(72,\mu,\sigma)-\Phi(70,\mu,\sigma))^{70}\\
+&\times  (\Phi(74,\mu,\sigma)-\Phi(72,\mu,\sigma))^{33} (1-\Phi(74,\mu,\sigma))^{15}
+\end{align*}
+
+y asumimos una previa no informativa para $(\mu,\sigma)\sim \frac 1 \sigma$. Como $\sigma>0$ entonces usamos la transformación $\lambda=\log (\sigma)$.
+
+
+```r
+d <- list(int.lo = c(-Inf, seq(66, 74, by = 2)), int.hi = c(seq(66,
+    74, by = 2), Inf), f = c(14, 30, 49, 70, 33, 15))
+```
+es una estructura de los datos agrupados. La log-densidad posterior de los datos sería:
+
+```r
+groupeddatapost <- function(theta, data) {
+    dj <- function(f, int.lo, int.hi, mu, sigma) {
+        f * log(pnorm(int.hi, mu, sigma) - pnorm(int.lo,
+            mu, sigma))
+    }
+    mu <- theta[1]
+    sigma <- exp(theta[2])
+    sum(dj(data$f, data$int.lo, data$int.hi, mu, sigma))
+}
+```
+
+Usamos el método de Laplace para encontrar una aproximación de los parámetros de la previa bajo Metropolis-Hastings:
+
+```r
+start <- c(70, 1)
+fit <- laplace(groupeddatapost, start, d)
+fit
+```
+
+```
+## $mode
+## [1] 70.169880  0.973644
+## 
+## $var
+##              [,1]         [,2]
+## [1,] 3.534713e-02 3.520776e-05
+## [2,] 3.520776e-05 3.146470e-03
+## 
+## $int
+## [1] -350.6305
+## 
+## $converge
+## [1] TRUE
+```
+
+la escogencia del valor inicial se basa en los datos artificiales en la página 126 del [@Albert2009]. De esta forma definimos los parámetros de la propuesta como:
+
+```r
+proposal <- list(var = fit$var, scale = 2)
+```
+
+y ajustamos la versión bajo caminata aleatoria de un Metropolis-Hastings (MH):
+
+```r
+fit2 <- rwmetrop(groupeddatapost, proposal, start,
+    10000, d)
+```
+
+con una tasa de aceptación:
+
+```r
+fit2$accept
+```
+
+```
+## [1] 0.301
+```
+
+Algunas estadísticas de la distribución posterior de $\mu$ y $\log \sigma$:
+
+```r
+post.means <- apply(fit2$par, 2, mean)
+post.sds <- apply(fit2$par, 2, sd)
+cbind(post.means, post.sds)
+```
+
+```
+##      post.means  post.sds
+## [1,] 70.1704173 0.1949509
+## [2,]  0.9803398 0.0576197
+```
+
+esto se puede comparar con los estimadores de la aproximación de Laplace:
+
+```r
+modal.sds <- sqrt(diag(fit$var))
+cbind(c(fit$mode), modal.sds)
+```
+
+```
+##                 modal.sds
+## [1,] 70.169880 0.18800834
+## [2,]  0.973644 0.05609341
+```
+
+También podemos graficar la densidad posterior junto con la muestra generada por el MH, usando una muestra de burn-in de 5000:
+
+```r
+mycontour(groupeddatapost, c(69, 71, 0.6, 1.3), d,
+    xlab = "mu", ylab = "log sigma")
+points(fit2$par[5001:10000, 1], fit2$par[5001:10000,
+    2])
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-379-1} \end{center}
+
+Los traceplots del MCMC los graficamos a través del paquete *coda* junto con el paquete *bayesplot*:
+
+```r
+library(coda)
+library(bayesplot)
+dimnames(fit2$par)[[2]] <- c("mu", "log sigma")
+obj_mcmc <- mcmc(fit2$par[-c(1:5000), ])
+mcmc_trace(obj_mcmc)
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-380-1} \end{center}
+
+Los gráficos de autocorrelación empíricos se pueden generar con:
+
+```r
+mcmc_acf(obj_mcmc)
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-381-1} \end{center}
+y funciones de densidad estimadas con intervalos de predicción al 95% para algunos de los parámetros:
+
+```r
+mcmc_areas(obj_mcmc, pars = c("mu"), prob = 0.95)
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-382-1} \end{center}
+### Datos con outliers
+
+Suponga $y_1,\ldots,y_n\sim \text{Cauchy}(\mu,\sigma)$:
+$$f(y|\mu,\sigma)=\frac{1}{\pi\sigma(1+z^2)}$$
+donde $z=\frac{y-\mu}{\sigma}$. Con una previa no informativa $g(\mu,\sigma)\propto 1/\sigma$ y transformando $\lambda = \log \sigma$ se puede comprobar que la log-densidad posterior es:
+$$\log g(\mu,\lambda|\text{datos}) = \sum_{i=1}^n\left[-\lambda-\log\left(1+\exp(-2\lambda)(y_i-\mu)^2\right)\right]$$
+
+y la implementación de la log-posterior usando la distribución t de Student como generador de la distribución Cauchy:
+
+```r
+cauchyerrorpost <- function(theta, data) {
+    logf <- function(data, theta) log(dt((data - theta[1])/exp(theta[2]),
+        df = 1)/exp(theta[2]))
+    return(sum(logf(data, theta)))
+}
+```
+
+Los datos provienen de la base *darwin* con 15 diferencias entre alturas de plantas según Fisher (1960). La media y log-desviación estándar empíricos de los datos son:
+
+
+```r
+library(LearnBayes)
+data(darwin)
+data_darwin <- darwin$difference
+```
+
+
+```r
+mean(data_darwin)
+```
+
+```
+## [1] NA
+```
+
+```r
+log(sd(data_darwin))
+```
+
+```
+## [1] NA
+```
+
+y usamos estos valores como valores iniciales dentro de la aproximación de Laplace:
+
+```r
+fitlaplace <- laplace(cauchyerrorpost, c(21.6, 3.6),
+    data_darwin)
+```
+
+```
+## Error in solve.default(fit$hessian): Lapack routine dgesv: system is exactly singular: U[1,1] = 0
+```
+
+```r
+fitlaplace
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
+```
+
+y usamos lo anterior como insumo para generar tres escenarios de MCMC:
+
+- Metropolis-Hastings con caminata aleatoria:
+
+```r
+proposal <- list(var = fitlaplace$var, scale = 2.5)
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
+```
+
+```r
+start <- c(20, 3)
+E1 <- rwmetrop(cauchyerrorpost, proposal, start, 50000,
+    data_darwin)
+mycontour(cauchyerrorpost, c(-10, 60, 1, 4.5), data_darwin,
+    xlab = "mu", ylab = "log sigma")
+points(E1$par[, 1], E1$par[, 2])
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-387-1} \end{center}
+
+- Metropolis-Hastings independiente:
+
+```r
+proposal2 <- list(var = fitlaplace$var, mu = t(fitlaplace$mode))
+```
+
+```
+## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
+```
+
+```r
+E2 <- indepmetrop(cauchyerrorpost, proposal2, start,
+    50000, data_darwin)
+```
+
+```
+## Error in matrix(proposal$mu): object 'proposal2' not found
+```
+
+```r
+mycontour(cauchyerrorpost, c(-10, 60, 1, 4.5), data_darwin,
+    xlab = "mu", ylab = "log sigma")
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-388-1} \end{center}
+
+```r
+points(E2$par[, 1], E2$par[, 2])
+```
+
+```
+## Error in points(E2$par[, 1], E2$par[, 2]): object 'E2' not found
+```
+
+- Muestreo de Gibbs:
+
+```r
+E3 <- gibbs(cauchyerrorpost, start, 50000, c(12, 0.75),
+    data_darwin)
+mycontour(cauchyerrorpost, c(-10, 60, 1, 4.5), data_darwin,
+    xlab = "mu", ylab = "log sigma")
+points(E3$par[, 1], E3$par[, 2])
+```
+
+
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-389-1} \end{center}
+
+Comparemos el estimador bayesiano e intervalos de predicción al 95% para la media $\mu$:
+
+
+```r
+Resultados <- data.frame(rbind(c(mean(E1$par[, 1]),
+    quantile(E1$par[, 1], probs = c(0.025, 0.975)),
+    E1$accept), c(mean(E2$par[, 1]), quantile(E2$par[,
+    1], probs = c(0.025, 0.975)), E2$accept), c(mean(E3$par[,
+    1]), quantile(E3$par[, 1], probs = c(0.025, 0.975)),
+    NA)))
+```
+
+```
+## Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'mean': object 'E2' not found
+```
+
+```r
+colnames(Resultados) <- c("Media", "Q1", "Q3", "Accept")
+```
+
+```
+## Error in colnames(Resultados) <- c("Media", "Q1", "Q3", "Accept"): object 'Resultados' not found
+```
+
+```r
+rownames(Resultados) <- c("MH-RW", "MH-Indep", "Gibbs")
+```
+
+```
+## Error in rownames(Resultados) <- c("MH-RW", "MH-Indep", "Gibbs"): object 'Resultados' not found
+```
+
+```r
+Resultados <- Resultados %>%
+    mutate(Ancho = Q3 - Q1)
+```
+
+```
+## Error in mutate(., Ancho = Q3 - Q1): object 'Resultados' not found
+```
+
+```r
+knitr::kable(Resultados)
+```
+
+```
+## Error in knitr::kable(Resultados): object 'Resultados' not found
+```
+En el caso del algoritmo de Gibbs, cada uno de los pasos tiene una tasa de aceptación de MH en este caso:
+
+```r
+E3$accept
+```
+
+```
+##      [,1] [,2]
+## [1,]    1    1
+```
+
+También podemos incluir histogramas para las muestras posteriores de ambos parámetros. Para el MH independiente (burn-in=5000):
+
+```r
+color_scheme_set("green")
+dimnames(E2$par)[[2]] <- c("mu", "log sigma")
+```
+
+```
+## Error in dimnames(E2$par)[[2]] <- c("mu", "log sigma"): object 'E2' not found
+```
+
+```r
+obj_mcmc2 <- mcmc(E2$par[-c(1:5000), ])
+```
+
+```
+## Error in mcmc(E2$par[-c(1:5000), ]): object 'E2' not found
+```
+
+```r
+mcmc_hist(obj_mcmc2, pars = c("mu", "log sigma"))
+```
+
+```
+## Error in posterior::is_draws(x): object 'obj_mcmc2' not found
+```
+
+y los gráficos de autocorrelación respectivos:
+
+```r
+mcmc_acf_bar(obj_mcmc2, pars = c("mu", "log sigma"))
+```
+
+```
+## Error in posterior::is_draws(x): object 'obj_mcmc2' not found
+```
+
+
+
+
+
+
 ## Uso de JAGS 
 
 
@@ -10335,18 +10761,18 @@ bern_jags
 ```
 
 ```
-## Inference for Bugs model at "/var/folders/4d/qj4qr8zx1n36td0hlt0p7x_h0000gn/T//RtmpfBAscS/model14eb543d3816d.txt", fit using jags,
+## Inference for Bugs model at "/var/folders/4d/qj4qr8zx1n36td0hlt0p7x_h0000gn/T//RtmpVWyuYd/model2c0f3d163764.txt", fit using jags,
 ##  3 chains, each with 2000 iterations (first 1000 discarded)
 ##  n.sims = 3000 iterations saved
 ##          mu.vect sd.vect   2.5%    25%    50%    75%  97.5%  Rhat n.eff
-## theta      0.305   0.063  0.193  0.261  0.303  0.346  0.436 1.001  3000
-## deviance  62.031   1.300 61.088 61.186 61.519 62.313 65.727 1.005   920
+## theta      0.310   0.063  0.199  0.265  0.306  0.351  0.441 1.001  2600
+## deviance  62.039   1.324 61.088 61.191 61.527 62.350 66.043 1.001  3000
 ## 
 ## For each parameter, n.eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor (at convergence, Rhat=1).
 ## 
 ## DIC info (using the rule, pD = var(deviance)/2)
-## pD = 0.8 and DIC = 62.9
+## pD = 0.9 and DIC = 62.9
 ## DIC is an estimate of expected predictive error (lower deviance is better).
 ```
 
@@ -10379,7 +10805,7 @@ plot(bern_mcmc)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-379-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-402-1} \end{center}
 
 
 ```r
@@ -10389,7 +10815,7 @@ mcmc_areas(bern_mcmc, pars = c("theta"), prob = 0.9)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-380-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-403-1} \end{center}
 
 
 ```r
@@ -10398,7 +10824,7 @@ mcmc_trace(bern_mcmc, pars = "theta")
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-381-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-404-1} \end{center}
 
 
 ```r
@@ -10416,7 +10842,7 @@ mcmc_trace(bern_mcmc, pars = "theta") %>%
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-382-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-405-1} \end{center}
 
 
 ```r
@@ -10427,7 +10853,7 @@ plot_post(bern_mcmc[, "theta"], main = "theta", xlab = expression(theta),
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-383-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-406-1} \end{center}
 
 
 ```r
@@ -10554,7 +10980,7 @@ mcmc_acf(bern2_mcmc)
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-388-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-411-1} \end{center}
 
 ```r
 mcmc_combo(bern2_mcmc, combo = c("dens", "dens_overlay",
@@ -10563,7 +10989,7 @@ mcmc_combo(bern2_mcmc, combo = c("dens", "dens_overlay",
 
 
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-388-2} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-411-2} \end{center}
 
 ## Uso de STAN
 
@@ -10623,9 +11049,9 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 1: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 1: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 1: 
-## Chain 1:  Elapsed Time: 0.024206 seconds (Warm-up)
-## Chain 1:                0.026863 seconds (Sampling)
-## Chain 1:                0.051069 seconds (Total)
+## Chain 1:  Elapsed Time: 0.024669 seconds (Warm-up)
+## Chain 1:                0.027496 seconds (Sampling)
+## Chain 1:                0.052165 seconds (Total)
 ## Chain 1: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 2).
@@ -10648,15 +11074,15 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 2: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 2: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 2: 
-## Chain 2:  Elapsed Time: 0.023686 seconds (Warm-up)
-## Chain 2:                0.023843 seconds (Sampling)
-## Chain 2:                0.047529 seconds (Total)
+## Chain 2:  Elapsed Time: 0.02552 seconds (Warm-up)
+## Chain 2:                0.025202 seconds (Sampling)
+## Chain 2:                0.050722 seconds (Total)
 ## Chain 2: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 3).
 ## Chain 3: 
-## Chain 3: Gradient evaluation took 5e-06 seconds
-## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.05 seconds.
+## Chain 3: Gradient evaluation took 6e-06 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
 ## Chain 3: Adjust your expectations accordingly!
 ## Chain 3: 
 ## Chain 3: 
@@ -10673,15 +11099,15 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 3: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 3: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 3: 
-## Chain 3:  Elapsed Time: 0.023822 seconds (Warm-up)
-## Chain 3:                0.022415 seconds (Sampling)
-## Chain 3:                0.046237 seconds (Total)
+## Chain 3:  Elapsed Time: 0.024465 seconds (Warm-up)
+## Chain 3:                0.027956 seconds (Sampling)
+## Chain 3:                0.052421 seconds (Total)
 ## Chain 3: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 4).
 ## Chain 4: 
-## Chain 4: Gradient evaluation took 6e-06 seconds
-## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
+## Chain 4: Gradient evaluation took 7e-06 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
 ## Chain 4: Adjust your expectations accordingly!
 ## Chain 4: 
 ## Chain 4: 
@@ -10698,9 +11124,9 @@ fit <- stan(model_code = bern_stan@model_code, data = list(y = bernoulli$y,
 ## Chain 4: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 4: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 4: 
-## Chain 4:  Elapsed Time: 0.024683 seconds (Warm-up)
-## Chain 4:                0.02536 seconds (Sampling)
-## Chain 4:                0.050043 seconds (Total)
+## Chain 4:  Elapsed Time: 0.026696 seconds (Warm-up)
+## Chain 4:                0.023309 seconds (Sampling)
+## Chain 4:                0.050005 seconds (Total)
 ## Chain 4:
 ```
 
@@ -10714,10 +11140,10 @@ print(fit, probs = c(0.1, 0.9))
 ## post-warmup draws per chain=2500, total post-warmup draws=10000.
 ## 
 ##         mean se_mean   sd    10%    90% n_eff Rhat
-## theta   0.31    0.00 0.06   0.23   0.39  3497    1
-## lp__  -32.61    0.01 0.73 -33.48 -32.10  3903    1
+## theta   0.31    0.00 0.06   0.23   0.39  3672    1
+## lp__  -32.61    0.01 0.76 -33.44 -32.10  3637    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Mon Jun 27 08:33:29 2022.
+## Samples were drawn using NUTS(diag_e) at Thu Jun 30 09:51:17 2022.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).
@@ -10730,7 +11156,7 @@ mean(theta_draws)
 ```
 
 ```
-## [1] 0.3069652
+## [1] 0.307339
 ```
 
 ```r
@@ -10739,7 +11165,7 @@ quantile(theta_draws, probs = c(0.1, 0.9))
 
 ```
 ##       10%       90% 
-## 0.2261308 0.3905893
+## 0.2262677 0.3907008
 ```
 
 
@@ -10749,7 +11175,7 @@ shinystan::launch_shinystan(fit)
 ```
 
 
-::: {.exercise #unnamed-chunk-392}
+::: {.exercise #unnamed-chunk-415}
 
 Replique los resultados anteriores pero para el caso de 2 monedas y comente los resultados. 
 

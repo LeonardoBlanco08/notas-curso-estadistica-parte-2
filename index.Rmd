@@ -18,6 +18,10 @@ description: ""
 system("touch ./docs/.nojekyll")
 ```
 
+
+
+
+
 # Introducción
 
 Estas son las notas de clase del curso CA0403: Estadística Actuarial II para el primer semestre del 2022.

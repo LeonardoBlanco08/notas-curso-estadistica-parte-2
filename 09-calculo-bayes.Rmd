@@ -626,7 +626,7 @@ for (k in 2:n_pasos) {
     pos_actual <- pos_nueva
   }
 
-  trayectoria[k] <- pos_nueva
+  trayectoria[k] <- pos_actual
 }
 ```
 
@@ -941,14 +941,18 @@ ggplot(df[500:n_pasos, ]) +
 
 ```
 
-## El problema del viajero con dos monedas
+## El problema del viajero en un plano 
 
 Un problema con el algoritmo de Metropolis-Hastings (M-H) es que solo funciona para la estimación de un solo parámetro.  
 
 
 El muestreo de Gibbs está pensado en el caso de la estimación de muchos parámetros de forma bastante ordenada.  
 
-Supongamos que tenemos dos monedas y queremos ver la proporción de escudos generados entre las dos monedas: 
+
+Empecemos usando un algoritmo de Metropolis-Hastings en caso de tener dos monedas. Es decir, supongamos que ahora tenemos una cantidad infinita de islas en un plano. Cada vez que tiremos la moneda tenemos que saltar a otra isla con cierta probabilidad. 
+
+El objetivo sería maximizar la distribución posterior dado los datos iniciales. 
+
 
 Tenemos: 
 
@@ -978,7 +982,7 @@ f\left(\theta_{1}, \theta_{2} | D\right)
 &=\frac{\theta_{1}^{z_{1}}\left(1-\theta_{1}\right)^{N_{1}-z_{1}} \theta_{1}^{z_{2}}\left(1-\theta_{2}\right)^{N_{2}-z_{2}} \theta_{1}^{a_{1}-1}\left(1-\theta_{1}\right)^{b_{1}-1} \theta_{2}^{a_{2}-1}\left(1-\theta_{2}\right)^{b_{2}-1}}{f(D) B\left(a_{1}, b_{1}\right) B\left(a_{2}, b_{2}\right)} \\
 &=\frac{\theta_{1}^{z_{1}+a_{1}-1}\left(1-\theta_{1}\right)^{N_{1}-z_{1}+b_{1}-1} \theta_{2}^{z_{2}+a_{2}-1}\left(1-\theta_{2}\right)^{N_{2}-z_{2}+b_{2}-1}}{f(D) B\left(a_{1}, b_{1}\right) B\left(a_{2}, b_{2}\right)}
 \end{align*}
-Entonces la distribución posterior de \(\left(\theta_{1}, \theta_{2}\right)\) son dos distribuciones independientes Betas:
+Entonces la distribución posterior de \(\left(\theta_{1}, \theta_{2}\right)\) es el producto de dos distribuciones independientes Betas:
 \(\operatorname{Beta}\left(z_{1}+a, N_{1}-z_{1}+b_{1}\right)\) y \(\operatorname{Beta}\left(z_{2}+a, N_{2}-z_{2}+b_{2}\right)\)
 
 
@@ -1060,6 +1064,10 @@ metro_2coins <- function(z1, n1, # z = successes, n = trials
 }
 ```
 
+
+En este ejemplo empezaremos con una desviación estándar de  \((0.02,0.02)\) para cada dirección.  Las densidades beta tendrán parámetros \(a=2\) y \(b=2\) cada una. 
+
+
 ```{r}
 Metro_2coinsA <-
   metro_2coins(
@@ -1082,7 +1090,7 @@ acf(Metro_2coinsA$theta2 - Metro_2coinsA$theta1)
 ```
 
 
-```{r}
+```{r, eval=knitr::is_latex_output()}
 Metro_2coinsA %>%
   filter(step < 500) %>%
   gf_path(
@@ -1098,7 +1106,7 @@ Metro_2coinsA %>%
   theme_minimal()
 ```
 
-```{r, eval=FALSE}
+```{r, eval=knitr::is_html_output()}
 library(gganimate)
 Metro_2coinsAplot <- Metro_2coinsA %>%
   filter(step < 500) %>%
@@ -1114,9 +1122,15 @@ Metro_2coinsAplot <- Metro_2coinsA %>%
   theme_minimal() +
   transition_reveal(step)
 
-animate(Metro_2coinsAplot, fps = 1)
+anim_save(
+  filename = "./manual_figures/metro2coinsA.gif",
+  animation = Metro_2coinsAplot
+)
+
 ```
 
+
+Un efecto interesante ocurre si cambiamos las desviaciones estándar a \((0.2,0.2)\). Note que los pasos son más grandes y por lo tanto más erráticos.  
 
 
 
@@ -1139,7 +1153,7 @@ acf(Metro_2coinsB$theta2 - Metro_2coinsB$theta1)
 
 ```
 
-```{r}
+```{r, eval =knitr::is_latex_output()}
 Metro_2coinsB %>%
   filter(step < 500) %>%
   gf_path(
@@ -1155,7 +1169,7 @@ Metro_2coinsB %>%
   theme_minimal()
 ```
 
-```{r, eval = FALSE}
+```{r, eval =knitr::is_html_output()}
 Metro_2coinsBplot <- Metro_2coinsA %>%
   filter(step < 500) %>%
   gf_path(
@@ -1170,8 +1184,14 @@ Metro_2coinsBplot <- Metro_2coinsA %>%
   theme_minimal() +
   transition_reveal(step)
 
-animate(Metro_2coinsBplot, fps = 1)
+anim_save(
+  filename = "./manual_figures/metro2coinsB.gif",
+  animation = Metro_2coinsBplot
+)
+
 ```
+
+
 
 
 ### Muestreo de Gibbs
@@ -1207,8 +1227,15 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 &=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2}, z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)}{\int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2} | z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)d \theta_{1}} \\
 &=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2}, z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)}{\operatorname{dbeta}\left(\theta_{2} | z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right) \int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)d \theta_{1}} \\
 &=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)}{\int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)d \theta_{1}} \\
-&=\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)
+&=\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \\
+&= f(\theta_1 | D)
 \end{align*}
+
+
+Es decir, que la distribución posterior para \(\theta_1\) solamente dependerá de  los datos \(D\) y no del valor de \(\theta_2\).
+
+
+
 
 ```{r, tidy=FALSE}
 gibbs_2coins <- function(z1, n1, # z = successes, n = trials
@@ -1347,6 +1374,240 @@ Gibbsplot2 <- Gibbs %>%
 
 animate(Gibbsplot2, fps = 1)
 ```
+
+
+## Ejemplo reales
+
+### Datos agrupados bajo una población normal
+
+Suponga que observamos los siguientes datos agrupados:
+
+| Altura (pulgadas) | Frecuencia |
+|-------------------|------------|
+| Menos de 66       | 14         |
+| Entre 66 y 68     | 30         |
+| Entre 68 y 70     | 49         |
+| Entre 70 y 72     | 70         |
+| Entre 72 y 74     | 33         |
+| Más de 74         | 15         |
+
+Si asumimos que las alturas son normales con media $\mu$ y desviación estándar $\sigma$, podemos asumir una verosimilitud multinomial para los datos agrupados:
+\begin{align*}
+L(\mu,\sigma)&\propto \Phi(66,\mu,\sigma)^{14}(\Phi(68,\mu,\sigma)-\Phi(66,\mu,\sigma))^{30} \\
+&\times  (\Phi(70,\mu,\sigma)-\Phi(68,\mu,\sigma))^{49} (\Phi(72,\mu,\sigma)-\Phi(70,\mu,\sigma))^{70}\\
+&\times  (\Phi(74,\mu,\sigma)-\Phi(72,\mu,\sigma))^{33} (1-\Phi(74,\mu,\sigma))^{15}
+\end{align*}
+
+y asumimos una previa no informativa para $(\mu,\sigma)\sim \frac 1 \sigma$. Como $\sigma>0$ entonces usamos la transformación $\lambda=\log (\sigma)$.
+
+```{r}
+d <- list(
+  int.lo = c(-Inf, seq(66, 74, by = 2)),
+  int.hi = c(seq(66, 74, by = 2), Inf),
+  f = c(14, 30, 49, 70, 33, 15)
+)
+```
+es una estructura de los datos agrupados. La log-densidad posterior de los datos sería:
+```{r}
+groupeddatapost <- function(theta, data) {
+  dj <- function(f, int.lo, int.hi, mu, sigma) {
+    f * log(pnorm(int.hi, mu, sigma) - pnorm(int.lo, mu, sigma))
+  }
+  mu <- theta[1]
+  sigma <- exp(theta[2])
+  sum(dj(data$f, data$int.lo, data$int.hi, mu, sigma))
+}
+```
+
+Usamos el método de Laplace para encontrar una aproximación de los parámetros de la previa bajo Metropolis-Hastings:
+```{r}
+start <- c(70, 1)
+fit <- laplace(groupeddatapost, start, d)
+fit
+```
+
+la escogencia del valor inicial se basa en los datos artificiales en la página 126 del [@Albert2009]. De esta forma definimos los parámetros de la propuesta como:
+```{r}
+proposal <- list(var = fit$var, scale = 2)
+```
+
+y ajustamos la versión bajo caminata aleatoria de un Metropolis-Hastings (MH):
+```{r}
+fit2 <- rwmetrop(groupeddatapost, proposal, start, 10000, d)
+```
+
+con una tasa de aceptación:
+```{r}
+fit2$accept
+```
+
+Algunas estadísticas de la distribución posterior de $\mu$ y $\log \sigma$:
+```{r}
+post.means <- apply(fit2$par, 2, mean)
+post.sds <- apply(fit2$par, 2, sd)
+cbind(post.means, post.sds)
+```
+
+esto se puede comparar con los estimadores de la aproximación de Laplace:
+```{r}
+modal.sds <- sqrt(diag(fit$var))
+cbind(c(fit$mode), modal.sds)
+```
+
+También podemos graficar la densidad posterior junto con la muestra generada por el MH, usando una muestra de burn-in de 5000:
+```{r}
+ mycontour(groupeddatapost,
+           c(69, 71, .6, 1.3), d,
+   xlab = "mu", ylab = "log sigma"
+ )
+ points(fit2$par[5001:10000, 1], fit2$par[5001:10000, 2])
+```
+
+Los traceplots del MCMC los graficamos a través del paquete *coda* junto con el paquete *bayesplot*:
+```{r}
+library(coda)
+library(bayesplot)
+dimnames(fit2$par)[[2]] <- c("mu", "log sigma")
+obj_mcmc <- mcmc(fit2$par[-c(1:5000), ])
+mcmc_trace(obj_mcmc)
+```
+
+Los gráficos de autocorrelación empíricos se pueden generar con:
+```{r}
+mcmc_acf(obj_mcmc)
+```
+y funciones de densidad estimadas con intervalos de predicción al 95% para algunos de los parámetros:
+```{r}
+mcmc_areas(obj_mcmc, pars = c("mu"), prob = 0.95)
+```
+### Datos con outliers
+
+Suponga $y_1,\ldots,y_n\sim \text{Cauchy}(\mu,\sigma)$:
+$$f(y|\mu,\sigma)=\frac{1}{\pi\sigma(1+z^2)}$$
+donde $z=\frac{y-\mu}{\sigma}$. Con una previa no informativa $g(\mu,\sigma)\propto 1/\sigma$ y transformando $\lambda = \log \sigma$ se puede comprobar que la log-densidad posterior es:
+$$\log g(\mu,\lambda|\text{datos}) = \sum_{i=1}^n\left[-\lambda-\log\left(1+\exp(-2\lambda)(y_i-\mu)^2\right)\right]$$
+
+y la implementación de la log-posterior usando la distribución t de Student como generador de la distribución Cauchy:
+```{r}
+cauchyerrorpost <- function (theta, data){
+  logf <- function(data, theta)
+    log(dt((data - theta[1])/exp(theta[2]),df = 1)/exp(theta[2]))
+return(sum(logf(data, theta)))
+}
+```
+
+Los datos provienen de la base *darwin* con 15 diferencias entre alturas de plantas según Fisher (1960). La media y log-desviación estándar empíricos de los datos son:
+
+```{r warning=TRUE}
+library(LearnBayes)
+data(darwin)
+data_darwin <- darwin$difference
+```
+
+```{r}
+mean(data_darwin)
+log(sd(data_darwin))
+```
+
+y usamos estos valores como valores iniciales dentro de la aproximación de Laplace:
+```{r}
+fitlaplace <- laplace(cauchyerrorpost, c(21.6, 3.6), data_darwin)
+fitlaplace
+```
+
+y usamos lo anterior como insumo para generar tres escenarios de MCMC:
+
+- Metropolis-Hastings con caminata aleatoria:
+```{r}
+proposal <- list(var = fitlaplace$var, scale = 2.5)
+start <- c(20, 3)
+E1 <- rwmetrop(cauchyerrorpost, proposal, start, 50000, data_darwin)
+mycontour(cauchyerrorpost, c(-10, 60, 1, 4.5), data_darwin,
+  xlab = "mu",
+  ylab = "log sigma"
+)
+points(E1$par[, 1], E1$par[, 2])
+```
+
+- Metropolis-Hastings independiente:
+```{r}
+proposal2 <- list(var = fitlaplace$var, mu = t(fitlaplace$mode))
+E2 <- indepmetrop(cauchyerrorpost, proposal2, start, 50000, data_darwin)
+mycontour(cauchyerrorpost, c(-10, 60, 1, 4.5), data_darwin,
+  xlab = "mu",
+  ylab = "log sigma"
+)
+points(E2$par[, 1], E2$par[, 2])
+```
+
+- Muestreo de Gibbs:
+```{r}
+E3 <- gibbs(cauchyerrorpost, start, 50000, c(12, .75), data_darwin)
+mycontour(cauchyerrorpost, c(-10, 60, 1, 4.5), data_darwin,
+  xlab = "mu",
+  ylab = "log sigma"
+)
+points(E3$par[, 1], E3$par[, 2])
+```
+
+Comparemos el estimador bayesiano e intervalos de predicción al 95% para la media $\mu$:
+
+```{r}
+Resultados <- data.frame(rbind(
+  c(
+    mean(E1$par[, 1]),
+    quantile(E1$par[, 1],
+      probs = c(0.025, 0.975)
+    ),
+    E1$accept
+  ),
+  c(
+    mean(E2$par[, 1]),
+    quantile(E2$par[, 1],
+      probs = c(0.025, 0.975)
+    ),
+    E2$accept
+  ),
+  c(
+    mean(E3$par[, 1]),
+    quantile(E3$par[, 1],
+      probs = c(0.025, 0.975)
+    ),
+    NA
+  )
+))
+
+
+colnames(Resultados) <- c("Media", "Q1", "Q3", "Accept")
+rownames(Resultados) <- c("MH-RW", "MH-Indep", "Gibbs")
+Resultados <- Resultados %>% mutate(Ancho = Q3 - Q1)
+
+
+
+knitr::kable(Resultados)
+```
+En el caso del algoritmo de Gibbs, cada uno de los pasos tiene una tasa de aceptación de MH en este caso:
+```{r}
+E3$accept
+```
+
+También podemos incluir histogramas para las muestras posteriores de ambos parámetros. Para el MH independiente (burn-in=5000):
+```{r}
+color_scheme_set("green")
+dimnames(E2$par)[[2]] <- c("mu", "log sigma")
+obj_mcmc2 <- mcmc(E2$par[-c(1:5000), ])
+mcmc_hist(obj_mcmc2, pars = c("mu", "log sigma"))
+```
+
+y los gráficos de autocorrelación respectivos:
+```{r}
+mcmc_acf_bar(obj_mcmc2, pars = c("mu", "log sigma"))
+```
+
+
+
+
+
 
 ## Uso de JAGS 
 

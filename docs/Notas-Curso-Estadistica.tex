@@ -190,7 +190,7 @@
 
 \title{Notas Curso de Estadística II}
 \author{Maikol Solís Chacón y Luis Barboza Chinchilla}
-\date{Actualizado el 27 junio, 2022}
+\date{Actualizado el 30 junio, 2022}
 
 \usepackage{amsthm}
 \newtheorem{theorem}{Teorema}[chapter]
@@ -10042,7 +10042,7 @@ Suponga además, que el viajero quiere estar más tiempo donde haya una mayor ca
 \NormalTok{        pos\_actual }\OtherTok{\textless{}{-}}\NormalTok{ pos\_nueva}
 \NormalTok{    \}}
 
-\NormalTok{    trayectoria[k] }\OtherTok{\textless{}{-}}\NormalTok{ pos\_nueva}
+\NormalTok{    trayectoria[k] }\OtherTok{\textless{}{-}}\NormalTok{ pos\_actual}
 \NormalTok{\}}
 \end{Highlighting}
 \end{Shaded}
@@ -10402,14 +10402,16 @@ Podemos desechar los primeros 500 pasos (por ejemplo) del proceso ya que estos s
 
 \begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-355-2} \end{center}
 
-\hypertarget{el-problema-del-viajero-con-dos-monedas}{%
-\section{El problema del viajero con dos monedas}\label{el-problema-del-viajero-con-dos-monedas}}
+\hypertarget{el-problema-del-viajero-en-un-plano}{%
+\section{El problema del viajero en un plano}\label{el-problema-del-viajero-en-un-plano}}
 
 Un problema con el algoritmo de Metropolis-Hastings (M-H) es que solo funciona para la estimación de un solo parámetro.
 
 El muestreo de Gibbs está pensado en el caso de la estimación de muchos parámetros de forma bastante ordenada.
 
-Supongamos que tenemos dos monedas y queremos ver la proporción de escudos generados entre las dos monedas:
+Empecemos usando un algoritmo de Metropolis-Hastings en caso de tener dos monedas. Es decir, supongamos que ahora tenemos una cantidad infinita de islas en un plano. Cada vez que tiremos la moneda tenemos que saltar a otra isla con cierta probabilidad.
+
+El objetivo sería maximizar la distribución posterior dado los datos iniciales.
 
 Tenemos:
 
@@ -10449,7 +10451,7 @@ f\left(\theta_{1}, \theta_{2} | D\right)
 &=\frac{\theta_{1}^{z_{1}}\left(1-\theta_{1}\right)^{N_{1}-z_{1}} \theta_{1}^{z_{2}}\left(1-\theta_{2}\right)^{N_{2}-z_{2}} \theta_{1}^{a_{1}-1}\left(1-\theta_{1}\right)^{b_{1}-1} \theta_{2}^{a_{2}-1}\left(1-\theta_{2}\right)^{b_{2}-1}}{f(D) B\left(a_{1}, b_{1}\right) B\left(a_{2}, b_{2}\right)} \\
 &=\frac{\theta_{1}^{z_{1}+a_{1}-1}\left(1-\theta_{1}\right)^{N_{1}-z_{1}+b_{1}-1} \theta_{2}^{z_{2}+a_{2}-1}\left(1-\theta_{2}\right)^{N_{2}-z_{2}+b_{2}-1}}{f(D) B\left(a_{1}, b_{1}\right) B\left(a_{2}, b_{2}\right)}
 \end{align*}
-Entonces la distribución posterior de \(\left(\theta_{1}, \theta_{2}\right)\) son dos distribuciones independientes Betas:
+Entonces la distribución posterior de \(\left(\theta_{1}, \theta_{2}\right)\) es el producto de dos distribuciones independientes Betas:
 \(\operatorname{Beta}\left(z_{1}+a, N_{1}-z_{1}+b_{1}\right)\) y \(\operatorname{Beta}\left(z_{2}+a, N_{2}-z_{2}+b_{2}\right)\)
 
 Tratemos de encontrar los parámetros para la distribución posterior usando un algoritmo de Metropolis-Hasting. \href{https://rpruim.github.io/Kruschke-Notes/markov-chain-monte-carlo-mcmc.html\#metropolis}{Función tomada de Kruschke-Notes}
@@ -10532,6 +10534,8 @@ Tratemos de encontrar los parámetros para la distribución posterior usando un 
 \end{Highlighting}
 \end{Shaded}
 
+En este ejemplo empezaremos con una desviación estándar de \((0.02,0.02)\) para cada dirección. Las densidades beta tendrán parámetros \(a=2\) y \(b=2\) cada una.
+
 \begin{Shaded}
 \begin{Highlighting}[]
 \NormalTok{Metro\_2coinsA }\OtherTok{\textless{}{-}} \FunctionTok{metro\_2coins}\NormalTok{(}\AttributeTok{z1 =} \DecValTok{6}\NormalTok{, }\AttributeTok{n1 =} \DecValTok{8}\NormalTok{, }\AttributeTok{z2 =} \DecValTok{2}\NormalTok{,}
@@ -10583,9 +10587,12 @@ Tratemos de encontrar los parámetros para la distribución posterior usando un 
         \AttributeTok{arrow =} \FunctionTok{arrow}\NormalTok{(}\AttributeTok{type =} \StringTok{"open"}\NormalTok{, }\AttributeTok{angle =} \DecValTok{30}\NormalTok{)) }\SpecialCharTok{+}
     \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{transition\_reveal}\NormalTok{(step)}
 
-\FunctionTok{animate}\NormalTok{(Metro\_2coinsAplot, }\AttributeTok{fps =} \DecValTok{1}\NormalTok{)}
+\FunctionTok{anim\_save}\NormalTok{(}\AttributeTok{filename =} \StringTok{"./manual\_figures/metro2coinsA.gif"}\NormalTok{,}
+    \AttributeTok{animation =}\NormalTok{ Metro\_2coinsAplot)}
 \end{Highlighting}
 \end{Shaded}
+
+Un efecto interesante ocurre si cambiamos las desviaciones estándar a \((0.2,0.2)\). Note que los pasos son más grandes y por lo tanto más erráticos.
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10628,7 +10635,8 @@ Tratemos de encontrar los parámetros para la distribución posterior usando un 
         \AttributeTok{arrow =} \FunctionTok{arrow}\NormalTok{(}\AttributeTok{type =} \StringTok{"open"}\NormalTok{, }\AttributeTok{angle =} \DecValTok{30}\NormalTok{)) }\SpecialCharTok{+}
     \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+} \FunctionTok{transition\_reveal}\NormalTok{(step)}
 
-\FunctionTok{animate}\NormalTok{(Metro\_2coinsBplot, }\AttributeTok{fps =} \DecValTok{1}\NormalTok{)}
+\FunctionTok{anim\_save}\NormalTok{(}\AttributeTok{filename =} \StringTok{"./manual\_figures/metro2coinsB.gif"}\NormalTok{,}
+    \AttributeTok{animation =}\NormalTok{ Metro\_2coinsBplot)}
 \end{Highlighting}
 \end{Shaded}
 
@@ -10671,8 +10679,11 @@ f\left(\theta_{1} | \theta_{2}, D\right)
 &=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2}, z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)}{\int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2} | z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)d \theta_{1}} \\
 &=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \cdot \operatorname{dbeta}\left(\theta_{2}, z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right)}{\operatorname{dbeta}\left(\theta_{2} | z_{2}+a_{2}, N_{2}-z_{2}+b_{2}\right) \int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)d \theta_{1}} \\
 &=\frac{\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)}{\int  \operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)d \theta_{1}} \\
-&=\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right)
+&=\operatorname{dbeta}\left(\theta_{1}, z_{1}+a_{1}, N_{1}-z_{1}+b_{1}\right) \\
+&= f(\theta_1 | D)
 \end{align*}
+
+Es decir, que la distribución posterior para \(\theta_1\) solamente dependerá de los datos \(D\) y no del valor de \(\theta_2\).
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10818,6 +10829,477 @@ Ciclos completos
 \end{Highlighting}
 \end{Shaded}
 
+\hypertarget{ejemplo-reales}{%
+\section{Ejemplo reales}\label{ejemplo-reales}}
+
+\hypertarget{datos-agrupados-bajo-una-poblaciuxf3n-normal}{%
+\subsection{Datos agrupados bajo una población normal}\label{datos-agrupados-bajo-una-poblaciuxf3n-normal}}
+
+Suponga que observamos los siguientes datos agrupados:
+
+\begin{longtable}[]{@{}ll@{}}
+\toprule()
+Altura (pulgadas) & Frecuencia \\
+\midrule()
+\endhead
+Menos de 66 & 14 \\
+Entre 66 y 68 & 30 \\
+Entre 68 y 70 & 49 \\
+Entre 70 y 72 & 70 \\
+Entre 72 y 74 & 33 \\
+Más de 74 & 15 \\
+\bottomrule()
+\end{longtable}
+
+Si asumimos que las alturas son normales con media \(\mu\) y desviación estándar \(\sigma\), podemos asumir una verosimilitud multinomial para los datos agrupados:
+\begin{align*}
+L(\mu,\sigma)&\propto \Phi(66,\mu,\sigma)^{14}(\Phi(68,\mu,\sigma)-\Phi(66,\mu,\sigma))^{30} \\
+&\times  (\Phi(70,\mu,\sigma)-\Phi(68,\mu,\sigma))^{49} (\Phi(72,\mu,\sigma)-\Phi(70,\mu,\sigma))^{70}\\
+&\times  (\Phi(74,\mu,\sigma)-\Phi(72,\mu,\sigma))^{33} (1-\Phi(74,\mu,\sigma))^{15}
+\end{align*}
+
+y asumimos una previa no informativa para \((\mu,\sigma)\sim \frac 1 \sigma\). Como \(\sigma>0\) entonces usamos la transformación \(\lambda=\log (\sigma)\).
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{d }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{int.lo =} \FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\ConstantTok{Inf}\NormalTok{, }\FunctionTok{seq}\NormalTok{(}\DecValTok{66}\NormalTok{, }\DecValTok{74}\NormalTok{, }\AttributeTok{by =} \DecValTok{2}\NormalTok{)), }\AttributeTok{int.hi =} \FunctionTok{c}\NormalTok{(}\FunctionTok{seq}\NormalTok{(}\DecValTok{66}\NormalTok{,}
+    \DecValTok{74}\NormalTok{, }\AttributeTok{by =} \DecValTok{2}\NormalTok{), }\ConstantTok{Inf}\NormalTok{), }\AttributeTok{f =} \FunctionTok{c}\NormalTok{(}\DecValTok{14}\NormalTok{, }\DecValTok{30}\NormalTok{, }\DecValTok{49}\NormalTok{, }\DecValTok{70}\NormalTok{, }\DecValTok{33}\NormalTok{, }\DecValTok{15}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+es una estructura de los datos agrupados. La log-densidad posterior de los datos sería:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{groupeddatapost }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta, data) \{}
+\NormalTok{    dj }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(f, int.lo, int.hi, mu, sigma) \{}
+\NormalTok{        f }\SpecialCharTok{*} \FunctionTok{log}\NormalTok{(}\FunctionTok{pnorm}\NormalTok{(int.hi, mu, sigma) }\SpecialCharTok{{-}} \FunctionTok{pnorm}\NormalTok{(int.lo,}
+\NormalTok{            mu, sigma))}
+\NormalTok{    \}}
+\NormalTok{    mu }\OtherTok{\textless{}{-}}\NormalTok{ theta[}\DecValTok{1}\NormalTok{]}
+\NormalTok{    sigma }\OtherTok{\textless{}{-}} \FunctionTok{exp}\NormalTok{(theta[}\DecValTok{2}\NormalTok{])}
+    \FunctionTok{sum}\NormalTok{(}\FunctionTok{dj}\NormalTok{(data}\SpecialCharTok{$}\NormalTok{f, data}\SpecialCharTok{$}\NormalTok{int.lo, data}\SpecialCharTok{$}\NormalTok{int.hi, mu, sigma))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Usamos el método de Laplace para encontrar una aproximación de los parámetros de la previa bajo Metropolis-Hastings:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{start }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{70}\NormalTok{, }\DecValTok{1}\NormalTok{)}
+\NormalTok{fit }\OtherTok{\textless{}{-}} \FunctionTok{laplace}\NormalTok{(groupeddatapost, start, d)}
+\NormalTok{fit}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## $mode
+## [1] 70.169880  0.973644
+## 
+## $var
+##              [,1]         [,2]
+## [1,] 3.534713e-02 3.520776e-05
+## [2,] 3.520776e-05 3.146470e-03
+## 
+## $int
+## [1] -350.6305
+## 
+## $converge
+## [1] TRUE
+\end{verbatim}
+
+la escogencia del valor inicial se basa en los datos artificiales en la página 126 del \autocite{Albert2009}. De esta forma definimos los parámetros de la propuesta como:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{proposal }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{var =}\NormalTok{ fit}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{scale =} \DecValTok{2}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+y ajustamos la versión bajo caminata aleatoria de un Metropolis-Hastings (MH):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit2 }\OtherTok{\textless{}{-}} \FunctionTok{rwmetrop}\NormalTok{(groupeddatapost, proposal, start,}
+    \DecValTok{10000}\NormalTok{, d)}
+\end{Highlighting}
+\end{Shaded}
+
+con una tasa de aceptación:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fit2}\SpecialCharTok{$}\NormalTok{accept}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] 0.301
+\end{verbatim}
+
+Algunas estadísticas de la distribución posterior de \(\mu\) y \(\log \sigma\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{post.means }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par, }\DecValTok{2}\NormalTok{, mean)}
+\NormalTok{post.sds }\OtherTok{\textless{}{-}} \FunctionTok{apply}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par, }\DecValTok{2}\NormalTok{, sd)}
+\FunctionTok{cbind}\NormalTok{(post.means, post.sds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      post.means  post.sds
+## [1,] 70.1704173 0.1949509
+## [2,]  0.9803398 0.0576197
+\end{verbatim}
+
+esto se puede comparar con los estimadores de la aproximación de Laplace:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{modal.sds }\OtherTok{\textless{}{-}} \FunctionTok{sqrt}\NormalTok{(}\FunctionTok{diag}\NormalTok{(fit}\SpecialCharTok{$}\NormalTok{var))}
+\FunctionTok{cbind}\NormalTok{(}\FunctionTok{c}\NormalTok{(fit}\SpecialCharTok{$}\NormalTok{mode), modal.sds)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##                 modal.sds
+## [1,] 70.169880 0.18800834
+## [2,]  0.973644 0.05609341
+\end{verbatim}
+
+También podemos graficar la densidad posterior junto con la muestra generada por el MH, usando una muestra de burn-in de 5000:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mycontour}\NormalTok{(groupeddatapost, }\FunctionTok{c}\NormalTok{(}\DecValTok{69}\NormalTok{, }\DecValTok{71}\NormalTok{, }\FloatTok{0.6}\NormalTok{, }\FloatTok{1.3}\NormalTok{), d,}
+    \AttributeTok{xlab =} \StringTok{"mu"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log sigma"}\NormalTok{)}
+\FunctionTok{points}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{5001}\SpecialCharTok{:}\DecValTok{10000}\NormalTok{, }\DecValTok{1}\NormalTok{], fit2}\SpecialCharTok{$}\NormalTok{par[}\DecValTok{5001}\SpecialCharTok{:}\DecValTok{10000}\NormalTok{,}
+    \DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-379-1} \end{center}
+
+Los traceplots del MCMC los graficamos a través del paquete \emph{coda} junto con el paquete \emph{bayesplot}:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(coda)}
+\FunctionTok{library}\NormalTok{(bayesplot)}
+\FunctionTok{dimnames}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par)[[}\DecValTok{2}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{, }\StringTok{"log sigma"}\NormalTok{)}
+\NormalTok{obj\_mcmc }\OtherTok{\textless{}{-}} \FunctionTok{mcmc}\NormalTok{(fit2}\SpecialCharTok{$}\NormalTok{par[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5000}\NormalTok{), ])}
+\FunctionTok{mcmc\_trace}\NormalTok{(obj\_mcmc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-380-1} \end{center}
+
+Los gráficos de autocorrelación empíricos se pueden generar con:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mcmc\_acf}\NormalTok{(obj\_mcmc)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-381-1} \end{center}
+
+y funciones de densidad estimadas con intervalos de predicción al 95\% para algunos de los parámetros:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mcmc\_areas}\NormalTok{(obj\_mcmc, }\AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{), }\AttributeTok{prob =} \FloatTok{0.95}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-382-1} \end{center}
+
+\hypertarget{datos-con-outliers}{%
+\subsection{Datos con outliers}\label{datos-con-outliers}}
+
+Suponga \(y_1,\ldots,y_n\sim \text{Cauchy}(\mu,\sigma)\):
+\[f(y|\mu,\sigma)=\frac{1}{\pi\sigma(1+z^2)}\]
+donde \(z=\frac{y-\mu}{\sigma}\). Con una previa no informativa \(g(\mu,\sigma)\propto 1/\sigma\) y transformando \(\lambda = \log \sigma\) se puede comprobar que la log-densidad posterior es:
+\[\log g(\mu,\lambda|\text{datos}) = \sum_{i=1}^n\left[-\lambda-\log\left(1+\exp(-2\lambda)(y_i-\mu)^2\right)\right]\]
+
+y la implementación de la log-posterior usando la distribución t de Student como generador de la distribución Cauchy:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{cauchyerrorpost }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(theta, data) \{}
+\NormalTok{    logf }\OtherTok{\textless{}{-}} \ControlFlowTok{function}\NormalTok{(data, theta) }\FunctionTok{log}\NormalTok{(}\FunctionTok{dt}\NormalTok{((data }\SpecialCharTok{{-}}\NormalTok{ theta[}\DecValTok{1}\NormalTok{])}\SpecialCharTok{/}\FunctionTok{exp}\NormalTok{(theta[}\DecValTok{2}\NormalTok{]),}
+        \AttributeTok{df =} \DecValTok{1}\NormalTok{)}\SpecialCharTok{/}\FunctionTok{exp}\NormalTok{(theta[}\DecValTok{2}\NormalTok{]))}
+    \FunctionTok{return}\NormalTok{(}\FunctionTok{sum}\NormalTok{(}\FunctionTok{logf}\NormalTok{(data, theta)))}
+\NormalTok{\}}
+\end{Highlighting}
+\end{Shaded}
+
+Los datos provienen de la base \emph{darwin} con 15 diferencias entre alturas de plantas según Fisher (1960). La media y log-desviación estándar empíricos de los datos son:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(LearnBayes)}
+\FunctionTok{data}\NormalTok{(darwin)}
+\NormalTok{data\_darwin }\OtherTok{\textless{}{-}}\NormalTok{ darwin}\SpecialCharTok{$}\NormalTok{difference}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mean}\NormalTok{(data\_darwin)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NA
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{log}\NormalTok{(}\FunctionTok{sd}\NormalTok{(data\_darwin))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## [1] NA
+\end{verbatim}
+
+y usamos estos valores como valores iniciales dentro de la aproximación de Laplace:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitlaplace }\OtherTok{\textless{}{-}} \FunctionTok{laplace}\NormalTok{(cauchyerrorpost, }\FunctionTok{c}\NormalTok{(}\FloatTok{21.6}\NormalTok{, }\FloatTok{3.6}\NormalTok{),}
+\NormalTok{    data\_darwin)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in solve.default(fit$hessian): Lapack routine dgesv: system is exactly singular: U[1,1] = 0
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{fitlaplace}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
+\end{verbatim}
+
+y usamos lo anterior como insumo para generar tres escenarios de MCMC:
+
+\begin{itemize}
+\tightlist
+\item
+  Metropolis-Hastings con caminata aleatoria:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{proposal }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{var =}\NormalTok{ fitlaplace}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{scale =} \FloatTok{2.5}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{start }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\DecValTok{20}\NormalTok{, }\DecValTok{3}\NormalTok{)}
+\NormalTok{E1 }\OtherTok{\textless{}{-}} \FunctionTok{rwmetrop}\NormalTok{(cauchyerrorpost, proposal, start, }\DecValTok{50000}\NormalTok{,}
+\NormalTok{    data\_darwin)}
+\FunctionTok{mycontour}\NormalTok{(cauchyerrorpost, }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{4.5}\NormalTok{), data\_darwin,}
+    \AttributeTok{xlab =} \StringTok{"mu"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log sigma"}\NormalTok{)}
+\FunctionTok{points}\NormalTok{(E1}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], E1}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-387-1} \end{center}
+
+\begin{itemize}
+\tightlist
+\item
+  Metropolis-Hastings independiente:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{proposal2 }\OtherTok{\textless{}{-}} \FunctionTok{list}\NormalTok{(}\AttributeTok{var =}\NormalTok{ fitlaplace}\SpecialCharTok{$}\NormalTok{var, }\AttributeTok{mu =} \FunctionTok{t}\NormalTok{(fitlaplace}\SpecialCharTok{$}\NormalTok{mode))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in eval(expr, envir, enclos): object 'fitlaplace' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{E2 }\OtherTok{\textless{}{-}} \FunctionTok{indepmetrop}\NormalTok{(cauchyerrorpost, proposal2, start,}
+    \DecValTok{50000}\NormalTok{, data\_darwin)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in matrix(proposal$mu): object 'proposal2' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mycontour}\NormalTok{(cauchyerrorpost, }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{4.5}\NormalTok{), data\_darwin,}
+    \AttributeTok{xlab =} \StringTok{"mu"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log sigma"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-388-1} \end{center}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{points}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], E2}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in points(E2$par[, 1], E2$par[, 2]): object 'E2' not found
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Muestreo de Gibbs:
+\end{itemize}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{E3 }\OtherTok{\textless{}{-}} \FunctionTok{gibbs}\NormalTok{(cauchyerrorpost, start, }\DecValTok{50000}\NormalTok{, }\FunctionTok{c}\NormalTok{(}\DecValTok{12}\NormalTok{, }\FloatTok{0.75}\NormalTok{),}
+\NormalTok{    data\_darwin)}
+\FunctionTok{mycontour}\NormalTok{(cauchyerrorpost, }\FunctionTok{c}\NormalTok{(}\SpecialCharTok{{-}}\DecValTok{10}\NormalTok{, }\DecValTok{60}\NormalTok{, }\DecValTok{1}\NormalTok{, }\FloatTok{4.5}\NormalTok{), data\_darwin,}
+    \AttributeTok{xlab =} \StringTok{"mu"}\NormalTok{, }\AttributeTok{ylab =} \StringTok{"log sigma"}\NormalTok{)}
+\FunctionTok{points}\NormalTok{(E3}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], E3}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{2}\NormalTok{])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-389-1} \end{center}
+
+Comparemos el estimador bayesiano e intervalos de predicción al 95\% para la media \(\mu\):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Resultados }\OtherTok{\textless{}{-}} \FunctionTok{data.frame}\NormalTok{(}\FunctionTok{rbind}\NormalTok{(}\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(E1}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{]),}
+    \FunctionTok{quantile}\NormalTok{(E1}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{)),}
+\NormalTok{    E1}\SpecialCharTok{$}\NormalTok{accept), }\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{]), }\FunctionTok{quantile}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par[,}
+    \DecValTok{1}\NormalTok{], }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{)), E2}\SpecialCharTok{$}\NormalTok{accept), }\FunctionTok{c}\NormalTok{(}\FunctionTok{mean}\NormalTok{(E3}\SpecialCharTok{$}\NormalTok{par[,}
+    \DecValTok{1}\NormalTok{]), }\FunctionTok{quantile}\NormalTok{(E3}\SpecialCharTok{$}\NormalTok{par[, }\DecValTok{1}\NormalTok{], }\AttributeTok{probs =} \FunctionTok{c}\NormalTok{(}\FloatTok{0.025}\NormalTok{, }\FloatTok{0.975}\NormalTok{)),}
+    \ConstantTok{NA}\NormalTok{)))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in h(simpleError(msg, call)): error in evaluating the argument 'x' in selecting a method for function 'mean': object 'E2' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{colnames}\NormalTok{(Resultados) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"Media"}\NormalTok{, }\StringTok{"Q1"}\NormalTok{, }\StringTok{"Q3"}\NormalTok{, }\StringTok{"Accept"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in colnames(Resultados) <- c("Media", "Q1", "Q3", "Accept"): object 'Resultados' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{rownames}\NormalTok{(Resultados) }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"MH{-}RW"}\NormalTok{, }\StringTok{"MH{-}Indep"}\NormalTok{, }\StringTok{"Gibbs"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in rownames(Resultados) <- c("MH-RW", "MH-Indep", "Gibbs"): object 'Resultados' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{Resultados }\OtherTok{\textless{}{-}}\NormalTok{ Resultados }\SpecialCharTok{\%\textgreater{}\%}
+    \FunctionTok{mutate}\NormalTok{(}\AttributeTok{Ancho =}\NormalTok{ Q3 }\SpecialCharTok{{-}}\NormalTok{ Q1)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in mutate(., Ancho = Q3 - Q1): object 'Resultados' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{knitr}\SpecialCharTok{::}\FunctionTok{kable}\NormalTok{(Resultados)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in knitr::kable(Resultados): object 'Resultados' not found
+\end{verbatim}
+
+En el caso del algoritmo de Gibbs, cada uno de los pasos tiene una tasa de aceptación de MH en este caso:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{E3}\SpecialCharTok{$}\NormalTok{accept}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+##      [,1] [,2]
+## [1,]    1    1
+\end{verbatim}
+
+También podemos incluir histogramas para las muestras posteriores de ambos parámetros. Para el MH independiente (burn-in=5000):
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{color\_scheme\_set}\NormalTok{(}\StringTok{"green"}\NormalTok{)}
+\FunctionTok{dimnames}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par)[[}\DecValTok{2}\NormalTok{]] }\OtherTok{\textless{}{-}} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{, }\StringTok{"log sigma"}\NormalTok{)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in dimnames(E2$par)[[2]] <- c("mu", "log sigma"): object 'E2' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{obj\_mcmc2 }\OtherTok{\textless{}{-}} \FunctionTok{mcmc}\NormalTok{(E2}\SpecialCharTok{$}\NormalTok{par[}\SpecialCharTok{{-}}\FunctionTok{c}\NormalTok{(}\DecValTok{1}\SpecialCharTok{:}\DecValTok{5000}\NormalTok{), ])}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in mcmc(E2$par[-c(1:5000), ]): object 'E2' not found
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mcmc\_hist}\NormalTok{(obj\_mcmc2, }\AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{, }\StringTok{"log sigma"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in posterior::is_draws(x): object 'obj_mcmc2' not found
+\end{verbatim}
+
+y los gráficos de autocorrelación respectivos:
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{mcmc\_acf\_bar}\NormalTok{(obj\_mcmc2, }\AttributeTok{pars =} \FunctionTok{c}\NormalTok{(}\StringTok{"mu"}\NormalTok{, }\StringTok{"log sigma"}\NormalTok{))}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Error in posterior::is_draws(x): object 'obj_mcmc2' not found
+\end{verbatim}
+
 \hypertarget{uso-de-jags}{%
 \section{Uso de JAGS}\label{uso-de-jags}}
 
@@ -10926,18 +11408,18 @@ Veamos el resultado
 \end{Shaded}
 
 \begin{verbatim}
-## Inference for Bugs model at "/var/folders/4d/qj4qr8zx1n36td0hlt0p7x_h0000gn/T//RtmpfBAscS/model14eb543d3816d.txt", fit using jags,
+## Inference for Bugs model at "/var/folders/4d/qj4qr8zx1n36td0hlt0p7x_h0000gn/T//RtmpVWyuYd/model2c0f3d163764.txt", fit using jags,
 ##  3 chains, each with 2000 iterations (first 1000 discarded)
 ##  n.sims = 3000 iterations saved
 ##          mu.vect sd.vect   2.5%    25%    50%    75%  97.5%  Rhat n.eff
-## theta      0.305   0.063  0.193  0.261  0.303  0.346  0.436 1.001  3000
-## deviance  62.031   1.300 61.088 61.186 61.519 62.313 65.727 1.005   920
+## theta      0.310   0.063  0.199  0.265  0.306  0.351  0.441 1.001  2600
+## deviance  62.039   1.324 61.088 61.191 61.527 62.350 66.043 1.001  3000
 ## 
 ## For each parameter, n.eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor (at convergence, Rhat=1).
 ## 
 ## DIC info (using the rule, pD = var(deviance)/2)
-## pD = 0.8 and DIC = 62.9
+## pD = 0.9 and DIC = 62.9
 ## DIC is an estimate of expected predictive error (lower deviance is better).
 \end{verbatim}
 
@@ -10971,7 +11453,7 @@ Veamos el resultado
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-379-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-402-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10980,7 +11462,7 @@ Veamos el resultado
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-380-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-403-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -10988,7 +11470,7 @@ Veamos el resultado
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-381-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-404-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11005,7 +11487,7 @@ Veamos el resultado
 ## * Layer 1 is missing `Chain`
 \end{verbatim}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-382-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-405-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11015,7 +11497,7 @@ Veamos el resultado
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-383-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-406-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11145,7 +11627,7 @@ y & s\\
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-388-1} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-411-1} \end{center}
 
 \begin{Shaded}
 \begin{Highlighting}[]
@@ -11154,7 +11636,7 @@ y & s\\
 \end{Highlighting}
 \end{Shaded}
 
-\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-388-2} \end{center}
+\begin{center}\includegraphics[width=1\linewidth]{Notas-Curso-Estadistica_files/figure-latex/unnamed-chunk-411-2} \end{center}
 
 \hypertarget{uso-de-stan}{%
 \section{Uso de STAN}\label{uso-de-stan}}
@@ -11214,9 +11696,9 @@ En este curso no nos referiremos a este procedimiento, pero si veremos un poco d
 ## Chain 1: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 1: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 1: 
-## Chain 1:  Elapsed Time: 0.024206 seconds (Warm-up)
-## Chain 1:                0.026863 seconds (Sampling)
-## Chain 1:                0.051069 seconds (Total)
+## Chain 1:  Elapsed Time: 0.024669 seconds (Warm-up)
+## Chain 1:                0.027496 seconds (Sampling)
+## Chain 1:                0.052165 seconds (Total)
 ## Chain 1: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 2).
@@ -11239,15 +11721,15 @@ En este curso no nos referiremos a este procedimiento, pero si veremos un poco d
 ## Chain 2: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 2: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 2: 
-## Chain 2:  Elapsed Time: 0.023686 seconds (Warm-up)
-## Chain 2:                0.023843 seconds (Sampling)
-## Chain 2:                0.047529 seconds (Total)
+## Chain 2:  Elapsed Time: 0.02552 seconds (Warm-up)
+## Chain 2:                0.025202 seconds (Sampling)
+## Chain 2:                0.050722 seconds (Total)
 ## Chain 2: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 3).
 ## Chain 3: 
-## Chain 3: Gradient evaluation took 5e-06 seconds
-## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.05 seconds.
+## Chain 3: Gradient evaluation took 6e-06 seconds
+## Chain 3: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
 ## Chain 3: Adjust your expectations accordingly!
 ## Chain 3: 
 ## Chain 3: 
@@ -11264,15 +11746,15 @@ En este curso no nos referiremos a este procedimiento, pero si veremos un poco d
 ## Chain 3: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 3: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 3: 
-## Chain 3:  Elapsed Time: 0.023822 seconds (Warm-up)
-## Chain 3:                0.022415 seconds (Sampling)
-## Chain 3:                0.046237 seconds (Total)
+## Chain 3:  Elapsed Time: 0.024465 seconds (Warm-up)
+## Chain 3:                0.027956 seconds (Sampling)
+## Chain 3:                0.052421 seconds (Total)
 ## Chain 3: 
 ## 
 ## SAMPLING FOR MODEL '4584de91ce47196187979d2da8a67926' NOW (CHAIN 4).
 ## Chain 4: 
-## Chain 4: Gradient evaluation took 6e-06 seconds
-## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.06 seconds.
+## Chain 4: Gradient evaluation took 7e-06 seconds
+## Chain 4: 1000 transitions using 10 leapfrog steps per transition would take 0.07 seconds.
 ## Chain 4: Adjust your expectations accordingly!
 ## Chain 4: 
 ## Chain 4: 
@@ -11289,9 +11771,9 @@ En este curso no nos referiremos a este procedimiento, pero si veremos un poco d
 ## Chain 4: Iteration: 4500 / 5000 [ 90%]  (Sampling)
 ## Chain 4: Iteration: 5000 / 5000 [100%]  (Sampling)
 ## Chain 4: 
-## Chain 4:  Elapsed Time: 0.024683 seconds (Warm-up)
-## Chain 4:                0.02536 seconds (Sampling)
-## Chain 4:                0.050043 seconds (Total)
+## Chain 4:  Elapsed Time: 0.026696 seconds (Warm-up)
+## Chain 4:                0.023309 seconds (Sampling)
+## Chain 4:                0.050005 seconds (Total)
 ## Chain 4:
 \end{verbatim}
 
@@ -11307,10 +11789,10 @@ En este curso no nos referiremos a este procedimiento, pero si veremos un poco d
 ## post-warmup draws per chain=2500, total post-warmup draws=10000.
 ## 
 ##         mean se_mean   sd    10%    90% n_eff Rhat
-## theta   0.31    0.00 0.06   0.23   0.39  3497    1
-## lp__  -32.61    0.01 0.73 -33.48 -32.10  3903    1
+## theta   0.31    0.00 0.06   0.23   0.39  3672    1
+## lp__  -32.61    0.01 0.76 -33.44 -32.10  3637    1
 ## 
-## Samples were drawn using NUTS(diag_e) at Mon Jun 27 08:33:29 2022.
+## Samples were drawn using NUTS(diag_e) at Thu Jun 30 09:51:17 2022.
 ## For each parameter, n_eff is a crude measure of effective sample size,
 ## and Rhat is the potential scale reduction factor on split chains (at 
 ## convergence, Rhat=1).
@@ -11325,7 +11807,7 @@ En este curso no nos referiremos a este procedimiento, pero si veremos un poco d
 \end{Shaded}
 
 \begin{verbatim}
-## [1] 0.3069652
+## [1] 0.307339
 \end{verbatim}
 
 \begin{Shaded}
@@ -11336,7 +11818,7 @@ En este curso no nos referiremos a este procedimiento, pero si veremos un poco d
 
 \begin{verbatim}
 ##       10%       90% 
-## 0.2261308 0.3905893
+## 0.2262677 0.3907008
 \end{verbatim}
 
 \begin{Shaded}
@@ -11346,7 +11828,7 @@ En este curso no nos referiremos a este procedimiento, pero si veremos un poco d
 \end{Shaded}
 
 \begin{exercise}
-\protect\hypertarget{exr:unnamed-chunk-392}{}\label{exr:unnamed-chunk-392}Replique los resultados anteriores pero para el caso de 2 monedas y comente los resultados.
+\protect\hypertarget{exr:unnamed-chunk-415}{}\label{exr:unnamed-chunk-415}Replique los resultados anteriores pero para el caso de 2 monedas y comente los resultados.
 \end{exercise}
 
 \printbibliography
