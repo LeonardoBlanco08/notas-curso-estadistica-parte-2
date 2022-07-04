@@ -1,7 +1,7 @@
 --- 
 title: "Notas Curso de Estadística II"
 author: "Maikol Solís Chacón y Luis Barboza Chinchilla"
-date: "Actualizado el 30 junio, 2022"
+date: "Actualizado el 04 julio, 2022"
 site: bookdown::bookdown_site
 documentclass: book
 fontsize: 12pt
@@ -10284,6 +10284,18 @@ y asumimos una previa no informativa para $(\mu,\sigma)\sim \frac 1 \sigma$. Com
 ```r
 d <- list(int.lo = c(-Inf, seq(66, 74, by = 2)), int.hi = c(seq(66,
     74, by = 2), Inf), f = c(14, 30, 49, 70, 33, 15))
+d
+```
+
+```
+## $int.lo
+## [1] -Inf   66   68   70   72   74
+## 
+## $int.hi
+## [1]  66  68  70  72  74 Inf
+## 
+## $f
+## [1] 14 30 49 70 33 15
 ```
 es una estructura de los datos agrupados. La log-densidad posterior de los datos sería:
 
@@ -10302,22 +10314,22 @@ groupeddatapost <- function(theta, data) {
 Usamos el método de Laplace para encontrar una aproximación de los parámetros de la previa bajo Metropolis-Hastings:
 
 ```r
-start <- c(70, 1)
+start <- c(100, 10)
 fit <- laplace(groupeddatapost, start, d)
 fit
 ```
 
 ```
 ## $mode
-## [1] 70.169880  0.973644
+## [1] 70.1707090  0.9738762
 ## 
 ## $var
 ##              [,1]         [,2]
-## [1,] 3.534713e-02 3.520776e-05
-## [2,] 3.520776e-05 3.146470e-03
+## [1,] 3.536317e-02 4.026804e-05
+## [2,] 4.026804e-05 3.147737e-03
 ## 
 ## $int
-## [1] -350.6305
+## [1] -350.6301
 ## 
 ## $converge
 ## [1] TRUE
@@ -10332,6 +10344,7 @@ proposal <- list(var = fit$var, scale = 2)
 y ajustamos la versión bajo caminata aleatoria de un Metropolis-Hastings (MH):
 
 ```r
+start <- c(100, 10)
 fit2 <- rwmetrop(groupeddatapost, proposal, start,
     10000, d)
 ```
@@ -10393,6 +10406,7 @@ library(coda)
 library(bayesplot)
 dimnames(fit2$par)[[2]] <- c("mu", "log sigma")
 obj_mcmc <- mcmc(fit2$par[-c(1:5000), ])
+# obj_mcmc <- mcmc(fit2$par)
 mcmc_trace(obj_mcmc)
 ```
 
@@ -11174,14 +11188,12 @@ quantile(theta_draws, probs = c(0.1, 0.9))
 shinystan::launch_shinystan(fit)
 ```
 
-
-::: {.exercise #unnamed-chunk-415}
-
-Replique los resultados anteriores pero para el caso de 2 monedas y comente los resultados. 
-
-:::
-
-
+## Ejercicios
+- Del libro [@Albert2009]
+    - Capítulo 3: 1, 2.
+    - Capítulo 4: 1, 3. 
+    - Capítulo 5: 1, 2. 
+    - Capítulo 6: 2, 3.
 
 
 
@@ -11447,9 +11459,6 @@ Replique los resultados anteriores pero para el caso de 2 monedas y comente los 
 <!-- ``` -->
 <!-- ## Ejercicios  -->
 
-<!-- - Del libro [@Albert2009] -->
-<!--     - Capítulo 5:  1, 2, 4, 5. -->
-<!--     - Capítulo 6: 3, 5, 6, 10. -->
 
 <!--chapter:end:09-calculo-bayes.Rmd-->
 
