@@ -98,7 +98,7 @@ Igualando a 0 las condiciones obtenemos que
 
 \begin{align*}
 \phi_1^\top \phi &= 1 \\
-V \phi_1 &= \lambda V.
+V \phi_1 &= \lambda \phi_1.
 \end{align*}
 
 
