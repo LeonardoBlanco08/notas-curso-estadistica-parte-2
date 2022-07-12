@@ -279,7 +279,7 @@ g(\theta)f(y\mid \theta)
 &= \exp\left(h(\theta)\right)\\
 &= \exp \left(h(\hat \theta) + \frac{1}{2}(\theta-\hat \theta)^\top h^{\prime\prime}(\hat \theta)(\theta-\hat \theta \right) \\
 &= \exp \left(h(\hat \theta)\right) \exp\left(\frac{1}{2}(\theta-\hat \theta)^\top h^{\prime\prime}(\hat \theta)(\theta-\hat \theta \right) \\
-&= \exp \left(h(\hat \theta)\right) \exp\left(-\frac{1}{2}(\theta-\hat \theta)^\top (-h^{\prime\prime}(\hat \theta))^{-1}(\theta-\hat \theta \right) \\
+&= \exp \left(h(\hat \theta)\right) \exp\left(-\frac{1}{2}(\theta-\hat \theta)^\top \left ( (-h^{\prime\prime}(\hat \theta))^{-1} \right )^{-1}(\theta-\hat \theta \right) \\
 \end{align*}
 
 
